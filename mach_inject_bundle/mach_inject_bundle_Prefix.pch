@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'mach_inject_bundle' target in the 'mach_inject_bundle' project.
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif

@@ -1,0 +1,16 @@
+#ifdef __OBJC__
+	#import <Cocoa/Cocoa.h>
+
+	#import <asl.h>
+
+	// make some debug logging available everywhere
+	// FIXME: move this somewhere more reusable
+	#ifdef DEBUG
+		#define DTLogDebug(format, ...) asl_log(NULL, NULL, ASL_LEVEL_DEBUG, "%s", [[NSString stringWithFormat:format, ##__VA_ARGS__] UTF8String])
+	#else
+		#define DTLogDebug(format, ...)
+	#endif
+	#define DTLogInfo(format, ...) asl_log(NULL, NULL, ASL_LEVEL_INFO, "%s", [[NSString stringWithFormat:format, ##__VA_ARGS__] UTF8String])
+	#define DTLogNotice(format, ...) asl_log(NULL, NULL, ASL_LEVEL_NOTICE, "%s", [[NSString stringWithFormat:format, ##__VA_ARGS__] UTF8String])
+	#define DTLogError(format, ...) asl_log(NULL, NULL, ASL_LEVEL_ERR, "%s", [[NSString stringWithFormat:format, ##__VA_ARGS__] UTF8String])
+#endif
