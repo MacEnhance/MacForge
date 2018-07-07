@@ -1,4 +1,4 @@
-![Banner](web/banner.png)
+<!--![Banner](web/banner.png)-->
 
 MacPlus is an open-source plugin manager for macOS. It lets you discover, install and manage plugins to improve the user experience of macOS without the need for manually cloning/building or copying files.
 
@@ -24,10 +24,16 @@ MacPlus is an open-source plugin manager for macOS. It lets you discover, instal
 ## Features
 
 - Discover
-    - Find, download and update plugins
+    - See what are the best current plugins
+    - Discover, download and update plugins
+
+
+- Changes
+    - Browse all existing plugins
     - Search for plugins (by name or ID)
-    - Easy to host your own repository
+    - Search individual repositories
     - Add or remove repositories
+    - It's easy to host your own repository on GitHub
 
 
 - Manage
@@ -57,7 +63,17 @@ MacPlus is an open-source plugin manager for macOS. It lets you discover, instal
 
 ## Creating a plugin
 
--
+- Download and install `MacPlus`
+- Open `MacPlus`
+- Open `Xcode` and navigate `File` > `New` > `Project...`
+- Search for `MacPlus Plugin`
+- Select it and press `Next`
+- Enter a  `Product Name` and target bundle id e.g. `com.apple.loginwindow` and press `Next`
+- Select a location for your project and press `Create`
+- Add your code
+- You can find header dumps of most Apple Applications [HERE](https://github.com/w0lfschild/macOS_headers)
+- Build your code
+- Open your plugin with `MacPlus`
 
 ## Submitting a plugin
 
@@ -74,7 +90,7 @@ MacPlus is an open-source plugin manager for macOS. It lets you discover, instal
 ## Uninstalling
 
 - Trashing `MacPlus` will stop it from loading into applications 
-- If you want a full clean select `Preferences` from the sidebar, then click `unistall MacPlus`. Log out and back in for changes to fully apply.
+- If you want a full clean select `Preferences` from the sidebar, then click `Uninstall MacPlus`. Log out and back in for changes to fully apply.
 
 ## Developement
 

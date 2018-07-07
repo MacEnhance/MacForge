@@ -119,7 +119,6 @@
 @property IBOutlet NSButton         *AMFIStatus;
 @property IBOutlet NSScrollView     *blacklistScroll;
 
-- (void)setBadge :(NSString*)toValue;
 - (void)setupEventListener;
 - (IBAction)pushView:(id)sender;
 - (IBAction)popView:(id)sender;

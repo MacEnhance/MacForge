@@ -22,6 +22,8 @@
 		F0ADE1CA166E0992009758CC /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0ADE1C9166E0992009758CC /* Carbon.framework */; };
 		F0CF07F4166F566E009D198D /* mach_inject_bundle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0CF07F0166F563E009D198D /* mach_inject_bundle.framework */; };
 		FB0227A920F0539B006566EF /* PluginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8EA20F0289900A12ACF /* PluginManager.m */; };
+		FB0227AB20F0B547006566EF /* MacPlus.icns in Resources */ = {isa = PBXBuildFile; fileRef = FB0227AA20F0B547006566EF /* MacPlus.icns */; };
+		FB0227AF20F0BBEC006566EF /* xcode.png in Resources */ = {isa = PBXBuildFile; fileRef = FB0227AE20F0BBEB006566EF /* xcode.png */; };
 		FBA6E88720F0176B00A12ACF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E88620F0176B00A12ACF /* AppDelegate.m */; };
 		FBA6E88C20F017BE00A12ACF /* DevMateKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA6E88B20F017BE00A12ACF /* DevMateKit.framework */; };
 		FBA6E88E20F0182500A12ACF /* LetsMove.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA6E88D20F0182500A12ACF /* LetsMove.framework */; };
@@ -83,7 +85,6 @@
 		FBE767E020EFF8A400A42BD5 /* com.w0lf.MacPlus.Installer in CopyFiles */ = {isa = PBXBuildFile; fileRef = F0ADE14F166DFB8B009758CC /* com.w0lf.MacPlus.Installer */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		FBE767E120EFF8A700A42BD5 /* com.w0lf.MacPlus.Injector in CopyFiles */ = {isa = PBXBuildFile; fileRef = F0ADE1B8166E0820009758CC /* com.w0lf.MacPlus.Injector */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		FBE767E320F0022E00A42BD5 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0ADE1C9166E0992009758CC /* Carbon.framework */; };
-		FBE767EE20F00FFE00A42BD5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBE767ED20F00FFE00A42BD5 /* Assets.xcassets */; };
 		FBE767F420F00FFE00A42BD5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE767F320F00FFE00A42BD5 /* main.m */; };
 		FBE767F920F0115B00A42BD5 /* NSAlert_SIMBL.m in Sources */ = {isa = PBXBuildFile; fileRef = FBB0849320EEF0AC0032BDB2 /* NSAlert_SIMBL.m */; };
 		FBE767FA20F0116000A42BD5 /* SIMBL.m in Sources */ = {isa = PBXBuildFile; fileRef = FBB0849120EEF0AC0032BDB2 /* SIMBL.m */; };
@@ -242,6 +243,8 @@
 		F0ADE1E2166E0C0D009758CC /* DKInjectorProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKInjectorProxy.h; sourceTree = "<group>"; };
 		F0ADE1E3166E0C0D009758CC /* DKInjectorProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKInjectorProxy.m; sourceTree = "<group>"; };
 		F0CF07E4166F563D009D198D /* mach_inject_bundle.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = mach_inject_bundle.xcodeproj; path = ../mach_inject_bundle/mach_inject_bundle.xcodeproj; sourceTree = "<group>"; };
+		FB0227AA20F0B547006566EF /* MacPlus.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MacPlus.icns; sourceTree = "<group>"; };
+		FB0227AE20F0BBEB006566EF /* xcode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xcode.png; sourceTree = "<group>"; };
 		FBA6E88520F0176B00A12ACF /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FBA6E88620F0176B00A12ACF /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		FBA6E88820F0179600A12ACF /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -314,7 +317,6 @@
 		FBE767AA20EF428F00A42BD5 /* sipvid.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = sipvid.mp4; sourceTree = "<group>"; };
 		FBE767B320EF432700A42BD5 /* MacPlusKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MacPlusKit.m; sourceTree = "<group>"; };
 		FBE767E820F00FFB00A42BD5 /* MacPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		FBE767ED20F00FFE00A42BD5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FBE767F220F00FFE00A42BD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FBE767F320F00FFE00A42BD5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FBE767F520F00FFE00A42BD5 /* MacPlus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacPlus.entitlements; sourceTree = "<group>"; };
@@ -613,6 +615,7 @@
 				FBA6E8D420F0285A00A12ACF /* loading_mini.gif */,
 				FBA6E8D320F0285A00A12ACF /* update.png */,
 				FBA6E8D520F0285A00A12ACF /* webicon.png */,
+				FB0227AE20F0BBEB006566EF /* xcode.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -664,8 +667,8 @@
 		FBA6E91220F02D0600A12ACF /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				FB0227AA20F0B547006566EF /* MacPlus.icns */,
 				FBE767F320F00FFE00A42BD5 /* main.m */,
-				FBE767ED20F00FFE00A42BD5 /* Assets.xcassets */,
 				FBE767F520F00FFE00A42BD5 /* MacPlus.entitlements */,
 				FBA6E8E020F0287500A12ACF /* dsa_pub.pem */,
 			);
@@ -1017,12 +1020,13 @@
 				FBA6E8D920F0285B00A12ACF /* update.png in Resources */,
 				FBA6E8DC20F0285B00A12ACF /* icon.icns in Resources */,
 				FBA6E8FB20F028A400A12ACF /* Credits.rtf in Resources */,
-				FBE767EE20F00FFE00A42BD5 /* Assets.xcassets in Resources */,
+				FB0227AB20F0B547006566EF /* MacPlus.icns in Resources */,
 				FBA6E8DE20F0285B00A12ACF /* github.png in Resources */,
 				FBA6E8DB20F0285B00A12ACF /* webicon.png in Resources */,
 				FBA6E8DD20F0285B00A12ACF /* checkmark.png in Resources */,
 				FBA6E8E120F0287500A12ACF /* dsa_pub.pem in Resources */,
 				FBA6E8CE20F025A100A12ACF /* Appliaction.xib in Resources */,
+				FB0227AF20F0BBEC006566EF /* xcode.png in Resources */,
 				FBA6E8CA20F01E1B00A12ACF /* LICENSE_SGDirWatchdog in Resources */,
 				FBA6E8C820F01E0100A12ACF /* LICENSE_ZKSwizzle in Resources */,
 				FBA6E8C220F01D4000A12ACF /* LICENSE_StartAtLoginController in Resources */,

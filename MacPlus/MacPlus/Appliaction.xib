@@ -262,7 +262,7 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" ambiguous="YES" id="P5o-0S-gmc">
                         <rect key="frame" x="1" y="1" width="305" height="433"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ngW-H4-AgY">
                                 <rect key="frame" x="0.0" y="0.0" width="290" height="418"/>
@@ -325,7 +325,7 @@
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RKo-zW-5KU">
                     <rect key="frame" x="20" y="150" width="235" height="131"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" id="0lo-9i-nyt">
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" state="on" alignment="left" id="0lo-9i-nyt">
                         <font key="font" metaFont="smallSystem"/>
                         <string key="title">In order for plugins to load in some system apps both SIP and AMFI must be disabled.  On macOS 10.14 Mojave SIP must be disabled in order to load into any system apps.  Changes to AMFI require a reboot to take effect.</string>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -465,7 +465,7 @@
                     <rect key="frame" x="20" y="52" width="560" height="265"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="rEO-vG-Jyl">
                         <rect key="frame" x="0.0" y="0.0" width="560" height="265"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView editable="NO" drawsBackground="NO" importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="Knp-u7-nXC">
                                 <rect key="frame" x="0.0" y="0.0" width="560" height="265"/>
@@ -528,6 +528,16 @@
                         <action selector="aboutInfo:" target="Voe-Tx-rLC" id="JZ5-QZ-bqx"/>
                     </connections>
                 </button>
+                <button toolTip="View Source" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iuL-ED-jBx">
+                    <rect key="frame" x="525" y="325" width="55" height="36"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="36" id="8wb-kd-hiL"/>
+                    </constraints>
+                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="xcode" imagePosition="overlaps" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="kJO-iZ-NZs">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="QxU-Wr-Rab" firstAttribute="trailing" secondItem="i4i-aW-H22" secondAttribute="trailing" id="26b-Yu-URC"/>
@@ -536,11 +546,13 @@
                 <constraint firstItem="QxU-Wr-Rab" firstAttribute="leading" secondItem="gJj-OJ-EUS" secondAttribute="trailing" constant="24" id="Gqb-nm-g6E"/>
                 <constraint firstItem="gJj-OJ-EUS" firstAttribute="top" secondItem="8It-pl-7nd" secondAttribute="top" id="Lbr-dd-908"/>
                 <constraint firstItem="QxU-Wr-Rab" firstAttribute="leading" secondItem="i4i-aW-H22" secondAttribute="leading" id="MBF-6b-lLh"/>
+                <constraint firstItem="zDc-nS-Kiu" firstAttribute="top" secondItem="iuL-ED-jBx" secondAttribute="bottom" constant="8" symbolic="YES" id="MvK-vu-HDY"/>
                 <constraint firstItem="zDc-nS-Kiu" firstAttribute="top" secondItem="pfy-yL-OqU" secondAttribute="bottom" constant="47" id="Nj4-oc-IvI"/>
                 <constraint firstItem="gJj-OJ-EUS" firstAttribute="leading" secondItem="twU-YK-Vpv" secondAttribute="leading" constant="20" id="Nxq-NO-wQf"/>
                 <constraint firstItem="Nrm-iX-EzW" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8It-pl-7nd" secondAttribute="trailing" constant="8" symbolic="YES" id="Q0Z-bT-tFl"/>
                 <constraint firstItem="zDc-nS-Kiu" firstAttribute="top" secondItem="gJj-OJ-EUS" secondAttribute="bottom" constant="35" id="Rrm-Zt-Zbg"/>
                 <constraint firstItem="pfy-yL-OqU" firstAttribute="top" secondItem="u4a-2I-fDn" secondAttribute="bottom" id="T71-vo-kLG"/>
+                <constraint firstItem="iuL-ED-jBx" firstAttribute="trailing" secondItem="pfy-yL-OqU" secondAttribute="trailing" id="V9G-S3-Uj2"/>
                 <constraint firstItem="Nrm-iX-EzW" firstAttribute="leading" secondItem="pfy-yL-OqU" secondAttribute="leading" id="Wx5-sX-SZG"/>
                 <constraint firstItem="Nrm-iX-EzW" firstAttribute="top" secondItem="8It-pl-7nd" secondAttribute="top" id="Y84-4z-0Ak"/>
                 <constraint firstAttribute="trailing" secondItem="zDc-nS-Kiu" secondAttribute="trailing" constant="20" id="YYd-vh-buC"/>
@@ -553,6 +565,7 @@
                 <constraint firstItem="i4i-aW-H22" firstAttribute="top" secondItem="QxU-Wr-Rab" secondAttribute="bottom" constant="2" id="jpL-bv-gKa"/>
                 <constraint firstItem="Nrm-iX-EzW" firstAttribute="trailing" secondItem="u4a-2I-fDn" secondAttribute="trailing" id="kpJ-3J-Oo6"/>
                 <constraint firstItem="8It-pl-7nd" firstAttribute="leading" secondItem="gJj-OJ-EUS" secondAttribute="trailing" constant="24" id="sqp-5Q-EDY"/>
+                <constraint firstItem="iuL-ED-jBx" firstAttribute="leading" secondItem="pfy-yL-OqU" secondAttribute="leading" id="ux0-Ex-bZs"/>
                 <constraint firstItem="zDc-nS-Kiu" firstAttribute="leading" secondItem="twU-YK-Vpv" secondAttribute="leading" constant="20" id="ytN-Sh-QAx"/>
             </constraints>
             <point key="canvasLocation" x="-606" y="-466"/>
@@ -2003,5 +2016,6 @@
         <image name="NSUserGroup" width="32" height="32"/>
         <image name="checkmark" width="32" height="32"/>
         <image name="github" width="256" height="256"/>
+        <image name="xcode" width="16" height="16"/>
     </resources>
 </document>

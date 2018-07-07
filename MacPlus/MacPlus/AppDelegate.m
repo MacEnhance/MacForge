@@ -100,9 +100,9 @@ NSArray *tabViews;
     return YES;
 }
 
-// Install bundle files
+// Try to install bundles when passed to application
 - (void)application:(NSApplication *)sender openFiles:(NSArray*)filenames {
-//    [_sharedMethods installBundles:filenames];
+    [PluginManager.sharedInstance installBundles:filenames];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
