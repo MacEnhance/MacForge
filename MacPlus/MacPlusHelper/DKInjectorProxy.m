@@ -22,13 +22,13 @@
     assert(injector != nil);
     
     NSString *appName = [NSRunningApplication runningApplicationWithProcessIdentifier:pid].localizedName;
-    NSString *appID = [NSRunningApplication runningApplicationWithProcessIdentifier:pid].bundleIdentifier;
-    NSLog(@"Injecting %@ (%@) (%@) with %@", appName, appID, [NSNumber numberWithInt:pid], bundlePath);
+//    NSString *appID = [NSRunningApplication runningApplicationWithProcessIdentifier:pid].bundleIdentifier;
+//    NSLog(@"Injecting %@ (%@) (%@) with %@", appName, appID, [NSNumber numberWithInt:pid], bundlePath);
     
     mach_error_t err = [injector inject:pid withBundle:[bundlePath fileSystemRepresentation]];
     
     if (err == 0) {
-        NSLog(@"Injected App");
+//        NSLog(@"Injected App");
         return YES;
     } else {
         NSLog(@"an error occurred while injecting %@: %@ (error code: %@)", appName, [NSString stringWithCString:mach_error_string(err) encoding:NSASCIIStringEncoding], [NSNumber numberWithInt:err]);

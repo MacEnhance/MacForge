@@ -20,7 +20,6 @@ static void updateCount(NSDockTile *tile) {
     NSMenu *recentGamesMenu = [[NSMenu alloc] init];
     NSMenuItem* menuItem = [[NSMenuItem alloc] initWithTitle:@"Testing..." action:nil keyEquivalent:@""];
     [recentGamesMenu addItem:menuItem];
-    
     return recentGamesMenu;
 }
 

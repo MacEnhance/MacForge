@@ -13,17 +13,16 @@
 @import LetsMove;
 @import MacPlusKit;
 
-#import "shareClass.h"
+#import "PluginManager.h"
 #import "FConvenience.h"
 #import "SGDirWatchdog.h"
 #import "StartAtLoginController.h"
 
 #import <DevMateKit/DevMateKit.h>
 
-@interface AppDelegate : NSObject <NSApplicationDelegate>
-{
+@interface AppDelegate : NSObject <NSApplicationDelegate> {
     NSMutableArray *watchdogs;
-    shareClass *_sharedMethods;
+    PluginManager *_sharedMethods;
 }
 
 @property IBOutlet NSWindow *window;

@@ -8,7 +8,7 @@
 
 @import AppKit;
 @import WebKit;
-#import "shareClass.h"
+#import "PluginManager.h"
 #import "AppDelegate.h"
 #import "pluginData.h"
 
@@ -225,8 +225,7 @@ extern long selectedRow;
         [self.bundleInstall setAction:@selector(pluginInstall)];
     }
     
-    shareClass* t = [[shareClass alloc] init];
-    self.bundleImage.image = [t getbundleIcon:item];
+    self.bundleImage.image = [PluginManager pluginGetIcon:item];
     [self.bundleImage.cell setImageScaling:NSImageScaleProportionallyUpOrDown];
 }
 
@@ -284,8 +283,7 @@ extern long selectedRow;
     [self.bundleInstall setEnabled:true];
     self.bundleInstall.title = @"Open";
     [self.bundleInstall setAction:@selector(pluginFinder)];
-    shareClass* t = [[shareClass alloc] init];
-    [t readPlugins:nil];
+    [PluginManager.sharedInstance readPlugins:nil];
 }
 
 - (void)pluginUpdate {
@@ -302,8 +300,7 @@ extern long selectedRow;
     [self.bundleInstall setEnabled:true];
     self.bundleInstall.title = @"Open";
     [self.bundleInstall setAction:@selector(pluginFinder)];
-    shareClass* t = [[shareClass alloc] init];
-    [t readPlugins:nil];
+    [PluginManager.sharedInstance readPlugins:nil];
 }
 
 - (void)pluginFinder {

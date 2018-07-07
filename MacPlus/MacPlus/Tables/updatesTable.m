@@ -7,7 +7,7 @@
 //
 
 @import AppKit;
-#import "shareClass.h"
+#import "PluginManager.h"
 #import "AppDelegate.h"
 
 extern AppDelegate* myDelegate;
@@ -15,9 +15,8 @@ extern NSMutableArray *confirmDelete;
 extern NSMutableArray *pluginsArray;
 extern NSMutableDictionary *needsUpdate;
 
-@interface updatesTable : NSTableView
-{
-    shareClass *_sharedMethods;
+@interface updatesTable : NSTableView {
+    PluginManager *sharedMethods;
 }
 @property (weak) IBOutlet NSTableView*  tblView;
 - (IBAction)updateAll:(id)sender;
@@ -35,11 +34,11 @@ extern NSMutableDictionary *needsUpdate;
 @implementation updatesTable
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
-    if (_sharedMethods == nil)
-        _sharedMethods = [shareClass alloc];
+    if (sharedMethods == nil)
+        sharedMethods = [PluginManager sharedInstance];
     
-    needsUpdate = [[NSMutableDictionary alloc] init];
-    [self->_sharedMethods checkforPluginUpdates:nil];
+    [sharedMethods checkforPluginUpdates:nil :myDelegate.viewUpdateCounter];
+    needsUpdate = sharedMethods.getNeedsUpdate;
     
     return [needsUpdate count];
 }
@@ -51,7 +50,7 @@ extern NSMutableDictionary *needsUpdate;
     result.pluginName.stringValue = [item objectForKey:@"name"];
     result.pluginInfo.stringValue = bInfo;
     result.pluginDescription.stringValue = [item objectForKey:@"description"];
-    result.pluginImage.image = [self->_sharedMethods getbundleIcon:item];
+    result.pluginImage.image = [PluginManager pluginGetIcon:item];
     
     // Return the result
     return result;
@@ -60,13 +59,13 @@ extern NSMutableDictionary *needsUpdate;
 - (IBAction)updateAll:(id)sender {
     for (NSString* key in [needsUpdate allKeys]) {
         NSDictionary *installDict = [needsUpdate objectForKey:key];
-        [self->_sharedMethods pluginInstall:installDict :[installDict objectForKey:@"sourceURL"]];
+        [self->sharedMethods pluginUpdateOrInstall:installDict :[installDict objectForKey:@"sourceURL"]];
     }
     
     dispatch_queue_t backgroundQueue = dispatch_queue_create("com.w0lf.mySIMBL", 0);
     dispatch_async(backgroundQueue, ^{
         [needsUpdate removeAllObjects];
-        [self->_sharedMethods checkforPluginUpdates:self->_tblView];
+        [self->sharedMethods checkforPluginUpdates:self->_tblView :myDelegate.viewUpdateCounter];
     });
 }
 
@@ -75,12 +74,12 @@ extern NSMutableDictionary *needsUpdate;
     long selected = [t rowForView:sender];
     NSString *key = [[needsUpdate allKeys] objectAtIndex:selected];
     NSDictionary *installDict = [needsUpdate objectForKey:key];
-    [self->_sharedMethods pluginInstall:installDict :[installDict objectForKey:@"sourceURL"]];
+    [self->sharedMethods pluginUpdateOrInstall:installDict :[installDict objectForKey:@"sourceURL"]];
     
     dispatch_queue_t backgroundQueue = dispatch_queue_create("com.w0lf.mySIMBL", 0);
     dispatch_async(backgroundQueue, ^{
         [needsUpdate removeObjectForKey:key];
-        [self->_sharedMethods checkforPluginUpdates:self->_tblView];
+        [self->sharedMethods checkforPluginUpdates:self->_tblView :myDelegate.viewUpdateCounter];
     });
 }
 
@@ -88,7 +87,7 @@ extern NSMutableDictionary *needsUpdate;
     dispatch_queue_t backgroundQueue = dispatch_queue_create("com.w0lf.mySIMBL", 0);
     dispatch_async(backgroundQueue, ^{
         [needsUpdate removeAllObjects];
-        [self->_sharedMethods checkforPluginUpdates:self->_tblView];
+        [self->sharedMethods checkforPluginUpdates:self->_tblView :myDelegate.viewUpdateCounter];
     });
 }
 

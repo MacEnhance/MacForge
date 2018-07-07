@@ -8,7 +8,7 @@
 
 @import AppKit;
 @import CoreImage;
-#import "shareClass.h"
+#import "PluginManager.h"
 #import "pluginData.h"
 #import "MSPlugin.h"
 
@@ -17,7 +17,7 @@ extern NSMutableArray *pluginsArray;
 NSInteger previusRow = -1;
 
 @interface pluginTable : NSObject {
-    shareClass *_sharedMethods;
+    PluginManager *_sharedMethods;
     pluginData *_pluginData;
 }
 @property (weak) IBOutlet NSTableView*  tblView;
@@ -56,7 +56,7 @@ NSInteger previusRow = -1;
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
     if (_sharedMethods == nil)
-        _sharedMethods = [shareClass alloc];
+        _sharedMethods = [PluginManager sharedInstance];
     
     _pluginData = [pluginData sharedInstance];
     [_pluginData fetch_local];
@@ -149,50 +149,22 @@ NSInteger previusRow = -1;
     MSPlugin *plug = [_tableContent objectAtIndex:(long)[_tblView rowForView:sender]];
     NSString *name = plug.localName;
     NSString *path = plug.localPath;
-
-    NSArray* libDomain = [[NSFileManager defaultManager] URLsForDirectory:NSApplicationSupportDirectory inDomains:NSLocalDomainMask];
-    NSArray* usrDomain = [[NSFileManager defaultManager] URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask];
-    NSString* libSupport = [[libDomain objectAtIndex:0] path];
-    NSString* usrSupport = [[usrDomain objectAtIndex:0] path];
-    
-    NSString* disPath = [NSString stringWithFormat:@"%@/SIMBL/Plugins (Disabled)/%@.bundle", libSupport, name];
-    NSString* libPath = [NSString stringWithFormat:@"%@/SIMBL/Plugins/%@.bundle", libSupport, name];
-    if (!plug.isUser) {
-        disPath = [NSString stringWithFormat:@"%@/SIMBL/Plugins (Disabled)/%@.bundle", usrSupport, name];
-        libPath = [NSString stringWithFormat:@"%@/SIMBL/Plugins/%@.bundle", usrSupport, name];
-    }
-
-    if (!plug.isEnabled)
-        [_sharedMethods replaceFile:path :disPath];
-    else
-        [_sharedMethods replaceFile:path :libPath];
-
-    [_sharedMethods readPlugins:_tblView];
+    NSArray *paths = [PluginManager SIMBLPaths];
+    NSInteger respath = 0;
+    if (!plug.isUser) respath = 2;
+    if (!plug.isEnabled) respath += 1;
+    [_sharedMethods replaceFile:path :[NSString stringWithFormat:@"%@/%@.bundle", paths[respath], name]];
 }
 
 - (IBAction)pluginToggle:(id)sender {
     MSPlugin *plug = [_tableContent objectAtIndex:(long)[_tblView rowForView:sender]];
     NSString *name = plug.localName;
     NSString *path = plug.localPath;
-
-    NSArray* libDomain = [[NSFileManager defaultManager] URLsForDirectory:NSApplicationSupportDirectory inDomains:NSLocalDomainMask];
-    NSArray* usrDomain = [[NSFileManager defaultManager] URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask];
-    NSString* libSupport = [[libDomain objectAtIndex:0] path];
-    NSString* usrSupport = [[usrDomain objectAtIndex:0] path];
-
-    NSString* disPath = [NSString stringWithFormat:@"%@/SIMBL/Plugins (Disabled)/%@.bundle", libSupport, name];
-    NSString* libPath = [NSString stringWithFormat:@"%@/SIMBL/Plugins/%@.bundle", libSupport, name];
-    if (plug.isUser) {
-        disPath = [NSString stringWithFormat:@"%@/SIMBL/Plugins (Disabled)/%@.bundle", usrSupport, name];
-        libPath = [NSString stringWithFormat:@"%@/SIMBL/Plugins/%@.bundle", usrSupport, name];
-    }
-
-    if (!plug.isEnabled)
-        [_sharedMethods replaceFile:path :libPath];
-    else
-        [_sharedMethods replaceFile:path :disPath];
-
-    [_sharedMethods readPlugins:_tblView];
+    NSArray *paths = [PluginManager SIMBLPaths];
+    NSInteger respath = 0;
+    if (plug.isUser) respath = 2;
+    if (plug.isEnabled) respath += 1;
+    [_sharedMethods replaceFile:path :[NSString stringWithFormat:@"%@/%@.bundle", paths[respath], name]];
 }
 
 - (IBAction)pluginFinder:(id)sender {
@@ -210,7 +182,6 @@ NSInteger previusRow = -1;
         NSURL* trash;
         NSError* error;
         [[NSFileManager defaultManager] trashItemAtURL:url resultingItemURL:&trash error:&error];
-        [_sharedMethods readPlugins:_tblView];
     }
 }
 

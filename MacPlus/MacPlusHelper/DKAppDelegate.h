@@ -10,6 +10,7 @@
 
 @interface DKAppDelegate : NSObject <NSApplicationDelegate>
 
+@property (strong, nonatomic) NSStatusItem *statusBar;
 @property (assign) IBOutlet NSWindow *window;
 
 @end

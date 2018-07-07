@@ -21,6 +21,7 @@
 		F0ADE1C7166E0981009758CC /* DKInjector.m in Sources */ = {isa = PBXBuildFile; fileRef = F0ADE12B166DF9FB009758CC /* DKInjector.m */; };
 		F0ADE1CA166E0992009758CC /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0ADE1C9166E0992009758CC /* Carbon.framework */; };
 		F0CF07F4166F566E009D198D /* mach_inject_bundle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0CF07F0166F563E009D198D /* mach_inject_bundle.framework */; };
+		FB0227A920F0539B006566EF /* PluginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8EA20F0289900A12ACF /* PluginManager.m */; };
 		FBA6E88720F0176B00A12ACF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E88620F0176B00A12ACF /* AppDelegate.m */; };
 		FBA6E88C20F017BE00A12ACF /* DevMateKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA6E88B20F017BE00A12ACF /* DevMateKit.framework */; };
 		FBA6E88E20F0182500A12ACF /* LetsMove.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA6E88D20F0182500A12ACF /* LetsMove.framework */; };
@@ -52,14 +53,14 @@
 		FBA6E8E720F0288300A12ACF /* pluginData.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8E320F0288300A12ACF /* pluginData.m */; };
 		FBA6E8F020F0289B00A12ACF /* bundlePage.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8E820F0289900A12ACF /* bundlePage.m */; };
 		FBA6E8F120F0289B00A12ACF /* discoverPluginTable.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8E920F0289900A12ACF /* discoverPluginTable.m */; };
-		FBA6E8F220F0289B00A12ACF /* shareClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8EA20F0289900A12ACF /* shareClass.m */; };
+		FBA6E8F220F0289B00A12ACF /* PluginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8EA20F0289900A12ACF /* PluginManager.m */; };
 		FBA6E8F320F0289B00A12ACF /* repopluginTable.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8EB20F0289A00A12ACF /* repopluginTable.m */; };
 		FBA6E8F420F0289B00A12ACF /* updatesTable.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8EC20F0289A00A12ACF /* updatesTable.m */; };
 		FBA6E8F520F0289B00A12ACF /* pluginTable.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8ED20F0289A00A12ACF /* pluginTable.m */; };
 		FBA6E8F620F0289B00A12ACF /* sourcesTable.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8EE20F0289A00A12ACF /* sourcesTable.m */; };
 		FBA6E8FA20F028A400A12ACF /* Changelog.rtf in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8F720F028A300A12ACF /* Changelog.rtf */; };
 		FBA6E8FB20F028A400A12ACF /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8F820F028A400A12ACF /* Credits.rtf */; };
-		FBA6E8FC20F028A400A12ACF /* EULA.rtf in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8F920F028A400A12ACF /* EULA.rtf */; };
+		FBA6E8FC20F028A400A12ACF /* LICENSE_EULA in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8F920F028A400A12ACF /* LICENSE_EULA */; };
 		FBA6E90920F029D800A12ACF /* DockTilePlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E90820F029D800A12ACF /* DockTilePlugIn.m */; };
 		FBA6E90D20F029F600A12ACF /* MacPlusDockTile.docktileplugin in Copy Plugins */ = {isa = PBXBuildFile; fileRef = FBA6E90120F0299B00A12ACF /* MacPlusDockTile.docktileplugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FBA6E91520F0310800A12ACF /* MacPlusKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FBE7679E20EF426D00A42BD5 /* MacPlusKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -281,15 +282,15 @@
 		FBA6E8E520F0288300A12ACF /* pluginData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pluginData.h; sourceTree = "<group>"; };
 		FBA6E8E820F0289900A12ACF /* bundlePage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bundlePage.m; sourceTree = "<group>"; };
 		FBA6E8E920F0289900A12ACF /* discoverPluginTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = discoverPluginTable.m; sourceTree = "<group>"; };
-		FBA6E8EA20F0289900A12ACF /* shareClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = shareClass.m; sourceTree = "<group>"; };
+		FBA6E8EA20F0289900A12ACF /* PluginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PluginManager.m; sourceTree = "<group>"; };
 		FBA6E8EB20F0289A00A12ACF /* repopluginTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = repopluginTable.m; sourceTree = "<group>"; };
 		FBA6E8EC20F0289A00A12ACF /* updatesTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = updatesTable.m; sourceTree = "<group>"; };
 		FBA6E8ED20F0289A00A12ACF /* pluginTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pluginTable.m; sourceTree = "<group>"; };
 		FBA6E8EE20F0289A00A12ACF /* sourcesTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = sourcesTable.m; sourceTree = "<group>"; };
-		FBA6E8EF20F0289A00A12ACF /* shareClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shareClass.h; sourceTree = "<group>"; };
+		FBA6E8EF20F0289A00A12ACF /* PluginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PluginManager.h; sourceTree = "<group>"; };
 		FBA6E8F720F028A300A12ACF /* Changelog.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Changelog.rtf; sourceTree = "<group>"; };
 		FBA6E8F820F028A400A12ACF /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
-		FBA6E8F920F028A400A12ACF /* EULA.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = EULA.rtf; sourceTree = "<group>"; };
+		FBA6E8F920F028A400A12ACF /* LICENSE_EULA */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE_EULA; sourceTree = "<group>"; };
 		FBA6E90120F0299B00A12ACF /* MacPlusDockTile.docktileplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacPlusDockTile.docktileplugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBA6E90320F0299B00A12ACF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FBA6E90720F029D800A12ACF /* DockTilePlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DockTilePlugIn.h; sourceTree = "<group>"; };
@@ -391,6 +392,7 @@
 			isa = PBXGroup;
 			children = (
 				F0CF07E4166F563D009D198D /* mach_inject_bundle.xcodeproj */,
+				FB0227A720F04FD2006566EF /* Shared Classes */,
 				FBE767E920F00FFB00A42BD5 /* MacPlus */,
 				F0ADE100166DF941009758CC /* MacPlusHelper */,
 				FBA6E90220F0299B00A12ACF /* MacPlusDockTile */,
@@ -437,15 +439,11 @@
 		F0ADE100166DF941009758CC /* MacPlusHelper */ = {
 			isa = PBXGroup;
 			children = (
-				F0ADE164166DFF37009758CC /* DKConstant.h */,
-				F0ADE165166DFF37009758CC /* DKConstant.m */,
-				F0ADE161166DFE29009758CC /* DKInstaller.h */,
-				F0ADE162166DFE29009758CC /* DKInstaller.m */,
-				F0ADE1E2166E0C0D009758CC /* DKInjectorProxy.h */,
-				F0ADE1E3166E0C0D009758CC /* DKInjectorProxy.m */,
+				F0ADE101166DF941009758CC /* Supporting Files */,
+				FB0227A820F05228006566EF /* Classes */,
 				F0ADE10C166DF941009758CC /* DKAppDelegate.h */,
 				F0ADE10D166DF941009758CC /* DKAppDelegate.m */,
-				F0ADE101166DF941009758CC /* Supporting Files */,
+				F0ADE102166DF941009758CC /* MacPlus-Info.plist */,
 			);
 			path = MacPlusHelper;
 			sourceTree = "<group>";
@@ -454,7 +452,6 @@
 			isa = PBXGroup;
 			children = (
 				F0ADE108166DF941009758CC /* MacPlus-Prefix.pch */,
-				F0ADE102166DF941009758CC /* MacPlus-Info.plist */,
 				F0ADE103166DF941009758CC /* InfoPlist.strings */,
 				F0ADE106166DF941009758CC /* main.m */,
 			);
@@ -493,6 +490,28 @@
 				F0CF07F0166F563E009D198D /* mach_inject_bundle.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		FB0227A720F04FD2006566EF /* Shared Classes */ = {
+			isa = PBXGroup;
+			children = (
+				FBA6E8EF20F0289A00A12ACF /* PluginManager.h */,
+				FBA6E8EA20F0289900A12ACF /* PluginManager.m */,
+			);
+			path = "Shared Classes";
+			sourceTree = "<group>";
+		};
+		FB0227A820F05228006566EF /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				F0ADE164166DFF37009758CC /* DKConstant.h */,
+				F0ADE165166DFF37009758CC /* DKConstant.m */,
+				F0ADE161166DFE29009758CC /* DKInstaller.h */,
+				F0ADE162166DFE29009758CC /* DKInstaller.m */,
+				F0ADE1E2166E0C0D009758CC /* DKInjectorProxy.h */,
+				F0ADE1E3166E0C0D009758CC /* DKInjectorProxy.m */,
+			);
+			name = Classes;
 			sourceTree = "<group>";
 		};
 		FBA6E88A20F017A400A12ACF /* External Frameworks */ = {
@@ -613,7 +632,7 @@
 			children = (
 				FBA6E8F720F028A300A12ACF /* Changelog.rtf */,
 				FBA6E8F820F028A400A12ACF /* Credits.rtf */,
-				FBA6E8F920F028A400A12ACF /* EULA.rtf */,
+				FBA6E8F920F028A400A12ACF /* LICENSE_EULA */,
 			);
 			path = Info;
 			sourceTree = "<group>";
@@ -716,8 +735,6 @@
 				FBA6E91020F02CBD00A12ACF /* Tables */,
 				FBA6E91120F02CC900A12ACF /* Plugins */,
 				FBA6E91220F02D0600A12ACF /* Resource */,
-				FBA6E8EF20F0289A00A12ACF /* shareClass.h */,
-				FBA6E8EA20F0289900A12ACF /* shareClass.m */,
 				FBA6E88520F0176B00A12ACF /* AppDelegate.h */,
 				FBA6E88620F0176B00A12ACF /* AppDelegate.m */,
 				FBA6E8CD20F025A100A12ACF /* Appliaction.xib */,
@@ -995,7 +1012,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FBA6E8FC20F028A400A12ACF /* EULA.rtf in Resources */,
+				FBA6E8FC20F028A400A12ACF /* LICENSE_EULA in Resources */,
 				FBA6E8DA20F0285B00A12ACF /* loading_mini.gif in Resources */,
 				FBA6E8D920F0285B00A12ACF /* update.png in Resources */,
 				FBA6E8DC20F0285B00A12ACF /* icon.icns in Resources */,
@@ -1022,6 +1039,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB0227A920F0539B006566EF /* PluginManager.m in Sources */,
 				FBE767FB20F0116600A42BD5 /* SIMBLPlugin.m in Sources */,
 				FBE767FA20F0116000A42BD5 /* SIMBL.m in Sources */,
 				FBE767F920F0115B00A42BD5 /* NSAlert_SIMBL.m in Sources */,
@@ -1090,7 +1108,7 @@
 				FBA6E8E620F0288300A12ACF /* MSPlugin.m in Sources */,
 				FBE767F420F00FFE00A42BD5 /* main.m in Sources */,
 				FBA6E8F520F0289B00A12ACF /* pluginTable.m in Sources */,
-				FBA6E8F220F0289B00A12ACF /* shareClass.m in Sources */,
+				FBA6E8F220F0289B00A12ACF /* PluginManager.m in Sources */,
 				FBA6E8E720F0288300A12ACF /* pluginData.m in Sources */,
 				FBA6E8BB20F01C6300A12ACF /* StartAtLoginController.m in Sources */,
 				FBA6E8F020F0289B00A12ACF /* bundlePage.m in Sources */,
@@ -1241,6 +1259,7 @@
 		F0ADE115166DF942009758CC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1259,6 +1278,7 @@
 		F0ADE116166DF942009758CC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;

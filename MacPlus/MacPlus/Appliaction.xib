@@ -23,16 +23,28 @@
                 <rect key="frame" x="0.0" y="0.0" width="900" height="730"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xK6-dm-EDd">
-                        <rect key="frame" x="0.0" y="622" width="220" height="50"/>
+                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GKs-AR-3Dp">
+                        <rect key="frame" x="228" y="0.0" width="672" height="730"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                    </customView>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uRZ-Ab-YmA">
+                        <rect key="frame" x="0.0" y="680" width="220" height="50"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="smallSquare" title="    🔎 Discover" bezelStyle="smallSquare" alignment="left" imageScaling="proportionallyDown" inset="2" id="VBt-zZ-bn5">
+                        <buttonCell key="cell" type="smallSquare" title="    ⭐️ Discover" bezelStyle="smallSquare" alignment="left" enabled="NO" imageScaling="proportionallyDown" inset="2" id="h4l-0j-fcf">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                            <font key="font" metaFont="system" size="20"/>
+                        </buttonCell>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xK6-dm-EDd">
+                        <rect key="frame" x="0.0" y="572" width="220" height="50"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="smallSquare" title="    🔎 Changes" bezelStyle="smallSquare" alignment="left" imageScaling="proportionallyDown" inset="2" id="VBt-zZ-bn5">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                             <font key="font" metaFont="system" size="20"/>
                         </buttonCell>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b6t-eI-SzM">
-                        <rect key="frame" x="0.0" y="680" width="220" height="50"/>
+                        <rect key="frame" x="0.0" y="630" width="220" height="50"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="smallSquare" title="    📦 Manage" bezelStyle="smallSquare" alignment="left" imageScaling="proportionallyDown" inset="2" id="tee-Mc-XRA">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -40,7 +52,7 @@
                         </buttonCell>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wnt-SO-ETK">
-                        <rect key="frame" x="0.0" y="332" width="220" height="50"/>
+                        <rect key="frame" x="0.0" y="282" width="220" height="50"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="smallSquare" title="    🔩 Preferences" bezelStyle="smallSquare" alignment="left" imageScaling="proportionallyDown" inset="2" id="Lrs-gu-VXm">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -48,7 +60,7 @@
                         </buttonCell>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OMH-Ho-1kY">
-                        <rect key="frame" x="0.0" y="158" width="220" height="50"/>
+                        <rect key="frame" x="0.0" y="108" width="220" height="50"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="smallSquare" title="    🎁 Donate" bezelStyle="smallSquare" alignment="left" imageScaling="proportionallyDown" inset="2" id="hww-f3-Hsw">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -59,7 +71,7 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OIs-aF-FnM">
-                        <rect key="frame" x="0.0" y="390" width="220" height="50"/>
+                        <rect key="frame" x="0.0" y="340" width="220" height="50"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="smallSquare" title="    ℹ️ About" bezelStyle="smallSquare" alignment="left" imageScaling="proportionallyDown" inset="2" id="mqA-Th-ZGl">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -67,7 +79,7 @@
                         </buttonCell>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Iv8-D1-OgX">
-                        <rect key="frame" x="0.0" y="216" width="220" height="50"/>
+                        <rect key="frame" x="0.0" y="166" width="220" height="50"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="smallSquare" title="    🐛 Report Bug" bezelStyle="smallSquare" alignment="left" imageScaling="proportionallyDown" inset="2" id="o8I-aI-qYy">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -78,7 +90,7 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Vq-9r-dzd">
-                        <rect key="frame" x="0.0" y="274" width="220" height="50"/>
+                        <rect key="frame" x="0.0" y="224" width="220" height="50"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="smallSquare" title="    ⚠️ Feedback" bezelStyle="smallSquare" alignment="left" imageScaling="proportionallyDown" inset="2" id="YLn-Lv-hbT">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -89,23 +101,15 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d0O-cX-4Y4">
-                        <rect key="frame" x="0.0" y="564" width="220" height="50"/>
+                        <rect key="frame" x="0.0" y="514" width="220" height="50"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="smallSquare" title="    📲 Updates" bezelStyle="smallSquare" alignment="left" imageScaling="proportionallyDown" inset="2" id="GVq-HE-RtJ">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                             <font key="font" metaFont="system" size="20"/>
                         </buttonCell>
                     </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bAq-wX-J2d">
-                        <rect key="frame" x="147" y="580" width="40" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="inline" title="0" bezelStyle="inline" imagePosition="overlaps" alignment="center" enabled="NO" refusesFirstResponder="YES" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="pza-Ch-fky">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                    </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xhm-5Z-JjY">
-                        <rect key="frame" x="0.0" y="506" width="220" height="50"/>
+                        <rect key="frame" x="0.0" y="456" width="220" height="50"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="smallSquare" title="    🖥 System Info" bezelStyle="smallSquare" alignment="left" imageScaling="proportionallyDown" inset="2" id="oee-b2-YzE">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -113,7 +117,7 @@
                         </buttonCell>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QRd-wt-3wj">
-                        <rect key="frame" x="0.0" y="100" width="220" height="50"/>
+                        <rect key="frame" x="0.0" y="50" width="220" height="50"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="smallSquare" title="    👑 Try cDock" bezelStyle="smallSquare" alignment="left" imageScaling="proportionallyDown" inset="2" id="6Dl-fG-vku">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
@@ -123,16 +127,20 @@
                             <action selector="visit_ad:" target="Voe-Tx-rLC" id="UQz-rw-fEY"/>
                         </connections>
                     </button>
-                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GKs-AR-3Dp">
-                        <rect key="frame" x="228" y="0.0" width="672" height="730"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                    </customView>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HWX-qg-Fk5">
-                        <rect key="frame" x="0.0" y="448" width="220" height="50"/>
+                        <rect key="frame" x="0.0" y="398" width="220" height="50"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="smallSquare" title="    👤 Account" bezelStyle="smallSquare" alignment="left" enabled="NO" imageScaling="proportionallyDown" inset="2" id="aRd-ob-4wV">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                             <font key="font" metaFont="system" size="20"/>
+                        </buttonCell>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bAq-wX-J2d">
+                        <rect key="frame" x="141" y="521" width="64" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="1" bezelStyle="rounded" alignment="center" enabled="NO" refusesFirstResponder="YES" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="pza-Ch-fky">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
                         </buttonCell>
                     </button>
                 </subviews>
@@ -254,7 +262,7 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" ambiguous="YES" id="P5o-0S-gmc">
                         <rect key="frame" x="1" y="1" width="305" height="433"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ngW-H4-AgY">
                                 <rect key="frame" x="0.0" y="0.0" width="290" height="418"/>
@@ -610,6 +618,7 @@
                 <outlet property="viewAbout" destination="OIs-aF-FnM" id="vRB-Pt-cVR"/>
                 <outlet property="viewAccount" destination="HWX-qg-Fk5" id="gGb-IS-LPp"/>
                 <outlet property="viewChanges" destination="d0O-cX-4Y4" id="4wV-yh-InZ"/>
+                <outlet property="viewDiscover" destination="uRZ-Ab-YmA" id="DRx-x9-b4X"/>
                 <outlet property="viewPlugins" destination="b6t-eI-SzM" id="t6z-pV-SS5"/>
                 <outlet property="viewPreferences" destination="wnt-SO-ETK" id="HUk-tO-BKH"/>
                 <outlet property="viewSIMBL" destination="Xhm-5Z-JjY" id="go3-6t-EcC"/>
@@ -801,7 +810,7 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="9sS-3X-65u">
                         <rect key="frame" x="1" y="1" width="558" height="403"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="40" rowSizeStyle="automatic" viewBased="YES" id="E3Q-ip-sqv">
                                 <rect key="frame" x="0.0" y="0.0" width="558" height="403"/>

@@ -7,7 +7,7 @@
 //
 
 @import AppKit;
-#import "shareClass.h"
+#import "PluginManager.h"
 #import "AppDelegate.h"
 
 extern AppDelegate* myDelegate;
@@ -15,7 +15,7 @@ NSString *repoPackages = @"";
 NSArray *sourceURLS;
 
 @interface sourcesTable : NSTableView {
-    shareClass *_sharedMethods;
+    PluginManager *_sharedMethods;
 }
 @end
 
@@ -34,7 +34,7 @@ NSArray *sourceURLS;
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
     if (_sharedMethods == nil)
-        _sharedMethods = [shareClass alloc];
+        _sharedMethods = [PluginManager sharedInstance];
     
 //    [self setTarget:self];
 //    [self setDoubleAction:@selector(doubleClickInTable:)];
@@ -87,7 +87,7 @@ NSArray *sourceURLS;
 }
 
 - (void)keyDown:(NSEvent *)theEvent {
-    Boolean result = [[shareClass sharedInstance] keypressed:theEvent];
+    Boolean result = [[PluginManager sharedInstance] keypressed:theEvent];
     if (!result) [super keyDown:theEvent];
 }
 

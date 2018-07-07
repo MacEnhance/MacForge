@@ -32,6 +32,8 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>LSUIElement</key>
+	<true/>
 	<key>SMPrivilegedExecutables</key>
 	<dict>
 		<key>com.w0lf.MacPlus.Injector</key>

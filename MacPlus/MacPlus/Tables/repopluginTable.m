@@ -7,7 +7,7 @@
 //
 
 @import AppKit;
-#import "shareClass.h"
+#import "PluginManager.h"
 #import "AppDelegate.h"
 #import "pluginData.h"
 
@@ -17,7 +17,7 @@ long selectedRow;
 
 @interface repopluginTable : NSTableView
 {
-    shareClass *_sharedMethods;
+    PluginManager *_sharedMethods;
 }
 @end
 
@@ -38,7 +38,7 @@ long selectedRow;
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
     if (_sharedMethods == nil)
-        _sharedMethods = [shareClass alloc];
+        _sharedMethods = [PluginManager sharedInstance];
     
     NSURL *dicURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/packages_v2.plist", repoPackages]];
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithContentsOfURL:dicURL];
@@ -82,7 +82,7 @@ long selectedRow;
     NSString *bInfo = [NSString stringWithFormat:@"%@ - %@", [item objectForKey:@"version"], [item objectForKey:@"package"]];
     result.bundleInfo.stringValue = bInfo;
     result.bundleDescription.toolTip = [item objectForKey:@"description"];
-    result.bundleImage.image = [_sharedMethods getbundleIcon:item];
+    result.bundleImage.image = [PluginManager pluginGetIcon:item];
     [result.bundleImage.cell setImageScaling:NSImageScaleProportionallyUpOrDown];
 
     NSBundle *dank = [NSBundle bundleWithIdentifier:[item objectForKey:@"package"]];
@@ -94,7 +94,7 @@ long selectedRow;
 }
 
 - (void)keyDown:(NSEvent *)theEvent {
-    Boolean result = [[shareClass sharedInstance] keypressed:theEvent];
+    Boolean result = [[PluginManager sharedInstance] keypressed:theEvent];
     if (!result) [super keyDown:theEvent];
 }
 

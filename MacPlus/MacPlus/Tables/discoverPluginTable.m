@@ -8,7 +8,7 @@
 
 @import AppKit;
 #import "AppDelegate.h"
-#import "shareClass.h"
+#import "PluginManager.h"
 #import "MSPlugin.h"
 #import "pluginData.h"
 
@@ -21,7 +21,7 @@ NSArray *filteredPlugins;
 NSString *textFilter;
 
 @interface discoverPluginTable : NSTableView {
-    shareClass *_sharedMethods;
+    PluginManager *_sharedMethods;
     pluginData *_pluginData;
 }
 @property NSMutableArray *tableContent;
@@ -57,7 +57,7 @@ NSString *textFilter;
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
     if (_sharedMethods == nil)
-        _sharedMethods = [shareClass alloc];
+        _sharedMethods = [PluginManager sharedInstance];
     
     static dispatch_once_t aToken;
     dispatch_once(&aToken, ^{
@@ -90,7 +90,7 @@ NSString *textFilter;
     result.bundleInfo.stringValue = bInfo;
     result.bundleDescription.toolTip = item.webDescription;
         
-    result.bundleImage.image = [_sharedMethods getbundleIcon:item.webPlist];
+    result.bundleImage.image = [PluginManager pluginGetIcon:item.webPlist];
     [result.bundleImage.cell setImageScaling:NSImageScaleProportionallyUpOrDown];
 
     NSBundle *dank = [NSBundle bundleWithIdentifier:item.bundleID];
@@ -102,7 +102,7 @@ NSString *textFilter;
 }
     
 - (void)keyDown:(NSEvent *)theEvent {
-    Boolean result = [[shareClass sharedInstance] keypressed:theEvent];
+    Boolean result = [[PluginManager sharedInstance] keypressed:theEvent];
     if (!result) [super keyDown:theEvent];
 }
     
