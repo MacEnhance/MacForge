@@ -110,20 +110,7 @@ NSArray *tabViews;
     [DevMateKit setupIssuesController:nil reportingUnhandledIssues:YES];
     
     // Loop looking for bundle updates
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-//        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-//            while(true)
-//            {
-//                dispatch_async(dispatch_get_main_queue(), ^(void){
-                    NSLog(@"Checking for plugin updates...");
-                    NSButton *lastView = selectedView;
-                    [self selectView:_viewChanges];
-                    [self selectView:lastView];
-//                });
-//                [NSThread sleepForTimeInterval:300.0f];
-//            }
-//        });
-//    });
+    [PluginManager.sharedInstance checkforPluginUpdates:nil :_viewUpdateCounter];
 }
 
 // Loading
@@ -285,34 +272,18 @@ NSArray *tabViews;
 }
 
 - (void)addLoginItem {
-    StartAtLoginController *loginController = [[StartAtLoginController alloc] initWithIdentifier:@"org.w0lf.mySIMBLHelper"];
+    StartAtLoginController *loginController = [[StartAtLoginController alloc] initWithIdentifier:@"com.w0lf.MacPlusHelper"];
     BOOL startsAtLogin = [loginController startAtLogin];
     if (!startsAtLogin)
         loginController.startAtLogin = YES;
 }
 
 - (void)launchHelper {
-    for (NSRunningApplication *run in [NSRunningApplication runningApplicationsWithBundleIdentifier:@"org.w0lf.mySIMBLHelper"])
+    for (NSRunningApplication *run in [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.w0lf.MacPlusHelper"])
         [run terminate];
-    NSString *path = [NSString stringWithFormat:@"%@/Contents/Library/LoginItems/mySIMBLHelper.app", [[NSBundle mainBundle] bundlePath]];
+    NSString *path = [NSString stringWithFormat:@"%@/Contents/Library/LoginItems/MacPlussHelper.app", [[NSBundle mainBundle] bundlePath]];
     //    NSString *path = [[NSBundle mainBundle] pathForResource:@"mySIMBLHelper" ofType:@"app"];
     [[NSWorkspace sharedWorkspace] launchApplication:path];
-}
-
-- (IBAction)simblInstall:(id)sender {
-//    dispatch_queue_t myQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-//    dispatch_async(myQueue, ^{
-//        // Insert code to be executed on another thread here
-//        [self checkSIMBL];
-//        while(![SIMBLFramework OSAX_installed])
-//            usleep(100000);
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            // Insert code to be executed on the main thread here
-//            [self launchHelper];
-//            if ([SIMBLFramework OSAX_installed])
-//                [self->_tabMain setSubviews:[NSArray arrayWithObject:self->_tabPlugins]];
-//        });
-//    });
 }
 
 - (void)setupPrefstab {
@@ -334,8 +305,6 @@ NSArray *tabViews;
         NSToolTipManager *test = [NSToolTipManager sharedToolTipManager];
         [test setInitialToolTipDelay:0.1];
     }
-    
-//    [_buttonDonate.layer setBackgroundColor:[NSColor colorWithCalibratedRed:0.438f green:0.121f blue:0.199f alpha:0.258f].CGColor];
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"SUAutomaticallyUpdate"]) {
         [_prefUpdateAuto selectItemAtIndex:2];
@@ -586,8 +555,8 @@ NSArray *tabViews;
             NSView *newView = [currView objectAtIndex:cur + 1];
             [newView setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
             [newView setFrameSize:_sourcesRoot.frame.size];
-            [[_sourcesRoot animator] setSubviews:@[newView]];
-//            [[_sourcesRoot animator] replaceSubview:[_sourcesRoot.subviews objectAtIndex:0] with:[currView objectAtIndex:cur + 1]];
+//            [[_sourcesRoot animator] setSubviews:@[newView]];
+            [[_sourcesRoot animator] replaceSubview:[_sourcesRoot.subviews objectAtIndex:0] with:[currView objectAtIndex:cur + 1]];
             [_window makeFirstResponder: [currView objectAtIndex:cur + 1]];
         }
         
@@ -627,10 +596,8 @@ NSArray *tabViews;
 - (IBAction)rootView:(id)sender {
     [_sourcesPush setEnabled:true];
     [_sourcesPop setEnabled:false];
-    
     NSView *currView = _sourcesURLS;
     if (isdiscoverView) currView = _discoverChanges;
-    
     [[_sourcesRoot animator] replaceSubview:[_sourcesRoot.subviews objectAtIndex:0] with:currView];
 }
 
@@ -718,38 +685,10 @@ NSArray *tabViews;
 }
 
 - (void)setupSIMBLview {
-//    SIMBLManager *sim_m = [SIMBLManager sharedInstance];
-//
-//    if ([[sim_m OSAX_versions] objectForKey:@"localVersion"])
-//        [_SIMBLTogggle setState:NSOnState];
-//    else
-//        [_SIMBLTogggle setState:NSOffState];
-    
-//    NSArray *states = @[NSControlStateValueOn, NSControlStateValueOff];
-
+    [_SIMBLTogggle setState:NSOffState];
+    [_SIMBLAgentToggle setState:NSOffState];
     [_SIPStatus setState:[MacPlusKit SIP_enabled]];
     [_AMFIStatus setState:[MacPlusKit AMFI_enabled]];
-
-    
-//    if (![MacPlusKit SIP_enabled])
-//        [_SIPStatus setState:NSOnState];
-//    else
-//        [_SIPStatus setState:NSOffState];
-
-//    if (![MacPlusKit AMFI_enabled])
-//        [_AMFIStatus  setState:NSOnState];
-//    else
-//        [_AMFIStatus  setState:NSOffState];
-
-//    if ([[sim_m AGENT_versions] objectForKey:@"localVersion"]) {
-//        if ([NSRunningApplication runningApplicationsWithBundleIdentifier:@"org.w0lf.SIMBLAgent"])
-//            [_SIMBLAgentToggle  setState:NSOnState];
-//        else
-//            [_SIMBLAgentToggle  setState:NSControlStateValueMixed];
-//    } else {
-//        [_SIMBLAgentToggle  setState:NSOffState];
-//    }
-//
 //    [_SIMBLAgentText setStringValue:[NSString stringWithFormat:@"- Version %@", [[sim_m AGENT_versions] objectForKey:@"localVersion"]]];
 //    [_SIMBLOSAXText setStringValue:[NSString stringWithFormat:@"- Version %@", [[sim_m OSAX_versions] objectForKey:@"localVersion"]]];
 }

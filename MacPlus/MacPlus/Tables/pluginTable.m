@@ -91,32 +91,16 @@ NSInteger previusRow = -1;
     return YES;
 }
 
-- (NSImage*)colorInvert:(NSString*)named {
-    NSImage *yourImage = [NSImage imageNamed:named];
-    CIImage* ciImage = [[CIImage alloc] initWithData:[yourImage TIFFRepresentation]];
-    CIFilter* filter = [CIFilter filterWithName:@"CIColorInvert"];
-    [filter setDefaults];
-    [filter setValue:ciImage forKey:@"inputImage"];
-    CIImage* output = [filter valueForKey:@"outputImage"];
-    [output drawAtPoint:NSZeroPoint fromRect:NSRectFromCGRect([output extent]) operation:NSCompositeSourceOver fraction:1.0];
-    NSCIImageRep *rep = [NSCIImageRep imageRepWithCIImage:output];
-    NSImage *nsImage = [[NSImage alloc] initWithSize:rep.size];
-    [nsImage addRepresentation:rep];
-    return nsImage;
-}
-
 - (NSImage*)provideIMG:(int)position {
     if (self.imageArray == nil) {
-        NSArray *images = @[[NSImage imageNamed:@"NSUser"],
-                            [NSImage imageNamed:@"NSUserGroup"],
-                            [self colorInvert:@"NSUser"],
-                            [self colorInvert:@"NSUserGroup"]];
+        NSImage *user = [NSImage imageNamed:NSImageNameUser];
+        [user setTemplate:true];
+        NSImage *group = [NSImage imageNamed:NSImageNameUserGroup];
+        [group setTemplate:true];
+        NSArray *images = @[user, group];
         self.imageArray = [[NSArray alloc] initWithArray:images];
     }
-    
-    if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"] isEqualToString:@"Dark"]) position += 2;
-    NSImage *result = self.imageArray[position];
-    return result;
+    return self.imageArray[position];
 }
 
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
