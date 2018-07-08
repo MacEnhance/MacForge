@@ -11,9 +11,13 @@
 @implementation DockTilePlugIn
 
 static void updateCount(NSDockTile *tile) {
-        CFPreferencesAppSynchronize(CFSTR("com.w0lf.MacPlus"));
-        NSInteger highScore = CFPreferencesGetAppIntegerValue(CFSTR("updateCount"), CFSTR("com.w0lf.MacPlus"), NULL);
-        [tile setBadgeLabel:[NSString stringWithFormat:@"%ld", (long)highScore]];
+    CFPreferencesAppSynchronize(CFSTR("com.w0lf.MacPlus"));
+    NSInteger updateCounter = CFPreferencesGetAppIntegerValue(CFSTR("updateCount"), CFSTR("com.w0lf.MacPlus"), NULL);
+    if (updateCounter != 0)
+        [tile setBadgeLabel:[NSString stringWithFormat:@"%ld", (long)updateCounter]];
+    else {
+        [tile setBadgeLabel:@""];
+    }
 }
 
 - (NSMenu*)dockMenu {

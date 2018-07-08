@@ -42,13 +42,21 @@
 
 extern AppDelegate* myDelegate;
 extern NSString *repoPackages;
-extern NSMutableArray *pluginsArray;
 extern long selectedRow;
 
 @implementation bundlePage {
     bool doOnce;
     NSMutableDictionary* installedPlugins;
     NSDictionary* item;
+}
+
+- (void)systemDarkModeChange:(NSNotification *)notif {
+    NSString *osxMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
+    if ([osxMode isEqualToString:@"Dark"]) {
+        [_bundleDesc setTextColor:[NSColor whiteColor]];
+    } else {
+        [_bundleDesc setTextColor:[NSColor blackColor]];
+    }
 }
 
 -(NSFont*)calcFontSizeToFitRect:(NSRect)r :(NSString*)string :(NSString*)currentFontName {
@@ -61,17 +69,16 @@ extern long selectedRow;
         NSDictionary* attrs = [[NSDictionary alloc] initWithObjectsAndKeys:[NSFont fontWithName:currentFontName size:i], NSFontAttributeName, nil];
         NSSize strSize = [string sizeWithAttributes:attrs];
         if (strSize.width > targetWidth || strSize.height > targetHeight) break;
-//        if (strSize.width > targetWidth) break;
     }
     NSFont *result = [NSFont fontWithName:currentFontName size:i-1];
     return result;
 }
 
 -(void)viewWillDraw {
+    [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(systemDarkModeChange:) name:@"AppleInterfaceThemeChangedNotification" object:nil];
+    
     [self setWantsLayer:YES];
     self.layer.masksToBounds = YES;
-//    self.layer.borderWidth = 1.0f;
-//    [self.layer setBorderColor:[NSColor grayColor].CGColor];
     
     NSArray *allPlugins;
     MSPlugin *plugin = [pluginData sharedInstance].currentPlugin;
@@ -99,7 +106,6 @@ extern long selectedRow;
             }
             allPlugins = [comboDic allValues];
         }
-        
         item = [[NSMutableDictionary alloc] initWithDictionary:[allPlugins objectAtIndex:selectedRow]];
     }
     
@@ -111,6 +117,13 @@ extern long selectedRow;
     
     newString = [NSString stringWithFormat:@"%@", [item objectForKey:@"description"]];
     [[self.bundleDesc textStorage] setAttributedString:[[NSMutableAttributedString alloc] initWithString:newString]];
+    
+    NSString *osxMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
+    if ([osxMode isEqualToString:@"Dark"]) {
+        [_bundleDesc setTextColor:[NSColor whiteColor]];
+    } else {
+        [_bundleDesc setTextColor:[NSColor blackColor]];
+    }
     
     //Target
     newString = [NSString stringWithFormat:@"%@", [item objectForKey:@"apps"]];
@@ -145,36 +158,20 @@ extern long selectedRow;
     newString = [NSString stringWithFormat:@"%@", [item objectForKey:@"compat"]];
     self.bundleCompat.stringValue = newString;
     
-    
     if ([[item objectForKey:@"webpage"] length]) {
         if (!doOnce)
-        {
             doOnce = true;
-//            [[[[[self.bundleWebView mainFrame] frameView] documentView] superview] scaleUnitSquareToSize:NSMakeSize(.5, .5)];
-//            [[[[[self.bundleWebView mainFrame] frameView] documentView] superview] setNeedsDisplay:YES];
-        }
-//        NSURL*url=[NSURL URLWithString:@"http://w0lfschild.github.io/app_cDock"];
         NSURL*url=[NSURL URLWithString:[item objectForKey:@"webpage"]];
         NSURLRequest*request=[NSURLRequest requestWithURL:url];
         [[self.bundleWebView mainFrame] loadRequest:request];
     } else {
-//        NSURL*url=[NSURL URLWithString:@"http://w0lfschild.github.io/app_cDock"];
-//        NSURLRequest*request=[NSURLRequest requestWithURL:url];
-//        [[self.bundleWebView mainFrame] loadRequest:request];
         [[self.bundleWebView mainFrame] loadHTMLString:nil baseURL:nil];
-    }
-    
-    installedPlugins = [[NSMutableDictionary alloc] init];
-    for (NSDictionary* dict in pluginsArray) {
-        NSString* str = [dict objectForKey:@"bundleId"];
-        [installedPlugins setObject:dict forKey:str];
     }
     
     if (![[item objectForKey:@"donate"] length])
         [self.bundleDonate setEnabled:false];
     else
         [self.bundleDonate setEnabled:true];
-
     
     if (![[item objectForKey:@"contact"] length])
         [self.bundleContact setEnabled:false];
@@ -191,10 +188,16 @@ extern long selectedRow;
     [self.bundleDelete setTarget:self];
     [self.bundleDelete setAction:@selector(pluginDelete)];
     
+    NSMutableDictionary *installedPlugins = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *plugins = [PluginManager.sharedInstance getInstalledPlugins];
+    for (NSString *key in plugins.allKeys) {
+        NSDictionary *itemDict = [plugins objectForKey:key];
+        [installedPlugins setObject:itemDict forKey:[itemDict objectForKey:@"bundleId"]];
+    }
+    
     if ([installedPlugins objectForKey:[item objectForKey:@"package"]]) {
         // Pack already exists
         [self.bundleDelete setEnabled:true];
-        
         NSDictionary* dic = [[installedPlugins objectForKey:[item objectForKey:@"package"]] objectForKey:@"bundleInfo"];
         NSString* cur = [dic objectForKey:@"CFBundleShortVersionString"];
         if ([cur isEqualToString:@""])
@@ -211,15 +214,16 @@ extern long selectedRow;
             //versionA < versionB
             [self.bundleInstall setEnabled:true];
             self.bundleInstall.title = @"Update";
-            [self.bundleInstall setAction:@selector(pluginUpdate)];
+            [self.bundleInstall setAction:@selector(pluginInstall)];
         } else {
             //versionA > versionB
             [self.bundleInstall setEnabled:false];
             self.bundleInstall.title = @"Downgrade";
-            [self.bundleInstall setAction:@selector(pluginUpdate)];
+            [self.bundleInstall setAction:@selector(pluginInstall)];
         }
     } else {
         // Package not installed
+        [self.bundleDelete setEnabled:false];
         [self.bundleInstall setEnabled:true];
         self.bundleInstall.title = @"Get";
         [self.bundleInstall setAction:@selector(pluginInstall)];
@@ -250,7 +254,6 @@ extern long selectedRow;
         case NSCarriageReturnCharacter:
         {
             [self.bundleInstall performClick:nil];
-//            [myDelegate pushView:nil];
             specKey = true;
             break;
         }
@@ -269,83 +272,18 @@ extern long selectedRow;
      [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[item objectForKey:@"donate"]]];
 }
 
-- (void)pluginInstall {    
-    NSURL *installURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", repoPackages, [item objectForKey:@"filename"]]];
-    NSData *myData = [NSData dataWithContentsOfURL:installURL];
-    NSString *temp = [NSString stringWithFormat:@"/tmp/%@_%@", [item objectForKey:@"package"], [item objectForKey:@"version"]];
-    [myData writeToFile:temp atomically:YES];
-    NSArray* libDomain = [[NSFileManager defaultManager] URLsForDirectory:NSApplicationSupportDirectory inDomains:NSLocalDomainMask];
-    NSString* libSupport = [[libDomain objectAtIndex:0] path];
-    NSString* libPathENB = [NSString stringWithFormat:@"%@/SIMBL/Plugins", libSupport];
-    NSTask *task = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/unzip" arguments:@[@"-o", temp, @"-d", libPathENB]];
-    [task waitUntilExit];
+- (void)pluginInstall {
+    [PluginManager.sharedInstance pluginUpdateOrInstall:item :repoPackages];
     [self.bundleDelete setEnabled:true];
-    [self.bundleInstall setEnabled:true];
-    self.bundleInstall.title = @"Open";
-    [self.bundleInstall setAction:@selector(pluginFinder)];
-    [PluginManager.sharedInstance readPlugins:nil];
-}
-
-- (void)pluginUpdate {
-    NSURL *installURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", repoPackages, [item objectForKey:@"filename"]]];
-    NSData *myData = [NSData dataWithContentsOfURL:installURL];
-    NSString *temp = [NSString stringWithFormat:@"/tmp/%@_%@", [item objectForKey:@"package"], [item objectForKey:@"version"]];
-    [myData writeToFile:temp atomically:YES];
-    NSArray* libDomain = [[NSFileManager defaultManager] URLsForDirectory:NSApplicationSupportDirectory inDomains:NSLocalDomainMask];
-    NSString* libSupport = [[libDomain objectAtIndex:0] path];
-    NSString* libPathENB = [NSString stringWithFormat:@"%@/SIMBL/Plugins", libSupport];
-    NSTask *task = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/unzip" arguments:@[@"-o", temp, @"-d", libPathENB]];
-    [task waitUntilExit];
-    [self.bundleDelete setEnabled:true];
-    [self.bundleInstall setEnabled:true];
-    self.bundleInstall.title = @"Open";
-    [self.bundleInstall setAction:@selector(pluginFinder)];
-    [PluginManager.sharedInstance readPlugins:nil];
 }
 
 - (void)pluginFinder {
-    int pos = 0;
-    bool found = false;
-    for (NSDictionary* dict in pluginsArray) {
-        if ([[dict objectForKey:@"bundleId"] isEqualToString:[item objectForKey:@"package"]]) {
-            found = true;
-            break;
-        }
-        pos += 1;
-    }
-    
-    if (found) {
-        NSDictionary* obj = [pluginsArray objectAtIndex:pos];
-        NSString* path = [obj objectForKey:@"path"];
-        NSURL* url = [NSURL fileURLWithPath:path];
-        [[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs:[NSArray arrayWithObject:url]];
-    }
+    [PluginManager.sharedInstance pluginRevealFinder:item];
 }
 
 - (void)pluginDelete {
-    int pos = 0;
-    bool found = false;
-    for (NSDictionary* dict in pluginsArray) {
-        if ([[dict objectForKey:@"bundleId"] isEqualToString:[item objectForKey:@"package"]]) {
-            found = true;
-            break;
-        }
-        pos += 1;
-    }
-    
-    if (found) {
-        NSDictionary* obj = [pluginsArray objectAtIndex:pos];
-        NSString* path = [obj objectForKey:@"path"];
-        NSURL* url = [NSURL fileURLWithPath:path];
-        NSURL* trash;
-        NSError* error;
-        [[NSFileManager defaultManager] trashItemAtURL:url resultingItemURL:&trash error:&error];
-    }
-    
+    [PluginManager.sharedInstance pluginDelete:item];
     [self.bundleDelete setEnabled:false];
-    [self.bundleInstall setEnabled:true];
-    self.bundleInstall.title = @"Install";
-    [self.bundleInstall setAction:@selector(pluginInstall)];
 }
 
 @end

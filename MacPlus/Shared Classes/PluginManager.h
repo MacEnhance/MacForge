@@ -17,6 +17,8 @@
 + (NSArray*)SIMBLPaths;
 + (NSImage*)pluginGetIcon:(NSDictionary*)plist;
 
+- (NSMutableDictionary*)getInstalledPlugins;
+
 - (NSMutableDictionary*)getNeedsUpdate;
 - (void)checkforPluginUpdates:(NSTableView*)table :(NSButton*)counter;
 - (void)checkforPluginUpdates:(NSTableView*)table;
@@ -28,7 +30,6 @@
 - (void)replaceFile:(NSString*)start :(NSString*)end;
 - (Boolean)pluginUpdateOrInstall:(NSDictionary*)item :(NSString*)repo;
 - (Boolean)pluginDelete:(NSDictionary*)item;
-
-- (Boolean)keypressed:(NSEvent *)theEvent;
+- (Boolean)pluginRevealFinder:(NSDictionary*)item;
 
 @end

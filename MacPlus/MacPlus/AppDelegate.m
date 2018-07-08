@@ -71,8 +71,13 @@ NSArray *tabViews;
 }
 
 // Cleanup some stuff when user changes dark mode
-- (void)systemDarkModeChange {
-    
+- (void)systemDarkModeChange:(NSNotification *)notif {
+    NSString *osxMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
+    if ([osxMode isEqualToString:@"Dark"]) {
+        [_changeLog setTextColor:[NSColor whiteColor]];
+    } else {
+        [_changeLog setTextColor:[NSColor blackColor]];
+    }
 }
 
 // Startup
@@ -109,8 +114,29 @@ NSArray *tabViews;
     [DevMateKit sendTrackingReport:nil delegate:nil];
     [DevMateKit setupIssuesController:nil reportingUnhandledIssues:YES];
     
+    [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(systemDarkModeChange:) name:@"AppleInterfaceThemeChangedNotification" object:nil];
+    [[NSDistributedNotificationCenter defaultCenter] addObserverForName:@"com.w0lf.MacPlusNotify"
+                                                                 object:nil
+                                                                  queue:nil
+                                                             usingBlock:^(NSNotification *notification)
+    {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([notification.object isEqualToString:@"prefs"]) [self selectView:self->_viewPreferences];
+            if ([notification.object isEqualToString:@"about"]) [self selectView:self->_viewAbout];
+            if ([notification.object isEqualToString:@"manage"]) [self selectView:self->_viewPlugins];
+            if ([notification.object isEqualToString:@"check"]) { [PluginManager.sharedInstance checkforPluginUpdates:nil :self->_viewUpdateCounter]; }
+        });
+    }];
+    
     // Loop looking for bundle updates
     [PluginManager.sharedInstance checkforPluginUpdates:nil :_viewUpdateCounter];
+    
+    NSArray *args = [[NSProcessInfo processInfo] arguments];
+    if (args.count > 1) {
+        if ([args containsObject:@"prefs"]) [self selectView:_viewPreferences];
+        if ([args containsObject:@"about"]) [self selectView:_viewAbout];
+        if ([args containsObject:@"manage"]) [self selectView:_viewPlugins];
+    }
 }
 
 // Loading
@@ -272,16 +298,14 @@ NSArray *tabViews;
 }
 
 - (void)addLoginItem {
-    StartAtLoginController *loginController = [[StartAtLoginController alloc] initWithIdentifier:@"com.w0lf.MacPlusHelper"];
-    BOOL startsAtLogin = [loginController startAtLogin];
-    if (!startsAtLogin)
-        loginController.startAtLogin = YES;
+    NSBundle *helperBUNDLE = [NSBundle bundleWithPath:[NSWorkspace.sharedWorkspace absolutePathForAppBundleWithIdentifier:@"com.w0lf.MacPlusHelper"]];
+    [helperBUNDLE enableLoginItem];
 }
 
 - (void)launchHelper {
     for (NSRunningApplication *run in [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.w0lf.MacPlusHelper"])
         [run terminate];
-    NSString *path = [NSString stringWithFormat:@"%@/Contents/Library/LoginItems/MacPlussHelper.app", [[NSBundle mainBundle] bundlePath]];
+    NSString *path = [NSString stringWithFormat:@"%@/Contents/Library/LoginItems/MacPlusHelper.app", [[NSBundle mainBundle] bundlePath]];
     //    NSString *path = [[NSBundle mainBundle] pathForResource:@"mySIMBLHelper" ofType:@"app"];
     [[NSWorkspace sharedWorkspace] launchApplication:path];
 }
@@ -674,14 +698,8 @@ NSArray *tabViews;
 }
 
 - (IBAction)toggleAMFI:(id)sender {
-//    SIMBLManager *sim_m = [SIMBLManager sharedInstance];
-//    [sim_m AMFI_toggle];
-//    NSImage *on = [NSImage imageNamed:NSImageNameStatusAvailable];
-//    NSImage *off = [NSImage imageNamed:NSImageNameStatusUnavailable];
-//    if (_AMFIStatus.image == on)
-//        [_AMFIStatus setImage:off];
-//    else
-//        [_AMFIStatus setImage:on];
+    [MacPlusKit AMFI_toggle];
+    [_AMFIStatus setState:[MacPlusKit AMFI_enabled]];
 }
 
 - (void)setupSIMBLview {
@@ -884,6 +902,33 @@ NSArray *tabViews;
             }
         }
     });
+}
+
+// Why is this in the plugin manager?
+- (Boolean)keypressed:(NSEvent *)theEvent {
+    NSString*   const   character   =   [theEvent charactersIgnoringModifiers];
+    unichar     const   code        =   [character characterAtIndex:0];
+    bool                specKey     =   false;
+    
+    switch (code) {
+        case NSLeftArrowFunctionKey: {
+            [self popView:nil];
+            specKey = true;
+            break;
+        }
+        case NSRightArrowFunctionKey: {
+            [self pushView:nil];
+            specKey = true;
+            break;
+        }
+        case NSCarriageReturnCharacter: {
+            [self pushView:nil];
+            specKey = true;
+            break;
+        }
+    }
+    
+    return specKey;
 }
 
 @end

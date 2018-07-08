@@ -17,9 +17,9 @@ function createFolder() {
 	chmod 777 "$1"
 }
 
-log_dir="$HOME"/Library/"Application Support"/mySIMBL/logs
+log_dir="$HOME"/Library/"Application Support"/MacPlus/logs
 createFolder "$log_dir"
-exec &>"$log_dir"/removeSIMBL.log
+exec &>"$log_dir"/cleanup.log
  
 cleanupFiles=(
 "/Library/Application Support/SIMBL"

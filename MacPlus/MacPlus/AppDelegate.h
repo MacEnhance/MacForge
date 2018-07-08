@@ -16,7 +16,7 @@
 #import "PluginManager.h"
 #import "FConvenience.h"
 #import "SGDirWatchdog.h"
-#import "StartAtLoginController.h"
+#import "NSBundle+LoginItem.h"
 
 #import <DevMateKit/DevMateKit.h>
 
@@ -122,11 +122,11 @@
 - (void)setupEventListener;
 - (IBAction)pushView:(id)sender;
 - (IBAction)popView:(id)sender;
+- (Boolean)keypressed:(NSEvent *)theEvent;
 
 @end
 
-@interface NSToolTipManager : NSObject
-{
+@interface NSToolTipManager : NSObject {
     double toolTipDelay;
 }
 + (id)sharedToolTipManager;

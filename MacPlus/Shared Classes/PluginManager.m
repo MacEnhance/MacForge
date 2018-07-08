@@ -258,6 +258,33 @@
     return false;;
 }
 
+// Reveal a plugin in Finder
+- (Boolean)pluginRevealFinder:(NSDictionary*)item {
+    int pos = 0;
+    bool found = false;
+    
+    // Make sure out pluginsArray is up to date
+    [self readPlugins:nil];
+    
+    for (NSDictionary* dict in pluginsArray) {
+        if ([[dict objectForKey:@"bundleId"] isEqualToString:[item objectForKey:@"package"]]) {
+            found = true;
+            break;
+        }
+        pos += 1;
+    }
+    
+    if (found) {
+        NSDictionary* obj = [pluginsArray objectAtIndex:pos];
+        NSString* path = [obj objectForKey:@"path"];
+        NSURL* url = [NSURL fileURLWithPath:path];
+        [Workspace activateFileViewerSelectingURLs:[NSArray arrayWithObject:url]];
+        return true;
+    }
+    
+    return false;;
+}
+
 // Fetch an icon for a bundle given it's plist
 + (NSImage*)pluginGetIcon:(NSDictionary*)plist {
     NSImage* result = nil;
@@ -280,9 +307,9 @@
     
 //    for (NSDictionary* targetApp in targets) {
 //        iconPath = [targetApp objectForKey:@"BundleIdentifier"];
-//        iconPath = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:iconPath];
+//        iconPath = [Workspace absolutePathForAppBundleWithIdentifier:iconPath];
 //        if ([iconPath length]) {
-//            result = [[NSWorkspace sharedWorkspace] iconForFile:iconPath];
+//            result = [Workspace iconForFile:iconPath];
 //            if (result) return result;
 //        }
 //    }
@@ -291,7 +318,7 @@
     // We will always use the first icon found
     for (NSDictionary* targetApp in targets) {
         iconPath = [targetApp objectForKey:@"BundleIdentifier"];
-        iconPath = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:iconPath];
+        iconPath = [Workspace absolutePathForAppBundleWithIdentifier:iconPath];
 
         if ([iconPath length]) {
             // Use specific icon for Notification Center
@@ -313,9 +340,9 @@
             }
 
             // Not sure what I'm doing here 🤷‍♂️
-            result = [[NSWorkspace sharedWorkspace] iconForFile:iconPath];
+            result = [Workspace iconForFile:iconPath];
             NSData *imgDataOne = [result TIFFRepresentation];
-            NSData *imgDataTwo = [[[NSWorkspace sharedWorkspace] iconForFile:@"/System/Library/CoreServices/loginwindow.app"] TIFFRepresentation];
+            NSData *imgDataTwo = [[Workspace iconForFile:@"/System/Library/CoreServices/loginwindow.app"] TIFFRepresentation];
             if ([imgDataOne isEqualToData:imgDataTwo])
                 result = [[NSImage alloc] initWithContentsOfFile:@"/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/KEXT.icns"];
             if (result) return result;
@@ -365,12 +392,49 @@
     return needsUpdate;
 }
 
+- (NSMutableDictionary*)getInstalledPlugins {
+    return installedPluginDICT;
+}
+
 - (void)checkforPluginUpdates:(NSTableView *)table :(NSButton *)counter {
     [self checkforPluginUpdates:table];
     dispatch_async(dispatch_get_main_queue(), ^{
         [counter setTitle:[NSString stringWithFormat:@"%lu", (unsigned long)self->needsUpdate.count]];
         [counter sizeToFit];
     });
+}
+
++ (NSComparisonResult)compareVersion:(NSString *)versionA toVersion:(NSString *)versionB {
+    if ((versionA.length <= 0) && (versionB.length <= 0)) {
+        return NSOrderedSame;
+    } else if (versionA.length <= 0) {
+        return NSOrderedAscending;
+    } else if (versionB.length <= 0) {
+        return NSOrderedDescending;
+    }
+    
+    NSArray *partsA = [versionA componentsSeparatedByString:@"."];
+    NSArray *partsB = [versionB componentsSeparatedByString:@"."];
+    
+    NSUInteger sameCount = MIN(partsA.count, partsB.count);
+    
+    for (NSUInteger i = 0; i < sameCount; ++i) {
+        NSString *partA = [partsA objectAtIndex:i];
+        NSString *partB = [partsB objectAtIndex:i];
+        if (partA.longLongValue < partB.longLongValue) {
+            return NSOrderedAscending;
+        } else if (partA.longLongValue > partB.longLongValue) {
+            return NSOrderedDescending;
+        }
+    }
+    
+    if (partsA.count < partsB.count) {
+        return NSOrderedAscending;
+    } else if (partsA.count > partsB.count) {
+        return NSOrderedDescending;
+    } else {
+        return NSOrderedSame;
+    }
 }
 
 // Check for plugin updates and update the application icon badge
@@ -402,12 +466,9 @@
         if ([sourceDICTS objectForKey:bundleID]) {
             NSDictionary *bundleInfo = [[NSDictionary alloc] initWithDictionary:[sourceDICTS objectForKey:bundleID]];
             id updateVersion = [bundleInfo objectForKey:@"version"];
-            if ([updateVersion compare:localVersion] != NSOrderedSame)
+            NSComparisonResult res = [PluginManager compareVersion:(NSString*)updateVersion toVersion:(NSString*)localVersion];
+            if (res == 1)
                 [needsUpdate setObject:bundleInfo forKey:bundleID];
-//            id <SUVersionComparison> comparator = [SUStandardVersionComparator defaultComparator];
-//            NSInteger result = [comparator compareVersion:localVersion toVersion:updateVersion];
-//            if (result == NSOrderedAscending)
-//                [needsUpdate setObject:bundleInfo forKey:bundleID];
         }
     }
     
@@ -416,35 +477,8 @@
             [table reloadData];
         });
     }
-    
+        
     [self updateApplicationIcon];
-}
-
-// Why is this in the plugin manager?
-- (Boolean)keypressed:(NSEvent *)theEvent {
-    NSString*   const   character   =   [theEvent charactersIgnoringModifiers];
-    unichar     const   code        =   [character characterAtIndex:0];
-    bool                specKey     =   false;
-    
-    switch (code) {
-        case NSLeftArrowFunctionKey: {
-//            [myDelegate popView:nil];
-            specKey = true;
-            break;
-        }
-        case NSRightArrowFunctionKey: {
-//            [myDelegate pushView:nil];
-            specKey = true;
-            break;
-        }
-        case NSCarriageReturnCharacter: {
-//            [myDelegate pushView:nil];
-            specKey = true;
-            break;
-        }
-    }
-    
-    return specKey;
 }
 
 @end

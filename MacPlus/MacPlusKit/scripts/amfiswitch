@@ -1,10 +1,13 @@
 #!/bin/sh
 
 # flip apple mobile file integrity
-log_dir="$HOME"/Library/"Application Support"/mySIMBL/logs
+log_dir="$HOME"/Library/"Application Support"/MacPlus/logs
 origargs=$(nvram boot-args)
 origargs=${origargs/boot-args}
 newargs=""
+
+# make log folder
+mkdir -p "$log_dir"
 exec &>"$log_dir"/amfi.log
 
 trim() {

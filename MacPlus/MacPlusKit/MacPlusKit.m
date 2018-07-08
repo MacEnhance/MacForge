@@ -62,21 +62,13 @@
 }
 
 + (Boolean)AMFI_toggle {
-    BOOL success = false;
-    if (![MacPlusKit SIP_enabled]) {
-        NSArray *args = [NSArray arrayWithObject:[[NSBundle bundleForClass:[MacPlusKit class]] pathForResource:@"amfiswitch" ofType:nil]];
-        success = [MacPlusKit runSTPrivilegedTask:@"/bin/sh" :args];
-    }
-    return success;
+    NSArray *args = [NSArray arrayWithObject:[[NSBundle bundleForClass:[MacPlusKit class]] pathForResource:@"amfiswitch" ofType:nil]];
+    return [MacPlusKit runSTPrivilegedTask:@"/bin/sh" :args];
 }
 
 + (Boolean)MacPlus_remove {
-    BOOL success = false;
-    if (![MacPlusKit SIP_enabled]) {
-        NSArray *args = [NSArray arrayWithObject:[[NSBundle bundleForClass:[MacPlusKit class]] pathForResource:@"installSIMBL" ofType:nil]];
-        success = [MacPlusKit runSTPrivilegedTask:@"/bin/sh" :args];
-    }
-    return success;
+    NSArray *args = [NSArray arrayWithObject:[[NSBundle bundleForClass:[MacPlusKit class]] pathForResource:@"cleanup" ofType:nil]];
+    return [MacPlusKit runSTPrivilegedTask:@"/bin/sh" :args];
 }
 
 + (void)installMacPlus {

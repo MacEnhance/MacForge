@@ -10,9 +10,13 @@
 #import "DKInstaller.h"
 #import "DKInjectorProxy.h"
 
+#import "NSBundle+LoginItem.h"
+
 #import "SIMBL.h"
 #import "PluginManager.h"
 #import <Carbon/Carbon.h>
+
+#import <DevMateKit/DevMateKit.h>
 
 #include <syslog.h>
 
@@ -68,43 +72,121 @@
 }
 
 - (void)updatesPlugins {
-    [[PluginManager sharedInstance] checkforPluginUpdates:nil];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [[PluginManager sharedInstance] checkforPluginUpdates:nil];
+        [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.w0lf.MacPlusNotify" object:@"check"];
+    });
 }
 
-- (void)updateMacPlus {
-    
+- (void)updatesPluginsInstall {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [[PluginManager sharedInstance] checkforPluginUpdatesAndInstall:nil];
+        [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.w0lf.MacPlusNotify" object:@"check"];
+    });
+}
+
+- (void)openAppWithArgs:(NSString*)app :(NSArray*)args {
+    NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
+    NSURL *url = [NSURL fileURLWithPath:[workspace fullPathForApplication:app]];
+    NSError *error = nil;
+    [workspace launchApplicationAtURL:url
+                              options:0
+                        configuration:[NSDictionary dictionaryWithObject:args forKey:NSWorkspaceLaunchConfigurationArguments]
+                                error:&error];
+}
+
+- (void)toggleStartAtLogin:(id)sender {
+    Boolean startsAtLogin = NSBundle.mainBundle.isLoginItemEnabled;
+    if (startsAtLogin)
+        [[NSBundle mainBundle] disableLoginItem];
+    else
+        [[NSBundle mainBundle] enableLoginItem];
+    [(NSMenuItem*)sender setState:!startsAtLogin];
+}
+
+- (void)openMacPlus {
+//    [[NSWorkspace sharedWorkspace] launchApplication:@"MacPlus"];
+    [self openAppWithArgs:@"MacPlus" :@[]];
+}
+
+- (void)openMacPlusManage {
+    [self openAppWithArgs:@"MacPlus" :@[@"manage"]];
+    [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.w0lf.MacPlusNotify" object:@"manage"];
+}
+
+- (void)openMacPlusPrefs {
+    [self openAppWithArgs:@"MacPlus" :@[@"prefs"]];
+    [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.w0lf.MacPlusNotify" object:@"prefs"];
+}
+
+- (void)openMacPlusAbout {
+    [self openAppWithArgs:@"MacPlus" :@[@"about"]];
+    [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.w0lf.MacPlusNotify" object:@"about"];
+}
+
+- (void)sendFeedback {
+    [DevMateKit showFeedbackDialog:nil inMode:DMFeedbackDefaultMode];
+}
+
+- (void)checkMacPlusForUpdates {
+    NSBundle *GUIBundle = [NSBundle bundleWithPath:[NSWorkspace.sharedWorkspace absolutePathForAppBundleWithIdentifier:@"com.w0lf.MacPlus"]];
+    SUUpdater *myUpdater = [SUUpdater updaterForBundle:GUIBundle];
+    NSDictionary *GUIDefaults = [[NSUserDefaults standardUserDefaults] persistentDomainForName:@"com.w0lf.MacPlus"];
+    NSLog(@"MacPlusHelper : GUIDefaults - %@", GUIDefaults);
+    if (![[GUIDefaults objectForKey:@"SUHasLaunchedBefore"] boolValue]) {
+        [myUpdater setAutomaticallyChecksForUpdates:true];
+        [myUpdater setAutomaticallyDownloadsUpdates:true];
+    }
+    NSLog(@"MacPlusHelper : Checking for updates...");
+    [myUpdater checkForUpdates:nil];
+}
+
+- (void)checkMacPlusForUpdatesBackground {
+    NSBundle *GUIBundle = [NSBundle bundleWithPath:[NSWorkspace.sharedWorkspace absolutePathForAppBundleWithIdentifier:@"com.w0lf.MacPlus"]];
+    SUUpdater *myUpdater = [SUUpdater updaterForBundle:GUIBundle];
+    NSDictionary *GUIDefaults = [[NSUserDefaults standardUserDefaults] persistentDomainForName:@"com.w0lf.MacPlus"];
+    NSLog(@"MacPlusHelper : GUIDefaults - %@", GUIDefaults);
+    if (![[GUIDefaults objectForKey:@"SUHasLaunchedBefore"] boolValue]) {
+        [myUpdater setAutomaticallyChecksForUpdates:true];
+        [myUpdater setAutomaticallyDownloadsUpdates:true];
+    }
+    if ([[GUIDefaults objectForKey:@"SUEnableAutomaticChecks"] boolValue]) {
+        NSLog(@"MacPlusHelper : Checking for updates...");
+        [myUpdater checkForUpdatesInBackground];
+    }
+}
+
+- (void)addMenuItemToMenu:(NSMenu*)menu :(NSString*)title :(SEL)selector :(NSString*)key {
+    NSMenuItem *newItem = [[NSMenuItem alloc] initWithTitle:title action:selector keyEquivalent:key];
+    [menu addItem:newItem];
 }
 
 - (void)setupMenuItem {
     NSMenu *stackMenu = [[NSMenu alloc] initWithTitle:@"MacPlus"];
-    NSMenuItem *soMenuItem = [[NSMenuItem alloc] initWithTitle:@"Preferences..." action:nil keyEquivalent:@""];
-    [stackMenu addItem:soMenuItem];
+    NSMenuItem *soMenuItem;
     
-    soMenuItem = [[NSMenuItem alloc] initWithTitle:@"Open at Login" action:nil keyEquivalent:@""];
+    [self addMenuItemToMenu:stackMenu :@"Manage Plugins" :@selector(openMacPlusManage) :@""];
+    [self addMenuItemToMenu:stackMenu :@"Preferences..." :@selector(openMacPlusPrefs) :@""];
+    soMenuItem = [[NSMenuItem alloc] initWithTitle:@"Open at Login" action:@selector(toggleStartAtLogin:) keyEquivalent:@""];
+    [soMenuItem setState:NSBundle.mainBundle.isLoginItemEnabled];
     [stackMenu addItem:soMenuItem];
-    
     [stackMenu addItem:NSMenuItem.separatorItem];
-    
-    soMenuItem = [[NSMenuItem alloc] initWithTitle:@"Open MacPlus..." action:nil keyEquivalent:@""];
-    [stackMenu addItem:soMenuItem];
-    
-    soMenuItem = [[NSMenuItem alloc] initWithTitle:@"Update Plugins..." action:nil keyEquivalent:@""];
-    [stackMenu addItem:soMenuItem];
-    
+    [self addMenuItemToMenu:stackMenu :@"Open MacPlus" :@selector(openMacPlus) :@""];
+    [self addMenuItemToMenu:stackMenu :@"Send Feedback" :@selector(sendFeedback) :@""];
     [stackMenu addItem:NSMenuItem.separatorItem];
-    
-    soMenuItem = [[NSMenuItem alloc] initWithTitle:@"Check for Updates..." action:nil keyEquivalent:@""];
-    [stackMenu addItem:soMenuItem];
-    
-    soMenuItem = [[NSMenuItem alloc] initWithTitle:@"About MacPlus" action:nil keyEquivalent:@""];
-    [stackMenu addItem:soMenuItem];
-    
-    soMenuItem = [[NSMenuItem alloc] initWithTitle:@"Quit" action:nil keyEquivalent:@""];
-    [stackMenu addItem:soMenuItem];
+    [self addMenuItemToMenu:stackMenu :@"Update Plugins..." :@selector(updatesPluginsInstall) :@""];
+    [stackMenu addItem:NSMenuItem.separatorItem];
+    [self addMenuItemToMenu:stackMenu :@"Check for Updates..." :@selector(checkMacPlusForUpdates) :@""];
+    [self addMenuItemToMenu:stackMenu :@"About MacPlus" :@selector(openMacPlusAbout) :@""];
+    [self addMenuItemToMenu:stackMenu :@"Quit" :@selector(terminate:) :@""];
     
     _statusBar = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
     [_statusBar setMenu:stackMenu];
-    [_statusBar setTitle:[stackMenu title]];
+    [_statusBar setTitle:@""];
+    NSImage *statusImage = [NSImage imageNamed:@"menu.icns"];
+//    [statusImage setTemplate:true];
+    [statusImage setSize:NSMakeSize(20, 20)];
+    [_statusBar setImage:statusImage];
 }
 
 /*
@@ -130,7 +212,7 @@
     if ([NSBundle.mainBundle.bundleIdentifier isEqualToString:runningApp.bundleIdentifier]) return false;
     
     // Hardcoded blacklist
-    if ([@[] containsObject:runningApp.bundleIdentifier]) return false;
+    if ([@[@"com.w0lf.MacPlus"] containsObject:runningApp.bundleIdentifier]) return false;
     
     // Don't inject if somehow the executable doesn't seem to exist
     if (!runningApp.executableURL.path.length) return false;

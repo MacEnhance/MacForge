@@ -102,7 +102,7 @@ NSString *textFilter;
 }
     
 - (void)keyDown:(NSEvent *)theEvent {
-    Boolean result = [[PluginManager sharedInstance] keypressed:theEvent];
+    Boolean result = [myDelegate keypressed:theEvent];
     if (!result) [super keyDown:theEvent];
 }
     

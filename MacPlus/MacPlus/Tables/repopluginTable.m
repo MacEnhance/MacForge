@@ -31,8 +31,7 @@ long selectedRow;
 @property (weak) IBOutlet NSImageView*  bundleIndicator;
 @end
 
-@implementation repopluginTable
-{
+@implementation repopluginTable {
     NSArray *allPlugins;
 }
 
@@ -43,25 +42,10 @@ long selectedRow;
     NSURL *dicURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/packages_v2.plist", repoPackages]];
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithContentsOfURL:dicURL];
     allPlugins = [dic allValues];
-//    allPlugins = [[NSArray alloc] initWithContentsOfURL:dicURL];
-    
-//    NSLog(@"url: %@", dicURL);
-    
-//    Bundle ID Sort
-    
-//    NSArray *sortedArray = [allPlugins sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-//        NSString *first_name1 = [[[obj1 valueForKey:@"targets"] valueForKey:@"BundleIdentifier"] objectAtIndex:0];
-//        NSString *first_name2 = [[[obj2 valueForKey:@"targets"] valueForKey:@"BundleIdentifier"] objectAtIndex:0];
-//        return [first_name1 compare:first_name2];
-//    }];
-
-//    Name sort
     selectedRow = 0;
-    
     NSSortDescriptor *sortByName = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)];
     NSArray *sortDescriptors = [NSArray arrayWithObject:sortByName];
     NSArray *sortedArray = [allPlugins sortedArrayUsingDescriptors:sortDescriptors];
-    
     allPlugins = sortedArray;
     
     return [allPlugins count];
@@ -94,7 +78,7 @@ long selectedRow;
 }
 
 - (void)keyDown:(NSEvent *)theEvent {
-    Boolean result = [[PluginManager sharedInstance] keypressed:theEvent];
+    Boolean result = [myDelegate keypressed:theEvent];
     if (!result) [super keyDown:theEvent];
 }
 

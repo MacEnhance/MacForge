@@ -24,6 +24,10 @@
 		FB0227A920F0539B006566EF /* PluginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8EA20F0289900A12ACF /* PluginManager.m */; };
 		FB0227AB20F0B547006566EF /* MacPlus.icns in Resources */ = {isa = PBXBuildFile; fileRef = FB0227AA20F0B547006566EF /* MacPlus.icns */; };
 		FB0227AF20F0BBEC006566EF /* xcode.png in Resources */ = {isa = PBXBuildFile; fileRef = FB0227AE20F0BBEB006566EF /* xcode.png */; };
+		FB30209920F1F2D2003F4CE9 /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = FB30209820F1F2D2003F4CE9 /* menu.png */; };
+		FB3020A520F2018D003F4CE9 /* menu.icns in Resources */ = {isa = PBXBuildFile; fileRef = FB3020A420F2018D003F4CE9 /* menu.icns */; };
+		FB7E350320F202D200EB3339 /* icon_nobg.icns in Resources */ = {isa = PBXBuildFile; fileRef = FB30208E20F1E8AD003F4CE9 /* icon_nobg.icns */; };
+		FB7E350620F2050300EB3339 /* MacPlusHelper.app in Copy Login Item */ = {isa = PBXBuildFile; fileRef = F0ADE0F6166DF941009758CC /* MacPlusHelper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		FBA6E88720F0176B00A12ACF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E88620F0176B00A12ACF /* AppDelegate.m */; };
 		FBA6E88C20F017BE00A12ACF /* DevMateKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA6E88B20F017BE00A12ACF /* DevMateKit.framework */; };
 		FBA6E88E20F0182500A12ACF /* LetsMove.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA6E88D20F0182500A12ACF /* LetsMove.framework */; };
@@ -47,7 +51,6 @@
 		FBA6E8D920F0285B00A12ACF /* update.png in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8D320F0285A00A12ACF /* update.png */; };
 		FBA6E8DA20F0285B00A12ACF /* loading_mini.gif in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8D420F0285A00A12ACF /* loading_mini.gif */; };
 		FBA6E8DB20F0285B00A12ACF /* webicon.png in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8D520F0285A00A12ACF /* webicon.png */; };
-		FBA6E8DC20F0285B00A12ACF /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8D620F0285A00A12ACF /* icon.icns */; };
 		FBA6E8DD20F0285B00A12ACF /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8D720F0285A00A12ACF /* checkmark.png */; };
 		FBA6E8DE20F0285B00A12ACF /* github.png in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8D820F0285B00A12ACF /* github.png */; };
 		FBA6E8E120F0287500A12ACF /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8E020F0287500A12ACF /* dsa_pub.pem */; };
@@ -66,11 +69,15 @@
 		FBA6E90920F029D800A12ACF /* DockTilePlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E90820F029D800A12ACF /* DockTilePlugIn.m */; };
 		FBA6E90D20F029F600A12ACF /* MacPlusDockTile.docktileplugin in Copy Plugins */ = {isa = PBXBuildFile; fileRef = FBA6E90120F0299B00A12ACF /* MacPlusDockTile.docktileplugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FBA6E91520F0310800A12ACF /* MacPlusKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FBE7679E20EF426D00A42BD5 /* MacPlusKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FBAAB3EB20F2217F002156DC /* DevMateKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA6E88B20F017BE00A12ACF /* DevMateKit.framework */; };
+		FBAAB3EC20F228FD002156DC /* StartAtLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8B920F01C6300A12ACF /* StartAtLoginController.m */; };
+		FBAAB3EF20F22BF5002156DC /* NSBundle+LoginItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAAB3EE20F22BF5002156DC /* NSBundle+LoginItem.m */; };
+		FBAAB3F020F22BF5002156DC /* NSBundle+LoginItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAAB3EE20F22BF5002156DC /* NSBundle+LoginItem.m */; };
 		FBE767A220EF426D00A42BD5 /* MacPlusKit.h in Headers */ = {isa = PBXBuildFile; fileRef = FBE767A020EF426D00A42BD5 /* MacPlusKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FBE767AB20EF428F00A42BD5 /* STPrivilegedTask.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE767A620EF428F00A42BD5 /* STPrivilegedTask.m */; };
 		FBE767AC20EF428F00A42BD5 /* STPrivilegedTask.h in Headers */ = {isa = PBXBuildFile; fileRef = FBE767A720EF428F00A42BD5 /* STPrivilegedTask.h */; };
 		FBE767AD20EF428F00A42BD5 /* amfiswitch in Resources */ = {isa = PBXBuildFile; fileRef = FBE767A820EF428F00A42BD5 /* amfiswitch */; };
-		FBE767AE20EF428F00A42BD5 /* removeSIMBL in Resources */ = {isa = PBXBuildFile; fileRef = FBE767A920EF428F00A42BD5 /* removeSIMBL */; };
+		FBE767AE20EF428F00A42BD5 /* cleanup in Resources */ = {isa = PBXBuildFile; fileRef = FBE767A920EF428F00A42BD5 /* cleanup */; };
 		FBE767AF20EF428F00A42BD5 /* sipvid.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = FBE767AA20EF428F00A42BD5 /* sipvid.mp4 */; };
 		FBE767B420EF432700A42BD5 /* MacPlusKit.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE767B320EF432700A42BD5 /* MacPlusKit.m */; };
 		FBE767C720EF4B3E00A42BD5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0ADE169166E013C009758CC /* Security.framework */; };
@@ -183,6 +190,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		FB7E350420F204AE00EB3339 /* Copy Login Item */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LoginItems;
+			dstSubfolderSpec = 1;
+			files = (
+				FB7E350620F2050300EB3339 /* MacPlusHelper.app in Copy Login Item */,
+			);
+			name = "Copy Login Item";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FBA6E8D020F027AC00A12ACF /* Copy Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -245,6 +263,9 @@
 		F0CF07E4166F563D009D198D /* mach_inject_bundle.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = mach_inject_bundle.xcodeproj; path = ../mach_inject_bundle/mach_inject_bundle.xcodeproj; sourceTree = "<group>"; };
 		FB0227AA20F0B547006566EF /* MacPlus.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MacPlus.icns; sourceTree = "<group>"; };
 		FB0227AE20F0BBEB006566EF /* xcode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xcode.png; sourceTree = "<group>"; };
+		FB30208E20F1E8AD003F4CE9 /* icon_nobg.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon_nobg.icns; sourceTree = "<group>"; };
+		FB30209820F1F2D2003F4CE9 /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
+		FB3020A420F2018D003F4CE9 /* menu.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = menu.icns; sourceTree = "<group>"; };
 		FBA6E88520F0176B00A12ACF /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FBA6E88620F0176B00A12ACF /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		FBA6E88820F0179600A12ACF /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -275,7 +296,6 @@
 		FBA6E8D320F0285A00A12ACF /* update.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = update.png; sourceTree = "<group>"; };
 		FBA6E8D420F0285A00A12ACF /* loading_mini.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading_mini.gif; sourceTree = "<group>"; };
 		FBA6E8D520F0285A00A12ACF /* webicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = webicon.png; sourceTree = "<group>"; };
-		FBA6E8D620F0285A00A12ACF /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		FBA6E8D720F0285A00A12ACF /* checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark.png; sourceTree = "<group>"; };
 		FBA6E8D820F0285B00A12ACF /* github.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = github.png; sourceTree = "<group>"; };
 		FBA6E8E020F0287500A12ACF /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
@@ -299,6 +319,8 @@
 		FBA6E90720F029D800A12ACF /* DockTilePlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DockTilePlugIn.h; sourceTree = "<group>"; };
 		FBA6E90820F029D800A12ACF /* DockTilePlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DockTilePlugIn.m; sourceTree = "<group>"; };
 		FBA6E90E20F02BB800A12ACF /* FConvenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FConvenience.h; sourceTree = "<group>"; };
+		FBAAB3ED20F22BF5002156DC /* NSBundle+LoginItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+LoginItem.h"; sourceTree = "<group>"; };
+		FBAAB3EE20F22BF5002156DC /* NSBundle+LoginItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+LoginItem.m"; sourceTree = "<group>"; };
 		FBB0849120EEF0AC0032BDB2 /* SIMBL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIMBL.m; sourceTree = "<group>"; };
 		FBB0849220EEF0AC0032BDB2 /* DTMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTMacros.h; sourceTree = "<group>"; };
 		FBB0849320EEF0AC0032BDB2 /* NSAlert_SIMBL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAlert_SIMBL.m; sourceTree = "<group>"; };
@@ -313,7 +335,7 @@
 		FBE767A620EF428F00A42BD5 /* STPrivilegedTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STPrivilegedTask.m; sourceTree = "<group>"; };
 		FBE767A720EF428F00A42BD5 /* STPrivilegedTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPrivilegedTask.h; sourceTree = "<group>"; };
 		FBE767A820EF428F00A42BD5 /* amfiswitch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = amfiswitch; sourceTree = "<group>"; };
-		FBE767A920EF428F00A42BD5 /* removeSIMBL */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = removeSIMBL; sourceTree = "<group>"; };
+		FBE767A920EF428F00A42BD5 /* cleanup */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = cleanup; sourceTree = "<group>"; };
 		FBE767AA20EF428F00A42BD5 /* sipvid.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = sipvid.mp4; sourceTree = "<group>"; };
 		FBE767B320EF432700A42BD5 /* MacPlusKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MacPlusKit.m; sourceTree = "<group>"; };
 		FBE767E820F00FFB00A42BD5 /* MacPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -331,6 +353,7 @@
 				F0ADE16A166E013C009758CC /* Security.framework in Frameworks */,
 				F0ADE168166E0121009758CC /* ServiceManagement.framework in Frameworks */,
 				F0ADE0FB166DF941009758CC /* Cocoa.framework in Frameworks */,
+				FBAAB3EB20F2217F002156DC /* DevMateKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -445,6 +468,8 @@
 				FB0227A820F05228006566EF /* Classes */,
 				F0ADE10C166DF941009758CC /* DKAppDelegate.h */,
 				F0ADE10D166DF941009758CC /* DKAppDelegate.m */,
+				FB3020A420F2018D003F4CE9 /* menu.icns */,
+				FB30209820F1F2D2003F4CE9 /* menu.png */,
 				F0ADE102166DF941009758CC /* MacPlus-Info.plist */,
 			);
 			path = MacPlusHelper;
@@ -529,6 +554,7 @@
 			isa = PBXGroup;
 			children = (
 				FBA6E90E20F02BB800A12ACF /* FConvenience.h */,
+				FBAAB3F120F22BFA002156DC /* NSBundle+LoginItem */,
 				FBA6E8BC20F01C6600A12ACF /* StartAtLoginController */,
 				FBB0849C20EEF0B10032BDB2 /* SIMBL */,
 				FBE767B220EF42AB00A42BD5 /* STPrivilegedTask */,
@@ -611,7 +637,7 @@
 			children = (
 				FBA6E8D720F0285A00A12ACF /* checkmark.png */,
 				FBA6E8D820F0285B00A12ACF /* github.png */,
-				FBA6E8D620F0285A00A12ACF /* icon.icns */,
+				FB30208E20F1E8AD003F4CE9 /* icon_nobg.icns */,
 				FBA6E8D420F0285A00A12ACF /* loading_mini.gif */,
 				FBA6E8D320F0285A00A12ACF /* update.png */,
 				FBA6E8D520F0285A00A12ACF /* webicon.png */,
@@ -675,6 +701,15 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
+		FBAAB3F120F22BFA002156DC /* NSBundle+LoginItem */ = {
+			isa = PBXGroup;
+			children = (
+				FBAAB3ED20F22BF5002156DC /* NSBundle+LoginItem.h */,
+				FBAAB3EE20F22BF5002156DC /* NSBundle+LoginItem.m */,
+			);
+			path = "NSBundle+LoginItem";
+			sourceTree = "<group>";
+		};
 		FBB0849C20EEF0B10032BDB2 /* SIMBL */ = {
 			isa = PBXGroup;
 			children = (
@@ -707,7 +742,7 @@
 			isa = PBXGroup;
 			children = (
 				FBE767A820EF428F00A42BD5 /* amfiswitch */,
-				FBE767A920EF428F00A42BD5 /* removeSIMBL */,
+				FBE767A920EF428F00A42BD5 /* cleanup */,
 			);
 			path = scripts;
 			sourceTree = "<group>";
@@ -878,6 +913,7 @@
 				FBE767E620F00FFB00A42BD5 /* Resources */,
 				FBA6E8D020F027AC00A12ACF /* Copy Frameworks */,
 				FBA6E90C20F029E900A12ACF /* Copy Plugins */,
+				FB7E350420F204AE00EB3339 /* Copy Login Item */,
 			);
 			buildRules = (
 			);
@@ -931,7 +967,15 @@
 					FBE767E720F00FFB00A42BD5 = {
 						CreatedOnToolsVersion = 10.0;
 						DevelopmentTeam = EX596BNL45;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 0;
+							};
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -981,7 +1025,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBE767FC20F0122F00A42BD5 /* InfoPlist.strings in Resources */,
+				FB30209920F1F2D2003F4CE9 /* menu.png in Resources */,
 				B7956BF719EDB03A005EEB36 /* mach_inject_bundle.framework in Resources */,
+				FB3020A520F2018D003F4CE9 /* menu.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1006,7 +1052,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBE767AF20EF428F00A42BD5 /* sipvid.mp4 in Resources */,
-				FBE767AE20EF428F00A42BD5 /* removeSIMBL in Resources */,
+				FBE767AE20EF428F00A42BD5 /* cleanup in Resources */,
 				FBE767AD20EF428F00A42BD5 /* amfiswitch in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1015,10 +1061,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB7E350320F202D200EB3339 /* icon_nobg.icns in Resources */,
 				FBA6E8FC20F028A400A12ACF /* LICENSE_EULA in Resources */,
 				FBA6E8DA20F0285B00A12ACF /* loading_mini.gif in Resources */,
 				FBA6E8D920F0285B00A12ACF /* update.png in Resources */,
-				FBA6E8DC20F0285B00A12ACF /* icon.icns in Resources */,
 				FBA6E8FB20F028A400A12ACF /* Credits.rtf in Resources */,
 				FB0227AB20F0B547006566EF /* MacPlus.icns in Resources */,
 				FBA6E8DE20F0285B00A12ACF /* github.png in Resources */,
@@ -1043,6 +1089,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBAAB3EC20F228FD002156DC /* StartAtLoginController.m in Sources */,
 				FB0227A920F0539B006566EF /* PluginManager.m in Sources */,
 				FBE767FB20F0116600A42BD5 /* SIMBLPlugin.m in Sources */,
 				FBE767FA20F0116000A42BD5 /* SIMBL.m in Sources */,
@@ -1051,6 +1098,7 @@
 				FBE767DC20EFE9EA00A42BD5 /* DKInstaller.m in Sources */,
 				FBE767DA20EFE92B00A42BD5 /* DKConstant.m in Sources */,
 				F0ADE107166DF941009758CC /* main.m in Sources */,
+				FBAAB3F020F22BF5002156DC /* NSBundle+LoginItem.m in Sources */,
 				F0ADE10E166DF941009758CC /* DKAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1114,6 +1162,7 @@
 				FBA6E8F520F0289B00A12ACF /* pluginTable.m in Sources */,
 				FBA6E8F220F0289B00A12ACF /* PluginManager.m in Sources */,
 				FBA6E8E720F0288300A12ACF /* pluginData.m in Sources */,
+				FBAAB3EF20F22BF5002156DC /* NSBundle+LoginItem.m in Sources */,
 				FBA6E8BB20F01C6300A12ACF /* StartAtLoginController.m in Sources */,
 				FBA6E8F020F0289B00A12ACF /* bundlePage.m in Sources */,
 				FBA6E8F120F0289B00A12ACF /* discoverPluginTable.m in Sources */,
@@ -1268,9 +1317,14 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = EX596BNL45;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/External\\ Frameworks",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MacPlusHelper/MacPlus-Prefix.pch";
 				INFOPLIST_FILE = "MacPlusHelper/MacPlus-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../../Frameworks $(PROJECT_DIR)/\"External Frameworks\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacPlusHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1287,9 +1341,14 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = EX596BNL45;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/External\\ Frameworks",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MacPlusHelper/MacPlus-Prefix.pch";
 				INFOPLIST_FILE = "MacPlusHelper/MacPlus-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../../Frameworks $(PROJECT_DIR)/\"External Frameworks\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacPlusHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1675,7 +1734,6 @@
 		FBE767F720F00FFE00A42BD5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1686,8 +1744,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = MacPlus/Resource/MacPlus.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = EX596BNL45;
@@ -1704,13 +1762,13 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacPlus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
 		FBE767F820F00FFE00A42BD5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1721,8 +1779,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = MacPlus/Resource/MacPlus.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = EX596BNL45;
@@ -1740,6 +1798,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacPlus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};
