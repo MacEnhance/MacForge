@@ -1,6 +1,6 @@
 //
 //  sourcesTable.m
-//  mySIMBL
+//  MacPlus
 //
 //  Created by Wolfgang Baird on 3/13/16.
 //  Copyright © 2016 Wolfgang Baird. All rights reserved.
@@ -54,7 +54,7 @@ NSArray *sourceURLS;
     result.sourceIndicator.canDrawSubviewsIntoLayer = YES;
     [result.superview setWantsLayer:YES];
     
-    dispatch_queue_t backgroundQueue = dispatch_queue_create("com.w0lf.mySIMBL", 0);
+    dispatch_queue_t backgroundQueue = dispatch_queue_create("com.w0lf.MacPlus", 0);
     dispatch_async(backgroundQueue, ^{
         NSArray* sourceURLS = [self->item objectForKey:@"sources"];
         NSString* source = [sourceURLS objectAtIndex:row];

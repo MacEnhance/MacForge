@@ -73,6 +73,8 @@
 		FBAAB3EC20F228FD002156DC /* StartAtLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8B920F01C6300A12ACF /* StartAtLoginController.m */; };
 		FBAAB3EF20F22BF5002156DC /* NSBundle+LoginItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAAB3EE20F22BF5002156DC /* NSBundle+LoginItem.m */; };
 		FBAAB3F020F22BF5002156DC /* NSBundle+LoginItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAAB3EE20F22BF5002156DC /* NSBundle+LoginItem.m */; };
+		FBAAB41720F2CDB0002156DC /* demo_xcode.zip in Resources */ = {isa = PBXBuildFile; fileRef = FBAAB41620F2CDAF002156DC /* demo_xcode.zip */; };
+		FBB19F8120F2D18A003F421B /* plugin_template.zip in Resources */ = {isa = PBXBuildFile; fileRef = FBB19F8020F2D18A003F421B /* plugin_template.zip */; };
 		FBE767A220EF426D00A42BD5 /* MacPlusKit.h in Headers */ = {isa = PBXBuildFile; fileRef = FBE767A020EF426D00A42BD5 /* MacPlusKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FBE767AB20EF428F00A42BD5 /* STPrivilegedTask.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE767A620EF428F00A42BD5 /* STPrivilegedTask.m */; };
 		FBE767AC20EF428F00A42BD5 /* STPrivilegedTask.h in Headers */ = {isa = PBXBuildFile; fileRef = FBE767A720EF428F00A42BD5 /* STPrivilegedTask.h */; };
@@ -321,6 +323,7 @@
 		FBA6E90E20F02BB800A12ACF /* FConvenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FConvenience.h; sourceTree = "<group>"; };
 		FBAAB3ED20F22BF5002156DC /* NSBundle+LoginItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+LoginItem.h"; sourceTree = "<group>"; };
 		FBAAB3EE20F22BF5002156DC /* NSBundle+LoginItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+LoginItem.m"; sourceTree = "<group>"; };
+		FBAAB41620F2CDAF002156DC /* demo_xcode.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = demo_xcode.zip; sourceTree = "<group>"; };
 		FBB0849120EEF0AC0032BDB2 /* SIMBL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIMBL.m; sourceTree = "<group>"; };
 		FBB0849220EEF0AC0032BDB2 /* DTMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTMacros.h; sourceTree = "<group>"; };
 		FBB0849320EEF0AC0032BDB2 /* NSAlert_SIMBL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAlert_SIMBL.m; sourceTree = "<group>"; };
@@ -329,6 +332,7 @@
 		FBB0849620EEF0AC0032BDB2 /* SIMBL_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIMBL_Prefix.pch; sourceTree = "<group>"; };
 		FBB0849720EEF0AC0032BDB2 /* SIMBL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIMBL.h; sourceTree = "<group>"; };
 		FBB0849820EEF0AC0032BDB2 /* SIMBLPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIMBLPlugin.h; sourceTree = "<group>"; };
+		FBB19F8020F2D18A003F421B /* plugin_template.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = plugin_template.zip; sourceTree = "<group>"; };
 		FBE7679E20EF426D00A42BD5 /* MacPlusKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MacPlusKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBE767A020EF426D00A42BD5 /* MacPlusKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MacPlusKit.h; sourceTree = "<group>"; };
 		FBE767A120EF426D00A42BD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -693,6 +697,8 @@
 		FBA6E91220F02D0600A12ACF /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				FBB19F8020F2D18A003F421B /* plugin_template.zip */,
+				FBAAB41620F2CDAF002156DC /* demo_xcode.zip */,
 				FB0227AA20F0B547006566EF /* MacPlus.icns */,
 				FBE767F320F00FFE00A42BD5 /* main.m */,
 				FBE767F520F00FFE00A42BD5 /* MacPlus.entitlements */,
@@ -1070,11 +1076,13 @@
 				FBA6E8DE20F0285B00A12ACF /* github.png in Resources */,
 				FBA6E8DB20F0285B00A12ACF /* webicon.png in Resources */,
 				FBA6E8DD20F0285B00A12ACF /* checkmark.png in Resources */,
+				FBAAB41720F2CDB0002156DC /* demo_xcode.zip in Resources */,
 				FBA6E8E120F0287500A12ACF /* dsa_pub.pem in Resources */,
 				FBA6E8CE20F025A100A12ACF /* Appliaction.xib in Resources */,
 				FB0227AF20F0BBEC006566EF /* xcode.png in Resources */,
 				FBA6E8CA20F01E1B00A12ACF /* LICENSE_SGDirWatchdog in Resources */,
 				FBA6E8C820F01E0100A12ACF /* LICENSE_ZKSwizzle in Resources */,
+				FBB19F8120F2D18A003F421B /* plugin_template.zip in Resources */,
 				FBA6E8C220F01D4000A12ACF /* LICENSE_StartAtLoginController in Resources */,
 				FBA6E8C420F01D7500A12ACF /* LICENSE_SIMBL in Resources */,
 				FBA6E8C620F01DDA00A12ACF /* LICENSE_STPrivilegedTask in Resources */,
@@ -1566,7 +1574,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = MacPlusDockTile/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				PRODUCT_BUNDLE_IDENTIFIER = org.w0lf.MacPlusDockTile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1598,7 +1606,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = MacPlusDockTile/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.w0lf.MacPlusDockTile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1659,7 +1667,7 @@
 				INFOPLIST_PREFIX_HEADER = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				PRODUCT_BUNDLE_IDENTIFIER = org.w0lf.MacPlusKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -1721,7 +1729,7 @@
 				INFOPLIST_PREFIX_HEADER = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.w0lf.MacPlusKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";

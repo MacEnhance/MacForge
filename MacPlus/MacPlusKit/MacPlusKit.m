@@ -92,12 +92,22 @@
                                 }];
 }
 
-+ (void)injectBundle:(NSRunningApplication*)runningApp {
+// Check if a bundle should be injected into specified running application
++ (Boolean)shouldInject:(NSRunningApplication*)runningApp {
+    // Abort if you're running something other than macOS 10.X.X
+    if (NSProcessInfo.processInfo.operatingSystemVersion.majorVersion != 10) {
+        SIMBLLogNotice(@"something fishy - OS X version %ld", [[NSProcessInfo processInfo] operatingSystemVersion].majorVersion);
+        return false;
+    }
+    
+    // Don't inject into ourself
+    if ([NSBundle.mainBundle.bundleIdentifier isEqualToString:runningApp.bundleIdentifier]) return false;
+    
     // Hardcoded blacklist
-    if ([@[] containsObject:runningApp.bundleIdentifier]) return;
+    if ([@[@"com.w0lf.MacPlus", @"com.w0lf.MacPlusHelper"] containsObject:runningApp.bundleIdentifier]) return false;
     
     // Don't inject if somehow the executable doesn't seem to exist
-    if (!runningApp.executableURL.path.length) return;
+    if (!runningApp.executableURL.path.length) return false;
     
     // If you change the log level externally, there is pretty much no way
     // to know when the changed. Just reading from the defaults doesn't validate
@@ -105,43 +115,44 @@
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     [defaults synchronize];
     
+    // Log some info about the app
     NSString* appName = runningApp.localizedName;
     SIMBLLogInfo(@"%@ started", appName);
     SIMBLLogDebug(@"app start notification: %@", runningApp);
     
     // Check to see if there are plugins to load
-    if ([SIMBL shouldInstallPluginsIntoApplication:[NSBundle bundleWithURL:runningApp.bundleURL]] == NO) return;
+    if ([SIMBL shouldInstallPluginsIntoApplication:[NSBundle bundleWithURL:runningApp.bundleURL]] == NO) return false;
     
     // User Blacklist
     NSString* appIdentifier = runningApp.bundleIdentifier;
     NSArray* blacklistedIdentifiers = [defaults stringArrayForKey:@"SIMBLApplicationIdentifierBlacklist"];
     if (blacklistedIdentifiers != nil && [blacklistedIdentifiers containsObject:appIdentifier]) {
         SIMBLLogNotice(@"ignoring injection attempt for blacklisted application %@ (%@)", appName, appIdentifier);
-        return;
-    }
-    
-    // Abort you're running something other than macOS 10.X.X
-    if (NSProcessInfo.processInfo.operatingSystemVersion.majorVersion != 10) {
-        SIMBLLogNotice(@"something fishy - OS X version %ld", NSProcessInfo.processInfo.operatingSystemVersion.majorVersion);
-        return;
+        return false;
     }
     
     // System item Inject
-    if ([[[runningApp.executableURL.path pathComponents] firstObject] isEqualToString:@"System"]) {
-        SIMBLLogDebug(@"send system process inject event");
-        return;
+    if (runningApp.executableURL.path.pathComponents > 0)
+        if ([runningApp.executableURL.path.pathComponents[1] isEqualToString:@"System"]) SIMBLLogDebug(@"injecting into system process");
+    
+    return true;
+}
+
+// Try injecting all valid bundles into an running application
++ (void)injectBundle:(NSRunningApplication*)runningApp {
+    // Check if there is anything valid to inject
+    if ([MacPlusKit shouldInject:runningApp]) {        
+        // See if MacPlus is insatlled and if so open it and try to inject
+        NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
+        NSString *mpHelper = [workspace absolutePathForAppBundleWithIdentifier:@"com.w0lf.MacPlusHelper"];
+        NSURL *mpURL = [NSURL URLWithString:mpHelper];
+        NSArray *args = @[@"-i", runningApp.bundleIdentifier];
+        NSError *error = nil;
+        [workspace launchApplicationAtURL:mpURL
+                                  options:0
+                            configuration:[NSDictionary dictionaryWithObject:args forKey:NSWorkspaceLaunchConfigurationArguments]
+                                    error:&error];
     }
-    
-    SIMBLLogDebug(@"send standard process inject event");
-    
-//    pid_t pid = [runningApp processIdentifier];
-//    for (NSString *bundlePath in [SIMBL pluginsToLoadList:[NSBundle bundleWithPath:runningApp.bundleURL.path]]) {
-//        NSError *error;
-//        if ([DKInjectorProxy injectPID:pid :bundlePath :&error] == false) {
-//            assert(error != nil);
-//            NSLog(@"Couldn't inject App (domain: %@ code: %@)", error.domain, [NSNumber numberWithInteger:error.code]);
-//        }
-//    }
 }
 
 + (void)injectAllProc {

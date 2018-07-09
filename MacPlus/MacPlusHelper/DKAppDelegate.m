@@ -63,12 +63,28 @@
 - (void)setupApplication {
     [self setupMenuItem];
     
+    // Start a timer to do daily plugin checks 86400 seconds in a day
+    [NSTimer scheduledTimerWithTimeInterval:86400 target:self selector:@selector(checkForPluginUpdates) userInfo:nil repeats:NO];
+    
+    // Do a plugin check when we launch
+    [self checkForPluginUpdates];
+    
     // Watch for app launches using CarbonEventHandler, this catches apps like the Dock and com.apple.appkit.xpc.openAndSavePanelService
     // Which are not logged with NSWorkspaceDidLaunchApplicationNotification
     [DKAppDelegate watchForApplications];
     
     // Try injecting into all runnning process in NSWorkspace.sharedWorkspace
     [DKAppDelegate injectAllProc];
+}
+
+- (void)checkForPluginUpdates {
+    CFPreferencesAppSynchronize(CFSTR("com.w0lf.MacPlus"));
+    Boolean autoUpdatePlugins = CFPreferencesGetAppBooleanValue(CFSTR("prefPluginCheck"), CFSTR("com.w0lf.MacPlus"), NULL);
+    Boolean autoCheckPlugins = CFPreferencesGetAppBooleanValue(CFSTR("prefPluginUpdate"), CFSTR("com.w0lf.MacPlus"), NULL);
+    if (autoCheckPlugins && !autoUpdatePlugins)
+        [self updatesPlugins];
+    if (autoUpdatePlugins)
+        [self updatesPluginsInstall];
 }
 
 - (void)updatesPlugins {
@@ -105,7 +121,6 @@
 }
 
 - (void)openMacPlus {
-//    [[NSWorkspace sharedWorkspace] launchApplication:@"MacPlus"];
     [self openAppWithArgs:@"MacPlus" :@[]];
 }
 
@@ -163,13 +178,10 @@
 
 - (void)setupMenuItem {
     NSMenu *stackMenu = [[NSMenu alloc] initWithTitle:@"MacPlus"];
-    NSMenuItem *soMenuItem;
-    
     [self addMenuItemToMenu:stackMenu :@"Manage Plugins" :@selector(openMacPlusManage) :@""];
     [self addMenuItemToMenu:stackMenu :@"Preferences..." :@selector(openMacPlusPrefs) :@""];
-    soMenuItem = [[NSMenuItem alloc] initWithTitle:@"Open at Login" action:@selector(toggleStartAtLogin:) keyEquivalent:@""];
-    [soMenuItem setState:NSBundle.mainBundle.isLoginItemEnabled];
-    [stackMenu addItem:soMenuItem];
+    [self addMenuItemToMenu:stackMenu :@"Open at Login" :@selector(toggleStartAtLogin:) :@""];
+    [[stackMenu itemAtIndex:2] setState:NSBundle.mainBundle.isLoginItemEnabled];
     [stackMenu addItem:NSMenuItem.separatorItem];
     [self addMenuItemToMenu:stackMenu :@"Open MacPlus" :@selector(openMacPlus) :@""];
     [self addMenuItemToMenu:stackMenu :@"Send Feedback" :@selector(sendFeedback) :@""];
@@ -179,7 +191,6 @@
     [self addMenuItemToMenu:stackMenu :@"Check for Updates..." :@selector(checkMacPlusForUpdates) :@""];
     [self addMenuItemToMenu:stackMenu :@"About MacPlus" :@selector(openMacPlusAbout) :@""];
     [self addMenuItemToMenu:stackMenu :@"Quit" :@selector(terminate:) :@""];
-    
     _statusBar = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
     [_statusBar setMenu:stackMenu];
     [_statusBar setTitle:@""];
@@ -208,11 +219,17 @@
 
 // Check if a bundle should be injected into specified running application
 + (Boolean)shouldInject:(NSRunningApplication*)runningApp {
+    // Abort if you're running something other than macOS 10.X.X
+    if (NSProcessInfo.processInfo.operatingSystemVersion.majorVersion != 10) {
+        SIMBLLogNotice(@"something fishy - OS X version %ld", [[NSProcessInfo processInfo] operatingSystemVersion].majorVersion);
+        return false;
+    }
+    
     // Don't inject into ourself
     if ([NSBundle.mainBundle.bundleIdentifier isEqualToString:runningApp.bundleIdentifier]) return false;
     
     // Hardcoded blacklist
-    if ([@[@"com.w0lf.MacPlus"] containsObject:runningApp.bundleIdentifier]) return false;
+    if ([@[@"com.w0lf.MacPlus", @"com.w0lf.MacPlusHelper"] containsObject:runningApp.bundleIdentifier]) return false;
     
     // Don't inject if somehow the executable doesn't seem to exist
     if (!runningApp.executableURL.path.length) return false;
@@ -236,12 +253,6 @@
     NSArray* blacklistedIdentifiers = [defaults stringArrayForKey:@"SIMBLApplicationIdentifierBlacklist"];
     if (blacklistedIdentifiers != nil && [blacklistedIdentifiers containsObject:appIdentifier]) {
         SIMBLLogNotice(@"ignoring injection attempt for blacklisted application %@ (%@)", appName, appIdentifier);
-        return false;
-    }
-    
-    // Abort you're running something other than macOS 10.X.X
-    if ([[NSProcessInfo processInfo] operatingSystemVersion].majorVersion != 10) {
-        SIMBLLogNotice(@"something fishy - OS X version %ld", [[NSProcessInfo processInfo] operatingSystemVersion].majorVersion);
         return false;
     }
     

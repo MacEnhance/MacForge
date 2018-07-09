@@ -30,6 +30,11 @@ cleanupFiles=(
 "/System/Library/LaunchAgents/net.culater.SIMBL.Agent.plist"
 "$HOME/Library/ScriptingAdditions/SIMBL.osax"
 "$HOME/Library/ScriptingAdditions/EasySIMBL.osax"
+"/Library/PrivilegedHelperTools/com.w0lf.MacPlus.Injector"
+"/Library/PrivilegedHelperTools/com.w0lf.MacPlus.Installer"
+"/Library/LaunchDaemons/com.w0lf.MacPlus.Injector.plist"
+"/Library/LaunchDaemons/com.w0lf.MacPlus.Installer.plist"
+"/Library/Frameworks/mach_inject_bundle.framework"
 )
 
 launchctl unload /Library/LaunchAgents/net.culater.SIMBL.Agent.plist

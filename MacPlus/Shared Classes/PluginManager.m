@@ -1,6 +1,6 @@
 //
 //  PluginManager.m
-//  mySIMBL
+//  PluginManager
 //
 //  Created by Wolfgang Baird on 3/13/16.
 //  Copyright © 2016 Wolfgang Baird. All rights reserved.
@@ -191,15 +191,7 @@
         [result writeToFile:temp atomically:YES];
         
         // Create domain list
-        NSArray* libDomain = [FileManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSLocalDomainMask];
-        NSArray* usrDomain = [FileManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask];
-        NSString* libSupport = [[libDomain objectAtIndex:0] path];
-        NSString* usrSupport = [[usrDomain objectAtIndex:0] path];
-        NSArray *domains = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%@/SIMBL/Plugins", libSupport],
-                            [NSString stringWithFormat:@"%@/SIMBL/Plugins (Disabled)", libSupport],
-                            [NSString stringWithFormat:@"%@/SIMBL/Plugins", usrSupport],
-                            [NSString stringWithFormat:@"%@/SIMBL/Plugins (Disabled)", usrSupport],
-                            nil];
+        NSArray *domains = [PluginManager SIMBLPaths];
         
         // Set install location to /Library/Application Support/SIMBL/Plugins
         NSString *installPath = domains[0];

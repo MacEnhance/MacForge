@@ -1,6 +1,6 @@
 //
 //  MSPlugin.m
-//  mySIMBL
+//  MacPlus
 //
 //  Created by Wolfgang Baird on 6/22/17.
 //  Copyright © 2017 Wolfgang Baird. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  updatesTable.m
-//  mySIMBL
+//  MacPlus
 //
 //  Created by Wolfgang Baird on 12/12/16.
 //  Copyright © 2016 Wolfgang Baird. All rights reserved.
@@ -62,7 +62,7 @@ extern NSMutableDictionary *needsUpdate;
         [self->sharedMethods pluginUpdateOrInstall:installDict :[installDict objectForKey:@"sourceURL"]];
     }
     
-    dispatch_queue_t backgroundQueue = dispatch_queue_create("com.w0lf.mySIMBL", 0);
+    dispatch_queue_t backgroundQueue = dispatch_queue_create("com.w0lf.MacPlus", 0);
     dispatch_async(backgroundQueue, ^{
         [needsUpdate removeAllObjects];
         [self->sharedMethods checkforPluginUpdates:self->_tblView :myDelegate.viewUpdateCounter];
@@ -76,7 +76,7 @@ extern NSMutableDictionary *needsUpdate;
     NSDictionary *installDict = [needsUpdate objectForKey:key];
     [self->sharedMethods pluginUpdateOrInstall:installDict :[installDict objectForKey:@"sourceURL"]];
     
-    dispatch_queue_t backgroundQueue = dispatch_queue_create("com.w0lf.mySIMBL", 0);
+    dispatch_queue_t backgroundQueue = dispatch_queue_create("com.w0lf.MacPlus", 0);
     dispatch_async(backgroundQueue, ^{
         [needsUpdate removeObjectForKey:key];
         [self->sharedMethods checkforPluginUpdates:self->_tblView :myDelegate.viewUpdateCounter];
@@ -84,7 +84,7 @@ extern NSMutableDictionary *needsUpdate;
 }
 
 - (IBAction)reloadUpdates:(id)sender {
-    dispatch_queue_t backgroundQueue = dispatch_queue_create("com.w0lf.mySIMBL", 0);
+    dispatch_queue_t backgroundQueue = dispatch_queue_create("com.w0lf.MacPlus", 0);
     dispatch_async(backgroundQueue, ^{
         [needsUpdate removeAllObjects];
         [self->sharedMethods checkforPluginUpdates:self->_tblView :myDelegate.viewUpdateCounter];

@@ -113,7 +113,7 @@ NSArray *tabViews;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     [DevMateKit sendTrackingReport:nil delegate:nil];
     [DevMateKit setupIssuesController:nil reportingUnhandledIssues:YES];
-    
+
     [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(systemDarkModeChange:) name:@"AppleInterfaceThemeChangedNotification" object:nil];
     [[NSDistributedNotificationCenter defaultCenter] addObserverForName:@"com.w0lf.MacPlusNotify"
                                                                  object:nil
@@ -127,49 +127,76 @@ NSArray *tabViews;
             if ([notification.object isEqualToString:@"check"]) { [PluginManager.sharedInstance checkforPluginUpdates:nil :self->_viewUpdateCounter]; }
         });
     }];
-    
+
     // Loop looking for bundle updates
-    [PluginManager.sharedInstance checkforPluginUpdates:nil :_viewUpdateCounter];
-    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [PluginManager.sharedInstance checkforPluginUpdates:nil :self->_viewUpdateCounter];
+    });
+
     NSArray *args = [[NSProcessInfo processInfo] arguments];
     if (args.count > 1) {
         if ([args containsObject:@"prefs"]) [self selectView:_viewPreferences];
         if ([args containsObject:@"about"]) [self selectView:_viewAbout];
         if ([args containsObject:@"manage"]) [self selectView:_viewPlugins];
     }
+
+    [self installXcodeTemplate];
+    
+    NSDate *methodFinish = [NSDate date];
+    NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:appStart];
+    NSLog(@"Launch time : %f Seconds", executionTime);
+}
+
+- (void)executionTime:(NSString*)s {
+    SEL sl = NSSelectorFromString(s);
+    NSDate *startTime = [NSDate date];
+
+    if ([self respondsToSelector:sl])
+        [self performSelector:sl];
+    
+    NSDate *methodFinish = [NSDate date];
+    NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:startTime];
+    NSLog(@"%@ execution time : %f Seconds", s, executionTime);
 }
 
 // Loading
 - (void)applicationWillFinishLaunching:(NSNotification *)aNotification {
     sourceItems = [NSArray arrayWithObjects:_sourcesURLS, _sourcesPlugins, _sourcesBundle, nil];
     discoverItems = [NSArray arrayWithObjects:_discoverChanges, _sourcesBundle, nil];
-    
+
     [_sourcesPush setEnabled:true];
     [_sourcesPop setEnabled:false];
     myPreferences = [self getmyPrefs];
-//    _sharedMethods = [shareClass alloc];
-    
+
     [_sourcesRoot setSubviews:[[NSArray alloc] initWithObjects:_discoverChanges, nil]];
     
-    [self updateAdButton];
-    [self tabs_sideBar];
-    [self setupWindow];
-    [self setupPrefstab];
-    [self addLoginItem];
-    [self launchHelper];
+    [self executionTime:@"updateAdButton"];
+    [self executionTime:@"tabs_sideBar"];
+    [self executionTime:@"setupWindow"];
+    [self executionTime:@"setupPrefstab"];
+    [self executionTime:@"addLoginItem"];
+    [self executionTime:@"launchHelper"];
+//    [self updateAdButton];
+//    [self tabs_sideBar];
+//    [self setupWindow];
+//    [self setupPrefstab];
+//    [self addLoginItem];
+//    [self launchHelper];
     
     // Setup plugin table
     [_tblView registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
-    
+
     [self setupEventListener];
     [_window makeKeyAndOrderFront:self];
-    [self setupSIMBLview];
     
+    [self executionTime:@"setupSIMBLview"];
+//    [self setupSIMBLview];
+
     [NSTimer scheduledTimerWithTimeInterval:30.0 target:self selector:@selector(keepThoseAdsFresh) userInfo:nil repeats:YES];
     
-    NSDate *methodFinish = [NSDate date];
-    NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:appStart];
-    NSLog(@"Launch time : %f Seconds", executionTime);
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+    });
     
     // Make sure we're in /Applications
     PFMoveToApplicationsFolderIfNecessary();
@@ -189,8 +216,8 @@ NSArray *tabViews;
 - (void)tabs_sideBar {
     NSInteger height = _viewPlugins.frame.size.height;
     
-    tabViewButtons = [NSArray arrayWithObjects:_viewPlugins, _viewSources, _viewChanges, _viewSIMBL, _viewAccount, _viewAbout, _viewPreferences, nil];
-    NSArray *topButtons = [NSArray arrayWithObjects:_viewDiscover, _viewPlugins, _viewSources, _viewChanges, _viewSIMBL, _viewAccount, _viewAbout, _viewPreferences, nil];
+    tabViewButtons = [NSArray arrayWithObjects:_viewPlugins, _viewSources, _viewChanges, _viewSystem, _viewAccount, _viewAbout, _viewPreferences, nil];
+    NSArray *topButtons = [NSArray arrayWithObjects:_viewDiscover, _viewPlugins, _viewSources, _viewChanges, _viewSystem, _viewAccount, _viewAbout, _viewPreferences, nil];
     NSUInteger yLoc = _window.frame.size.height - 44 - height;
     for (NSButton *btn in topButtons) {
         NSRect newFrame = [btn frame];
@@ -267,7 +294,7 @@ NSArray *tabViews;
 //        [btn.layer setBackgroundColor:[NSColor colorWithCalibratedRed:0.438f green:0.121f blue:0.199f alpha:0.258f].CGColor];
 //    }
     
-    tabViews = [NSArray arrayWithObjects:_tabPlugins, _tabSources, _tabUpdates, _tabSIMBLInfo, _tabSources, _tabAbout, _tabPreferences, nil];
+    tabViews = [NSArray arrayWithObjects:_tabPlugins, _tabSources, _tabUpdates, _tabSystemInfo, _tabSources, _tabAbout, _tabPreferences, nil];
     
     NSDictionary* infoDict = [[NSBundle mainBundle] infoDictionary];
     [_appName setStringValue:[infoDict objectForKey:@"CFBundleExecutable"]];
@@ -303,11 +330,19 @@ NSArray *tabViews;
 }
 
 - (void)launchHelper {
-    for (NSRunningApplication *run in [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.w0lf.MacPlusHelper"])
-        [run terminate];
-    NSString *path = [NSString stringWithFormat:@"%@/Contents/Library/LoginItems/MacPlusHelper.app", [[NSBundle mainBundle] bundlePath]];
-    //    NSString *path = [[NSBundle mainBundle] pathForResource:@"mySIMBLHelper" ofType:@"app"];
-    [[NSWorkspace sharedWorkspace] launchApplication:path];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        // Path to MacPlusHelper
+        NSString *path = [NSString stringWithFormat:@"%@/Contents/Library/LoginItems/MacPlusHelper.app", [[NSBundle mainBundle] bundlePath]];
+        
+        // Launch helper if it's not open
+        //    if ([NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.w0lf.MacPlusHelper"].count == 0)
+        //        [[NSWorkspace sharedWorkspace] launchApplication:path];
+        
+        // Always relaunch in developement
+        for (NSRunningApplication *run in [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.w0lf.MacPlusHelper"])
+            [run terminate];
+        [Workspace launchApplication:path];
+    });
 }
 
 - (void)setupPrefstab {
@@ -316,11 +351,7 @@ NSArray *tabViews;
     [_SIMBLLogging selectItemAtIndex:logLevel];
     [_prefDonate setState:[[myPreferences objectForKey:@"prefDonate"] boolValue]];
     [_prefTips setState:[[myPreferences objectForKey:@"prefTips"] boolValue]];
-    [_prefVibrant setState:[[myPreferences objectForKey:@"prefVibrant"] boolValue]];
     [_prefWindow setState:[[myPreferences objectForKey:@"prefWindow"] boolValue]];
-    
-    if (osx_ver < 10)
-        [_prefVibrant setEnabled:false];
     
     if ([[myPreferences objectForKey:@"prefWindow"] boolValue])
         [_window setFrameAutosaveName:@"MainWindow"];
@@ -351,6 +382,48 @@ NSArray *tabViews;
     [_gitButton setAction:@selector(visitGithub)];
     [_webButton setAction:@selector(visitWebsite)];
     [_emailButton setAction:@selector(sendEmail)];
+}
+
+- (void)installXcodeTemplate {
+    if ([Workspace absolutePathForAppBundleWithIdentifier:@"com.apple.dt.Xcode"].length > 0) {
+        NSString *localPath = [NSBundle.mainBundle pathForResource:@"plugin_template" ofType:@"zip"];
+        NSString *installPath = [FileManager URLsForDirectory:NSLibraryDirectory inDomains:NSUserDomainMask].firstObject.path;
+        installPath = [NSString stringWithFormat:@"%@/Developer/Xcode/Templates/Project Templates/MacPlus", installPath];
+        NSString *installFile = [NSString stringWithFormat:@"%@/MacPlus plugin.xctemplate", installPath];
+        if (![FileManager fileExistsAtPath:installFile]) {
+            // Make intermediaries
+            NSError *err;
+            [FileManager createDirectoryAtPath:installPath withIntermediateDirectories:true attributes:nil error:&err];
+            NSLog(@"%@", err);
+            
+            // unzip our plugin demo project
+            NSTask *task = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/unzip" arguments:@[@"-o", localPath, @"-d", installPath]];
+            [task waitUntilExit];
+            if ([task terminationStatus] == 0) {
+                // Yay
+            }
+        }
+    }
+}
+
+- (IBAction)startCoding:(id)sender {
+    // Open a test plugin for the user
+    NSString *localPath = [NSBundle.mainBundle pathForResource:@"plugin_template" ofType:@"zip"];
+    NSString *installPath = [NSURL fileURLWithPath:[NSHomeDirectory()stringByAppendingPathComponent:@"Desktop"]].path;
+    installPath = [NSString stringWithFormat:@"%@/MacPlus_plugin_demo", installPath];
+    NSString *installFile = [NSString stringWithFormat:@"%@/test.xcodeproj", installPath];
+    if ([FileManager fileExistsAtPath:installFile]) {
+        // Open the project if it exists
+        [Workspace openFile:installFile];
+    } else {
+        // unzip our plugin demo project
+        NSTask *task = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/unzip" arguments:@[@"-o", localPath, @"-d", installPath]];
+        [task waitUntilExit];
+        if ([task terminationStatus] == 0) {
+            // presumably the only case where we've successfully installed
+            [Workspace openFile:installFile];
+        }
+    }
 }
 
 - (IBAction)donate:(id)sender {
@@ -703,12 +776,10 @@ NSArray *tabViews;
 }
 
 - (void)setupSIMBLview {
-    [_SIMBLTogggle setState:NSOffState];
-    [_SIMBLAgentToggle setState:NSOffState];
-    [_SIPStatus setState:[MacPlusKit SIP_enabled]];
-    [_AMFIStatus setState:[MacPlusKit AMFI_enabled]];
-//    [_SIMBLAgentText setStringValue:[NSString stringWithFormat:@"- Version %@", [[sim_m AGENT_versions] objectForKey:@"localVersion"]]];
-//    [_SIMBLOSAXText setStringValue:[NSString stringWithFormat:@"- Version %@", [[sim_m OSAX_versions] objectForKey:@"localVersion"]]];
+    [_SIMBLTogggle setState:[FileManager fileExistsAtPath:@"/Library/PrivilegedHelperTools/com.w0lf.MacPlus.Injector"]];
+    [_SIMBLAgentToggle setState:[FileManager fileExistsAtPath:@"/Library/PrivilegedHelperTools/com.w0lf.MacPlus.Installer"]];
+//    [_SIPStatus setState:[MacPlusKit SIP_enabled]];
+//    [_AMFIStatus setState:[MacPlusKit AMFI_enabled]];
 }
 
 - (void)simbl_blacklist {
@@ -802,8 +873,8 @@ NSArray *tabViews;
     [sharedPrefs synchronize];
 }
 
-- (IBAction)uninstallSIMBL:(id)sender {
-//    [[SIMBLManager sharedInstance] SIMBL_remove];
+- (IBAction)uninstallMacPlus:(id)sender {
+    [MacPlusKit MacPlus_remove];
 }
 
 - (IBAction)visit_ad:(id)sender {
@@ -904,7 +975,6 @@ NSArray *tabViews;
     });
 }
 
-// Why is this in the plugin manager?
 - (Boolean)keypressed:(NSEvent *)theEvent {
     NSString*   const   character   =   [theEvent charactersIgnoringModifiers];
     unichar     const   code        =   [character characterAtIndex:0];

@@ -19,12 +19,9 @@ FOUNDATION_EXPORT const unsigned char MacPlusKitVersionString[];
 @interface MacPlusKit : NSObject
 
 + (MacPlusKit *)sharedInstance;
-
 + (Boolean)AMFI_enabled;
 + (Boolean)AMFI_toggle;
-
 + (Boolean)SIP_enabled;
-
 + (Boolean)MacPlus_remove;
 
 @end

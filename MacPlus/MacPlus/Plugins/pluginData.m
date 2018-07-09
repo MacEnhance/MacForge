@@ -1,12 +1,13 @@
 //
 //  pluginData.m
-//  mySIMBL
+//  MacPlus
 //
 //  Created by Wolfgang Baird on 6/22/17.
 //  Copyright © 2017 Wolfgang Baird. All rights reserved.
 //
 
 #import "pluginData.h"
+#import "PluginManager.h"
 
 @implementation pluginData
 
@@ -72,14 +73,7 @@
 
 - (void)fetch_local {
     self.localPluginsDic = [[NSMutableDictionary alloc] init];
-    NSFileManager *f = [NSFileManager defaultManager];
-    NSString* libSupport = [[[f URLsForDirectory:NSApplicationSupportDirectory inDomains:NSLocalDomainMask] firstObject] path];
-    NSString* usrSupport = [[[f URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask] firstObject] path];
-    NSString* libPathENB = [NSString stringWithFormat:@"%@/SIMBL/Plugins", libSupport];
-    NSString* libPathDIS = [NSString stringWithFormat:@"%@/SIMBL/Plugins (Disabled)", libSupport];
-    NSString* usrPathENB = [NSString stringWithFormat:@"%@/SIMBL/Plugins", usrSupport];
-    NSString* usrPathDIS = [NSString stringWithFormat:@"%@/SIMBL/Plugins (Disabled)", usrSupport];
-    NSArray *folders = [NSArray arrayWithObjects:libPathENB, libPathDIS, usrPathENB, usrPathDIS, nil];
+    NSArray *folders = [PluginManager SIMBLPaths];
     for (NSString *str in folders) {
         NSArray *appFolderContents = [[NSArray alloc] init];
         appFolderContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:str error:nil];

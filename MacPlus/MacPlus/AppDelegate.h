@@ -39,12 +39,10 @@
 @property IBOutlet NSView *tabAbout;
 @property IBOutlet NSView *tabAccount;
 @property IBOutlet NSView *tabPlugins;
-@property IBOutlet NSView *tabSIMBL;
 @property IBOutlet NSView *tabPreferences;
-@property IBOutlet NSView *tabSIP;
 @property IBOutlet NSView *tabSources;
 @property IBOutlet NSView *tabChanges;
-@property IBOutlet NSView *tabSIMBLInfo;
+@property IBOutlet NSView *tabSystemInfo;
 @property IBOutlet NSView *tabUpdates;
 
 // Plugins view
@@ -80,7 +78,7 @@
 @property IBOutlet NSButton *viewChanges;
 @property IBOutlet NSButton *viewUpdateCounter;
 @property IBOutlet NSButton *viewAccount;
-@property IBOutlet NSButton *viewSIMBL;
+@property IBOutlet NSButton *viewSystem;
 @property IBOutlet NSButton *buttonFeedback;
 @property IBOutlet NSButton *buttonDonate;
 @property IBOutlet NSButton *buttonReport;
@@ -101,17 +99,15 @@
 @property IBOutlet NSTextView       *changeLog;
 
 // Preferences view
-@property IBOutlet NSButton         *prefVibrant;
-@property IBOutlet NSButton         *prefTips;
 @property IBOutlet NSButton         *prefDonate;
+@property IBOutlet NSButton         *prefAds;
+@property IBOutlet NSButton         *prefTips;
 @property IBOutlet NSButton         *prefWindow;
 @property IBOutlet NSPopUpButton    *prefUpdateAuto;
 @property IBOutlet NSPopUpButton    *prefUpdateInterval;
 @property IBOutlet NSPopUpButton    *prefStartTab;
 
-// SIMBL View
-@property IBOutlet NSTextField      *SIMBLAgentText;
-@property IBOutlet NSTextField      *SIMBLOSAXText;
+// System Information view
 @property IBOutlet NSButton         *SIMBLAgentToggle;
 @property IBOutlet NSButton         *SIMBLTogggle;
 @property IBOutlet NSPopUpButton    *SIMBLLogging;
