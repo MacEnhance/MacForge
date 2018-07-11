@@ -140,7 +140,76 @@ NSArray *tabViews;
         if ([args containsObject:@"manage"]) [self selectView:_viewPlugins];
     }
 
-    [self installXcodeTemplate];
+//    [self installXcodeTemplate];
+    
+//    DMKitDebugAddDevMateMenu();
+    
+//    Paddle *thePaddle = [Paddle sharedInstance];
+//    [thePaddle setProductId:@"534403"];
+//    [thePaddle setVendorId:@"26643"];
+//    [thePaddle setApiKey:@"02a3c57238af53b3c465ef895729c765"];
+//
+//
+//    [PaddleAnalyticsKit enableTracking];
+//
+//    NSDictionary *productInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+//                                 @"1.99", kPADCurrentPrice,
+//                                 @"Wolfgang Baird", kPADDevName,
+//                                 @"USD", kPADCurrency,
+//                                 @"https://dl.devmate.com/org.w0lf.cDock-GUI/icons/5aae1388a46dd_128.png", kPADImage,
+//                                 @"moreMenu", kPADProductName,
+//                                 @"0", kPADTrialDuration,
+//                                 @"Thanks for purchasing", kPADTrialText,
+//                                 @"icon.icns", kPADProductImage,
+//                                 nil];
+//
+//    [thePaddle startLicensing:productInfo timeTrial:YES withWindow:self.window];
+//    [thePaddle verifyLicenceWithCompletionBlock:^(BOOL verified, NSError *error) {
+//        if (verified) {
+//            NSLog(@"Verified");
+//        } else {
+//            NSLog(@"Not verified: %@", [error localizedDescription]);
+//        }
+//    }];
+//
+//
+//    PaddleStoreKit *psk = [PaddleStoreKit sharedInstance];
+//    [psk setDelegate:psk.delegate];
+//    [psk showProduct:@"534403-1"];
+    
+//    [thePaddle startPurchaseForChildProduct:@"534403-1"];
+//
+//    [[PADProduct alloc] productInfo:@"534403.1" apiKey:@"02a3c57238af53b3c465ef895729c765" vendorId:@"26643" withCompletionBlock:^(BOOL fin) { NSLog(@"Hi"); }];
+    
+//    [[PaddleStoreKit sharedInstance] showProduct:@"534403.1"];
+//    [[PaddleStoreKit sharedInstance] showStoreView];
+//    [[PaddleStoreKit sharedInstance] showStoreViewForProductIds:@[@"534403.1", @"534403.2"]];
+    
+//    [thePaddle verifyLicenceWithCompletionBlock:^(BOOL ver, NSError *e){ NSLog(@"%hhd : %@", ver, e.localizedDescription); }];
+//    [thePaddle startLicensing:productInfo timeTrial:NO withWindow:self.window];
+//    [thePaddle startLicensingSilently:productInfo timeTrial:NO];
+//    [thePaddle setupChildProduct:@"534403.1" productInfo:productInfo timeTrial:NO];
+//    [thePaddle startPurchaseForChildProduct:@"534403.1"];
+//    [thePaddle verifyLicenceForChildProduct:@"534403-1" withCompletionBlock:^(BOOL ver, NSError *e){ NSLog(@"%hhd : %@", ver, e.localizedDescription); }];
+    
+//    [thePaddle startLicensingSilently:productInfo timeTrial:NO];
+//    [thePaddle setupChildProduct:@"534403.1" productInfo:productInfo timeTrial:NO];
+//    [thePaddle startPurchaseForChildProduct:@"534403.1"];
+//    [thePaddle purchaseChildProduct:@"534403.1" withWindow:self.window completionBlock:^(NSString* response, NSString* email, BOOL completed, NSError *error, NSDictionary *checkoutData){
+//
+//    }];
+    
+    
+//    - (void)purchaseChildProduct:(nonnull NSString *)childProductId withWindow:(nullable NSWindow *)window completionBlock:(nonnull void (^)(NSString * _Nullable response, NSString * _Nullable email, BOOL completed, NSError * _Nullable error, NSDictionary * _Nullable checkoutData))completionBlock;
+
+    
+//    [thePaddle verifyLicenceWithCompletionBlock:^(BOOL verified, NSError *error) {
+//        if (verified) {
+//            NSLog(@"Verified");
+//        } else {
+//            NSLog(@"Not verified: %@", [error localizedDescription]);
+//        }
+//    }];
     
     NSDate *methodFinish = [NSDate date];
     NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:appStart];

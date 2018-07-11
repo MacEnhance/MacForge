@@ -12,6 +12,7 @@
 // External
 @import LetsMove;
 @import MacPlusKit;
+//@import Paddle;
 
 #import "PluginManager.h"
 #import "FConvenience.h"

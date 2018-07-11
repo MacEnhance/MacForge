@@ -26,6 +26,8 @@
 		FB0227AF20F0BBEC006566EF /* xcode.png in Resources */ = {isa = PBXBuildFile; fileRef = FB0227AE20F0BBEB006566EF /* xcode.png */; };
 		FB30209920F1F2D2003F4CE9 /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = FB30209820F1F2D2003F4CE9 /* menu.png */; };
 		FB3020A520F2018D003F4CE9 /* menu.icns in Resources */ = {isa = PBXBuildFile; fileRef = FB3020A420F2018D003F4CE9 /* menu.icns */; };
+		FB34DEE320F342F400EC1822 /* Paddle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB34DEE220F342F400EC1822 /* Paddle.framework */; };
+		FB34DEE420F343A800EC1822 /* Paddle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FB34DEE220F342F400EC1822 /* Paddle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FB7E350320F202D200EB3339 /* icon_nobg.icns in Resources */ = {isa = PBXBuildFile; fileRef = FB30208E20F1E8AD003F4CE9 /* icon_nobg.icns */; };
 		FB7E350620F2050300EB3339 /* MacPlusHelper.app in Copy Login Item */ = {isa = PBXBuildFile; fileRef = F0ADE0F6166DF941009758CC /* MacPlusHelper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		FBA6E88720F0176B00A12ACF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E88620F0176B00A12ACF /* AppDelegate.m */; };
@@ -209,6 +211,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				FB34DEE420F343A800EC1822 /* Paddle.framework in Copy Frameworks */,
 				FBA6E8D120F027B500A12ACF /* DevMateKit.framework in Copy Frameworks */,
 				FBA6E8D220F027B700A12ACF /* LetsMove.framework in Copy Frameworks */,
 				FBA6E91520F0310800A12ACF /* MacPlusKit.framework in Copy Frameworks */,
@@ -268,6 +271,7 @@
 		FB30208E20F1E8AD003F4CE9 /* icon_nobg.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon_nobg.icns; sourceTree = "<group>"; };
 		FB30209820F1F2D2003F4CE9 /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
 		FB3020A420F2018D003F4CE9 /* menu.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = menu.icns; sourceTree = "<group>"; };
+		FB34DEE220F342F400EC1822 /* Paddle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Paddle.framework; sourceTree = "<group>"; };
 		FBA6E88520F0176B00A12ACF /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FBA6E88620F0176B00A12ACF /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		FBA6E88820F0179600A12ACF /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -410,6 +414,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBA6E88C20F017BE00A12ACF /* DevMateKit.framework in Frameworks */,
+				FB34DEE320F342F400EC1822 /* Paddle.framework in Frameworks */,
 				FBA6E88E20F0182500A12ACF /* LetsMove.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -548,6 +553,7 @@
 		FBA6E88A20F017A400A12ACF /* External Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FB34DEE220F342F400EC1822 /* Paddle.framework */,
 				FBA6E88D20F0182500A12ACF /* LetsMove.framework */,
 				FBA6E88B20F017BE00A12ACF /* DevMateKit.framework */,
 			);
@@ -1760,6 +1766,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/External\\ Frameworks",
+					"$(PROJECT_DIR)/External\\ Frameworks",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -1795,6 +1802,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(PROJECT_DIR)/External\\ Frameworks",
 					"$(PROJECT_DIR)/External\\ Frameworks",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
