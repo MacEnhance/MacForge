@@ -89,6 +89,7 @@ NSArray *tabViews;
     // Make sure default sources are in place
     NSArray *defaultRepos = @[@"https://github.com/w0lfschild/myRepo/raw/master/mytweaks",
                               @"https://github.com/w0lfschild/myRepo/raw/master/urtweaks",
+                              @"https://github.com/w0lfschild/myRepo/raw/master/test",
                               @"https://github.com/w0lfschild/macplugins/raw/master"];
     
     NSMutableArray *newArray = [NSMutableArray arrayWithArray:[myPreferences objectForKey:@"sources"]];
@@ -140,7 +141,7 @@ NSArray *tabViews;
         if ([args containsObject:@"manage"]) [self selectView:_viewPlugins];
     }
 
-//    [self installXcodeTemplate];
+    [self installXcodeTemplate];
     
 //    DMKitDebugAddDevMateMenu();
     
@@ -148,10 +149,9 @@ NSArray *tabViews;
 //    [thePaddle setProductId:@"534403"];
 //    [thePaddle setVendorId:@"26643"];
 //    [thePaddle setApiKey:@"02a3c57238af53b3c465ef895729c765"];
-//
-//
+
 //    [PaddleAnalyticsKit enableTracking];
-//
+
 //    NSDictionary *productInfo = [NSDictionary dictionaryWithObjectsAndKeys:
 //                                 @"1.99", kPADCurrentPrice,
 //                                 @"Wolfgang Baird", kPADDevName,
@@ -171,26 +171,24 @@ NSArray *tabViews;
 //            NSLog(@"Not verified: %@", [error localizedDescription]);
 //        }
 //    }];
-//
-//
-//    PaddleStoreKit *psk = [PaddleStoreKit sharedInstance];
-//    [psk setDelegate:psk.delegate];
-//    [psk showProduct:@"534403-1"];
     
-//    [thePaddle startPurchaseForChildProduct:@"534403-1"];
-//
-//    [[PADProduct alloc] productInfo:@"534403.1" apiKey:@"02a3c57238af53b3c465ef895729c765" vendorId:@"26643" withCompletionBlock:^(BOOL fin) { NSLog(@"Hi"); }];
+    // 5F9588C2-A31F8D2B-E7F5997B-FA18A063-97E00C6D
+
+//    [thePaddle startPurchaseForChildProduct:@"534450"];
+//    [[PADProduct alloc] productInfo:@"534450" apiKey:@"02a3c57238af53b3c465ef895729c765" vendorId:@"26643" withCompletionBlock:^(BOOL fin) { NSLog(@"Hi"); }];
     
-//    [[PaddleStoreKit sharedInstance] showProduct:@"534403.1"];
+//    [[PaddleStoreKit sharedInstance] showProduct:@"534450"];
 //    [[PaddleStoreKit sharedInstance] showStoreView];
-//    [[PaddleStoreKit sharedInstance] showStoreViewForProductIds:@[@"534403.1", @"534403.2"]];
+//    [[PaddleStoreKit sharedInstance] showStoreViewForProductIds:@[@"534450"]];
     
 //    [thePaddle verifyLicenceWithCompletionBlock:^(BOOL ver, NSError *e){ NSLog(@"%hhd : %@", ver, e.localizedDescription); }];
 //    [thePaddle startLicensing:productInfo timeTrial:NO withWindow:self.window];
 //    [thePaddle startLicensingSilently:productInfo timeTrial:NO];
-//    [thePaddle setupChildProduct:@"534403.1" productInfo:productInfo timeTrial:NO];
-//    [thePaddle startPurchaseForChildProduct:@"534403.1"];
-//    [thePaddle verifyLicenceForChildProduct:@"534403-1" withCompletionBlock:^(BOOL ver, NSError *e){ NSLog(@"%hhd : %@", ver, e.localizedDescription); }];
+//    [thePaddle setupChildProduct:@"534450" productInfo:productInfo timeTrial:NO];
+//    [thePaddle startPurchaseForChildProduct:@"534450"];
+//    [thePaddle verifyLicenceForChildProduct:@"534450" withCompletionBlock:^(BOOL ver, NSError *e){ NSLog(@"%hhd : %@", ver, e.localizedDescription); }];
+//    [thePaddle showLicencing];
+//    [PaddleStoreKit.sharedInstance recoverPurchases];
     
 //    [thePaddle startLicensingSilently:productInfo timeTrial:NO];
 //    [thePaddle setupChildProduct:@"534403.1" productInfo:productInfo timeTrial:NO];
@@ -243,8 +241,10 @@ NSArray *tabViews;
     [self executionTime:@"tabs_sideBar"];
     [self executionTime:@"setupWindow"];
     [self executionTime:@"setupPrefstab"];
+//    [self executionTime:@"helperSetup"];
     [self executionTime:@"addLoginItem"];
     [self executionTime:@"launchHelper"];
+    
 //    [self updateAdButton];
 //    [self tabs_sideBar];
 //    [self setupWindow];
@@ -289,13 +289,17 @@ NSArray *tabViews;
     NSArray *topButtons = [NSArray arrayWithObjects:_viewDiscover, _viewPlugins, _viewSources, _viewChanges, _viewSystem, _viewAccount, _viewAbout, _viewPreferences, nil];
     NSUInteger yLoc = _window.frame.size.height - 44 - height;
     for (NSButton *btn in topButtons) {
-        NSRect newFrame = [btn frame];
-        newFrame.origin.x = 0;
-        newFrame.origin.y = yLoc;
-        yLoc -= (height - 1);
-        [btn setFrame:newFrame];
-        [btn setWantsLayer:YES];
-        [btn setTarget:self];
+        if (btn.enabled) {
+            NSRect newFrame = [btn frame];
+            newFrame.origin.x = 0;
+            newFrame.origin.y = yLoc;
+            yLoc -= (height - 1);
+            [btn setFrame:newFrame];
+            [btn setWantsLayer:YES];
+            [btn setTarget:self];
+        } else {
+            btn.hidden = true;
+        }
     }
     
     [_viewUpdateCounter setFrameOrigin:CGPointMake(_viewChanges.frame.origin.x + _viewChanges.frame.size.width * .6,
@@ -366,10 +370,14 @@ NSArray *tabViews;
     tabViews = [NSArray arrayWithObjects:_tabPlugins, _tabSources, _tabUpdates, _tabSystemInfo, _tabSources, _tabAbout, _tabPreferences, nil];
     
     NSDictionary* infoDict = [[NSBundle mainBundle] infoDictionary];
-    [_appName setStringValue:[infoDict objectForKey:@"CFBundleExecutable"]];
     [_appVersion setStringValue:[NSString stringWithFormat:@"Version %@ (%@)",
                                  [infoDict objectForKey:@"CFBundleShortVersionString"],
                                  [infoDict objectForKey:@"CFBundleVersion"]]];
+    if ([[[NSString stringWithFormat:@"%@", [infoDict objectForKey:@"CFBundleShortVersionString"]] substringToIndex:1] isEqualToString:@"0"]) {
+        [_appName setStringValue:[NSString stringWithFormat:@"%@ BETA", [infoDict objectForKey:@"CFBundleExecutable"]]];
+    } else {
+        [_appName setStringValue:[infoDict objectForKey:@"CFBundleExecutable"]];
+    }
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy"];
     NSString * currentYEAR = [formatter stringFromDate:[NSDate date]];
@@ -394,7 +402,8 @@ NSArray *tabViews;
 }
 
 - (void)addLoginItem {
-    NSBundle *helperBUNDLE = [NSBundle bundleWithPath:[NSWorkspace.sharedWorkspace absolutePathForAppBundleWithIdentifier:@"com.w0lf.MacPlusHelper"]];
+    NSBundle *helperBUNDLE = [NSBundle bundleWithPath:[NSString stringWithFormat:@"%@/Contents/Library/LoginItems/MacPlusHelper.app", [[NSBundle mainBundle] bundlePath]]];
+//    NSBundle *helperBUNDLE = [NSBundle bundleWithPath:[NSWorkspace.sharedWorkspace absolutePathForAppBundleWithIdentifier:@"com.w0lf.MacPlusHelper"]];
     [helperBUNDLE enableLoginItem];
 }
 
@@ -421,15 +430,15 @@ NSArray *tabViews;
     [_prefDonate setState:[[myPreferences objectForKey:@"prefDonate"] boolValue]];
     [_prefTips setState:[[myPreferences objectForKey:@"prefTips"] boolValue]];
     [_prefWindow setState:[[myPreferences objectForKey:@"prefWindow"] boolValue]];
-    
+
     if ([[myPreferences objectForKey:@"prefWindow"] boolValue])
         [_window setFrameAutosaveName:@"MainWindow"];
-    
+
     if ([[myPreferences objectForKey:@"prefTips"] boolValue]) {
         NSToolTipManager *test = [NSToolTipManager sharedToolTipManager];
         [test setInitialToolTipDelay:0.1];
     }
-    
+
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"SUAutomaticallyUpdate"]) {
         [_prefUpdateAuto selectItemAtIndex:2];
         [_updater checkForUpdatesInBackground];
@@ -439,14 +448,14 @@ NSArray *tabViews;
     } else {
         [_prefUpdateAuto selectItemAtIndex:0];
     }
-    
+
     [_prefUpdateInterval selectItemWithTag:[[myPreferences objectForKey:@"SUScheduledCheckInterval"] integerValue]];
-    
+
     [[_gitButton cell] setImageScaling:NSImageScaleProportionallyUpOrDown];
     [[_sourceButton cell] setImageScaling:NSImageScaleProportionallyUpOrDown];
     [[_webButton cell] setImageScaling:NSImageScaleProportionallyUpOrDown];
     [[_emailButton cell] setImageScaling:NSImageScaleProportionallyUpOrDown];
-    
+
     [_sourceButton setAction:@selector(visitSource)];
     [_gitButton setAction:@selector(visitGithub)];
     [_webButton setAction:@selector(visitWebsite)];
@@ -496,15 +505,16 @@ NSArray *tabViews;
 }
 
 - (IBAction)donate:(id)sender {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://goo.gl/DSyEFR"]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://goo.gl/DSyEFR"]];
 }
 
 - (IBAction)report:(id)sender {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/w0lfschild/mySIMBL/issues/new"]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/w0lfschild/MacPlus/issues/new"]];
 }
 
 - (void)sendEmail {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"mailto:aguywithlonghair@gmail.com"]];
+    [self visitReddit];
+//    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"mailto:aguywithlonghair@gmail.com"]];
 }
 
 - (void)visitGithub {
@@ -512,11 +522,15 @@ NSArray *tabViews;
 }
 
 - (void)visitSource {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/w0lfschild/mySIMBL"]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/w0lfschild/MacPlus"]];
+}
+
+- (void)visitReddit {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://www.reddit.com/r/OSXTweaks"]];
 }
 
 - (void)visitWebsite {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://w0lfschild.github.io/app_mySIMBL.html"]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://w0lfschild.github.io/app_MacPlus.html"]];
 }
 
 - (void)setupEventListener {

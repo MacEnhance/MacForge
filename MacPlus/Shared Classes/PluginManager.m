@@ -333,10 +333,10 @@
 
             // Not sure what I'm doing here 🤷‍♂️
             result = [Workspace iconForFile:iconPath];
-            NSData *imgDataOne = [result TIFFRepresentation];
-            NSData *imgDataTwo = [[Workspace iconForFile:@"/System/Library/CoreServices/loginwindow.app"] TIFFRepresentation];
-            if ([imgDataOne isEqualToData:imgDataTwo])
-                result = [[NSImage alloc] initWithContentsOfFile:@"/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/KEXT.icns"];
+//            NSData *imgDataOne = [result TIFFRepresentation];
+//            NSData *imgDataTwo = [[Workspace iconForFile:@"/System/Library/CoreServices/loginwindow.app"] TIFFRepresentation];
+//            if ([imgDataOne isEqualToData:imgDataTwo])
+//                result = [[NSImage alloc] initWithContentsOfFile:@"/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/KEXT.icns"];
             if (result) return result;
         }
     }

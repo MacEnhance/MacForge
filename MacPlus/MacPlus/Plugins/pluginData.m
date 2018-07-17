@@ -146,7 +146,7 @@
         if (result) return result;
     }
     
-    NSData *defaultIcon = [[[NSWorkspace sharedWorkspace] iconForFile:@"/System/Library/CoreServices/loginwindow.app"] TIFFRepresentation];
+//    NSData *defaultIcon = [[[NSWorkspace sharedWorkspace] iconForFile:@"/System/Library/CoreServices/loginwindow.app"] TIFFRepresentation];
     for (NSDictionary* targetApp in targets) {
         iconPath = [targetApp objectForKey:@"BundleIdentifier"];
         iconPath = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:iconPath];
@@ -156,20 +156,20 @@
                 result = [[NSImage alloc] initWithContentsOfFile:@"/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/Notifications.icns"];
                 if (result) return result;
             }
-            
+
             if ([[targetApp objectForKey:@"BundleIdentifier"] isEqualToString:@"com.apple.systemuiserver"]) {
                 result = [[NSImage alloc] initWithContentsOfFile:@"/System/Library/CoreServices/Setup Assistant.app/Contents/Resources/Assistant.icns"];
                 if (result) return result;
             }
-            
+
             if ([[targetApp objectForKey:@"BundleIdentifier"] isEqualToString:@"com.apple.loginwindow"]) {
                 result = [[NSImage alloc] initWithContentsOfFile:@"/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/GroupIcon.icns"];
                 if (result) return result;
             }
-            
+
             result = [[NSWorkspace sharedWorkspace] iconForFile:iconPath];
-            NSData *appIcon = [result TIFFRepresentation];
-            if (![defaultIcon isEqualToData:appIcon])
+//            NSData *appIcon = [result TIFFRepresentation];
+//            if (![defaultIcon isEqualToData:appIcon])
                 return result;
         }
     }

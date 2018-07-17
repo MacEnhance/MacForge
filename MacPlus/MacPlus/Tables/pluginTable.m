@@ -19,6 +19,9 @@ NSInteger previusRow = -1;
 @interface pluginTable : NSObject {
     PluginManager *_sharedMethods;
     pluginData *_pluginData;
+    NSArray *image_array;
+    NSImage *user;
+    NSImage *group;
 }
 @property (weak) IBOutlet NSTableView*  tblView;
 @property NSMutableArray *tableContent;
@@ -93,14 +96,25 @@ NSInteger previusRow = -1;
 
 - (NSImage*)provideIMG:(int)position {
     if (self.imageArray == nil) {
-        NSImage *user = [NSImage imageNamed:NSImageNameUser];
-        [user setTemplate:true];
-        NSImage *group = [NSImage imageNamed:NSImageNameUserGroup];
-        [group setTemplate:true];
-        NSArray *images = @[user, group];
-        self.imageArray = [[NSArray alloc] initWithArray:images];
+        if (user == nil) {
+            user = [NSImage imageNamed:NSImageNameUser];
+//            [user setTemplate:true];
+        }
+        if (group == nil) {
+            group = [NSImage imageNamed:NSImageNameUserGroup];
+//            [group setTemplate:true];
+        }
+        if (image_array == nil) {
+            image_array = @[user, group];
+        }
+//        NSImage *user = [NSImage imageNamed:NSImageNameUser];
+//        [user setTemplate:true];
+//        NSImage *group = [NSImage imageNamed:NSImageNameUserGroup];
+//        [group setTemplate:true];
+//        NSArray *images = @[user, group];
+//        self.imageArray = [[NSArray alloc] initWithArray:images];
     }
-    return self.imageArray[position];
+    return image_array[position];
 }
 
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
@@ -122,8 +136,20 @@ NSInteger previusRow = -1;
         }
     }
     
-    result.pluginDescription.stringValue = aBundle.localDescription;
     result.pluginImage.image = [_pluginData fetch_icon:aBundle];
+//    result.pluginDescription.stringValue = aBundle.localDescription;
+//    result.pluginImage.animates = YES;
+//    result.pluginImage.image = [NSImage imageNamed:@"loading_mini.gif"];
+//    result.pluginImage.canDrawSubviewsIntoLayer = YES;
+//    [result.superview setWantsLayer:YES];
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        NSImage *appIcon = [self->_pluginData fetch_icon:aBundle];
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            //Wants to update UI or perform any task on main thread.
+//            result.pluginImage.image = appIcon;
+//        });
+//    });
+//
     
     // Return the result
     return result;

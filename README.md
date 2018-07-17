@@ -15,16 +15,16 @@ MacPlus is an open-source plugin manager for macOS. It lets you discover, instal
 - MacPlus may ask to install or update helper tools
 - Start installing and using plugins
 
-## Functionallity Note
+## Functionallity notes
 
-- In order for plugins to load into system applications you may be required to disable [System Integrity Protection](https://apple.stackexchange.com/questions/208478/how-do-i-disable-system-integrity-protection-sip-aka-rootless-on-os-x-10-11), MacPlus will inform you but cannot automate this process
-- In order for plugins to load into some applications you may be required to disable [Apple Mobile File Integrity](https://www.theiphonewiki.com/wiki/AppleMobileFileIntegrity)
-- In order for plugins to load into some applications the plugin must be signed and in the `/Library` directory
+- Loading plugins into system applications requires that [System Integrity Protection](https://apple.stackexchange.com/questions/208478/how-do-i-disable-system-integrity-protection-sip-aka-rootless-on-os-x-10-11) is disabled
+- Loading plugins into some applications may require [Apple Mobile File Integrity](https://www.theiphonewiki.com/wiki/AppleMobileFileIntegrity) to be disabled
+- Loading plugins into some applications may require the plugin must be signed and in the `/Library` directory
 
 ## Requirements
 
 - MacPlus supports macOS 10.10 and above
-- plugins distributed through may have different application and system requirements
+- plugins distributed through MacPlus may have different application and system requirements
 
 ## Features
 

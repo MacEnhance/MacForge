@@ -54,7 +54,6 @@
 		FBA6E8DA20F0285B00A12ACF /* loading_mini.gif in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8D420F0285A00A12ACF /* loading_mini.gif */; };
 		FBA6E8DB20F0285B00A12ACF /* webicon.png in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8D520F0285A00A12ACF /* webicon.png */; };
 		FBA6E8DD20F0285B00A12ACF /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8D720F0285A00A12ACF /* checkmark.png */; };
-		FBA6E8DE20F0285B00A12ACF /* github.png in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8D820F0285B00A12ACF /* github.png */; };
 		FBA6E8E120F0287500A12ACF /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8E020F0287500A12ACF /* dsa_pub.pem */; };
 		FBA6E8E620F0288300A12ACF /* MSPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8E220F0288300A12ACF /* MSPlugin.m */; };
 		FBA6E8E720F0288300A12ACF /* pluginData.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8E320F0288300A12ACF /* pluginData.m */; };
@@ -77,6 +76,8 @@
 		FBAAB3F020F22BF5002156DC /* NSBundle+LoginItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAAB3EE20F22BF5002156DC /* NSBundle+LoginItem.m */; };
 		FBAAB41720F2CDB0002156DC /* demo_xcode.zip in Resources */ = {isa = PBXBuildFile; fileRef = FBAAB41620F2CDAF002156DC /* demo_xcode.zip */; };
 		FBB19F8120F2D18A003F421B /* plugin_template.zip in Resources */ = {isa = PBXBuildFile; fileRef = FBB19F8020F2D18A003F421B /* plugin_template.zip */; };
+		FBCA65E120F7087C00E1600E /* reddit.png in Resources */ = {isa = PBXBuildFile; fileRef = FBCA65E020F7087C00E1600E /* reddit.png */; };
+		FBCA65E320F7373300E1600E /* github.png in Resources */ = {isa = PBXBuildFile; fileRef = FBCA65E220F7373300E1600E /* github.png */; };
 		FBE767A220EF426D00A42BD5 /* MacPlusKit.h in Headers */ = {isa = PBXBuildFile; fileRef = FBE767A020EF426D00A42BD5 /* MacPlusKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FBE767AB20EF428F00A42BD5 /* STPrivilegedTask.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE767A620EF428F00A42BD5 /* STPrivilegedTask.m */; };
 		FBE767AC20EF428F00A42BD5 /* STPrivilegedTask.h in Headers */ = {isa = PBXBuildFile; fileRef = FBE767A720EF428F00A42BD5 /* STPrivilegedTask.h */; };
@@ -303,7 +304,6 @@
 		FBA6E8D420F0285A00A12ACF /* loading_mini.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading_mini.gif; sourceTree = "<group>"; };
 		FBA6E8D520F0285A00A12ACF /* webicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = webicon.png; sourceTree = "<group>"; };
 		FBA6E8D720F0285A00A12ACF /* checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark.png; sourceTree = "<group>"; };
-		FBA6E8D820F0285B00A12ACF /* github.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = github.png; sourceTree = "<group>"; };
 		FBA6E8E020F0287500A12ACF /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		FBA6E8E220F0288300A12ACF /* MSPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSPlugin.m; sourceTree = "<group>"; };
 		FBA6E8E320F0288300A12ACF /* pluginData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pluginData.m; sourceTree = "<group>"; };
@@ -337,6 +337,8 @@
 		FBB0849720EEF0AC0032BDB2 /* SIMBL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIMBL.h; sourceTree = "<group>"; };
 		FBB0849820EEF0AC0032BDB2 /* SIMBLPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIMBLPlugin.h; sourceTree = "<group>"; };
 		FBB19F8020F2D18A003F421B /* plugin_template.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = plugin_template.zip; sourceTree = "<group>"; };
+		FBCA65E020F7087C00E1600E /* reddit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reddit.png; sourceTree = "<group>"; };
+		FBCA65E220F7373300E1600E /* github.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = github.png; sourceTree = "<group>"; };
 		FBE7679E20EF426D00A42BD5 /* MacPlusKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MacPlusKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBE767A020EF426D00A42BD5 /* MacPlusKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MacPlusKit.h; sourceTree = "<group>"; };
 		FBE767A120EF426D00A42BD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -646,12 +648,13 @@
 			isa = PBXGroup;
 			children = (
 				FBA6E8D720F0285A00A12ACF /* checkmark.png */,
-				FBA6E8D820F0285B00A12ACF /* github.png */,
+				FBCA65E220F7373300E1600E /* github.png */,
 				FB30208E20F1E8AD003F4CE9 /* icon_nobg.icns */,
 				FBA6E8D420F0285A00A12ACF /* loading_mini.gif */,
 				FBA6E8D320F0285A00A12ACF /* update.png */,
 				FBA6E8D520F0285A00A12ACF /* webicon.png */,
 				FB0227AE20F0BBEB006566EF /* xcode.png */,
+				FBCA65E020F7087C00E1600E /* reddit.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -1073,16 +1076,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBCA65E120F7087C00E1600E /* reddit.png in Resources */,
 				FB7E350320F202D200EB3339 /* icon_nobg.icns in Resources */,
 				FBA6E8FC20F028A400A12ACF /* LICENSE_EULA in Resources */,
 				FBA6E8DA20F0285B00A12ACF /* loading_mini.gif in Resources */,
 				FBA6E8D920F0285B00A12ACF /* update.png in Resources */,
 				FBA6E8FB20F028A400A12ACF /* Credits.rtf in Resources */,
 				FB0227AB20F0B547006566EF /* MacPlus.icns in Resources */,
-				FBA6E8DE20F0285B00A12ACF /* github.png in Resources */,
 				FBA6E8DB20F0285B00A12ACF /* webicon.png in Resources */,
 				FBA6E8DD20F0285B00A12ACF /* checkmark.png in Resources */,
 				FBAAB41720F2CDB0002156DC /* demo_xcode.zip in Resources */,
+				FBCA65E320F7373300E1600E /* github.png in Resources */,
 				FBA6E8E120F0287500A12ACF /* dsa_pub.pem in Resources */,
 				FBA6E8CE20F025A100A12ACF /* Appliaction.xib in Resources */,
 				FB0227AF20F0BBEC006566EF /* xcode.png in Resources */,

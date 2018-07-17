@@ -12,7 +12,7 @@
 // External
 @import LetsMove;
 @import MacPlusKit;
-//@import Paddle;
+@import Paddle;
 
 #import "PluginManager.h"
 #import "FConvenience.h"
@@ -42,7 +42,7 @@
 @property IBOutlet NSView *tabPlugins;
 @property IBOutlet NSView *tabPreferences;
 @property IBOutlet NSView *tabSources;
-@property IBOutlet NSView *tabChanges;
+@property IBOutlet NSView *tabDiscover;
 @property IBOutlet NSView *tabSystemInfo;
 @property IBOutlet NSView *tabUpdates;
 
