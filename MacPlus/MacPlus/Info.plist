@@ -4,6 +4,21 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>bundle</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>MacPlus Plugin</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSTypeIsPackage</key>
+			<true/>
+		</dict>
+	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIconFile</key>
@@ -24,21 +39,6 @@
 	<string>public.app-category.productivity</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
-	<key>CFBundleDocumentTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>bundle</string>
-			</array>
-			<key>CFBundleTypeName</key>
-			<string>MacPlus Plugin</string>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<true/>
-		</dict>
-	</array>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
@@ -49,7 +49,7 @@
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2018 Wolfgang Baird. All rights reserved.</string>
 	<key>NSMainNibFile</key>
-	<string>Appliaction</string>
+	<string>Application</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>SUPublicDSAKeyFile</key>

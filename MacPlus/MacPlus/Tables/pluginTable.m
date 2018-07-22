@@ -98,11 +98,11 @@ NSInteger previusRow = -1;
     if (self.imageArray == nil) {
         if (user == nil) {
             user = [NSImage imageNamed:NSImageNameUser];
-//            [user setTemplate:true];
+            [user setTemplate:true];
         }
         if (group == nil) {
             group = [NSImage imageNamed:NSImageNameUserGroup];
-//            [group setTemplate:true];
+            [group setTemplate:true];
         }
         if (image_array == nil) {
             image_array = @[user, group];

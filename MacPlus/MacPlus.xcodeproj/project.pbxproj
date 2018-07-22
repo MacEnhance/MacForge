@@ -46,7 +46,7 @@
 		FBA6E8C620F01DDA00A12ACF /* LICENSE_STPrivilegedTask in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8C520F01DDA00A12ACF /* LICENSE_STPrivilegedTask */; };
 		FBA6E8C820F01E0100A12ACF /* LICENSE_ZKSwizzle in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8C720F01E0100A12ACF /* LICENSE_ZKSwizzle */; };
 		FBA6E8CA20F01E1B00A12ACF /* LICENSE_SGDirWatchdog in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8C920F01E1B00A12ACF /* LICENSE_SGDirWatchdog */; };
-		FBA6E8CE20F025A100A12ACF /* Appliaction.xib in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8CD20F025A100A12ACF /* Appliaction.xib */; };
+		FBA6E8CE20F025A100A12ACF /* Application.xib in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8CD20F025A100A12ACF /* Application.xib */; };
 		FBA6E8CF20F0262A00A12ACF /* SGDirWatchdog.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E89120F0185300A12ACF /* SGDirWatchdog.m */; };
 		FBA6E8D120F027B500A12ACF /* DevMateKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FBA6E88B20F017BE00A12ACF /* DevMateKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FBA6E8D220F027B700A12ACF /* LetsMove.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FBA6E88D20F0182500A12ACF /* LetsMove.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -236,7 +236,7 @@
 /* Begin PBXFileReference section */
 		F0ADE0F6166DF941009758CC /* MacPlusHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacPlusHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0ADE0FA166DF941009758CC /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		F0ADE102166DF941009758CC /* MacPlus-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MacPlus-Info.plist"; sourceTree = "<group>"; };
+		F0ADE102166DF941009758CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F0ADE104166DF941009758CC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F0ADE106166DF941009758CC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F0ADE108166DF941009758CC /* MacPlus-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MacPlus-Prefix.pch"; sourceTree = "<group>"; };
@@ -299,7 +299,7 @@
 		FBA6E8C520F01DDA00A12ACF /* LICENSE_STPrivilegedTask */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE_STPrivilegedTask; sourceTree = "<group>"; };
 		FBA6E8C720F01E0100A12ACF /* LICENSE_ZKSwizzle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE_ZKSwizzle; sourceTree = "<group>"; };
 		FBA6E8C920F01E1B00A12ACF /* LICENSE_SGDirWatchdog */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE_SGDirWatchdog; sourceTree = "<group>"; };
-		FBA6E8CD20F025A100A12ACF /* Appliaction.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Appliaction.xib; sourceTree = "<group>"; };
+		FBA6E8CD20F025A100A12ACF /* Application.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Application.xib; sourceTree = "<group>"; };
 		FBA6E8D320F0285A00A12ACF /* update.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = update.png; sourceTree = "<group>"; };
 		FBA6E8D420F0285A00A12ACF /* loading_mini.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading_mini.gif; sourceTree = "<group>"; };
 		FBA6E8D520F0285A00A12ACF /* webicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = webicon.png; sourceTree = "<group>"; };
@@ -481,7 +481,7 @@
 				F0ADE10D166DF941009758CC /* DKAppDelegate.m */,
 				FB3020A420F2018D003F4CE9 /* menu.icns */,
 				FB30209820F1F2D2003F4CE9 /* menu.png */,
-				F0ADE102166DF941009758CC /* MacPlus-Info.plist */,
+				F0ADE102166DF941009758CC /* Info.plist */,
 			);
 			path = MacPlusHelper;
 			sourceTree = "<group>";
@@ -790,7 +790,7 @@
 				FBA6E91220F02D0600A12ACF /* Resource */,
 				FBA6E88520F0176B00A12ACF /* AppDelegate.h */,
 				FBA6E88620F0176B00A12ACF /* AppDelegate.m */,
-				FBA6E8CD20F025A100A12ACF /* Appliaction.xib */,
+				FBA6E8CD20F025A100A12ACF /* Application.xib */,
 				FBE767F220F00FFE00A42BD5 /* Info.plist */,
 			);
 			path = MacPlus;
@@ -1088,7 +1088,7 @@
 				FBAAB41720F2CDB0002156DC /* demo_xcode.zip in Resources */,
 				FBCA65E320F7373300E1600E /* github.png in Resources */,
 				FBA6E8E120F0287500A12ACF /* dsa_pub.pem in Resources */,
-				FBA6E8CE20F025A100A12ACF /* Appliaction.xib in Resources */,
+				FBA6E8CE20F025A100A12ACF /* Application.xib in Resources */,
 				FB0227AF20F0BBEC006566EF /* xcode.png in Resources */,
 				FBA6E8CA20F01E1B00A12ACF /* LICENSE_SGDirWatchdog in Resources */,
 				FBA6E8C820F01E0100A12ACF /* LICENSE_ZKSwizzle in Resources */,
@@ -1341,7 +1341,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MacPlusHelper/MacPlus-Prefix.pch";
-				INFOPLIST_FILE = "MacPlusHelper/MacPlus-Info.plist";
+				INFOPLIST_FILE = MacPlusHelper/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../../Frameworks $(PROJECT_DIR)/\"External Frameworks\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacPlusHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1365,7 +1365,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MacPlusHelper/MacPlus-Prefix.pch";
-				INFOPLIST_FILE = "MacPlusHelper/MacPlus-Info.plist";
+				INFOPLIST_FILE = MacPlusHelper/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../../Frameworks $(PROJECT_DIR)/\"External Frameworks\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacPlusHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";

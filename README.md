@@ -8,7 +8,7 @@ MacPlus is an open-source plugin manager for macOS. It lets you discover, instal
 
 ## Installation
 
-- Download the [latest release](https://github.com/w0lfschild/app_updates/raw/master/MacPlus/MacPlus_master.zip)
+- Download the ~~[latest release](https://github.com/w0lfschild/app_updates/raw/master/MacPlus/MacPlus_master.zip) not yet available~~
 - Unzip the download if your browser does not do so automatically
 - Open MacPlus
 - MacPlus will ask to be moved to /Applications
