@@ -26,10 +26,50 @@ NSArray *sourceURLS;
 @property (weak) IBOutlet NSImageView*  sourceIndicator;
 @end
 
-@implementation sourcesTable
-{
+@implementation sourcesTable {
     NSInteger previusRow;
     NSDictionary* item;
+}
+
+- (NSMenu *)menuForEvent:(NSEvent *)event {
+    NSMenu *clickMenu = [[NSMenu alloc] init];
+    
+    NSPoint globalLocation = [event locationInWindow];
+    NSPoint localLocation = [self convertPoint:globalLocation fromView:nil];
+    NSInteger clickedRow = [self rowAtPoint:localLocation];
+    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:clickedRow];
+    [self selectRowIndexes:indexSet byExtendingSelection:NO];
+    
+    [clickMenu setTitle:@"Sources Menu"];
+    
+    NSMenuItem *item = [NSMenuItem.alloc initWithTitle:@"Add or remove sources" action:@selector(sourceAddNew:) keyEquivalent:@""];
+    [item setTarget:myDelegate];
+    [clickMenu addItem:item];
+    
+    item = [NSMenuItem.alloc initWithTitle:@"Remove selected source" action:@selector(sourceAddorRemove:) keyEquivalent:@""];
+    [item setTarget:myDelegate];
+    [clickMenu addItem:item];
+    
+    [clickMenu addItem:[NSMenuItem separatorItem]];
+
+    item = [NSMenuItem.alloc initWithTitle:@"Copy source URL" action:@selector(copyURL) keyEquivalent:@""];
+    [item setTarget:self];
+    [clickMenu addItem:item];
+    
+    [clickMenu addItem:[NSMenuItem separatorItem]];
+    
+    item = [NSMenuItem.alloc initWithTitle:@"Refreash sources" action:@selector(reloadData) keyEquivalent:@""];
+    [item setTarget:self];
+    [clickMenu addItem:item];
+
+    return clickMenu;
+}
+
+- (void)copyURL {
+    NSMutableArray *newSources = [[[NSUserDefaults standardUserDefaults] objectForKey:@"sources"] mutableCopy];
+    NSString *str = (NSString*)[newSources objectAtIndex:[self selectedRow]];
+    [[NSPasteboard generalPasteboard] clearContents];
+    [[NSPasteboard generalPasteboard] setString:str forType:NSPasteboardTypeString];
 }
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
@@ -79,8 +119,7 @@ NSArray *sourceURLS;
     return result;
 }
 
--(NSColor*)inverseColor:(NSColor*)color
-{
+- (NSColor*)inverseColor:(NSColor*)color {
     CGFloat r,g,b,a;
     [color getRed:&r green:&g blue:&b alpha:&a];
     return [NSColor colorWithRed:1.-r green:1.-g blue:1.-b alpha:a];
@@ -91,38 +130,36 @@ NSArray *sourceURLS;
     if (!result) [super keyDown:theEvent];
 }
 
--(void)tableChange:(NSNotification *)aNotification {
+- (void)tableChange:(NSNotification *)aNotification {
     id sender = [aNotification object];
     NSInteger selectedRow = [sender selectedRow];
     if (selectedRow != -1) {
-        sourceTableCell *ctc = [sender viewAtColumn:0 row:selectedRow makeIfNecessary:YES];
+//        sourceTableCell *ctc = [sender viewAtColumn:0 row:selectedRow makeIfNecessary:YES];
         repoPackages = [sourceURLS objectAtIndex:selectedRow];
-        if (selectedRow != previusRow) {
-            NSColor *aColor = [[NSColor selectedControlColor] colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
-            if (aColor) {
-                aColor = [self inverseColor:aColor];
-                [ctc.sourceName setTextColor:aColor];
-                [ctc.sourceDescription setTextColor:aColor];
-                if (previusRow != -1) {
-                    [ctc.sourceName setTextColor:[NSColor blackColor]];
-                    [ctc.sourceDescription setTextColor:[NSColor grayColor]];
-                }
-                previusRow = selectedRow;
-            }
-        }
+//        if (selectedRow != previusRow) {
+//            NSColor *aColor = [[NSColor selectedControlColor] colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+//            if (aColor) {
+//                aColor = [self inverseColor:aColor];
+//                [ctc.sourceName setTextColor:aColor];
+//                [ctc.sourceDescription setTextColor:aColor];
+//                if (previusRow != -1) {
+//                    [ctc.sourceName setTextColor:[NSColor blackColor]];
+//                    [ctc.sourceDescription setTextColor:[NSColor grayColor]];
+//                }
+//                previusRow = selectedRow;
+//            }
+//        }
     }
     else {
         // No row was selected
     }
 }
 
-- (void)tableViewSelectionDidChange:(NSNotification *)aNotification
-{
+- (void)tableViewSelectionDidChange:(NSNotification *)aNotification {
     [self tableChange:aNotification];
 }
 
-- (void)tableViewSelectionIsChanging:(NSNotification *)aNotification
-{
+- (void)tableViewSelectionIsChanging:(NSNotification *)aNotification {
     [self tableChange:aNotification];
 }
 

@@ -30,7 +30,7 @@
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uRZ-Ab-YmA">
                         <rect key="frame" x="0.0" y="680" width="220" height="50"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="smallSquare" title="    ⭐️ Discover" bezelStyle="smallSquare" alignment="left" enabled="NO" imageScaling="proportionallyDown" inset="2" id="h4l-0j-fcf">
+                        <buttonCell key="cell" type="smallSquare" title="    ⭐️ Featured" bezelStyle="smallSquare" alignment="left" enabled="NO" imageScaling="proportionallyDown" inset="2" id="h4l-0j-fcf">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                             <font key="font" metaFont="system" size="20"/>
                         </buttonCell>
@@ -38,7 +38,7 @@
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xK6-dm-EDd">
                         <rect key="frame" x="0.0" y="572" width="220" height="50"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="smallSquare" title="    🔎 Changes" bezelStyle="smallSquare" alignment="left" imageScaling="proportionallyDown" inset="2" id="VBt-zZ-bn5">
+                        <buttonCell key="cell" type="smallSquare" title="    🔎 Discover" bezelStyle="smallSquare" alignment="left" imageScaling="proportionallyDown" inset="2" id="VBt-zZ-bn5">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                             <font key="font" metaFont="system" size="20"/>
                         </buttonCell>
@@ -147,8 +147,8 @@
             </view>
             <point key="canvasLocation" x="-693" y="179"/>
         </window>
-        <window title="Add/Remove sources" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titlebarAppearsTransparent="YES" id="nUd-z9-lIk">
-            <windowStyleMask key="styleMask" titled="YES"/>
+        <window title="Add / Remove sources" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titlebarAppearsTransparent="YES" id="nUd-z9-lIk" userLabel="Repo Manager">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="200" y="200" width="290" height="141"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
@@ -158,7 +158,7 @@
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E1X-sz-nNM">
-                        <rect key="frame" x="20" y="42" width="250" height="99"/>
+                        <rect key="frame" x="0.0" y="29" width="290" height="112"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="E3A-8g-Bhg">
                             <font key="font" metaFont="system"/>
@@ -167,7 +167,7 @@
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h9f-JZ-b0C">
-                        <rect key="frame" x="14" y="6" width="262" height="32"/>
+                        <rect key="frame" x="-6" y="-7" width="302" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Apply" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qK7-pw-mNq">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -179,7 +179,7 @@
                     </button>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="134" y="180"/>
+            <point key="canvasLocation" x="134" y="179.5"/>
         </window>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="urY-gn-4Ef" customClass="StartAtLoginController">
@@ -430,14 +430,14 @@
                         <constraint firstAttribute="width" constant="55" id="16G-Du-ydH"/>
                         <constraint firstAttribute="height" constant="36" id="Rhc-zR-ZN2"/>
                     </constraints>
-                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="github" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="m7m-2F-Zps">
+                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAdvanced" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="m7m-2F-Zps">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                 </button>
                 <button toolTip="Visit Reddit" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="u4a-2I-fDn">
                     <rect key="frame" x="525" y="400" width="55" height="36"/>
-                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="reddit" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="pr2-LB-0Qp">
+                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAdvanced" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="pr2-LB-0Qp">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -447,7 +447,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="36" id="cay-Hh-Bc3"/>
                     </constraints>
-                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSComputer" imagePosition="overlaps" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="qoM-x2-iJe">
+                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAdvanced" imagePosition="overlaps" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="qoM-x2-iJe">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -524,7 +524,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="36" id="8wb-kd-hiL"/>
                     </constraints>
-                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="xcode" imagePosition="overlaps" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="kJO-iZ-NZs">
+                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAdvanced" imagePosition="overlaps" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="kJO-iZ-NZs">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -607,6 +607,7 @@
                 <outlet property="sourcesBundle" destination="vTA-xu-W37" id="wcv-ei-kNm"/>
                 <outlet property="sourcesPlugins" destination="GwL-UG-v7V" id="Z6T-NB-YWc"/>
                 <outlet property="sourcesRefresh" destination="NSz-Gb-L1S" id="yPY-al-Qs5"/>
+                <outlet property="sourcesRepoTable" destination="9eQ-ZE-6Gk" id="O2k-aQ-ICF"/>
                 <outlet property="sourcesRoot" destination="5AW-vF-6Bt" id="kUt-Gj-jyk"/>
                 <outlet property="sourcesURLS" destination="8TF-RG-URr" id="vaZ-XA-TuJ"/>
                 <outlet property="sourcestoRoot" destination="1SW-bc-HiU" id="utr-1Q-IfM"/>
@@ -632,6 +633,7 @@
                 <outlet property="viewUpdateCounter" destination="bAq-wX-J2d" id="VmW-yg-irz"/>
                 <outlet property="webButton" destination="gJj-OJ-EUS" id="z4P-cV-aka"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
+                <outlet property="xCodeButton" destination="iuL-ED-jBx" id="4vl-tn-8Lr"/>
             </connections>
         </customObject>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
@@ -2076,8 +2078,8 @@
     <resources>
         <image name="NSActionTemplate" width="14" height="14"/>
         <image name="NSAddTemplate" width="11" height="11"/>
+        <image name="NSAdvanced" width="128" height="128"/>
         <image name="NSApplicationIcon" width="128" height="128"/>
-        <image name="NSComputer" width="128" height="128"/>
         <image name="NSHomeTemplate" width="14" height="14"/>
         <image name="NSLeftFacingTriangleTemplate" width="9" height="12"/>
         <image name="NSQuickLookTemplate" width="19" height="12"/>
@@ -2086,9 +2088,6 @@
         <image name="NSTrashEmpty" width="128" height="128"/>
         <image name="NSUserGroup" width="128" height="128"/>
         <image name="checkmark" width="32" height="32"/>
-        <image name="github" width="51.200000762939453" height="51.200000762939453"/>
         <image name="icon_nobg" width="512" height="512"/>
-        <image name="reddit" width="418.90908813476562" height="418.90908813476562"/>
-        <image name="xcode" width="16" height="16"/>
     </resources>
 </document>

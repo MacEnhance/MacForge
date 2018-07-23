@@ -23,7 +23,6 @@
 		F0CF07F4166F566E009D198D /* mach_inject_bundle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0CF07F0166F563E009D198D /* mach_inject_bundle.framework */; };
 		FB0227A920F0539B006566EF /* PluginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8EA20F0289900A12ACF /* PluginManager.m */; };
 		FB0227AB20F0B547006566EF /* MacPlus.icns in Resources */ = {isa = PBXBuildFile; fileRef = FB0227AA20F0B547006566EF /* MacPlus.icns */; };
-		FB0227AF20F0BBEC006566EF /* xcode.png in Resources */ = {isa = PBXBuildFile; fileRef = FB0227AE20F0BBEB006566EF /* xcode.png */; };
 		FB30209920F1F2D2003F4CE9 /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = FB30209820F1F2D2003F4CE9 /* menu.png */; };
 		FB3020A520F2018D003F4CE9 /* menu.icns in Resources */ = {isa = PBXBuildFile; fileRef = FB3020A420F2018D003F4CE9 /* menu.icns */; };
 		FB34DEE320F342F400EC1822 /* Paddle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB34DEE220F342F400EC1822 /* Paddle.framework */; };
@@ -76,8 +75,6 @@
 		FBAAB3F020F22BF5002156DC /* NSBundle+LoginItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAAB3EE20F22BF5002156DC /* NSBundle+LoginItem.m */; };
 		FBAAB41720F2CDB0002156DC /* demo_xcode.zip in Resources */ = {isa = PBXBuildFile; fileRef = FBAAB41620F2CDAF002156DC /* demo_xcode.zip */; };
 		FBB19F8120F2D18A003F421B /* plugin_template.zip in Resources */ = {isa = PBXBuildFile; fileRef = FBB19F8020F2D18A003F421B /* plugin_template.zip */; };
-		FBCA65E120F7087C00E1600E /* reddit.png in Resources */ = {isa = PBXBuildFile; fileRef = FBCA65E020F7087C00E1600E /* reddit.png */; };
-		FBCA65E320F7373300E1600E /* github.png in Resources */ = {isa = PBXBuildFile; fileRef = FBCA65E220F7373300E1600E /* github.png */; };
 		FBE767A220EF426D00A42BD5 /* MacPlusKit.h in Headers */ = {isa = PBXBuildFile; fileRef = FBE767A020EF426D00A42BD5 /* MacPlusKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FBE767AB20EF428F00A42BD5 /* STPrivilegedTask.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE767A620EF428F00A42BD5 /* STPrivilegedTask.m */; };
 		FBE767AC20EF428F00A42BD5 /* STPrivilegedTask.h in Headers */ = {isa = PBXBuildFile; fileRef = FBE767A720EF428F00A42BD5 /* STPrivilegedTask.h */; };
@@ -102,6 +99,11 @@
 		FBE767FA20F0116000A42BD5 /* SIMBL.m in Sources */ = {isa = PBXBuildFile; fileRef = FBB0849120EEF0AC0032BDB2 /* SIMBL.m */; };
 		FBE767FB20F0116600A42BD5 /* SIMBLPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = FBB0849420EEF0AC0032BDB2 /* SIMBLPlugin.m */; };
 		FBE767FC20F0122F00A42BD5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F0ADE103166DF941009758CC /* InfoPlist.strings */; };
+		FBF137CC210575ED0001916A /* code.png in Resources */ = {isa = PBXBuildFile; fileRef = FBF137CB210575ED0001916A /* code.png */; };
+		FBF137CE210576720001916A /* tools.png in Resources */ = {isa = PBXBuildFile; fileRef = FBF137CD210576720001916A /* tools.png */; };
+		FBF137D22105782A0001916A /* reddit.png in Resources */ = {isa = PBXBuildFile; fileRef = FBF137D12105782A0001916A /* reddit.png */; };
+		FBF137D4210578610001916A /* github.png in Resources */ = {isa = PBXBuildFile; fileRef = FBF137D3210578610001916A /* github.png */; };
+		FBF137D6210582540001916A /* checkmark_test.png in Resources */ = {isa = PBXBuildFile; fileRef = FBF137D5210582540001916A /* checkmark_test.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -268,7 +270,6 @@
 		F0ADE1E3166E0C0D009758CC /* DKInjectorProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKInjectorProxy.m; sourceTree = "<group>"; };
 		F0CF07E4166F563D009D198D /* mach_inject_bundle.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = mach_inject_bundle.xcodeproj; path = ../mach_inject_bundle/mach_inject_bundle.xcodeproj; sourceTree = "<group>"; };
 		FB0227AA20F0B547006566EF /* MacPlus.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MacPlus.icns; sourceTree = "<group>"; };
-		FB0227AE20F0BBEB006566EF /* xcode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xcode.png; sourceTree = "<group>"; };
 		FB30208E20F1E8AD003F4CE9 /* icon_nobg.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon_nobg.icns; sourceTree = "<group>"; };
 		FB30209820F1F2D2003F4CE9 /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
 		FB3020A420F2018D003F4CE9 /* menu.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = menu.icns; sourceTree = "<group>"; };
@@ -337,8 +338,6 @@
 		FBB0849720EEF0AC0032BDB2 /* SIMBL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIMBL.h; sourceTree = "<group>"; };
 		FBB0849820EEF0AC0032BDB2 /* SIMBLPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIMBLPlugin.h; sourceTree = "<group>"; };
 		FBB19F8020F2D18A003F421B /* plugin_template.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = plugin_template.zip; sourceTree = "<group>"; };
-		FBCA65E020F7087C00E1600E /* reddit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reddit.png; sourceTree = "<group>"; };
-		FBCA65E220F7373300E1600E /* github.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = github.png; sourceTree = "<group>"; };
 		FBE7679E20EF426D00A42BD5 /* MacPlusKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MacPlusKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBE767A020EF426D00A42BD5 /* MacPlusKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MacPlusKit.h; sourceTree = "<group>"; };
 		FBE767A120EF426D00A42BD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -352,6 +351,11 @@
 		FBE767F220F00FFE00A42BD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FBE767F320F00FFE00A42BD5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FBE767F520F00FFE00A42BD5 /* MacPlus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacPlus.entitlements; sourceTree = "<group>"; };
+		FBF137CB210575ED0001916A /* code.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = code.png; sourceTree = "<group>"; };
+		FBF137CD210576720001916A /* tools.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tools.png; sourceTree = "<group>"; };
+		FBF137D12105782A0001916A /* reddit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reddit.png; sourceTree = "<group>"; };
+		FBF137D3210578610001916A /* github.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = github.png; sourceTree = "<group>"; };
+		FBF137D5210582540001916A /* checkmark_test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark_test.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -647,14 +651,16 @@
 		FBA6E8DF20F0286000A12ACF /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				FBF137D3210578610001916A /* github.png */,
+				FBF137D12105782A0001916A /* reddit.png */,
+				FBF137CD210576720001916A /* tools.png */,
+				FBF137CB210575ED0001916A /* code.png */,
+				FBF137D5210582540001916A /* checkmark_test.png */,
 				FBA6E8D720F0285A00A12ACF /* checkmark.png */,
-				FBCA65E220F7373300E1600E /* github.png */,
 				FB30208E20F1E8AD003F4CE9 /* icon_nobg.icns */,
 				FBA6E8D420F0285A00A12ACF /* loading_mini.gif */,
 				FBA6E8D320F0285A00A12ACF /* update.png */,
 				FBA6E8D520F0285A00A12ACF /* webicon.png */,
-				FB0227AE20F0BBEB006566EF /* xcode.png */,
-				FBCA65E020F7087C00E1600E /* reddit.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -1076,9 +1082,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FBCA65E120F7087C00E1600E /* reddit.png in Resources */,
+				FBF137D6210582540001916A /* checkmark_test.png in Resources */,
 				FB7E350320F202D200EB3339 /* icon_nobg.icns in Resources */,
+				FBF137CE210576720001916A /* tools.png in Resources */,
 				FBA6E8FC20F028A400A12ACF /* LICENSE_EULA in Resources */,
+				FBF137D4210578610001916A /* github.png in Resources */,
 				FBA6E8DA20F0285B00A12ACF /* loading_mini.gif in Resources */,
 				FBA6E8D920F0285B00A12ACF /* update.png in Resources */,
 				FBA6E8FB20F028A400A12ACF /* Credits.rtf in Resources */,
@@ -1086,14 +1094,14 @@
 				FBA6E8DB20F0285B00A12ACF /* webicon.png in Resources */,
 				FBA6E8DD20F0285B00A12ACF /* checkmark.png in Resources */,
 				FBAAB41720F2CDB0002156DC /* demo_xcode.zip in Resources */,
-				FBCA65E320F7373300E1600E /* github.png in Resources */,
 				FBA6E8E120F0287500A12ACF /* dsa_pub.pem in Resources */,
 				FBA6E8CE20F025A100A12ACF /* Application.xib in Resources */,
-				FB0227AF20F0BBEC006566EF /* xcode.png in Resources */,
 				FBA6E8CA20F01E1B00A12ACF /* LICENSE_SGDirWatchdog in Resources */,
 				FBA6E8C820F01E0100A12ACF /* LICENSE_ZKSwizzle in Resources */,
 				FBB19F8120F2D18A003F421B /* plugin_template.zip in Resources */,
 				FBA6E8C220F01D4000A12ACF /* LICENSE_StartAtLoginController in Resources */,
+				FBF137D22105782A0001916A /* reddit.png in Resources */,
+				FBF137CC210575ED0001916A /* code.png in Resources */,
 				FBA6E8C420F01D7500A12ACF /* LICENSE_SIMBL in Resources */,
 				FBA6E8C620F01DDA00A12ACF /* LICENSE_STPrivilegedTask in Resources */,
 				FBA6E8FA20F028A400A12ACF /* Changelog.rtf in Resources */,

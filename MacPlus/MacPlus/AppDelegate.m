@@ -85,19 +85,6 @@ NSArray *tabViews;
     myDelegate = self;
     appStart = [NSDate date];
     osx_ver = [[NSProcessInfo processInfo] operatingSystemVersion].minorVersion;
-    
-    // Make sure default sources are in place
-    NSArray *defaultRepos = @[@"https://github.com/w0lfschild/myRepo/raw/master/mytweaks",
-                              @"https://github.com/w0lfschild/myRepo/raw/master/urtweaks",
-                              @"https://github.com/w0lfschild/myRepo/raw/master/test",
-                              @"https://github.com/w0lfschild/macplugins/raw/master"];
-    
-    NSMutableArray *newArray = [NSMutableArray arrayWithArray:[myPreferences objectForKey:@"sources"]];
-    for (NSString *item in defaultRepos)
-        if (![[myPreferences objectForKey:@"sources"] containsObject:item])
-            [newArray addObject:item];
-    [[NSUserDefaults standardUserDefaults] setObject:newArray forKey:@"sources"];
-    [myPreferences setObject:newArray forKey:@"sources"];
     return self;
 }
 
@@ -145,12 +132,7 @@ NSArray *tabViews;
     
 //    DMKitDebugAddDevMateMenu();
     
-//    Paddle *thePaddle = [Paddle sharedInstance];
-//    [thePaddle setProductId:@"534403"];
-//    [thePaddle setVendorId:@"26643"];
-//    [thePaddle setApiKey:@"02a3c57238af53b3c465ef895729c765"];
-
-//    [PaddleAnalyticsKit enableTracking];
+    [self executionTime:@"startPaddle"];
 
 //    NSDictionary *productInfo = [NSDictionary dictionaryWithObjectsAndKeys:
 //                                 @"1.99", kPADCurrentPrice,
@@ -214,6 +196,14 @@ NSArray *tabViews;
     NSLog(@"Launch time : %f Seconds", executionTime);
 }
 
+- (void)startPaddle {
+    _thePaddle = [Paddle sharedInstance];
+    [_thePaddle setProductId:@"534403"];
+    [_thePaddle setVendorId:@"26643"];
+    [_thePaddle setApiKey:@"02a3c57238af53b3c465ef895729c765"];
+    [PaddleAnalyticsKit enableTracking];
+}
+
 - (void)executionTime:(NSString*)s {
     SEL sl = NSSelectorFromString(s);
     NSDate *startTime = [NSDate date];
@@ -234,6 +224,19 @@ NSArray *tabViews;
     [_sourcesPush setEnabled:true];
     [_sourcesPop setEnabled:false];
     myPreferences = [self getmyPrefs];
+    
+    // Make sure default sources are in place
+    NSArray *defaultRepos = @[@"https://github.com/w0lfschild/myRepo/raw/master/mytweaks",
+                              @"https://github.com/w0lfschild/myRepo/raw/master/urtweaks",
+                              @"https://github.com/w0lfschild/myRepo/raw/master/test",
+                              @"https://github.com/w0lfschild/macplugins/raw/master"];
+    
+    NSMutableArray *newArray = [NSMutableArray arrayWithArray:[myPreferences objectForKey:@"sources"]];
+    for (NSString *item in defaultRepos)
+        if (![[myPreferences objectForKey:@"sources"] containsObject:item])
+            [newArray addObject:item];
+    [[NSUserDefaults standardUserDefaults] setObject:newArray forKey:@"sources"];
+    [myPreferences setObject:newArray forKey:@"sources"];
 
     [_sourcesRoot setSubviews:[[NSArray alloc] initWithObjects:_discoverChanges, nil]];
     
@@ -451,11 +454,28 @@ NSArray *tabViews;
 
     [_prefUpdateInterval selectItemWithTag:[[myPreferences objectForKey:@"SUScheduledCheckInterval"] integerValue]];
 
-    [[_gitButton cell] setImageScaling:NSImageScaleProportionallyUpOrDown];
-    [[_sourceButton cell] setImageScaling:NSImageScaleProportionallyUpOrDown];
+    NSImage *img = [NSImage imageNamed:@"github"];
+    [img setTemplate:true];
+    [_gitButton setImage:img];
+    
+    img = [NSImage imageNamed:@"reddit"];
+    [img setTemplate:true];
+    [_emailButton setImage:img];
+    
+    img = [NSImage imageNamed:@"code"];
+    [img setTemplate:true];
+    [_sourceButton setImage:img];
+    
+    img = [NSImage imageNamed:@"tools"];
+    [img setTemplate:true];
+    [_xCodeButton setImage:img];
+    
+    [[_gitButton cell] setImageScaling:NSImageScaleProportionallyDown];
+    [[_sourceButton cell] setImageScaling:NSImageScaleProportionallyDown];
+    [[_emailButton cell] setImageScaling:NSImageScaleProportionallyDown];
+    [[_xCodeButton cell] setImageScaling:NSImageScaleProportionallyDown];
     [[_webButton cell] setImageScaling:NSImageScaleProportionallyUpOrDown];
-    [[_emailButton cell] setImageScaling:NSImageScaleProportionallyUpOrDown];
-
+    
     [_sourceButton setAction:@selector(visitSource)];
     [_gitButton setAction:@selector(visitGithub)];
     [_webButton setAction:@selector(visitWebsite)];
@@ -669,6 +689,9 @@ NSArray *tabViews;
         [NSAnimationContext endGrouping];
     }
     
+//    NSString *osxMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
+//    NSLog(@"%@", [[NSApp effectiveAppearance] name]);
+//    if (![NSApp.effectiveAppearance.name isEqualToString:NSAppearanceNameAqua]) {
     NSString *osxMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
     if ([osxMode isEqualToString:@"Dark"]) {
         [_changeLog setTextColor:[NSColor whiteColor]];
@@ -784,15 +807,19 @@ NSArray *tabViews;
 - (IBAction)selectView:(id)sender {
     selectedView = sender;
     if ([tabViewButtons containsObject:sender]) {
-        NSView *v = [tabViews objectAtIndex:[tabViewButtons indexOfObject:sender]];
-//        [v.layer setBackgroundColor:[NSColor redColor].CGColor];
-        [v setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
-        [v setFrame:_tabMain.frame];
-        [v setFrameOrigin:NSMakePoint(0, 0)];
-        [v setTranslatesAutoresizingMaskIntoConstraints:true];
-        [_tabMain setSubviews:[NSArray arrayWithObject:v]];
-        [_tabMain setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+            NSView *v = [tabViews objectAtIndex:[tabViewButtons indexOfObject:sender]];
+            dispatch_async(dispatch_get_main_queue(), ^(void){
+//                [v.layer setBackgroundColor:[NSColor redColor].CGColor];
+                [v setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
+                [v setFrame:self->_tabMain.frame];
+                [v setFrameOrigin:NSMakePoint(0, 0)];
+                [v setTranslatesAutoresizingMaskIntoConstraints:true];
+                [self->_tabMain setSubviews:[NSArray arrayWithObject:v]];
+            });
+        });
     }
+    [_tabMain setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
     for (NSButton *g in tabViewButtons) {
         if (![g isEqualTo:sender])
             [[g layer] setBackgroundColor:[NSColor clearColor].CGColor];
@@ -803,21 +830,32 @@ NSArray *tabViews;
 }
 
 - (IBAction)sourceAddorRemove:(id)sender {
-    NSMutableArray *newArray = [NSMutableArray arrayWithArray:[myPreferences objectForKey:@"sources"]];
-    NSString *input = _addsourcesTextFiled.stringValue;
-    NSArray *arr = [input componentsSeparatedByString:@"\n"];
-    for (NSString* item in arr) {
-        if ([item length]) {
-            if ([newArray containsObject:item]) {
-                [newArray removeObject:item];
-            } else {
-                [newArray addObject:item];
+    if ([[sender className] isEqualToString:@"NSMenuItem"]) {
+        NSMutableArray *newSources = [[[NSUserDefaults standardUserDefaults] objectForKey:@"sources"] mutableCopy];
+        NSString *str = (NSString*)[newSources objectAtIndex:[_sourcesRepoTable selectedRow]];
+        [newSources removeObject:str];
+        [[NSUserDefaults standardUserDefaults] setObject:newSources forKey:@"sources"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [myPreferences setObject:newSources forKey:@"sources"];
+    } else {
+        NSMutableArray *newArray = [NSMutableArray arrayWithArray:[myPreferences objectForKey:@"sources"]];
+        NSString *input = _addsourcesTextFiled.stringValue;
+        NSArray *arr = [input componentsSeparatedByString:@"\n"];
+        for (NSString* item in arr) {
+            if ([item length]) {
+                if ([newArray containsObject:item]) {
+                    [newArray removeObject:item];
+                } else {
+                    [newArray addObject:item];
+                }
             }
         }
+        
+        [[NSUserDefaults standardUserDefaults] setObject:newArray forKey:@"sources"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [myPreferences setObject:newArray forKey:@"sources"];
     }
     
-    [[NSUserDefaults standardUserDefaults] setObject:newArray forKey:@"sources"];
-    [myPreferences setObject:newArray forKey:@"sources"];
     [_srcWin close];
     [_sourcesAllTable reloadData];
     [_sourcesRepoTable reloadData];

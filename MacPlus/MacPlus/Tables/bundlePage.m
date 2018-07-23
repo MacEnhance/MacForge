@@ -188,12 +188,18 @@ extern long selectedRow;
     [self.bundleDelete setTarget:self];
     [self.bundleDelete setAction:@selector(pluginDelete)];
     
+//    NSDate *startTime = [NSDate date];
+
     NSMutableDictionary *installedPlugins = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *plugins = [PluginManager.sharedInstance getInstalledPlugins];
     for (NSString *key in plugins.allKeys) {
         NSDictionary *itemDict = [plugins objectForKey:key];
         [installedPlugins setObject:itemDict forKey:[itemDict objectForKey:@"bundleId"]];
     }
+
+//    NSDate *methodFinish = [NSDate date];
+//    NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:startTime];
+//    NSLog(@"%@ execution time : %f Seconds", startTime, executionTime);
     
     if ([installedPlugins objectForKey:[item objectForKey:@"package"]]) {
         // Pack already exists
@@ -224,11 +230,11 @@ extern long selectedRow;
     } else {
         // Package not installed
         [self.bundleDelete setEnabled:false];
-        NSString *price = [NSString stringWithFormat:@"%@", [item objectForKey:@"price"]];
+//        NSString *price = [NSString stringWithFormat:@"%@", [item objectForKey:@"price"]];
         if ([[item objectForKey:@"isPaid"] boolValue]) {
-            self.bundleInstall.title = @"";
+            self.bundleInstall.title = @"Verifying...";
             [self verifyPurchased];
-            [self.bundleInstall setAction:@selector(testmethod)];
+            [self.bundleInstall setAction:@selector(installOrPurchase)];
         } else {
             [self.bundleInstall setEnabled:true];
             self.bundleInstall.title = @"Install";
@@ -241,15 +247,10 @@ extern long selectedRow;
 }
 
 - (void)verifyPurchased {
-    if ([item objectForKey:@"productInfo"]) {
-        NSDictionary *productWebInfo =[item objectForKey:@"productInfo"];
-        NSString *productID = [productWebInfo objectForKey:@"productID"];
-        NSString *vendorID = [productWebInfo objectForKey:@"vendorID"];
-        NSString *apiKey = [productWebInfo objectForKey:@"apiKey"];
-        Paddle *thePaddle = [Paddle sharedInstance];
-        [thePaddle setProductId:productID];
-        [thePaddle setVendorId:vendorID];
-        [thePaddle setApiKey:apiKey];
+//    NSLog(@"%s", __PRETTY_FUNCTION__);
+    NSString *productID = [item objectForKey:@"productID"];
+    if (productID != nil) {
+        Paddle *thePaddle = myDelegate.thePaddle;
         NSDictionary *productInfo = [NSDictionary dictionaryWithObjectsAndKeys:
                                      @"0.99", kPADCurrentPrice,
                                      @"Wolfgang Baird", kPADDevName,
@@ -262,7 +263,7 @@ extern long selectedRow;
                                      nil];
         [thePaddle setupChildProduct:productID productInfo:productInfo timeTrial:NO];
         [thePaddle verifyLicenceForChildProduct:productID withCompletionBlock:^(BOOL purchased, NSError *e) {
-//            NSLog(@"Purchased %@ : %hhd", [self->item objectForKey:@"package"], purchased);
+            NSLog(@"Purchased %@ : %hhd", [self->item objectForKey:@"package"], purchased);
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (purchased) {
                     self.bundleInstall.title = @"Install";
@@ -276,34 +277,40 @@ extern long selectedRow;
     }
 }
 
-- (void)testmethod {
-    NSLog(@"purchaseAndInstall");
-    NSString *productID = [[item objectForKey:@"productInfo"] objectForKey:@"productID"];
-    NSString *vendorID = [[item objectForKey:@"productInfo"] objectForKey:@"vendorID"];
-    NSString *apiKey = [[item objectForKey:@"productInfo"] objectForKey:@"apiKey"];
-    Paddle *thePaddle = [Paddle sharedInstance];
-    [thePaddle setProductId:productID];
-    [thePaddle setVendorId:vendorID];
-    [thePaddle setApiKey:apiKey];
-    NSDictionary *productInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                                 @"1.99", kPADCurrentPrice,
-                                 @"Wolfgang Baird", kPADDevName,
-                                 @"USD", kPADCurrency,
-                                 @"https://dl.devmate.com/org.w0lf.cDock-GUI/icons/5aae1388a46dd_128.png", kPADImage,
-                                 @"moreMenu", kPADProductName,
-                                 @"0", kPADTrialDuration,
-                                 @"Thanks for purchasing", kPADTrialText,
-                                 @"icon.icns", kPADProductImage,
-                                 nil];
-    [thePaddle setupChildProduct:productID productInfo:productInfo timeTrial:NO];
-    [thePaddle verifyLicenceForChildProduct:productID withCompletionBlock:^(BOOL purchased, NSError *e) {
-//        NSLog(@"Purchased : %hhd - Error : %@", purchased, e.localizedDescription);
-        if (purchased) {
-            [self pluginInstall];
-        } else {
-            [thePaddle startPurchaseForChildProduct:productID];
-        }
-    }];
+- (void)installOrPurchase {
+//    NSLog(@"%s", __PRETTY_FUNCTION__);
+    NSString *productID = [item objectForKey:@"productID"];
+    if (productID != nil) {
+        Paddle *thePaddle = myDelegate.thePaddle;
+        NSDictionary *productInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                                     @"1.99", kPADCurrentPrice,
+                                     @"Wolfgang Baird", kPADDevName,
+                                     @"USD", kPADCurrency,
+                                     @"https://dl.devmate.com/org.w0lf.cDock-GUI/icons/5aae1388a46dd_128.png", kPADImage,
+                                     @"moreMenu", kPADProductName,
+                                     @"0", kPADTrialDuration,
+                                     @"Thanks for purchasing", kPADTrialText,
+                                     @"icon.icns", kPADProductImage,
+                                     nil];
+        [thePaddle setupChildProduct:productID productInfo:productInfo timeTrial:NO];
+        [thePaddle verifyLicenceForChildProduct:productID withCompletionBlock:^(BOOL purchased, NSError *e) {
+            NSLog(@"Purchased : %hhd - Error : %@", purchased, e.localizedDescription);
+            if (purchased) {
+                [self pluginInstall];
+            } else {
+                [thePaddle showActivateLicenceWithWindow:myDelegate.window licenceCode:nil email:nil forChildProduct:productID withCompletionBlock:^(BOOL activated) {
+                    if (activated)
+                        [self pluginInstall];
+                    NSLog(@"activated : %hhd", activated);
+                }];
+//                [thePaddle purchaseChildProduct:productID withWindow:myDelegate.window completionBlock:^(NSString * _Nullable response, NSString * _Nullable email, BOOL completed, NSError * _Nullable error, NSDictionary * _Nullable checkoutData) {
+//                    NSLog(@"response %@ : email %@ : completed %hhd : error %@ : checkoutData %@", response, email, completed, error, checkoutData);
+//                }];
+            }
+        }];
+    } else {
+        
+    }
 }
 
 - (void)keyDown:(NSEvent *)theEvent {
@@ -348,6 +355,8 @@ extern long selectedRow;
 - (void)pluginInstall {
     [PluginManager.sharedInstance pluginUpdateOrInstall:item :repoPackages];
     dispatch_async(dispatch_get_main_queue(), ^{
+        [self.bundleInstall setTitle:@"Open"];
+        [PluginManager.sharedInstance readPlugins:nil];
         [self.bundleDelete setEnabled:true];
         [self viewWillDraw];
     });
@@ -359,6 +368,7 @@ extern long selectedRow;
 
 - (void)pluginDelete {
     [PluginManager.sharedInstance pluginDelete:item];
+    [PluginManager.sharedInstance readPlugins:nil];
     [self.bundleDelete setEnabled:false];
     [self viewWillDraw];
 }

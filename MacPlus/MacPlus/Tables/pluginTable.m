@@ -137,7 +137,7 @@ NSInteger previusRow = -1;
     }
     
     result.pluginImage.image = [_pluginData fetch_icon:aBundle];
-//    result.pluginDescription.stringValue = aBundle.localDescription;
+    result.pluginDescription.stringValue = aBundle.localDescription;
 //    result.pluginImage.animates = YES;
 //    result.pluginImage.image = [NSImage imageNamed:@"loading_mini.gif"];
 //    result.pluginImage.canDrawSubviewsIntoLayer = YES;

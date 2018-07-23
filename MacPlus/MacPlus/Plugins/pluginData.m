@@ -88,6 +88,9 @@
                 
                 NSString *bundleIdentifier = [bundle bundleIdentifier];
                 
+                if (!bundleIdentifier.length)
+                    bundleIdentifier = [info objectForKey:@"CFBundleIdentifier"];
+                
                 if (![bundleIdentifier length])
                     bundleIdentifier = [NSString stringWithFormat:@"(null - %@)", [NSUUID UUID].UUIDString];
                 

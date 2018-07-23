@@ -30,6 +30,8 @@
 @property IBOutlet NSWindow *srcWin;
 @property IBOutlet SUUpdater *updater;
 
+@property (readwrite, nonatomic) Paddle* thePaddle;
+
 // ADs URL
 @property (readwrite, nonatomic) NSString* adURL;
 @property (readwrite, nonatomic) NSArray* adArray;
@@ -94,6 +96,7 @@
 @property IBOutlet NSButton         *sourceButton;
 @property IBOutlet NSButton         *emailButton;
 @property IBOutlet NSButton         *webButton;
+@property IBOutlet NSButton         *xCodeButton;
 @property IBOutlet NSButton         *showCredits;
 @property IBOutlet NSButton         *showChanges;
 @property IBOutlet NSButton         *showEULA;
