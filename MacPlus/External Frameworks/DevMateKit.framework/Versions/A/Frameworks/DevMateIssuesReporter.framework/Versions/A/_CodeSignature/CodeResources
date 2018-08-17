@@ -139,7 +139,7 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			pKjnlh6ri+X5jQGusN+Zz8afr3s=
+			1dPSYNzBaF71V/T0f3VfJuMd+GI=
 			</data>
 			<key>requirement</key>
 			<string>identifier "coop.plausible.CrashReporter" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "2M6BY8QGR8"</string>

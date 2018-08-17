@@ -13,6 +13,8 @@
     NSMutableDictionary *needsUpdate;
 }
 
+//@property NSMutableDictionary *installedPluginDICT;
+
 + (PluginManager*) sharedInstance;
 + (NSArray*)SIMBLPaths;
 + (NSImage*)pluginGetIcon:(NSDictionary*)plist;

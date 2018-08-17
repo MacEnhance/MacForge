@@ -30,6 +30,7 @@
 @property NSString      *webCompatability;
 @property NSString      *webFileName;
 @property NSString      *webSize;
+@property Boolean       webPaid;
 
 // Local Files
 @property NSDictionary  *localPlist;

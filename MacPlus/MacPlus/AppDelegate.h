@@ -21,6 +21,8 @@
 
 #import <DevMateKit/DevMateKit.h>
 
+#import "blacklistTable.h"
+
 @interface AppDelegate : NSObject <NSApplicationDelegate> {
     NSMutableArray *watchdogs;
     PluginManager *_sharedMethods;
@@ -118,6 +120,7 @@
 @property IBOutlet NSButton         *SIPStatus;
 @property IBOutlet NSButton         *AMFIStatus;
 @property IBOutlet NSScrollView     *blacklistScroll;
+@property IBOutlet blacklistTable   *blackListTable;
 
 - (void)setupEventListener;
 - (IBAction)pushView:(id)sender;

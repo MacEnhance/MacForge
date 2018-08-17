@@ -43,6 +43,10 @@ extern NSMutableDictionary *needsUpdate;
     return [needsUpdate count];
 }
 
+- (NSView *)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    return [self tableView:tableView viewForTableColumn:tableColumn row:row];
+}
+
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     updatesTableCell *result = (updatesTableCell*)[tableView makeViewWithIdentifier:@"upView" owner:self];
     NSDictionary* item = [needsUpdate objectForKey:[[needsUpdate allKeys] objectAtIndex:row]];

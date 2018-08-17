@@ -139,7 +139,8 @@
                                       nil];
             
             NSString* nameandPath = [NSString stringWithFormat:@"%@ - %@", name, path];
-            [dict setObject:itm forKey:nameandPath];
+//            [dict setObject:itm forKey:nameandPath];
+            [dict setObject:itm forKey:bundleIdentifier];
         }
     }
 }

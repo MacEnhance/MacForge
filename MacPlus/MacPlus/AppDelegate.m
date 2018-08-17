@@ -72,11 +72,21 @@ NSArray *tabViews;
 
 // Cleanup some stuff when user changes dark mode
 - (void)systemDarkModeChange:(NSNotification *)notif {
-    NSString *osxMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
-    if ([osxMode isEqualToString:@"Dark"]) {
-        [_changeLog setTextColor:[NSColor whiteColor]];
-    } else {
-        [_changeLog setTextColor:[NSColor blackColor]];
+    if (osx_ver >= 14) {
+        if (notif == nil) {
+            if ([NSApp.effectiveAppearance.name isEqualToString:NSAppearanceNameAqua]) {
+                [_changeLog setTextColor:[NSColor blackColor]];
+            } else {
+                [_changeLog setTextColor:[NSColor whiteColor]];
+            }
+        } else {
+            NSString *osxMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
+            if ([osxMode isEqualToString:@"Dark"]) {
+                [_changeLog setTextColor:[NSColor whiteColor]];
+            } else {
+                [_changeLog setTextColor:[NSColor blackColor]];
+            }
+        }
     }
 }
 
@@ -226,10 +236,12 @@ NSArray *tabViews;
     myPreferences = [self getmyPrefs];
     
     // Make sure default sources are in place
-    NSArray *defaultRepos = @[@"https://github.com/w0lfschild/myRepo/raw/master/mytweaks",
-                              @"https://github.com/w0lfschild/myRepo/raw/master/urtweaks",
-                              @"https://github.com/w0lfschild/myRepo/raw/master/test",
-                              @"https://github.com/w0lfschild/macplugins/raw/master"];
+//    NSArray *defaultRepos = @[@"https://github.com/w0lfschild/myRepo/raw/master/mytweaks",
+//                              @"https://github.com/w0lfschild/myRepo/raw/master/urtweaks",
+//                              @"https://github.com/w0lfschild/myRepo/raw/master/test",
+//                              @"https://github.com/w0lfschild/macplugins/raw/master"];
+    
+    NSArray *defaultRepos = @[@"https://github.com/w0lfschild/myRepo/raw/master/myPaidRepo"];
     
     NSMutableArray *newArray = [NSMutableArray arrayWithArray:[myPreferences objectForKey:@"sources"]];
     for (NSString *item in defaultRepos)
@@ -318,9 +330,12 @@ NSArray *tabViews;
             [visibleButons addObject:btn];
     bottomButtons = [visibleButons copy];
     
+    height = 30;
     yLoc = ([bottomButtons count] - 1) * (height - 1);
     for (NSButton *btn in bottomButtons) {
+        [btn setFont:[NSFont fontWithName:btn.font.fontName size:14]];
         NSRect newFrame = [btn frame];
+        newFrame.size.height = height;
         newFrame.origin.x = 0;
         newFrame.origin.y = yLoc;
         yLoc -= (height - 1);
@@ -341,7 +356,7 @@ NSArray *tabViews;
     }
     
     [self simbl_blacklist];
-    [self getBlacklistAPPList];
+//    [self getBlacklistAPPList];
     
     // Add blurred background if NSVisualEffectView exists
     Class vibrantClass=NSClassFromString(@"NSVisualEffectView");
@@ -386,12 +401,7 @@ NSArray *tabViews;
     NSString * currentYEAR = [formatter stringFromDate:[NSDate date]];
     [_appCopyright setStringValue:[NSString stringWithFormat:@"Copyright © 2015 - %@ Wolfgang Baird", currentYEAR]];
     [[_changeLog textStorage] setAttributedString:[[NSAttributedString alloc] initWithURL:[[NSBundle mainBundle] URLForResource:@"Changelog" withExtension:@"rtf"] options:[[NSDictionary alloc] init] documentAttributes:nil error:nil]];
-    NSString *osxMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
-    if ([osxMode isEqualToString:@"Dark"]) {
-        [_changeLog setTextColor:[NSColor whiteColor]];
-    } else {
-        [_changeLog setTextColor:[NSColor blackColor]];
-    }
+    [self systemDarkModeChange:nil];
     
     // Select tab view
     if ([[myPreferences valueForKey:@"prefStartTab"] integerValue] >= 0) {
@@ -414,15 +424,20 @@ NSArray *tabViews;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         // Path to MacPlusHelper
         NSString *path = [NSString stringWithFormat:@"%@/Contents/Library/LoginItems/MacPlusHelper.app", [[NSBundle mainBundle] bundlePath]];
-        
+
         // Launch helper if it's not open
         //    if ([NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.w0lf.MacPlusHelper"].count == 0)
         //        [[NSWorkspace sharedWorkspace] launchApplication:path];
-        
+
         // Always relaunch in developement
         for (NSRunningApplication *run in [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.w0lf.MacPlusHelper"])
             [run terminate];
-        [Workspace launchApplication:path];
+        
+        // Seems to need to run on main thread
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [Workspace launchApplication:path];
+            [[NSRunningApplication currentApplication] performSelector:@selector(activateWithOptions:) withObject:[NSNumber numberWithUnsignedInteger:NSApplicationActivateIgnoringOtherApps] afterDelay:0.0];
+        });
     });
 }
 
@@ -689,15 +704,7 @@ NSArray *tabViews;
         [NSAnimationContext endGrouping];
     }
     
-//    NSString *osxMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
-//    NSLog(@"%@", [[NSApp effectiveAppearance] name]);
-//    if (![NSApp.effectiveAppearance.name isEqualToString:NSAppearanceNameAqua]) {
-    NSString *osxMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
-    if ([osxMode isEqualToString:@"Dark"]) {
-        [_changeLog setTextColor:[NSColor whiteColor]];
-    } else {
-        [_changeLog setTextColor:[NSColor blackColor]];
-    }
+    [self systemDarkModeChange:nil];
 }
 
 - (IBAction)toggleStartTab:(id)sender {
@@ -899,12 +906,18 @@ NSArray *tabViews;
 - (void)setupSIMBLview {
     [_SIMBLTogggle setState:[FileManager fileExistsAtPath:@"/Library/PrivilegedHelperTools/com.w0lf.MacPlus.Injector"]];
     [_SIMBLAgentToggle setState:[FileManager fileExistsAtPath:@"/Library/PrivilegedHelperTools/com.w0lf.MacPlus.Installer"]];
-//    [_SIPStatus setState:[MacPlusKit SIP_enabled]];
-//    [_AMFIStatus setState:[MacPlusKit AMFI_enabled]];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+        Boolean sip = [MacPlusKit SIP_enabled];
+        Boolean amfi = [MacPlusKit AMFI_enabled];
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            [self->_SIPStatus setState:sip];
+            [self->_AMFIStatus setState:amfi];
+        });
+    });
 }
 
 - (void)simbl_blacklist {
-    NSString *plist = @"Library/Preferences/org.w0lf.SIMBLAgent.plist";
+    NSString *plist = @"Library/Preferences/com.w0lf.MacPlusHelper.plist";
     NSMutableDictionary *SIMBLPrefs = [NSMutableDictionary dictionaryWithContentsOfFile:[NSHomeDirectory() stringByAppendingPathComponent:plist]];
     NSArray *blacklist = [SIMBLPrefs objectForKey:@"SIMBLApplicationIdentifierBlacklist"];
     NSArray *alwaysBlaklisted = @[@"org.w0lf.mySIMBL", @"org.w0lf.cDock-GUI"];
@@ -916,82 +929,82 @@ NSArray *tabViews;
     [SIMBLPrefs writeToFile:[NSHomeDirectory() stringByAppendingPathComponent:plist] atomically:YES];
 }
 
-- (void)getBlacklistAPPList {
-//    myDict = [[NSMutableDictionary alloc] init];
-//
-//    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-//        NSString *repin = [self runCommand:@"/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -dump | grep path: | grep .app | sed -e 's/path://g' -e 's/^[ \t]*//' | sort | uniq"];
-//        NSArray *ary = [repin componentsSeparatedByString:@"\n"];
-//
-//        for (NSString *appPath in ary) {
-//            if ([[NSFileManager defaultManager] fileExistsAtPath:appPath]) {
-//                NSString *appName = [[appPath lastPathComponent] stringByDeletingPathExtension];
-//                NSString *appBundle = [[NSBundle bundleWithPath:appPath] bundleIdentifier];
-//                NSArray *jumboTron = [NSArray arrayWithObjects:appName, appPath, appBundle, nil];
-//                [myDict setObject:jumboTron forKey:appName];
-//            }
-//        }
-//
-//        NSArray *keys = [myDict allKeys];
-//        NSArray *sortedKeys = [keys sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
-//        sortedKeys = [[sortedKeys reverseObjectEnumerator] allObjects];
-//
-//        sharedPrefs = [[NSUserDefaults alloc] initWithSuiteName:@"org.w0lf.SIMBLAgent"];
-//        sharedDict = [sharedPrefs dictionaryRepresentation];
-//
-//        NSArray *blacklisted = [sharedDict objectForKey:@"SIMBLApplicationIdentifierBlacklist"];
-//
-//        dispatch_async(dispatch_get_main_queue(), ^(void){
-//            CGRect frame = self->_blacklistScroll.frame;
-//            frame.size.height = 0;
-//            int count = 0;
-//            for (NSString *app in sortedKeys) {
-//                NSArray *myApp = [myDict valueForKey:app];
-//                if ([myApp count] == 3) {
-//                    CGRect buttonFrame = CGRectMake(10, (25 * count), 150, 22);
-//                    NSButton *newButton = [[NSButton alloc] initWithFrame:buttonFrame];
-//                    [newButton setButtonType:NSButtonTypeSwitch];
-//                    [newButton setTitle:[myApp objectAtIndex:0]];
-//                    [newButton sizeToFit];
-//                    [newButton setAction:@selector(toggleBlacklistItem:)];
-//                    //            [sharedDict valueForKey:[myApp objectAtIndex:2]] == [NSNumber numberWithUnsignedInteger:0]
-//                    if ([blacklisted containsObject:[myApp objectAtIndex:2]]) {
-//                        //                NSLog(@"\n\nApplication: %@\nBundle ID: %@\n\n", app, bundleString);
-//                        [newButton setState:NSControlStateValueOn];
-//                    } else {
-//                        [newButton setState:NSControlStateValueOff];
-//                    }
-//                    [self->_blacklistScroll.documentView addSubview:newButton];
-//                    count += 1;
-//                    frame.size.height += 25;
-//                }
-//            }
-//
-//            frame.size.width = 272;
-//            [self->_blacklistScroll.documentView setFrame:frame];
-//            [self->_blacklistScroll.contentView scrollToPoint:NSMakePoint(0, ((NSView*)self->_blacklistScroll.documentView).frame.size.height - self->_blacklistScroll.contentSize.height)];
-//            [self->_blacklistScroll setHasHorizontalScroller:NO];
-//        });
-//    });
+- (IBAction)addorRemoveBlacklistItem:(id)sender {
+    NSSegmentedControl *sc = (NSSegmentedControl*)sender;
+    if (sc.selectedSegment == 0) {
+        [self addBlacklistItem];
+    } else {
+        [self removeBlacklistItem];
+    }
 }
 
-- (IBAction)toggleBlacklistItem:(NSButton*)btn {
-    if ([sharedPrefs isEqual:nil]) {
-        sharedPrefs = [[NSUserDefaults alloc] initWithSuiteName:@"org.w0lf.SIMBLAgent"];
-        sharedDict = [sharedPrefs dictionaryRepresentation];
-    }
-    NSString *bundleString = [[myDict objectForKey:btn.title] objectAtIndex:2];
+- (void)removeBlacklistItem {
+    sharedPrefs = [[NSUserDefaults alloc] initWithSuiteName:@"com.w0lf.MacPlusHelper"];
+    sharedDict = [sharedPrefs dictionaryRepresentation];
     NSMutableArray *newBlacklist = [[NSMutableArray alloc] initWithArray:[sharedPrefs objectForKey:@"SIMBLApplicationIdentifierBlacklist"]];
-    if (btn.state == NSOnState) {
-        NSLog(@"Adding key: %@", bundleString);
-        [newBlacklist addObject:bundleString];
-        [sharedPrefs setObject:[newBlacklist copy] forKey:@"SIMBLApplicationIdentifierBlacklist"];
-    } else {
-        NSLog(@"Deleting key: %@", bundleString);
-        [newBlacklist removeObject:bundleString];
-        [sharedPrefs setObject:[newBlacklist copy] forKey:@"SIMBLApplicationIdentifierBlacklist"];
+    
+    NSIndexSet *selected = _blackListTable.selectedRowIndexes;
+    NSUInteger idx = [selected firstIndex];
+    while (idx != NSNotFound) {
+        // do work with "idx"
+//        NSLog (@"The current index is %lu", (unsigned long)idx);
+        
+        // Get row at specified index of column 0 ( We just have 1 column)
+        blacklistTableCell *cellView = [_blackListTable viewAtColumn:0 row:idx makeIfNecessary:YES];
+        NSString *bundleID = cellView.bundleID;
+        NSLog(@"Deleting key: %@", bundleID);
+        [newBlacklist removeObject:bundleID];
+        
+        // get the next index in the set
+        idx = [selected indexGreaterThanIndex:idx];
     }
+    
+    [sharedPrefs setObject:[newBlacklist copy] forKey:@"SIMBLApplicationIdentifierBlacklist"];
     [sharedPrefs synchronize];
+    [_blackListTable reloadData];
+}
+
+- (void)addBlacklistItem {
+    NSOpenPanel* opnDlg = [NSOpenPanel openPanel];
+    [opnDlg setTitle:@"Blacklist Selected Applications"];
+    [opnDlg setPrompt:@"Blacklist"];
+    [opnDlg setDirectoryURL:[NSURL fileURLWithPath:[NSSearchPathForDirectoriesInDomains(NSApplicationDirectory, NSLocalDomainMask, YES) firstObject]]];
+    [opnDlg setAllowedFileTypes:@[@"app"]];
+
+    [opnDlg setCanChooseFiles:true];            //Disable file selection
+    [opnDlg setCanChooseDirectories: false];    //Enable folder selection
+    [opnDlg setResolvesAliases: true];          //Enable alias resolving
+    [opnDlg setAllowsMultipleSelection: true];  //Enable multiple selection
+    
+    if ([opnDlg runModal] == NSModalResponseOK) {
+        // Got it, use the panel.URL field for something
+        NSLog(@"MacPlus : %@", [opnDlg URL]);
+        
+        sharedPrefs = [[NSUserDefaults alloc] initWithSuiteName:@"com.w0lf.MacPlusHelper"];
+        sharedDict = [sharedPrefs dictionaryRepresentation];
+        NSMutableArray *newBlacklist = [[NSMutableArray alloc] initWithArray:[sharedPrefs objectForKey:@"SIMBLApplicationIdentifierBlacklist"]];
+
+        NSArray *paths = opnDlg.URLs;
+        for (NSURL *url in paths) {
+            NSString *path = url.path;
+            NSBundle *bundle = [NSBundle bundleWithPath:path];
+            NSString *bundleID = [bundle bundleIdentifier];
+            if (![newBlacklist containsObject:bundleID]) {
+                NSLog(@"Adding key: %@", bundleID);
+                [newBlacklist addObject:bundleID];
+            }
+        }
+        
+        [sharedPrefs setObject:[newBlacklist copy] forKey:@"SIMBLApplicationIdentifierBlacklist"];
+        [sharedPrefs synchronize];
+        [_blackListTable reloadData];
+
+        NSError *error;
+        if (error)
+        NSLog(@"%@", error);
+    } else {
+        // Cancel was pressed...
+    }
 }
 
 - (IBAction)uninstallMacPlus:(id)sender {

@@ -7,6 +7,7 @@
 //
 
 @import AppKit;
+@import QuartzCore;
 #import "AppDelegate.h"
 #import "PluginManager.h"
 #import "MSPlugin.h"
@@ -24,6 +25,7 @@ NSString *textFilter;
     PluginManager *_sharedMethods;
     pluginData *_pluginData;
 }
+@property NSArray *localPlugins;
 @property NSMutableArray *tableContent;
 @property (weak) IBOutlet NSSearchField* pluginFilter;
 @end
@@ -49,8 +51,9 @@ NSString *textFilter;
 - (NSArray*)filterView:(NSArray*)original {
     NSString *filterText = _pluginFilter.stringValue;
     NSArray *result = original;
+    NSString *filter = @"(webName CONTAINS[cd] %@) OR (bundleID CONTAINS[cd] %@) OR (webTarget CONTAINS[cd] %@)";
     if (filterText.length > 0) {
-        result = [original filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(webName CONTAINS[cd] %@) OR (bundleID CONTAINS[cd] %@)", filterText, filterText]];
+        result = [original filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:filter, filterText, filterText, filterText]];
     }
     return result;
 }
@@ -63,16 +66,21 @@ NSString *textFilter;
     if (_sharedMethods == nil)
         _sharedMethods = [PluginManager sharedInstance];
     
+    // Fetch repo content
     static dispatch_once_t aToken;
     dispatch_once(&aToken, ^{
         self->_pluginData = [pluginData sharedInstance];
         [self->_pluginData fetch_repos];
     });
     
+    // Sort table by name
     NSSortDescriptor *sorter = [[NSSortDescriptor alloc] initWithKey:@"webName" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
     NSArray *dank = [[NSMutableArray alloc] initWithArray:[_pluginData.repoPluginsDic allValues]];
     dank = [self filterView:dank];
     _tableContent = [[dank sortedArrayUsingDescriptors:@[sorter]] copy];
+    
+    // Fetch our local content too
+    _localPlugins = [_sharedMethods getInstalledPlugins].allKeys;
     
     return _tableContent.count;
 }
@@ -103,37 +111,79 @@ NSString *textFilter;
     result.bundleDescription.toolTip = item.webDescription;
     
 //    NSSize titleSize = [item.webName sizeWithAttributes:@{NSFontAttributeName:result.bundleName.font}];
-//    int start = result.bundleName.frame.origin.x + 10 + titleSize.width;
-//    NSButton *buy = [[NSButton alloc] initWithFrame:CGRectMake(start, result.bundleName.frame.origin.y, 50, 16)];
-//    [buy setWantsLayer:true];
-//    [buy setBordered:false];
-//    if (![item.webPrice isEqualToString:@"Free"] && ![item.webPrice isEqualToString:@"$0.00"]) {
+//    int xPos = result.bundleName.frame.origin.x + 10 + titleSize.width;
+//    int yPos = result.bundleName.frame.origin.y;
+    
+    int xPos = result.frame.size.width - 100;
+    int yPos = result.frame.size.height / 2 - 10;
+    NSButton *buy = [[NSButton alloc] initWithFrame:CGRectMake(xPos, yPos, 70, 20)];
+    [buy setWantsLayer:true];
+    [buy setBordered:false];
+    if (item.webPaid) {
+        [buy.layer setBackgroundColor:[NSColor colorWithRed:0.9 green:0.9 blue:0.95 alpha:1.0].CGColor];
 //        [buy.layer setBackgroundColor:[NSColor colorWithRed:0.0 green:0.4 blue:1.0 alpha:1.0].CGColor];
-//        [buy setTitle:@"Buy"];
-//    } else {
+//        CAGradientLayer *gradient = [CAGradientLayer layer];
+//        gradient.frame            = buy.bounds;
+//        gradient.colors           = [NSArray arrayWithObjects:(id)[NSColor colorWithRed:0.5 green:0.8 blue:1.0 alpha:1.0].CGColor, (id)[NSColor colorWithRed:0.0 green:0.4 blue:1.0 alpha:1.0].CGColor, nil];
+//        [buy.layer setBackgroundColor:NSColor.clearColor.CGColor];
+//        [buy.layer insertSublayer:gradient atIndex:0];
+        [buy setTitle:item.webPrice];
+        //        [buy setTitle:@"Paid"];
+    } else {
+        [buy.layer setBackgroundColor:[NSColor colorWithRed:0.9 green:0.9 blue:0.95 alpha:1.0].CGColor];
 //        [buy.layer setBackgroundColor:[NSColor colorWithRed:0.2 green:0.8 blue:0.2 alpha:1.0].CGColor];
-//        [buy setTitle:@"Install"];
-//    }
-//    [buy.layer setCornerRadius:8];
-//    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-//    [style setAlignment:NSCenterTextAlignment];
-//    NSDictionary *attrsDictionary  = [NSDictionary dictionaryWithObjectsAndKeys:
-//                                      NSColor.whiteColor, NSForegroundColorAttributeName,
-//                                      buy.font, NSFontAttributeName,
-//                                      style, NSParagraphStyleAttributeName, nil];
-//    NSAttributedString *attrString = [[NSAttributedString alloc]initWithString:buy.title attributes:attrsDictionary];
-//    [buy setAttributedTitle:attrString];
-//    [result addSubview:buy];
+//        CAGradientLayer *gradient = [CAGradientLayer layer];
+//        gradient.frame            = buy.bounds;
+//        gradient.colors           = [NSArray arrayWithObjects:(id)[NSColor colorWithRed:0.4 green:0.8 blue:0.4 alpha:1.0].CGColor, (id)[NSColor colorWithRed:0.2 green:1.0 blue:0.2 alpha:1.0].CGColor, nil];
+//        [buy.layer setBackgroundColor:NSColor.clearColor.CGColor];
+//        [buy.layer insertSublayer:gradient atIndex:0];
+        [buy setTitle:@"Install"];
+    }
+    if ([_localPlugins containsObject:item.bundleID]) {
+//        [buy.layer setBackgroundColor:[NSColor colorWithRed:0.8 green:0.2 blue:0.2 alpha:1.0].CGColor];
+//        NSGradient *g = [NSGradient.alloc initWithStartingColor:NSColor.redColor endingColor:NSColor.blueColor];
+        [buy setTitle:@"OPEN"];
+//        CGRect frm = CGRectMake(buy.frame.origin.x - 20, buy.frame.origin.y, 16, 16);
+//        NSImageView *v = [[NSImageView alloc] initWithFrame:frm];
+//        [v setImage:[NSImage imageNamed:@"checkmark"]];
+//        [result addSubview:v];
+        result.bundleImageInstalled.hidden = false;
+        Boolean hideCheckmark = true;
+        NSString *a = [NSString stringWithFormat:@"/Library/Application Support/SIMBL/Plugins/%@.bundle", item.webName];
+        NSString *b = [NSString stringWithFormat:@"/Users/%@/Library/Application Support/SIMBL/Plugins/%@.bundle", NSUserName(), item.webName];
+        if ([FileManager fileExistsAtPath:a] || [FileManager fileExistsAtPath:b]) hideCheckmark = false;
+        if (hideCheckmark) {
+            [buy setTitle:@"Enable"];
+//            [result.bundleImageInstalled setImage:[NSImage imageNamed:NSImageNameStatusPartiallyAvailable]];
+        } else {
+            [buy setTitle:@"Disable"];
+//            [result.bundleImageInstalled setImage:[NSImage imageNamed:NSImageNameStatusAvailable]];
+        }
+        
+        [result.bundleImageInstalled setImageScaling:NSImageScaleProportionallyUpOrDown];
+    }
+    [buy setAutoresizingMask:NSViewMinXMargin];
+    [buy.layer setCornerRadius:10];
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    [style setAlignment:NSCenterTextAlignment];
+    NSColor *txtColor = [NSColor colorWithRed:0.0 green:0.4 blue:1.0 alpha:1.0];
+    NSDictionary *attrsDictionary  = [NSDictionary dictionaryWithObjectsAndKeys:
+                                      txtColor, NSForegroundColorAttributeName,
+                                      buy.font, NSFontAttributeName,
+                                      style, NSParagraphStyleAttributeName, nil];
+    NSAttributedString *attrString = [[NSAttributedString alloc]initWithString:buy.title attributes:attrsDictionary];
+    [buy setAttributedTitle:attrString];
+    [result addSubview:buy];
     
     result.bundleImage.image = [PluginManager pluginGetIcon:item.webPlist];
     [result.bundleImage.cell setImageScaling:NSImageScaleProportionallyUpOrDown];
 
     // Check if installed
-    Boolean hideCheckmark = true;
-    NSString *a = [NSString stringWithFormat:@"/Library/Application Support/SIMBL/Plugins/%@.bundle", item.webName];
-    NSString *b = [NSString stringWithFormat:@"/Users/%@/Library/Application Support/SIMBL/Plugins/%@.bundle", NSUserName(), item.webName];
-    if ([FileManager fileExistsAtPath:a] || [FileManager fileExistsAtPath:b]) hideCheckmark = false;
-    result.bundleImageInstalled.hidden = hideCheckmark;
+//    Boolean hideCheckmark = true;
+//    NSString *a = [NSString stringWithFormat:@"/Library/Application Support/SIMBL/Plugins/%@.bundle", item.webName];
+//    NSString *b = [NSString stringWithFormat:@"/Users/%@/Library/Application Support/SIMBL/Plugins/%@.bundle", NSUserName(), item.webName];
+//    if ([FileManager fileExistsAtPath:a] || [FileManager fileExistsAtPath:b]) hideCheckmark = false;
+//    result.bundleImageInstalled.hidden = hideCheckmark;
 
 //    NSPoint p = CGPointMake(result.bundleIndicator.frame.origin.x - 40, result.bundleIndicator.frame.origin.y + 8);
 //    [result.bundleImageInstalled setFrameOrigin:p];

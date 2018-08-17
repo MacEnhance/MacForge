@@ -86,12 +86,20 @@ NSArray *sourceURLS;
     return [sourceURLS count];
 }
 
+- (NSView *)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    return [self tableView:tableView viewForTableColumn:tableColumn row:row];
+}
+
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     sourceTableCell *result = (sourceTableCell*)[tableView makeViewWithIdentifier:@"sView" owner:self];
     
     result.sourceIndicator.animates = YES;
     result.sourceIndicator.image = [NSImage imageNamed:@"loading_mini.gif"];
     result.sourceIndicator.canDrawSubviewsIntoLayer = YES;
+    
+    result.sourceImage.animates = YES;
+    result.sourceImage.image = [NSImage imageNamed:@"loading_mini.gif"];
+    result.sourceImage.canDrawSubviewsIntoLayer = YES;
     [result.superview setWantsLayer:YES];
     
     dispatch_queue_t backgroundQueue = dispatch_queue_create("com.w0lf.MacPlus", 0);
@@ -100,18 +108,20 @@ NSArray *sourceURLS;
         NSString* source = [sourceURLS objectAtIndex:row];
         NSURL* data = [NSURL URLWithString:[NSString stringWithFormat:@"%@/resource.plist?%@", source, [[NSProcessInfo processInfo] globallyUniqueString]]];
         NSMutableDictionary* dic = [[NSMutableDictionary alloc] initWithContentsOfURL:data];
-    
+        NSImage *sourceIcon = [[NSImage alloc] init];
+        if (dic)
+           sourceIcon = [[NSImage alloc] initByReferencingURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/icon.png?%@", source, [[NSProcessInfo processInfo] globallyUniqueString]]]];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             if ([source length])
                 result.sourceDescription.stringValue = source;
             
-            if (dic)
-            {
+            if (dic) {
                 if ([dic objectForKey:@"name"])
                     result.sourceName.stringValue = [dic objectForKey:@"name"];
-                result.sourceImage.image = [[NSImage alloc] initByReferencingURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/icon.png?%@", source, [[NSProcessInfo processInfo] globallyUniqueString]]]];
+//                result.sourceImage.image = [[NSImage alloc] initByReferencingURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/icon.png?%@", source, [[NSProcessInfo processInfo] globallyUniqueString]]]];
             }
-            
+            result.sourceImage.image = sourceIcon;
             [result.sourceIndicator setImage:[NSImage imageNamed:NSImageNameRightFacingTriangleTemplate]];
         });
     });

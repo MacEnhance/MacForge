@@ -51,6 +51,10 @@ long selectedRow;
     return [allPlugins count];
 }
 
+- (NSView *)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    return [self tableView:tableView viewForTableColumn:tableColumn row:row];
+}
+
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     repopluginTableCell *result = (repopluginTableCell*)[tableView makeViewWithIdentifier:@"psView" owner:self];
     NSDictionary* item = [[NSMutableDictionary alloc] initWithDictionary:[allPlugins objectAtIndex:row]];

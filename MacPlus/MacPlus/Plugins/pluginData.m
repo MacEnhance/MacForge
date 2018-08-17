@@ -61,6 +61,8 @@
                 this_is_a_bundle.webCompatability = [bundle objectForKey:@"compat"];
                 this_is_a_bundle.webFileName = [bundle objectForKey:@"filename"];
                 this_is_a_bundle.webPlist = bundle;
+                this_is_a_bundle.webPaid = [[bundle valueForKey:@"payed"] boolValue];
+
                 
                 [self.repoPluginsDic setObject:this_is_a_bundle forKey:bundleIdentifier];
                 [sourceDic setObject:this_is_a_bundle forKey:bundleIdentifier];

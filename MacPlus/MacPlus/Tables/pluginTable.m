@@ -117,6 +117,10 @@ NSInteger previusRow = -1;
     return image_array[position];
 }
 
+- (NSView *)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    return [self tableView:tableView viewForTableColumn:tableColumn row:row];
+}
+
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     CustomTableCell *result = (CustomTableCell*)[tableView makeViewWithIdentifier:@"MyView" owner:self];
     MSPlugin *aBundle = [_tableContent objectAtIndex:row];

@@ -28,7 +28,6 @@
 		FB34DEE320F342F400EC1822 /* Paddle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB34DEE220F342F400EC1822 /* Paddle.framework */; };
 		FB34DEE420F343A800EC1822 /* Paddle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FB34DEE220F342F400EC1822 /* Paddle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FB7E350320F202D200EB3339 /* icon_nobg.icns in Resources */ = {isa = PBXBuildFile; fileRef = FB30208E20F1E8AD003F4CE9 /* icon_nobg.icns */; };
-		FB7E350620F2050300EB3339 /* MacPlusHelper.app in Copy Login Item */ = {isa = PBXBuildFile; fileRef = F0ADE0F6166DF941009758CC /* MacPlusHelper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		FBA6E88720F0176B00A12ACF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E88620F0176B00A12ACF /* AppDelegate.m */; };
 		FBA6E88C20F017BE00A12ACF /* DevMateKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA6E88B20F017BE00A12ACF /* DevMateKit.framework */; };
 		FBA6E88E20F0182500A12ACF /* LetsMove.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA6E88D20F0182500A12ACF /* LetsMove.framework */; };
@@ -104,6 +103,8 @@
 		FBF137D22105782A0001916A /* reddit.png in Resources */ = {isa = PBXBuildFile; fileRef = FBF137D12105782A0001916A /* reddit.png */; };
 		FBF137D4210578610001916A /* github.png in Resources */ = {isa = PBXBuildFile; fileRef = FBF137D3210578610001916A /* github.png */; };
 		FBF137D6210582540001916A /* checkmark_test.png in Resources */ = {isa = PBXBuildFile; fileRef = FBF137D5210582540001916A /* checkmark_test.png */; };
+		FBF137DC2105AB8B0001916A /* MacPlusHelper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = F0ADE0F6166DF941009758CC /* MacPlusHelper.app */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FBF137E3210E79B70001916A /* blacklistTable.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF137E2210E79B70001916A /* blacklistTable.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -197,17 +198,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
-		FB7E350420F204AE00EB3339 /* Copy Login Item */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = Contents/Library/LoginItems;
-			dstSubfolderSpec = 1;
-			files = (
-				FB7E350620F2050300EB3339 /* MacPlusHelper.app in Copy Login Item */,
-			);
-			name = "Copy Login Item";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		FBA6E8D020F027AC00A12ACF /* Copy Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -231,6 +221,16 @@
 				FBA6E90D20F029F600A12ACF /* MacPlusDockTile.docktileplugin in Copy Plugins */,
 			);
 			name = "Copy Plugins";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBF137D92105AB3E0001916A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = Contents/Library/LoginItems;
+			dstSubfolderSpec = 1;
+			files = (
+				FBF137DC2105AB8B0001916A /* MacPlusHelper.app in CopyFiles */,
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -356,6 +356,8 @@
 		FBF137D12105782A0001916A /* reddit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reddit.png; sourceTree = "<group>"; };
 		FBF137D3210578610001916A /* github.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = github.png; sourceTree = "<group>"; };
 		FBF137D5210582540001916A /* checkmark_test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark_test.png; sourceTree = "<group>"; };
+		FBF137E1210E79B70001916A /* blacklistTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = blacklistTable.h; sourceTree = "<group>"; };
+		FBF137E2210E79B70001916A /* blacklistTable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = blacklistTable.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -694,6 +696,8 @@
 				FBA6E8EE20F0289A00A12ACF /* sourcesTable.m */,
 				FBA6E8EB20F0289A00A12ACF /* repopluginTable.m */,
 				FBA6E8E820F0289900A12ACF /* bundlePage.m */,
+				FBF137E1210E79B70001916A /* blacklistTable.h */,
+				FBF137E2210E79B70001916A /* blacklistTable.m */,
 			);
 			path = Tables;
 			sourceTree = "<group>";
@@ -934,7 +938,7 @@
 				FBE767E620F00FFB00A42BD5 /* Resources */,
 				FBA6E8D020F027AC00A12ACF /* Copy Frameworks */,
 				FBA6E90C20F029E900A12ACF /* Copy Plugins */,
-				FB7E350420F204AE00EB3339 /* Copy Login Item */,
+				FBF137D92105AB3E0001916A /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -1192,6 +1196,7 @@
 				FBA6E8BB20F01C6300A12ACF /* StartAtLoginController.m in Sources */,
 				FBA6E8F020F0289B00A12ACF /* bundlePage.m in Sources */,
 				FBA6E8F120F0289B00A12ACF /* discoverPluginTable.m in Sources */,
+				FBF137E3210E79B70001916A /* blacklistTable.m in Sources */,
 				FBA6E89520F0185F00A12ACF /* ZKSwizzle.m in Sources */,
 				FBA6E8F420F0289B00A12ACF /* updatesTable.m in Sources */,
 				FBA6E8F620F0289B00A12ACF /* sourcesTable.m in Sources */,
