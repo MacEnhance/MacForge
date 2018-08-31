@@ -1,18 +1,18 @@
 <!--![Banner](web/banner.png)-->
 
-MacPlus is an open-source plugin manager for macOS. It lets you discover, install and manage plugins to improve the user experience of macOS without the need for manually cloning/building or copying files.
+MacForge is an open-source plugin manager for macOS. It lets you discover, install and manage plugins to improve the user experience of macOS without the need for manually cloning/building or copying files.
 
-[![Chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/MacPlus/Lobby)
+[![Chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/MacForge/Lobby)
 
 ![Preview](web/preview.png)
 
 ## Installation
 
-- Download the ~~[latest release](https://github.com/w0lfschild/app_updates/raw/master/MacPlus/MacPlus_master.zip) not yet available~~
+- Download the ~~[latest release](https://github.com/w0lfschild/app_updates/raw/master/MacForge/MacForge_master.zip) not yet available~~
 - Unzip the download if your browser does not do so automatically
-- Open MacPlus
-- MacPlus will ask to be moved to /Applications
-- MacPlus may ask to install or update helper tools
+- Open MacForge
+- MacForge will ask to be moved to /Applications
+- MacForge may ask to install or update helper tools
 - Start installing and using plugins
 
 ## Functionallity notes
@@ -23,8 +23,8 @@ MacPlus is an open-source plugin manager for macOS. It lets you discover, instal
 
 ## Requirements
 
-- MacPlus supports macOS 10.10 and above
-- plugins distributed through MacPlus may have different application and system requirements
+- MacForge supports macOS 10.10 and above
+- plugins distributed through MacForge may have different application and system requirements
 
 ## Features
 
@@ -47,12 +47,12 @@ MacPlus is an open-source plugin manager for macOS. It lets you discover, instal
     - Enable/Disable plugins (Check box)
     - Toggle plugins between single user and all users (User icon)
     - Search for plugins (by name or ID)
-    - MacPlus automatically detect existing plugins located in 
+    - MacForge automatically detect existing plugins located in 
 
 
 - Install plugins simply
-    - Drag and drop plugins onto MacPlus to automatically install them
-    - MacPlus can open files with the `.bundle` extension to automatically install them
+    - Drag and drop plugins onto MacForge to automatically install them
+    - MacForge can open files with the `.bundle` extension to automatically install them
 
 
 - Stay up to date
@@ -68,21 +68,21 @@ MacPlus is an open-source plugin manager for macOS. It lets you discover, instal
 
 ## Creating a plugin
 
-- Download and install `MacPlus`
-- Open `MacPlus`
+- Download and install `MacForge`
+- Open `MacForge`
 - Open `Xcode` and navigate `File` > `New` > `Project...`
-- Search for `MacPlus Plugin`
+- Search for `MacForge Plugin`
 - Select it and press `Next`
 - Enter a  `Product Name` and target bundle id e.g. `com.apple.loginwindow` and press `Next`
 - Select a location for your project and press `Create`
 - Add your code
 - You can find header dumps of most Apple Applications [HERE](https://github.com/w0lfschild/macOS_headers)
 - Build your code
-- Open your plugin with `MacPlus`
+- Open your plugin with `MacForge`
 
 ## Submitting a plugin
 
-- Head over to the [MacPlus plugin repository](https://github.com/w0lfschild/macplugins)
+- Head over to the [MacForge plugin repository](https://github.com/w0lfschild/macplugins)
 - [Fork](https://github.com/w0lfschild/macplugins/fork) the project
 - Add your compiled and zipped plugin to the bundles folder
 - Edit packages_v2.plist to include your submission
@@ -90,12 +90,12 @@ MacPlus is an open-source plugin manager for macOS. It lets you discover, instal
 
 ## Troubleshooting
 
-- Having problems? Submit an issue here: [submit](https://github.com/w0lfschild/MacPlus/issues/new)
+- Having problems? Submit an issue here: [submit](https://github.com/w0lfschild/MacForge/issues/new)
 
 ## Uninstalling
 
-- Trashing `MacPlus` will stop it from loading into applications 
-- If you want a full clean select `Preferences` from the sidebar, then click `Uninstall MacPlus`. Log out and back in for changes to fully apply.
+- Trashing `MacForge` will stop it from loading into applications 
+- If you want a mostly full clean select `Preferences` from the sidebar, then click `Uninstall MacForge`. Log out and back in for changes to fully apply.
 
 ## Developement
 
