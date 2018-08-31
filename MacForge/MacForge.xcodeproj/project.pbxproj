@@ -1,0 +1,1914 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B7956BF719EDB03A005EEB36 /* mach_inject_bundle.framework in Resources */ = {isa = PBXBuildFile; fileRef = F0CF07F0166F563E009D198D /* mach_inject_bundle.framework */; };
+		F0ADE0FB166DF941009758CC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0ADE0FA166DF941009758CC /* Cocoa.framework */; };
+		F0ADE107166DF941009758CC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F0ADE106166DF941009758CC /* main.m */; };
+		F0ADE10E166DF941009758CC /* MFAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F0ADE10D166DF941009758CC /* MFAppDelegate.m */; };
+		F0ADE152166DFB8B009758CC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0ADE151166DFB8B009758CC /* Foundation.framework */; };
+		F0ADE168166E0121009758CC /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0ADE167166E0121009758CC /* ServiceManagement.framework */; };
+		F0ADE16A166E013C009758CC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0ADE169166E013C009758CC /* Security.framework */; };
+		F0ADE171166E0591009758CC /* MFFrameworkInstaller.m in Sources */ = {isa = PBXBuildFile; fileRef = F0ADE132166DF9FB009758CC /* MFFrameworkInstaller.m */; };
+		F0ADE172166E0591009758CC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F0ADE136166DF9FB009758CC /* main.m */; };
+		F0ADE1BA166E0820009758CC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0ADE151166DFB8B009758CC /* Foundation.framework */; };
+		F0ADE1C6166E0874009758CC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F0ADE1C5166E0874009758CC /* main.m */; };
+		F0ADE1C7166E0981009758CC /* MFInjector.m in Sources */ = {isa = PBXBuildFile; fileRef = F0ADE12B166DF9FB009758CC /* MFInjector.m */; };
+		F0ADE1CA166E0992009758CC /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0ADE1C9166E0992009758CC /* Carbon.framework */; };
+		F0CF07F4166F566E009D198D /* mach_inject_bundle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0CF07F0166F563E009D198D /* mach_inject_bundle.framework */; };
+		FB0227A920F0539B006566EF /* PluginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8EA20F0289900A12ACF /* PluginManager.m */; };
+		FB0227AB20F0B547006566EF /* MacForge_old.icns in Resources */ = {isa = PBXBuildFile; fileRef = FB0227AA20F0B547006566EF /* MacForge_old.icns */; };
+		FB057CC62139B1B2002B3BB3 /* com.w0lf.MacForge.Installer in CopyFiles */ = {isa = PBXBuildFile; fileRef = F0ADE14F166DFB8B009758CC /* com.w0lf.MacForge.Installer */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		FB057CC72139B1B4002B3BB3 /* com.w0lf.MacForge.Injector in CopyFiles */ = {isa = PBXBuildFile; fileRef = F0ADE1B8166E0820009758CC /* com.w0lf.MacForge.Injector */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		FB34DEE320F342F400EC1822 /* Paddle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB34DEE220F342F400EC1822 /* Paddle.framework */; };
+		FB34DEE420F343A800EC1822 /* Paddle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FB34DEE220F342F400EC1822 /* Paddle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FB78E2A72139BE27002FFE2E /* MacForgeDockTile.docktileplugin in Copy Plugins */ = {isa = PBXBuildFile; fileRef = FBA6E90120F0299B00A12ACF /* MacForgeDockTile.docktileplugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FB7E350320F202D200EB3339 /* icon_nobg.icns in Resources */ = {isa = PBXBuildFile; fileRef = FB30208E20F1E8AD003F4CE9 /* icon_nobg.icns */; };
+		FB917F9F213917400013D4E3 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = FB917F9E213917400013D4E3 /* icon.icns */; };
+		FB917FA1213917E10013D4E3 /* menu.icns in Resources */ = {isa = PBXBuildFile; fileRef = FB917FA0213917E00013D4E3 /* menu.icns */; };
+		FBA6E88720F0176B00A12ACF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E88620F0176B00A12ACF /* AppDelegate.m */; };
+		FBA6E88C20F017BE00A12ACF /* DevMateKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA6E88B20F017BE00A12ACF /* DevMateKit.framework */; };
+		FBA6E88E20F0182500A12ACF /* LetsMove.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA6E88D20F0182500A12ACF /* LetsMove.framework */; };
+		FBA6E89520F0185F00A12ACF /* ZKSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E89420F0185F00A12ACF /* ZKSwizzle.m */; };
+		FBA6E89F20F0190900A12ACF /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA6E89E20F0190900A12ACF /* AppKit.framework */; };
+		FBA6E8A120F0190900A12ACF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA6E8A020F0190900A12ACF /* Foundation.framework */; };
+		FBA6E8A520F0190900A12ACF /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8A420F0190900A12ACF /* Info.plist */; };
+		FBA6E8A820F0190900A12ACF /* MacPlusFix.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8A720F0190900A12ACF /* MacPlusFix.m */; };
+		FBA6E8AC20F0190900A12ACF /* ZKSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8AB20F0190900A12ACF /* ZKSwizzle.m */; };
+		FBA6E8AE20F0190900A12ACF /* PrefixHeader.pch in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8AD20F0190900A12ACF /* PrefixHeader.pch */; };
+		FBA6E8BB20F01C6300A12ACF /* StartAtLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8B920F01C6300A12ACF /* StartAtLoginController.m */; };
+		FBA6E8C220F01D4000A12ACF /* LICENSE_StartAtLoginController in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8C120F01D4000A12ACF /* LICENSE_StartAtLoginController */; };
+		FBA6E8C420F01D7500A12ACF /* LICENSE_SIMBL in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8C320F01D7500A12ACF /* LICENSE_SIMBL */; };
+		FBA6E8C620F01DDA00A12ACF /* LICENSE_STPrivilegedTask in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8C520F01DDA00A12ACF /* LICENSE_STPrivilegedTask */; };
+		FBA6E8C820F01E0100A12ACF /* LICENSE_ZKSwizzle in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8C720F01E0100A12ACF /* LICENSE_ZKSwizzle */; };
+		FBA6E8CA20F01E1B00A12ACF /* LICENSE_SGDirWatchdog in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8C920F01E1B00A12ACF /* LICENSE_SGDirWatchdog */; };
+		FBA6E8CE20F025A100A12ACF /* Application.xib in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8CD20F025A100A12ACF /* Application.xib */; };
+		FBA6E8CF20F0262A00A12ACF /* SGDirWatchdog.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E89120F0185300A12ACF /* SGDirWatchdog.m */; };
+		FBA6E8D120F027B500A12ACF /* DevMateKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FBA6E88B20F017BE00A12ACF /* DevMateKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FBA6E8D220F027B700A12ACF /* LetsMove.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FBA6E88D20F0182500A12ACF /* LetsMove.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FBA6E8D920F0285B00A12ACF /* update.png in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8D320F0285A00A12ACF /* update.png */; };
+		FBA6E8DA20F0285B00A12ACF /* loading_mini.gif in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8D420F0285A00A12ACF /* loading_mini.gif */; };
+		FBA6E8DB20F0285B00A12ACF /* webicon.png in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8D520F0285A00A12ACF /* webicon.png */; };
+		FBA6E8DD20F0285B00A12ACF /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8D720F0285A00A12ACF /* checkmark.png */; };
+		FBA6E8E120F0287500A12ACF /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8E020F0287500A12ACF /* dsa_pub.pem */; };
+		FBA6E8E620F0288300A12ACF /* MSPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8E220F0288300A12ACF /* MSPlugin.m */; };
+		FBA6E8E720F0288300A12ACF /* pluginData.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8E320F0288300A12ACF /* pluginData.m */; };
+		FBA6E8F020F0289B00A12ACF /* bundlePage.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8E820F0289900A12ACF /* bundlePage.m */; };
+		FBA6E8F120F0289B00A12ACF /* discoverPluginTable.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8E920F0289900A12ACF /* discoverPluginTable.m */; };
+		FBA6E8F220F0289B00A12ACF /* PluginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8EA20F0289900A12ACF /* PluginManager.m */; };
+		FBA6E8F320F0289B00A12ACF /* repopluginTable.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8EB20F0289A00A12ACF /* repopluginTable.m */; };
+		FBA6E8F420F0289B00A12ACF /* updatesTable.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8EC20F0289A00A12ACF /* updatesTable.m */; };
+		FBA6E8F520F0289B00A12ACF /* pluginTable.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8ED20F0289A00A12ACF /* pluginTable.m */; };
+		FBA6E8F620F0289B00A12ACF /* sourcesTable.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8EE20F0289A00A12ACF /* sourcesTable.m */; };
+		FBA6E8FA20F028A400A12ACF /* Changelog.rtf in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8F720F028A300A12ACF /* Changelog.rtf */; };
+		FBA6E8FB20F028A400A12ACF /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8F820F028A400A12ACF /* Credits.rtf */; };
+		FBA6E8FC20F028A400A12ACF /* LICENSE_EULA in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8F920F028A400A12ACF /* LICENSE_EULA */; };
+		FBA6E90920F029D800A12ACF /* DockTilePlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E90820F029D800A12ACF /* DockTilePlugIn.m */; };
+		FBA6E91520F0310800A12ACF /* MacForgeKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FBE7679E20EF426D00A42BD5 /* MacForgeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FBAAB3EB20F2217F002156DC /* DevMateKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA6E88B20F017BE00A12ACF /* DevMateKit.framework */; };
+		FBAAB3EC20F228FD002156DC /* StartAtLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8B920F01C6300A12ACF /* StartAtLoginController.m */; };
+		FBAAB3EF20F22BF5002156DC /* NSBundle+LoginItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAAB3EE20F22BF5002156DC /* NSBundle+LoginItem.m */; };
+		FBAAB3F020F22BF5002156DC /* NSBundle+LoginItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAAB3EE20F22BF5002156DC /* NSBundle+LoginItem.m */; };
+		FBAAB41720F2CDB0002156DC /* demo_xcode.zip in Resources */ = {isa = PBXBuildFile; fileRef = FBAAB41620F2CDAF002156DC /* demo_xcode.zip */; };
+		FBB19F8120F2D18A003F421B /* plugin_template.zip in Resources */ = {isa = PBXBuildFile; fileRef = FBB19F8020F2D18A003F421B /* plugin_template.zip */; };
+		FBC54082213912AD00A53FA4 /* MacForge.icns in Resources */ = {isa = PBXBuildFile; fileRef = FBC54081213912AD00A53FA4 /* MacForge.icns */; };
+		FBCC0B3021278DF900CB5CD4 /* SGDirWatchdog.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E89120F0185300A12ACF /* SGDirWatchdog.m */; };
+		FBE767A220EF426D00A42BD5 /* MacForgeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = FBE767A020EF426D00A42BD5 /* MacForgeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FBE767AB20EF428F00A42BD5 /* STPrivilegedTask.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE767A620EF428F00A42BD5 /* STPrivilegedTask.m */; };
+		FBE767AC20EF428F00A42BD5 /* STPrivilegedTask.h in Headers */ = {isa = PBXBuildFile; fileRef = FBE767A720EF428F00A42BD5 /* STPrivilegedTask.h */; };
+		FBE767AD20EF428F00A42BD5 /* amfiswitch in Resources */ = {isa = PBXBuildFile; fileRef = FBE767A820EF428F00A42BD5 /* amfiswitch */; };
+		FBE767AE20EF428F00A42BD5 /* cleanup in Resources */ = {isa = PBXBuildFile; fileRef = FBE767A920EF428F00A42BD5 /* cleanup */; };
+		FBE767AF20EF428F00A42BD5 /* sipvid.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = FBE767AA20EF428F00A42BD5 /* sipvid.mp4 */; };
+		FBE767B420EF432700A42BD5 /* MacForgeKit.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE767B320EF432700A42BD5 /* MacForgeKit.m */; };
+		FBE767C720EF4B3E00A42BD5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0ADE169166E013C009758CC /* Security.framework */; };
+		FBE767C820EF4B4E00A42BD5 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0ADE167166E0121009758CC /* ServiceManagement.framework */; };
+		FBE767C920EF4B5A00A42BD5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0ADE0FA166DF941009758CC /* Cocoa.framework */; };
+		FBE767D420EF4CB900A42BD5 /* SIMBL.m in Sources */ = {isa = PBXBuildFile; fileRef = FBB0849120EEF0AC0032BDB2 /* SIMBL.m */; };
+		FBE767D520EF4CBD00A42BD5 /* NSAlert_SIMBL.m in Sources */ = {isa = PBXBuildFile; fileRef = FBB0849320EEF0AC0032BDB2 /* NSAlert_SIMBL.m */; };
+		FBE767D620EF4CC100A42BD5 /* SIMBLPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = FBB0849420EEF0AC0032BDB2 /* SIMBLPlugin.m */; };
+		FBE767DA20EFE92B00A42BD5 /* MFConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = F0ADE165166DFF37009758CC /* MFConstant.m */; };
+		FBE767DC20EFE9EA00A42BD5 /* MFInstaller.m in Sources */ = {isa = PBXBuildFile; fileRef = F0ADE162166DFE29009758CC /* MFInstaller.m */; };
+		FBE767DD20EFE9EE00A42BD5 /* MFInjectorProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = F0ADE1E3166E0C0D009758CC /* MFInjectorProxy.m */; };
+		FBE767E320F0022E00A42BD5 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0ADE1C9166E0992009758CC /* Carbon.framework */; };
+		FBE767F420F00FFE00A42BD5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE767F320F00FFE00A42BD5 /* main.m */; };
+		FBE767F920F0115B00A42BD5 /* NSAlert_SIMBL.m in Sources */ = {isa = PBXBuildFile; fileRef = FBB0849320EEF0AC0032BDB2 /* NSAlert_SIMBL.m */; };
+		FBE767FA20F0116000A42BD5 /* SIMBL.m in Sources */ = {isa = PBXBuildFile; fileRef = FBB0849120EEF0AC0032BDB2 /* SIMBL.m */; };
+		FBE767FB20F0116600A42BD5 /* SIMBLPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = FBB0849420EEF0AC0032BDB2 /* SIMBLPlugin.m */; };
+		FBE767FC20F0122F00A42BD5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F0ADE103166DF941009758CC /* InfoPlist.strings */; };
+		FBF137CC210575ED0001916A /* code.png in Resources */ = {isa = PBXBuildFile; fileRef = FBF137CB210575ED0001916A /* code.png */; };
+		FBF137CE210576720001916A /* tools.png in Resources */ = {isa = PBXBuildFile; fileRef = FBF137CD210576720001916A /* tools.png */; };
+		FBF137D22105782A0001916A /* reddit.png in Resources */ = {isa = PBXBuildFile; fileRef = FBF137D12105782A0001916A /* reddit.png */; };
+		FBF137D4210578610001916A /* github.png in Resources */ = {isa = PBXBuildFile; fileRef = FBF137D3210578610001916A /* github.png */; };
+		FBF137D6210582540001916A /* checkmark_test.png in Resources */ = {isa = PBXBuildFile; fileRef = FBF137D5210582540001916A /* checkmark_test.png */; };
+		FBF137DC2105AB8B0001916A /* MacForgeHelper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = F0ADE0F6166DF941009758CC /* MacForgeHelper.app */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FBF137E3210E79B70001916A /* blacklistTable.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF137E2210E79B70001916A /* blacklistTable.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F0ADE15D166DFBFE009758CC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F0ADE0ED166DF941009758CC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F0ADE14E166DFB8B009758CC;
+			remoteInfo = Installer;
+		};
+		F0ADE1CB166E09A5009758CC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F0ADE0ED166DF941009758CC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F0ADE1B7166E0820009758CC;
+			remoteInfo = com.erwanb.MachInjectSample.Injector;
+		};
+		F0CF07EF166F563E009D198D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F0CF07E4166F563D009D198D /* mach_inject_bundle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = mach_inject_bundle;
+		};
+		F0CF07F2166F5654009D198D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F0CF07E4166F563D009D198D /* mach_inject_bundle.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = mach_inject_bundle;
+		};
+		FBA6E90A20F029E400A12ACF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F0ADE0ED166DF941009758CC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FBA6E90020F0299B00A12ACF;
+			remoteInfo = MacPlusDockTile;
+		};
+		FBA6E91620F0310E00A12ACF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F0ADE0ED166DF941009758CC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FBE7679D20EF426D00A42BD5;
+			remoteInfo = MacPlusKit;
+		};
+		FBE7680220F015DD00A42BD5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F0ADE0ED166DF941009758CC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F0ADE0F5166DF941009758CC;
+			remoteInfo = MacPlusHelper;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F0ADE14D166DFB8B009758CC /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		F0ADE15F166DFC2D009758CC /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LaunchServices;
+			dstSubfolderSpec = 1;
+			files = (
+				FB057CC62139B1B2002B3BB3 /* com.w0lf.MacForge.Installer in CopyFiles */,
+				FB057CC72139B1B4002B3BB3 /* com.w0lf.MacForge.Injector in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0ADE1B6166E0820009758CC /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		FBA6E8D020F027AC00A12ACF /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				FB34DEE420F343A800EC1822 /* Paddle.framework in Copy Frameworks */,
+				FBA6E8D120F027B500A12ACF /* DevMateKit.framework in Copy Frameworks */,
+				FBA6E8D220F027B700A12ACF /* LetsMove.framework in Copy Frameworks */,
+				FBA6E91520F0310800A12ACF /* MacForgeKit.framework in Copy Frameworks */,
+			);
+			name = "Copy Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBA6E90C20F029E900A12ACF /* Copy Plugins */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				FB78E2A72139BE27002FFE2E /* MacForgeDockTile.docktileplugin in Copy Plugins */,
+			);
+			name = "Copy Plugins";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBF137D92105AB3E0001916A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = Contents/Library/LoginItems;
+			dstSubfolderSpec = 1;
+			files = (
+				FBF137DC2105AB8B0001916A /* MacForgeHelper.app in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		F0ADE0F6166DF941009758CC /* MacForgeHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacForgeHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0ADE0FA166DF941009758CC /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		F0ADE102166DF941009758CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F0ADE104166DF941009758CC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F0ADE106166DF941009758CC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F0ADE108166DF941009758CC /* MacForge-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MacForge-Prefix.pch"; sourceTree = "<group>"; };
+		F0ADE10C166DF941009758CC /* MFAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MFAppDelegate.h; sourceTree = "<group>"; };
+		F0ADE10D166DF941009758CC /* MFAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MFAppDelegate.m; sourceTree = "<group>"; };
+		F0ADE12A166DF9FB009758CC /* MFInjector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFInjector.h; sourceTree = "<group>"; };
+		F0ADE12B166DF9FB009758CC /* MFInjector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFInjector.m; sourceTree = "<group>"; };
+		F0ADE12C166DF9FB009758CC /* Injector-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Injector-Info.plist"; sourceTree = "<group>"; };
+		F0ADE12D166DF9FB009758CC /* Injector-Launchd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Injector-Launchd.plist"; sourceTree = "<group>"; };
+		F0ADE12E166DF9FB009758CC /* Injector-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Injector-Prefix.pch"; sourceTree = "<group>"; };
+		F0ADE131166DF9FB009758CC /* MFFrameworkInstaller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFFrameworkInstaller.h; sourceTree = "<group>"; };
+		F0ADE132166DF9FB009758CC /* MFFrameworkInstaller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFFrameworkInstaller.m; sourceTree = "<group>"; };
+		F0ADE133166DF9FB009758CC /* Installer-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Installer-Info.plist"; sourceTree = "<group>"; };
+		F0ADE134166DF9FB009758CC /* Installer-Launchd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Installer-Launchd.plist"; sourceTree = "<group>"; };
+		F0ADE135166DF9FB009758CC /* Installer-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Installer-Prefix.pch"; sourceTree = "<group>"; };
+		F0ADE136166DF9FB009758CC /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F0ADE14F166DFB8B009758CC /* com.w0lf.MacForge.Installer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = com.w0lf.MacForge.Installer; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0ADE151166DFB8B009758CC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F0ADE161166DFE29009758CC /* MFInstaller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFInstaller.h; sourceTree = "<group>"; };
+		F0ADE162166DFE29009758CC /* MFInstaller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFInstaller.m; sourceTree = "<group>"; };
+		F0ADE164166DFF37009758CC /* MFConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFConstant.h; sourceTree = "<group>"; };
+		F0ADE165166DFF37009758CC /* MFConstant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFConstant.m; sourceTree = "<group>"; };
+		F0ADE167166E0121009758CC /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
+		F0ADE169166E013C009758CC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		F0ADE1B8166E0820009758CC /* com.w0lf.MacForge.Injector */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = com.w0lf.MacForge.Injector; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0ADE1C5166E0874009758CC /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F0ADE1C9166E0992009758CC /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		F0ADE1E2166E0C0D009758CC /* MFInjectorProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFInjectorProxy.h; sourceTree = "<group>"; };
+		F0ADE1E3166E0C0D009758CC /* MFInjectorProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFInjectorProxy.m; sourceTree = "<group>"; };
+		F0CF07E4166F563D009D198D /* mach_inject_bundle.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = mach_inject_bundle.xcodeproj; path = ../mach_inject_bundle/mach_inject_bundle.xcodeproj; sourceTree = "<group>"; };
+		FB0227AA20F0B547006566EF /* MacForge_old.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MacForge_old.icns; sourceTree = "<group>"; };
+		FB30208E20F1E8AD003F4CE9 /* icon_nobg.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon_nobg.icns; sourceTree = "<group>"; };
+		FB34DEE220F342F400EC1822 /* Paddle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Paddle.framework; sourceTree = "<group>"; };
+		FB917F9E213917400013D4E3 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
+		FB917FA0213917E00013D4E3 /* menu.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = menu.icns; sourceTree = "<group>"; };
+		FBA6E88520F0176B00A12ACF /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		FBA6E88620F0176B00A12ACF /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		FBA6E88820F0179600A12ACF /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		FBA6E88920F0179700A12ACF /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		FBA6E88B20F017BE00A12ACF /* DevMateKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DevMateKit.framework; sourceTree = "<group>"; };
+		FBA6E88D20F0182500A12ACF /* LetsMove.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = LetsMove.framework; sourceTree = "<group>"; };
+		FBA6E89020F0185300A12ACF /* SGDirWatchdog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGDirWatchdog.h; sourceTree = "<group>"; };
+		FBA6E89120F0185300A12ACF /* SGDirWatchdog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGDirWatchdog.m; sourceTree = "<group>"; };
+		FBA6E89320F0185F00A12ACF /* ZKSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZKSwizzle.h; sourceTree = "<group>"; };
+		FBA6E89420F0185F00A12ACF /* ZKSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZKSwizzle.m; sourceTree = "<group>"; };
+		FBA6E89C20F0190900A12ACF /* MacForgeFix.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacForgeFix.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		FBA6E89E20F0190900A12ACF /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		FBA6E8A020F0190900A12ACF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		FBA6E8A420F0190900A12ACF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FBA6E8A620F0190900A12ACF /* MacPlusFix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MacPlusFix.h; sourceTree = "<group>"; };
+		FBA6E8A720F0190900A12ACF /* MacPlusFix.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MacPlusFix.m; sourceTree = "<group>"; };
+		FBA6E8AA20F0190900A12ACF /* ZKSwizzle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ZKSwizzle.h; path = ZKSwizzle/ZKSwizzle.h; sourceTree = "<group>"; };
+		FBA6E8AB20F0190900A12ACF /* ZKSwizzle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ZKSwizzle.m; path = ZKSwizzle/ZKSwizzle.m; sourceTree = "<group>"; };
+		FBA6E8AD20F0190900A12ACF /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		FBA6E8B920F01C6300A12ACF /* StartAtLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartAtLoginController.m; sourceTree = "<group>"; };
+		FBA6E8BA20F01C6300A12ACF /* StartAtLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartAtLoginController.h; sourceTree = "<group>"; };
+		FBA6E8C120F01D4000A12ACF /* LICENSE_StartAtLoginController */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE_StartAtLoginController; sourceTree = "<group>"; };
+		FBA6E8C320F01D7500A12ACF /* LICENSE_SIMBL */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE_SIMBL; sourceTree = "<group>"; };
+		FBA6E8C520F01DDA00A12ACF /* LICENSE_STPrivilegedTask */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE_STPrivilegedTask; sourceTree = "<group>"; };
+		FBA6E8C720F01E0100A12ACF /* LICENSE_ZKSwizzle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE_ZKSwizzle; sourceTree = "<group>"; };
+		FBA6E8C920F01E1B00A12ACF /* LICENSE_SGDirWatchdog */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE_SGDirWatchdog; sourceTree = "<group>"; };
+		FBA6E8CD20F025A100A12ACF /* Application.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Application.xib; sourceTree = "<group>"; };
+		FBA6E8D320F0285A00A12ACF /* update.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = update.png; sourceTree = "<group>"; };
+		FBA6E8D420F0285A00A12ACF /* loading_mini.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading_mini.gif; sourceTree = "<group>"; };
+		FBA6E8D520F0285A00A12ACF /* webicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = webicon.png; sourceTree = "<group>"; };
+		FBA6E8D720F0285A00A12ACF /* checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark.png; sourceTree = "<group>"; };
+		FBA6E8E020F0287500A12ACF /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
+		FBA6E8E220F0288300A12ACF /* MSPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSPlugin.m; sourceTree = "<group>"; };
+		FBA6E8E320F0288300A12ACF /* pluginData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pluginData.m; sourceTree = "<group>"; };
+		FBA6E8E420F0288300A12ACF /* MSPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSPlugin.h; sourceTree = "<group>"; };
+		FBA6E8E520F0288300A12ACF /* pluginData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pluginData.h; sourceTree = "<group>"; };
+		FBA6E8E820F0289900A12ACF /* bundlePage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bundlePage.m; sourceTree = "<group>"; };
+		FBA6E8E920F0289900A12ACF /* discoverPluginTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = discoverPluginTable.m; sourceTree = "<group>"; };
+		FBA6E8EA20F0289900A12ACF /* PluginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PluginManager.m; sourceTree = "<group>"; };
+		FBA6E8EB20F0289A00A12ACF /* repopluginTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = repopluginTable.m; sourceTree = "<group>"; };
+		FBA6E8EC20F0289A00A12ACF /* updatesTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = updatesTable.m; sourceTree = "<group>"; };
+		FBA6E8ED20F0289A00A12ACF /* pluginTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pluginTable.m; sourceTree = "<group>"; };
+		FBA6E8EE20F0289A00A12ACF /* sourcesTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = sourcesTable.m; sourceTree = "<group>"; };
+		FBA6E8EF20F0289A00A12ACF /* PluginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PluginManager.h; sourceTree = "<group>"; };
+		FBA6E8F720F028A300A12ACF /* Changelog.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Changelog.rtf; sourceTree = "<group>"; };
+		FBA6E8F820F028A400A12ACF /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
+		FBA6E8F920F028A400A12ACF /* LICENSE_EULA */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE_EULA; sourceTree = "<group>"; };
+		FBA6E90120F0299B00A12ACF /* MacForgeDockTile.docktileplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacForgeDockTile.docktileplugin; sourceTree = BUILT_PRODUCTS_DIR; };
+		FBA6E90320F0299B00A12ACF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FBA6E90720F029D800A12ACF /* DockTilePlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DockTilePlugIn.h; sourceTree = "<group>"; };
+		FBA6E90820F029D800A12ACF /* DockTilePlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DockTilePlugIn.m; sourceTree = "<group>"; };
+		FBA6E90E20F02BB800A12ACF /* FConvenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FConvenience.h; sourceTree = "<group>"; };
+		FBAAB3ED20F22BF5002156DC /* NSBundle+LoginItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+LoginItem.h"; sourceTree = "<group>"; };
+		FBAAB3EE20F22BF5002156DC /* NSBundle+LoginItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+LoginItem.m"; sourceTree = "<group>"; };
+		FBAAB41620F2CDAF002156DC /* demo_xcode.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = demo_xcode.zip; sourceTree = "<group>"; };
+		FBB0849120EEF0AC0032BDB2 /* SIMBL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIMBL.m; sourceTree = "<group>"; };
+		FBB0849220EEF0AC0032BDB2 /* DTMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTMacros.h; sourceTree = "<group>"; };
+		FBB0849320EEF0AC0032BDB2 /* NSAlert_SIMBL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAlert_SIMBL.m; sourceTree = "<group>"; };
+		FBB0849420EEF0AC0032BDB2 /* SIMBLPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIMBLPlugin.m; sourceTree = "<group>"; };
+		FBB0849520EEF0AC0032BDB2 /* NSAlert_SIMBL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAlert_SIMBL.h; sourceTree = "<group>"; };
+		FBB0849620EEF0AC0032BDB2 /* SIMBL_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIMBL_Prefix.pch; sourceTree = "<group>"; };
+		FBB0849720EEF0AC0032BDB2 /* SIMBL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIMBL.h; sourceTree = "<group>"; };
+		FBB0849820EEF0AC0032BDB2 /* SIMBLPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIMBLPlugin.h; sourceTree = "<group>"; };
+		FBB19F8020F2D18A003F421B /* plugin_template.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = plugin_template.zip; sourceTree = "<group>"; };
+		FBC54081213912AD00A53FA4 /* MacForge.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MacForge.icns; sourceTree = "<group>"; };
+		FBE7679E20EF426D00A42BD5 /* MacForgeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MacForgeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FBE767A020EF426D00A42BD5 /* MacForgeKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MacForgeKit.h; sourceTree = "<group>"; };
+		FBE767A120EF426D00A42BD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FBE767A620EF428F00A42BD5 /* STPrivilegedTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STPrivilegedTask.m; sourceTree = "<group>"; };
+		FBE767A720EF428F00A42BD5 /* STPrivilegedTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPrivilegedTask.h; sourceTree = "<group>"; };
+		FBE767A820EF428F00A42BD5 /* amfiswitch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = amfiswitch; sourceTree = "<group>"; };
+		FBE767A920EF428F00A42BD5 /* cleanup */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = cleanup; sourceTree = "<group>"; };
+		FBE767AA20EF428F00A42BD5 /* sipvid.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = sipvid.mp4; sourceTree = "<group>"; };
+		FBE767B320EF432700A42BD5 /* MacForgeKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MacForgeKit.m; sourceTree = "<group>"; };
+		FBE767E820F00FFB00A42BD5 /* MacForge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacForge.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FBE767F220F00FFE00A42BD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FBE767F320F00FFE00A42BD5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		FBE767F520F00FFE00A42BD5 /* MacForge.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacForge.entitlements; sourceTree = "<group>"; };
+		FBF137CB210575ED0001916A /* code.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = code.png; sourceTree = "<group>"; };
+		FBF137CD210576720001916A /* tools.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tools.png; sourceTree = "<group>"; };
+		FBF137D12105782A0001916A /* reddit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reddit.png; sourceTree = "<group>"; };
+		FBF137D3210578610001916A /* github.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = github.png; sourceTree = "<group>"; };
+		FBF137D5210582540001916A /* checkmark_test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark_test.png; sourceTree = "<group>"; };
+		FBF137E1210E79B70001916A /* blacklistTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = blacklistTable.h; sourceTree = "<group>"; };
+		FBF137E2210E79B70001916A /* blacklistTable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = blacklistTable.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F0ADE0F3166DF941009758CC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FBE767E320F0022E00A42BD5 /* Carbon.framework in Frameworks */,
+				F0ADE16A166E013C009758CC /* Security.framework in Frameworks */,
+				F0ADE168166E0121009758CC /* ServiceManagement.framework in Frameworks */,
+				F0ADE0FB166DF941009758CC /* Cocoa.framework in Frameworks */,
+				FBAAB3EB20F2217F002156DC /* DevMateKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0ADE14C166DFB8B009758CC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0ADE152166DFB8B009758CC /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0ADE1B5166E0820009758CC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0CF07F4166F566E009D198D /* mach_inject_bundle.framework in Frameworks */,
+				F0ADE1CA166E0992009758CC /* Carbon.framework in Frameworks */,
+				F0ADE1BA166E0820009758CC /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBA6E89920F0190900A12ACF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FBA6E89F20F0190900A12ACF /* AppKit.framework in Frameworks */,
+				FBA6E8A120F0190900A12ACF /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBA6E8FE20F0299B00A12ACF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBE7679B20EF426D00A42BD5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FBE767C920EF4B5A00A42BD5 /* Cocoa.framework in Frameworks */,
+				FBE767C820EF4B4E00A42BD5 /* ServiceManagement.framework in Frameworks */,
+				FBE767C720EF4B3E00A42BD5 /* Security.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBE767E520F00FFB00A42BD5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FBA6E88C20F017BE00A12ACF /* DevMateKit.framework in Frameworks */,
+				FB34DEE320F342F400EC1822 /* Paddle.framework in Frameworks */,
+				FBA6E88E20F0182500A12ACF /* LetsMove.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F0ADE0EB166DF941009758CC = {
+			isa = PBXGroup;
+			children = (
+				F0CF07E4166F563D009D198D /* mach_inject_bundle.xcodeproj */,
+				FB0227A720F04FD2006566EF /* Shared Classes */,
+				FBE767E920F00FFB00A42BD5 /* MacForge */,
+				F0ADE100166DF941009758CC /* MacForgeHelper */,
+				FBA6E90220F0299B00A12ACF /* MacForgeDockTile */,
+				FBE7679F20EF426D00A42BD5 /* MacForgeKit */,
+				FBA6E8A220F0190900A12ACF /* MacForgeFix */,
+				F0ADE130166DF9FB009758CC /* Installer */,
+				F0ADE129166DF9FB009758CC /* Injector */,
+				FBA6E88F20F0184000A12ACF /* External */,
+				FBA6E88A20F017A400A12ACF /* External Frameworks */,
+				F0ADE0F9166DF941009758CC /* Local Frameworks */,
+				FBA6E89D20F0190900A12ACF /* Frameworks */,
+				F0ADE0F7166DF941009758CC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F0ADE0F7166DF941009758CC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F0ADE0F6166DF941009758CC /* MacForgeHelper.app */,
+				F0ADE14F166DFB8B009758CC /* com.w0lf.MacForge.Installer */,
+				F0ADE1B8166E0820009758CC /* com.w0lf.MacForge.Injector */,
+				FBE7679E20EF426D00A42BD5 /* MacForgeKit.framework */,
+				FBE767E820F00FFB00A42BD5 /* MacForge.app */,
+				FBA6E89C20F0190900A12ACF /* MacForgeFix.bundle */,
+				FBA6E90120F0299B00A12ACF /* MacForgeDockTile.docktileplugin */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F0ADE0F9166DF941009758CC /* Local Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FBA6E88920F0179700A12ACF /* AppKit.framework */,
+				FBA6E88820F0179600A12ACF /* CoreData.framework */,
+				F0ADE1C9166E0992009758CC /* Carbon.framework */,
+				F0ADE169166E013C009758CC /* Security.framework */,
+				F0ADE167166E0121009758CC /* ServiceManagement.framework */,
+				F0ADE0FA166DF941009758CC /* Cocoa.framework */,
+				F0ADE151166DFB8B009758CC /* Foundation.framework */,
+			);
+			name = "Local Frameworks";
+			sourceTree = "<group>";
+		};
+		F0ADE100166DF941009758CC /* MacForgeHelper */ = {
+			isa = PBXGroup;
+			children = (
+				F0ADE101166DF941009758CC /* Supporting Files */,
+				FB0227A820F05228006566EF /* Classes */,
+				F0ADE10C166DF941009758CC /* MFAppDelegate.h */,
+				F0ADE10D166DF941009758CC /* MFAppDelegate.m */,
+				FB917F9E213917400013D4E3 /* icon.icns */,
+				FB917FA0213917E00013D4E3 /* menu.icns */,
+				F0ADE102166DF941009758CC /* Info.plist */,
+			);
+			path = MacForgeHelper;
+			sourceTree = "<group>";
+		};
+		F0ADE101166DF941009758CC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F0ADE108166DF941009758CC /* MacForge-Prefix.pch */,
+				F0ADE103166DF941009758CC /* InfoPlist.strings */,
+				F0ADE106166DF941009758CC /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F0ADE129166DF9FB009758CC /* Injector */ = {
+			isa = PBXGroup;
+			children = (
+				F0ADE1C5166E0874009758CC /* main.m */,
+				F0ADE12A166DF9FB009758CC /* MFInjector.h */,
+				F0ADE12B166DF9FB009758CC /* MFInjector.m */,
+				F0ADE12C166DF9FB009758CC /* Injector-Info.plist */,
+				F0ADE12D166DF9FB009758CC /* Injector-Launchd.plist */,
+				F0ADE12E166DF9FB009758CC /* Injector-Prefix.pch */,
+			);
+			path = Injector;
+			sourceTree = "<group>";
+		};
+		F0ADE130166DF9FB009758CC /* Installer */ = {
+			isa = PBXGroup;
+			children = (
+				F0ADE131166DF9FB009758CC /* MFFrameworkInstaller.h */,
+				F0ADE132166DF9FB009758CC /* MFFrameworkInstaller.m */,
+				F0ADE133166DF9FB009758CC /* Installer-Info.plist */,
+				F0ADE134166DF9FB009758CC /* Installer-Launchd.plist */,
+				F0ADE135166DF9FB009758CC /* Installer-Prefix.pch */,
+				F0ADE136166DF9FB009758CC /* main.m */,
+			);
+			path = Installer;
+			sourceTree = "<group>";
+		};
+		F0CF07E5166F563D009D198D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F0CF07F0166F563E009D198D /* mach_inject_bundle.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FB0227A720F04FD2006566EF /* Shared Classes */ = {
+			isa = PBXGroup;
+			children = (
+				FBA6E8EF20F0289A00A12ACF /* PluginManager.h */,
+				FBA6E8EA20F0289900A12ACF /* PluginManager.m */,
+			);
+			path = "Shared Classes";
+			sourceTree = "<group>";
+		};
+		FB0227A820F05228006566EF /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				F0ADE164166DFF37009758CC /* MFConstant.h */,
+				F0ADE165166DFF37009758CC /* MFConstant.m */,
+				F0ADE161166DFE29009758CC /* MFInstaller.h */,
+				F0ADE162166DFE29009758CC /* MFInstaller.m */,
+				F0ADE1E2166E0C0D009758CC /* MFInjectorProxy.h */,
+				F0ADE1E3166E0C0D009758CC /* MFInjectorProxy.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		FBA6E88A20F017A400A12ACF /* External Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FB34DEE220F342F400EC1822 /* Paddle.framework */,
+				FBA6E88D20F0182500A12ACF /* LetsMove.framework */,
+				FBA6E88B20F017BE00A12ACF /* DevMateKit.framework */,
+			);
+			path = "External Frameworks";
+			sourceTree = "<group>";
+		};
+		FBA6E88F20F0184000A12ACF /* External */ = {
+			isa = PBXGroup;
+			children = (
+				FBA6E90E20F02BB800A12ACF /* FConvenience.h */,
+				FBAAB3F120F22BFA002156DC /* NSBundle+LoginItem */,
+				FBA6E8BC20F01C6600A12ACF /* StartAtLoginController */,
+				FBB0849C20EEF0B10032BDB2 /* SIMBL */,
+				FBE767B220EF42AB00A42BD5 /* STPrivilegedTask */,
+				FBA6E89620F0189200A12ACF /* ZKSwizzle */,
+				FBA6E89720F018A000A12ACF /* SGDirWatchdog */,
+			);
+			path = External;
+			sourceTree = "<group>";
+		};
+		FBA6E89620F0189200A12ACF /* ZKSwizzle */ = {
+			isa = PBXGroup;
+			children = (
+				FBA6E89320F0185F00A12ACF /* ZKSwizzle.h */,
+				FBA6E89420F0185F00A12ACF /* ZKSwizzle.m */,
+				FBA6E8C720F01E0100A12ACF /* LICENSE_ZKSwizzle */,
+			);
+			path = ZKSwizzle;
+			sourceTree = "<group>";
+		};
+		FBA6E89720F018A000A12ACF /* SGDirWatchdog */ = {
+			isa = PBXGroup;
+			children = (
+				FBA6E89020F0185300A12ACF /* SGDirWatchdog.h */,
+				FBA6E89120F0185300A12ACF /* SGDirWatchdog.m */,
+				FBA6E8C920F01E1B00A12ACF /* LICENSE_SGDirWatchdog */,
+			);
+			path = SGDirWatchdog;
+			sourceTree = "<group>";
+		};
+		FBA6E89D20F0190900A12ACF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FBA6E89E20F0190900A12ACF /* AppKit.framework */,
+				FBA6E8A020F0190900A12ACF /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FBA6E8A220F0190900A12ACF /* MacForgeFix */ = {
+			isa = PBXGroup;
+			children = (
+				FBA6E8A620F0190900A12ACF /* MacPlusFix.h */,
+				FBA6E8A720F0190900A12ACF /* MacPlusFix.m */,
+				FBA6E8A920F0190900A12ACF /* ZKSwizzle */,
+				FBA6E8A320F0190900A12ACF /* Supporting Files */,
+			);
+			path = MacForgeFix;
+			sourceTree = "<group>";
+		};
+		FBA6E8A320F0190900A12ACF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FBA6E8A420F0190900A12ACF /* Info.plist */,
+				FBA6E8AD20F0190900A12ACF /* PrefixHeader.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FBA6E8A920F0190900A12ACF /* ZKSwizzle */ = {
+			isa = PBXGroup;
+			children = (
+				FBA6E8AA20F0190900A12ACF /* ZKSwizzle.h */,
+				FBA6E8AB20F0190900A12ACF /* ZKSwizzle.m */,
+			);
+			name = ZKSwizzle;
+			sourceTree = "<group>";
+		};
+		FBA6E8BC20F01C6600A12ACF /* StartAtLoginController */ = {
+			isa = PBXGroup;
+			children = (
+				FBA6E8BA20F01C6300A12ACF /* StartAtLoginController.h */,
+				FBA6E8B920F01C6300A12ACF /* StartAtLoginController.m */,
+				FBA6E8C120F01D4000A12ACF /* LICENSE_StartAtLoginController */,
+			);
+			path = StartAtLoginController;
+			sourceTree = "<group>";
+		};
+		FBA6E8DF20F0286000A12ACF /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				FBF137D3210578610001916A /* github.png */,
+				FBF137D12105782A0001916A /* reddit.png */,
+				FBF137CD210576720001916A /* tools.png */,
+				FBF137CB210575ED0001916A /* code.png */,
+				FBF137D5210582540001916A /* checkmark_test.png */,
+				FBA6E8D720F0285A00A12ACF /* checkmark.png */,
+				FBA6E8D420F0285A00A12ACF /* loading_mini.gif */,
+				FBA6E8D320F0285A00A12ACF /* update.png */,
+				FBA6E8D520F0285A00A12ACF /* webicon.png */,
+				FB30208E20F1E8AD003F4CE9 /* icon_nobg.icns */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		FBA6E90220F0299B00A12ACF /* MacForgeDockTile */ = {
+			isa = PBXGroup;
+			children = (
+				FBA6E90720F029D800A12ACF /* DockTilePlugIn.h */,
+				FBA6E90820F029D800A12ACF /* DockTilePlugIn.m */,
+				FBA6E90320F0299B00A12ACF /* Info.plist */,
+			);
+			path = MacForgeDockTile;
+			sourceTree = "<group>";
+		};
+		FBA6E90F20F02CAC00A12ACF /* Info */ = {
+			isa = PBXGroup;
+			children = (
+				FBA6E8F720F028A300A12ACF /* Changelog.rtf */,
+				FBA6E8F820F028A400A12ACF /* Credits.rtf */,
+				FBA6E8F920F028A400A12ACF /* LICENSE_EULA */,
+			);
+			path = Info;
+			sourceTree = "<group>";
+		};
+		FBA6E91020F02CBD00A12ACF /* Tables */ = {
+			isa = PBXGroup;
+			children = (
+				FBA6E8E920F0289900A12ACF /* discoverPluginTable.m */,
+				FBA6E8ED20F0289A00A12ACF /* pluginTable.m */,
+				FBA6E8EC20F0289A00A12ACF /* updatesTable.m */,
+				FBA6E8EE20F0289A00A12ACF /* sourcesTable.m */,
+				FBA6E8EB20F0289A00A12ACF /* repopluginTable.m */,
+				FBA6E8E820F0289900A12ACF /* bundlePage.m */,
+				FBF137E1210E79B70001916A /* blacklistTable.h */,
+				FBF137E2210E79B70001916A /* blacklistTable.m */,
+			);
+			path = Tables;
+			sourceTree = "<group>";
+		};
+		FBA6E91120F02CC900A12ACF /* Plugins */ = {
+			isa = PBXGroup;
+			children = (
+				FBA6E8E420F0288300A12ACF /* MSPlugin.h */,
+				FBA6E8E220F0288300A12ACF /* MSPlugin.m */,
+				FBA6E8E520F0288300A12ACF /* pluginData.h */,
+				FBA6E8E320F0288300A12ACF /* pluginData.m */,
+			);
+			path = Plugins;
+			sourceTree = "<group>";
+		};
+		FBA6E91220F02D0600A12ACF /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				FBB19F8020F2D18A003F421B /* plugin_template.zip */,
+				FBAAB41620F2CDAF002156DC /* demo_xcode.zip */,
+				FBC54081213912AD00A53FA4 /* MacForge.icns */,
+				FB0227AA20F0B547006566EF /* MacForge_old.icns */,
+				FBE767F320F00FFE00A42BD5 /* main.m */,
+				FBE767F520F00FFE00A42BD5 /* MacForge.entitlements */,
+				FBA6E8E020F0287500A12ACF /* dsa_pub.pem */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		FBAAB3F120F22BFA002156DC /* NSBundle+LoginItem */ = {
+			isa = PBXGroup;
+			children = (
+				FBAAB3ED20F22BF5002156DC /* NSBundle+LoginItem.h */,
+				FBAAB3EE20F22BF5002156DC /* NSBundle+LoginItem.m */,
+			);
+			path = "NSBundle+LoginItem";
+			sourceTree = "<group>";
+		};
+		FBB0849C20EEF0B10032BDB2 /* SIMBL */ = {
+			isa = PBXGroup;
+			children = (
+				FBB0849220EEF0AC0032BDB2 /* DTMacros.h */,
+				FBB0849620EEF0AC0032BDB2 /* SIMBL_Prefix.pch */,
+				FBB0849520EEF0AC0032BDB2 /* NSAlert_SIMBL.h */,
+				FBB0849320EEF0AC0032BDB2 /* NSAlert_SIMBL.m */,
+				FBB0849720EEF0AC0032BDB2 /* SIMBL.h */,
+				FBB0849120EEF0AC0032BDB2 /* SIMBL.m */,
+				FBB0849820EEF0AC0032BDB2 /* SIMBLPlugin.h */,
+				FBB0849420EEF0AC0032BDB2 /* SIMBLPlugin.m */,
+				FBA6E8C320F01D7500A12ACF /* LICENSE_SIMBL */,
+			);
+			path = SIMBL;
+			sourceTree = "<group>";
+		};
+		FBE7679F20EF426D00A42BD5 /* MacForgeKit */ = {
+			isa = PBXGroup;
+			children = (
+				FBE767B120EF42A100A42BD5 /* media */,
+				FBE767B020EF429300A42BD5 /* scripts */,
+				FBE767A020EF426D00A42BD5 /* MacForgeKit.h */,
+				FBE767B320EF432700A42BD5 /* MacForgeKit.m */,
+				FBE767A120EF426D00A42BD5 /* Info.plist */,
+			);
+			path = MacForgeKit;
+			sourceTree = "<group>";
+		};
+		FBE767B020EF429300A42BD5 /* scripts */ = {
+			isa = PBXGroup;
+			children = (
+				FBE767A820EF428F00A42BD5 /* amfiswitch */,
+				FBE767A920EF428F00A42BD5 /* cleanup */,
+			);
+			path = scripts;
+			sourceTree = "<group>";
+		};
+		FBE767B120EF42A100A42BD5 /* media */ = {
+			isa = PBXGroup;
+			children = (
+				FBE767AA20EF428F00A42BD5 /* sipvid.mp4 */,
+			);
+			path = media;
+			sourceTree = "<group>";
+		};
+		FBE767B220EF42AB00A42BD5 /* STPrivilegedTask */ = {
+			isa = PBXGroup;
+			children = (
+				FBE767A720EF428F00A42BD5 /* STPrivilegedTask.h */,
+				FBE767A620EF428F00A42BD5 /* STPrivilegedTask.m */,
+				FBA6E8C520F01DDA00A12ACF /* LICENSE_STPrivilegedTask */,
+			);
+			path = STPrivilegedTask;
+			sourceTree = "<group>";
+		};
+		FBE767E920F00FFB00A42BD5 /* MacForge */ = {
+			isa = PBXGroup;
+			children = (
+				FBA6E8DF20F0286000A12ACF /* Images */,
+				FBA6E90F20F02CAC00A12ACF /* Info */,
+				FBA6E91020F02CBD00A12ACF /* Tables */,
+				FBA6E91120F02CC900A12ACF /* Plugins */,
+				FBA6E91220F02D0600A12ACF /* Resource */,
+				FBA6E88520F0176B00A12ACF /* AppDelegate.h */,
+				FBA6E88620F0176B00A12ACF /* AppDelegate.m */,
+				FBA6E8CD20F025A100A12ACF /* Application.xib */,
+				FBE767F220F00FFE00A42BD5 /* Info.plist */,
+			);
+			path = MacForge;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		FBE7679920EF426D00A42BD5 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FBE767A220EF426D00A42BD5 /* MacForgeKit.h in Headers */,
+				FBE767AC20EF428F00A42BD5 /* STPrivilegedTask.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		F0ADE0F5166DF941009758CC /* MacForgeHelper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F0ADE114166DF942009758CC /* Build configuration list for PBXNativeTarget "MacForgeHelper" */;
+			buildPhases = (
+				F0ADE0F2166DF941009758CC /* Sources */,
+				F0ADE0F3166DF941009758CC /* Frameworks */,
+				F0ADE0F4166DF941009758CC /* Resources */,
+				F0ADE15F166DFC2D009758CC /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F0CF07F3166F5654009D198D /* PBXTargetDependency */,
+				F0ADE15E166DFBFE009758CC /* PBXTargetDependency */,
+				F0ADE1CC166E09A5009758CC /* PBXTargetDependency */,
+			);
+			name = MacForgeHelper;
+			productName = MachInjectSample;
+			productReference = F0ADE0F6166DF941009758CC /* MacForgeHelper.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F0ADE14E166DFB8B009758CC /* com.w0lf.MacForge.Installer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F0ADE15A166DFB8B009758CC /* Build configuration list for PBXNativeTarget "com.w0lf.MacForge.Installer" */;
+			buildPhases = (
+				F0ADE14B166DFB8B009758CC /* Sources */,
+				F0ADE14C166DFB8B009758CC /* Frameworks */,
+				F0ADE14D166DFB8B009758CC /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = com.w0lf.MacForge.Installer;
+			productName = Installer;
+			productReference = F0ADE14F166DFB8B009758CC /* com.w0lf.MacForge.Installer */;
+			productType = "com.apple.product-type.tool";
+		};
+		F0ADE1B7166E0820009758CC /* com.w0lf.MacForge.Injector */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F0ADE1C2166E0821009758CC /* Build configuration list for PBXNativeTarget "com.w0lf.MacForge.Injector" */;
+			buildPhases = (
+				F0ADE1B4166E0820009758CC /* Sources */,
+				F0ADE1B5166E0820009758CC /* Frameworks */,
+				F0ADE1B6166E0820009758CC /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = com.w0lf.MacForge.Injector;
+			productName = Injector;
+			productReference = F0ADE1B8166E0820009758CC /* com.w0lf.MacForge.Injector */;
+			productType = "com.apple.product-type.tool";
+		};
+		FBA6E89B20F0190900A12ACF /* MacForgeFix */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FBA6E8AF20F0190900A12ACF /* Build configuration list for PBXNativeTarget "MacForgeFix" */;
+			buildPhases = (
+				FBA6E89820F0190900A12ACF /* Sources */,
+				FBA6E89920F0190900A12ACF /* Frameworks */,
+				FBA6E89A20F0190900A12ACF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MacForgeFix;
+			productName = MacPlusFix;
+			productReference = FBA6E89C20F0190900A12ACF /* MacForgeFix.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+		FBA6E90020F0299B00A12ACF /* MacForgeDockTile */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FBA6E90420F0299B00A12ACF /* Build configuration list for PBXNativeTarget "MacForgeDockTile" */;
+			buildPhases = (
+				FBA6E8FD20F0299B00A12ACF /* Sources */,
+				FBA6E8FE20F0299B00A12ACF /* Frameworks */,
+				FBA6E8FF20F0299B00A12ACF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MacForgeDockTile;
+			productName = MacPlusDockTile;
+			productReference = FBA6E90120F0299B00A12ACF /* MacForgeDockTile.docktileplugin */;
+			productType = "com.apple.product-type.bundle";
+		};
+		FBE7679D20EF426D00A42BD5 /* MacForgeKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FBE767A520EF426D00A42BD5 /* Build configuration list for PBXNativeTarget "MacForgeKit" */;
+			buildPhases = (
+				FBE7679920EF426D00A42BD5 /* Headers */,
+				FBE7679A20EF426D00A42BD5 /* Sources */,
+				FBE7679B20EF426D00A42BD5 /* Frameworks */,
+				FBE7679C20EF426D00A42BD5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MacForgeKit;
+			productName = MacPlusKit;
+			productReference = FBE7679E20EF426D00A42BD5 /* MacForgeKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		FBE767E720F00FFB00A42BD5 /* MacForge */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FBE767F620F00FFE00A42BD5 /* Build configuration list for PBXNativeTarget "MacForge" */;
+			buildPhases = (
+				FBE767E420F00FFB00A42BD5 /* Sources */,
+				FBE767E520F00FFB00A42BD5 /* Frameworks */,
+				FBE767E620F00FFB00A42BD5 /* Resources */,
+				FBA6E8D020F027AC00A12ACF /* Copy Frameworks */,
+				FBA6E90C20F029E900A12ACF /* Copy Plugins */,
+				FBF137D92105AB3E0001916A /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FBA6E91720F0310E00A12ACF /* PBXTargetDependency */,
+				FBA6E90B20F029E400A12ACF /* PBXTargetDependency */,
+				FBE7680320F015DD00A42BD5 /* PBXTargetDependency */,
+			);
+			name = MacForge;
+			productName = MacPlus;
+			productReference = FBE767E820F00FFB00A42BD5 /* MacForge.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F0ADE0ED166DF941009758CC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = DK;
+				LastUpgradeCheck = 1000;
+				ORGANIZATIONNAME = "Erwan Barrier";
+				TargetAttributes = {
+					F0ADE0F5166DF941009758CC = {
+						DevelopmentTeam = EX596BNL45;
+						ProvisioningStyle = Manual;
+					};
+					F0ADE14E166DFB8B009758CC = {
+						DevelopmentTeam = EX596BNL45;
+						ProvisioningStyle = Manual;
+					};
+					F0ADE1B7166E0820009758CC = {
+						DevelopmentTeam = EX596BNL45;
+						ProvisioningStyle = Manual;
+					};
+					FBA6E89B20F0190900A12ACF = {
+						CreatedOnToolsVersion = 10.0;
+						DevelopmentTeam = EX596BNL45;
+						ProvisioningStyle = Automatic;
+					};
+					FBA6E90020F0299B00A12ACF = {
+						CreatedOnToolsVersion = 10.0;
+						DevelopmentTeam = EX596BNL45;
+						ProvisioningStyle = Automatic;
+					};
+					FBE7679D20EF426D00A42BD5 = {
+						CreatedOnToolsVersion = 10.0;
+						DevelopmentTeam = EX596BNL45;
+						ProvisioningStyle = Automatic;
+					};
+					FBE767E720F00FFB00A42BD5 = {
+						CreatedOnToolsVersion = 10.0;
+						DevelopmentTeam = EX596BNL45;
+						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 0;
+							};
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = F0ADE0F0166DF941009758CC /* Build configuration list for PBXProject "MacForge" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F0ADE0EB166DF941009758CC;
+			productRefGroup = F0ADE0F7166DF941009758CC /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F0CF07E5166F563D009D198D /* Products */;
+					ProjectRef = F0CF07E4166F563D009D198D /* mach_inject_bundle.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				FBE767E720F00FFB00A42BD5 /* MacForge */,
+				F0ADE0F5166DF941009758CC /* MacForgeHelper */,
+				F0ADE14E166DFB8B009758CC /* com.w0lf.MacForge.Installer */,
+				F0ADE1B7166E0820009758CC /* com.w0lf.MacForge.Injector */,
+				FBE7679D20EF426D00A42BD5 /* MacForgeKit */,
+				FBA6E89B20F0190900A12ACF /* MacForgeFix */,
+				FBA6E90020F0299B00A12ACF /* MacForgeDockTile */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		F0CF07F0166F563E009D198D /* mach_inject_bundle.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = mach_inject_bundle.framework;
+			remoteRef = F0CF07EF166F563E009D198D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F0ADE0F4166DF941009758CC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FBE767FC20F0122F00A42BD5 /* InfoPlist.strings in Resources */,
+				FB917FA1213917E10013D4E3 /* menu.icns in Resources */,
+				B7956BF719EDB03A005EEB36 /* mach_inject_bundle.framework in Resources */,
+				FB917F9F213917400013D4E3 /* icon.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBA6E89A20F0190900A12ACF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FBA6E8AE20F0190900A12ACF /* PrefixHeader.pch in Resources */,
+				FBA6E8A520F0190900A12ACF /* Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBA6E8FF20F0299B00A12ACF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBE7679C20EF426D00A42BD5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FBE767AF20EF428F00A42BD5 /* sipvid.mp4 in Resources */,
+				FBE767AE20EF428F00A42BD5 /* cleanup in Resources */,
+				FBE767AD20EF428F00A42BD5 /* amfiswitch in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBE767E620F00FFB00A42BD5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FBF137D6210582540001916A /* checkmark_test.png in Resources */,
+				FB7E350320F202D200EB3339 /* icon_nobg.icns in Resources */,
+				FBF137CE210576720001916A /* tools.png in Resources */,
+				FBA6E8FC20F028A400A12ACF /* LICENSE_EULA in Resources */,
+				FBF137D4210578610001916A /* github.png in Resources */,
+				FBA6E8DA20F0285B00A12ACF /* loading_mini.gif in Resources */,
+				FBA6E8D920F0285B00A12ACF /* update.png in Resources */,
+				FBA6E8FB20F028A400A12ACF /* Credits.rtf in Resources */,
+				FB0227AB20F0B547006566EF /* MacForge_old.icns in Resources */,
+				FBA6E8DB20F0285B00A12ACF /* webicon.png in Resources */,
+				FBA6E8DD20F0285B00A12ACF /* checkmark.png in Resources */,
+				FBAAB41720F2CDB0002156DC /* demo_xcode.zip in Resources */,
+				FBA6E8E120F0287500A12ACF /* dsa_pub.pem in Resources */,
+				FBA6E8CE20F025A100A12ACF /* Application.xib in Resources */,
+				FBA6E8CA20F01E1B00A12ACF /* LICENSE_SGDirWatchdog in Resources */,
+				FBA6E8C820F01E0100A12ACF /* LICENSE_ZKSwizzle in Resources */,
+				FBB19F8120F2D18A003F421B /* plugin_template.zip in Resources */,
+				FBA6E8C220F01D4000A12ACF /* LICENSE_StartAtLoginController in Resources */,
+				FBF137D22105782A0001916A /* reddit.png in Resources */,
+				FBF137CC210575ED0001916A /* code.png in Resources */,
+				FBC54082213912AD00A53FA4 /* MacForge.icns in Resources */,
+				FBA6E8C420F01D7500A12ACF /* LICENSE_SIMBL in Resources */,
+				FBA6E8C620F01DDA00A12ACF /* LICENSE_STPrivilegedTask in Resources */,
+				FBA6E8FA20F028A400A12ACF /* Changelog.rtf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F0ADE0F2166DF941009758CC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FBCC0B3021278DF900CB5CD4 /* SGDirWatchdog.m in Sources */,
+				FBAAB3EC20F228FD002156DC /* StartAtLoginController.m in Sources */,
+				FB0227A920F0539B006566EF /* PluginManager.m in Sources */,
+				FBE767FB20F0116600A42BD5 /* SIMBLPlugin.m in Sources */,
+				FBE767FA20F0116000A42BD5 /* SIMBL.m in Sources */,
+				FBE767F920F0115B00A42BD5 /* NSAlert_SIMBL.m in Sources */,
+				FBE767DD20EFE9EE00A42BD5 /* MFInjectorProxy.m in Sources */,
+				FBE767DC20EFE9EA00A42BD5 /* MFInstaller.m in Sources */,
+				FBE767DA20EFE92B00A42BD5 /* MFConstant.m in Sources */,
+				F0ADE107166DF941009758CC /* main.m in Sources */,
+				FBAAB3F020F22BF5002156DC /* NSBundle+LoginItem.m in Sources */,
+				F0ADE10E166DF941009758CC /* MFAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0ADE14B166DFB8B009758CC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0ADE171166E0591009758CC /* MFFrameworkInstaller.m in Sources */,
+				F0ADE172166E0591009758CC /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0ADE1B4166E0820009758CC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0ADE1C7166E0981009758CC /* MFInjector.m in Sources */,
+				F0ADE1C6166E0874009758CC /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBA6E89820F0190900A12ACF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FBA6E8A820F0190900A12ACF /* MacPlusFix.m in Sources */,
+				FBA6E8AC20F0190900A12ACF /* ZKSwizzle.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBA6E8FD20F0299B00A12ACF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FBA6E90920F029D800A12ACF /* DockTilePlugIn.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBE7679A20EF426D00A42BD5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FBE767D620EF4CC100A42BD5 /* SIMBLPlugin.m in Sources */,
+				FBE767D520EF4CBD00A42BD5 /* NSAlert_SIMBL.m in Sources */,
+				FBE767D420EF4CB900A42BD5 /* SIMBL.m in Sources */,
+				FBE767B420EF432700A42BD5 /* MacForgeKit.m in Sources */,
+				FBE767AB20EF428F00A42BD5 /* STPrivilegedTask.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBE767E420F00FFB00A42BD5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FBA6E8CF20F0262A00A12ACF /* SGDirWatchdog.m in Sources */,
+				FBA6E88720F0176B00A12ACF /* AppDelegate.m in Sources */,
+				FBA6E8F320F0289B00A12ACF /* repopluginTable.m in Sources */,
+				FBA6E8E620F0288300A12ACF /* MSPlugin.m in Sources */,
+				FBE767F420F00FFE00A42BD5 /* main.m in Sources */,
+				FBA6E8F520F0289B00A12ACF /* pluginTable.m in Sources */,
+				FBA6E8F220F0289B00A12ACF /* PluginManager.m in Sources */,
+				FBA6E8E720F0288300A12ACF /* pluginData.m in Sources */,
+				FBAAB3EF20F22BF5002156DC /* NSBundle+LoginItem.m in Sources */,
+				FBA6E8BB20F01C6300A12ACF /* StartAtLoginController.m in Sources */,
+				FBA6E8F020F0289B00A12ACF /* bundlePage.m in Sources */,
+				FBA6E8F120F0289B00A12ACF /* discoverPluginTable.m in Sources */,
+				FBF137E3210E79B70001916A /* blacklistTable.m in Sources */,
+				FBA6E89520F0185F00A12ACF /* ZKSwizzle.m in Sources */,
+				FBA6E8F420F0289B00A12ACF /* updatesTable.m in Sources */,
+				FBA6E8F620F0289B00A12ACF /* sourcesTable.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F0ADE15E166DFBFE009758CC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F0ADE14E166DFB8B009758CC /* com.w0lf.MacForge.Installer */;
+			targetProxy = F0ADE15D166DFBFE009758CC /* PBXContainerItemProxy */;
+		};
+		F0ADE1CC166E09A5009758CC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F0ADE1B7166E0820009758CC /* com.w0lf.MacForge.Injector */;
+			targetProxy = F0ADE1CB166E09A5009758CC /* PBXContainerItemProxy */;
+		};
+		F0CF07F3166F5654009D198D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = mach_inject_bundle;
+			targetProxy = F0CF07F2166F5654009D198D /* PBXContainerItemProxy */;
+		};
+		FBA6E90B20F029E400A12ACF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FBA6E90020F0299B00A12ACF /* MacForgeDockTile */;
+			targetProxy = FBA6E90A20F029E400A12ACF /* PBXContainerItemProxy */;
+		};
+		FBA6E91720F0310E00A12ACF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FBE7679D20EF426D00A42BD5 /* MacForgeKit */;
+			targetProxy = FBA6E91620F0310E00A12ACF /* PBXContainerItemProxy */;
+		};
+		FBE7680320F015DD00A42BD5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F0ADE0F5166DF941009758CC /* MacForgeHelper */;
+			targetProxy = FBE7680220F015DD00A42BD5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F0ADE103166DF941009758CC /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F0ADE104166DF941009758CC /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F0ADE112166DF942009758CC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		F0ADE113166DF942009758CC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		F0ADE115166DF942009758CC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = EX596BNL45;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/External\\ Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MacForgeHelper/MacForge-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/MacForgeHelper/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../../Frameworks $(PROJECT_DIR)/\"External Frameworks\"";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacForgeHelper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		F0ADE116166DF942009758CC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = EX596BNL45;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/External\\ Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MacForgeHelper/MacForge-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/MacForgeHelper/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../../Frameworks $(PROJECT_DIR)/\"External Frameworks\"";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacForgeHelper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		F0ADE15B166DFB8B009758CC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = EX596BNL45;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Installer/Installer-Prefix.pch";
+				INFOPLIST_FILE = "Installer/Installer-Info.plist";
+				INFOPLIST_PREPROCESS = YES;
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					"Installer/Installer-Info.plist",
+					"-sectcreate",
+					__TEXT,
+					__launchd_plist,
+					"Installer/Installer-Launchd.plist",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacForge.Installer;
+				PRODUCT_NAME = com.w0lf.MacForge.Installer;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+			};
+			name = Debug;
+		};
+		F0ADE15C166DFB8B009758CC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = EX596BNL45;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Installer/Installer-Prefix.pch";
+				INFOPLIST_FILE = "Installer/Installer-Info.plist";
+				INFOPLIST_PREPROCESS = YES;
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					"Installer/Installer-Info.plist",
+					"-sectcreate",
+					__TEXT,
+					__launchd_plist,
+					"Installer/Installer-Launchd.plist",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacForge.Installer;
+				PRODUCT_NAME = com.w0lf.MacForge.Installer;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+			};
+			name = Release;
+		};
+		F0ADE1C3166E0821009758CC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = EX596BNL45;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Injector/Injector-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../mach_inject_bundle\"";
+				INFOPLIST_FILE = "Injector/Injector-Info.plist";
+				INFOPLIST_PREPROCESS = YES;
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					"Injector/Injector-Info.plist",
+					"-sectcreate",
+					__TEXT,
+					__launchd_plist,
+					"Injector/Injector-Launchd.plist",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacForge.Injector;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				VALID_ARCHS = x86_64;
+			};
+			name = Debug;
+		};
+		F0ADE1C4166E0821009758CC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = EX596BNL45;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Injector/Injector-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../mach_inject_bundle\"";
+				INFOPLIST_FILE = "Injector/Injector-Info.plist";
+				INFOPLIST_PREPROCESS = YES;
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					"Injector/Injector-Info.plist",
+					"-sectcreate",
+					__TEXT,
+					__launchd_plist,
+					"Injector/Injector-Launchd.plist",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacForge.Injector;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				VALID_ARCHS = x86_64;
+			};
+			name = Release;
+		};
+		FBA6E8B020F0190900A12ACF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEPLOYMENT_LOCATION = YES;
+				DEVELOPMENT_TEAM = EX596BNL45;
+				DSTROOT = /;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = MacForgeFix/PrefixHeader.pch;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "$(SRCROOT)/MacForgeFix/Info.plist";
+				INSTALL_PATH = "/Library/Application Support/SIMBL/Plugins";
+				MACH_O_TYPE = mh_dylib;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				PRODUCT_BUNDLE_IDENTIFIER = org.w0lf.MacForgeFix;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		FBA6E8B120F0190900A12ACF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEPLOYMENT_LOCATION = YES;
+				DEVELOPMENT_TEAM = EX596BNL45;
+				DSTROOT = /;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = MacForgeFix/PrefixHeader.pch;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "$(SRCROOT)/MacForgeFix/Info.plist";
+				INSTALL_PATH = "/Library/Application Support/SIMBL/Plugins";
+				MACH_O_TYPE = mh_dylib;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = org.w0lf.MacForgeFix;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		FBA6E90520F0299B00A12ACF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = EX596BNL45;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "$(SRCROOT)/MacForgeDockTile/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				PRODUCT_BUNDLE_IDENTIFIER = org.w0lf.MacForgeDockTile;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = docktileplugin;
+			};
+			name = Debug;
+		};
+		FBA6E90620F0299B00A12ACF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = EX596BNL45;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "$(SRCROOT)/MacForgeDockTile/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = org.w0lf.MacForgeDockTile;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = docktileplugin;
+			};
+			name = Release;
+		};
+		FBE767A320EF426D00A42BD5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = EX596BNL45;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MacForgeHelper/MacForge-Prefix.pch";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/MacForgeKit/Info.plist";
+				INFOPLIST_PREFIX_HEADER = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				PRODUCT_BUNDLE_IDENTIFIER = org.w0lf.MacForgeKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		FBE767A420EF426D00A42BD5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = EX596BNL45;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MacForgeHelper/MacForge-Prefix.pch";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/MacForgeKit/Info.plist";
+				INFOPLIST_PREFIX_HEADER = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = org.w0lf.MacForgeKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		FBE767F720F00FFE00A42BD5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = MacForge/Resource/MacForge.entitlements;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = EX596BNL45;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/External\\ Frameworks",
+					"$(PROJECT_DIR)/External\\ Frameworks",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = MacForge/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacForge;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+			};
+			name = Debug;
+		};
+		FBE767F820F00FFE00A42BD5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = MacForge/Resource/MacForge.entitlements;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = EX596BNL45;
+				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/External\\ Frameworks",
+					"$(PROJECT_DIR)/External\\ Frameworks",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = MacForge/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacForge;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F0ADE0F0166DF941009758CC /* Build configuration list for PBXProject "MacForge" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F0ADE112166DF942009758CC /* Debug */,
+				F0ADE113166DF942009758CC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F0ADE114166DF942009758CC /* Build configuration list for PBXNativeTarget "MacForgeHelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F0ADE115166DF942009758CC /* Debug */,
+				F0ADE116166DF942009758CC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F0ADE15A166DFB8B009758CC /* Build configuration list for PBXNativeTarget "com.w0lf.MacForge.Installer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F0ADE15B166DFB8B009758CC /* Debug */,
+				F0ADE15C166DFB8B009758CC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F0ADE1C2166E0821009758CC /* Build configuration list for PBXNativeTarget "com.w0lf.MacForge.Injector" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F0ADE1C3166E0821009758CC /* Debug */,
+				F0ADE1C4166E0821009758CC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FBA6E8AF20F0190900A12ACF /* Build configuration list for PBXNativeTarget "MacForgeFix" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FBA6E8B020F0190900A12ACF /* Debug */,
+				FBA6E8B120F0190900A12ACF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FBA6E90420F0299B00A12ACF /* Build configuration list for PBXNativeTarget "MacForgeDockTile" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FBA6E90520F0299B00A12ACF /* Debug */,
+				FBA6E90620F0299B00A12ACF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FBE767A520EF426D00A42BD5 /* Build configuration list for PBXNativeTarget "MacForgeKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FBE767A320EF426D00A42BD5 /* Debug */,
+				FBE767A420EF426D00A42BD5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FBE767F620F00FFE00A42BD5 /* Build configuration list for PBXNativeTarget "MacForge" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FBE767F720F00FFE00A42BD5 /* Debug */,
+				FBE767F820F00FFE00A42BD5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F0ADE0ED166DF941009758CC /* Project object */;
+}
