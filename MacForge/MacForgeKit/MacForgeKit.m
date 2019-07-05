@@ -1,6 +1,6 @@
 //
-//  MacPlusKit.m
-//  MacPlusKit
+//  MacForgeKit.m
+//  MacForgeKit
 //
 //  Created by Wolfgang Baird on 7/5/18.
 //  Copyright © 2018 Erwan Barrier. All rights reserved.
@@ -10,12 +10,55 @@
 #import "MacForgeKit.h"
 #import "SIMBL.h"
 
-@implementation MacPlusKit
+//
+//  SYSTEM INTEGRITY PROTECTION RELATED
+//
 
-+ (MacPlusKit*) sharedInstance {
-    static MacPlusKit* macPlus = nil;
+typedef uint32_t csr_config_t;
+
+/* Rootless configuration flags */
+#define CSR_ALLOW_UNTRUSTED_KEXTS       (1 << 0)    // 1
+#define CSR_ALLOW_UNRESTRICTED_FS       (1 << 1)    // 2
+#define CSR_ALLOW_TASK_FOR_PID          (1 << 2)    // 4
+#define CSR_ALLOW_KERNEL_DEBUGGER       (1 << 3)    // 8
+#define CSR_ALLOW_APPLE_INTERNAL        (1 << 4)    // 16
+#define CSR_ALLOW_UNRESTRICTED_DTRACE   (1 << 5)    // 32
+#define CSR_ALLOW_UNRESTRICTED_NVRAM    (1 << 6)    // 64
+
+#define CSR_VALID_FLAGS (CSR_ALLOW_UNTRUSTED_KEXTS | \
+CSR_ALLOW_UNRESTRICTED_FS | \
+CSR_ALLOW_TASK_FOR_PID | \
+CSR_ALLOW_KERNEL_DEBUGGER | \
+CSR_ALLOW_APPLE_INTERNAL | \
+CSR_ALLOW_UNRESTRICTED_DTRACE | \
+CSR_ALLOW_UNRESTRICTED_NVRAM)
+
+/* Syscalls */
+// mark these symbols as weakly linked, as they may not be available
+// at runtime on older OS X versions.
+extern int csr_check(csr_config_t mask) __attribute__((weak_import));
+extern int csr_get_active_config(csr_config_t* config) __attribute__((weak_import));
+
+/*
+ * Our own implementation of csr_chec() that allows flipping the flag
+ * for easier information gathering.
+ */
+bool _csr_check(int aMask, bool aFlipflag);
+
+bool _csr_check(int aMask, bool aFlipflag)
+{
+    if (!csr_check)
+        return (aFlipflag) ? 0 : 1; // return "UNRESTRICTED" when on old macOS version
+    
+    return (aFlipflag) ? !(csr_check(aMask) != 0) : (csr_check(aMask) != 0);
+}
+
+@implementation MacForgeKit
+
++ (MacForgeKit*) sharedInstance {
+    static MacForgeKit* macPlus = nil;
     if (macPlus == nil)
-        macPlus = [[MacPlusKit alloc] init];
+        macPlus = [[MacForgeKit alloc] init];
     return macPlus;
 }
 
@@ -54,21 +97,27 @@
 }
 
 + (Boolean)SIP_enabled {
-    return ([[MacPlusKit runScript:@"touch /System/test 2>&1"] rangeOfString:@"Operation not permitted"].length);
+    BOOL allowsFS = _csr_check(CSR_ALLOW_UNRESTRICTED_FS, 0);
+    BOOL allowsInjection = _csr_check(CSR_ALLOW_UNRESTRICTED_DTRACE, 0);
+    return  !(allowsFS || allowsInjection);
 }
 
+//+ (Boolean)SIP_enabled {
+//    return ([[MacForgeKit runScript:@"touch /System/test 2>&1"] rangeOfString:@"Operation not permitted"].length);
+//}
+
 + (Boolean)AMFI_enabled {
-    return !([[MacPlusKit runScript:@"nvram boot-args 2>&1"] rangeOfString:@"amfi_get_out_of_my_way=1"].length);
+    return !([[MacForgeKit runScript:@"nvram boot-args 2>&1"] rangeOfString:@"amfi_get_out_of_my_way=1"].length);
 }
 
 + (Boolean)AMFI_toggle {
-    NSArray *args = [NSArray arrayWithObject:[[NSBundle bundleForClass:[MacPlusKit class]] pathForResource:@"amfiswitch" ofType:nil]];
-    return [MacPlusKit runSTPrivilegedTask:@"/bin/sh" :args];
+    NSArray *args = [NSArray arrayWithObject:[[NSBundle bundleForClass:[MacForgeKit class]] pathForResource:@"amfiswitch" ofType:nil]];
+    return [MacForgeKit runSTPrivilegedTask:@"/bin/sh" :args];
 }
 
 + (Boolean)MacPlus_remove {
-    NSArray *args = [NSArray arrayWithObject:[[NSBundle bundleForClass:[MacPlusKit class]] pathForResource:@"cleanup" ofType:nil]];
-    return [MacPlusKit runSTPrivilegedTask:@"/bin/sh" :args];
+    NSArray *args = [NSArray arrayWithObject:[[NSBundle bundleForClass:[MacForgeKit class]] pathForResource:@"cleanup" ofType:nil]];
+    return [MacForgeKit runSTPrivilegedTask:@"/bin/sh" :args];
 }
 
 + (void)installMacPlus {
@@ -87,7 +136,7 @@
                                 usingBlock:^(NSNotification * _Nonnull note) {
                                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                                         NSRunningApplication *app = [note.userInfo valueForKey:NSWorkspaceApplicationKey];
-                                        [MacPlusKit injectBundle:app];
+                                        [MacForgeKit injectBundle:app];
                                     });
                                 }];
 }
@@ -141,7 +190,7 @@
 // Try injecting all valid bundles into an running application
 + (void)injectBundle:(NSRunningApplication*)runningApp {
     // Check if there is anything valid to inject
-    if ([MacPlusKit shouldInject:runningApp]) {        
+    if ([MacForgeKit shouldInject:runningApp]) {
         // See if MacPlus is insatlled and if so open it and try to inject
         NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
         NSString *mpHelper = [workspace absolutePathForAppBundleWithIdentifier:@"com.w0lf.MacForgeHelper"];
@@ -157,7 +206,7 @@
 
 + (void)injectAllProc {
     for (NSRunningApplication *app in NSWorkspace.sharedWorkspace.runningApplications)
-        [MacPlusKit injectBundle:app];
+        [MacForgeKit injectBundle:app];
 }
 
 @end

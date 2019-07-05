@@ -7,7 +7,7 @@
 #import <Foundation/Foundation.h>
 #import "SIMBLPlugin.h"
 
-#define SIMBLPluginPath @"Application Support/SIMBL/Plugins"
+#define SIMBLPluginPath @"Application Support/MacEnhance/Plugins"
 #define SIMBLStringTable @"SIMBLStringTable"
 #define SIMBLApplicationIdentifier @"SIMBLApplicationIdentifier"
 #define SIMBLTargetApplications @"SIMBLTargetApplications"

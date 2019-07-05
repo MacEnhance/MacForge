@@ -262,15 +262,25 @@ extern long selectedRow;
             }
         }
         
-        self.bundlePreview1.image = nil;
-        dispatch_queue_t backgroundQueue = dispatch_queue_create("com.w0lf.MacForge", 0);
-        dispatch_async(backgroundQueue, ^{
+//        self.bundlePreview1.image = nil;
+        self.bundlePreview1.animates = YES;
+        self.bundlePreview1.image = [NSImage imageNamed:@"loading_mini.gif"];
+        self.bundlePreview1.canDrawSubviewsIntoLayer = YES;
+        
+        dispatch_async(dispatch_get_global_queue(0,0), ^{
             NSString *rand = [[NSProcessInfo processInfo] globallyUniqueString];
-            NSURL* data1 = [NSURL URLWithString:[NSString stringWithFormat:@"%@/screenshots/%@/01.png?%@", repoPackages, self->_currentBundle, rand]];
-            NSURL* data2 = [NSURL URLWithString:[NSString stringWithFormat:@"%@/screenshots/%@/02.png?%@", repoPackages, self->_currentBundle, rand]];
-            self->_bundlePreviewImages = @[[[NSImage alloc] initByReferencingURL:data1], [[NSImage alloc] initByReferencingURL:data2]];
-            NSImage *preview1 = self->_bundlePreviewImages[0];
-            self->_currentPreview = 0;
+            NSURL* url1 = [NSURL URLWithString:[NSString stringWithFormat:@"%@/screenshots/%@/01.png?%@", repoPackages, self->_currentBundle, rand]];
+            NSURL* url2 = [NSURL URLWithString:[NSString stringWithFormat:@"%@/screenshots/%@/02.png?%@", repoPackages, self->_currentBundle, rand]];
+            NSData * data = [[NSData alloc] initWithContentsOfURL: url1];
+            NSImage *preview1, *preview2;
+            if ( data == nil ) {
+                preview1 = [[NSImage alloc] init];
+                preview2 = [[NSImage alloc] init];
+            } else {
+                preview1 = [[NSImage alloc] initWithData:[[NSData alloc] initWithContentsOfURL: url1]];
+                preview2 = [[NSImage alloc] initWithData:[[NSData alloc] initWithContentsOfURL: url2]];
+            }
+            self->_bundlePreviewImages = @[preview1, preview2];
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.bundlePreview1.image = preview1;
             });
@@ -293,7 +303,7 @@ extern long selectedRow;
         if (newPreview < 0)
             newPreview = _bundlePreviewImages.count - 1;
     _currentPreview = newPreview;
-    self.bundlePreview1.image = _bundlePreviewImages[newPreview];
+    self.bundlePreview1.image = self.bundlePreviewImages[newPreview];
 }
 
 - (void)verifyPurchased {

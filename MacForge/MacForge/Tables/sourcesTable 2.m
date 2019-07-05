@@ -97,13 +97,13 @@ NSArray *sourceURLS;
     result.sourceIndicator.image = [NSImage imageNamed:@"loading_mini.gif"];
     result.sourceIndicator.canDrawSubviewsIntoLayer = YES;
     
+    result.sourceIndicator.imageAlignment = NSImageAlignTop;
+    result.sourceImage.imageAlignment = NSImageAlignTop;
+
     result.sourceImage.animates = YES;
     result.sourceImage.image = [NSImage imageNamed:@"loading_mini.gif"];
     result.sourceImage.canDrawSubviewsIntoLayer = YES;
     [result.superview setWantsLayer:YES];
-    
-    result.sourceIndicator.imageAlignment = NSImageAlignTop;
-    result.sourceImage.imageAlignment = NSImageAlignTop;
     
     dispatch_queue_t backgroundQueue = dispatch_queue_create("com.w0lf.MacForge", 0);
     dispatch_async(backgroundQueue, ^{
@@ -112,13 +112,9 @@ NSArray *sourceURLS;
         NSURL* data = [NSURL URLWithString:[NSString stringWithFormat:@"%@/resource.plist?%@", source, [[NSProcessInfo processInfo] globallyUniqueString]]];
         NSMutableDictionary* dic = [[NSMutableDictionary alloc] initWithContentsOfURL:data];
         NSImage *sourceIcon = [[NSImage alloc] init];
-        if (dic) {
-            NSURL* url1 = [NSURL URLWithString:[NSString stringWithFormat:@"%@/icon.png?%@", source, [[NSProcessInfo processInfo] globallyUniqueString]]];
-            NSImage *icon = [[NSImage alloc] initWithData:[[NSData alloc] initWithContentsOfURL: url1]];
-            sourceIcon = icon;
-            //  [[NSImage alloc] initByReferencingURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/icon.png?%@", source, [[NSProcessInfo processInfo] globallyUniqueString]]]];
-        }
-
+        if (dic)
+           sourceIcon = [[NSImage alloc] initByReferencingURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/icon.png?%@", source, [[NSProcessInfo processInfo] globallyUniqueString]]]];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             if ([source length])
                 result.sourceDescription.stringValue = source;

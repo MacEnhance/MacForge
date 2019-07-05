@@ -27,6 +27,7 @@
 		FB057CC72139B1B4002B3BB3 /* com.w0lf.MacForge.Injector in CopyFiles */ = {isa = PBXBuildFile; fileRef = F0ADE1B8166E0820009758CC /* com.w0lf.MacForge.Injector */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		FB34DEE320F342F400EC1822 /* Paddle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB34DEE220F342F400EC1822 /* Paddle.framework */; };
 		FB34DEE420F343A800EC1822 /* Paddle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FB34DEE220F342F400EC1822 /* Paddle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FB37B2CD21B229C4001191C2 /* MacForgeFix.m in Sources */ = {isa = PBXBuildFile; fileRef = FB37B2CB21B229C4001191C2 /* MacForgeFix.m */; };
 		FB78E2A72139BE27002FFE2E /* MacForgeDockTile.docktileplugin in Copy Plugins */ = {isa = PBXBuildFile; fileRef = FBA6E90120F0299B00A12ACF /* MacForgeDockTile.docktileplugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FB7E350320F202D200EB3339 /* icon_nobg.icns in Resources */ = {isa = PBXBuildFile; fileRef = FB30208E20F1E8AD003F4CE9 /* icon_nobg.icns */; };
 		FB917F9F213917400013D4E3 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = FB917F9E213917400013D4E3 /* icon.icns */; };
@@ -38,7 +39,6 @@
 		FBA6E89F20F0190900A12ACF /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA6E89E20F0190900A12ACF /* AppKit.framework */; };
 		FBA6E8A120F0190900A12ACF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA6E8A020F0190900A12ACF /* Foundation.framework */; };
 		FBA6E8A520F0190900A12ACF /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8A420F0190900A12ACF /* Info.plist */; };
-		FBA6E8A820F0190900A12ACF /* MacPlusFix.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8A720F0190900A12ACF /* MacPlusFix.m */; };
 		FBA6E8AC20F0190900A12ACF /* ZKSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8AB20F0190900A12ACF /* ZKSwizzle.m */; };
 		FBA6E8AE20F0190900A12ACF /* PrefixHeader.pch in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8AD20F0190900A12ACF /* PrefixHeader.pch */; };
 		FBA6E8BB20F01C6300A12ACF /* StartAtLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8B920F01C6300A12ACF /* StartAtLoginController.m */; };
@@ -265,6 +265,8 @@
 		FB0227AA20F0B547006566EF /* MacForge_old.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MacForge_old.icns; sourceTree = "<group>"; };
 		FB30208E20F1E8AD003F4CE9 /* icon_nobg.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon_nobg.icns; sourceTree = "<group>"; };
 		FB34DEE220F342F400EC1822 /* Paddle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Paddle.framework; sourceTree = "<group>"; };
+		FB37B2CB21B229C4001191C2 /* MacForgeFix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MacForgeFix.m; sourceTree = "<group>"; };
+		FB37B2CC21B229C4001191C2 /* MacForgeFix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacForgeFix.h; sourceTree = "<group>"; };
 		FB917F9E213917400013D4E3 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		FB917FA0213917E00013D4E3 /* menu.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = menu.icns; sourceTree = "<group>"; };
 		FBA6E88520F0176B00A12ACF /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -281,8 +283,6 @@
 		FBA6E89E20F0190900A12ACF /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		FBA6E8A020F0190900A12ACF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		FBA6E8A420F0190900A12ACF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FBA6E8A620F0190900A12ACF /* MacPlusFix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MacPlusFix.h; sourceTree = "<group>"; };
-		FBA6E8A720F0190900A12ACF /* MacPlusFix.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MacPlusFix.m; sourceTree = "<group>"; };
 		FBA6E8AA20F0190900A12ACF /* ZKSwizzle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ZKSwizzle.h; path = ZKSwizzle/ZKSwizzle.h; sourceTree = "<group>"; };
 		FBA6E8AB20F0190900A12ACF /* ZKSwizzle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ZKSwizzle.m; path = ZKSwizzle/ZKSwizzle.m; sourceTree = "<group>"; };
 		FBA6E8AD20F0190900A12ACF /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
@@ -608,8 +608,8 @@
 		FBA6E8A220F0190900A12ACF /* MacForgeFix */ = {
 			isa = PBXGroup;
 			children = (
-				FBA6E8A620F0190900A12ACF /* MacPlusFix.h */,
-				FBA6E8A720F0190900A12ACF /* MacPlusFix.m */,
+				FB37B2CC21B229C4001191C2 /* MacForgeFix.h */,
+				FB37B2CB21B229C4001191C2 /* MacForgeFix.m */,
 				FBA6E8A920F0190900A12ACF /* ZKSwizzle */,
 				FBA6E8A320F0190900A12ACF /* Supporting Files */,
 			);
@@ -1151,8 +1151,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FBA6E8A820F0190900A12ACF /* MacPlusFix.m in Sources */,
 				FBA6E8AC20F0190900A12ACF /* ZKSwizzle.m in Sources */,
+				FB37B2CD21B229C4001191C2 /* MacForgeFix.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1528,7 +1528,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "$(SRCROOT)/MacForgeFix/Info.plist";
-				INSTALL_PATH = "/Library/Application Support/SIMBL/Plugins";
+				INSTALL_PATH = "/Library/Application Support/MacEnhance/Plugins";
 				MACH_O_TYPE = mh_dylib;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				PRODUCT_BUNDLE_IDENTIFIER = org.w0lf.MacForgeFix;
@@ -1564,7 +1564,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "$(SRCROOT)/MacForgeFix/Info.plist";
-				INSTALL_PATH = "/Library/Application Support/SIMBL/Plugins";
+				INSTALL_PATH = "/Library/Application Support/MacEnhance/Plugins";
 				MACH_O_TYPE = mh_dylib;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.w0lf.MacForgeFix;

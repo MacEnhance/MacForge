@@ -25,15 +25,15 @@
 //    return self;
 //}
 
-+ (NSArray*)SIMBLPaths {
++ (NSArray*)MacEnhancePluginPaths {
     NSArray* libDomain = [FileManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSLocalDomainMask];
     NSArray* usrDomain = [FileManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask];
     NSString* libSupport = [[libDomain objectAtIndex:0] path];
     NSString* usrSupport = [[usrDomain objectAtIndex:0] path];
-    NSString* libPathENB = [NSString stringWithFormat:@"%@/SIMBL/Plugins", libSupport];
-    NSString* libPathDIS = [NSString stringWithFormat:@"%@/SIMBL/Plugins (Disabled)", libSupport];
-    NSString* usrPathENB = [NSString stringWithFormat:@"%@/SIMBL/Plugins", usrSupport];
-    NSString* usrPathDIS = [NSString stringWithFormat:@"%@/SIMBL/Plugins (Disabled)", usrSupport];
+    NSString* libPathENB = [NSString stringWithFormat:@"%@/MacEnhance/Plugins", libSupport];
+    NSString* libPathDIS = [NSString stringWithFormat:@"%@/MacEnhance/Plugins (Disabled)", libSupport];
+    NSString* usrPathENB = [NSString stringWithFormat:@"%@/MacEnhance/Plugins", usrSupport];
+    NSString* usrPathDIS = [NSString stringWithFormat:@"%@/MacEnhance/Plugins (Disabled)", usrSupport];
     NSString* OpeePath = [NSString stringWithFormat:@"/Library/Opee/Extensions"];
     NSArray *paths = @[libPathENB, libPathDIS, usrPathENB, usrPathDIS, OpeePath];
     return paths;
@@ -41,23 +41,21 @@
 
 // Try to install all item in an array of file paths
 - (void)installBundles:(NSArray*)pathArray {
-    NSArray* libDomain = [FileManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSLocalDomainMask];
-    NSString* libSupport = [[libDomain objectAtIndex:0] path];
     for (NSString* path in pathArray) {
         // Install a bundle
         if ([[path pathExtension] isEqualToString:@"bundle"]) {
             NSArray* pathComp=[path pathComponents];
             NSString* name=[pathComp objectAtIndex:[pathComp count] - 1];
-            NSString* libPath = [NSString stringWithFormat:@"%@/SIMBL/Plugins/%@", libSupport, name];
-            [self replaceFile:path :libPath];
+            NSString* newPath = [NSString stringWithFormat:@"%@/%@", [PluginManager MacEnhancePluginPaths][0], name];
+            [self replaceFile:path :newPath];
         }
         
         // Install an application
         if ([[path pathExtension] isEqualToString:@"app"]) {
             NSArray* pathComp=[path pathComponents];
             NSString* name=[pathComp objectAtIndex:[pathComp count] - 1];
-            NSString* libPath = [NSString stringWithFormat:@"/Applications/%@", name];
-            [self replaceFile:path :libPath];
+            NSString* newPath = [NSString stringWithFormat:@"/Applications/%@", name];
+            [self replaceFile:path :newPath];
         }
     }
 }
@@ -151,7 +149,7 @@
     confirmDelete = [[NSMutableArray alloc] init];
     NSMutableDictionary *myDict = [[NSMutableDictionary alloc] init];
     
-    for (NSString *path in [PluginManager SIMBLPaths])
+    for (NSString *path in [PluginManager MacEnhancePluginPaths])
         [self readFolder:path :myDict];
     
     NSArray *keys = [myDict allKeys];
@@ -192,12 +190,12 @@
         [result writeToFile:temp atomically:YES];
         
         // Create domain list
-        NSArray *domains = [PluginManager SIMBLPaths];
+        NSArray *domains = [PluginManager MacEnhancePluginPaths];
         
-        // Set install location to /Library/Application Support/SIMBL/Plugins
+        // Set install location to /Library/Application Support/MacEnhance/Plugins
         NSString *installPath = domains[0];
         
-        // If the bundle already exist somewhere replace that instead of installing to /Library/Application Support/SIMBL/Plugins
+        // If the bundle already exist somewhere replace that instead of installing to /Library/Application Support/MacEnhance/Plugins
         for (NSString *path in domains) {
             NSString *possibleBundle = [NSString stringWithFormat:@"%@/%@.bundle", path, [item objectForKey:@"name"]];
             if ([FileManager fileExistsAtPath:possibleBundle])

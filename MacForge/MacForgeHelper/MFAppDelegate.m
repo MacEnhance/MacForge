@@ -27,12 +27,14 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     NSError *error;
     
+//    [MFInstaller install:&error];
+    
     // Make sure helpers are installed
     if ([MFInstaller isInstalled] == NO && [MFInstaller install:&error] == NO) {
         assert(error != nil);
         NSLog(@"Couldn't install MachInjectSample (domain: %@ code: %@)", error.domain, [NSNumber numberWithInteger:error.code]);
-//        NSAlert *alert = [NSAlert alertWithError:error];
-//        [alert runModal];
+        NSAlert *alert = [NSAlert alertWithError:error];
+        [alert runModal];
     }
     
     // Check for args so we can run as a command line tool
@@ -327,7 +329,7 @@
     [watchdogs addObject:watchDog];
     
     // Plugin watcher
-    for (NSString *path in [PluginManager SIMBLPaths]) {
+    for (NSString *path in [PluginManager MacEnhancePluginPaths]) {
         SGDirWatchdog *watchDog = [[SGDirWatchdog alloc] initWithPath:path update:^{ [MFAppDelegate injectAllProc]; }];
         [watchDog start];
         [watchdogs addObject:watchDog];

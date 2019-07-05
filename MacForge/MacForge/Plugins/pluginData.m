@@ -75,7 +75,7 @@
 
 - (void)fetch_local {
     self.localPluginsDic = [[NSMutableDictionary alloc] init];
-    NSArray *folders = [PluginManager SIMBLPaths];
+    NSArray *folders = [PluginManager MacEnhancePluginPaths];
     for (NSString *str in folders) {
         NSArray *appFolderContents = [[NSArray alloc] init];
         appFolderContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:str error:nil];

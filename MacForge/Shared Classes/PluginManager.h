@@ -16,7 +16,7 @@
 //@property NSMutableDictionary *installedPluginDICT;
 
 + (PluginManager*) sharedInstance;
-+ (NSArray*)SIMBLPaths;
++ (NSArray*)MacEnhancePluginPaths;
 + (NSImage*)pluginGetIcon:(NSDictionary*)plist;
 
 - (NSMutableDictionary*)getInstalledPlugins;

@@ -47,6 +47,7 @@
 @property IBOutlet NSView *tabPreferences;
 @property IBOutlet NSView *tabSources;
 @property IBOutlet NSView *tabDiscover;
+@property IBOutlet NSView *tabFeatured;
 @property IBOutlet NSView *tabSystemInfo;
 @property IBOutlet NSView *tabUpdates;
 
@@ -75,6 +76,7 @@
 @property IBOutlet NSButton *discoverSelectSources;
 
 // Tab bar items
+@property IBOutlet NSButton *viewApps;
 @property IBOutlet NSButton *viewPlugins;
 @property IBOutlet NSButton *viewPreferences;
 @property IBOutlet NSButton *viewSources;

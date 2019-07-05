@@ -17,5 +17,6 @@ extern dispatch_source_t g_timer_source;
 @property (nonatomic, strong) NSError *error;
 
 - (BOOL)installFramework:(NSString *)frameworkPath;
+- (BOOL)setupPluginFolder;
 
 @end

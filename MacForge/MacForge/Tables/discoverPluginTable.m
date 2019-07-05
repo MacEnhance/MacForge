@@ -185,8 +185,8 @@ NSString *textFilter;
         //        [result addSubview:v];
         result.bundleImageInstalled.hidden = false;
         Boolean hideCheckmark = true;
-        NSString *a = [NSString stringWithFormat:@"/Library/Application Support/SIMBL/Plugins/%@.bundle", item.webName];
-        NSString *b = [NSString stringWithFormat:@"/Users/%@/Library/Application Support/SIMBL/Plugins/%@.bundle", NSUserName(), item.webName];
+        NSString *a = [NSString stringWithFormat:@"%@/%@.bundle", [PluginManager MacEnhancePluginPaths][0], item.webName];
+        NSString *b = [NSString stringWithFormat:@"%@/%@.bundle", [PluginManager MacEnhancePluginPaths][2], item.webName];
         if ([FileManager fileExistsAtPath:a] || [FileManager fileExistsAtPath:b]) hideCheckmark = false;
         if (hideCheckmark) {
             [buy setTitle:@"Enable"];

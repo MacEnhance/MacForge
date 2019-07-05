@@ -29,30 +29,34 @@ NSString *const MFInstallerExecutablLabel = @"com.w0lf.MacForge.Installer";
 }
 
 + (BOOL)install:(NSError **)error {
-  AuthorizationRef authRef = NULL;
-  BOOL result = YES;
+    AuthorizationRef authRef = NULL;
+    BOOL result = YES;
 
-  result = [self askPermission:&authRef error:error];
+    result = [self askPermission:&authRef error:error];
 
-  if (result == YES) {
-    result = [self installHelperTool:MFInstallerExecutablLabel authorizationRef:authRef error:error];
-  }
+    if (result == YES) {
+        result = [self installHelperTool:MFInstallerExecutablLabel authorizationRef:authRef error:error];
+    }
 
-  if (result == YES) {
-    result = [self installMachInjectBundleFramework:error];
-  }
+    if (result == YES) {
+        result = [self installMachInjectBundleFramework:error];
+    }
+    
+    if (result == YES) {
+        result = [self setupPluginFolder:error];
+    }
 
-  if (result == YES) {
-    result = [self installHelperTool:MFInjectorExecutablLabel authorizationRef:authRef error:error];
-  }
+    if (result == YES) {
+        result = [self installHelperTool:MFInjectorExecutablLabel authorizationRef:authRef error:error];
+    }
 
-  if (result == YES) {
-    NSString *currentVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
-    [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:MFUserDefaultsInstalledVersionKey];
-    NSLog(@"Installed v%@", currentVersion);
-  }
+    if (result == YES) {
+        NSString *currentVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+        [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:MFUserDefaultsInstalledVersionKey];
+        NSLog(@"Installed v%@", currentVersion);
+    }
   
-  return result;
+    return result;
 }
 
 + (BOOL)askPermission:(AuthorizationRef *)authRef error:(NSError **)error {
@@ -126,6 +130,30 @@ NSString *const MFInstallerExecutablLabel = @"com.w0lf.MacForge.Installer";
   }
 
   return result;
+}
+
++ (BOOL)setupPluginFolder:(NSError **)error {
+    BOOL result = YES;
+    
+    NSConnection *c = [NSConnection connectionWithRegisteredName:@"com.w0lf.MacForge.Installer.mach" host:nil];
+    assert(c != nil);
+    
+    MFFrameworkInstaller *installer = (MFFrameworkInstaller *)[c rootProxy];
+    assert(installer != nil);
+    
+    result = [installer setupPluginFolder];
+    
+    if (result == YES) {
+        NSLog(@"Setup plugins folder successfully");
+    } else {
+        NSLog(@"An error occurred while setting up plugins folder %@ %@", installer.error.domain, [NSNumber numberWithInteger:installer.error.code]);
+        
+        *error = [[NSError alloc] initWithDomain:MFErrorDomain
+                                            code:MFErrInstallFramework
+                                        userInfo:@{NSLocalizedDescriptionKey: MFErrInstallDescription}];
+    }
+    
+    return result;
 }
 
 @end

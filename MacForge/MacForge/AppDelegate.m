@@ -74,6 +74,9 @@ NSArray *tabViews;
 - (void)systemDarkModeChange:(NSNotification *)notif {
     if (osx_ver >= 14) {
         if (notif == nil) {
+            
+            // Need to fix for older versions of macos
+            
             if ([NSApp.effectiveAppearance.name isEqualToString:NSAppearanceNameAqua]) {
                 [_changeLog setTextColor:[NSColor blackColor]];
             } else {
@@ -301,7 +304,7 @@ NSArray *tabViews;
     NSInteger height = _viewPlugins.frame.size.height;
     
     tabViewButtons = [NSArray arrayWithObjects:_viewPlugins, _viewSources, _viewChanges, _viewSystem, _viewAccount, _viewAbout, _viewPreferences, nil];
-    NSArray *topButtons = [NSArray arrayWithObjects:_viewDiscover, _viewPlugins, _viewSources, _viewChanges, _viewSystem, _viewAccount, _viewAbout, _viewPreferences, nil];
+    NSArray *topButtons = [NSArray arrayWithObjects:_viewDiscover, _viewApps ,_viewPlugins, _viewSources, _viewChanges, _viewSystem, _viewAccount, _viewAbout, _viewPreferences, nil];
     NSUInteger yLoc = _window.frame.size.height - 44 - height;
     for (NSButton *btn in topButtons) {
         if (btn.enabled) {
@@ -570,7 +573,7 @@ NSArray *tabViews;
 
 - (void)setupEventListener {
     watchdogs = [[NSMutableArray alloc] init];
-    for (NSString *path in [PluginManager SIMBLPaths]) {
+    for (NSString *path in [PluginManager MacEnhancePluginPaths]) {
         SGDirWatchdog *watchDog = [[SGDirWatchdog alloc] initWithPath:path
                                                                update:^{
                                                                    [PluginManager.sharedInstance readPlugins:self->_tblView];
@@ -832,11 +835,18 @@ NSArray *tabViews;
     }
     [_tabMain setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
     for (NSButton *g in tabViewButtons) {
-        if (![g isEqualTo:sender])
+        if (![g isEqualTo:sender]) {
             [[g layer] setBackgroundColor:[NSColor clearColor].CGColor];
-        else
+            NSMutableAttributedString *colorTitle = [[NSMutableAttributedString alloc] initWithString:g.title];
+            [colorTitle addAttribute:NSForegroundColorAttributeName value:NSColor.lightGrayColor range:NSMakeRange(0, g.attributedTitle.length)];
+            [g setAttributedTitle:colorTitle];
+        } else {
 //            [[g layer] setBackgroundColor:[NSColor colorWithCalibratedRed:0.88f green:0.88f blue:0.88f alpha:0.258f].CGColor];
-            [[g layer] setBackgroundColor:[NSColor colorWithCalibratedRed:0.121f green:0.4375f blue:0.1992f alpha:0.2578f].CGColor];
+//            [[g layer] setBackgroundColor:[NSColor colorWithCalibratedRed:0.121f green:0.4375f blue:0.1992f alpha:0.2578f].CGColor];
+            NSMutableAttributedString *colorTitle = [[NSMutableAttributedString alloc] initWithString:g.title];
+            [colorTitle addAttribute:NSForegroundColorAttributeName value:NSColor.whiteColor range:NSMakeRange(0, g.attributedTitle.length)];
+            [g setAttributedTitle:colorTitle];
+        }
     }
 }
 
@@ -903,21 +913,21 @@ NSArray *tabViews;
 }
 
 - (IBAction)toggleAMFI:(id)sender {
-    [MacPlusKit AMFI_toggle];
-    [_AMFIStatus setState:[MacPlusKit AMFI_enabled]];
+    [MacForgeKit AMFI_toggle];
+    [_AMFIStatus setState:[MacForgeKit AMFI_enabled]];
 }
 
 - (void)setupSIMBLview {
     [_SIMBLTogggle setState:[FileManager fileExistsAtPath:@"/Library/PrivilegedHelperTools/com.w0lf.MacForge.Injector"]];
     [_SIMBLAgentToggle setState:[FileManager fileExistsAtPath:@"/Library/PrivilegedHelperTools/com.w0lf.MacForge.Installer"]];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-        Boolean sip = [MacPlusKit SIP_enabled];
-        Boolean amfi = [MacPlusKit AMFI_enabled];
+        Boolean sip = [MacForgeKit SIP_enabled];
+        Boolean amfi = [MacForgeKit AMFI_enabled];
         dispatch_async(dispatch_get_main_queue(), ^(void){
             [self->_SIPStatus setState:sip];
             [self->_AMFIStatus setState:amfi];
             if (sip == true) {
-                [self->_SIPWarning setHidden:false];
+//                [self->_SIPWarning setHidden:false];
             } else {
                 [self->_SIPWarning setHidden:true];
             }
@@ -1017,7 +1027,7 @@ NSArray *tabViews;
 }
 
 - (IBAction)uninstallMacPlus:(id)sender {
-    [MacPlusKit MacPlus_remove];
+    [MacForgeKit MacPlus_remove];
 }
 
 - (IBAction)visit_ad:(id)sender {
