@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 Erwan Barrier. All rights reserved.
 //
 
+@import Sparkle;
+
 #import "MFAppDelegate.h"
 #import "MFInstaller.h"
 #import "MFInjectorProxy.h"
@@ -17,8 +19,6 @@
 #import "SIMBL.h"
 #import "PluginManager.h"
 #import <Carbon/Carbon.h>
-
-#import <DevMateKit/DevMateKit.h>
 
 #include <syslog.h>
 
@@ -145,7 +145,7 @@
 }
 
 - (void)sendFeedback {
-    [DevMateKit showFeedbackDialog:nil inMode:DMFeedbackDefaultMode];
+//    [DevMateKit showFeedbackDialog:nil inMode:DMFeedbackDefaultMode];
 }
 
 - (void)checkMacPlusForUpdates {
@@ -279,6 +279,7 @@
             if ([MFInjectorProxy injectPID:pid :bundlePath :&error] == false) {
                 assert(error != nil);
                 SIMBLLogNotice(@"Couldn't inject App (domain: %@ code: %@)", error.domain, [NSNumber numberWithInteger:error.code]);
+                NSLog(@"Couldn't inject App (domain: %@ code: %@)", error.domain, [NSNumber numberWithInteger:error.code]);
             }
         }
     }

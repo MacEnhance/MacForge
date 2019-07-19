@@ -13,14 +13,12 @@
 @import LetsMove;
 @import MacForgeKit;
 @import Paddle;
+@import Sparkle;
 
 #import "PluginManager.h"
 #import "FConvenience.h"
 #import "SGDirWatchdog.h"
 #import "NSBundle+LoginItem.h"
-
-#import <DevMateKit/DevMateKit.h>
-
 #import "blacklistTable.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate> {

@@ -311,26 +311,31 @@ extern long selectedRow;
     NSString *productID = [item objectForKey:@"productID"];
     if (productID != nil) {
         Paddle *thePaddle = myDelegate.thePaddle;
-        NSDictionary *productInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                                     @"0.99", kPADCurrentPrice,
-                                     @"Wolfgang Baird", kPADDevName,
-                                     @"USD", kPADCurrency,
-                                     @"https://dl.devmate.com/org.w0lf.cDock-GUI/icons/5aae1388a46dd_128.png", kPADImage,
-                                     @"testProduct", kPADProductName,
-                                     @"0", kPADTrialDuration,
-                                     @"Thanks for purchasing", kPADTrialText,
-                                     @"icon.icns", kPADProductImage,
-                                     nil];
-        [thePaddle setupChildProduct:productID productInfo:productInfo timeTrial:NO];
-        [thePaddle verifyLicenceForChildProduct:productID withCompletionBlock:^(BOOL purchased, NSError *e) {
-            NSLog(@"Purchased %@ : %hhd", [self->item objectForKey:@"package"], purchased);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (purchased) {
-                    self.bundleInstall.title = @"Install";
-                } else {
-                    self.bundleInstall.title = self.bundlePrice.stringValue;
-                }
-            });
+        NSString *myPaddleVendorID = @"26643";
+        NSString *myPaddleAPIKey = @"02a3c57238af53b3c465ef895729c765";
+        
+        // Populate a local object in case we're unable to retrieve data from the Vendor Dashboard:
+        PADProductConfiguration *defaultProductConfig = [[PADProductConfiguration alloc] init];
+        defaultProductConfig.productName = @"plugin";
+        defaultProductConfig.vendorName = @"macenhance";
+        
+        // Initialize the SDK Instance with Seller details:
+        thePaddle = [Paddle sharedInstanceWithVendorID:myPaddleVendorID
+                                                apiKey:myPaddleAPIKey
+                                             productID:productID
+                                         configuration:defaultProductConfig
+                                              delegate:nil];
+        
+        // Initialize the Product you'd like to work with:
+        PADProduct *paddleProduct = [[PADProduct alloc] initWithProductID:productID productType:PADProductTypeSDKProduct configuration:defaultProductConfig];
+        
+        // Ask the Product to get it's latest state and info from the Paddle Platform:
+        [paddleProduct refresh:^(NSDictionary * _Nullable productDelta, NSError * _Nullable error) {
+            if ([paddleProduct activated]) {
+                self.bundleInstall.title = @"Install";
+            } else {
+                self.bundleInstall.title = self.bundlePrice.stringValue;
+            }
         }];
     } else {
         NSLog(@"No product info ???");
@@ -342,34 +347,45 @@ extern long selectedRow;
     NSString *productID = [item objectForKey:@"productID"];
     if (productID != nil) {
         Paddle *thePaddle = myDelegate.thePaddle;
-        NSDictionary *productInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                                     @"1.99", kPADCurrentPrice,
-                                     @"Wolfgang Baird", kPADDevName,
-                                     @"USD", kPADCurrency,
-                                     @"https://dl.devmate.com/org.w0lf.cDock-GUI/icons/5aae1388a46dd_128.png", kPADImage,
-                                     @"moreMenu", kPADProductName,
-                                     @"0", kPADTrialDuration,
-                                     @"Thanks for purchasing", kPADTrialText,
-                                     @"icon.icns", kPADProductImage,
-                                     nil];
-        [thePaddle setupChildProduct:productID productInfo:productInfo timeTrial:NO];
-        [thePaddle verifyLicenceForChildProduct:productID withCompletionBlock:^(BOOL purchased, NSError *e) {
-            NSLog(@"Purchased : %hhd - Error : %@", purchased, e.localizedDescription);
-            if (purchased) {
+        NSString *myPaddleVendorID = @"26643";
+        NSString *myPaddleAPIKey = @"02a3c57238af53b3c465ef895729c765";
+        
+        // Populate a local object in case we're unable to retrieve data from the Vendor Dashboard:
+        PADProductConfiguration *defaultProductConfig = [[PADProductConfiguration alloc] init];
+        defaultProductConfig.productName = @"plugin";
+        defaultProductConfig.vendorName = @"macenhance";
+        
+        // Initialize the SDK Instance with Seller details:
+        thePaddle = [Paddle sharedInstanceWithVendorID:myPaddleVendorID
+                                                apiKey:myPaddleAPIKey
+                                             productID:productID
+                                         configuration:defaultProductConfig
+                                              delegate:nil];
+        
+        // Initialize the Product you'd like to work with:
+        PADProduct *paddleProduct = [[PADProduct alloc] initWithProductID:productID productType:PADProductTypeSDKProduct configuration:defaultProductConfig];
+        
+        // Ask the Product to get it's latest state and info from the Paddle Platform:
+        [paddleProduct refresh:^(NSDictionary * _Nullable productDelta, NSError * _Nullable error) {
+            if ([paddleProduct activated]) {
                 [self pluginInstall];
             } else {
-                [thePaddle showActivateLicenceWithWindow:myDelegate.window licenceCode:nil email:nil forChildProduct:productID withCompletionBlock:^(BOOL activated) {
-                    if (activated)
+                [thePaddle showCheckoutForProduct:paddleProduct options:nil checkoutStatusCompletion:^(PADCheckoutState state, PADCheckoutData * _Nullable checkoutData) {
+                    // Examine checkout state to determine the checkout result
+                    if (state == PADCheckoutPurchased) {
                         [self pluginInstall];
-                    NSLog(@"activated : %hhd", activated);
+                    } else {
+                        [paddleProduct refresh:^(NSDictionary * _Nullable productDelta, NSError * _Nullable error) {
+                            if ([paddleProduct activated])
+                                [self pluginInstall];
+                            NSLog(@"activated : %hhd", [paddleProduct activated]);
+                        }];
+                    }
                 }];
-//                [thePaddle purchaseChildProduct:productID withWindow:myDelegate.window completionBlock:^(NSString * _Nullable response, NSString * _Nullable email, BOOL completed, NSError * _Nullable error, NSDictionary * _Nullable checkoutData) {
-//                    NSLog(@"response %@ : email %@ : completed %hhd : error %@ : checkoutData %@", response, email, completed, error, checkoutData);
-//                }];
             }
         }];
     } else {
-        
+        NSLog(@"No product info ???");
     }
 }
 

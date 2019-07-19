@@ -22,22 +22,20 @@
 		F0ADE1CA166E0992009758CC /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0ADE1C9166E0992009758CC /* Carbon.framework */; };
 		F0CF07F4166F566E009D198D /* mach_inject_bundle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0CF07F0166F563E009D198D /* mach_inject_bundle.framework */; };
 		FB0227A920F0539B006566EF /* PluginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8EA20F0289900A12ACF /* PluginManager.m */; };
-		FB0227AB20F0B547006566EF /* MacForge_old.icns in Resources */ = {isa = PBXBuildFile; fileRef = FB0227AA20F0B547006566EF /* MacForge_old.icns */; };
 		FB057CC62139B1B2002B3BB3 /* com.w0lf.MacForge.Installer in CopyFiles */ = {isa = PBXBuildFile; fileRef = F0ADE14F166DFB8B009758CC /* com.w0lf.MacForge.Installer */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		FB057CC72139B1B4002B3BB3 /* com.w0lf.MacForge.Injector in CopyFiles */ = {isa = PBXBuildFile; fileRef = F0ADE1B8166E0820009758CC /* com.w0lf.MacForge.Injector */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		FB34DEE320F342F400EC1822 /* Paddle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB34DEE220F342F400EC1822 /* Paddle.framework */; };
 		FB34DEE420F343A800EC1822 /* Paddle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FB34DEE220F342F400EC1822 /* Paddle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FB37B2CD21B229C4001191C2 /* MacForgeFix.m in Sources */ = {isa = PBXBuildFile; fileRef = FB37B2CB21B229C4001191C2 /* MacForgeFix.m */; };
+		FB4E5E8E22E25B5A00F0D90A /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB4E5E8D22E25B5A00F0D90A /* Sparkle.framework */; };
+		FB4E5E9122E25B8600F0D90A /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB4E5E9022E25B8600F0D90A /* Sparkle.framework */; };
+		FB4E5E9222E25C0F00F0D90A /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FB4E5E8D22E25B5A00F0D90A /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FB78E2A72139BE27002FFE2E /* MacForgeDockTile.docktileplugin in Copy Plugins */ = {isa = PBXBuildFile; fileRef = FBA6E90120F0299B00A12ACF /* MacForgeDockTile.docktileplugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		FB7E350320F202D200EB3339 /* icon_nobg.icns in Resources */ = {isa = PBXBuildFile; fileRef = FB30208E20F1E8AD003F4CE9 /* icon_nobg.icns */; };
 		FB917F9F213917400013D4E3 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = FB917F9E213917400013D4E3 /* icon.icns */; };
 		FB917FA1213917E10013D4E3 /* menu.icns in Resources */ = {isa = PBXBuildFile; fileRef = FB917FA0213917E00013D4E3 /* menu.icns */; };
 		FBA6E88720F0176B00A12ACF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E88620F0176B00A12ACF /* AppDelegate.m */; };
-		FBA6E88C20F017BE00A12ACF /* DevMateKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA6E88B20F017BE00A12ACF /* DevMateKit.framework */; };
 		FBA6E88E20F0182500A12ACF /* LetsMove.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA6E88D20F0182500A12ACF /* LetsMove.framework */; };
 		FBA6E89520F0185F00A12ACF /* ZKSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E89420F0185F00A12ACF /* ZKSwizzle.m */; };
-		FBA6E89F20F0190900A12ACF /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA6E89E20F0190900A12ACF /* AppKit.framework */; };
-		FBA6E8A120F0190900A12ACF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA6E8A020F0190900A12ACF /* Foundation.framework */; };
 		FBA6E8A520F0190900A12ACF /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8A420F0190900A12ACF /* Info.plist */; };
 		FBA6E8AC20F0190900A12ACF /* ZKSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8AB20F0190900A12ACF /* ZKSwizzle.m */; };
 		FBA6E8AE20F0190900A12ACF /* PrefixHeader.pch in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8AD20F0190900A12ACF /* PrefixHeader.pch */; };
@@ -49,7 +47,6 @@
 		FBA6E8CA20F01E1B00A12ACF /* LICENSE_SGDirWatchdog in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8C920F01E1B00A12ACF /* LICENSE_SGDirWatchdog */; };
 		FBA6E8CE20F025A100A12ACF /* Application.xib in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8CD20F025A100A12ACF /* Application.xib */; };
 		FBA6E8CF20F0262A00A12ACF /* SGDirWatchdog.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E89120F0185300A12ACF /* SGDirWatchdog.m */; };
-		FBA6E8D120F027B500A12ACF /* DevMateKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FBA6E88B20F017BE00A12ACF /* DevMateKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FBA6E8D220F027B700A12ACF /* LetsMove.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FBA6E88D20F0182500A12ACF /* LetsMove.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FBA6E8D920F0285B00A12ACF /* update.png in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8D320F0285A00A12ACF /* update.png */; };
 		FBA6E8DA20F0285B00A12ACF /* loading_mini.gif in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8D420F0285A00A12ACF /* loading_mini.gif */; };
@@ -70,7 +67,6 @@
 		FBA6E8FC20F028A400A12ACF /* LICENSE_EULA in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8F920F028A400A12ACF /* LICENSE_EULA */; };
 		FBA6E90920F029D800A12ACF /* DockTilePlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E90820F029D800A12ACF /* DockTilePlugIn.m */; };
 		FBA6E91520F0310800A12ACF /* MacForgeKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FBE7679E20EF426D00A42BD5 /* MacForgeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		FBAAB3EB20F2217F002156DC /* DevMateKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA6E88B20F017BE00A12ACF /* DevMateKit.framework */; };
 		FBAAB3EC20F228FD002156DC /* StartAtLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8B920F01C6300A12ACF /* StartAtLoginController.m */; };
 		FBAAB3EF20F22BF5002156DC /* NSBundle+LoginItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAAB3EE20F22BF5002156DC /* NSBundle+LoginItem.m */; };
 		FBAAB3F020F22BF5002156DC /* NSBundle+LoginItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAAB3EE20F22BF5002156DC /* NSBundle+LoginItem.m */; };
@@ -197,8 +193,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				FB4E5E9222E25C0F00F0D90A /* Sparkle.framework in Copy Frameworks */,
 				FB34DEE420F343A800EC1822 /* Paddle.framework in Copy Frameworks */,
-				FBA6E8D120F027B500A12ACF /* DevMateKit.framework in Copy Frameworks */,
 				FBA6E8D220F027B700A12ACF /* LetsMove.framework in Copy Frameworks */,
 				FBA6E91520F0310800A12ACF /* MacForgeKit.framework in Copy Frameworks */,
 			);
@@ -262,26 +258,23 @@
 		F0ADE1E2166E0C0D009758CC /* MFInjectorProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFInjectorProxy.h; sourceTree = "<group>"; };
 		F0ADE1E3166E0C0D009758CC /* MFInjectorProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFInjectorProxy.m; sourceTree = "<group>"; };
 		F0CF07E4166F563D009D198D /* mach_inject_bundle.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = mach_inject_bundle.xcodeproj; path = ../mach_inject_bundle/mach_inject_bundle.xcodeproj; sourceTree = "<group>"; };
-		FB0227AA20F0B547006566EF /* MacForge_old.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MacForge_old.icns; sourceTree = "<group>"; };
-		FB30208E20F1E8AD003F4CE9 /* icon_nobg.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon_nobg.icns; sourceTree = "<group>"; };
 		FB34DEE220F342F400EC1822 /* Paddle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Paddle.framework; sourceTree = "<group>"; };
 		FB37B2CB21B229C4001191C2 /* MacForgeFix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MacForgeFix.m; sourceTree = "<group>"; };
 		FB37B2CC21B229C4001191C2 /* MacForgeFix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacForgeFix.h; sourceTree = "<group>"; };
+		FB4E5E8D22E25B5A00F0D90A /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
+		FB4E5E9022E25B8600F0D90A /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = "../../../../../../../../System/Volumes/Data/Users/w0lf/Library/CloudStorage/iCloud Drive 2/App Developement/git_MacForge/MacForge/External Frameworks/Sparkle.framework"; sourceTree = "<group>"; };
 		FB917F9E213917400013D4E3 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		FB917FA0213917E00013D4E3 /* menu.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = menu.icns; sourceTree = "<group>"; };
 		FBA6E88520F0176B00A12ACF /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FBA6E88620F0176B00A12ACF /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		FBA6E88820F0179600A12ACF /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		FBA6E88920F0179700A12ACF /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		FBA6E88B20F017BE00A12ACF /* DevMateKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DevMateKit.framework; sourceTree = "<group>"; };
 		FBA6E88D20F0182500A12ACF /* LetsMove.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = LetsMove.framework; sourceTree = "<group>"; };
 		FBA6E89020F0185300A12ACF /* SGDirWatchdog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGDirWatchdog.h; sourceTree = "<group>"; };
 		FBA6E89120F0185300A12ACF /* SGDirWatchdog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGDirWatchdog.m; sourceTree = "<group>"; };
 		FBA6E89320F0185F00A12ACF /* ZKSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZKSwizzle.h; sourceTree = "<group>"; };
 		FBA6E89420F0185F00A12ACF /* ZKSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZKSwizzle.m; sourceTree = "<group>"; };
 		FBA6E89C20F0190900A12ACF /* MacForgeFix.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacForgeFix.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
-		FBA6E89E20F0190900A12ACF /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
-		FBA6E8A020F0190900A12ACF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		FBA6E8A420F0190900A12ACF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FBA6E8AA20F0190900A12ACF /* ZKSwizzle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ZKSwizzle.h; path = ZKSwizzle/ZKSwizzle.h; sourceTree = "<group>"; };
 		FBA6E8AB20F0190900A12ACF /* ZKSwizzle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ZKSwizzle.m; path = ZKSwizzle/ZKSwizzle.m; sourceTree = "<group>"; };
@@ -359,11 +352,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB4E5E9122E25B8600F0D90A /* Sparkle.framework in Frameworks */,
 				FBE767E320F0022E00A42BD5 /* Carbon.framework in Frameworks */,
 				F0ADE16A166E013C009758CC /* Security.framework in Frameworks */,
 				F0ADE168166E0121009758CC /* ServiceManagement.framework in Frameworks */,
 				F0ADE0FB166DF941009758CC /* Cocoa.framework in Frameworks */,
-				FBAAB3EB20F2217F002156DC /* DevMateKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -389,8 +382,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FBA6E89F20F0190900A12ACF /* AppKit.framework in Frameworks */,
-				FBA6E8A120F0190900A12ACF /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,8 +406,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FBA6E88C20F017BE00A12ACF /* DevMateKit.framework in Frameworks */,
 				FB34DEE320F342F400EC1822 /* Paddle.framework in Frameworks */,
+				FB4E5E8E22E25B5A00F0D90A /* Sparkle.framework in Frameworks */,
 				FBA6E88E20F0182500A12ACF /* LetsMove.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -439,8 +430,8 @@
 				FBA6E88F20F0184000A12ACF /* External */,
 				FBA6E88A20F017A400A12ACF /* External Frameworks */,
 				F0ADE0F9166DF941009758CC /* Local Frameworks */,
-				FBA6E89D20F0190900A12ACF /* Frameworks */,
 				F0ADE0F7166DF941009758CC /* Products */,
+				FB4E5E8F22E25B8600F0D90A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -552,12 +543,20 @@
 			name = Classes;
 			sourceTree = "<group>";
 		};
+		FB4E5E8F22E25B8600F0D90A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FB4E5E9022E25B8600F0D90A /* Sparkle.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		FBA6E88A20F017A400A12ACF /* External Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FB4E5E8D22E25B5A00F0D90A /* Sparkle.framework */,
 				FB34DEE220F342F400EC1822 /* Paddle.framework */,
 				FBA6E88D20F0182500A12ACF /* LetsMove.framework */,
-				FBA6E88B20F017BE00A12ACF /* DevMateKit.framework */,
 			);
 			path = "External Frameworks";
 			sourceTree = "<group>";
@@ -594,15 +593,6 @@
 				FBA6E8C920F01E1B00A12ACF /* LICENSE_SGDirWatchdog */,
 			);
 			path = SGDirWatchdog;
-			sourceTree = "<group>";
-		};
-		FBA6E89D20F0190900A12ACF /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				FBA6E89E20F0190900A12ACF /* AppKit.framework */,
-				FBA6E8A020F0190900A12ACF /* Foundation.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		FBA6E8A220F0190900A12ACF /* MacForgeFix */ = {
@@ -656,7 +646,6 @@
 				FBA6E8D420F0285A00A12ACF /* loading_mini.gif */,
 				FBA6E8D320F0285A00A12ACF /* update.png */,
 				FBA6E8D520F0285A00A12ACF /* webicon.png */,
-				FB30208E20F1E8AD003F4CE9 /* icon_nobg.icns */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -713,7 +702,6 @@
 				FBB19F8020F2D18A003F421B /* plugin_template.zip */,
 				FBAAB41620F2CDAF002156DC /* demo_xcode.zip */,
 				FBC54081213912AD00A53FA4 /* MacForge.icns */,
-				FB0227AA20F0B547006566EF /* MacForge_old.icns */,
 				FBE767F320F00FFE00A42BD5 /* main.m */,
 				FBE767F520F00FFE00A42BD5 /* MacForge.entitlements */,
 				FBA6E8E020F0287500A12ACF /* dsa_pub.pem */,
@@ -952,9 +940,9 @@
 		F0ADE0ED166DF941009758CC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				CLASSPREFIX = DK;
+				CLASSPREFIX = MF;
 				LastUpgradeCheck = 1000;
-				ORGANIZATIONNAME = "Erwan Barrier";
+				ORGANIZATIONNAME = MacEnhance;
 				TargetAttributes = {
 					F0ADE0F5166DF941009758CC = {
 						DevelopmentTeam = EX596BNL45;
@@ -1003,6 +991,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -1081,14 +1070,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBF137D6210582540001916A /* checkmark_test.png in Resources */,
-				FB7E350320F202D200EB3339 /* icon_nobg.icns in Resources */,
 				FBF137CE210576720001916A /* tools.png in Resources */,
 				FBA6E8FC20F028A400A12ACF /* LICENSE_EULA in Resources */,
 				FBF137D4210578610001916A /* github.png in Resources */,
 				FBA6E8DA20F0285B00A12ACF /* loading_mini.gif in Resources */,
 				FBA6E8D920F0285B00A12ACF /* update.png in Resources */,
 				FBA6E8FB20F028A400A12ACF /* Credits.rtf in Resources */,
-				FB0227AB20F0B547006566EF /* MacForge_old.icns in Resources */,
 				FBA6E8DB20F0285B00A12ACF /* webicon.png in Resources */,
 				FBA6E8DD20F0285B00A12ACF /* checkmark.png in Resources */,
 				FBAAB41720F2CDB0002156DC /* demo_xcode.zip in Resources */,
@@ -1782,6 +1769,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/External\\ Frameworks",
 					"$(PROJECT_DIR)/External\\ Frameworks",
+					"$(PROJECT_DIR)/External\\ Frameworks",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -1817,6 +1805,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(PROJECT_DIR)/External\\ Frameworks",
 					"$(PROJECT_DIR)/External\\ Frameworks",
 					"$(PROJECT_DIR)/External\\ Frameworks",
 				);

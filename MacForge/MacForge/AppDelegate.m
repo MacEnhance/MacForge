@@ -67,7 +67,7 @@ NSArray *tabViews;
 
 // Show DevMate feedback
 - (IBAction)showFeedbackDialog:(id)sender {
-    [DevMateKit showFeedbackDialog:nil inMode:DMFeedbackDefaultMode];
+//    [DevMateKit showFeedbackDialog:nil inMode:DMFeedbackDefaultMode];
 }
 
 // Cleanup some stuff when user changes dark mode
@@ -112,8 +112,8 @@ NSArray *tabViews;
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    [DevMateKit sendTrackingReport:nil delegate:nil];
-    [DevMateKit setupIssuesController:nil reportingUnhandledIssues:YES];
+//    [DevMateKit sendTrackingReport:nil delegate:nil];
+//    [DevMateKit setupIssuesController:nil reportingUnhandledIssues:YES];
 
     [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(systemDarkModeChange:) name:@"AppleInterfaceThemeChangedNotification" object:nil];
     [[NSDistributedNotificationCenter defaultCenter] addObserverForName:@"com.w0lf.MacForgeNotify"
@@ -211,10 +211,37 @@ NSArray *tabViews;
 
 - (void)startPaddle {
     _thePaddle = [Paddle sharedInstance];
-    [_thePaddle setProductId:@"534403"];
-    [_thePaddle setVendorId:@"26643"];
-    [_thePaddle setApiKey:@"02a3c57238af53b3c465ef895729c765"];
-    [PaddleAnalyticsKit enableTracking];
+    
+    // Your Paddle SDK Config from the Vendor Dashboard:
+    NSString *myPaddleProductID = @"534403";
+    NSString *myPaddleVendorID = @"26643";
+    NSString *myPaddleAPIKey = @"02a3c57238af53b3c465ef895729c765";
+    
+    // Populate a local object in case we're unable to retrieve data
+    // from the Vendor Dashboard:
+    PADProductConfiguration *defaultProductConfig = [[PADProductConfiguration alloc] init];
+    defaultProductConfig.productName = @"MacForge";
+    defaultProductConfig.vendorName = @"MacEnhance";
+    
+    // Initialize the SDK Instance with Seller details:
+    _thePaddle = [Paddle sharedInstanceWithVendorID:myPaddleVendorID
+                                                 apiKey:myPaddleAPIKey
+                                              productID:myPaddleProductID
+                                          configuration:defaultProductConfig
+                                               delegate:nil];
+    
+    // Initialize the Product you'd like to work with:
+    PADProduct *paddleProduct = [[PADProduct alloc] initWithProductID:myPaddleProductID productType:PADProductTypeSDKProduct configuration:defaultProductConfig];
+    
+//    paddleProduct 
+    
+    // Ask the Product to get it's latest state and info from the Paddle Platform:
+    [paddleProduct refresh:^(NSDictionary * _Nullable productDelta, NSError * _Nullable error) {
+        // Launch the checkout:
+//        [self->_thePaddle showCheckoutForProduct:paddleProduct options:nil checkoutStatusCompletion:^(PADCheckoutState state, PADCheckoutData * _Nullable checkoutData) {
+//            // Examine checkout state to determine the checkout result
+//        }];
+    }];
 }
 
 - (void)executionTime:(NSString*)s {
@@ -272,6 +299,8 @@ NSArray *tabViews;
     
     // Setup plugin table
     [_tblView registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
+    [_blackListTable registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
+
 
     [self setupEventListener];
     [_window makeKeyAndOrderFront:self];
@@ -336,15 +365,19 @@ NSArray *tabViews;
     height = 30;
     yLoc = ([bottomButtons count] - 1) * (height - 1);
     for (NSButton *btn in bottomButtons) {
-        [btn setFont:[NSFont fontWithName:btn.font.fontName size:14]];
-        NSRect newFrame = [btn frame];
-        newFrame.size.height = height;
-        newFrame.origin.x = 0;
-        newFrame.origin.y = yLoc;
-        yLoc -= (height - 1);
-        [btn setFrame:newFrame];
-        [btn setAutoresizingMask:NSViewMaxYMargin];
-        [btn setWantsLayer:YES];
+        if (btn.enabled) {
+            [btn setFont:[NSFont fontWithName:btn.font.fontName size:14]];
+            NSRect newFrame = [btn frame];
+            newFrame.size.height = height;
+            newFrame.origin.x = 0;
+            newFrame.origin.y = yLoc;
+            yLoc -= (height - 1);
+            [btn setFrame:newFrame];
+            [btn setAutoresizingMask:NSViewMaxYMargin];
+            [btn setWantsLayer:YES];
+        } else {
+            btn.hidden = true;
+        }
     }
 }
 
@@ -419,8 +452,16 @@ NSArray *tabViews;
 
 - (void)addLoginItem {
     NSBundle *helperBUNDLE = [NSBundle bundleWithPath:[NSString stringWithFormat:@"%@/Contents/Library/LoginItems/MacForgeHelper.app", [[NSBundle mainBundle] bundlePath]]];
-//    NSBundle *helperBUNDLE = [NSBundle bundleWithPath:[NSWorkspace.sharedWorkspace absolutePathForAppBundleWithIdentifier:@"com.w0lf.MacForgeHelper"]];
     [helperBUNDLE enableLoginItem];
+}
+
+- (IBAction)toggleLoginItem:(NSButton*)sender {
+    NSBundle *helperBUNDLE = [NSBundle bundleWithPath:[NSString stringWithFormat:@"%@/Contents/Library/LoginItems/MacForgeHelper.app", [[NSBundle mainBundle] bundlePath]]];
+    if (sender.state == NSOnState){
+        [helperBUNDLE enableLoginItem];
+    } else {
+        [helperBUNDLE disableLoginItem];
+    }
 }
 
 - (void)launchHelper {

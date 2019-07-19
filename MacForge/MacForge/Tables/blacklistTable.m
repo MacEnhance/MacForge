@@ -9,15 +9,60 @@
 @import AppKit;
 #import "blacklistTable.h"
 
+NSUserDefaults *blPrefs;
+NSDictionary *blDict;
+
 @implementation blacklistTableCell
 @end
 
 @implementation blacklistTable
 
+- (NSDragOperation)tableView:(NSTableView*)tv validateDrop:(id <NSDraggingInfo>)info proposedRow:(int)row proposedDropOperation:(NSTableViewDropOperation)op {
+    return NSDragOperationCopy;
+}
+
+- (BOOL)tableView:(NSTableView *)aTableView acceptDrop:(id <NSDraggingInfo>)info row:(int)row dropOperation:(NSTableViewDropOperation)operation {
+    NSPasteboard *pboard = [info draggingPasteboard];
+    if ([[pboard types] containsObject:NSURLPboardType]) {
+        NSArray* urls = [pboard readObjectsForClasses:@[[NSURL class]] options:nil];
+        NSMutableArray* sorted = [[NSMutableArray alloc] init];
+        for (NSURL* url in urls) {
+            if ([[url.path pathExtension] isEqualToString:@"app"]) {
+                [sorted addObject:url.path];
+                
+                blPrefs = [[NSUserDefaults alloc] initWithSuiteName:@"com.w0lf.MacForgeHelper"];
+                blDict = [blPrefs dictionaryRepresentation];
+                NSMutableArray *newBlacklist = [[NSMutableArray alloc] initWithArray:[blPrefs objectForKey:@"SIMBLApplicationIdentifierBlacklist"]];
+                
+                NSString *path = url.path;
+                NSBundle *bundle = [NSBundle bundleWithPath:path];
+                NSString *bundleID = [bundle bundleIdentifier];
+                if (![newBlacklist containsObject:bundleID]) {
+                    NSLog(@"Adding key: %@", bundleID);
+                    [newBlacklist addObject:bundleID];
+                }
+
+                
+                [blPrefs setObject:[newBlacklist copy] forKey:@"SIMBLApplicationIdentifierBlacklist"];
+                [blPrefs synchronize];
+                
+                NSError *error;
+                if (error)
+                    NSLog(@"%@", error);
+            }
+        }
+        if ([sorted count]) {
+            [aTableView reloadData];
+        }
+    }
+    return YES;
+}
+
+
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
-    NSUserDefaults *sharedPrefs = [[NSUserDefaults alloc] initWithSuiteName:@"com.w0lf.MacForgeHelper"];
-    NSDictionary *sharedDict = [sharedPrefs dictionaryRepresentation];
-    NSArray *tmpblacklist = [sharedDict objectForKey:@"SIMBLApplicationIdentifierBlacklist"];
+    NSUserDefaults *blPrefs = [[NSUserDefaults alloc] initWithSuiteName:@"com.w0lf.MacForgeHelper"];
+    NSDictionary *blDict = [blPrefs dictionaryRepresentation];
+    NSArray *tmpblacklist = [blDict objectForKey:@"SIMBLApplicationIdentifierBlacklist"];
     NSArray *alwaysBlaklisted = @[@"org.w0lf.mySIMBL", @"org.w0lf.cDock-GUI"];
     NSMutableArray *newlist = [[NSMutableArray alloc] initWithArray:tmpblacklist];
     for (NSString *app in alwaysBlaklisted)
