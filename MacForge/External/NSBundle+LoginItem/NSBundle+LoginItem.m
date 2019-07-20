@@ -12,10 +12,10 @@
 
 - (void)enableLoginItem
 {
-//    if ([self isLoginItemEnabled]) {
-//        return;
-//    }
-        
+    if ([self isLoginItemEnabled]) {
+        return;
+    }
+    
     LSSharedFileListRef sharedFileList = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
     if (!sharedFileList) {
         NSLog(@"Unable to create shared file list!");

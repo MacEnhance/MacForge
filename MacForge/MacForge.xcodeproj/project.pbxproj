@@ -28,7 +28,6 @@
 		FB34DEE420F343A800EC1822 /* Paddle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FB34DEE220F342F400EC1822 /* Paddle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FB37B2CD21B229C4001191C2 /* MacForgeFix.m in Sources */ = {isa = PBXBuildFile; fileRef = FB37B2CB21B229C4001191C2 /* MacForgeFix.m */; };
 		FB4E5E8E22E25B5A00F0D90A /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB4E5E8D22E25B5A00F0D90A /* Sparkle.framework */; };
-		FB4E5E9122E25B8600F0D90A /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB4E5E9022E25B8600F0D90A /* Sparkle.framework */; };
 		FB4E5E9222E25C0F00F0D90A /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FB4E5E8D22E25B5A00F0D90A /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FB78E2A72139BE27002FFE2E /* MacForgeDockTile.docktileplugin in Copy Plugins */ = {isa = PBXBuildFile; fileRef = FBA6E90120F0299B00A12ACF /* MacForgeDockTile.docktileplugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FB917F9F213917400013D4E3 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = FB917F9E213917400013D4E3 /* icon.icns */; };
@@ -262,7 +261,6 @@
 		FB37B2CB21B229C4001191C2 /* MacForgeFix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MacForgeFix.m; sourceTree = "<group>"; };
 		FB37B2CC21B229C4001191C2 /* MacForgeFix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacForgeFix.h; sourceTree = "<group>"; };
 		FB4E5E8D22E25B5A00F0D90A /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
-		FB4E5E9022E25B8600F0D90A /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = "../../../../../../../../System/Volumes/Data/Users/w0lf/Library/CloudStorage/iCloud Drive 2/App Developement/git_MacForge/MacForge/External Frameworks/Sparkle.framework"; sourceTree = "<group>"; };
 		FB917F9E213917400013D4E3 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		FB917FA0213917E00013D4E3 /* menu.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = menu.icns; sourceTree = "<group>"; };
 		FBA6E88520F0176B00A12ACF /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -352,7 +350,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB4E5E9122E25B8600F0D90A /* Sparkle.framework in Frameworks */,
 				FBE767E320F0022E00A42BD5 /* Carbon.framework in Frameworks */,
 				F0ADE16A166E013C009758CC /* Security.framework in Frameworks */,
 				F0ADE168166E0121009758CC /* ServiceManagement.framework in Frameworks */,
@@ -431,7 +428,6 @@
 				FBA6E88A20F017A400A12ACF /* External Frameworks */,
 				F0ADE0F9166DF941009758CC /* Local Frameworks */,
 				F0ADE0F7166DF941009758CC /* Products */,
-				FB4E5E8F22E25B8600F0D90A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -541,14 +537,6 @@
 				F0ADE1E3166E0C0D009758CC /* MFInjectorProxy.m */,
 			);
 			name = Classes;
-			sourceTree = "<group>";
-		};
-		FB4E5E8F22E25B8600F0D90A /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				FB4E5E9022E25B8600F0D90A /* Sparkle.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		FBA6E88A20F017A400A12ACF /* External Frameworks */ = {

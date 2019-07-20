@@ -52,15 +52,15 @@
                     [MFAppDelegate injectOneProc:bundleID];
             }
         }
-        
+
         if ([args containsObject:@"-u"]) {
             cmd = true;
             [[PluginManager sharedInstance] checkforPluginUpdatesAndInstall:nil];
         }
-        
+
         if (cmd) [NSApp terminate:nil];
     }
-    
+
     [self setupApplication];
     [self watchForPlugins];
 }
@@ -150,6 +150,12 @@
 
 - (void)checkMacPlusForUpdates {
     NSBundle *GUIBundle = [NSBundle bundleWithPath:[NSWorkspace.sharedWorkspace absolutePathForAppBundleWithIdentifier:@"com.w0lf.MacForge"]];
+    NSString* mainapp= [NSBundle mainBundle].bundlePath;
+    for (int i = 0; i < 4; i++)
+        mainapp = [mainapp stringByDeletingLastPathComponent];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:mainapp])
+        if ([mainapp containsString:@"MacForge.app"])
+            GUIBundle = [NSBundle bundleWithPath:mainapp];
     SUUpdater *myUpdater = [SUUpdater updaterForBundle:GUIBundle];
     NSDictionary *GUIDefaults = [[NSUserDefaults standardUserDefaults] persistentDomainForName:@"com.w0lf.MacForge"];
     NSLog(@"MacForgeHelper : GUIDefaults - %@", GUIDefaults);
@@ -185,11 +191,13 @@
     NSMenu *stackMenu = [[NSMenu alloc] initWithTitle:@"MacForge"];
     [self addMenuItemToMenu:stackMenu :@"Manage Plugins" :@selector(openMacPlusManage) :@""];
     [self addMenuItemToMenu:stackMenu :@"Preferences..." :@selector(openMacPlusPrefs) :@""];
+    [stackMenu addItem:NSMenuItem.separatorItem];
     [self addMenuItemToMenu:stackMenu :@"Open at Login" :@selector(toggleStartAtLogin:) :@""];
-    [[stackMenu itemAtIndex:2] setState:NSBundle.mainBundle.isLoginItemEnabled];
+    [[stackMenu itemAtIndex:3] setState:NSBundle.mainBundle.isLoginItemEnabled];
+    [self addMenuItemToMenu:stackMenu :@"Show menubar item" :@selector(sendFeedback) :@""];
+    [[stackMenu itemAtIndex:4] setState:NSBundle.mainBundle.isLoginItemEnabled];
     [stackMenu addItem:NSMenuItem.separatorItem];
     [self addMenuItemToMenu:stackMenu :@"Open MacForge" :@selector(openMacPlus) :@""];
-    [self addMenuItemToMenu:stackMenu :@"Send Feedback" :@selector(sendFeedback) :@""];
     [stackMenu addItem:NSMenuItem.separatorItem];
     [self addMenuItemToMenu:stackMenu :@"Update Plugins..." :@selector(updatesPluginsInstall) :@""];
     [stackMenu addItem:NSMenuItem.separatorItem];
@@ -279,7 +287,6 @@
             if ([MFInjectorProxy injectPID:pid :bundlePath :&error] == false) {
                 assert(error != nil);
                 SIMBLLogNotice(@"Couldn't inject App (domain: %@ code: %@)", error.domain, [NSNumber numberWithInteger:error.code]);
-                NSLog(@"Couldn't inject App (domain: %@ code: %@)", error.domain, [NSNumber numberWithInteger:error.code]);
             }
         }
     }

@@ -32,9 +32,9 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.9.1</string>
+	<string>0.9.0</string>
 	<key>CFBundleVersion</key>
-	<string>2</string>
+	<string>99</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.productivity</string>
 	<key>LSMinimumSystemVersion</key>
@@ -55,6 +55,8 @@
 	<key>SUPublicDSAKeyFile</key>
 	<string>dsa_pub.pem</string>
 	<key>SUFeedURL</key>
-	<string>https://github.com/w0lfschild/app_updates/blob/master/MacForge/appcast.xml</string>
+	<string>https://raw.githubusercontent.com/w0lfschild/app_updates/master/MacForge/appcast.xml</string>
+	<key>SUPublicEDKey</key>
+	<string>gC6IfzJSCSqepNkZNbVDFAa7hA6zdtwcJHtZIQZdNzE=</string>
 </dict>
 </plist>
