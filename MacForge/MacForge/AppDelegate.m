@@ -50,6 +50,15 @@ NSArray *tabViews;
     return myDelegate;
 }
 
+- (PADDisplayConfiguration *)willShowPaddleUIType:(PADUIType)uiType
+                                          product:(PADProduct *)product
+{
+    // We'll unconditionally display all configurable Paddle dialogs as sheets attached to the main window.
+    return [PADDisplayConfiguration configuration:PADDisplayTypeSheet
+                            hideNavigationButtons:NO
+                                     parentWindow:_window];
+}
+
 // Run bash script
 - (NSString*) runCommand: (NSString*)command {
     NSTask *task = [[NSTask alloc] init];
@@ -72,11 +81,12 @@ NSArray *tabViews;
 
 // Cleanup some stuff when user changes dark mode
 - (void)systemDarkModeChange:(NSNotification *)notif {
+    if (selectedView != nil)
+        [self selectView:selectedView];
+    
     if (osx_ver >= 14) {
         if (notif == nil) {
-            
             // Need to fix for older versions of macos
-            
             if ([NSApp.effectiveAppearance.name isEqualToString:NSAppearanceNameAqua]) {
                 [_changeLog setTextColor:[NSColor blackColor]];
             } else {
@@ -142,68 +152,8 @@ NSArray *tabViews;
     }
 
     [self installXcodeTemplate];
-    
-//    DMKitDebugAddDevMateMenu();
-    
     [self executionTime:@"startPaddle"];
 
-//    NSDictionary *productInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-//                                 @"1.99", kPADCurrentPrice,
-//                                 @"Wolfgang Baird", kPADDevName,
-//                                 @"USD", kPADCurrency,
-//                                 @"https://dl.devmate.com/org.w0lf.cDock-GUI/icons/5aae1388a46dd_128.png", kPADImage,
-//                                 @"moreMenu", kPADProductName,
-//                                 @"0", kPADTrialDuration,
-//                                 @"Thanks for purchasing", kPADTrialText,
-//                                 @"icon.icns", kPADProductImage,
-//                                 nil];
-//
-//    [thePaddle startLicensing:productInfo timeTrial:YES withWindow:self.window];
-//    [thePaddle verifyLicenceWithCompletionBlock:^(BOOL verified, NSError *error) {
-//        if (verified) {
-//            NSLog(@"Verified");
-//        } else {
-//            NSLog(@"Not verified: %@", [error localizedDescription]);
-//        }
-//    }];
-    
-    // 5F9588C2-A31F8D2B-E7F5997B-FA18A063-97E00C6D
-
-//    [thePaddle startPurchaseForChildProduct:@"534450"];
-//    [[PADProduct alloc] productInfo:@"534450" apiKey:@"02a3c57238af53b3c465ef895729c765" vendorId:@"26643" withCompletionBlock:^(BOOL fin) { NSLog(@"Hi"); }];
-    
-//    [[PaddleStoreKit sharedInstance] showProduct:@"534450"];
-//    [[PaddleStoreKit sharedInstance] showStoreView];
-//    [[PaddleStoreKit sharedInstance] showStoreViewForProductIds:@[@"534450"]];
-    
-//    [thePaddle verifyLicenceWithCompletionBlock:^(BOOL ver, NSError *e){ NSLog(@"%hhd : %@", ver, e.localizedDescription); }];
-//    [thePaddle startLicensing:productInfo timeTrial:NO withWindow:self.window];
-//    [thePaddle startLicensingSilently:productInfo timeTrial:NO];
-//    [thePaddle setupChildProduct:@"534450" productInfo:productInfo timeTrial:NO];
-//    [thePaddle startPurchaseForChildProduct:@"534450"];
-//    [thePaddle verifyLicenceForChildProduct:@"534450" withCompletionBlock:^(BOOL ver, NSError *e){ NSLog(@"%hhd : %@", ver, e.localizedDescription); }];
-//    [thePaddle showLicencing];
-//    [PaddleStoreKit.sharedInstance recoverPurchases];
-    
-//    [thePaddle startLicensingSilently:productInfo timeTrial:NO];
-//    [thePaddle setupChildProduct:@"534403.1" productInfo:productInfo timeTrial:NO];
-//    [thePaddle startPurchaseForChildProduct:@"534403.1"];
-//    [thePaddle purchaseChildProduct:@"534403.1" withWindow:self.window completionBlock:^(NSString* response, NSString* email, BOOL completed, NSError *error, NSDictionary *checkoutData){
-//
-//    }];
-    
-    
-//    - (void)purchaseChildProduct:(nonnull NSString *)childProductId withWindow:(nullable NSWindow *)window completionBlock:(nonnull void (^)(NSString * _Nullable response, NSString * _Nullable email, BOOL completed, NSError * _Nullable error, NSDictionary * _Nullable checkoutData))completionBlock;
-
-    
-//    [thePaddle verifyLicenceWithCompletionBlock:^(BOOL verified, NSError *error) {
-//        if (verified) {
-//            NSLog(@"Verified");
-//        } else {
-//            NSLog(@"Not verified: %@", [error localizedDescription]);
-//        }
-//    }];
-    
     NSDate *methodFinish = [NSDate date];
     NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:appStart];
     NSLog(@"Launch time : %f Seconds", executionTime);
@@ -225,22 +175,16 @@ NSArray *tabViews;
     
     // Initialize the SDK Instance with Seller details:
     _thePaddle = [Paddle sharedInstanceWithVendorID:myPaddleVendorID
-                                                 apiKey:myPaddleAPIKey
-                                              productID:myPaddleProductID
-                                          configuration:defaultProductConfig
-                                               delegate:nil];
+                                             apiKey:myPaddleAPIKey
+                                          productID:myPaddleProductID
+                                      configuration:defaultProductConfig
+                                           delegate:self];
     
     // Initialize the Product you'd like to work with:
     PADProduct *paddleProduct = [[PADProduct alloc] initWithProductID:myPaddleProductID productType:PADProductTypeSDKProduct configuration:defaultProductConfig];
     
-//    paddleProduct 
-    
     // Ask the Product to get it's latest state and info from the Paddle Platform:
     [paddleProduct refresh:^(NSDictionary * _Nullable productDelta, NSError * _Nullable error) {
-        // Launch the checkout:
-//        [self->_thePaddle showCheckoutForProduct:paddleProduct options:nil checkoutStatusCompletion:^(PADCheckoutState state, PADCheckoutData * _Nullable checkoutData) {
-//            // Examine checkout state to determine the checkout result
-//        }];
     }];
 }
 
@@ -875,17 +819,26 @@ NSArray *tabViews;
         });
     }
     [_tabMain setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
+    NSString *osxMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
+    NSColor *primary = NSColor.darkGrayColor;
+    NSColor *secondary = NSColor.blackColor;
+    NSColor *highlight = NSColor.blackColor;
+    if ([osxMode isEqualToString:@"Dark"]) {
+        primary = NSColor.lightGrayColor;
+        secondary = NSColor.whiteColor;
+        highlight = NSColor.whiteColor;
+        
+    }
     for (NSButton *g in tabViewButtons) {
         if (![g isEqualTo:sender]) {
             [[g layer] setBackgroundColor:[NSColor clearColor].CGColor];
             NSMutableAttributedString *colorTitle = [[NSMutableAttributedString alloc] initWithString:g.title];
-            [colorTitle addAttribute:NSForegroundColorAttributeName value:NSColor.lightGrayColor range:NSMakeRange(0, g.attributedTitle.length)];
+            [colorTitle addAttribute:NSForegroundColorAttributeName value:primary range:NSMakeRange(0, g.attributedTitle.length)];
             [g setAttributedTitle:colorTitle];
         } else {
-//            [[g layer] setBackgroundColor:[NSColor colorWithCalibratedRed:0.88f green:0.88f blue:0.88f alpha:0.258f].CGColor];
-//            [[g layer] setBackgroundColor:[NSColor colorWithCalibratedRed:0.121f green:0.4375f blue:0.1992f alpha:0.2578f].CGColor];
+            [[g layer] setBackgroundColor:[highlight colorWithAlphaComponent:.25].CGColor];
             NSMutableAttributedString *colorTitle = [[NSMutableAttributedString alloc] initWithString:g.title];
-            [colorTitle addAttribute:NSForegroundColorAttributeName value:NSColor.whiteColor range:NSMakeRange(0, g.attributedTitle.length)];
+            [colorTitle addAttribute:NSForegroundColorAttributeName value:secondary range:NSMakeRange(0, g.attributedTitle.length)];
             [g setAttributedTitle:colorTitle];
         }
     }

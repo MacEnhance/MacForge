@@ -21,7 +21,7 @@
 #import "NSBundle+LoginItem.h"
 #import "blacklistTable.h"
 
-@interface AppDelegate : NSObject <NSApplicationDelegate> {
+@interface AppDelegate : NSObject <PaddleDelegate> {
     NSMutableArray *watchdogs;
     PluginManager *_sharedMethods;
 }

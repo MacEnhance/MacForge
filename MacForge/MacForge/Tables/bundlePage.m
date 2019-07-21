@@ -324,7 +324,7 @@ extern long selectedRow;
                                                 apiKey:myPaddleAPIKey
                                              productID:productID
                                          configuration:defaultProductConfig
-                                              delegate:nil];
+                                              delegate:myDelegate];
         
         // Initialize the Product you'd like to work with:
         PADProduct *paddleProduct = [[PADProduct alloc] initWithProductID:productID productType:PADProductTypeSDKProduct configuration:defaultProductConfig];
@@ -360,7 +360,7 @@ extern long selectedRow;
                                                 apiKey:myPaddleAPIKey
                                              productID:productID
                                          configuration:defaultProductConfig
-                                              delegate:nil];
+                                              delegate:myDelegate];
         
         // Initialize the Product you'd like to work with:
         PADProduct *paddleProduct = [[PADProduct alloc] initWithProductID:productID productType:PADProductTypeSDKProduct configuration:defaultProductConfig];
