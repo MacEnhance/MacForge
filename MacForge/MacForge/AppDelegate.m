@@ -386,14 +386,17 @@ NSArray *tabViews;
     [self systemDarkModeChange:nil];
     
     // Select tab view
-    if ([[myPreferences valueForKey:@"prefStartTab"] integerValue] >= 0) {
-        NSInteger tab = [[myPreferences valueForKey:@"prefStartTab"] integerValue];
-        [self selectView:[tabViewButtons objectAtIndex:tab]];
-        [_prefStartTab selectItemAtIndex:tab];
-    } else {
-        [self selectView:_viewPlugins];
-        [_prefStartTab selectItemAtIndex:0];
-    }
+//    if ([[myPreferences valueForKey:@"prefStartTab"] integerValue] >= 0) {
+//        NSInteger tab = [[myPreferences valueForKey:@"prefStartTab"] integerValue];
+//        [self selectView:[tabViewButtons objectAtIndex:tab]];
+//        [_prefStartTab selectItemAtIndex:tab];
+//    } else {
+//        [self selectView:_viewPlugins];
+//        [_prefStartTab selectItemAtIndex:0];
+//    }
+    
+    [self selectView:_viewDiscover];
+    [_prefStartTab selectItemAtIndex:0];
 }
 
 - (void)addLoginItem {

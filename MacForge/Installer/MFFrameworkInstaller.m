@@ -53,8 +53,9 @@ NSString *const MFFrameworkDstPath = @"/Library/Frameworks/mach_inject_bundle.fr
                             @"root", NSFileGroupOwnerAccountName,
                             @"root", NSFileOwnerAccountName, nil ];
     
-    result = [[NSFileManager defaultManager] createDirectoryAtPath:@"/Library/Application Support/MacForge/Plugins" withIntermediateDirectories:true attributes:attrib error:&fileError];
-    result = [[NSFileManager defaultManager] createDirectoryAtPath:@"/Library/Application Support/MacForge/Plugins (Disabled)" withIntermediateDirectories:true attributes:attrib error:&fileError];
+    result = [[NSFileManager defaultManager] createDirectoryAtPath:@"/Library/Application Support/MacEnhance/Plugins" withIntermediateDirectories:true attributes:attrib error:&fileError];
+    result = [[NSFileManager defaultManager] createDirectoryAtPath:@"/Library/Application Support/MacEnhance/Plugins (Disabled)" withIntermediateDirectories:true attributes:attrib error:&fileError];
+    result = [[NSFileManager defaultManager] createDirectoryAtPath:@"/Library/Application Support/MacEnhance/Themes" withIntermediateDirectories:true attributes:attrib error:&fileError];
     
     if (result == NO) {
         _error = fileError;

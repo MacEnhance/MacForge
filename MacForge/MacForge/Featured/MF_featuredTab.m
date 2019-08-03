@@ -44,12 +44,11 @@ extern long selectedRow;
 }
 
 -(void)viewWillDraw {
-    [NSAnimationContext beginGrouping];
-    NSPoint newOrigin = NSMakePoint(0, self.frame.size.height - NSApp.mainWindow.frame.size.height);
+//    [NSAnimationContext beginGrouping];
+    NSPoint newOrigin = NSMakePoint(0, self.frame.size.height - self.superview.frame.size.height);
     [self.enclosingScrollView.contentView scrollToPoint:newOrigin];
     [NSAnimationContext endGrouping];
-    
-    [self setSubviews:[NSArray array]];
+//    [self setSubviews:[NSArray array]];
     
     _smallFeature01 = [[MF_featuredSmallController alloc] initWithNibName:0 bundle:nil];
     _smallFeature02 = [[MF_featuredSmallController alloc] initWithNibName:0 bundle:nil];
@@ -80,9 +79,7 @@ extern long selectedRow;
         
         NSSortDescriptor *sorter = [[NSSortDescriptor alloc] initWithKey:@"webName" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
         NSArray *dank = [[NSMutableArray alloc] initWithArray:[self->featuredRepo allValues]];
-        
-        NSLog(@"%@", dank);
-        
+                
         // Sort table by name
 //        NSSortDescriptor *sorter = [[NSSortDescriptor alloc] initWithKey:@"webName" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
 //        NSArray *dank = [[NSMutableArray alloc] initWithArray:[self->_pluginData.repoPluginsDic allValues]];
@@ -98,25 +95,33 @@ extern long selectedRow;
             int totalHeight = 0;
             NSRect newFrame;
 //            MSPlugin *item = [[MSPlugin alloc] init];
-        
+            
+            // Background color if no background image provided
+            struct CGColor *clr = [NSColor.grayColor colorWithAlphaComponent:0.4].CGColor;
+            NSString *osxMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
+            if ([osxMode isEqualToString:@"Dark"]) clr = [NSColor.whiteColor colorWithAlphaComponent:0.1].CGColor;
+            
+            // Setup large featured item
             NSView *test2 = self->_largeFeature01.view;
             [test2 setWantsLayer:true];
             [test2 setFrame:CGRectMake(12, self.frame.size.height - test2.frame.size.height - 20, self.frame.size.width - 30, 180)];
-            [test2.layer setBackgroundColor:[NSColor.grayColor colorWithAlphaComponent:0.4].CGColor];
+            [test2.layer setBackgroundColor:clr];
             [test2.layer setCornerRadius:12];
             [self addSubview:test2];
             [self setupLargeController:dank :0 :self->_largeFeature01];
             totalHeight = self.frame.size.height - (test2.frame.size.height * 2) + 10;
 
+            // Setup 2nd large featured item
             test2 = self->_largeFeature02.view;
             [test2 setWantsLayer:true];
             [test2 setFrame:CGRectMake(12, totalHeight - 50, self.frame.size.width - 30, 180)];
-            [test2.layer setBackgroundColor:[NSColor.grayColor colorWithAlphaComponent:0.4].CGColor];
+            [test2.layer setBackgroundColor:clr];
             [test2.layer setCornerRadius:12];
             [self addSubview:test2];
             [self setupLargeController:dank :1 :self->_largeFeature02];
             totalHeight -= test2.frame.size.height + 20;
         
+            // Setup 6 small featured items
             for (int i = 0; i < 6; i++) {
                 MF_featuredSmallController *cont = (MF_featuredSmallController*)small[i];
                 NSView *test = [cont view];
@@ -136,7 +141,7 @@ extern long selectedRow;
                 newFrame.origin.y = ypos;
                 newFrame.origin.x = xpos;
                 [test setFrame:newFrame];
-                [test.layer setBackgroundColor:[NSColor.grayColor colorWithAlphaComponent:0.4].CGColor];
+                [test.layer setBackgroundColor:clr];
                 [test.layer setCornerRadius:12];
                 [self addSubview:test];
                 [self setupSmallController:dank :i+2 :cont];
