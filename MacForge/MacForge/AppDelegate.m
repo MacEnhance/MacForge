@@ -274,17 +274,18 @@ NSArray *tabViews;
 
 // Setup sidebar
 - (void)tabs_sideBar {
-    NSInteger height = _viewPlugins.frame.size.height;
+    NSInteger height = 42;
     
-    tabViewButtons = [NSArray arrayWithObjects:_viewPlugins, _viewSources, _viewChanges, _viewSystem, _viewAccount, _viewAbout, _viewPreferences, nil];
+    tabViewButtons = [NSArray arrayWithObjects:_viewDiscover, _viewPlugins, _viewSources, _viewChanges, _viewSystem, _viewAccount, _viewAbout, _viewPreferences, nil];
     NSArray *topButtons = [NSArray arrayWithObjects:_viewDiscover, _viewApps ,_viewPlugins, _viewSources, _viewChanges, _viewSystem, _viewAccount, _viewAbout, _viewPreferences, nil];
-    NSUInteger yLoc = _window.frame.size.height - 44 - height;
+    NSUInteger yLoc = _window.frame.size.height - 116 - height;
     for (NSButton *btn in topButtons) {
         if (btn.enabled) {
             NSRect newFrame = [btn frame];
             newFrame.origin.x = 0;
             newFrame.origin.y = yLoc;
-            yLoc -= (height - 1);
+            newFrame.size.height = 42;
+            yLoc -= height;
             [btn setFrame:newFrame];
             [btn setWantsLayer:YES];
             [btn setTarget:self];
@@ -332,7 +333,8 @@ NSArray *tabViews;
     
     if (osx_ver > 9) {
         [_window setTitlebarAppearsTransparent:true];
-        _window.styleMask |= NSWindowStyleMaskFullSizeContentView;
+        [_window setTitleVisibility:NSWindowTitleHidden];
+        [_window setStyleMask:_window.styleMask|NSWindowStyleMaskFullSizeContentView];
     }
     
     [self simbl_blacklist];
@@ -365,7 +367,7 @@ NSArray *tabViews;
 //        [btn.layer setBackgroundColor:[NSColor colorWithCalibratedRed:0.438f green:0.121f blue:0.199f alpha:0.258f].CGColor];
 //    }
     
-    tabViews = [NSArray arrayWithObjects:_tabPlugins, _tabSources, _tabUpdates, _tabSystemInfo, _tabSources, _tabAbout, _tabPreferences, nil];
+    tabViews = [NSArray arrayWithObjects:_tabFeatured, _tabPlugins, _tabSources, _tabUpdates, _tabSystemInfo, _tabSources, _tabAbout, _tabPreferences, nil];
     
     NSDictionary* infoDict = [[NSBundle mainBundle] infoDictionary];
     [_appVersion setStringValue:[NSString stringWithFormat:@"Version %@ (%@)",
@@ -663,13 +665,6 @@ NSArray *tabViews;
         [_changeLog alignLeft:nil];
         [_changeLog setSelectedRange:NSMakeRange(0,0)];
         [_changeLog setEditable:false];
-        
-        [NSAnimationContext beginGrouping];
-        NSClipView* clipView = _changeLog.enclosingScrollView.contentView;
-        NSPoint newOrigin = [clipView bounds].origin;
-        newOrigin.y = 0;
-        [[clipView animator] setBoundsOrigin:newOrigin];
-        [NSAnimationContext endGrouping];
     }
     if ([sender isEqualTo:_showCredits]) {
         [_changeLog setEditable:true];
@@ -688,13 +683,14 @@ NSArray *tabViews;
             }
         }
         [_changeLog.textStorage setAttributedString:mutableAttString];
-        [NSAnimationContext beginGrouping];
-        NSClipView* clipView = _changeLog.enclosingScrollView.contentView;
-        NSPoint newOrigin = [clipView bounds].origin;
-        newOrigin.y = 0;
-        [[clipView animator] setBoundsOrigin:newOrigin];
-        [NSAnimationContext endGrouping];
     }
+    
+    [NSAnimationContext beginGrouping];
+    NSClipView* clipView = _changeLog.enclosingScrollView.contentView;
+    NSPoint newOrigin = [clipView bounds].origin;
+    newOrigin.y = 0;
+    [[clipView animator] setBoundsOrigin:newOrigin];
+    [NSAnimationContext endGrouping];
     
     [self systemDarkModeChange:nil];
 }
@@ -818,6 +814,14 @@ NSArray *tabViews;
             });
         });
     }
+    
+//    [_tabFeatured setWantsLayer:true];
+//    [_tabFeatured.layer setBackgroundColor:NSColor.redColor.CGColor];
+//    for (NSView *v in _tabFeatured.subviews) {
+//        [v setWantsLayer:true];
+//        [v.layer setBackgroundColor:NSColor.blueColor.CGColor];
+//    }
+    
     [_tabMain setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
     NSString *osxMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
     NSColor *primary = NSColor.darkGrayColor;

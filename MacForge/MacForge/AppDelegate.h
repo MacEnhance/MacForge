@@ -89,7 +89,6 @@
 @property IBOutlet NSButton *buttonReport;
 @property IBOutlet NSButton *buttonAdvert;
 
-
 // About view
 @property IBOutlet NSTextField      *appName;
 @property IBOutlet NSTextField      *appVersion;
@@ -103,6 +102,21 @@
 @property IBOutlet NSButton         *showChanges;
 @property IBOutlet NSButton         *showEULA;
 @property IBOutlet NSTextView       *changeLog;
+
+// Featured view
+@property IBOutlet NSView      *featuredContentView;
+//@property IBOutlet NSTextField      *appName;
+//@property IBOutlet NSTextField      *appVersion;
+//@property IBOutlet NSTextField      *appCopyright;
+//@property IBOutlet NSButton         *gitButton;
+//@property IBOutlet NSButton         *sourceButton;
+//@property IBOutlet NSButton         *emailButton;
+//@property IBOutlet NSButton         *webButton;
+//@property IBOutlet NSButton         *xCodeButton;
+//@property IBOutlet NSButton         *showCredits;
+//@property IBOutlet NSButton         *showChanges;
+//@property IBOutlet NSButton         *showEULA;
+//@property IBOutlet NSTextView       *changeLog;
 
 // Preferences view
 @property IBOutlet NSButton         *prefDonate;
