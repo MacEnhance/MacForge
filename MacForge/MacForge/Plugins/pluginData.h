@@ -19,6 +19,7 @@
 
 
 + (pluginData*) sharedInstance;
+- (NSMutableDictionary*)fetch_repo:(NSString*)source;
 - (void)fetch_repos;
 - (void)fetch_local;
 - (NSImage*)fetch_icon:(MSPlugin*)plugin;

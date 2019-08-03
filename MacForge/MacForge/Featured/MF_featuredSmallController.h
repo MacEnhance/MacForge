@@ -1,5 +1,5 @@
 //
-//  MF_featuredItem.h
+//  MF_featuredSmallController.h
 //  MacForge
 //
 //  Created by Wolfgang Baird on 8/2/19.
@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MF_featuredItemController : NSViewController
+@interface MF_featuredSmallController : NSViewController
 
 @property IBOutlet NSTextField*     bundleName;
 @property IBOutlet NSTextField*     bundleDesc;

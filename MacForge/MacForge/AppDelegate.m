@@ -210,12 +210,12 @@ NSArray *tabViews;
     myPreferences = [self getmyPrefs];
     
     // Make sure default sources are in place
-//    NSArray *defaultRepos = @[@"https://github.com/w0lfschild/myRepo/raw/master/mytweaks",
-//                              @"https://github.com/w0lfschild/myRepo/raw/master/urtweaks",
-//                              @"https://github.com/w0lfschild/myRepo/raw/master/test",
-//                              @"https://github.com/w0lfschild/macplugins/raw/master"];
+    NSArray *defaultRepos = @[@"https://github.com/w0lfschild/myRepo/raw/master/mytweaks",
+                              @"https://github.com/w0lfschild/myRepo/raw/master/urtweaks",
+                              @"https://github.com/w0lfschild/myRepo/raw/master/myPaidRepo",
+                              @"https://github.com/w0lfschild/macplugins/raw/master"];
     
-    NSArray *defaultRepos = @[@"https://github.com/w0lfschild/myRepo/raw/master/myPaidRepo"];
+//    NSArray *defaultRepos = @[@"https://github.com/w0lfschild/myRepo/raw/master/myPaidRepo"];
     
     NSMutableArray *newArray = [NSMutableArray arrayWithArray:[myPreferences objectForKey:@"sources"]];
     for (NSString *item in defaultRepos)

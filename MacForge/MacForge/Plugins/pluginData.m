@@ -30,6 +30,44 @@
     return self;
 }
 
+- (NSMutableDictionary*)fetch_repo:(NSString*)source {
+    NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
+    NSURL* data = [NSURL URLWithString:[NSString stringWithFormat:@"%@/packages_v2.plist", source]];
+    NSMutableDictionary* repoPackages = [[NSMutableDictionary alloc] initWithContentsOfURL:data];
+    if (repoPackages != nil) {
+//        NSMutableDictionary *sourceDic = [[NSMutableDictionary alloc] init];
+//        [sourceDic setObject:repoPackages forKey:@"raw_repoPackages"];
+        for (NSString *bundleIdentifier in [repoPackages allKeys]) {
+            NSMutableDictionary *bundle = [repoPackages objectForKey:bundleIdentifier];
+            [bundle setObject:source forKey:@"sourceURL"];
+            
+            MSPlugin *this_is_a_bundle = [[MSPlugin alloc] init];
+            
+            this_is_a_bundle.bundleID = [bundle objectForKey:@"package"];
+            this_is_a_bundle.webName = [bundle objectForKey:@"name"];
+            this_is_a_bundle.webSize = [bundle objectForKey:@"size"];
+            this_is_a_bundle.webPublishDate = [bundle objectForKey:@"date"];
+            this_is_a_bundle.webPrice = [bundle objectForKey:@"price"];
+            this_is_a_bundle.webTarget = [bundle objectForKey:@"apps"];
+            this_is_a_bundle.webRepository = source;
+            this_is_a_bundle.webVersion = [bundle objectForKey:@"version"];
+            this_is_a_bundle.webDeveloperDonate = [bundle objectForKey:@"donate"];
+            this_is_a_bundle.webDeveloperEmail = [bundle objectForKey:@"contact"];
+            this_is_a_bundle.webDescription = [bundle objectForKey:@"description"];
+            this_is_a_bundle.webDescriptionShort = [bundle objectForKey:@"descriptionShort"];
+            this_is_a_bundle.webCompatability = [bundle objectForKey:@"compat"];
+            this_is_a_bundle.webFileName = [bundle objectForKey:@"filename"];
+            this_is_a_bundle.webPlist = bundle;
+            this_is_a_bundle.webPaid = [[bundle valueForKey:@"payed"] boolValue];
+            
+            
+            [result setObject:this_is_a_bundle forKey:bundleIdentifier];
+//            [sourceDic setObject:this_is_a_bundle forKey:bundleIdentifier];
+        }
+    }
+    return result;
+}
+
 - (void)fetch_repos {
     _sourceListDic = [[NSMutableDictionary alloc] init];
     _repoPluginsDic = [[NSMutableDictionary alloc] init];

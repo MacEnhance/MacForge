@@ -29,6 +29,8 @@
 		FB169AFE22F4EEEB001E84E0 /* MF_featuredItemController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB169AFC22F4EEEB001E84E0 /* MF_featuredItemController.xib */; };
 		FB169B0322F50205001E84E0 /* bg02.png in Resources */ = {isa = PBXBuildFile; fileRef = FB169B0222F50205001E84E0 /* bg02.png */; };
 		FB169B0522F5095C001E84E0 /* bg01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FB169B0422F5095C001E84E0 /* bg01.jpg */; };
+		FB169B0922F50F36001E84E0 /* MF_featuredSmallController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB169B0722F50F36001E84E0 /* MF_featuredSmallController.m */; };
+		FB169B0A22F50F36001E84E0 /* MF_featuredSmallController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB169B0822F50F36001E84E0 /* MF_featuredSmallController.xib */; };
 		FB34DEE320F342F400EC1822 /* Paddle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB34DEE220F342F400EC1822 /* Paddle.framework */; };
 		FB34DEE420F343A800EC1822 /* Paddle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FB34DEE220F342F400EC1822 /* Paddle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FB37B2CD21B229C4001191C2 /* MacForgeFix.m in Sources */ = {isa = PBXBuildFile; fileRef = FB37B2CB21B229C4001191C2 /* MacForgeFix.m */; };
@@ -269,6 +271,9 @@
 		FB169AFC22F4EEEB001E84E0 /* MF_featuredItemController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MF_featuredItemController.xib; sourceTree = "<group>"; };
 		FB169B0222F50205001E84E0 /* bg02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg02.png; sourceTree = "<group>"; };
 		FB169B0422F5095C001E84E0 /* bg01.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg01.jpg; sourceTree = "<group>"; };
+		FB169B0622F50F36001E84E0 /* MF_featuredSmallController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_featuredSmallController.h; sourceTree = "<group>"; };
+		FB169B0722F50F36001E84E0 /* MF_featuredSmallController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_featuredSmallController.m; sourceTree = "<group>"; };
+		FB169B0822F50F36001E84E0 /* MF_featuredSmallController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MF_featuredSmallController.xib; sourceTree = "<group>"; };
 		FB34DEE220F342F400EC1822 /* Paddle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Paddle.framework; sourceTree = "<group>"; };
 		FB37B2CB21B229C4001191C2 /* MacForgeFix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MacForgeFix.m; sourceTree = "<group>"; };
 		FB37B2CC21B229C4001191C2 /* MacForgeFix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacForgeFix.h; sourceTree = "<group>"; };
@@ -559,6 +564,9 @@
 				FB169AFA22F4EEEB001E84E0 /* MF_featuredItemController.h */,
 				FB169AFB22F4EEEB001E84E0 /* MF_featuredItemController.m */,
 				FB169AFC22F4EEEB001E84E0 /* MF_featuredItemController.xib */,
+				FB169B0622F50F36001E84E0 /* MF_featuredSmallController.h */,
+				FB169B0722F50F36001E84E0 /* MF_featuredSmallController.m */,
+				FB169B0822F50F36001E84E0 /* MF_featuredSmallController.xib */,
 			);
 			path = Featured;
 			sourceTree = "<group>";
@@ -1094,6 +1102,7 @@
 				FBA6E8DB20F0285B00A12ACF /* webicon.png in Resources */,
 				FBA6E8DD20F0285B00A12ACF /* checkmark.png in Resources */,
 				FBAAB41720F2CDB0002156DC /* demo_xcode.zip in Resources */,
+				FB169B0A22F50F36001E84E0 /* MF_featuredSmallController.xib in Resources */,
 				FBA6E8E120F0287500A12ACF /* dsa_pub.pem in Resources */,
 				FB169B0322F50205001E84E0 /* bg02.png in Resources */,
 				FBA6E8CE20F025A100A12ACF /* Application.xib in Resources */,
@@ -1186,6 +1195,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBA6E8CF20F0262A00A12ACF /* SGDirWatchdog.m in Sources */,
+				FB169B0922F50F36001E84E0 /* MF_featuredSmallController.m in Sources */,
 				FBA6E88720F0176B00A12ACF /* AppDelegate.m in Sources */,
 				FBA6E8F320F0289B00A12ACF /* repopluginTable.m in Sources */,
 				FBA6E8E620F0288300A12ACF /* MSPlugin.m in Sources */,

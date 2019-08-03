@@ -2,7 +2,7 @@
 
 MacForge is an open-source plugin manager for macOS. It lets you discover, install and manage plugins to improve the user experience of macOS without the need for manually cloning/building or copying files.
 
-[![Chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/MacForge/Lobby)
+[![Chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/MacEnhance/MacForge)
 
 ![Preview](web/preview.png)
 
@@ -13,56 +13,67 @@ MacForge is an open-source plugin manager for macOS. It lets you discover, insta
 - Open MacForge
 - MacForge will ask to be moved to /Applications
 - MacForge may ask to install or update helper tools
+- Disable System Integrity Protection
 - Start installing and using plugins
 
 ## Functionallity notes
 
 - Loading plugins into system applications requires that [System Integrity Protection](https://apple.stackexchange.com/questions/208478/how-do-i-disable-system-integrity-protection-sip-aka-rootless-on-os-x-10-11) is disabled
 - Loading plugins into some applications may require [Apple Mobile File Integrity](https://www.theiphonewiki.com/wiki/AppleMobileFileIntegrity) to be disabled
-- Loading plugins into some applications may require the plugin must be signed and in the `/Library` directory
+- Loading plugins into some applications may require the plugin must be *signed* and in the `/Library` directory
 
 ## Requirements
 
 - MacForge supports macOS 10.10 and above
-- plugins distributed through MacForge may have different application and system requirements
+- Plugins distributed through MacForge may have different application and system requirements
 
 ## Features
 
-- Discover
-    - See what are the best current plugins
-    - Discover, download and update plugins
+- Install plugins simply
+- Drag and drop plugins onto MacForge to automatically install them
+- MacForge can open files with the `.bundle` extension to automatically install them
 
 
-- Changes
-    - Browse all existing plugins
-    - Search for plugins (by name or ID)
-    - Search individual repositories
-    - Add or remove repositories
-    - It's easy to host your own repository on GitHub
+- Featured
+- browse a few hand picked quality plugins
 
 
 - Manage
-    - Delete plugins (Trash can)
-    - Show plugins in Finder (Eye icon)
-    - Enable/Disable plugins (Check box)
-    - Toggle plugins between single user and all users (User icon)
-    - Search for plugins (by name or ID)
-    - MacForge automatically detect existing plugins located in 
+- Delete plugins (Trash can)
+- Show plugins in Finder (Eye icon)
+- Enable/Disable plugins (Check box)
+- Toggle plugins between single user and all users (User icon)
+- Search for plugins (by name or ID)
+- MacForge automatically detect existing plugins located in 
 
 
-- Install plugins simply
-    - Drag and drop plugins onto MacForge to automatically install them
-    - MacForge can open files with the `.bundle` extension to automatically install them
+- Discover
+- Browse existing plugins
+- Search though all existing plugins (by name, bundle ID)
+- See what each reposityory has to offer
+- Add or remove reposityories
+- It's easy to host your own repository on GitHub!
+- Discover, download and update plugins
 
 
-- Stay up to date
-    - Show plugin updates in the updates tab
-    - Option to automatically keep plugins up to date
-    - Updates are shown as a badge on the MacUpdate icon
+- Changes (coming soon)
+- See new and recently updated tweaks
 
 
-- Stay safe
-    - Blacklist applications to avoid issues
+- Updates
+- Check what installed plugins have updates
+- Quickly update all plugins
+
+
+- System Info
+- Show some basic information about the installation
+- Blacklist applications from loading plugins
+
+
+- Preferences
+- Option to automatically keep plugins up to date
+- Miscillaneous settings
+
 
 - And much more...
 
@@ -95,8 +106,8 @@ MacForge is an open-source plugin manager for macOS. It lets you discover, insta
 ## Uninstalling
 
 - Trashing `MacForge` will stop it from loading into applications 
-- If you want a mostly full clean select `Preferences` from the sidebar, then click `Uninstall MacForge`. Log out and back in for changes to fully apply.
+- ~~If you want a mostly full clean select `Preferences` from the sidebar, then click `Uninstall MacForge`. Log out and back in for changes to fully apply.~~
 
 ## Developement
 
-- [Wolfgang Baird](https://github.com/w0lfschild) ([@w0lfschild](https://github.com/w0lfschild))
+- [Wolfgang Baird](https://github.com/w0lfschild) ([@w0lfschild](https://github.com/w0lfschild)) ([MacEnhance](https://www.macenhance.com/))
