@@ -8,7 +8,7 @@ MacForge is an open-source plugin manager for macOS. It lets you discover, insta
 
 ## Installation
 
-- Download the ~~[latest release](https://github.com/w0lfschild/app_updates/raw/master/MacForge/MacForge_master.zip) not yet available~~
+- Download the [*latest **beta** release*](https://github.com/w0lfschild/app_updates/raw/master/MacForge/MacForge.zip)
 - Unzip the download if your browser does not do so automatically
 - Open MacForge
 - MacForge will ask to be moved to /Applications
@@ -30,49 +30,49 @@ MacForge is an open-source plugin manager for macOS. It lets you discover, insta
 ## Features
 
 - Install plugins simply
-- Drag and drop plugins onto MacForge to automatically install them
-- MacForge can open files with the `.bundle` extension to automatically install them
+    - Drag and drop plugins onto MacForge to automatically install them
+    - MacForge can open files with the `.bundle` extension to automatically install them
 
 
 - Featured
-- browse a few hand picked quality plugins
+    - browse a few hand picked quality plugins
 
 
 - Manage
-- Delete plugins (Trash can)
-- Show plugins in Finder (Eye icon)
-- Enable/Disable plugins (Check box)
-- Toggle plugins between single user and all users (User icon)
-- Search for plugins (by name or ID)
-- MacForge automatically detect existing plugins located in 
+    - Delete plugins (Trash can)
+    - Show plugins in Finder (Eye icon)
+    - Enable/Disable plugins (Check box)
+    - Toggle plugins between single user and all users (User icon)
+    - Search for plugins (by name or ID)
+    - MacForge automatically detect existing plugins located in 
 
 
 - Discover
-- Browse existing plugins
-- Search though all existing plugins (by name, bundle ID)
-- See what each reposityory has to offer
-- Add or remove reposityories
-- It's easy to host your own repository on GitHub!
-- Discover, download and update plugins
+    - Browse existing plugins
+    - Search though all existing plugins (by name, bundle ID)
+    - See what each reposityory has to offer
+    - Add or remove reposityories
+    - It's easy to host your own repository on GitHub!
+    - Discover, download and update plugins
 
 
 - Changes (coming soon)
-- See new and recently updated tweaks
+    - See new and recently updated tweaks
 
 
 - Updates
-- Check what installed plugins have updates
-- Quickly update all plugins
+    - Check what installed plugins have updates
+    - Quickly update all plugins
 
 
 - System Info
-- Show some basic information about the installation
-- Blacklist applications from loading plugins
+    - Show some basic information about the installation
+    - Blacklist applications from loading plugins
 
 
 - Preferences
-- Option to automatically keep plugins up to date
-- Miscillaneous settings
+    - Option to automatically keep plugins up to date
+    - Miscillaneous settings
 
 
 - And much more...
