@@ -35,6 +35,10 @@
     NSString* usrPathENB = [NSString stringWithFormat:@"%@/MacEnhance/Plugins", usrSupport];
     NSString* usrPathDIS = [NSString stringWithFormat:@"%@/MacEnhance/Plugins (Disabled)", usrSupport];
     NSString* OpeePath = [NSString stringWithFormat:@"/Library/Opee/Extensions"];
+    
+//    NSString* appPath = [NSString stringWithFormat:@"/Applications"];
+//    NSString* libTheme = [NSString stringWithFormat:@"%@/MacEnhance/Themes", libSupport];
+    
     NSArray *paths = @[libPathENB, libPathDIS, usrPathENB, usrPathDIS, OpeePath];
     return paths;
 }
@@ -167,52 +171,136 @@
     [pluginTable reloadData];
 }
 
++ (NSArray*)arrayOfFoldersInFolder:(NSString*) folder {
+    NSFileManager *fm = [NSFileManager defaultManager];
+//    NSArray* files = [fm directoryContentsAtPath:folder];
+    NSArray* files = [fm contentsOfDirectoryAtPath:folder error:nil];
+    NSMutableArray *directoryList = [NSMutableArray arrayWithCapacity:10];
+    
+    for(NSString *file in files) {
+        NSString *path = [folder stringByAppendingPathComponent:file];
+        BOOL isDir = NO;
+        [fm fileExistsAtPath:path isDirectory:(&isDir)];
+        if(isDir) {
+            [directoryList addObject:file];
+        }
+    }
+    
+    return directoryList;
+}
+
++ (Boolean)installItem:(NSString*)filePath {
+    // Create domain list
+    NSArray *domains = [PluginManager MacEnhancePluginPaths];
+    
+    // Set install location to /Library/Application Support/MacEnhance/Plugins
+    NSString *installPath = [NSString stringWithFormat:@"%@/%@", domains[0], filePath.lastPathComponent];
+    
+    // Set intall location for bundles
+    if ([filePath.pathExtension isEqualToString:@"bundle"]) {
+        // If the bundle already exist somewhere replace that instead of installing to /Library/Application Support/MacEnhance/Plugins
+        for (NSString *path in domains) {
+            NSString *possibleBundle = [NSString stringWithFormat:@"%@/%@", path, filePath.lastPathComponent];
+            if ([FileManager fileExistsAtPath:possibleBundle])
+                installPath = possibleBundle;
+        }
+    }
+
+    // Set intall location for themes
+    if ([filePath.pathExtension isEqualToString:@"theme"])
+        installPath = [NSString stringWithFormat:@"/Library/MacEnhance/Themes/%@", filePath.lastPathComponent];
+
+    // Set install location for applications
+    if ([filePath.pathExtension isEqualToString:@"app"])
+        installPath = [NSString stringWithFormat:@"/Applications/%@", filePath.lastPathComponent];
+    
+    // Logging
+    NSLog(@"%@ - %@", filePath, installPath);
+    NSError *err;
+    
+    // Remove item if it already exists
+    if ([FileManager fileExistsAtPath:installPath])
+        [FileManager removeItemAtPath:installPath error:&err];
+    if (err) NSLog(@"%@", err);
+    
+    // Install the item
+    if ([FileManager isReadableFileAtPath:filePath])
+        [FileManager copyItemAtPath:filePath toPath:installPath error:&err];
+    if (err) NSLog(@"%@", err);
+
+    return true;
+}
+
++ (void)folderinstall:(NSString*)folderPath {
+    for (NSString *file in [PluginManager arrayOfFoldersInFolder:folderPath]) {
+        NSString *filePath = [NSString stringWithFormat:@"%@/%@", folderPath, file];
+        BOOL isDir;
+        if ([FileManager fileExistsAtPath:filePath isDirectory:&isDir] && [filePath.pathExtension isEqualToString:@""]) {
+            // Looks like a folder... lets see what's inside
+            [PluginManager folderinstall:filePath];
+        } else {
+            // Probably a file, lets try to install it
+            [PluginManager installItem:filePath];
+        }
+    }
+}
+
 // Try to update or install a plugin given a bundle plist and a repo
 - (Boolean)pluginUpdateOrInstall:(NSDictionary *)item :(NSString *)repo {
     Boolean success = false;
     
-    // Get installation URL
-    NSURL *installURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", repo, [item objectForKey:@"filename"]]];
-    
-    // SynchronousRequest to grab the data
-    NSURLRequest *request = [NSURLRequest requestWithURL:installURL];
-    NSError *error;
-    NSURLResponse *response;
-    
-    // Try to download file
-    NSData *result = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    if (!result) {
-        // Download failed
-        NSLog(@"Error");
-    } else {
-        // Install downloaded file
-        NSString *temp = [NSString stringWithFormat:@"/tmp/%@_%@", [item objectForKey:@"package"], [item objectForKey:@"version"]];
-        [result writeToFile:temp atomically:YES];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        // Create domain list
-        NSArray *domains = [PluginManager MacEnhancePluginPaths];
         
-        // Set install location to /Library/Application Support/MacEnhance/Plugins
-        NSString *installPath = domains[0];
+        // Get installation URL
+        NSURL *installURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", repo, [item objectForKey:@"filename"]]];
         
-        // If the bundle already exist somewhere replace that instead of installing to /Library/Application Support/MacEnhance/Plugins
-        for (NSString *path in domains) {
-            NSString *possibleBundle = [NSString stringWithFormat:@"%@/%@.bundle", path, [item objectForKey:@"name"]];
-            if ([FileManager fileExistsAtPath:possibleBundle])
-                installPath = path;
+        // SynchronousRequest to grab the data
+        NSURLRequest *request = [NSURLRequest requestWithURL:installURL];
+        NSError *error;
+        NSURLResponse *response;
+        
+        // Try to download file
+        NSData *result = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+        if (!result) {
+            // Download failed
+            NSLog(@"Error : %@", error);
+        } else {
+            // Downloaded zip file
+            NSString *temp = [NSString stringWithFormat:@"/tmp/%@_%@", [item objectForKey:@"package"], [item objectForKey:@"version"]];
+            [result writeToFile:temp atomically:YES];
+            
+            // Create folder to unzip contents to
+            NSString *unzipDir = [NSString stringWithFormat:@"/tmp/macenhance_extracted/%@_%@", [item objectForKey:@"package"], [item objectForKey:@"version"]];
+            BOOL isDir;
+            if(![FileManager fileExistsAtPath:unzipDir isDirectory:&isDir])
+                if(![FileManager createDirectoryAtPath:unzipDir withIntermediateDirectories:YES attributes:nil error:NULL])
+                    NSLog(@"Error: Create folder failed %@", unzipDir);
+            
+            // Unzip download
+            NSTask *task = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/unzip" arguments:@[@"-o", temp, @"-d", unzipDir]];
+            [task waitUntilExit];
+            if ([task terminationStatus] == 0) {
+                // presumably the only case where we've successfully installed
+                // ???
+//                success = true;
+            }
+            
+            // Try to install the contents
+            [PluginManager folderinstall:unzipDir];
+            
+            // Update the installed plugins list
+            [self readPlugins:nil];
         }
         
-        // Unzip our download to the installPath
-        NSTask *task = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/unzip" arguments:@[@"-o", temp, @"-d", installPath]];
-        [task waitUntilExit];
-        if ([task terminationStatus] == 0) {
-            // presumably the only case where we've successfully installed
-            success = true;
-        }
-        
-        // Update the installed plugins list
-        [self readPlugins:nil];
-    }
+                       
+                       //This is your completion handler
+                       dispatch_sync(dispatch_get_main_queue(), ^{
+                           
+                       });
+                   });
+    
+
     
     return success;
 }

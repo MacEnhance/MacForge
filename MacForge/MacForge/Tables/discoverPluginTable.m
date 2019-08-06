@@ -38,6 +38,8 @@ NSString *textFilter;
 @property (weak) IBOutlet NSImageView*  bundleImage;
 @property (weak) IBOutlet NSImageView*  bundleImageInstalled;
 @property (weak) IBOutlet NSImageView*  bundleIndicator;
+
+@property (weak) IBOutlet NSImageView*  bundlePluginType;
 @end
 
 @implementation discoverPluginTable {
@@ -135,6 +137,32 @@ NSString *textFilter;
     if ([_localPlugins containsObject:item.bundleID]) {
         result.bundleImageInstalled.hidden = false;
         [result.bundleImageInstalled setImageScaling:NSImageScaleProportionallyUpOrDown];
+    }
+    
+    result.bundlePluginType.hidden = false;
+    
+    // Bundle
+    [result.bundlePluginType setImage:[[NSImage alloc] initWithContentsOfFile:@"/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/KEXT.icns"]];
+
+    if ([item.webPlist objectForKey:@"type"]) {
+        NSString *type = [item.webPlist objectForKey:@"type"];
+        if ([type isEqualToString:@"app"]) {
+            // App
+            [result.bundlePluginType setImage:[[NSImage alloc] initWithContentsOfFile:@"/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/GenericApplicationIcon.icns"]];
+        }
+        
+        if ([type isEqualToString:@"theme"]) {
+            // Theme
+            NSRect imgRect = NSMakeRect(0, 0, 18, 18);
+            NSImage * image = [[NSImage alloc] initWithSize:imgRect.size];
+            [image lockFocus];
+            NSFont *font = [NSFont fontWithName:@"Palatino-Roman" size:14];
+            NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:font forKey:NSFontAttributeName];
+            NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:@"🎨" attributes:attrsDictionary];
+            [attrString drawInRect:CGRectMake(0, 0, 18, 18)];
+            [image unlockFocus];
+            [result.bundlePluginType setImage:image];
+        }
     }
     
     result.bundleImage.image = [PluginManager pluginGetIcon:item.webPlist];

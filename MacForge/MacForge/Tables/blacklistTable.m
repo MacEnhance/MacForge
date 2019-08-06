@@ -21,6 +21,7 @@ NSDictionary *blDict;
     return NSDragOperationCopy;
 }
 
+// Handle drag and drop
 - (BOOL)tableView:(NSTableView *)aTableView acceptDrop:(id <NSDraggingInfo>)info row:(int)row dropOperation:(NSTableViewDropOperation)operation {
     NSPasteboard *pboard = [info draggingPasteboard];
     if ([[pboard types] containsObject:NSURLPboardType]) {
