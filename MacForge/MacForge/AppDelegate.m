@@ -151,7 +151,7 @@ NSArray *tabViews;
         if ([args containsObject:@"manage"]) [self selectView:_viewPlugins];
     }
 
-    [self installXcodeTemplate];
+//    [self installXcodeTemplate];
     [self executionTime:@"startPaddle"];
 
     NSDate *methodFinish = [NSDate date];
@@ -191,7 +191,6 @@ NSArray *tabViews;
 - (void)executionTime:(NSString*)s {
     SEL sl = NSSelectorFromString(s);
     NSDate *startTime = [NSDate date];
-
     if ([self respondsToSelector:sl])
         [self performSelector:sl];
     

@@ -22,6 +22,7 @@ createFolder "$log_dir"
 exec &>"$log_dir"/cleanup.log
  
 cleanupFiles=(
+"/Library/Application Support/MacEnhance"
 "/Library/Application Support/SIMBL"
 "/Library/LaunchAgents/net.culater.SIMBL.Agent.plist"
 "/Library/ScriptingAdditions/SIMBL.osax"

@@ -34,6 +34,9 @@
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="moreInfo:" target="-2" id="mCF-a2-x2e"/>
+                    </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KKJ-R7-9dc">
                     <rect key="frame" x="123" y="102" width="137" height="17"/>
@@ -60,6 +63,9 @@
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="getOrOpen:" target="-2" id="6Pi-ld-SRt"/>
+                    </connections>
                 </button>
             </subviews>
             <point key="canvasLocation" x="63" y="85"/>

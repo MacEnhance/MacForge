@@ -250,16 +250,14 @@
     Boolean success = false;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        
         // Get installation URL
         NSURL *installURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", repo, [item objectForKey:@"filename"]]];
-        
+
         // SynchronousRequest to grab the data
         NSURLRequest *request = [NSURLRequest requestWithURL:installURL];
         NSError *error;
         NSURLResponse *response;
-        
+
         // Try to download file
         NSData *result = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
         if (!result) {
@@ -283,7 +281,7 @@
             if ([task terminationStatus] == 0) {
                 // presumably the only case where we've successfully installed
                 // ???
-//                success = true;
+    //                success = true;
             }
             
             // Try to install the contents
@@ -292,15 +290,12 @@
             // Update the installed plugins list
             [self readPlugins:nil];
         }
-        
                        
-                       //This is your completion handler
-                       dispatch_sync(dispatch_get_main_queue(), ^{
-                           
-                       });
-                   });
-    
-
+       //This is your completion handler
+       dispatch_sync(dispatch_get_main_queue(), ^{
+           
+       });
+    });
     
     return success;
 }
@@ -377,10 +372,10 @@
         targets = [info objectForKey:@"SIMBLTargetApplications"];
     }
     
-    // Load custom bundle icon if it exists
+    // Load custom local icon if it exists
     NSString *bundle_path = [plist objectForKey:@"path"];
     if ([bundle_path length]) {
-        result = [[NSWorkspace sharedWorkspace] iconForFile:bundle_path];
+        result = [Workspace iconForFile:bundle_path];
         if (result) return result;
     }
     

@@ -27,8 +27,6 @@
 		FB169AF322F4B3A3001E84E0 /* MF_featuredTab.m in Sources */ = {isa = PBXBuildFile; fileRef = FB169AF222F4B3A3001E84E0 /* MF_featuredTab.m */; };
 		FB169AFD22F4EEEB001E84E0 /* MF_featuredItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB169AFB22F4EEEB001E84E0 /* MF_featuredItemController.m */; };
 		FB169AFE22F4EEEB001E84E0 /* MF_featuredItemController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB169AFC22F4EEEB001E84E0 /* MF_featuredItemController.xib */; };
-		FB169B0322F50205001E84E0 /* bg02.png in Resources */ = {isa = PBXBuildFile; fileRef = FB169B0222F50205001E84E0 /* bg02.png */; };
-		FB169B0522F5095C001E84E0 /* bg01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FB169B0422F5095C001E84E0 /* bg01.jpg */; };
 		FB169B0922F50F36001E84E0 /* MF_featuredSmallController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB169B0722F50F36001E84E0 /* MF_featuredSmallController.m */; };
 		FB169B0A22F50F36001E84E0 /* MF_featuredSmallController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB169B0822F50F36001E84E0 /* MF_featuredSmallController.xib */; };
 		FB34DEE320F342F400EC1822 /* Paddle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB34DEE220F342F400EC1822 /* Paddle.framework */; };
@@ -78,6 +76,7 @@
 		FBAAB3F020F22BF5002156DC /* NSBundle+LoginItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAAB3EE20F22BF5002156DC /* NSBundle+LoginItem.m */; };
 		FBAAB41720F2CDB0002156DC /* demo_xcode.zip in Resources */ = {isa = PBXBuildFile; fileRef = FBAAB41620F2CDAF002156DC /* demo_xcode.zip */; };
 		FBB19F8120F2D18A003F421B /* plugin_template.zip in Resources */ = {isa = PBXBuildFile; fileRef = FBB19F8020F2D18A003F421B /* plugin_template.zip */; };
+		FBBD8E2322F9319E00A97FEA /* MF_Purchase.m in Sources */ = {isa = PBXBuildFile; fileRef = FBBD8E2222F9319E00A97FEA /* MF_Purchase.m */; };
 		FBC54082213912AD00A53FA4 /* MacForge.icns in Resources */ = {isa = PBXBuildFile; fileRef = FBC54081213912AD00A53FA4 /* MacForge.icns */; };
 		FBCC0B3021278DF900CB5CD4 /* SGDirWatchdog.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E89120F0185300A12ACF /* SGDirWatchdog.m */; };
 		FBE767A220EF426D00A42BD5 /* MacForgeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = FBE767A020EF426D00A42BD5 /* MacForgeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -269,8 +268,6 @@
 		FB169AFA22F4EEEB001E84E0 /* MF_featuredItemController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_featuredItemController.h; sourceTree = "<group>"; };
 		FB169AFB22F4EEEB001E84E0 /* MF_featuredItemController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_featuredItemController.m; sourceTree = "<group>"; };
 		FB169AFC22F4EEEB001E84E0 /* MF_featuredItemController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MF_featuredItemController.xib; sourceTree = "<group>"; };
-		FB169B0222F50205001E84E0 /* bg02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg02.png; sourceTree = "<group>"; };
-		FB169B0422F5095C001E84E0 /* bg01.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg01.jpg; sourceTree = "<group>"; };
 		FB169B0622F50F36001E84E0 /* MF_featuredSmallController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_featuredSmallController.h; sourceTree = "<group>"; };
 		FB169B0722F50F36001E84E0 /* MF_featuredSmallController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_featuredSmallController.m; sourceTree = "<group>"; };
 		FB169B0822F50F36001E84E0 /* MF_featuredSmallController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MF_featuredSmallController.xib; sourceTree = "<group>"; };
@@ -339,6 +336,8 @@
 		FBB0849720EEF0AC0032BDB2 /* SIMBL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIMBL.h; sourceTree = "<group>"; };
 		FBB0849820EEF0AC0032BDB2 /* SIMBLPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIMBLPlugin.h; sourceTree = "<group>"; };
 		FBB19F8020F2D18A003F421B /* plugin_template.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = plugin_template.zip; sourceTree = "<group>"; };
+		FBBD8E2122F9319E00A97FEA /* MF_Purchase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_Purchase.h; sourceTree = "<group>"; };
+		FBBD8E2222F9319E00A97FEA /* MF_Purchase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_Purchase.m; sourceTree = "<group>"; };
 		FBC54081213912AD00A53FA4 /* MacForge.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MacForge.icns; sourceTree = "<group>"; };
 		FBE7679E20EF426D00A42BD5 /* MacForgeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MacForgeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBE767A020EF426D00A42BD5 /* MacForgeKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MacForgeKit.h; sourceTree = "<group>"; };
@@ -539,6 +538,8 @@
 			children = (
 				FBA6E8EF20F0289A00A12ACF /* PluginManager.h */,
 				FBA6E8EA20F0289900A12ACF /* PluginManager.m */,
+				FBBD8E2122F9319E00A97FEA /* MF_Purchase.h */,
+				FBBD8E2222F9319E00A97FEA /* MF_Purchase.m */,
 			);
 			path = "Shared Classes";
 			sourceTree = "<group>";
@@ -719,8 +720,6 @@
 		FBA6E91220F02D0600A12ACF /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				FB169B0422F5095C001E84E0 /* bg01.jpg */,
-				FB169B0222F50205001E84E0 /* bg02.png */,
 				FBB19F8020F2D18A003F421B /* plugin_template.zip */,
 				FBAAB41620F2CDAF002156DC /* demo_xcode.zip */,
 				FBC54081213912AD00A53FA4 /* MacForge.icns */,
@@ -1104,12 +1103,10 @@
 				FBAAB41720F2CDB0002156DC /* demo_xcode.zip in Resources */,
 				FB169B0A22F50F36001E84E0 /* MF_featuredSmallController.xib in Resources */,
 				FBA6E8E120F0287500A12ACF /* dsa_pub.pem in Resources */,
-				FB169B0322F50205001E84E0 /* bg02.png in Resources */,
 				FBA6E8CE20F025A100A12ACF /* Application.xib in Resources */,
 				FBA6E8CA20F01E1B00A12ACF /* LICENSE_SGDirWatchdog in Resources */,
 				FBA6E8C820F01E0100A12ACF /* LICENSE_ZKSwizzle in Resources */,
 				FBB19F8120F2D18A003F421B /* plugin_template.zip in Resources */,
-				FB169B0522F5095C001E84E0 /* bg01.jpg in Resources */,
 				FBA6E8C220F01D4000A12ACF /* LICENSE_StartAtLoginController in Resources */,
 				FBF137D22105782A0001916A /* reddit.png in Resources */,
 				FBF137CC210575ED0001916A /* code.png in Resources */,
@@ -1195,6 +1192,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBA6E8CF20F0262A00A12ACF /* SGDirWatchdog.m in Sources */,
+				FBBD8E2322F9319E00A97FEA /* MF_Purchase.m in Sources */,
 				FB169B0922F50F36001E84E0 /* MF_featuredSmallController.m in Sources */,
 				FBA6E88720F0176B00A12ACF /* AppDelegate.m in Sources */,
 				FBA6E8F320F0289B00A12ACF /* repopluginTable.m in Sources */,
