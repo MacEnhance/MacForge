@@ -44,10 +44,6 @@ extern long selectedRow;
     }
 }
 
--(void)addtoView {
-    
-}
-
 -(void)viewWillDraw {
 //    [NSAnimationContext beginGrouping];
     NSPoint newOrigin = NSMakePoint(0, self.frame.size.height - self.superview.frame.size.height);

@@ -40,6 +40,8 @@ NSUInteger osx_ver;
 NSArray *tabViewButtons;
 NSArray *tabViews;
 
+Boolean paddleQuit = false;
+
 // Shared instance
 + (AppDelegate*) sharedInstance {
     static AppDelegate* myDelegate = nil;
@@ -57,6 +59,12 @@ NSArray *tabViews;
     return [PADDisplayConfiguration configuration:PADDisplayTypeSheet
                             hideNavigationButtons:NO
                                      parentWindow:_window];
+}
+
+- (void)didDismissPaddleUIType:(PADUIType)uiType triggeredUIType:(PADTriggeredUIType)triggeredUIType product:(nonnull PADProduct *)product {
+//    NSLog(@"Dissmissed : %ld : %ld :%@", (long)uiType, (long)triggeredUIType, product);
+    if (triggeredUIType == 6)
+        paddleQuit = true;
 }
 
 // Run bash script
@@ -261,6 +269,16 @@ NSArray *tabViews;
     PFMoveToApplicationsFolderIfNecessary();
 }
 
+- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
+    // Prevent the app from closing when Paddle quit is pressed
+    // Avoids doing any redesigning of the Paddle UI
+    if (paddleQuit) {
+        paddleQuit = false;
+        return NSTerminateCancel;
+    }
+    return NSTerminateNow;
+}
+
 // Cleanup
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
@@ -299,7 +317,7 @@ NSArray *tabViews;
     for (NSButton *btn in tabViewButtons)
         [btn setAction:@selector(selectView:)];
     
-    NSArray *bottomButtons = [NSArray arrayWithObjects:_buttonDonate, _buttonAdvert, _buttonFeedback, _buttonReport, nil];
+    NSArray *bottomButtons = [NSArray arrayWithObjects:_buttonDiscord, _buttonReddit, _buttonDonate, _buttonAdvert, _buttonFeedback, _buttonReport, nil];
     NSMutableArray *visibleButons = [[NSMutableArray alloc] init];
     for (NSButton *btn in bottomButtons)
         if (![btn isHidden])
@@ -542,6 +560,14 @@ NSArray *tabViews;
 - (void)sendEmail {
     [self visitReddit];
 //    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"mailto:aguywithlonghair@gmail.com"]];
+}
+
+- (IBAction)visitReddit:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://www.reddit.com/r/OSXTweaks"]];
+}
+
+- (IBAction)visitDiscord:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://discord.gg/ePgtAz"]];
 }
 
 - (void)visitGithub {

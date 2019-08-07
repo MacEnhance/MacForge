@@ -75,6 +75,7 @@ extern AppDelegate* myDelegate;
 }
 
 + (Boolean)packageInstalled:(MSPlugin*)plugin {
+    NSLog(@"Hmmmm...");
     NSDictionary* item = plugin.webPlist;
     NSMutableDictionary *installedPlugins = [PluginManager.sharedInstance getInstalledPlugins];
     if ([installedPlugins objectForKey:[item objectForKey:@"package"]])
@@ -138,19 +139,21 @@ extern AppDelegate* myDelegate;
         // Initialize the Product you'd like to work with:
         PADProduct *paddleProduct = [[PADProduct alloc] initWithProductID:productID productType:PADProductTypeSDKProduct configuration:defaultProductConfig];
         
+        [thePaddle setCanForceExit:false];
+        
         // Ask the Product to get it's latest state and info from the Paddle Platform:
         [paddleProduct refresh:^(NSDictionary * _Nullable productDelta, NSError * _Nullable error) {
             if ([paddleProduct activated]) {
-//                [self pluginInstall];
+                [MF_Purchase pluginInstall:plugin :theButton :repo];
             } else {
                 [thePaddle showCheckoutForProduct:paddleProduct options:nil checkoutStatusCompletion:^(PADCheckoutState state, PADCheckoutData * _Nullable checkoutData) {
                     // Examine checkout state to determine the checkout result
                     if (state == PADCheckoutPurchased) {
-//                        [self pluginInstall];
+                        [MF_Purchase pluginInstall:plugin :theButton :repo];
                     } else {
                         [paddleProduct refresh:^(NSDictionary * _Nullable productDelta, NSError * _Nullable error) {
                             if ([paddleProduct activated])
-//                                [self pluginInstall];
+                                [MF_Purchase pluginInstall:plugin :theButton :repo];
                             NSLog(@"activated : %hhd", [paddleProduct activated]);
                         }];
                     }
@@ -158,7 +161,8 @@ extern AppDelegate* myDelegate;
             }
         }];
     } else {
-        NSLog(@"No product info ???");
+        NSLog(@"No product info... lets assume it's FREEEE");
+        [MF_Purchase pluginInstall:plugin :theButton :repo];
     }
 }
 

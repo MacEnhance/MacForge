@@ -88,6 +88,8 @@
 @property IBOutlet NSButton *buttonDonate;
 @property IBOutlet NSButton *buttonReport;
 @property IBOutlet NSButton *buttonAdvert;
+@property IBOutlet NSButton *buttonReddit;
+@property IBOutlet NSButton *buttonDiscord;
 
 // About view
 @property IBOutlet NSTextField      *appName;
