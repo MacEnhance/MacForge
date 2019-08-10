@@ -40,6 +40,8 @@
         NSLog(@"Unable to create shared file list!");
         return;
     }
+    
+    NSLog(@"Hellooooooo");
 
     UInt32 seedValue;
     CFArrayRef sharedFileListArray = LSSharedFileListCopySnapshot(sharedFileList, &seedValue);
@@ -54,10 +56,11 @@
             if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_9) {
                 appURL = LSSharedFileListItemCopyResolvedURL(sharedFileListItem, 9, NULL);
             } else {
-                OSStatus ret = LSSharedFileListItemResolve(sharedFileListItem, 0, &appURL, NULL);
-                if (ret != 0) {
-                    continue;
-                }
+//                OSStatus ret = LSSharedFileListItemResolve(sharedFileListItem, 0, &appURL, NULL);
+//                if (ret != 0) {
+//                    continue;
+//                }
+                continue;
             }
             
             if (appURL == NULL) {
@@ -94,7 +97,7 @@
             if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_9) {
                 appURL = LSSharedFileListItemCopyResolvedURL(item, kLSSharedFileListNoUserInteraction, NULL);
             } else {
-                LSSharedFileListItemResolve(item, 0, (CFURLRef *)&appURL, NULL);
+//                LSSharedFileListItemResolve(item, 0, (CFURLRef *)&appURL, NULL);
             }
 
             NSString *resolvedApplicationPath = [(__bridge NSURL *)appURL path];

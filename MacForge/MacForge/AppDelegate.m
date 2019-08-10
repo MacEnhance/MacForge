@@ -200,7 +200,7 @@ Boolean paddleQuit = false;
     SEL sl = NSSelectorFromString(s);
     NSDate *startTime = [NSDate date];
     if ([self respondsToSelector:sl])
-        [self performSelector:sl];
+        ((void (*)(id, SEL))[self methodForSelector:sl])(self, sl);
     
     NSDate *methodFinish = [NSDate date];
     NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:startTime];
@@ -1144,7 +1144,7 @@ Boolean paddleQuit = false;
                     if (url)
                         self->_adURL = url;
                     else
-                        self->_adURL = @"https://github.com/w0lfschild/mySIMBL";
+                        self->_adURL = @"https://github.com/w0lfschild/MacForge";
                     
                     self->_adArray = dict;
                     self->_lastAD = displayNum;

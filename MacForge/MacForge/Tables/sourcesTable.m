@@ -45,7 +45,7 @@ NSArray *sourceURLS;
     NSMenuItem *item = [NSMenuItem.alloc initWithTitle:@"Add or remove sources" action:@selector(sourceAddNew:) keyEquivalent:@""];
     [item setTarget:myDelegate];
     [clickMenu addItem:item];
-    
+        
     item = [NSMenuItem.alloc initWithTitle:@"Remove selected source" action:@selector(sourceAddorRemove:) keyEquivalent:@""];
     [item setTarget:myDelegate];
     [clickMenu addItem:item];

@@ -144,6 +144,8 @@
 - (IBAction)pushView:(id)sender;
 - (IBAction)popView:(id)sender;
 - (Boolean)keypressed:(NSEvent *)theEvent;
+- (IBAction)sourceAddNew:(id)sender;
+- (IBAction)sourceAddorRemove:(id)sender;
 
 @end
 
