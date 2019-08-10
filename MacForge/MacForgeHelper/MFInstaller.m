@@ -115,7 +115,8 @@ NSString *const MFInstallerExecutablLabel = @"com.w0lf.MacForge.Installer";
 }
 
 + (BOOL)installMachInjectBundleFramework:(NSError **)error {
-  NSString *frameworkPath = [[NSBundle mainBundle] pathForResource:@"mach_inject_bundle" ofType:@"framework"];
+//  NSString *frameworkPath = [[NSBundle mainBundle] pathForResource:@"mach_inject_bundle" ofType:@"framework"];
+  NSString *frameworkPath = [NSString stringWithFormat:@"%@/Contents/Frameworks/mach_inject_bundle.framework", NSBundle.mainBundle.bundlePath];
   BOOL result = YES;
 
   NSConnection *c = [NSConnection connectionWithRegisteredName:@"com.w0lf.MacForge.Installer.mach" host:nil];

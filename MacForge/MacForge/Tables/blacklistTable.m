@@ -83,12 +83,21 @@ NSDictionary *blDict;
     NSImageView *img = [[NSImageView alloc] initWithFrame:CGRectMake(5, 3, 24, 24)];
     NSString *bundleID = _blackList[row];
     NSString *appPath = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:bundleID];
-    NSImage *appIMG = [[NSWorkspace sharedWorkspace] iconForFile:appPath];
-    if (appIMG == nil)
-        appIMG = [NSImage imageNamed:NSImageNameApplicationIcon];
-    NSBundle *bundle = [NSBundle bundleWithPath:appPath];
-    NSDictionary *info = [bundle infoDictionary];
-    NSString *appName = [info objectForKey:@"CFBundleExecutable"];
+    NSImage *appIMG;
+    NSString *appName;
+    
+    if (appPath != nil) {
+        appIMG = [[NSWorkspace sharedWorkspace] iconForFile:appPath];
+        if (appIMG == nil)
+            appIMG = [[NSImage alloc] initWithContentsOfFile:@"/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/GenericApplicationIcon.icns"];
+        NSBundle *bundle = [NSBundle bundleWithPath:appPath];
+        NSDictionary *info = [bundle infoDictionary];
+        appName = [info objectForKey:@"CFBundleExecutable"];
+    } else {
+        appIMG = [[NSImage alloc] initWithContentsOfFile:@"/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/GenericApplicationIcon.icns"];
+        appName = bundleID;
+    }
+    
     NSTextField *appNameView = [[NSTextField alloc] initWithFrame:CGRectMake(32, 5, 200, 20)];
     appNameView.editable = NO;
     appNameView.bezeled = NO;
@@ -96,8 +105,8 @@ NSDictionary *blDict;
     [appNameView setDrawsBackground:false];
     appNameView.stringValue = appName;
     [img setImage:appIMG];
-    [result addSubview:img];
     [result addSubview:appNameView];
+    [result addSubview:img];
     result.bundleID = bundleID;
     return result;
 }

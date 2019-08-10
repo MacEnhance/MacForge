@@ -952,10 +952,10 @@ Boolean paddleQuit = false;
         dispatch_async(dispatch_get_main_queue(), ^(void){
             [self->_SIPStatus setState:sip];
             [self->_AMFIStatus setState:amfi];
-            if (sip == true) {
-//                [self->_SIPWarning setHidden:false];
-            } else {
+            if (amfi == false && sip == false) {
                 [self->_SIPWarning setHidden:true];
+            } else {
+                [self->_SIPWarning setHidden:false];
             }
         });
     });

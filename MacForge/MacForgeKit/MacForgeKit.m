@@ -99,7 +99,8 @@ bool _csr_check(int aMask, bool aFlipflag)
 + (Boolean)SIP_enabled {
     BOOL allowsFS = _csr_check(CSR_ALLOW_UNRESTRICTED_FS, 0);
     BOOL allowsInjection = _csr_check(CSR_ALLOW_UNRESTRICTED_DTRACE, 0);
-    return  !(allowsFS || allowsInjection);
+//    NSLog(@"FS %hhd : Injection %hhd", allowsFS, allowsInjection);
+    return  (allowsFS || allowsInjection);
 }
 
 //+ (Boolean)SIP_enabled {
@@ -107,7 +108,9 @@ bool _csr_check(int aMask, bool aFlipflag)
 //}
 
 + (Boolean)AMFI_enabled {
-    return !([[MacForgeKit runScript:@"nvram boot-args 2>&1"] rangeOfString:@"amfi_get_out_of_my_way=1"].length);
+    NSString *result = [MacForgeKit runScript:@"nvram boot-args 2>&1"];
+//    NSLog(@"%@", result);
+    return !([result rangeOfString:@"amfi_get_out_of_my_way=1"].length);
 }
 
 + (Boolean)AMFI_toggle {

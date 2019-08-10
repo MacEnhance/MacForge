@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B7956BF719EDB03A005EEB36 /* mach_inject_bundle.framework in Resources */ = {isa = PBXBuildFile; fileRef = F0CF07F0166F563E009D198D /* mach_inject_bundle.framework */; };
 		F0ADE0FB166DF941009758CC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0ADE0FA166DF941009758CC /* Cocoa.framework */; };
 		F0ADE107166DF941009758CC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F0ADE106166DF941009758CC /* main.m */; };
 		F0ADE10E166DF941009758CC /* MFAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F0ADE10D166DF941009758CC /* MFAppDelegate.m */; };
@@ -76,6 +75,7 @@
 		FBAAB3F020F22BF5002156DC /* NSBundle+LoginItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAAB3EE20F22BF5002156DC /* NSBundle+LoginItem.m */; };
 		FBAAB41720F2CDB0002156DC /* demo_xcode.zip in Resources */ = {isa = PBXBuildFile; fileRef = FBAAB41620F2CDAF002156DC /* demo_xcode.zip */; };
 		FBB19F8120F2D18A003F421B /* plugin_template.zip in Resources */ = {isa = PBXBuildFile; fileRef = FBB19F8020F2D18A003F421B /* plugin_template.zip */; };
+		FBB6D14922FE3EA6003A5B71 /* mach_inject_bundle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F0CF07F0166F563E009D198D /* mach_inject_bundle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FBBD8E2322F9319E00A97FEA /* MF_Purchase.m in Sources */ = {isa = PBXBuildFile; fileRef = FBBD8E2222F9319E00A97FEA /* MF_Purchase.m */; };
 		FBC54082213912AD00A53FA4 /* MacForge.icns in Resources */ = {isa = PBXBuildFile; fileRef = FBC54081213912AD00A53FA4 /* MacForge.icns */; };
 		FBCC0B3021278DF900CB5CD4 /* SGDirWatchdog.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E89120F0185300A12ACF /* SGDirWatchdog.m */; };
@@ -215,6 +215,16 @@
 				FB78E2A72139BE27002FFE2E /* MacForgeDockTile.docktileplugin in Copy Plugins */,
 			);
 			name = "Copy Plugins";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBB6D14822FE3E9B003A5B71 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				FBB6D14922FE3EA6003A5B71 /* mach_inject_bundle.framework in CopyFiles */,
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		FBF137D92105AB3E0001916A /* CopyFiles */ = {
@@ -834,6 +844,8 @@
 				F0ADE0F3166DF941009758CC /* Frameworks */,
 				F0ADE0F4166DF941009758CC /* Resources */,
 				F0ADE15F166DFC2D009758CC /* CopyFiles */,
+				FBB6D14822FE3E9B003A5B71 /* CopyFiles */,
+				FBB6D14A22FE4831003A5B71 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -943,6 +955,7 @@
 				FBA6E8D020F027AC00A12ACF /* Copy Frameworks */,
 				FBA6E90C20F029E900A12ACF /* Copy Plugins */,
 				FBF137D92105AB3E0001916A /* CopyFiles */,
+				FBB6D14B22FE4963003A5B71 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1056,7 +1069,6 @@
 			files = (
 				FBE767FC20F0122F00A42BD5 /* InfoPlist.strings in Resources */,
 				FB917FA1213917E10013D4E3 /* menu.icns in Resources */,
-				B7956BF719EDB03A005EEB36 /* mach_inject_bundle.framework in Resources */,
 				FB917F9F213917400013D4E3 /* icon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1119,6 +1131,43 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		FBB6D14A22FE4831003A5B71 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Update build number\n\n# buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${INFOPLIST_FILE}\")\n# buildNumber=$(($buildNumber + 1))\n# /usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${INFOPLIST_FILE}\"\n\n# buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\n# buildNumber=$(($buildNumber + 1))\n# /usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n";
+		};
+		FBB6D14B22FE4963003A5B71 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Increment build number\n\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${INFOPLIST_FILE}\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F0ADE0F2166DF941009758CC /* Sources */ = {
