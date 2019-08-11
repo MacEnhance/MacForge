@@ -98,9 +98,17 @@ NSArray *sourceURLS;
     result.sourceIndicator.canDrawSubviewsIntoLayer = YES;
     
     result.sourceImage.animates = YES;
-    result.sourceImage.image = [NSImage imageNamed:@"loading_mini.gif"];
+    result.sourceImage.sd_imageIndicator = SDWebImageActivityIndicator.grayIndicator;
+    result.sourceImage.sd_imageIndicator = SDWebImageProgressIndicator.defaultIndicator;
     result.sourceImage.canDrawSubviewsIntoLayer = YES;
     [result.superview setWantsLayer:YES];
+    NSArray* sourceURLS = [self->item objectForKey:@"sources"];
+    NSString* source = [sourceURLS objectAtIndex:row];
+    NSURL* url1 = [NSURL URLWithString:[NSString stringWithFormat:@"%@/icon.png", source]];
+    if (source) {
+        [result.sourceImage sd_setImageWithURL:url1
+                              placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+    }
     
     result.sourceIndicator.imageAlignment = NSImageAlignTop;
     result.sourceImage.imageAlignment = NSImageAlignTop;
@@ -111,13 +119,13 @@ NSArray *sourceURLS;
         NSString* source = [sourceURLS objectAtIndex:row];
         NSURL* data = [NSURL URLWithString:[NSString stringWithFormat:@"%@/resource.plist?%@", source, [[NSProcessInfo processInfo] globallyUniqueString]]];
         NSMutableDictionary* dic = [[NSMutableDictionary alloc] initWithContentsOfURL:data];
-        NSImage *sourceIcon = [[NSImage alloc] init];
-        if (dic) {
-            NSURL* url1 = [NSURL URLWithString:[NSString stringWithFormat:@"%@/icon.png?%@", source, [[NSProcessInfo processInfo] globallyUniqueString]]];
-            NSImage *icon = [[NSImage alloc] initWithData:[[NSData alloc] initWithContentsOfURL: url1]];
-            sourceIcon = icon;
-            //  [[NSImage alloc] initByReferencingURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/icon.png?%@", source, [[NSProcessInfo processInfo] globallyUniqueString]]]];
-        }
+//        NSImage *sourceIcon = [[NSImage alloc] init];
+//        if (dic) {
+//            NSURL* url1 = [NSURL URLWithString:[NSString stringWithFormat:@"%@/icon.png?%@", source, [[NSProcessInfo processInfo] globallyUniqueString]]];
+//            NSImage *icon = [[NSImage alloc] initWithData:[[NSData alloc] initWithContentsOfURL: url1]];
+//            sourceIcon = icon;
+//            //  [[NSImage alloc] initByReferencingURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/icon.png?%@", source, [[NSProcessInfo processInfo] globallyUniqueString]]]];
+//        }
 
         dispatch_async(dispatch_get_main_queue(), ^{
             if ([source length])
@@ -128,7 +136,7 @@ NSArray *sourceURLS;
                     result.sourceName.stringValue = [dic objectForKey:@"name"];
 //                result.sourceImage.image = [[NSImage alloc] initByReferencingURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/icon.png?%@", source, [[NSProcessInfo processInfo] globallyUniqueString]]]];
             }
-            result.sourceImage.image = sourceIcon;
+//            result.sourceImage.image = sourceIcon;
             [result.sourceIndicator setImage:[NSImage imageNamed:NSImageNameRightFacingTriangleTemplate]];
             result.sourceIndicator.imageAlignment = NSImageAlignCenter;
             result.sourceImage.imageAlignment = NSImageAlignCenter;

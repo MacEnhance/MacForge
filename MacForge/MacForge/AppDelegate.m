@@ -567,7 +567,7 @@ Boolean paddleQuit = false;
 }
 
 - (IBAction)visitDiscord:(id)sender {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://discord.gg/ePgtAz"]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://discord.gg/c3EztJ"]];
 }
 
 - (void)visitGithub {

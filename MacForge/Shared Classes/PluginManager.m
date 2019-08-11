@@ -246,6 +246,61 @@
 }
 
 // Try to update or install a plugin given a bundle plist and a repo
+- (Boolean)pluginUpdateOrInstallWithProgress:(NSDictionary *)item :(NSString *)repo :(NSButton *)button {
+    Boolean success = false;
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        // Get installation URL
+        NSURL *installURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", repo, [item objectForKey:@"filename"]]];
+        
+        // SynchronousRequest to grab the data
+        NSURLRequest *request = [NSURLRequest requestWithURL:installURL];
+        NSError *error;
+        NSURLResponse *response;
+        
+        // Try to download file
+        NSData *result = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+        if (!result) {
+            // Download failed
+            NSLog(@"Error : %@", error);
+        } else {
+            // Downloaded zip file
+            NSString *temp = [NSString stringWithFormat:@"/tmp/%@_%@", [item objectForKey:@"package"], [item objectForKey:@"version"]];
+            [result writeToFile:temp atomically:YES];
+            
+            // Create folder to unzip contents to
+            NSString *unzipDir = [NSString stringWithFormat:@"/tmp/macenhance_extracted/%@_%@", [item objectForKey:@"package"], [item objectForKey:@"version"]];
+            BOOL isDir;
+            if(![FileManager fileExistsAtPath:unzipDir isDirectory:&isDir])
+                if(![FileManager createDirectoryAtPath:unzipDir withIntermediateDirectories:YES attributes:nil error:NULL])
+                    NSLog(@"Error: Create folder failed %@", unzipDir);
+            
+            // Unzip download
+            NSTask *task = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/unzip" arguments:@[@"-o", temp, @"-d", unzipDir]];
+            [task waitUntilExit];
+            if ([task terminationStatus] == 0) {
+                // presumably the only case where we've successfully installed
+                // ???
+                //                success = true;
+            }
+            
+            // Try to install the contents
+            [PluginManager folderinstall:unzipDir];
+            
+            // Update the installed plugins list
+            [self readPlugins:nil];
+        }
+        
+        //This is your completion handler
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+        });
+    });
+    
+    return success;
+}
+
+// Try to update or install a plugin given a bundle plist and a repo
 - (Boolean)pluginUpdateOrInstall:(NSDictionary *)item :(NSString *)repo {
     Boolean success = false;
     
@@ -419,7 +474,7 @@
                 result = [[NSImage alloc] initWithContentsOfFile:@"/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/GroupIcon.icns"];
                 if (result) return result;
             }
-
+            
             // Not sure what I'm doing here 🤷‍♂️
             result = [Workspace iconForFile:iconPath];
 //            NSData *imgDataOne = [result TIFFRepresentation];

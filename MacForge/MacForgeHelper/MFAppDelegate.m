@@ -24,8 +24,46 @@
 
 @implementation MFAppDelegate
 
+void HandleExceptions(NSException *exception) {
+    NSLog(@"The app has encountered an unhandled exception: %@", [exception debugDescription]);
+    // Save application data on crash
+    NSAlert* alert = [[NSAlert alloc] init];
+    [alert setMessageText:exception.name];
+    [alert setInformativeText:exception.reason];
+    [alert setAlertStyle:NSAlertStyleWarning];
+    [alert runModal];
+}
+
+//- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
+//    NSAlert *alert = [[NSAlert alloc] init];
+//    [alert setMessageText:@"Are you sure you want to quit? If you do plugins will no longer be loaded into Applications."];
+//    [alert addButtonWithTitle:@"Cancel"];
+//    [alert addButtonWithTitle:@"OK"];
+//
+////    NSTextField *input = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 200, 24)];
+////    [input setStringValue:@"Yolo!"];
+////    [alert setAccessoryView:input];
+//
+//    NSInteger button = [alert runModal];
+//    NSApplicationTerminateReply terminator = NSTerminateNow;
+//    if (button == NSAlertFirstButtonReturn) {
+//        terminator = NSTerminateCancel;
+////        [input validateEditing];
+//    } else if (button == NSAlertSecondButtonReturn) {
+//    } else {
+//    }
+//
+//    return terminator;
+//}
+
+// Cleanup
+- (void)applicationWillTerminate:(NSNotification *)aNotification {
+    // Insert code here to tear down your application
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     NSError *error;
+    NSSetUncaughtExceptionHandler(&HandleExceptions);
     
 //    [MFInstaller install:&error];
     
@@ -194,8 +232,8 @@
     [stackMenu addItem:NSMenuItem.separatorItem];
     [self addMenuItemToMenu:stackMenu :@"Open at Login" :@selector(toggleStartAtLogin:) :@""];
     [[stackMenu itemAtIndex:3] setState:NSBundle.mainBundle.isLoginItemEnabled];
-    [self addMenuItemToMenu:stackMenu :@"Show menubar item" :@selector(sendFeedback) :@""];
-    [[stackMenu itemAtIndex:4] setState:NSBundle.mainBundle.isLoginItemEnabled];
+//    [self addMenuItemToMenu:stackMenu :@"Show menubar item" :@selector(sendFeedback) :@""];
+//    [[stackMenu itemAtIndex:4] setState:NSBundle.mainBundle.isLoginItemEnabled];
     [stackMenu addItem:NSMenuItem.separatorItem];
     [self addMenuItemToMenu:stackMenu :@"Open MacForge" :@selector(openMacPlus) :@""];
     [stackMenu addItem:NSMenuItem.separatorItem];
@@ -347,9 +385,20 @@
 // Close and offer to uninstall if main application is trashed while running
 + (void)abortMission {
     NSString *path=[NSHomeDirectory() stringByAppendingPathComponent:@".Trash"];
-//    NSLog(@"%@", [NSBundle mainBundle].bundlePath);
-    if ([[[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:nil] containsObject:@"MacForge.app"])
-        [NSApp terminate:nil];
+    
+    if ([[[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:nil] containsObject:@"MacForge.app"]) {
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert setMessageText:@"We noticed you threw MacForge in the Trash. Would you like to quit the helper and uninstall?"];
+        [alert addButtonWithTitle:@"Cancel"];
+        [alert addButtonWithTitle:@"OK"];
+        NSInteger button = [alert runModal];
+        if (button == NSAlertFirstButtonReturn) {
+            //        [input validateEditing];
+        } else if (button == NSAlertSecondButtonReturn) {
+            [NSApp terminate:nil];
+        } else {
+        }
+    }
 }
 
 // Setup Carbon Event handler to watch for application launches

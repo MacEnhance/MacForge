@@ -15,6 +15,7 @@
 @import Paddle;
 @import Sparkle;
 
+#import <SDWebImage/SDWebImage.h>
 #import "PluginManager.h"
 #import "FConvenience.h"
 #import "SGDirWatchdog.h"

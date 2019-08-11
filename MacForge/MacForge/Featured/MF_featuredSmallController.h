@@ -10,6 +10,7 @@
 #import "MSPlugin.h"
 #import "PluginManager.h"
 #import "MF_Purchase.h"
+#import <SDWebImage/SDWebImage.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

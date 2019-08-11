@@ -33,6 +33,9 @@
 		FB37B2CD21B229C4001191C2 /* MacForgeFix.m in Sources */ = {isa = PBXBuildFile; fileRef = FB37B2CB21B229C4001191C2 /* MacForgeFix.m */; };
 		FB4E5E8E22E25B5A00F0D90A /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB4E5E8D22E25B5A00F0D90A /* Sparkle.framework */; };
 		FB4E5E9222E25C0F00F0D90A /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FB4E5E8D22E25B5A00F0D90A /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FB5B2D0322FF8D26000FA9A4 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB5B2D0222FF8D26000FA9A4 /* SDWebImage.framework */; };
+		FB5B2D0422FF8D6C000FA9A4 /* SDWebImage.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FB5B2D0222FF8D26000FA9A4 /* SDWebImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FB5B2D0622FFA031000FA9A4 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = FB4E5E8D22E25B5A00F0D90A /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FB78E2A72139BE27002FFE2E /* MacForgeDockTile.docktileplugin in Copy Plugins */ = {isa = PBXBuildFile; fileRef = FBA6E90120F0299B00A12ACF /* MacForgeDockTile.docktileplugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FB917F9F213917400013D4E3 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = FB917F9E213917400013D4E3 /* icon.icns */; };
 		FB917FA1213917E10013D4E3 /* menu.icns in Resources */ = {isa = PBXBuildFile; fileRef = FB917FA0213917E00013D4E3 /* menu.icns */; };
@@ -191,12 +194,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		FB5B2D0522FFA020000FA9A4 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				FB5B2D0622FFA031000FA9A4 /* Sparkle.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FBA6E8D020F027AC00A12ACF /* Copy Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				FB5B2D0422FF8D6C000FA9A4 /* SDWebImage.framework in Copy Frameworks */,
 				FB4E5E9222E25C0F00F0D90A /* Sparkle.framework in Copy Frameworks */,
 				FB34DEE420F343A800EC1822 /* Paddle.framework in Copy Frameworks */,
 				FBA6E8D220F027B700A12ACF /* LetsMove.framework in Copy Frameworks */,
@@ -284,6 +298,7 @@
 		FB37B2CB21B229C4001191C2 /* MacForgeFix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MacForgeFix.m; sourceTree = "<group>"; };
 		FB37B2CC21B229C4001191C2 /* MacForgeFix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacForgeFix.h; sourceTree = "<group>"; };
 		FB4E5E8D22E25B5A00F0D90A /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
+		FB5B2D0222FF8D26000FA9A4 /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDWebImage.framework; sourceTree = "<group>"; };
 		FB917F9E213917400013D4E3 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		FB917FA0213917E00013D4E3 /* menu.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = menu.icns; sourceTree = "<group>"; };
 		FBA6E88520F0176B00A12ACF /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -428,6 +443,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB5B2D0322FF8D26000FA9A4 /* SDWebImage.framework in Frameworks */,
 				FB34DEE320F342F400EC1822 /* Paddle.framework in Frameworks */,
 				FB4E5E8E22E25B5A00F0D90A /* Sparkle.framework in Frameworks */,
 				FBA6E88E20F0182500A12ACF /* LetsMove.framework in Frameworks */,
@@ -584,6 +600,7 @@
 		FBA6E88A20F017A400A12ACF /* External Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FB5B2D0222FF8D26000FA9A4 /* SDWebImage.framework */,
 				FB4E5E8D22E25B5A00F0D90A /* Sparkle.framework */,
 				FB34DEE220F342F400EC1822 /* Paddle.framework */,
 				FBA6E88D20F0182500A12ACF /* LetsMove.framework */,
@@ -841,6 +858,7 @@
 			buildPhases = (
 				F0ADE0F2166DF941009758CC /* Sources */,
 				F0ADE0F3166DF941009758CC /* Frameworks */,
+				FB5B2D0522FFA020000FA9A4 /* CopyFiles */,
 				F0ADE0F4166DF941009758CC /* Resources */,
 				F0ADE15F166DFC2D009758CC /* CopyFiles */,
 				FBB6D14822FE3E9B003A5B71 /* CopyFiles */,
@@ -1409,12 +1427,12 @@
 				DEVELOPMENT_TEAM = EX596BNL45;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/External\\ Frameworks",
+					"\"$(PROJECT_DIR)/External Frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MacForgeHelper/MacForge-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/MacForgeHelper/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../../Frameworks $(PROJECT_DIR)/\"External Frameworks\"";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacForgeHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1434,12 +1452,12 @@
 				DEVELOPMENT_TEAM = EX596BNL45;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/External\\ Frameworks",
+					"\"$(PROJECT_DIR)/External Frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MacForgeHelper/MacForge-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/MacForgeHelper/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../../Frameworks $(PROJECT_DIR)/\"External Frameworks\"";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacForgeHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1842,8 +1860,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/External\\ Frameworks",
-					"$(PROJECT_DIR)/External\\ Frameworks",
-					"$(PROJECT_DIR)/External\\ Frameworks",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -1879,8 +1895,6 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/External\\ Frameworks",
-					"$(PROJECT_DIR)/External\\ Frameworks",
 					"$(PROJECT_DIR)/External\\ Frameworks",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;

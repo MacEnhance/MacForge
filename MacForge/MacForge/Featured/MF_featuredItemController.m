@@ -33,43 +33,41 @@
     plug = plugin;
     self.bundleName.stringValue = plugin.webName;
     self.bundleDesc.stringValue = plugin.webDescription;
-//    self.bundleButton.image     = [PluginManager pluginGetIcon:plugin.webPlist];
+    self.bundleBanner.animates = YES;
+    self.bundleBanner.canDrawSubviewsIntoLayer = YES;
+    [self.bundleBanner.superview setWantsLayer:YES];
     
     dispatch_queue_t backgroundQueue0 = dispatch_queue_create("com.w0lf.MacForge", 0);
     dispatch_async(backgroundQueue0, ^{
         NSImage *icon = [PluginManager pluginGetIcon:plugin.webPlist];
         NSString *iconpath = [plugin.webPlist objectForKey:@"icon"];
-//        NSString *imgurl = [NSString stringWithFormat:@"https://github.com/w0lfschild/myRepo/raw/master/featuredRepo%@?%@", iconpath, [[NSProcessInfo processInfo] globallyUniqueString]];
-        NSString *imgurl = [NSString stringWithFormat:@"https://github.com/w0lfschild/myRepo/raw/master/featuredRepo%@", iconpath];
+        NSString *banpath = [plugin.webPlist objectForKey:@"banner"];
 
-        if (iconpath)
-            icon = [[NSImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imgurl]]];
+        NSString *imgurl = [NSString stringWithFormat:@"https://github.com/w0lfschild/myRepo/raw/master/featuredRepo%@", iconpath];
+        NSString *banurl = [NSString stringWithFormat:@"https://github.com/w0lfschild/myRepo/raw/master/featuredRepo%@", banpath];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.bundleButton.image = icon;
-        });
-    });
-    
-    self.bundleBanner.animates = YES;
-//    self.bundleBanner.image = [NSImage imageNamed:@"loading_mini.gif"];
-    self.bundleBanner.canDrawSubviewsIntoLayer = YES;
-    [self.bundleBanner.superview setWantsLayer:YES];
-    self.bundleBanner.imageAlignment = NSImageAlignTop;
-    
-    dispatch_queue_t backgroundQueue = dispatch_queue_create("com.w0lf.MacForge", 0);
-    dispatch_async(backgroundQueue, ^{
-        NSImage *sourceIcon = [[NSImage alloc] init];
-//        NSURL* url1 = [NSURL URLWithString:[NSString stringWithFormat:@"https://i.imgflip.com/2ect6i.gif?%@", [[NSProcessInfo processInfo] globallyUniqueString]]];
-//        NSURL* url1 = [NSURL URLWithString:[NSString stringWithFormat:@"https://i.imgflip.com/2ect6i.gif"]];
-//        NSImage *icon = [[NSImage alloc] initWithData:[[NSData alloc] initWithContentsOfURL: url1]];
-//        sourceIcon = icon;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.bundleBanner.image = sourceIcon;
+            if (iconpath) {
+                self.bundleButton.sd_imageIndicator = SDWebImageActivityIndicator.grayIndicator;
+                self.bundleButton.sd_imageIndicator = SDWebImageProgressIndicator.defaultIndicator;
+                [self.bundleButton sd_setImageWithURL:[NSURL URLWithString:imgurl]
+                                     placeholderImage:[UIImage imageNamed:NSImageNameApplicationIcon]];
+            } else {
+                self.bundleButton.image = icon;
+            }
+            
+            if (banpath) {
+                self.bundleBanner.sd_imageIndicator = SDWebImageActivityIndicator.grayIndicator;
+                self.bundleBanner.sd_imageIndicator = SDWebImageProgressIndicator.defaultIndicator;
+                [self.bundleBanner sd_setImageWithURL:[NSURL URLWithString:banurl]
+                                     placeholderImage:nil];
+            } else {
+                self.bundleBanner.image = nil;
+            }
         });
     });
     
     [MF_Purchase checkStatus:plugin :self.bundleGet];
-//    self.bundleBanner.image     = [NSImage imageNamed:@"bg02"];
-//    self.bundleGet = plugin.webName;
 }
 
 
