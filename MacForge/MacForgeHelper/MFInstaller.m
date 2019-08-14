@@ -32,6 +32,8 @@ NSString *const MFInstallerExecutablLabel = @"com.w0lf.MacForge.Installer";
         result = true;
     else
         result = false;
+    if (![[NSFileManager defaultManager] isWritableFileAtPath:@"/Library/Application Support/MacEnhance/Plugins"])
+        result = false;
     return result;
 }
 

@@ -46,16 +46,21 @@ NSString *const MFFrameworkDstPath = @"/Library/Frameworks/mach_inject_bundle.fr
     
     NSError *fileError;
     BOOL result = YES;
-    
+        
     NSDictionary *attrib = [NSDictionary dictionaryWithObjectsAndKeys:
+                            [NSNumber numberWithInt:0777], NSFilePosixPermissions,
                             [NSNumber numberWithInt:0], NSFileGroupOwnerAccountID,
-                            [NSNumber numberWithInt:0], NSFileOwnerAccountID,
-                            @"root", NSFileGroupOwnerAccountName,
-                            @"root", NSFileOwnerAccountName, nil ];
+                            [NSNumber numberWithInt:0], NSFileOwnerAccountID, nil];
+//                            @"root", NSFileGroupOwnerAccountName,
+//                            @"root", NSFileOwnerAccountName, nil ];
     
     result = [[NSFileManager defaultManager] createDirectoryAtPath:@"/Library/Application Support/MacEnhance/Plugins" withIntermediateDirectories:true attributes:attrib error:&fileError];
     result = [[NSFileManager defaultManager] createDirectoryAtPath:@"/Library/Application Support/MacEnhance/Plugins (Disabled)" withIntermediateDirectories:true attributes:attrib error:&fileError];
     result = [[NSFileManager defaultManager] createDirectoryAtPath:@"/Library/Application Support/MacEnhance/Themes" withIntermediateDirectories:true attributes:attrib error:&fileError];
+    
+    [[NSFileManager defaultManager] setAttributes:@{ NSFilePosixPermissions : @0777 } ofItemAtPath:@"/Library/Application Support/MacEnhance/Plugins" error:&fileError];
+    [[NSFileManager defaultManager] setAttributes:@{ NSFilePosixPermissions : @0777 } ofItemAtPath:@"/Library/Application Support/MacEnhance/Plugins (Disabled)" error:&fileError];
+    [[NSFileManager defaultManager] setAttributes:@{ NSFilePosixPermissions : @0777 } ofItemAtPath:@"/Library/Application Support/MacEnhance/Themes" error:&fileError];
     
     if (result == NO) {
         _error = fileError;

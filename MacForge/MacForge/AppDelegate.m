@@ -6,6 +6,8 @@
 //  Copyright © 2016 Wolfgang Baird. All rights reserved.
 //
 
+#import <MacForgeKit/MFKSipView.h>
+
 #import "AppDelegate.h"
 
 AppDelegate* myDelegate;
@@ -347,6 +349,21 @@ Boolean paddleQuit = false;
 - (void)setupWindow {
     [_window setTitle:@""];
     [_window setMovableByWindowBackground:YES];
+    
+//    NSLog(@"%@",[FileManager attributesOfItemAtPath:@"/Library/Application Support/MacEnhance/Plugins" error:nil]);
+    
+//    NSBundle *b = [NSBundle bundleForClass:NSClassFromString(@"MFKSipView")];
+//    MFKSipView *p = [[MFKSipView alloc] initWithNibName:@"MFKSipView" bundle:b];
+////    NSView *view = [[NSView alloc] initWithFrame:NSMakeRect(100, 100, 300, 300)];
+////    NSView *v = [[MF_featuredItemController alloc] initWithNibName:0 bundle:nil];
+////
+//////    NSView *view = self.view;
+//    NSView *view = p.view;
+//    NSWindow *windowSheet = [[NSWindow alloc] initWithContentRect:[view frame] styleMask:NSTitledWindowMask backing:NSBackingStoreBuffered defer:YES];
+//    [windowSheet setContentView:view];
+//    [_window beginSheet:windowSheet completionHandler:^(NSModalResponse returnCode) {
+//
+//    }];
     
     if (osx_ver > 9) {
         [_window setTitlebarAppearsTransparent:true];

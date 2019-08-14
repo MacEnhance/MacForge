@@ -1,0 +1,13 @@
+New security features introduced in macOS Mojave prevent <appname> from functioning properly.
+
+<appname> has determined that System Integrity Protection is enabled on your system.
+
+In order get the full features of <appname> you must partially disable System Integrity Protection.
+
+Follow the instructions below to partially disable System Integrity Protection:
+
+1 : Restart your computer
+2 : Boot to recovery partition by holding (Command [⌘] +  R)
+3 : Open terminal from the menubar
+4 : Enter this command: csrutil enable --without debug --without fs; reboot
+5 : Press return

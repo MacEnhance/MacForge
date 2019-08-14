@@ -105,7 +105,7 @@ void HandleExceptions(NSException *exception) {
 
 - (void)setupApplication {
     [self setupMenuItem];
-    
+        
     // Start a timer to do daily plugin checks 86400 seconds in a day
     [NSTimer scheduledTimerWithTimeInterval:86400 target:self selector:@selector(checkForPluginUpdates) userInfo:nil repeats:NO];
     
