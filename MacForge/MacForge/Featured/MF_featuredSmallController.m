@@ -38,6 +38,17 @@
     [self.bundleBanner.superview setWantsLayer:YES];
     self.bundleBanner.imageAlignment = NSImageAlignTop;
     
+    _bundleGet.backgroundNormalColor = NSColor.whiteColor;
+    _bundleGet.backgroundHighlightColor = NSColor.whiteColor;
+    _bundleGet.backgroundDisabledColor = NSColor.grayColor;
+    _bundleGet.titleNormalColor = [NSColor colorWithRed:0.4 green:0.6 blue:1 alpha:1];
+    _bundleGet.titleHighlightColor = [NSColor colorWithRed:0.4 green:0.6 blue:1 alpha:1];
+    _bundleGet.titleDisabledColor = NSColor.whiteColor;
+    _bundleGet.cornerRadius = _bundleGet.frame.size.height/2;
+    _bundleGet.spacing = 0.1;
+    _bundleGet.borderWidth = 0;
+    _bundleGet.momentary = true;
+    
     dispatch_queue_t backgroundQueue0 = dispatch_queue_create("com.w0lf.MacForge", 0);
     dispatch_async(backgroundQueue0, ^{
         NSImage *icon = [PluginManager pluginGetIcon:plugin.webPlist];
@@ -74,7 +85,7 @@
 
 
 - (IBAction)getOrOpen:(id)sender {
-    [MF_Purchase pushthebutton:plug :sender :@"https://github.com/w0lfschild/myRepo/raw/master/featuredRepo"];
+    [MF_Purchase pushthebutton:plug :sender :@"https://github.com/w0lfschild/myRepo/raw/master/featuredRepo" :_bundleProgress];
 }
 
 - (IBAction)moreInfo:(id)sender {

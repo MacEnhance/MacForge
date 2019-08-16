@@ -8,6 +8,8 @@
 
 #import "MF_featuredItemController.h"
 
+extern AppDelegate *myDelegate;
+
 @interface MF_featuredItemController ()
 
 @end
@@ -36,6 +38,28 @@
     self.bundleBanner.animates = YES;
     self.bundleBanner.canDrawSubviewsIntoLayer = YES;
     [self.bundleBanner.superview setWantsLayer:YES];
+    
+    _bundleGet.backgroundNormalColor = NSColor.whiteColor;
+    _bundleGet.backgroundHighlightColor = NSColor.whiteColor;
+    _bundleGet.backgroundDisabledColor = NSColor.grayColor;
+    _bundleGet.titleNormalColor = [NSColor colorWithRed:0.4 green:0.6 blue:1 alpha:1];
+    _bundleGet.titleHighlightColor = [NSColor colorWithRed:0.4 green:0.6 blue:1 alpha:1];
+    _bundleGet.titleDisabledColor = NSColor.whiteColor;
+    _bundleGet.cornerRadius = _bundleGet.frame.size.height/2;
+    _bundleGet.spacing = 0.1;
+    _bundleGet.borderWidth = 0;
+    _bundleGet.momentary = true;
+
+//    [self.bundleGet setBordered:false];
+//    [self.bundleGet setWantsLayer:true];
+//    [self.bundleGet setFrameSize:NSMakeSize(65, 22)];
+//    [self.bundleGet.layer setCornerRadius:self.bundleGet.layer.frame.size.height/2];
+//    [self.bundleGet.layer setBackgroundColor:[NSColor whiteColor].CGColor];
+//    NSColor *color = [NSColor colorWithRed:0.4 green:0.6 blue:1 alpha:1];
+//    NSMutableAttributedString *colorTitle = [[NSMutableAttributedString alloc] initWithAttributedString:[self.bundleGet attributedTitle]];
+//    NSRange titleRange = NSMakeRange(0, [colorTitle length]);
+//    [colorTitle addAttribute:NSForegroundColorAttributeName value:color range:titleRange];
+//    [self.bundleGet setAttributedTitle:colorTitle];
     
     dispatch_queue_t backgroundQueue0 = dispatch_queue_create("com.w0lf.MacForge", 0);
     dispatch_async(backgroundQueue0, ^{
@@ -72,12 +96,30 @@
 
 
 - (IBAction)getOrOpen:(id)sender {
-    [MF_Purchase pushthebutton:plug :sender :@"https://github.com/w0lfschild/myRepo/raw/master/featuredRepo"];
+    [MF_Purchase pushthebutton:plug :sender :@"https://github.com/w0lfschild/myRepo/raw/master/featuredRepo" :_bundleProgress];
+//    
 }
 
 - (IBAction)moreInfo:(id)sender {
 //    NSLog(@"%@", plug.webPlist);
-    NSLog(@"check");
+//    NSLog(@"check %@", myDelegate.sourcesBundle);
+//    [[myDelegate.sourcesRoot animator] replaceSubview:[myDelegate.sourcesRoot.subviews objectAtIndex:0] with:myDelegate.sourcesBundle];
+    
+//    NSLog(@"%@", plug.webPlist);
+    
+    pluginData.sharedInstance.currentPlugin = plug;
+    plug.webRepository = @"https://github.com/w0lfschild/myRepo/raw/master/featuredRepo";
+    NSView *v = myDelegate.sourcesBundle;
+    dispatch_async(dispatch_get_main_queue(), ^(void){
+        //                [v.layer setBackgroundColor:[NSColor redColor].CGColor];
+        [v setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
+        [v setFrame:myDelegate.tabMain.frame];
+        [v setFrameOrigin:NSMakePoint(0, 0)];
+        [v setTranslatesAutoresizingMaskIntoConstraints:true];
+        [myDelegate.tabMain setSubviews:[NSArray arrayWithObject:v]];
+    });
+    
+//    [self.view.superview setSubviews:[NSArray arrayWithObjects:myDelegate.sourcesBundle, nil]];
 }
 
 @end

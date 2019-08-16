@@ -20,10 +20,30 @@
     return pData;
 }
 
-//- (instancetype)init {
-//    if (self = [super init]) { }
-//    return self;
-//}
+// Download starting
+- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveResponse:(NSURLResponse *)response completionHandler:(void (^)(NSURLSessionResponseDisposition disposition))completionHandler {
+    completionHandler(NSURLSessionResponseAllow);
+    if (progressObject)
+        progressObject.doubleValue = 0.0f;
+    _downloadSize=[response expectedContentLength];
+    _dataToDownload=[[NSMutableData alloc]init];
+}
+
+// Download update progress
+- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data {
+    [_dataToDownload appendData:data];
+    double progress = [ _dataToDownload length ]/_downloadSize;
+//    NSLog(@"Bytes received - %f", [ _dataToDownload length ]/_downloadSize);
+
+    if (progressObject)
+        progressObject.doubleValue = progress * 100;
+    
+    if (downloadButton)
+        downloadButton.title = @"";
+    
+    if (progress == 1.0)
+        [self pluginDownloaded:_dataToDownload];
+}
 
 + (NSArray*)MacEnhancePluginPaths {
     NSArray* libDomain = [FileManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSLocalDomainMask];
@@ -246,58 +266,79 @@
 }
 
 // Try to update or install a plugin given a bundle plist and a repo
-- (Boolean)pluginUpdateOrInstallWithProgress:(NSDictionary *)item :(NSString *)repo :(NSButton *)button {
-    Boolean success = false;
+- (Boolean)pluginUpdateOrInstallWithProgress:(NSDictionary *)item :(NSString *)repo :(NSButton *)button :(NSProgressIndicator *)progress {
+    if (progress) {
+        progressObject = progress;
+        progressObject.hidden = false;
+        progressObject.doubleValue = 0;
+    }
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        // Get installation URL
-        NSURL *installURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", repo, [item objectForKey:@"filename"]]];
+    if (button) {
+        downloadButton = button;
+        downloadButton.enabled = false;
+        downloadButton.title = @"";
         
-        // SynchronousRequest to grab the data
-        NSURLRequest *request = [NSURLRequest requestWithURL:installURL];
-        NSError *error;
-        NSURLResponse *response;
-        
-        // Try to download file
-        NSData *result = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-        if (!result) {
-            // Download failed
-            NSLog(@"Error : %@", error);
-        } else {
-            // Downloaded zip file
-            NSString *temp = [NSString stringWithFormat:@"/tmp/%@_%@", [item objectForKey:@"package"], [item objectForKey:@"version"]];
-            [result writeToFile:temp atomically:YES];
-            
-            // Create folder to unzip contents to
-            NSString *unzipDir = [NSString stringWithFormat:@"/tmp/macenhance_extracted/%@_%@", [item objectForKey:@"package"], [item objectForKey:@"version"]];
-            BOOL isDir;
-            if(![FileManager fileExistsAtPath:unzipDir isDirectory:&isDir])
-                if(![FileManager createDirectoryAtPath:unzipDir withIntermediateDirectories:YES attributes:nil error:NULL])
-                    NSLog(@"Error: Create folder failed %@", unzipDir);
-            
-            // Unzip download
-            NSTask *task = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/unzip" arguments:@[@"-o", temp, @"-d", unzipDir]];
-            [task waitUntilExit];
-            if ([task terminationStatus] == 0) {
-                // presumably the only case where we've successfully installed
-                // ???
-                //                success = true;
-            }
-            
-            // Try to install the contents
-            [PluginManager folderinstall:unzipDir];
-            
-            // Update the installed plugins list
-            [self readPlugins:nil];
-        }
-        
-        //This is your completion handler
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            
-        });
-    });
+        if (progressObject)
+            [progressObject setFrameOrigin:CGPointMake(downloadButton.frame.origin.x + downloadButton.frame.size.width/2 - progressObject.frame.size.width/2, downloadButton.frame.origin.y + downloadButton.frame.size.height/2 - progressObject.frame.size.height/2)];
+
+//            [progressObject setFrameOrigin:CGPointMake(downloadButton.frame.origin.x + downloadButton.frame.size.width + 10, downloadButton.frame.origin.y + downloadButton.frame.size.height/2 - progressObject.frame.size.height/2)];
+    }
+    
+    _plugin = item;
+    Boolean success = false;
+
+    // 1
+    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration:defaultConfigObject delegate:self delegateQueue:[NSOperationQueue mainQueue]];
+    NSURL *dataUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", repo, [item objectForKey:@"filename"]]];
+
+    // 2
+    NSURLSessionDataTask *dataTask = [defaultSession dataTaskWithURL: dataUrl];
+
+    // 3
+    [dataTask resume];
     
     return success;
+}
+
+- (Boolean)pluginDownloaded:(NSData*)data {
+    if (progressObject) {
+        progressObject.hidden = true;
+        progressObject.doubleValue = 0;
+    }
+    
+    // Downloaded zip file
+    NSString *temp = [NSString stringWithFormat:@"/tmp/%@_%@", [_plugin objectForKey:@"package"], [_plugin objectForKey:@"version"]];
+    [data writeToFile:temp atomically:YES];
+    
+    // Create folder to unzip contents to
+    NSString *unzipDir = [NSString stringWithFormat:@"/tmp/macenhance_extracted/%@_%@", [_plugin objectForKey:@"package"], [_plugin objectForKey:@"version"]];
+    BOOL isDir;
+    if(![FileManager fileExistsAtPath:unzipDir isDirectory:&isDir])
+        if(![FileManager createDirectoryAtPath:unzipDir withIntermediateDirectories:YES attributes:nil error:NULL])
+            NSLog(@"Error: Create folder failed %@", unzipDir);
+    
+    // Unzip download
+    NSTask *task = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/unzip" arguments:@[@"-o", temp, @"-d", unzipDir]];
+    [task waitUntilExit];
+    if ([task terminationStatus] == 0) {
+        // presumably the only case where we've successfully installed
+        // ???
+        //                success = true;
+    }
+    
+    // Try to install the contents
+    [PluginManager folderinstall:unzipDir];
+    
+    if (downloadButton) {
+        downloadButton.enabled = true;
+        downloadButton.title = @"OPEN";
+    }
+    
+    // Update the installed plugins list
+    [self readPlugins:nil];
+    
+    return true;
 }
 
 // Try to update or install a plugin given a bundle plist and a repo

@@ -6,8 +6,6 @@
 //  Copyright © 2016 Wolfgang Baird. All rights reserved.
 //
 
-#import <MacForgeKit/MFKSipView.h>
-
 #import "AppDelegate.h"
 
 AppDelegate* myDelegate;
@@ -43,6 +41,111 @@ NSArray *tabViewButtons;
 NSArray *tabViews;
 
 Boolean paddleQuit = false;
+
+- (IBAction)fireBaseLogin:(id)sender {
+    FIRUser *user = [FIRAuth auth].currentUser;
+    
+    FIRUserProfileChangeRequest *changeRequest = [[FIRAuth auth].currentUser profileChangeRequest];
+    changeRequest.photoURL = [NSURL URLWithString:@"https://avatars3.githubusercontent.com/u/1920148?s=460&v=4"];
+    changeRequest.displayName = _loginUsername.stringValue;
+    [changeRequest commitChangesWithCompletion:^(NSError *_Nullable error) {
+        NSLog(@"%@", error);
+        // ...
+    }];
+    
+    // [END get_user_profile]
+    // [START user_profile]
+    if (user) {
+        // The user's ID, unique to the Firebase project.
+        // Do NOT use this value to authenticate with your backend server,
+        // if you have one. Use getTokenWithCompletion:completion: instead.
+//        NSString *uid = user.uid;
+        NSString *email = user.email;
+        NSURL *photoURL = user.photoURL;
+        NSString *displayName = user.displayName;
+        // [START_EXCLUDE]
+        _loginEmail.stringValue = email;
+        if (displayName)
+            _viewAccount.title = [NSString stringWithFormat:@"                    %@", displayName];
+        else
+            _viewAccount.title = [NSString stringWithFormat:@"                    %@", [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].fullName];
+//        _password.stringValue =
+        
+        static NSURL *lastPhotoURL = nil;
+        lastPhotoURL = photoURL;  // to prevent earlier image overwrites later one.
+        if (photoURL) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^() {
+                NSImage *image = [NSImage sd_imageWithData:[NSData dataWithContentsOfURL:photoURL]];
+                dispatch_async(dispatch_get_main_queue(), ^() {
+                    if (photoURL == lastPhotoURL) {
+                        self->_imgAccount.image = image;
+                    }
+                });
+            });
+        } else {
+            _imgAccount.image = [NSImage imageNamed:@"ic_account_circle"];
+        }
+        // [END_EXCLUDE]
+    } else {
+        [[FIRAuth auth] signInWithEmail:_loginEmail.stringValue
+                               password:_loginPassword.stringValue
+                             completion:^(FIRAuthDataResult * _Nullable authResult,
+                                          NSError * _Nullable error) {
+                                 NSLog(@"%@", error);
+                             }];
+        
+//        FIRUserProfileChangeRequest *changeRequest = [[FIRAuth auth].currentUser profileChangeRequest];
+//        changeRequest.photoURL = [NSURL URLWithString:@"https://avatars3.githubusercontent.com/u/1920148?s=460&v=4"];
+//        [changeRequest commitChangesWithCompletion:^(NSError *_Nullable error) {
+//            NSLog(@"%@", error);
+//            // ...
+//        }];
+    }
+}
+
+- (void)fireBaseSetup {
+    self.ref = [[FIRDatabase database] reference];
+    
+    FIRUser *user = [FIRAuth auth].currentUser;
+    
+    NSLog(@"%@", [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].fullName);
+    
+    // [END get_user_profile]
+    // [START user_profile]
+    if (user) {
+        // The user's ID, unique to the Firebase project.
+        // Do NOT use this value to authenticate with your backend server,
+        // if you have one. Use getTokenWithCompletion:completion: instead.
+        NSString *uid = user.uid;
+        NSString *email = user.email;
+        NSURL *photoURL = user.photoURL;
+        NSString *displayName = user.displayName;
+
+        _loginUID.stringValue = uid;
+        _loginEmail.stringValue = email;
+        if (displayName) {
+            _loginUsername.stringValue = displayName;
+            _viewAccount.title = [NSString stringWithFormat:@"                    %@", displayName];
+        } else {
+            _viewAccount.title = [NSString stringWithFormat:@"                    %@", [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].fullName];
+        }
+        
+        static NSURL *lastPhotoURL = nil;
+        lastPhotoURL = photoURL;  // to prevent earlier image overwrites later one.
+        if (photoURL) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^() {
+                NSImage *image = [NSImage sd_imageWithData:[NSData dataWithContentsOfURL:photoURL]];
+                dispatch_async(dispatch_get_main_queue(), ^() {
+                    if (photoURL == lastPhotoURL) {
+                        self->_imgAccount.image = image;
+                    }
+                });
+            });
+        } else {
+            _imgAccount.image = [NSImage imageNamed:@"ic_account_circle"];
+        }
+    }
+}
 
 // Shared instance
 + (AppDelegate*) sharedInstance {
@@ -134,7 +237,6 @@ Boolean paddleQuit = false;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 //    [DevMateKit sendTrackingReport:nil delegate:nil];
 //    [DevMateKit setupIssuesController:nil reportingUnhandledIssues:YES];
-
     [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(systemDarkModeChange:) name:@"AppleInterfaceThemeChangedNotification" object:nil];
     [[NSDistributedNotificationCenter defaultCenter] addObserverForName:@"com.w0lf.MacForgeNotify"
                                                                  object:nil
@@ -239,16 +341,11 @@ Boolean paddleQuit = false;
     [self executionTime:@"tabs_sideBar"];
     [self executionTime:@"setupWindow"];
     [self executionTime:@"setupPrefstab"];
-//    [self executionTime:@"helperSetup"];
     [self executionTime:@"addLoginItem"];
     [self executionTime:@"launchHelper"];
     
-//    [self updateAdButton];
-//    [self tabs_sideBar];
-//    [self setupWindow];
-//    [self setupPrefstab];
-//    [self addLoginItem];
-//    [self launchHelper];
+//    [FIRApp configure];
+//    [self executionTime:@"fireBaseSetup"];
     
     // Setup plugin table
     [_tblView registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
@@ -290,13 +387,12 @@ Boolean paddleQuit = false;
     return [[NSMutableDictionary alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] dictionaryRepresentation]];
 }
 
-
 // Setup sidebar
 - (void)tabs_sideBar {
     NSInteger height = 42;
     
-    tabViewButtons = [NSArray arrayWithObjects:_viewDiscover, _viewPlugins, _viewSources, _viewChanges, _viewSystem, _viewAccount, _viewAbout, _viewPreferences, nil];
-    NSArray *topButtons = [NSArray arrayWithObjects:_viewDiscover, _viewApps ,_viewPlugins, _viewSources, _viewChanges, _viewSystem, _viewAccount, _viewAbout, _viewPreferences, nil];
+    tabViewButtons = [NSArray arrayWithObjects:_viewDiscover, _viewPlugins, _viewSources, _viewChanges, _viewSystem, _viewAbout, _viewPreferences, _viewAccount, nil];
+    NSArray *topButtons = [NSArray arrayWithObjects:_viewDiscover, _viewApps, _viewPlugins, _viewSources, _viewChanges, _viewSystem, _viewAbout, _viewPreferences, nil];
     NSUInteger yLoc = _window.frame.size.height - 116 - height;
     for (NSButton *btn in topButtons) {
         if (btn.enabled) {
@@ -312,12 +408,23 @@ Boolean paddleQuit = false;
             btn.hidden = true;
         }
     }
-    
+        
     [_viewUpdateCounter setFrameOrigin:CGPointMake(_viewChanges.frame.origin.x + _viewChanges.frame.size.width * .6,
                                                    _viewChanges.frame.origin.y + _viewChanges.frame.size.height * .5 - _viewUpdateCounter.frame.size.height * .5)];
     
     for (NSButton *btn in tabViewButtons)
         [btn setAction:@selector(selectView:)];
+    
+    NSButton *btn = _viewAccount;
+    [btn setWantsLayer:YES];
+    [btn setTarget:self];
+    [btn setAction:@selector(selectView:)];
+    _imgAccount.image = [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].image;
+    _viewAccount.title = [NSString stringWithFormat:@"                    %@", [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].fullName];
+    [_imgAccount setWantsLayer: YES];
+    _imgAccount.layer.cornerRadius = _imgAccount.layer.frame.size.height/2;
+    _imgAccount.layer.masksToBounds = YES;
+    _imgAccount.animates = YES;
     
     NSArray *bottomButtons = [NSArray arrayWithObjects:_buttonDiscord, _buttonReddit, _buttonDonate, _buttonAdvert, _buttonFeedback, _buttonReport, nil];
     NSMutableArray *visibleButons = [[NSMutableArray alloc] init];
@@ -327,7 +434,7 @@ Boolean paddleQuit = false;
     bottomButtons = [visibleButons copy];
     
     height = 30;
-    yLoc = ([bottomButtons count] - 1) * (height - 1);
+    yLoc = ([bottomButtons count] - 1) * (height - 1) + 80;
     for (NSButton *btn in bottomButtons) {
         if (btn.enabled) {
             [btn setFont:[NSFont fontWithName:btn.font.fontName size:14]];
@@ -401,7 +508,7 @@ Boolean paddleQuit = false;
 //        [btn.layer setBackgroundColor:[NSColor colorWithCalibratedRed:0.438f green:0.121f blue:0.199f alpha:0.258f].CGColor];
 //    }
     
-    tabViews = [NSArray arrayWithObjects:_tabFeatured, _tabPlugins, _tabSources, _tabUpdates, _tabSystemInfo, _tabSources, _tabAbout, _tabPreferences, nil];
+    tabViews = [NSArray arrayWithObjects:_tabFeatured, _tabPlugins, _tabSources, _tabUpdates, _tabSystemInfo, _tabAbout, _tabPreferences, _tabAccount, nil];
     
     NSDictionary* infoDict = [[NSBundle mainBundle] infoDictionary];
     [_appVersion setStringValue:[NSString stringWithFormat:@"Version %@ (%@)",
@@ -705,7 +812,7 @@ Boolean paddleQuit = false;
 - (IBAction)aboutInfo:(id)sender {
     if ([sender isEqualTo:_showChanges]) {
         [_changeLog setEditable:true];
-        [_changeLog.textStorage setAttributedString:[[NSAttributedString alloc] initWithPath:[[NSBundle mainBundle] pathForResource:@"Changelog" ofType:@"rtf"] documentAttributes:nil]];
+        [_changeLog.textStorage setAttributedString:[[NSAttributedString alloc] initWithURL:[[NSBundle mainBundle] URLForResource:@"Changelog" withExtension:@"rtf"] options:@{NSDocumentTypeDocumentAttribute:NSRTFTextDocumentType} documentAttributes:nil error:nil]];
         [_changeLog selectAll:self];
         [_changeLog alignLeft:nil];
         [_changeLog setSelectedRange:NSMakeRange(0,0)];
@@ -713,7 +820,7 @@ Boolean paddleQuit = false;
     }
     if ([sender isEqualTo:_showCredits]) {
         [_changeLog setEditable:true];
-        [_changeLog.textStorage setAttributedString:[[NSAttributedString alloc] initWithPath:[[NSBundle mainBundle] pathForResource:@"Credits" ofType:@"rtf"] documentAttributes:nil]];
+        [_changeLog.textStorage setAttributedString:[[NSAttributedString alloc] initWithURL:[[NSBundle mainBundle] URLForResource:@"Credits" withExtension:@"rtf"] options:@{NSDocumentTypeDocumentAttribute:NSRTFTextDocumentType} documentAttributes:nil error:nil]];
         [_changeLog selectAll:self];
         [_changeLog alignCenter:nil];
         [_changeLog setSelectedRange:NSMakeRange(0,0)];
@@ -876,8 +983,8 @@ Boolean paddleQuit = false;
         primary = NSColor.lightGrayColor;
         secondary = NSColor.whiteColor;
         highlight = NSColor.whiteColor;
-        
     }
+    
     for (NSButton *g in tabViewButtons) {
         if (![g isEqualTo:sender]) {
             [[g layer] setBackgroundColor:[NSColor clearColor].CGColor];
@@ -1126,49 +1233,44 @@ Boolean paddleQuit = false;
     _lastAD = displayNum;
     
     // Check web for new ads
-    dispatch_queue_t queue = dispatch_queue_create("com.yourdomain.yourappname", NULL);
-    dispatch_async(queue, ^{
-        //code to be executed in the background
-        
-        NSURL *installURL = [NSURL URLWithString:@"https://github.com/w0lfschild/app_updates/raw/master/mySIMBL/ads.plist"];
-        NSURLRequest *request = [NSURLRequest requestWithURL:installURL];
-        NSError *error;
-        NSURLResponse *response;
-        NSData *result = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-        
-        if (!result) {
-            // Download failed
-            // NSLog(@"mySIMBL : Error");
-        } else {
-            NSPropertyListFormat format;
-            NSError *err;
-            NSArray *dict = (NSArray*)[NSPropertyListSerialization propertyListWithData:result
-                                                                                options:NSPropertyListMutableContainersAndLeaves
-                                                                                 format:&format
-                                                                                  error:&err];
-            // NSLog(@"mySIMBL : %@", dict);
-            if (dict) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    //code to be executed on the main thread when background task is finished
-                    
-                    NSInteger displayNum = (NSInteger)arc4random_uniform((int)[dict count]);
-                    NSDictionary *dic = [dict objectAtIndex:displayNum];
-                    NSString *name = [dic objectForKey:@"name"];
-                    name = [NSString stringWithFormat:@"    %@", name];
-                    NSString *url = [dic objectForKey:@"homepage"];
-                    
-                    [self->_buttonAdvert setTitle:name];
-                    if (url)
-                        self->_adURL = url;
-                    else
-                        self->_adURL = @"https://github.com/w0lfschild/MacForge";
-                    
-                    self->_adArray = dict;
-                    self->_lastAD = displayNum;
-                });
-            }
-        }
-    });
+
+    // 1
+    NSURL *dataUrl = [NSURL URLWithString:@"https://github.com/w0lfschild/app_updates/raw/master/mySIMBL/ads.plist"];
+    
+    // 2
+    NSURLSessionDataTask *downloadTask = [[NSURLSession sharedSession]
+                                          dataTaskWithURL:dataUrl completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                              // 4: Handle response here
+                                              NSPropertyListFormat format;
+                                              NSError *err;
+                                              NSArray *dict = (NSArray*)[NSPropertyListSerialization propertyListWithData:data
+                                                                                                                  options:NSPropertyListMutableContainersAndLeaves
+                                                                                                                   format:&format
+                                                                                                                    error:&err];
+                                              // NSLog(@"mySIMBL : %@", dict);
+                                              if (dict) {
+                                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                                      NSInteger displayNum = (NSInteger)arc4random_uniform((int)[dict count]);
+                                                      NSDictionary *dic = [dict objectAtIndex:displayNum];
+                                                      NSString *name = [dic objectForKey:@"name"];
+                                                      name = [NSString stringWithFormat:@"    %@", name];
+                                                      NSString *url = [dic objectForKey:@"homepage"];
+                                                      
+                                                      [self->_buttonAdvert setTitle:name];
+                                                      if (url)
+                                                          self->_adURL = url;
+                                                      else
+                                                          self->_adURL = @"https://github.com/w0lfschild/MacForge";
+                                                      
+                                                      self->_adArray = dict;
+                                                      self->_lastAD = displayNum;
+                                                  });
+                                              }
+                                              
+                                          }];
+    
+    // 3
+    [downloadTask resume];
 }
 
 - (Boolean)keypressed:(NSEvent *)theEvent {

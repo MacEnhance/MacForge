@@ -11,17 +11,20 @@
 #import "PluginManager.h"
 #import "AppDelegate.h"
 #import "pluginData.h"
+#import "SYFlatButton.h"
 
 @interface bundlePage : NSView
 
 // Bundle Display
 @property IBOutlet NSTextField*     bundleName;
-@property IBOutlet NSTextView*      bundleDesc;
+@property IBOutlet NSTextField*     bundleDesc;
 @property IBOutlet NSTextField*     bundleDescShort;
 @property IBOutlet NSImageView*     bundleImage;
 @property IBOutlet NSImageView*     bundlePreview1;
+@property IBOutlet NSImageView*     bundlePreview2;
 @property IBOutlet NSButton*        bundlePreviewNext;
 @property IBOutlet NSButton*        bundlePreviewPrev;
+@property IBOutlet NSButton*        bundleDev;
 
 // Bundle Infobox
 @property IBOutlet NSTextField*     bundleTarget;
@@ -30,11 +33,11 @@
 @property IBOutlet NSTextField*     bundlePrice;
 @property IBOutlet NSTextField*     bundleSize;
 @property IBOutlet NSTextField*     bundleID;
-@property IBOutlet NSTextField*     bundleDev;
 @property IBOutlet NSTextField*     bundleCompat;
 
 // Bundle Buttons
-@property IBOutlet NSButton*        bundleInstall;
+@property IBOutlet SYFlatButton*    bundleInstall;
+@property IBOutlet SYFlatButton*    bundleShare;
 @property IBOutlet NSButton*        bundleDelete;
 @property IBOutlet NSButton*        bundleContact;
 @property IBOutlet NSButton*        bundleDonate;
@@ -89,6 +92,24 @@ extern long selectedRow;
         [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(systemDarkModeChange:) name:@"AppleInterfaceThemeChangedNotification" object:nil];
     });
     
+    _bundleInstall.backgroundNormalColor = [NSColor colorWithRed:0.08 green:0.52 blue:1.0 alpha:1.0];
+    _bundleInstall.backgroundHighlightColor = [NSColor colorWithRed:0.08 green:0.52 blue:1.0 alpha:1.0];
+    _bundleInstall.backgroundDisabledColor = NSColor.grayColor;
+    _bundleInstall.titleNormalColor = NSColor.whiteColor;
+    _bundleInstall.titleHighlightColor = NSColor.grayColor;
+    _bundleInstall.titleDisabledColor = NSColor.whiteColor;
+    _bundleInstall.cornerRadius = _bundleInstall.frame.size.height/2;
+    _bundleInstall.borderWidth = 0;
+    _bundleInstall.momentary = true;
+    
+    _bundleShare.backgroundNormalColor = [NSColor colorWithRed:0.08 green:0.52 blue:1.0 alpha:1.0];
+    _bundleShare.backgroundHighlightColor = [NSColor grayColor];
+    _bundleShare.imageNormalColor = NSColor.whiteColor;
+    _bundleShare.imageHighlightColor = NSColor.whiteColor;
+    _bundleShare.cornerRadius = _bundleShare.frame.size.height/2;
+    _bundleShare.borderWidth = 0;
+    _bundleShare.momentary = true;
+    
     [self setWantsLayer:YES];
     self.layer.masksToBounds = YES;
     
@@ -97,7 +118,7 @@ extern long selectedRow;
     
     if (plugin != nil) {
         item = plugin.webPlist;
-        repoPackages = plugin.webRepository;
+        repoPackages = plugin.webRepository; 
     } else {
         if (![repoPackages isEqualToString:@""]) {
             
@@ -125,7 +146,7 @@ extern long selectedRow;
         }
         item = [[NSMutableDictionary alloc] initWithDictionary:[allPlugins objectAtIndex:selectedRow]];
     }
-    
+        
     NSString* newString;
     newString = [NSString stringWithFormat:@"%@", [item objectForKey:@"name"]];
     [self.bundleName setFont:[self calcFontSizeToFitRect:self.bundleName.frame :newString :self.bundleName.font.fontName]];
@@ -135,7 +156,8 @@ extern long selectedRow;
         _currentBundle = newString;
         
         newString = [NSString stringWithFormat:@"%@", [item objectForKey:@"description"]];
-        [[self.bundleDesc textStorage] setAttributedString:[[NSMutableAttributedString alloc] initWithString:newString]];
+        [self.bundleDesc setAttributedStringValue:[[NSMutableAttributedString alloc] initWithString:newString]];
+//        [[self.bundleDesc textStorage] setAttributedString:[[NSMutableAttributedString alloc] initWithString:newString]];
         [self systemDarkModeChange:nil];
         
         newString = [NSString stringWithFormat:@"%@", [item objectForKey:@"descriptionShort"]];
@@ -262,13 +284,14 @@ extern long selectedRow;
                 [self.bundleInstall setAction:@selector(installOrPurchase)];
             } else {
                 [self.bundleInstall setEnabled:true];
-                self.bundleInstall.title = @"Install";
+                self.bundleInstall.title = @"GET";
                 [self.bundleInstall setAction:@selector(pluginInstall)];
             }
         }
         
         self.bundlePreview1.animates = YES;
-        self.bundlePreview1.image = nil;
+        self.bundlePreview1.image = [NSImage imageNamed:NSImageNameBookmarksTemplate];
+        self.bundlePreview2.image = [NSImage imageNamed:NSImageNameBookmarksTemplate];
         
         self.bundlePreview1.canDrawSubviewsIntoLayer = YES;
         _bundlePreviewImages = @[[[NSImage alloc] init], [[NSImage alloc] init]];
@@ -286,7 +309,13 @@ extern long selectedRow;
             self.bundlePreview1.sd_imageIndicator = SDWebImageActivityIndicator.grayIndicator;
             self.bundlePreview1.sd_imageIndicator = SDWebImageProgressIndicator.defaultIndicator;
             
-            [self.bundlePreview1 sd_setImageWithURL:url2
+            self.bundlePreview2.sd_imageIndicator = SDWebImageActivityIndicator.grayIndicator;
+            self.bundlePreview2.sd_imageIndicator = SDWebImageProgressIndicator.defaultIndicator;
+            
+            [self.bundlePreview1 sd_setImageWithURL:url1
+                                   placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+            
+            [self.bundlePreview2 sd_setImageWithURL:url2
                                    placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
             
             
@@ -312,6 +341,14 @@ extern long selectedRow;
         self.bundleImage.image = [PluginManager pluginGetIcon:item];
         [self.bundleImage.cell setImageScaling:NSImageScaleProportionallyUpOrDown];
     }
+}
+
+- (IBAction)shareMe:(id)sender {
+    NSSharingServicePicker *sharingServicePicker = [[NSSharingServicePicker alloc] initWithItems:@[[NSURL URLWithString:@"https://www.macenhance.com/"]]];
+//    sharingServicePicker.delegate = [[NSSharingServicePicker alloc] delegate];
+    [sharingServicePicker showRelativeToRect:[sender bounds]
+                                      ofView:sender
+                               preferredEdge:NSMinYEdge];
 }
 
 - (IBAction)cyclePreviews:(id)sender {
@@ -354,8 +391,9 @@ extern long selectedRow;
         
         // Ask the Product to get it's latest state and info from the Paddle Platform:
         [paddleProduct refresh:^(NSDictionary * _Nullable productDelta, NSError * _Nullable error) {
+            [_bundleInstall setEnabled:true];
             if ([paddleProduct activated]) {
-                self.bundleInstall.title = @"Install";
+                self.bundleInstall.title = @"GET";
             } else {
                 self.bundleInstall.title = self.bundlePrice.stringValue;
             }
@@ -469,7 +507,7 @@ extern long selectedRow;
 - (void)pluginDelete {
     [PluginManager.sharedInstance pluginDelete:item];
     [PluginManager.sharedInstance readPlugins:nil];
-    [self.bundleInstall setTitle:@"Install"];
+    [self.bundleInstall setTitle:@"GET"];
     [self.bundleInstall setAction:@selector(installOrPurchase)];
     [self.bundleDelete setEnabled:false];
     [self viewWillDraw];

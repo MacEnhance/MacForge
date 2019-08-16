@@ -1,0 +1,48 @@
+# Uncomment the next line to define a global platform for your project
+platform :osx, '10.11'
+
+target 'com.w0lf.MacForge.Injector' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  # use_frameworks!
+  # Pods for com.w0lf.MacForge.Injector
+end
+
+target 'com.w0lf.MacForge.Installer' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  # use_frameworks!
+  # Pods for com.w0lf.MacForge.Installer
+end
+
+target 'MacForge' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+  pod 'FirebaseCore', :path => './firebase_sdk/'
+  pod 'FirebaseDatabase', :path => './firebase_sdk/'
+  pod 'FirebaseStorage', :path => './firebase_sdk/'
+  pod 'FirebaseAuth', :path => './firebase_sdk/'
+  # Pods for MacForge
+end
+
+target 'MacForgeDockTile' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  # use_frameworks!
+  # Pods for MacForgeDockTile
+end
+
+target 'MacForgeFix' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  # use_frameworks!
+  # Pods for MacForgeFix
+end
+
+target 'MacForgeHelper' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  # use_frameworks!
+  # Pods for MacForgeHelper
+end
+
+target 'MacForgeKit' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+  # Pods for MacForgeKit
+end

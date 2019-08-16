@@ -14,7 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MF_featuredTab : NSView
 
-
 @property MF_featuredItemController *largeFeature01;
 @property MF_featuredItemController *largeFeature02;
 

@@ -13,6 +13,7 @@
                 <outlet property="bundleDesc" destination="0Yp-nZ-k9V" id="qRE-QP-Xqr"/>
                 <outlet property="bundleGet" destination="nge-iR-pEF" id="h17-2u-n36"/>
                 <outlet property="bundleName" destination="J1f-hM-SWl" id="Le6-cl-Qb3"/>
+                <outlet property="bundleProgress" destination="lfg-1z-6mA" id="a6F-G1-AGJ"/>
                 <outlet property="view" destination="4Kh-Ja-uqt" id="cZE-g5-728"/>
             </connections>
         </customObject>
@@ -35,11 +36,11 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="moreInfo:" target="-2" id="znD-XR-3ab"/>
+                        <action selector="moreInfo:" target="-2" id="g7l-V4-EG1"/>
                     </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J1f-hM-SWl">
-                    <rect key="frame" x="180" y="158" width="366" height="17"/>
+                    <rect key="frame" x="187" y="158" width="366" height="17"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="App Name" id="Cj4-MT-5qN">
                         <font key="font" metaFont="system"/>
@@ -48,7 +49,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Yp-nZ-k9V">
-                    <rect key="frame" x="180" y="49" width="366" height="101"/>
+                    <rect key="frame" x="187" y="49" width="366" height="101"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                     <textFieldCell key="cell" truncatesLastVisibleLine="YES" title="App Desc" id="jDz-Dq-W7v">
                         <font key="font" metaFont="system"/>
@@ -56,19 +57,23 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nge-iR-pEF">
-                    <rect key="frame" x="176" y="13" width="112" height="32"/>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nge-iR-pEF" customClass="SYFlatButton">
+                    <rect key="frame" x="189" y="14" width="65" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <buttonCell key="cell" type="push" title="Get" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hr1-wp-XSE">
+                    <buttonCell key="cell" type="square" title="GET" bezelStyle="shadowlessSquare" alignment="center" imageScaling="proportionallyDown" inset="2" id="hr1-wp-XSE">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
+                        <font key="font" metaFont="systemBold"/>
                     </buttonCell>
                     <connections>
                         <action selector="getOrOpen:" target="-2" id="zvy-Xp-7pe"/>
                     </connections>
                 </button>
+                <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" doubleValue="65" bezeled="NO" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="lfg-1z-6mA">
+                    <rect key="frame" x="316" y="17" width="16" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                </progressIndicator>
             </subviews>
-            <point key="canvasLocation" x="25" y="-1435"/>
+            <point key="canvasLocation" x="183" y="-2246"/>
         </customView>
     </objects>
     <resources>

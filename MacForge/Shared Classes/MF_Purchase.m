@@ -19,21 +19,24 @@ extern AppDelegate* myDelegate;
 
 @implementation MF_Purchase
 
-+ (void)pushthebutton:(MSPlugin*)plugin :(NSButton*)theButton :(NSString*)repo {
++ (void)pushthebutton:(MSPlugin*)plugin :(NSButton*)theButton :(NSString*)repo :(NSProgressIndicator*)progress {
     if ([MF_Purchase packageInstalled:plugin]) {
-        if ([theButton.title isEqualToString:@"Update"]) {
+        if ([theButton.title isEqualToString:@"UPDATE"]) {
             // Installed, update
-            [MF_Purchase pluginInstall:plugin :theButton :repo];
-        } else if ([theButton.title isEqualToString:@"Downgrade"]) {
+            [MF_Purchase pluginInstallWithProgress:plugin :repo :theButton :progress];
+//            [MF_Purchase pluginInstall:plugin :theButton :repo];
+        } else if ([theButton.title isEqualToString:@"UPDATE"]) {
             // Installed, downgrade
-            [MF_Purchase pluginInstall:plugin :theButton :repo];
+            [MF_Purchase pluginInstallWithProgress:plugin :repo :theButton :progress];
+//            [MF_Purchase pluginInstall:plugin :theButton :repo];
         } else {
             // Installed, reveal in Finder
             [PluginManager.sharedInstance pluginRevealFinder:plugin.webPlist];
         }
     } else {
         // Not installed try to purchase or install
-        [MF_Purchase installOrPurchase:plugin :theButton :repo];
+        [MF_Purchase pluginInstallWithProgress:plugin :repo :theButton :progress];
+//        [MF_Purchase installOrPurchase:plugin :theButton :repo];
     }
 }
 
@@ -64,7 +67,7 @@ extern AppDelegate* myDelegate;
         // Ask the Product to get it's latest state and info from the Paddle Platform:
         [paddleProduct refresh:^(NSDictionary * _Nullable productDelta, NSError * _Nullable error) {
             if ([paddleProduct activated]) {
-                theButton.title = @"Install";
+                theButton.title = @"GET";
             } else {
                 theButton.title = plugin.webPrice;
             }
@@ -98,15 +101,16 @@ extern AppDelegate* myDelegate;
         NSInteger result = [comparator compareVersion:cur toVersion:new];
         if (result == NSOrderedSame) {
             //versionA == versionB
-            theButton.title = @"Open";
+            theButton.title = @"OPEN";
 //            [theButton setAction:@selector(pluginFinder)];
         } else if (result == NSOrderedAscending) {
             //versionA < versionB
-            theButton.title = @"Update";
+            theButton.title = @"UPDATE";
 //            [theButton setAction:@selector(pluginInstall)];
         } else {
             //versionA > versionB
-            theButton.title = @"Downgrade";
+            // Actually downgrade
+            theButton.title = @"UPDATE";
 //            [theButton setAction:@selector(pluginInstall)];
         }
     } else {
@@ -166,12 +170,21 @@ extern AppDelegate* myDelegate;
     }
 }
 
++ (void)pluginInstallWithProgress:(MSPlugin*)plugin :(NSString*)repo :(NSButton*)theButton :(NSProgressIndicator*)progress {
+    NSDictionary* item = plugin.webPlist;
+    [PluginManager.sharedInstance pluginUpdateOrInstallWithProgress:item :repo :theButton :progress];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [PluginManager.sharedInstance readPlugins:nil];
+        [theButton setTitle:@"OPEN"];
+    });
+}
+
 + (void)pluginInstall:(MSPlugin*)plugin :(NSButton*)theButton :(NSString*)repo {
     NSDictionary* item = plugin.webPlist;
     [PluginManager.sharedInstance pluginUpdateOrInstall:item :repo];
     dispatch_async(dispatch_get_main_queue(), ^{
         [PluginManager.sharedInstance readPlugins:nil];
-        [theButton setTitle:@"Open"];
+        [theButton setTitle:@"OPEN"];
     });
 }
 

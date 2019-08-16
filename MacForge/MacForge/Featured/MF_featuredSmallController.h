@@ -11,6 +11,7 @@
 #import "PluginManager.h"
 #import "MF_Purchase.h"
 #import <SDWebImage/SDWebImage.h>
+#import "SYFlatButton.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,7 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property IBOutlet NSTextField*     bundleDesc;
 @property IBOutlet NSImageView*     bundleBanner;
 @property IBOutlet NSButton*        bundleButton;
-@property IBOutlet NSButton*        bundleGet;
+@property IBOutlet SYFlatButton*    bundleGet;
+@property IBOutlet NSProgressIndicator*    bundleProgress;
 
 - (IBAction)getOrOpen:(id)sender;
 - (IBAction)moreInfo:(id)sender;

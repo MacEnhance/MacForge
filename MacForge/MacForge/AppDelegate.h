@@ -15,6 +15,17 @@
 @import Paddle;
 @import Sparkle;
 
+// Firebase
+@import FirebaseCore;
+@import FirebaseDatabase;
+@import FirebaseAuth;
+@import FirebaseStorage;
+@import FirebaseCoreDiagnostics;
+
+// MacForgeKit
+@import MacForgeKit;
+
+#import <Collaboration/Collaboration.h>
 #import <SDWebImage/SDWebImage.h>
 #import "PluginManager.h"
 #import "FConvenience.h"
@@ -26,6 +37,8 @@
     NSMutableArray *watchdogs;
     PluginManager *_sharedMethods;
 }
+
+@property (strong, nonatomic) FIRDatabaseReference *ref;
 
 @property IBOutlet NSWindow *window;
 @property IBOutlet NSWindow *srcWin;
@@ -84,6 +97,7 @@
 @property IBOutlet NSButton *viewChanges;
 @property IBOutlet NSButton *viewUpdateCounter;
 @property IBOutlet NSButton *viewAccount;
+@property IBOutlet NSImageView *imgAccount;
 @property IBOutlet NSButton *viewSystem;
 @property IBOutlet NSButton *buttonFeedback;
 @property IBOutlet NSButton *buttonDonate;
@@ -105,6 +119,21 @@
 @property IBOutlet NSButton         *showChanges;
 @property IBOutlet NSButton         *showEULA;
 @property IBOutlet NSTextView       *changeLog;
+
+// Account view login / register
+@property IBOutlet NSButton             *loginLogin;
+@property IBOutlet NSButton             *loginLogout;
+@property IBOutlet NSTextField          *loginImageURL;
+@property IBOutlet NSTextField          *loginUID;
+@property IBOutlet NSTextField          *loginEmail;
+@property IBOutlet NSTextField          *loginUsername;
+@property IBOutlet NSSecureTextField    *loginPassword;
+
+// Account view profile
+//@property IBOutlet NSButton             *login;
+//@property IBOutlet NSButton             *logout;
+//@property IBOutlet NSTextField          *username;
+//@property IBOutlet NSSecureTextField    *password;
 
 // Featured view
 @property IBOutlet NSView      *featuredContentView;

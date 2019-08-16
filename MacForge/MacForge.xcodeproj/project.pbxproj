@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2703AC754D11FFA6BB74C119 /* libPods-MacForgeFix.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EF7F0487A401D7503CFFFFF6 /* libPods-MacForgeFix.a */; };
+		2FCA88B6FD11BB87D2CB1185 /* Pods_MacForge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB9375FEDACBA2F9ED7779DF /* Pods_MacForge.framework */; };
+		342B4D11E29483B353536D9E /* Pods_MacForgeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB6AA186557851C9C5C553AC /* Pods_MacForgeKit.framework */; };
+		493B861C4A66AFC05A66441E /* libPods-MacForgeHelper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D247816B86A1C4A39786952E /* libPods-MacForgeHelper.a */; };
+		A9E30ED3F880EF4407ECD6F6 /* libPods-MacForgeDockTile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CB97EC8B4923361ED0403B1 /* libPods-MacForgeDockTile.a */; };
+		D67D207E0ACF48689A0881C1 /* libPods-com.w0lf.MacForge.Injector.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 16DFAFC4138CD749581DA238 /* libPods-com.w0lf.MacForge.Injector.a */; };
+		E68C1369AB8EDA41496524C8 /* libPods-com.w0lf.MacForge.Installer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0AF8545EACF0A4372092D9A /* libPods-com.w0lf.MacForge.Installer.a */; };
 		F0ADE0FB166DF941009758CC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0ADE0FA166DF941009758CC /* Cocoa.framework */; };
 		F0ADE107166DF941009758CC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F0ADE106166DF941009758CC /* main.m */; };
 		F0ADE10E166DF941009758CC /* MFAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F0ADE10D166DF941009758CC /* MFAppDelegate.m */; };
@@ -28,6 +35,8 @@
 		FB169AFE22F4EEEB001E84E0 /* MF_featuredItemController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB169AFC22F4EEEB001E84E0 /* MF_featuredItemController.xib */; };
 		FB169B0922F50F36001E84E0 /* MF_featuredSmallController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB169B0722F50F36001E84E0 /* MF_featuredSmallController.m */; };
 		FB169B0A22F50F36001E84E0 /* MF_featuredSmallController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB169B0822F50F36001E84E0 /* MF_featuredSmallController.xib */; };
+		FB2FE5C5230626C30082C714 /* MFFlippedView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2FE5C223061DEE0082C714 /* MFFlippedView.m */; };
+		FB2FE5CC230638120082C714 /* SYFlatButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2FE5CB230638120082C714 /* SYFlatButton.m */; };
 		FB34DEE320F342F400EC1822 /* Paddle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB34DEE220F342F400EC1822 /* Paddle.framework */; };
 		FB34DEE420F343A800EC1822 /* Paddle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FB34DEE220F342F400EC1822 /* Paddle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FB37B2CD21B229C4001191C2 /* MacForgeFix.m in Sources */ = {isa = PBXBuildFile; fileRef = FB37B2CB21B229C4001191C2 /* MacForgeFix.m */; };
@@ -41,6 +50,7 @@
 		FB5BB9B323009F39004D3454 /* MFKSipView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB5BB9B023009F39004D3454 /* MFKSipView.xib */; };
 		FB5BB9B92300A3EA004D3454 /* eng_sip_mojave.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB5BB9B72300A3EA004D3454 /* eng_sip_mojave.txt */; };
 		FB5BB9BA2300A3EA004D3454 /* eng_sip.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB5BB9B82300A3EA004D3454 /* eng_sip.txt */; };
+		FB616F092303DB03007B8137 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB616F082303DB03007B8137 /* GoogleService-Info.plist */; };
 		FB78E2A72139BE27002FFE2E /* MacForgeDockTile.docktileplugin in Copy Plugins */ = {isa = PBXBuildFile; fileRef = FBA6E90120F0299B00A12ACF /* MacForgeDockTile.docktileplugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FB917F9F213917400013D4E3 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = FB917F9E213917400013D4E3 /* icon.icns */; };
 		FB917FA1213917E10013D4E3 /* menu.icns in Resources */ = {isa = PBXBuildFile; fileRef = FB917FA0213917E00013D4E3 /* menu.icns */; };
@@ -258,6 +268,26 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		16DFAFC4138CD749581DA238 /* libPods-com.w0lf.MacForge.Injector.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-com.w0lf.MacForge.Injector.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A4A92FE80E4F31C97F3F7D1 /* Pods-com.w0lf.MacForge.Injector.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-com.w0lf.MacForge.Injector.release.xcconfig"; path = "Target Support Files/Pods-com.w0lf.MacForge.Injector/Pods-com.w0lf.MacForge.Injector.release.xcconfig"; sourceTree = "<group>"; };
+		32BCA7B343B9593E54169313 /* Pods-MacForgeFix.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacForgeFix.release.xcconfig"; path = "Target Support Files/Pods-MacForgeFix/Pods-MacForgeFix.release.xcconfig"; sourceTree = "<group>"; };
+		370D6DF2C08D50C20C214C75 /* Pods-MacForgeKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacForgeKit.release.xcconfig"; path = "Target Support Files/Pods-MacForgeKit/Pods-MacForgeKit.release.xcconfig"; sourceTree = "<group>"; };
+		3CB97EC8B4923361ED0403B1 /* libPods-MacForgeDockTile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MacForgeDockTile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D8E7AE762C4B5BC97898B22 /* Pods-MacForgeDockTile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacForgeDockTile.debug.xcconfig"; path = "Target Support Files/Pods-MacForgeDockTile/Pods-MacForgeDockTile.debug.xcconfig"; sourceTree = "<group>"; };
+		6EFB1E36CB68CB24F30204A1 /* Pods-com.w0lf.MacForge.Installer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-com.w0lf.MacForge.Installer.release.xcconfig"; path = "Target Support Files/Pods-com.w0lf.MacForge.Installer/Pods-com.w0lf.MacForge.Installer.release.xcconfig"; sourceTree = "<group>"; };
+		8010E46D92E3A93FFCDCD787 /* Pods-MacForgeKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacForgeKit.debug.xcconfig"; path = "Target Support Files/Pods-MacForgeKit/Pods-MacForgeKit.debug.xcconfig"; sourceTree = "<group>"; };
+		81938B922DC8DB8C0BA42E76 /* Pods-MacForgeHelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacForgeHelper.release.xcconfig"; path = "Target Support Files/Pods-MacForgeHelper/Pods-MacForgeHelper.release.xcconfig"; sourceTree = "<group>"; };
+		8C3D1F62B0E08AD4C29A3525 /* Pods-MacForge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacForge.debug.xcconfig"; path = "Target Support Files/Pods-MacForge/Pods-MacForge.debug.xcconfig"; sourceTree = "<group>"; };
+		923C990F032055007743F73A /* Pods-MacForgeHelper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacForgeHelper.debug.xcconfig"; path = "Target Support Files/Pods-MacForgeHelper/Pods-MacForgeHelper.debug.xcconfig"; sourceTree = "<group>"; };
+		A0AF8545EACF0A4372092D9A /* libPods-com.w0lf.MacForge.Installer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-com.w0lf.MacForge.Installer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AFD073A157CCE6235D474399 /* Pods-MacForge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacForge.release.xcconfig"; path = "Target Support Files/Pods-MacForge/Pods-MacForge.release.xcconfig"; sourceTree = "<group>"; };
+		BAEEE19A8BE4096DC7F0BCB3 /* Pods-com.w0lf.MacForge.Injector.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-com.w0lf.MacForge.Injector.debug.xcconfig"; path = "Target Support Files/Pods-com.w0lf.MacForge.Injector/Pods-com.w0lf.MacForge.Injector.debug.xcconfig"; sourceTree = "<group>"; };
+		BB6AA186557851C9C5C553AC /* Pods_MacForgeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MacForgeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C18281B1DFBF79FD6F35467B /* Pods-MacForgeFix.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacForgeFix.debug.xcconfig"; path = "Target Support Files/Pods-MacForgeFix/Pods-MacForgeFix.debug.xcconfig"; sourceTree = "<group>"; };
+		D247816B86A1C4A39786952E /* libPods-MacForgeHelper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MacForgeHelper.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE3ED353083B7D8492CE190A /* Pods-MacForgeDockTile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacForgeDockTile.release.xcconfig"; path = "Target Support Files/Pods-MacForgeDockTile/Pods-MacForgeDockTile.release.xcconfig"; sourceTree = "<group>"; };
+		EB4CA17C673612AC0E1CE9D0 /* Pods-com.w0lf.MacForge.Installer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-com.w0lf.MacForge.Installer.debug.xcconfig"; path = "Target Support Files/Pods-com.w0lf.MacForge.Installer/Pods-com.w0lf.MacForge.Installer.debug.xcconfig"; sourceTree = "<group>"; };
+		EF7F0487A401D7503CFFFFF6 /* libPods-MacForgeFix.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MacForgeFix.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0ADE0F6166DF941009758CC /* MacForgeHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacForgeHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0ADE0FA166DF941009758CC /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F0ADE102166DF941009758CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -299,6 +329,9 @@
 		FB169B0622F50F36001E84E0 /* MF_featuredSmallController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_featuredSmallController.h; sourceTree = "<group>"; };
 		FB169B0722F50F36001E84E0 /* MF_featuredSmallController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_featuredSmallController.m; sourceTree = "<group>"; };
 		FB169B0822F50F36001E84E0 /* MF_featuredSmallController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MF_featuredSmallController.xib; sourceTree = "<group>"; };
+		FB2FE5C223061DEE0082C714 /* MFFlippedView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MFFlippedView.m; sourceTree = "<group>"; };
+		FB2FE5CA230638120082C714 /* SYFlatButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYFlatButton.h; sourceTree = "<group>"; };
+		FB2FE5CB230638120082C714 /* SYFlatButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYFlatButton.m; sourceTree = "<group>"; };
 		FB34DEE220F342F400EC1822 /* Paddle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Paddle.framework; sourceTree = "<group>"; };
 		FB37B2CB21B229C4001191C2 /* MacForgeFix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MacForgeFix.m; sourceTree = "<group>"; };
 		FB37B2CC21B229C4001191C2 /* MacForgeFix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacForgeFix.h; sourceTree = "<group>"; };
@@ -309,8 +342,10 @@
 		FB5BB9B023009F39004D3454 /* MFKSipView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MFKSipView.xib; sourceTree = "<group>"; };
 		FB5BB9B72300A3EA004D3454 /* eng_sip_mojave.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = eng_sip_mojave.txt; sourceTree = "<group>"; };
 		FB5BB9B82300A3EA004D3454 /* eng_sip.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = eng_sip.txt; sourceTree = "<group>"; };
+		FB616F082303DB03007B8137 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FB917F9E213917400013D4E3 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		FB917FA0213917E00013D4E3 /* menu.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = menu.icns; sourceTree = "<group>"; };
+		FB9375FEDACBA2F9ED7779DF /* Pods_MacForge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MacForge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBA6E88520F0176B00A12ACF /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FBA6E88620F0176B00A12ACF /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		FBA6E88820F0179600A12ACF /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -404,6 +439,7 @@
 				F0ADE16A166E013C009758CC /* Security.framework in Frameworks */,
 				F0ADE168166E0121009758CC /* ServiceManagement.framework in Frameworks */,
 				F0ADE0FB166DF941009758CC /* Cocoa.framework in Frameworks */,
+				493B861C4A66AFC05A66441E /* libPods-MacForgeHelper.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,6 +448,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0ADE152166DFB8B009758CC /* Foundation.framework in Frameworks */,
+				E68C1369AB8EDA41496524C8 /* libPods-com.w0lf.MacForge.Installer.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,6 +459,7 @@
 				F0CF07F4166F566E009D198D /* mach_inject_bundle.framework in Frameworks */,
 				F0ADE1CA166E0992009758CC /* Carbon.framework in Frameworks */,
 				F0ADE1BA166E0820009758CC /* Foundation.framework in Frameworks */,
+				D67D207E0ACF48689A0881C1 /* libPods-com.w0lf.MacForge.Injector.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,6 +467,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2703AC754D11FFA6BB74C119 /* libPods-MacForgeFix.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,6 +475,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A9E30ED3F880EF4407ECD6F6 /* libPods-MacForgeDockTile.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,6 +486,7 @@
 				FBE767C920EF4B5A00A42BD5 /* Cocoa.framework in Frameworks */,
 				FBE767C820EF4B4E00A42BD5 /* ServiceManagement.framework in Frameworks */,
 				FBE767C720EF4B3E00A42BD5 /* Security.framework in Frameworks */,
+				342B4D11E29483B353536D9E /* Pods_MacForgeKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -457,12 +498,48 @@
 				FB34DEE320F342F400EC1822 /* Paddle.framework in Frameworks */,
 				FB4E5E8E22E25B5A00F0D90A /* Sparkle.framework in Frameworks */,
 				FBA6E88E20F0182500A12ACF /* LetsMove.framework in Frameworks */,
+				2FCA88B6FD11BB87D2CB1185 /* Pods_MacForge.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		06A3EAD2AD04399011740EC7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FB9375FEDACBA2F9ED7779DF /* Pods_MacForge.framework */,
+				3CB97EC8B4923361ED0403B1 /* libPods-MacForgeDockTile.a */,
+				EF7F0487A401D7503CFFFFF6 /* libPods-MacForgeFix.a */,
+				D247816B86A1C4A39786952E /* libPods-MacForgeHelper.a */,
+				BB6AA186557851C9C5C553AC /* Pods_MacForgeKit.framework */,
+				16DFAFC4138CD749581DA238 /* libPods-com.w0lf.MacForge.Injector.a */,
+				A0AF8545EACF0A4372092D9A /* libPods-com.w0lf.MacForge.Installer.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		28FCEADAD0206F660B45DABE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8C3D1F62B0E08AD4C29A3525 /* Pods-MacForge.debug.xcconfig */,
+				AFD073A157CCE6235D474399 /* Pods-MacForge.release.xcconfig */,
+				3D8E7AE762C4B5BC97898B22 /* Pods-MacForgeDockTile.debug.xcconfig */,
+				DE3ED353083B7D8492CE190A /* Pods-MacForgeDockTile.release.xcconfig */,
+				C18281B1DFBF79FD6F35467B /* Pods-MacForgeFix.debug.xcconfig */,
+				32BCA7B343B9593E54169313 /* Pods-MacForgeFix.release.xcconfig */,
+				923C990F032055007743F73A /* Pods-MacForgeHelper.debug.xcconfig */,
+				81938B922DC8DB8C0BA42E76 /* Pods-MacForgeHelper.release.xcconfig */,
+				8010E46D92E3A93FFCDCD787 /* Pods-MacForgeKit.debug.xcconfig */,
+				370D6DF2C08D50C20C214C75 /* Pods-MacForgeKit.release.xcconfig */,
+				BAEEE19A8BE4096DC7F0BCB3 /* Pods-com.w0lf.MacForge.Injector.debug.xcconfig */,
+				1A4A92FE80E4F31C97F3F7D1 /* Pods-com.w0lf.MacForge.Injector.release.xcconfig */,
+				EB4CA17C673612AC0E1CE9D0 /* Pods-com.w0lf.MacForge.Installer.debug.xcconfig */,
+				6EFB1E36CB68CB24F30204A1 /* Pods-com.w0lf.MacForge.Installer.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		F0ADE0EB166DF941009758CC = {
 			isa = PBXGroup;
 			children = (
@@ -479,6 +556,8 @@
 				FBA6E88A20F017A400A12ACF /* External Frameworks */,
 				F0ADE0F9166DF941009758CC /* Local Frameworks */,
 				F0ADE0F7166DF941009758CC /* Products */,
+				28FCEADAD0206F660B45DABE /* Pods */,
+				06A3EAD2AD04399011740EC7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -605,6 +684,15 @@
 				FB169B0822F50F36001E84E0 /* MF_featuredSmallController.xib */,
 			);
 			path = Featured;
+			sourceTree = "<group>";
+		};
+		FB2FE5C9230638120082C714 /* SYFlatButton */ = {
+			isa = PBXGroup;
+			children = (
+				FB2FE5CA230638120082C714 /* SYFlatButton.h */,
+				FB2FE5CB230638120082C714 /* SYFlatButton.m */,
+			);
+			path = SYFlatButton;
 			sourceTree = "<group>";
 		};
 		FB5BB9B423009F44004D3454 /* SipView */ = {
@@ -846,6 +934,8 @@
 		FBE767E920F00FFB00A42BD5 /* MacForge */ = {
 			isa = PBXGroup;
 			children = (
+				FB2FE5C223061DEE0082C714 /* MFFlippedView.m */,
+				FB2FE5C9230638120082C714 /* SYFlatButton */,
 				FBA6E8DF20F0286000A12ACF /* Images */,
 				FBA6E90F20F02CAC00A12ACF /* Info */,
 				FB169AF422F4E541001E84E0 /* Featured */,
@@ -855,6 +945,7 @@
 				FBA6E88520F0176B00A12ACF /* AppDelegate.h */,
 				FBA6E88620F0176B00A12ACF /* AppDelegate.m */,
 				FBA6E8CD20F025A100A12ACF /* Application.xib */,
+				FB616F082303DB03007B8137 /* GoogleService-Info.plist */,
 				FBE767F220F00FFE00A42BD5 /* Info.plist */,
 			);
 			path = MacForge;
@@ -880,6 +971,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F0ADE114166DF942009758CC /* Build configuration list for PBXNativeTarget "MacForgeHelper" */;
 			buildPhases = (
+				3614C4D2B6D0229AE45C5CEB /* [CP] Check Pods Manifest.lock */,
 				F0ADE0F2166DF941009758CC /* Sources */,
 				F0ADE0F3166DF941009758CC /* Frameworks */,
 				FB5B2D0522FFA020000FA9A4 /* CopyFiles */,
@@ -904,6 +996,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F0ADE15A166DFB8B009758CC /* Build configuration list for PBXNativeTarget "com.w0lf.MacForge.Installer" */;
 			buildPhases = (
+				1CE8C6C1FB57768E90D3A9AC /* [CP] Check Pods Manifest.lock */,
 				F0ADE14B166DFB8B009758CC /* Sources */,
 				F0ADE14C166DFB8B009758CC /* Frameworks */,
 				F0ADE14D166DFB8B009758CC /* CopyFiles */,
@@ -921,6 +1014,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F0ADE1C2166E0821009758CC /* Build configuration list for PBXNativeTarget "com.w0lf.MacForge.Injector" */;
 			buildPhases = (
+				9851752FC9515D7023FE4235 /* [CP] Check Pods Manifest.lock */,
 				F0ADE1B4166E0820009758CC /* Sources */,
 				F0ADE1B5166E0820009758CC /* Frameworks */,
 				F0ADE1B6166E0820009758CC /* CopyFiles */,
@@ -938,6 +1032,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FBA6E8AF20F0190900A12ACF /* Build configuration list for PBXNativeTarget "MacForgeFix" */;
 			buildPhases = (
+				82F7C0E7FACBDEE32DEF64F3 /* [CP] Check Pods Manifest.lock */,
 				FBA6E89820F0190900A12ACF /* Sources */,
 				FBA6E89920F0190900A12ACF /* Frameworks */,
 				FBA6E89A20F0190900A12ACF /* Resources */,
@@ -955,6 +1050,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FBA6E90420F0299B00A12ACF /* Build configuration list for PBXNativeTarget "MacForgeDockTile" */;
 			buildPhases = (
+				267AF0E2CDB7E463D3DC849A /* [CP] Check Pods Manifest.lock */,
 				FBA6E8FD20F0299B00A12ACF /* Sources */,
 				FBA6E8FE20F0299B00A12ACF /* Frameworks */,
 				FBA6E8FF20F0299B00A12ACF /* Resources */,
@@ -972,6 +1068,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FBE767A520EF426D00A42BD5 /* Build configuration list for PBXNativeTarget "MacForgeKit" */;
 			buildPhases = (
+				9768BD486FAFAAB2671835EB /* [CP] Check Pods Manifest.lock */,
 				FBE7679920EF426D00A42BD5 /* Headers */,
 				FBE7679A20EF426D00A42BD5 /* Sources */,
 				FBE7679B20EF426D00A42BD5 /* Frameworks */,
@@ -990,6 +1087,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FBE767F620F00FFE00A42BD5 /* Build configuration list for PBXNativeTarget "MacForge" */;
 			buildPhases = (
+				567D2D40B4A5293117D2E5FC /* [CP] Check Pods Manifest.lock */,
 				FBE767E420F00FFB00A42BD5 /* Sources */,
 				FBE767E520F00FFB00A42BD5 /* Frameworks */,
 				FBE767E620F00FFB00A42BD5 /* Resources */,
@@ -997,6 +1095,7 @@
 				FBA6E90C20F029E900A12ACF /* Copy Plugins */,
 				FBF137D92105AB3E0001916A /* CopyFiles */,
 				FBB6D14B22FE4963003A5B71 /* ShellScript */,
+				13417830BB059634108B650C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1147,6 +1246,7 @@
 			files = (
 				FBF137D6210582540001916A /* checkmark_test.png in Resources */,
 				FBF137CE210576720001916A /* tools.png in Resources */,
+				FB616F092303DB03007B8137 /* GoogleService-Info.plist in Resources */,
 				FBA6E8FC20F028A400A12ACF /* LICENSE_EULA in Resources */,
 				FBF137D4210578610001916A /* github.png in Resources */,
 				FBA6E8DA20F0285B00A12ACF /* loading_mini.gif in Resources */,
@@ -1175,6 +1275,184 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		13417830BB059634108B650C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MacForge/Pods-MacForge-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MacForge/Pods-MacForge-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1CE8C6C1FB57768E90D3A9AC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-com.w0lf.MacForge.Installer-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		267AF0E2CDB7E463D3DC849A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MacForgeDockTile-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3614C4D2B6D0229AE45C5CEB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MacForgeHelper-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		567D2D40B4A5293117D2E5FC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MacForge-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		82F7C0E7FACBDEE32DEF64F3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MacForgeFix-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9768BD486FAFAAB2671835EB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MacForgeKit-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9851752FC9515D7023FE4235 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-com.w0lf.MacForge.Injector-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		FBB6D14A22FE4831003A5B71 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1295,10 +1573,12 @@
 				FB169AFD22F4EEEB001E84E0 /* MF_featuredItemController.m in Sources */,
 				FBA6E8F220F0289B00A12ACF /* PluginManager.m in Sources */,
 				FBA6E8E720F0288300A12ACF /* pluginData.m in Sources */,
+				FB2FE5CC230638120082C714 /* SYFlatButton.m in Sources */,
 				FBAAB3EF20F22BF5002156DC /* NSBundle+LoginItem.m in Sources */,
 				FBA6E8BB20F01C6300A12ACF /* StartAtLoginController.m in Sources */,
 				FBA6E8F020F0289B00A12ACF /* bundlePage.m in Sources */,
 				FBA6E8F120F0289B00A12ACF /* discoverPluginTable.m in Sources */,
+				FB2FE5C5230626C30082C714 /* MFFlippedView.m in Sources */,
 				FBF137E3210E79B70001916A /* blacklistTable.m in Sources */,
 				FBA6E89520F0185F00A12ACF /* ZKSwizzle.m in Sources */,
 				FBA6E8F420F0289B00A12ACF /* updatesTable.m in Sources */,
@@ -1447,6 +1727,7 @@
 		};
 		F0ADE115166DF942009758CC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 923C990F032055007743F73A /* Pods-MacForgeHelper.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
@@ -1472,6 +1753,7 @@
 		};
 		F0ADE116166DF942009758CC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 81938B922DC8DB8C0BA42E76 /* Pods-MacForgeHelper.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
@@ -1497,6 +1779,7 @@
 		};
 		F0ADE15B166DFB8B009758CC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EB4CA17C673612AC0E1CE9D0 /* Pods-com.w0lf.MacForge.Installer.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -1524,6 +1807,7 @@
 		};
 		F0ADE15C166DFB8B009758CC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6EFB1E36CB68CB24F30204A1 /* Pods-com.w0lf.MacForge.Installer.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -1551,6 +1835,7 @@
 		};
 		F0ADE1C3166E0821009758CC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BAEEE19A8BE4096DC7F0BCB3 /* Pods-com.w0lf.MacForge.Injector.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -1582,6 +1867,7 @@
 		};
 		F0ADE1C4166E0821009758CC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1A4A92FE80E4F31C97F3F7D1 /* Pods-com.w0lf.MacForge.Injector.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -1613,6 +1899,7 @@
 		};
 		FBA6E8B020F0190900A12ACF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C18281B1DFBF79FD6F35467B /* Pods-MacForgeFix.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1647,6 +1934,7 @@
 		};
 		FBA6E8B120F0190900A12ACF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 32BCA7B343B9593E54169313 /* Pods-MacForgeFix.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1682,6 +1970,7 @@
 		};
 		FBA6E90520F0299B00A12ACF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3D8E7AE762C4B5BC97898B22 /* Pods-MacForgeDockTile.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1713,6 +2002,7 @@
 		};
 		FBA6E90620F0299B00A12ACF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DE3ED353083B7D8492CE190A /* Pods-MacForgeDockTile.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1745,6 +2035,7 @@
 		};
 		FBE767A320EF426D00A42BD5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8010E46D92E3A93FFCDCD787 /* Pods-MacForgeKit.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1807,6 +2098,7 @@
 		};
 		FBE767A420EF426D00A42BD5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 370D6DF2C08D50C20C214C75 /* Pods-MacForgeKit.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1869,6 +2161,7 @@
 		};
 		FBE767F720F00FFE00A42BD5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8C3D1F62B0E08AD4C29A3525 /* Pods-MacForge.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1894,7 +2187,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = MacForge/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacForge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1904,6 +2197,7 @@
 		};
 		FBE767F820F00FFE00A42BD5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AFD073A157CCE6235D474399 /* Pods-MacForge.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1930,7 +2224,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = MacForge/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacForge;
 				PRODUCT_NAME = "$(TARGET_NAME)";

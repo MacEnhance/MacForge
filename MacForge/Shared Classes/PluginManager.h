@@ -6,13 +6,19 @@
 //  Copyright © 2016 Wolfgang Baird. All rights reserved.
 //
 
-@interface PluginManager : NSObject {
+@interface PluginManager : NSObject <NSURLSessionDataDelegate, NSURLSessionDelegate, NSURLSessionTaskDelegate> {
     NSMutableArray *pluginsArray;
     NSMutableArray *confirmDelete;
     NSMutableDictionary *installedPluginDICT;
     NSMutableDictionary *needsUpdate;
+    
+    NSButton *downloadButton;
+    NSProgressIndicator *progressObject;
 }
 
+@property (nonatomic, retain) NSMutableData *dataToDownload;
+@property (nonatomic) float downloadSize;
+@property (nonatomic, retain) NSDictionary *plugin;
 //@property NSMutableDictionary *installedPluginDICT;
 
 + (PluginManager*) sharedInstance;
@@ -33,5 +39,7 @@
 - (Boolean)pluginUpdateOrInstall:(NSDictionary*)item :(NSString*)repo;
 - (Boolean)pluginDelete:(NSDictionary*)item;
 - (Boolean)pluginRevealFinder:(NSDictionary*)item;
+
+- (Boolean)pluginUpdateOrInstallWithProgress:(NSDictionary *)item :(NSString *)repo :(NSButton *)button :(NSProgressIndicator *)progress;
 
 @end
