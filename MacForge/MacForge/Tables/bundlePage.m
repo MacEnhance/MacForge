@@ -391,7 +391,7 @@ extern long selectedRow;
         
         // Ask the Product to get it's latest state and info from the Paddle Platform:
         [paddleProduct refresh:^(NSDictionary * _Nullable productDelta, NSError * _Nullable error) {
-            [_bundleInstall setEnabled:true];
+            [self->_bundleInstall setEnabled:true];
             if ([paddleProduct activated]) {
                 self.bundleInstall.title = @"GET";
             } else {
