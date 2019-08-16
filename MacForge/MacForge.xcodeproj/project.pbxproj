@@ -50,7 +50,6 @@
 		FB5BB9B323009F39004D3454 /* MFKSipView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB5BB9B023009F39004D3454 /* MFKSipView.xib */; };
 		FB5BB9B92300A3EA004D3454 /* eng_sip_mojave.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB5BB9B72300A3EA004D3454 /* eng_sip_mojave.txt */; };
 		FB5BB9BA2300A3EA004D3454 /* eng_sip.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB5BB9B82300A3EA004D3454 /* eng_sip.txt */; };
-		FB616F092303DB03007B8137 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB616F082303DB03007B8137 /* GoogleService-Info.plist */; };
 		FB78E2A72139BE27002FFE2E /* MacForgeDockTile.docktileplugin in Copy Plugins */ = {isa = PBXBuildFile; fileRef = FBA6E90120F0299B00A12ACF /* MacForgeDockTile.docktileplugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FB917F9F213917400013D4E3 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = FB917F9E213917400013D4E3 /* icon.icns */; };
 		FB917FA1213917E10013D4E3 /* menu.icns in Resources */ = {isa = PBXBuildFile; fileRef = FB917FA0213917E00013D4E3 /* menu.icns */; };
@@ -342,7 +341,6 @@
 		FB5BB9B023009F39004D3454 /* MFKSipView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MFKSipView.xib; sourceTree = "<group>"; };
 		FB5BB9B72300A3EA004D3454 /* eng_sip_mojave.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = eng_sip_mojave.txt; sourceTree = "<group>"; };
 		FB5BB9B82300A3EA004D3454 /* eng_sip.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = eng_sip.txt; sourceTree = "<group>"; };
-		FB616F082303DB03007B8137 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FB917F9E213917400013D4E3 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		FB917FA0213917E00013D4E3 /* menu.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = menu.icns; sourceTree = "<group>"; };
 		FB9375FEDACBA2F9ED7779DF /* Pods_MacForge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MacForge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -945,7 +943,6 @@
 				FBA6E88520F0176B00A12ACF /* AppDelegate.h */,
 				FBA6E88620F0176B00A12ACF /* AppDelegate.m */,
 				FBA6E8CD20F025A100A12ACF /* Application.xib */,
-				FB616F082303DB03007B8137 /* GoogleService-Info.plist */,
 				FBE767F220F00FFE00A42BD5 /* Info.plist */,
 			);
 			path = MacForge;
@@ -1246,7 +1243,6 @@
 			files = (
 				FBF137D6210582540001916A /* checkmark_test.png in Resources */,
 				FBF137CE210576720001916A /* tools.png in Resources */,
-				FB616F092303DB03007B8137 /* GoogleService-Info.plist in Resources */,
 				FBA6E8FC20F028A400A12ACF /* LICENSE_EULA in Resources */,
 				FBF137D4210578610001916A /* github.png in Resources */,
 				FBA6E8DA20F0285B00A12ACF /* loading_mini.gif in Resources */,
