@@ -37,6 +37,7 @@
 		FB169B0A22F50F36001E84E0 /* MF_featuredSmallController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB169B0822F50F36001E84E0 /* MF_featuredSmallController.xib */; };
 		FB2FE5C5230626C30082C714 /* MFFlippedView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2FE5C223061DEE0082C714 /* MFFlippedView.m */; };
 		FB2FE5CC230638120082C714 /* SYFlatButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2FE5CB230638120082C714 /* SYFlatButton.m */; };
+		FB2FE5D223068D9A0082C714 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB2FE5D123068D9A0082C714 /* GoogleService-Info.plist */; };
 		FB34DEE320F342F400EC1822 /* Paddle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB34DEE220F342F400EC1822 /* Paddle.framework */; };
 		FB34DEE420F343A800EC1822 /* Paddle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FB34DEE220F342F400EC1822 /* Paddle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FB37B2CD21B229C4001191C2 /* MacForgeFix.m in Sources */ = {isa = PBXBuildFile; fileRef = FB37B2CB21B229C4001191C2 /* MacForgeFix.m */; };
@@ -331,6 +332,7 @@
 		FB2FE5C223061DEE0082C714 /* MFFlippedView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MFFlippedView.m; sourceTree = "<group>"; };
 		FB2FE5CA230638120082C714 /* SYFlatButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYFlatButton.h; sourceTree = "<group>"; };
 		FB2FE5CB230638120082C714 /* SYFlatButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYFlatButton.m; sourceTree = "<group>"; };
+		FB2FE5D123068D9A0082C714 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FB34DEE220F342F400EC1822 /* Paddle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Paddle.framework; sourceTree = "<group>"; };
 		FB37B2CB21B229C4001191C2 /* MacForgeFix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MacForgeFix.m; sourceTree = "<group>"; };
 		FB37B2CC21B229C4001191C2 /* MacForgeFix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacForgeFix.h; sourceTree = "<group>"; };
@@ -943,6 +945,7 @@
 				FBA6E88520F0176B00A12ACF /* AppDelegate.h */,
 				FBA6E88620F0176B00A12ACF /* AppDelegate.m */,
 				FBA6E8CD20F025A100A12ACF /* Application.xib */,
+				FB2FE5D123068D9A0082C714 /* GoogleService-Info.plist */,
 				FBE767F220F00FFE00A42BD5 /* Info.plist */,
 			);
 			path = MacForge;
@@ -1243,6 +1246,7 @@
 			files = (
 				FBF137D6210582540001916A /* checkmark_test.png in Resources */,
 				FBF137CE210576720001916A /* tools.png in Resources */,
+				FB2FE5D223068D9A0082C714 /* GoogleService-Info.plist in Resources */,
 				FBA6E8FC20F028A400A12ACF /* LICENSE_EULA in Resources */,
 				FBF137D4210578610001916A /* github.png in Resources */,
 				FBA6E8DA20F0285B00A12ACF /* loading_mini.gif in Resources */,
