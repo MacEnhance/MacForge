@@ -16,6 +16,9 @@ end
 target 'MacForge' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
+pod 'Fabric', '~> 1.10.2'
+pod 'Crashlytics', '~> 3.13.4'
+
   pod 'FirebaseCore', :path => './firebase_sdk/'
   pod 'FirebaseDatabase', :path => './firebase_sdk/'
   pod 'FirebaseStorage', :path => './firebase_sdk/'

@@ -235,7 +235,7 @@
         installPath = [NSString stringWithFormat:@"/Applications/%@", filePath.lastPathComponent];
     
     // Logging
-    NSLog(@"%@ - %@", filePath, installPath);
+    NSLog(@"\nInstalling : %@\n Destination : %@", filePath, installPath);
     NSError *err;
     
     // Remove item if it already exists
@@ -257,7 +257,8 @@
         BOOL isDir;
         if ([FileManager fileExistsAtPath:filePath isDirectory:&isDir] && [filePath.pathExtension isEqualToString:@""]) {
             // Looks like a folder... lets see what's inside
-            [PluginManager folderinstall:filePath];
+            if (![filePath.lastPathComponent isEqualToString:@"__MACOSX"])
+                [PluginManager folderinstall:filePath];
         } else {
             // Probably a file, lets try to install it
             [PluginManager installItem:filePath];
@@ -540,8 +541,10 @@
     if ([udCount isEqualToString:@"0"]) udCount = @"";
     
     // Try updating the Dock tile
-    NSDockTile *myTile = [NSApp dockTile];
-    [myTile setBadgeLabel:udCount];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSDockTile *myTile = [NSApp dockTile];
+        [myTile setBadgeLabel:udCount];
+    });
     
     // Update com.w0lf.MacForge > updateCount
     CFPreferencesSetAppValue(CFSTR("updateCount"), (CFPropertyListRef)udCount, CFSTR("com.w0lf.MacForge"));

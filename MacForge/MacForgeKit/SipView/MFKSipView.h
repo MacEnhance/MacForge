@@ -6,9 +6,12 @@
 //  Copyright © 2019 MacEnhance. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+@import AVFoundation;
+@import AVKit;
+@import AppKit;
 
-NS_ASSUME_NONNULL_BEGIN
+@interface NoInteractPlayer : AVPlayerView
+@end
 
 @interface MFKSipView : NSViewController
 
@@ -16,9 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property IBOutlet NSButton *confirmQuit;
 @property IBOutlet NSButton *confirmReboot;
 @property IBOutlet NSButton *confirm;
+@property IBOutlet NoInteractPlayer *NIPlayer;
+@property IBOutlet AVPlayer *avp;
 
 - (void)displayInWindow:(NSWindow*)window;
 
 @end
-
-NS_ASSUME_NONNULL_END

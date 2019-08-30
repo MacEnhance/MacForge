@@ -7,6 +7,7 @@
 //
 
 @import AppKit;
+#import "MFKSipView.h"
 
 //! Project version number for MacForgeKit.
 FOUNDATION_EXPORT double MacForgeKitVersionNumber;

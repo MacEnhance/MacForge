@@ -16,6 +16,7 @@
 #import "db.h"
 #import "dumpfile.h"
 #import "env.h"
+#import "export.h"
 #import "filter_policy.h"
 #import "iterator.h"
 #import "options.h"

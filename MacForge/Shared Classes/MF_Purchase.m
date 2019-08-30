@@ -35,13 +35,16 @@ extern AppDelegate* myDelegate;
         }
     } else {
         // Not installed try to purchase or install
-        [MF_Purchase pluginInstallWithProgress:plugin :repo :theButton :progress];
-//        [MF_Purchase installOrPurchase:plugin :theButton :repo];
+//        [MF_Purchase pluginInstallWithProgress:plugin :repo :theButton :progress];
+        [MF_Purchase installOrPurchase:plugin :theButton :repo :progress];
     }
 }
 
 + (void)verifyPurchased:(MSPlugin*)plugin :(NSButton*)theButton {
-    //    NSLog(@"%s", __PRETTY_FUNCTION__);
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    
+    NSLog(@"%@ : %@", plugin.bundleID, theButton);
+    
     NSDictionary* item = plugin.webPlist;
     NSString *productID = [item objectForKey:@"productID"];
     if (productID != nil) {
@@ -63,7 +66,7 @@ extern AppDelegate* myDelegate;
         
         // Initialize the Product you'd like to work with:
         PADProduct *paddleProduct = [[PADProduct alloc] initWithProductID:productID productType:PADProductTypeSDKProduct configuration:defaultProductConfig];
-        
+                
         // Ask the Product to get it's latest state and info from the Paddle Platform:
         [paddleProduct refresh:^(NSDictionary * _Nullable productDelta, NSError * _Nullable error) {
             if ([paddleProduct activated]) {
@@ -78,7 +81,6 @@ extern AppDelegate* myDelegate;
 }
 
 + (Boolean)packageInstalled:(MSPlugin*)plugin {
-    NSLog(@"Hmmmm...");
     NSDictionary* item = plugin.webPlist;
     NSMutableDictionary *installedPlugins = [PluginManager.sharedInstance getInstalledPlugins];
     if ([installedPlugins objectForKey:[item objectForKey:@"package"]])
@@ -119,7 +121,7 @@ extern AppDelegate* myDelegate;
     }
 }
 
-+ (void)installOrPurchase:(MSPlugin*)plugin :(NSButton*)theButton :(NSString*)repo {
++ (void)installOrPurchase:(MSPlugin*)plugin :(NSButton*)theButton :(NSString*)repo :(NSProgressIndicator*)progress {
     //    NSLog(@"%s", __PRETTY_FUNCTION__);
     NSDictionary* item = plugin.webPlist;
     NSString *productID = [item objectForKey:@"productID"];
@@ -153,11 +155,13 @@ extern AppDelegate* myDelegate;
                 [thePaddle showCheckoutForProduct:paddleProduct options:nil checkoutStatusCompletion:^(PADCheckoutState state, PADCheckoutData * _Nullable checkoutData) {
                     // Examine checkout state to determine the checkout result
                     if (state == PADCheckoutPurchased) {
-                        [MF_Purchase pluginInstall:plugin :theButton :repo];
+                        [MF_Purchase pluginInstallWithProgress:plugin :repo :theButton :progress];
+//                        [MF_Purchase pluginInstall:plugin :theButton :repo];
                     } else {
                         [paddleProduct refresh:^(NSDictionary * _Nullable productDelta, NSError * _Nullable error) {
                             if ([paddleProduct activated])
-                                [MF_Purchase pluginInstall:plugin :theButton :repo];
+                                [MF_Purchase pluginInstallWithProgress:plugin :repo :theButton :progress];
+//                                [MF_Purchase pluginInstall:plugin :theButton :repo];
                             NSLog(@"activated : %hhd", [paddleProduct activated]);
                         }];
                     }
@@ -166,17 +170,22 @@ extern AppDelegate* myDelegate;
         }];
     } else {
         NSLog(@"No product info... lets assume it's FREEEE");
-        [MF_Purchase pluginInstall:plugin :theButton :repo];
+//        [MF_Purchase pluginInstall:plugin :theButton :repo];
+        [MF_Purchase pluginInstallWithProgress:plugin :repo :theButton :progress];
     }
 }
 
 + (void)pluginInstallWithProgress:(MSPlugin*)plugin :(NSString*)repo :(NSButton*)theButton :(NSProgressIndicator*)progress {
-    NSDictionary* item = plugin.webPlist;
-    [PluginManager.sharedInstance pluginUpdateOrInstallWithProgress:item :repo :theButton :progress];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [PluginManager.sharedInstance readPlugins:nil];
-        [theButton setTitle:@"OPEN"];
-    });
+    if (progress) {
+        NSDictionary* item = plugin.webPlist;
+        [PluginManager.sharedInstance pluginUpdateOrInstallWithProgress:item :repo :theButton :progress];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [PluginManager.sharedInstance readPlugins:nil];
+            [theButton setTitle:@"OPEN"];
+        });
+    } else {
+        [MF_Purchase pluginInstall:plugin :theButton :repo];
+    }
 }
 
 + (void)pluginInstall:(MSPlugin*)plugin :(NSButton*)theButton :(NSString*)repo {

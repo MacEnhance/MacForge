@@ -3,32 +3,31 @@
 // found in the LICENSE file. See the AUTHORS file for names of contributors.
 
 #include <algorithm>
-#include <stdint.h>
+#include <cstdint>
+#include <string>
+
 #include "leveldb/comparator.h"
 #include "leveldb/slice.h"
-#include "port/port.h"
 #include "util/logging.h"
+#include "util/no_destructor.h"
 
 namespace leveldb {
 
-Comparator::~Comparator() { }
+Comparator::~Comparator() {}
 
 namespace {
 class BytewiseComparatorImpl : public Comparator {
  public:
-  BytewiseComparatorImpl() { }
+  BytewiseComparatorImpl() {}
 
-  virtual const char* Name() const {
-    return "leveldb.BytewiseComparator";
-  }
+  virtual const char* Name() const { return "leveldb.BytewiseComparator"; }
 
   virtual int Compare(const Slice& a, const Slice& b) const {
     return a.compare(b);
   }
 
-  virtual void FindShortestSeparator(
-      std::string* start,
-      const Slice& limit) const {
+  virtual void FindShortestSeparator(std::string* start,
+                                     const Slice& limit) const {
     // Find length of common prefix
     size_t min_length = std::min(start->size(), limit.size());
     size_t diff_index = 0;
@@ -57,7 +56,7 @@ class BytewiseComparatorImpl : public Comparator {
       const uint8_t byte = (*key)[i];
       if (byte != static_cast<uint8_t>(0xff)) {
         (*key)[i] = byte + 1;
-        key->resize(i+1);
+        key->resize(i + 1);
         return;
       }
     }
@@ -66,16 +65,9 @@ class BytewiseComparatorImpl : public Comparator {
 };
 }  // namespace
 
-static port::OnceType once = LEVELDB_ONCE_INIT;
-static const Comparator* bytewise;
-
-static void InitModule() {
-  bytewise = new BytewiseComparatorImpl;
-}
-
 const Comparator* BytewiseComparator() {
-  port::InitOnce(&once, InitModule);
-  return bytewise;
+  static NoDestructor<BytewiseComparatorImpl> singleton;
+  return singleton.get();
 }
 
 }  // namespace leveldb

@@ -8,12 +8,7 @@
 
 #import "MFKSipView.h"
 #import "MacForgeKit.h"
-@import AVKit;
-@import AVFoundation;
-@import AppKit;
 
-@interface NoInteractPlayer : AVPlayerView
-@end
 
 @implementation NoInteractPlayer
 
@@ -81,23 +76,43 @@
     text = [text stringByReplacingOccurrencesOfString:@"<appname>" withString:app];
     [_tv setStringValue:text];
     
-    NSURL* videoURL = [[NSBundle bundleForClass:[MacForgeKit class]] URLForResource:@"sipvid" withExtension:@"mp4"];
-    AVPlayer *player = [AVPlayer playerWithURL:videoURL];
-    AVPlayerLayer *playerLayer = [AVPlayerLayer playerLayerWithPlayer:player];
-    //    player setresp
+    //    NSURL *url = [NSURL URLWithString:@"http://techslides.com/demos/sample-videos/small.mp4"];
+    NSURL* url = [[NSBundle bundleForClass:[MacForgeKit class]] URLForResource:@"sipvid" withExtension:@"mp4"];
     
-    NoInteractPlayer *playerView = [[NoInteractPlayer alloc] initWithFrame:CGRectMake(50, 70, 500, 250)];
+    AVPlayerView *playerView = [[AVPlayerView alloc] init];
+    AVURLAsset *asset = [AVURLAsset assetWithURL: url];
+    AVPlayerItem *item = [AVPlayerItem playerItemWithAsset: asset];
+    
+    _avp = [[AVPlayer alloc] initWithPlayerItem: item];
+    playerView.player = _avp;
+    [playerView setFrame:CGRectMake(50, 70, 500, 250)];
+    
+    //    playerView.showsPlaybackControls = YES;
+    
     [self.view addSubview:playerView];
-    [playerView setControlsStyle:AVPlayerViewControlsStyleNone];
-    player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(playerItemDidReachEnd:)
-                                                 name:AVPlayerItemDidPlayToEndTimeNotification
-                                               object:[player currentItem]];
     
-    playerLayer.frame = playerView.bounds;
-    [playerView.layer addSublayer:playerLayer];
-    [player play];
+    [_avp play];
+    
+//    NSURL* videoURL = [[NSBundle bundleForClass:[MacForgeKit class]] URLForResource:@"sipvid" withExtension:@"mp4"];
+//    _avp = [AVPlayer playerWithURL:videoURL];
+//    AVPlayerLayer *playerLayer = [AVPlayerLayer playerLayerWithPlayer:_avp];
+//    //    player setresp
+//    
+//    _NIPlayer = [[NoInteractPlayer alloc] initWithFrame:CGRectMake(50, 70, 500, 250)];
+//    [self.view addSubview:_NIPlayer];
+//    [_NIPlayer setControlsStyle:AVPlayerViewControlsStyleNone];
+//    _avp.actionAtItemEnd = AVPlayerActionAtItemEndNone;
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(playerItemDidReachEnd:)
+//                                                 name:AVPlayerItemDidPlayToEndTimeNotification
+//                                               object:[_avp currentItem]];
+//    
+//    playerLayer.frame = _NIPlayer.bounds;
+//    [_NIPlayer.layer addSublayer:playerLayer];
+//    [_avp play];
+    
+    [_confirmQuit setAction:@selector(iconfirm:)];
+    [_confirmQuit setTarget:self];
 }
 
 - (void)addtoView:(NSView*)parentView {

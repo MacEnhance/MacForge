@@ -22,6 +22,9 @@
 @import FirebaseStorage;
 @import FirebaseCoreDiagnostics;
 
+@import Fabric;
+@import Crashlytics;
+
 // MacForgeKit
 @import MacForgeKit;
 
@@ -33,7 +36,7 @@
 #import "NSBundle+LoginItem.h"
 #import "blacklistTable.h"
 
-@interface AppDelegate : NSObject <PaddleDelegate> {
+@interface AppDelegate : NSObject <PaddleDelegate, NSSearchFieldDelegate> {
     NSMutableArray *watchdogs;
     PluginManager *_sharedMethods;
 }
@@ -88,6 +91,7 @@
 @property IBOutlet NSButton *discoverSelectSources;
 
 // Tab bar items
+@property IBOutlet NSSearchField *searchPlugins;
 @property IBOutlet NSButton *viewApps;
 @property IBOutlet NSButton *viewPlugins;
 @property IBOutlet NSButton *viewPreferences;

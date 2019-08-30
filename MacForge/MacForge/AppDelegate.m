@@ -10,6 +10,8 @@
 
 AppDelegate* myDelegate;
 
+NSWindow *mySHeet;
+
 NSMutableArray *allLocalPlugins;
 NSMutableArray *allReposPlugins;
 NSMutableArray *allRepos;
@@ -41,6 +43,11 @@ NSArray *tabViewButtons;
 NSArray *tabViews;
 
 Boolean paddleQuit = false;
+
+- (void)controlTextDidChange:(NSNotification *)obj{
+//    [myDelegate selectView:_viewSources];
+//    NSLog(@"%@", obj);
+}
 
 - (IBAction)fireBaseLogin:(id)sender {
     FIRUser *user = [FIRAuth auth].currentUser;
@@ -452,6 +459,38 @@ Boolean paddleQuit = false;
     }
 }
 
+- (void)byeSIP {
+    exit(0);
+}
+
+- (void)restartSIP {
+    system("osascript -e 'tell application \"Finder\" to restart'");
+}
+
+- (void)closeSIP {
+    [_window endSheet:mySHeet];
+}
+
+- (void)checkSIP {
+    if ([MacForgeKit SIP_enabled]) {
+        NSString *frameworkBundleID = @"org.w0lf.MacForgeKit";
+        NSBundle *frameworkBundle = [NSBundle bundleWithIdentifier:frameworkBundleID];
+        MFKSipView *p = [[MFKSipView alloc] initWithNibName:@"MFKSipView" bundle:frameworkBundle];
+        NSView *view = p.view;
+        [p.confirmQuit setTarget:self];
+        [p.confirmQuit setAction:@selector(byeSIP)];
+        [p.confirmReboot setTarget:self];
+        [p.confirmReboot setAction:@selector(restartSIP)];
+        [p.confirm setTarget:self];
+        [p.confirm setAction:@selector(closeSIP)];
+        
+        mySHeet = [[NSWindow alloc] initWithContentRect:[view frame] styleMask:NSTitledWindowMask backing:NSBackingStoreBuffered defer:YES];
+        [mySHeet setContentView:view];
+        [_window beginSheet:mySHeet completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
+    }
+}
 
 - (void)setupWindow {
     [_window setTitle:@""];
@@ -459,18 +498,7 @@ Boolean paddleQuit = false;
     
 //    NSLog(@"%@",[FileManager attributesOfItemAtPath:@"/Library/Application Support/MacEnhance/Plugins" error:nil]);
     
-//    NSBundle *b = [NSBundle bundleForClass:NSClassFromString(@"MFKSipView")];
-//    MFKSipView *p = [[MFKSipView alloc] initWithNibName:@"MFKSipView" bundle:b];
-////    NSView *view = [[NSView alloc] initWithFrame:NSMakeRect(100, 100, 300, 300)];
-////    NSView *v = [[MF_featuredItemController alloc] initWithNibName:0 bundle:nil];
-////
-//////    NSView *view = self.view;
-//    NSView *view = p.view;
-//    NSWindow *windowSheet = [[NSWindow alloc] initWithContentRect:[view frame] styleMask:NSTitledWindowMask backing:NSBackingStoreBuffered defer:YES];
-//    [windowSheet setContentView:view];
-//    [_window beginSheet:windowSheet completionHandler:^(NSModalResponse returnCode) {
-//
-//    }];
+    [self executionTime:@"checkSIP"];
     
     if (osx_ver > 9) {
         [_window setTitlebarAppearsTransparent:true];
@@ -691,7 +719,7 @@ Boolean paddleQuit = false;
 }
 
 - (IBAction)visitDiscord:(id)sender {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://discord.gg/c3EztJ"]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://discord.gg/zjCHuew"]];
 }
 
 - (void)visitGithub {
