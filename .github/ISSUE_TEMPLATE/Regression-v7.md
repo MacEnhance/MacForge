@@ -1,23 +1,20 @@
 ---
-name: "\U0001F41B Bug Report"
-about: "If something isn't working as expected \U0001F914."
+name: "\U0001F4A5 v7 Regression"
+about: Report an unexpected behavior in v1 from v0 (Check the upgrade guide first
+  ✌️)
 title: ''
-labels: 'i: bug, i: needs triage'
+labels: 'i: bug, 1.x: regression, i: needs triage'
 assignees: ''
 
 ---
 
-## Bug Report
+# v1 Regression
 
-**Current Behavior**
-A clear and concise description of the behavior.
+**Potential Commit/PR that introduced the regression**
+If you have time to investigate, what PR/date introduced this issue.
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+**Describe the regression**
+A clear and concise description of what the regression is.
 
 **Expected behavior/code**
 A clear and concise description of what you expected to happen (or code).
