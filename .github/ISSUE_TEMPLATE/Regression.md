@@ -3,8 +3,8 @@ name: "\U0001F4A5 Regression"
 about: Report an unexpected behavior in v1 from v0 (Check the upgrade guide first
   ✌️)
 title: ''
-labels: 'i: bug, 1.x: regression, i: needs triage'
-assignees: ''
+labels: 'bug, regression'
+assignees: 'w0lfschild'
 
 ---
 

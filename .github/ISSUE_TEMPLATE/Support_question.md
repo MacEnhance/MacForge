@@ -2,8 +2,8 @@
 name: "\U0001F917 Support Question"
 about: "If you have a question \U0001F4AC, please check out our Gitter or Discord!"
 title: ''
-labels: 'i: question, i: needs triage'
-assignees: ''
+labels: 'question'
+assignees: 'w0lfschild'
 
 ---
 
