@@ -1,5 +1,5 @@
 ---
-name: "\U0001F4A5 v7 Regression"
+name: "\U0001F4A5 Regression"
 about: Report an unexpected behavior in v1 from v0 (Check the upgrade guide first
   ✌️)
 title: ''
