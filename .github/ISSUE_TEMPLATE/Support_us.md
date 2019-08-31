@@ -8,7 +8,6 @@ assignees: 'w0lfschild'
 
 ---
 
---------------^ Click "Preview" for a nicer view!
 > Open Collective: 
 > Patreon: 
 > PayPal: 

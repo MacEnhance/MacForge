@@ -7,7 +7,6 @@ assignees: 'w0lfschild'
 
 ---
 
---------------^ Click "Preview" for a nicer view!
 We primarily use GitHub as an issue tracker; for usage and support questions, please check out these resources below. Thanks! 😁.
 
 ---
