@@ -12,7 +12,7 @@ We primarily use GitHub as an issue tracker; for usage and support questions, pl
 
 ---
 
-* Gitter: [![Chat](https://img.shields.io/gitter/room/MacEnhance/MacFrofe?style=social)](https://gitter.im/MacEnhance/MacForge)
-* Discord: [![Chat](https://img.shields.io/discord/608740492561219617?style=social)](https://discord.gg/zjCHuew)
+* Gitter: [![Chat](https://img.shields.io/gitter/room/MacEnhance/MacFroge)](https://gitter.im/MacEnhance/MacForge)
+* Discord: [![Chat](https://img.shields.io/discord/608740492561219617)](https://discord.gg/zjCHuew)
 * Also have a look at the readme for more information on how to get support:
   https://github.com/w0lfschild/MacForge/blob/master/README.md
