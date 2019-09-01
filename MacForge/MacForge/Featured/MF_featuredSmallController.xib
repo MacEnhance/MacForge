@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14865.1" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14865.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MF_featuredSmallController">
             <connections>
-                <outlet property="bundleBanner" destination="lX8-Ar-K6U" id="zRs-h0-1Y6"/>
+                <outlet property="bundleBanner" destination="zsQ-kk-b3Z" id="f0t-KY-7DQ"/>
                 <outlet property="bundleButton" destination="F6N-j0-l7X" id="ATn-vB-hL7"/>
                 <outlet property="bundleDesc" destination="B5F-cy-Uf4" id="SKm-WX-DpP"/>
                 <outlet property="bundleGet" destination="xE3-P7-duK" id="p27-Wq-sX9"/>
@@ -23,15 +23,6 @@
             <rect key="frame" x="0.0" y="0.0" width="270" height="130"/>
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lX8-Ar-K6U">
-                    <rect key="frame" x="0.0" y="0.0" width="270" height="130"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="m4P-js-P9C"/>
-                </imageView>
-                <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" doubleValue="65" bezeled="NO" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="S3h-Xp-fTW">
-                    <rect key="frame" x="198" y="12" width="16" height="16"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                </progressIndicator>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KKJ-R7-9dc">
                     <rect key="frame" x="123" y="102" width="137" height="17"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
@@ -45,22 +36,11 @@
                     <rect key="frame" x="123" y="38" width="137" height="56"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                     <textFieldCell key="cell" truncatesLastVisibleLine="YES" title="App Desc" id="w5f-y7-fCq">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <font key="font" metaFont="menu" size="11"/>
+                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xE3-P7-duK" customClass="SYFlatButton">
-                    <rect key="frame" x="125" y="9" width="65" height="22"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="square" title="GET" bezelStyle="shadowlessSquare" alignment="center" imageScaling="proportionallyDown" inset="2" id="idm-jd-mfK">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="systemBold"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="getOrOpen:" target="-2" id="6Pi-ld-SRt"/>
-                    </connections>
-                </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F6N-j0-l7X">
                     <rect key="frame" x="7" y="11" width="110" height="110"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -72,6 +52,32 @@
                         <action selector="moreInfo:" target="-2" id="mCF-a2-x2e"/>
                     </connections>
                 </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zsQ-kk-b3Z">
+                    <rect key="frame" x="0.0" y="0.0" width="270" height="130"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="e0P-PZ-0Eg">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="moreInfo:" target="-2" id="SLN-ln-jRD"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xE3-P7-duK" customClass="SYFlatButton">
+                    <rect key="frame" x="125" y="9" width="65" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" title="GET" bezelStyle="shadowlessSquare" alignment="center" imageScaling="proportionallyDown" inset="2" id="idm-jd-mfK">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="systemBold"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="getOrOpen:" target="-2" id="6Pi-ld-SRt"/>
+                    </connections>
+                </button>
+                <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" doubleValue="65" bezeled="NO" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="S3h-Xp-fTW">
+                    <rect key="frame" x="198" y="12" width="16" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                </progressIndicator>
             </subviews>
             <point key="canvasLocation" x="63" y="85"/>
         </customView>

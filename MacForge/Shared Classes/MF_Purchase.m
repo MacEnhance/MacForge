@@ -150,7 +150,8 @@ extern AppDelegate* myDelegate;
         // Ask the Product to get it's latest state and info from the Paddle Platform:
         [paddleProduct refresh:^(NSDictionary * _Nullable productDelta, NSError * _Nullable error) {
             if ([paddleProduct activated]) {
-                [MF_Purchase pluginInstall:plugin :theButton :repo];
+                [MF_Purchase pluginInstallWithProgress:plugin :repo :theButton :progress];
+//                [MF_Purchase pluginInstall:plugin :theButton :repo];
             } else {
                 [thePaddle showCheckoutForProduct:paddleProduct options:nil checkoutStatusCompletion:^(PADCheckoutState state, PADCheckoutData * _Nullable checkoutData) {
                     // Examine checkout state to determine the checkout result
@@ -176,6 +177,7 @@ extern AppDelegate* myDelegate;
 }
 
 + (void)pluginInstallWithProgress:(MSPlugin*)plugin :(NSString*)repo :(NSButton*)theButton :(NSProgressIndicator*)progress {
+    NSLog(@"%@", progress);
     if (progress) {
         NSDictionary* item = plugin.webPlist;
         [PluginManager.sharedInstance pluginUpdateOrInstallWithProgress:item :repo :theButton :progress];

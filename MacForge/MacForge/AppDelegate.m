@@ -1117,7 +1117,7 @@ Boolean paddleQuit = false;
     NSString *plist = @"Library/Preferences/com.w0lf.MacForgeHelper.plist";
     NSMutableDictionary *SIMBLPrefs = [NSMutableDictionary dictionaryWithContentsOfFile:[NSHomeDirectory() stringByAppendingPathComponent:plist]];
     NSArray *blacklist = [SIMBLPrefs objectForKey:@"SIMBLApplicationIdentifierBlacklist"];
-    NSArray *alwaysBlaklisted = @[@"org.w0lf.mySIMBL", @"org.w0lf.cDock-GUI"];
+    NSArray *alwaysBlaklisted = @[@"org.w0lf.mySIMBL", @"org.w0lf.cDock-GUI", @"com.w0lf.MacForge", @"com.w0lf.MacForgeHelper"];
     NSMutableArray *newlist = [[NSMutableArray alloc] initWithArray:blacklist];
     for (NSString *app in alwaysBlaklisted)
         if (![blacklist containsObject:app])

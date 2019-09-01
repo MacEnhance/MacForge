@@ -8,6 +8,8 @@
 
 #import "MF_featuredSmallController.h"
 
+extern AppDelegate *myDelegate;
+
 @interface MF_featuredSmallController ()
 
 @end
@@ -33,10 +35,10 @@
     plug = plugin;
     self.bundleName.stringValue = plugin.webName;
     self.bundleDesc.stringValue = plugin.webDescription;
-    self.bundleBanner.animates = YES;
+//    self.bundleBanner.animates = YES;
     self.bundleBanner.canDrawSubviewsIntoLayer = YES;
     [self.bundleBanner.superview setWantsLayer:YES];
-    self.bundleBanner.imageAlignment = NSImageAlignTop;
+//    self.bundleBanner.imageAlignment = NSImageAlignTop;
     
     _bundleGet.backgroundNormalColor = NSColor.whiteColor;
     _bundleGet.backgroundHighlightColor = NSColor.whiteColor;
@@ -89,8 +91,25 @@
 }
 
 - (IBAction)moreInfo:(id)sender {
-    //    NSLog(@"%@", plug.webPlist);
-    NSLog(@"check");
+//    NSLog(@"%@", plug.webPlist);
+//    NSLog(@"check %@", myDelegate.sourcesBundle);
+//    [[myDelegate.sourcesRoot animator] replaceSubview:[myDelegate.sourcesRoot.subviews objectAtIndex:0] with:myDelegate.sourcesBundle];
+    
+//    NSLog(@"%@", plug.webPlist);
+    
+    pluginData.sharedInstance.currentPlugin = plug;
+    plug.webRepository = @"https://github.com/w0lfschild/myRepo/raw/master/featuredRepo";
+    NSView *v = myDelegate.sourcesBundle;
+    dispatch_async(dispatch_get_main_queue(), ^(void){
+        //                [v.layer setBackgroundColor:[NSColor redColor].CGColor];
+        [v setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
+        [v setFrame:myDelegate.tabMain.frame];
+        [v setFrameOrigin:NSMakePoint(0, 0)];
+        [v setTranslatesAutoresizingMaskIntoConstraints:true];
+        [myDelegate.tabMain setSubviews:[NSArray arrayWithObject:v]];
+    });
+    
+//    [self.view.superview setSubviews:[NSArray arrayWithObjects:myDelegate.sourcesBundle, nil]];
 }
 
 @end

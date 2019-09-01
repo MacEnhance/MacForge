@@ -4,12 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Crashlytics.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Fabric.xcscheme</key>
+		<key>EDStarRating.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -69,6 +64,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>LetsMove.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>PaddleV4.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-MacForge.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -100,6 +105,16 @@
 			<false/>
 		</dict>
 		<key>Pods-com.w0lf.MacForge.Installer.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SDWebImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Sparkle.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

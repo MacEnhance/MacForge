@@ -73,6 +73,10 @@
     _repoPluginsDic = [[NSMutableDictionary alloc] init];
     NSMutableArray *sourceURLS = [[NSMutableArray alloc] initWithArray:[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] objectForKey:@"sources"]];
     for (NSString *source in sourceURLS) {
+//        NSMutableDictionary *sourceDic = [self fetch_repo:source];
+//        NSLog(@"%@", sourceDic);
+//        [self.sourceListDic setObject:sourceDic forKey:source];
+        
         NSURL* data = [NSURL URLWithString:[NSString stringWithFormat:@"%@/packages_v2.plist", source]];
         NSMutableDictionary* repoPackages = [[NSMutableDictionary alloc] initWithContentsOfURL:data];
         if (repoPackages != nil) {
@@ -81,9 +85,9 @@
             for (NSString *bundleIdentifier in [repoPackages allKeys]) {
                 NSMutableDictionary *bundle = [repoPackages objectForKey:bundleIdentifier];
                 [bundle setObject:source forKey:@"sourceURL"];
-                
+
                 MSPlugin *this_is_a_bundle = [[MSPlugin alloc] init];
-                
+
                 this_is_a_bundle.bundleID = [bundle objectForKey:@"package"];
                 this_is_a_bundle.webName = [bundle objectForKey:@"name"];
                 this_is_a_bundle.webSize = [bundle objectForKey:@"size"];
@@ -101,7 +105,7 @@
                 this_is_a_bundle.webPlist = bundle;
                 this_is_a_bundle.webPaid = [[bundle valueForKey:@"payed"] boolValue];
 
-                
+
                 [self.repoPluginsDic setObject:this_is_a_bundle forKey:bundleIdentifier];
                 [sourceDic setObject:this_is_a_bundle forKey:bundleIdentifier];
 //                NSLog(@"%@", this_is_a_bundle);

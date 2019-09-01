@@ -1,51 +1,40 @@
-# Uncomment the next line to define a global platform for your project
 platform :osx, '10.11'
 
-target 'com.w0lf.MacForge.Injector' do
-  # Comment the next line if you don't want to use dynamic frameworks
-  # use_frameworks!
-  # Pods for com.w0lf.MacForge.Injector
-end
+use_frameworks!
 
-target 'com.w0lf.MacForge.Installer' do
-  # Comment the next line if you don't want to use dynamic frameworks
-  # use_frameworks!
-  # Pods for com.w0lf.MacForge.Installer
+def shared_pods
+      pod 'Sparkle'
 end
 
 target 'MacForge' do
-  # Comment the next line if you don't want to use dynamic frameworks
-  use_frameworks!
-pod 'Fabric', '~> 1.10.2'
-pod 'Crashlytics', '~> 3.13.4'
+ 	shared_pods
+  pod 'LetsMove'
+  pod 'PaddleV4'
+  pod 'SDWebImage'
+  pod 'EDStarRating'
 
+  # Firebase
   pod 'FirebaseCore', :path => './firebase_sdk/'
   pod 'FirebaseDatabase', :path => './firebase_sdk/'
   pod 'FirebaseStorage', :path => './firebase_sdk/'
   pod 'FirebaseAuth', :path => './firebase_sdk/'
-  # Pods for MacForge
-end
-
-target 'MacForgeDockTile' do
-  # Comment the next line if you don't want to use dynamic frameworks
-  # use_frameworks!
-  # Pods for MacForgeDockTile
-end
-
-target 'MacForgeFix' do
-  # Comment the next line if you don't want to use dynamic frameworks
-  # use_frameworks!
-  # Pods for MacForgeFix
 end
 
 target 'MacForgeHelper' do
-  # Comment the next line if you don't want to use dynamic frameworks
-  # use_frameworks!
-  # Pods for MacForgeHelper
+  shared_pods
+end
+
+target 'com.w0lf.MacForge.Injector' do
+end
+
+target 'com.w0lf.MacForge.Installer' do
+end
+
+target 'MacForgeDockTile' do
+end
+
+target 'MacForgeFix' do
 end
 
 target 'MacForgeKit' do
-  # Comment the next line if you don't want to use dynamic frameworks
-  use_frameworks!
-  # Pods for MacForgeKit
 end

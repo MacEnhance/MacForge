@@ -35,7 +35,7 @@ extern AppDelegate *myDelegate;
     plug = plugin;
     self.bundleName.stringValue = plugin.webName;
     self.bundleDesc.stringValue = plugin.webDescription;
-    self.bundleBanner.animates = YES;
+//    self.bundleBanner = YES;
     self.bundleBanner.canDrawSubviewsIntoLayer = YES;
     [self.bundleBanner.superview setWantsLayer:YES];
     

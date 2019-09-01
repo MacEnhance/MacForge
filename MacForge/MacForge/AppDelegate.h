@@ -9,11 +9,11 @@
 // Local
 @import AppKit;
 
-// External
+// Pods
 @import LetsMove;
-@import MacForgeKit;
 @import Paddle;
 @import Sparkle;
+@import EDStarRating;
 
 // Firebase
 @import FirebaseCore;
@@ -21,9 +21,6 @@
 @import FirebaseAuth;
 @import FirebaseStorage;
 @import FirebaseCoreDiagnostics;
-
-@import Fabric;
-@import Crashlytics;
 
 // MacForgeKit
 @import MacForgeKit;

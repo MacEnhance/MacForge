@@ -8,12 +8,19 @@
 
 @import AppKit;
 @import WebKit;
+
+@import EDStarRating;
+
 #import "PluginManager.h"
 #import "AppDelegate.h"
 #import "pluginData.h"
 #import "SYFlatButton.h"
 
-@interface bundlePage : NSView
+@interface bundlePage : NSView <EDStarRatingProtocol>
+
+@property IBOutlet EDStarRating*    starRating;
+@property IBOutlet NSTextField*     starScore;
+@property IBOutlet NSTextField*     starReviews;
 
 // Bundle Display
 @property IBOutlet NSTextField*     bundleName;
@@ -86,11 +93,44 @@ extern long selectedRow;
     return result;
 }
 
+- (NSImage *)imageTintedWithColor:(NSColor *)tint :(NSImage*)img {
+    NSImage *image = [img copy];
+    if (tint) {
+        [image lockFocus];
+        [tint set];
+        NSRect imageRect = {NSZeroPoint, [image size]};
+        NSRectFillUsingOperation(imageRect, NSCompositeSourceAtop);
+        [image unlockFocus];
+    }
+    return image;
+}
+
 -(void)viewWillDraw {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(systemDarkModeChange:) name:@"AppleInterfaceThemeChangedNotification" object:nil];
     });
+    
+    NSImage *star = [self imageTintedWithColor:NSColor.lightGrayColor :[NSImage imageNamed:@"star.png"]];
+    NSImage *highlight = [self imageTintedWithColor:NSColor.lightGrayColor :[NSImage imageNamed:@"starhighlighted.png"]];
+
+    //
+    float randomScore = ((float)rand() / RAND_MAX) * 5;
+    float randomReviews = ((float)rand() / RAND_MAX) * 100;
+    
+    _starScore.stringValue = [NSString stringWithFormat:@"%.1f", randomScore];
+    _starReviews.stringValue = [NSString stringWithFormat:@"%.0f ratings", randomReviews];
+    
+    _starRating.starImage = star;
+    _starRating.starHighlightedImage = highlight;
+    _starRating.maxRating = 5.0;
+    _starRating.delegate = self;
+    _starRating.horizontalMargin = 12;
+    _starRating.editable=NO;
+    _starRating.displayMode=EDStarRatingDisplayAccurate;
+    _starRating.rating= randomScore;
+    //
+    
     
     _bundleInstall.backgroundNormalColor = [NSColor colorWithRed:0.08 green:0.52 blue:1.0 alpha:1.0];
     _bundleInstall.backgroundHighlightColor = [NSColor colorWithRed:0.08 green:0.52 blue:1.0 alpha:1.0];
@@ -352,18 +392,18 @@ extern long selectedRow;
 }
 
 - (IBAction)cyclePreviews:(id)sender {
-    NSInteger increment = -1;
-    if ([sender isEqual:_bundlePreviewNext])
-        increment = 1;
-    NSInteger newPreview = _currentPreview += increment;
-    if (increment == 1)
-        if (newPreview >= _bundlePreviewImages.count)
-            newPreview = 0;
-    if (increment == -1)
-        if (newPreview < 0)
-            newPreview = _bundlePreviewImages.count - 1;
-    _currentPreview = newPreview;
-    self.bundlePreview1.image = self.bundlePreviewImages[newPreview];
+//    NSInteger increment = -1;
+//    if ([sender isEqual:_bundlePreviewNext])
+//        increment = 1;
+//    NSInteger newPreview = _currentPreview += increment;
+//    if (increment == 1)
+//        if (newPreview >= _bundlePreviewImages.count)
+//            newPreview = 0;
+//    if (increment == -1)
+//        if (newPreview < 0)
+//            newPreview = _bundlePreviewImages.count - 1;
+//    _currentPreview = newPreview;
+//    self.bundlePreview1.image = self.bundlePreviewImages[newPreview];
 }
 
 - (void)verifyPurchased {

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14854.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14865.1" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14854.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14865.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MF_featuredItemController">
             <connections>
-                <outlet property="bundleBanner" destination="Dxz-a4-Yk4" id="862-A4-0Bc"/>
-                <outlet property="bundleButton" destination="2nR-Sa-k0c" id="XPy-zH-j1D"/>
+                <outlet property="bundleBanner" destination="83X-Y6-TjH" id="CmI-xr-Jl5"/>
+                <outlet property="bundleButton" destination="2nR-Sa-k0c" id="e9A-M5-WSa"/>
                 <outlet property="bundleDesc" destination="0Yp-nZ-k9V" id="qRE-QP-Xqr"/>
                 <outlet property="bundleGet" destination="nge-iR-pEF" id="h17-2u-n36"/>
                 <outlet property="bundleName" destination="J1f-hM-SWl" id="Le6-cl-Qb3"/>
@@ -23,22 +23,6 @@
             <rect key="frame" x="0.0" y="0.0" width="560" height="180"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
             <subviews>
-                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dxz-a4-Yk4">
-                    <rect key="frame" x="0.0" y="0.0" width="560" height="180"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="hgB-lX-6Pb"/>
-                </imageView>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2nR-Sa-k0c">
-                    <rect key="frame" x="8" y="4" width="173" height="173"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
-                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSApplicationIcon" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="zsp-Bl-kOd">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="moreInfo:" target="-2" id="g7l-V4-EG1"/>
-                    </connections>
-                </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J1f-hM-SWl">
                     <rect key="frame" x="187" y="158" width="366" height="17"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
@@ -57,6 +41,28 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2nR-Sa-k0c">
+                    <rect key="frame" x="8" y="4" width="173" height="173"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSApplicationIcon" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="zsp-Bl-kOd">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="moreInfo:" target="-2" id="g7l-V4-EG1"/>
+                    </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="83X-Y6-TjH">
+                    <rect key="frame" x="0.0" y="0.0" width="560" height="180"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="31l-bO-78i">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="moreInfo:" target="-2" id="7Fl-gF-NAj"/>
+                    </connections>
+                </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nge-iR-pEF" customClass="SYFlatButton">
                     <rect key="frame" x="189" y="14" width="65" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
