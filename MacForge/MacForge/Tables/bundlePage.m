@@ -111,16 +111,17 @@ extern long selectedRow;
         [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(systemDarkModeChange:) name:@"AppleInterfaceThemeChangedNotification" object:nil];
     });
     
+    // Reviews
+    
     NSImage *star = [self imageTintedWithColor:NSColor.lightGrayColor :[NSImage imageNamed:@"star.png"]];
     NSImage *highlight = [self imageTintedWithColor:NSColor.lightGrayColor :[NSImage imageNamed:@"starhighlighted.png"]];
-
-    //
+    
     float randomScore = ((float)rand() / RAND_MAX) * 5;
     float randomReviews = ((float)rand() / RAND_MAX) * 100;
-    
+
     _starScore.stringValue = [NSString stringWithFormat:@"%.1f", randomScore];
     _starReviews.stringValue = [NSString stringWithFormat:@"%.0f ratings", randomReviews];
-    
+
     _starRating.starImage = star;
     _starRating.starHighlightedImage = highlight;
     _starRating.maxRating = 5.0;
@@ -129,7 +130,7 @@ extern long selectedRow;
     _starRating.editable=NO;
     _starRating.displayMode=EDStarRatingDisplayAccurate;
     _starRating.rating= randomScore;
-    //
+    
     
     
     _bundleInstall.backgroundNormalColor = [NSColor colorWithRed:0.08 green:0.52 blue:1.0 alpha:1.0];

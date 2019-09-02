@@ -297,7 +297,8 @@ void HandleExceptions(NSException *exception) {
     SIMBLLogDebug(@"app start notification: %@", runningApp);
     
     // Check to see if there are plugins to load
-    if ([SIMBL shouldInstallPluginsIntoApplication:[NSBundle bundleWithURL:runningApp.bundleURL]] == NO) return false;
+    if (runningApp.bundleURL)
+        if ([SIMBL shouldInstallPluginsIntoApplication:[NSBundle bundleWithURL:runningApp.bundleURL]] == NO) return false;
     
     // User Blacklist
     NSString* appIdentifier = runningApp.bundleIdentifier;
