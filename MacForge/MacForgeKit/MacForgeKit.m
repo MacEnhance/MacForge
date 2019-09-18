@@ -103,9 +103,11 @@ bool _csr_check(int aMask, bool aFlipflag)
     return  (allowsFS || allowsInjection);
 }
 
-//+ (Boolean)SIP_enabled {
-//    return ([[MacForgeKit runScript:@"touch /System/test 2>&1"] rangeOfString:@"Operation not permitted"].length);
-//}
+// Note:
+//
+// cs_enforcement_disable=1
+// amfi_get_out_of_my_way=1
+//
 
 + (Boolean)AMFI_enabled {
     NSString *result = [MacForgeKit runScript:@"nvram boot-args 2>&1"];
@@ -118,7 +120,7 @@ bool _csr_check(int aMask, bool aFlipflag)
     return [MacForgeKit runSTPrivilegedTask:@"/bin/sh" :args];
 }
 
-+ (Boolean)MacPlus_remove {
++ (Boolean)MacEnhance_remove {
     NSArray *args = [NSArray arrayWithObject:[[NSBundle bundleForClass:[MacForgeKit class]] pathForResource:@"cleanup" ofType:nil]];
     return [MacForgeKit runSTPrivilegedTask:@"/bin/sh" :args];
 }

@@ -41,9 +41,8 @@ extern AppDelegate* myDelegate;
 }
 
 + (void)verifyPurchased:(MSPlugin*)plugin :(NSButton*)theButton {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
-    
-    NSLog(@"%@ : %@", plugin.bundleID, theButton);
+//    NSLog(@"%s", __PRETTY_FUNCTION__);
+//    NSLog(@"%@ : %@", plugin.bundleID, theButton);
     
     NSDictionary* item = plugin.webPlist;
     NSString *productID = [item objectForKey:@"productID"];

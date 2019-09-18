@@ -23,7 +23,7 @@ FOUNDATION_EXPORT const unsigned char MacForgeKitVersionString[];
 + (Boolean)AMFI_enabled;
 + (Boolean)AMFI_toggle;
 + (Boolean)SIP_enabled;
-+ (Boolean)MacPlus_remove;
++ (Boolean)MacEnhance_remove;
 
 @end
 

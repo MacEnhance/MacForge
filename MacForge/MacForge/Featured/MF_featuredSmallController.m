@@ -18,7 +18,8 @@ extern AppDelegate *myDelegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    NSString * nibName = @"MF_featuredSmallController";
+    self = [super initWithNibName:nibName bundle:nibBundleOrNil];
     if (self) {
         // Initialization code here.
     }

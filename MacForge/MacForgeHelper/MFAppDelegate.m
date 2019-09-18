@@ -387,18 +387,27 @@ void HandleExceptions(NSException *exception) {
 + (void)abortMission {
     NSString *path=[NSHomeDirectory() stringByAppendingPathComponent:@".Trash"];
     
+    // See if a copy of MacForge is in the trash
     if ([[[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:nil] containsObject:@"MacForge.app"]) {
-        NSAlert *alert = [[NSAlert alloc] init];
-        [alert setMessageText:@"We noticed you threw MacForge in the Trash. Would you like to quit the helper and uninstall?"];
-        [alert addButtonWithTitle:@"Cancel"];
-        [alert addButtonWithTitle:@"OK"];
-        NSInteger button = [alert runModal];
-        if (button == NSAlertFirstButtonReturn) {
-            //        [input validateEditing];
-        } else if (button == NSAlertSecondButtonReturn) {
-            [NSApp terminate:nil];
-        } else {
+        
+        // See if our original bundle path still exists
+        if (![NSFileManager.defaultManager fileExistsAtPath:NSBundle.mainBundle.bundlePath]) {
+//            NSString *param = [NSString stringWithFormat:@"echo %@ > ~/Desktop/abcdef.txt", NSBundle.mainBundle.bundlePath];
+//            system([param UTF8String]);
+            
+            NSAlert *alert = [[NSAlert alloc] init];
+            [alert setMessageText:@"We noticed you threw MacForge in the Trash. Would you like to quit the helper and uninstall?"];
+            [alert addButtonWithTitle:@"Cancel"];
+            [alert addButtonWithTitle:@"OK"];
+            NSInteger button = [alert runModal];
+            if (button == NSAlertFirstButtonReturn) {
+               //        [input validateEditing];
+            } else if (button == NSAlertSecondButtonReturn) {
+               [NSApp terminate:nil];
+            } else {
+            }
         }
+        
     }
 }
 
@@ -410,8 +419,7 @@ void HandleExceptions(NSException *exception) {
         { kEventClassApplication, kEventAppTerminated }
     };
     if (sCarbonEventsRef == NULL) {
-        (void) InstallEventHandler(GetApplicationEventTarget(), (EventHandlerUPP) CarbonEventHandler, GetEventTypeCount(kEvents),
-                                   kEvents, (__bridge void *)(self), &sCarbonEventsRef);
+        (void) InstallEventHandler(GetApplicationEventTarget(), (EventHandlerUPP) CarbonEventHandler, GetEventTypeCount(kEvents), kEvents, (__bridge void *)(self), &sCarbonEventsRef);
     }
 }
 

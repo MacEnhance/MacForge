@@ -3,11 +3,11 @@ platform :osx, '10.11'
 use_frameworks!
 
 def shared_pods
-      pod 'Sparkle'
+  pod 'Sparkle'
 end
 
 target 'MacForge' do
- 	shared_pods
+  shared_pods
   pod 'LetsMove'
   pod 'PaddleV4'
   pod 'SDWebImage'

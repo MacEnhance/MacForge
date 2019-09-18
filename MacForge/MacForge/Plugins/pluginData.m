@@ -71,18 +71,47 @@
 - (void)fetch_repos {
     _sourceListDic = [[NSMutableDictionary alloc] init];
     _repoPluginsDic = [[NSMutableDictionary alloc] init];
+    
+    // Changes
+    NSString *plist;
+    
+    plist = @"~/Library/Application Support/MacForge/packageIDs.plist".stringByExpandingTildeInPath;
+    NSMutableDictionary *packageIDs = [[NSMutableDictionary alloc] init];
+    if ([NSFileManager.defaultManager fileExistsAtPath:plist])
+        packageIDs= [NSMutableDictionary dictionaryWithContentsOfFile:plist];
+    
+    plist = @"~/Library/Application Support/MacForge/newPackages.plist".stringByExpandingTildeInPath;
+    NSMutableDictionary *changesPLIST = [[NSMutableDictionary alloc] init];
+    if ([NSFileManager.defaultManager fileExistsAtPath:plist])
+        changesPLIST= [NSMutableDictionary dictionaryWithContentsOfFile:plist];
+    
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"dd/MM/yyyy HH:mm"];
+    NSString *checkTimeStamp = [dateFormat stringFromDate:NSDate.date];
+    NSLog(@"Update time : %@", checkTimeStamp);
+    
+    NSMutableDictionary *packagesinCheck = [[NSMutableDictionary alloc] init];
+    //
+    
     NSMutableArray *sourceURLS = [[NSMutableArray alloc] initWithArray:[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] objectForKey:@"sources"]];
     for (NSString *source in sourceURLS) {
 //        NSMutableDictionary *sourceDic = [self fetch_repo:source];
 //        NSLog(@"%@", sourceDic);
 //        [self.sourceListDic setObject:sourceDic forKey:source];
         
+        // Read the repo file
         NSURL* data = [NSURL URLWithString:[NSString stringWithFormat:@"%@/packages_v2.plist", source]];
         NSMutableDictionary* repoPackages = [[NSMutableDictionary alloc] initWithContentsOfURL:data];
+        
+        // Repo has some contents
         if (repoPackages != nil) {
+            
             NSMutableDictionary *sourceDic = [[NSMutableDictionary alloc] init];
             [sourceDic setObject:repoPackages forKey:@"raw_repoPackages"];
+            
+            // Iterate over all packages
             for (NSString *bundleIdentifier in [repoPackages allKeys]) {
+            
                 NSMutableDictionary *bundle = [repoPackages objectForKey:bundleIdentifier];
                 [bundle setObject:source forKey:@"sourceURL"];
 
@@ -109,10 +138,55 @@
                 [self.repoPluginsDic setObject:this_is_a_bundle forKey:bundleIdentifier];
                 [sourceDic setObject:this_is_a_bundle forKey:bundleIdentifier];
 //                NSLog(@"%@", this_is_a_bundle);
+                
+                NSString *bundleID = this_is_a_bundle.bundleID;
+                if ([packageIDs objectForKey:bundleID]) {
+                    
+                    NSMutableDictionary *packagebundle = [packageIDs objectForKey:bundleID];
+                    
+                    // Package updated
+                    if (![[packagebundle objectForKey:@"version"] isEqualTo:this_is_a_bundle.webVersion]) {
+                        [bundle setObject:checkTimeStamp forKey:@"checkdate"];
+                        [packageIDs setObject:bundle forKey:bundleID];
+                        [packagesinCheck setObject:bundle forKey:bundleID];
+                    }
+                    
+                } else {
+                    
+                    // New package
+                    [bundle setObject:checkTimeStamp forKey:@"checkdate"];
+                    [packageIDs setObject:bundle forKey:bundleID];
+                    [packagesinCheck setObject:bundle forKey:bundleID];
+                    
+                }
             }
             [self.sourceListDic setObject:sourceDic forKey:source];
         }
+        
     }
+    
+    if (packagesinCheck.allKeys.count > 0) {
+        [changesPLIST setObject:packagesinCheck forKey:checkTimeStamp];
+    }
+    
+    // key (bundleID) >
+    //                  most recent version
+    //                  most recent update
+    
+//    NSArray *blacklist = [SIMBLPrefs objectForKey:@"SIMBLApplicationIdentifierBlacklist"];
+//    NSArray *alwaysBlaklisted = @[@"org.w0lf.mySIMBL", @"org.w0lf.cDock-GUI", @"com.w0lf.MacForge", @"com.w0lf.MacForgeHelper"];
+//    NSMutableArray *newlist = [[NSMutableArray alloc] initWithArray:blacklist];
+//    for (NSString *app in alwaysBlaklisted)
+//        if (![blacklist containsObject:app])
+//            [newlist addObject:app];
+//    [SIMBLPrefs setObject:newlist forKey:@"SIMBLApplicationIdentifierBlacklist"];
+    
+//    NSLog(@"%@", changesPLIST);
+//    NSLog(@"%@", @"~/Library/Application Support/MacForge/packageIDs.plist".stringByExpandingTildeInPath);
+    [packageIDs writeToFile:@"~/Library/Application Support/MacForge/packageIDs.plist".stringByExpandingTildeInPath atomically:YES];
+    [changesPLIST writeToFile:@"~/Library/Application Support/MacForge/newPackages.plist".stringByExpandingTildeInPath atomically:YES];
+    
+//    NSLog(@"%@", self.sourceListDic);
 }
 
 - (void)fetch_local {

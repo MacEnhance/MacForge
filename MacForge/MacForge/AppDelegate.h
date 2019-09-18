@@ -74,6 +74,7 @@
 @property IBOutlet NSTextField *addsourcesTextFiled;
 
 // Discover view
+@property IBOutlet NSTableView *changesTable;
 @property IBOutlet NSView *sourcesRoot;
 @property IBOutlet NSView *sourcesBundle;
 @property IBOutlet NSScrollView *sourcesURLS;
@@ -154,6 +155,7 @@
 // Preferences view
 @property IBOutlet NSButton         *prefDonate;
 @property IBOutlet NSButton         *prefAds;
+@property IBOutlet NSButton         *prefUpdateBeta;
 @property IBOutlet NSButton         *prefTips;
 @property IBOutlet NSButton         *prefWindow;
 @property IBOutlet NSPopUpButton    *prefUpdateAuto;

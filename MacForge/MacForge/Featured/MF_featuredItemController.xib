@@ -79,7 +79,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                 </progressIndicator>
             </subviews>
-            <point key="canvasLocation" x="183" y="-2246"/>
+            <point key="canvasLocation" x="136" y="-1962"/>
         </customView>
     </objects>
     <resources>

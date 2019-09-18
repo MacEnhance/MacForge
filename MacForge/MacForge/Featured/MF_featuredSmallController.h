@@ -22,12 +22,12 @@ NS_ASSUME_NONNULL_BEGIN
     MSPlugin *plug;
 }
 
-@property IBOutlet NSTextField*     bundleName;
-@property IBOutlet NSTextField*     bundleDesc;
-@property IBOutlet NSButton*        bundleBanner;
-@property IBOutlet NSButton*        bundleButton;
-@property IBOutlet SYFlatButton*    bundleGet;
-@property IBOutlet NSProgressIndicator*    bundleProgress;
+@property (weak) IBOutlet NSTextField*     bundleName;
+@property (weak) IBOutlet NSTextField*     bundleDesc;
+@property (weak) IBOutlet NSButton*        bundleBanner;
+@property (weak) IBOutlet NSButton*        bundleButton;
+@property (weak) IBOutlet SYFlatButton*    bundleGet;
+@property (weak) IBOutlet NSProgressIndicator*    bundleProgress;
 
 - (IBAction)getOrOpen:(id)sender;
 - (IBAction)moreInfo:(id)sender;

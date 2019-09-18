@@ -49,73 +49,53 @@ Boolean paddleQuit = false;
 //    NSLog(@"%@", obj);
 }
 
-- (IBAction)fireBaseLogin:(id)sender {
+- (IBAction)fireBaseLogout:(id)sender {
+    NSError *err;
+    [FIRAuth.auth signOut:&err];
+    
+    _imgAccount.image = [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].image;
+    _viewAccount.title = [NSString stringWithFormat:@"                    %@", [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].fullName];
+    
+    _loginImageURL.stringValue = @"";
+    _loginUsername.stringValue = @"";
+    _loginUID.stringValue = @"";
+    _loginEmail.stringValue = @"";
+    _loginPassword.stringValue = @"";
+    
+    NSLog(@"%@", err);
+}
+
+- (IBAction)fireBaseRegister:(id)sender {
     FIRUser *user = [FIRAuth auth].currentUser;
     
-    FIRUserProfileChangeRequest *changeRequest = [[FIRAuth auth].currentUser profileChangeRequest];
-    changeRequest.photoURL = [NSURL URLWithString:@"https://avatars3.githubusercontent.com/u/1920148?s=460&v=4"];
-    changeRequest.displayName = _loginUsername.stringValue;
-    [changeRequest commitChangesWithCompletion:^(NSError *_Nullable error) {
-        NSLog(@"%@", error);
-        // ...
-    }];
-    
-    // [END get_user_profile]
-    // [START user_profile]
     if (user) {
-        // The user's ID, unique to the Firebase project.
-        // Do NOT use this value to authenticate with your backend server,
-        // if you have one. Use getTokenWithCompletion:completion: instead.
-//        NSString *uid = user.uid;
-        NSString *email = user.email;
-        NSURL *photoURL = user.photoURL;
-        NSString *displayName = user.displayName;
-        // [START_EXCLUDE]
-        _loginEmail.stringValue = email;
-        if (displayName)
-            _viewAccount.title = [NSString stringWithFormat:@"                    %@", displayName];
-        else
-            _viewAccount.title = [NSString stringWithFormat:@"                    %@", [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].fullName];
-//        _password.stringValue =
-        
-        static NSURL *lastPhotoURL = nil;
-        lastPhotoURL = photoURL;  // to prevent earlier image overwrites later one.
-        if (photoURL) {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^() {
-                NSImage *image = [NSImage sd_imageWithData:[NSData dataWithContentsOfURL:photoURL]];
-                dispatch_async(dispatch_get_main_queue(), ^() {
-                    if (photoURL == lastPhotoURL) {
-                        self->_imgAccount.image = image;
-                    }
-                });
-            });
-        } else {
-            _imgAccount.image = [NSImage imageNamed:@"ic_account_circle"];
-        }
-        // [END_EXCLUDE]
+        FIRUserProfileChangeRequest *changeRequest = [[FIRAuth auth].currentUser profileChangeRequest];
+        changeRequest.photoURL = [NSURL URLWithString:_loginImageURL.stringValue];
+        changeRequest.displayName = _loginUsername.stringValue;
+        [changeRequest commitChangesWithCompletion:^(NSError *_Nullable error) {
+            NSLog(@"%@", error);
+            [self fireBaseSetup];
+        }];
     } else {
         [[FIRAuth auth] signInWithEmail:_loginEmail.stringValue
                                password:_loginPassword.stringValue
-                             completion:^(FIRAuthDataResult * _Nullable authResult,
-                                          NSError * _Nullable error) {
-                                 NSLog(@"%@", error);
-                             }];
-        
-//        FIRUserProfileChangeRequest *changeRequest = [[FIRAuth auth].currentUser profileChangeRequest];
-//        changeRequest.photoURL = [NSURL URLWithString:@"https://avatars3.githubusercontent.com/u/1920148?s=460&v=4"];
-//        [changeRequest commitChangesWithCompletion:^(NSError *_Nullable error) {
-//            NSLog(@"%@", error);
-//            // ...
-//        }];
+                             completion:^(FIRAuthDataResult * _Nullable authResult, NSError * _Nullable error) {
+                                            NSLog(@"%@", error);
+                                            [self fireBaseSetup];
+                                        }];
     }
 }
 
-- (void)fireBaseSetup {
-    self.ref = [[FIRDatabase database] reference];
-    
+- (IBAction)fireBaseLogin:(id)sender {
     FIRUser *user = [FIRAuth auth].currentUser;
     
-    NSLog(@"%@", [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].fullName);
+//    FIRUserProfileChangeRequest *changeRequest = [[FIRAuth auth].currentUser profileChangeRequest];
+//    changeRequest.photoURL = [NSURL URLWithString:@"https://avatars3.githubusercontent.com/u/1920148?s=460&v=4"];
+//    changeRequest.displayName = _loginUsername.stringValue;
+//    [changeRequest commitChangesWithCompletion:^(NSError *_Nullable error) {
+//        NSLog(@"%@", error);
+//        // ...
+//    }];
     
     // [END get_user_profile]
     // [START user_profile]
@@ -127,15 +107,13 @@ Boolean paddleQuit = false;
         NSString *email = user.email;
         NSURL *photoURL = user.photoURL;
         NSString *displayName = user.displayName;
-
+        // [START_EXCLUDE]
         _loginUID.stringValue = uid;
         _loginEmail.stringValue = email;
-        if (displayName) {
-            _loginUsername.stringValue = displayName;
+        if (displayName)
             _viewAccount.title = [NSString stringWithFormat:@"                    %@", displayName];
-        } else {
+        else
             _viewAccount.title = [NSString stringWithFormat:@"                    %@", [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].fullName];
-        }
         
         static NSURL *lastPhotoURL = nil;
         lastPhotoURL = photoURL;  // to prevent earlier image overwrites later one.
@@ -149,7 +127,59 @@ Boolean paddleQuit = false;
                 });
             });
         } else {
-            _imgAccount.image = [NSImage imageNamed:@"ic_account_circle"];
+            _imgAccount.image = [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].image;
+        }
+        // [END_EXCLUDE]
+    } else {
+        [[FIRAuth auth] signInWithEmail:_loginEmail.stringValue
+                               password:_loginPassword.stringValue
+                             completion:^(FIRAuthDataResult * _Nullable authResult, NSError * _Nullable error) {
+                                            NSLog(@"%@", error);
+                                            [self fireBaseSetup];
+                                        }];
+    }
+}
+
+- (void)fireBaseSetup {
+    self.ref = [[FIRDatabase database] reference];
+    FIRUser *user = [FIRAuth auth].currentUser;
+        
+    // [END get_user_profile]
+    // [START user_profile]
+    if (user) {
+        // The user's ID, unique to the Firebase project.
+        // Do NOT use this value to authenticate with your backend server,
+        // if you have one. Use getTokenWithCompletion:completion: instead.
+        NSString *uid = user.uid;
+        NSString *email = user.email;
+        NSURL *photoURL = user.photoURL;
+        NSString *displayName = user.displayName;
+        
+        _loginUID.stringValue = uid;
+        _loginEmail.stringValue = email;
+        if (displayName) {
+            _loginUsername.stringValue = displayName;
+            _viewAccount.title = [NSString stringWithFormat:@"                    %@", displayName];
+        } else {
+            _viewAccount.title = [NSString stringWithFormat:@"                    %@", [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].fullName];
+        }
+        
+        _loginImageURL.stringValue = photoURL.absoluteString;
+        
+        static NSURL *lastPhotoURL = nil;
+        lastPhotoURL = photoURL;  // to prevent earlier image overwrites later one.
+        if (photoURL) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^() {
+                NSImage *image = [NSImage sd_imageWithData:[NSData dataWithContentsOfURL:photoURL]];
+                dispatch_async(dispatch_get_main_queue(), ^() {
+                    if (photoURL == lastPhotoURL) {
+                        self->_imgAccount.image = image;
+                    }
+                });
+            });
+        } else {
+            _imgAccount.image = [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].image;
+            _viewAccount.title = [NSString stringWithFormat:@"                    %@", [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].fullName];
         }
     }
 }
@@ -351,8 +381,8 @@ Boolean paddleQuit = false;
     [self executionTime:@"addLoginItem"];
     [self executionTime:@"launchHelper"];
     
-//    [FIRApp configure];
-//    [self executionTime:@"fireBaseSetup"];
+    [FIRApp configure];
+    [self executionTime:@"fireBaseSetup"];
     
     // Setup plugin table
     [_tblView registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
@@ -400,7 +430,7 @@ Boolean paddleQuit = false;
     
     tabViewButtons = [NSArray arrayWithObjects:_viewDiscover, _viewPlugins, _viewSources, _viewChanges, _viewSystem, _viewAbout, _viewPreferences, _viewAccount, nil];
     NSArray *topButtons = [NSArray arrayWithObjects:_viewDiscover, _viewApps, _viewPlugins, _viewSources, _viewChanges, _viewSystem, _viewAbout, _viewPreferences, nil];
-    NSUInteger yLoc = _window.frame.size.height - 116 - height;
+    NSUInteger yLoc = _window.frame.size.height - 96 - height;
     for (NSButton *btn in topButtons) {
         if (btn.enabled) {
             NSRect newFrame = [btn frame];
@@ -603,7 +633,37 @@ Boolean paddleQuit = false;
     });
 }
 
+//- (IBAction)pref_setBeta:(NSButton*)sender {
+//    Boolean isBeta = [sender state];
+//    [Defaults setObject:[NSNumber numberWithBool:isBeta] forKey:@"SUUpdaterChecksForBetaUpdates"];
+//    [Defaults synchronize];
+//}
+
 - (void)setupPrefstab {
+    NSTask *task = [[NSTask alloc] init];
+    [task setLaunchPath:@"/bin/sh"];
+    [task setArguments:[NSArray arrayWithObjects:@"-c",@"sw_vers -buildVersion",nil]];
+    NSPipe *pipe = [NSPipe pipe];
+    [task setStandardOutput:pipe];
+    [task launch];
+    NSData *data = [[pipe fileHandleForReading] readDataToEndOfFile];
+    [task waitUntilExit];
+    NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    result = [result stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    unichar ch = [result characterAtIndex:result.length - 1];
+    BOOL isBeta = [[NSCharacterSet letterCharacterSet] characterIsMember: ch];
+    
+    if (isBeta) {
+        NSLog(@"Beta OS Detected");
+        [Defaults setObject:[NSNumber numberWithBool:true] forKey:@"SUUpdaterChecksForBetaUpdates"];
+        [Defaults synchronize];
+        [_prefUpdateBeta setEnabled:false];
+    } else {
+//        Boolean betaUpdates = [Defaults boolForKey:@"SUUpdaterChecksForBetaUpdates"];
+//        [_prefUpdateBeta setState:betaUpdates];
+//        [self pref_setBeta:_prefUpdateBeta];
+    }
+    
     NSString *plist = [NSString stringWithFormat:@"%@/Library/Preferences/net.culater.SIMBL.plist", NSHomeDirectory()];
     NSUInteger logLevel = [[[NSDictionary dictionaryWithContentsOfFile:plist] objectForKey:@"SIMBLLogLevel"] integerValue];
     [_SIMBLLogging selectItemAtIndex:logLevel];
@@ -780,7 +840,7 @@ Boolean paddleQuit = false;
 - (IBAction)toggleTips:(id)sender {
     NSButton *btn = sender;
     //    [myPreferences setObject:[NSNumber numberWithBool:[btn state]] forKey:@"prefTips"];
-    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:[btn state]] forKey:@"prefTips"];
+//    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:[btn state]] forKey:@"prefTips"];
     NSToolTipManager *test = [NSToolTipManager sharedToolTipManager];
     if ([btn state])
         [test setInitialToolTipDelay:0.1];
@@ -816,13 +876,6 @@ Boolean paddleQuit = false;
         [[_buttonDonate animator] setHidden:false];
         [NSAnimationContext endGrouping];
     }
-}
-
-- (IBAction)inject:(id)sender {
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//        [SIMBLFramework SIMBL_injectAll];
-//        [[NSSound soundNamed:@"Blow"] play];
-//    });
 }
 
 - (IBAction)showAbout:(id)sender {
@@ -1205,7 +1258,7 @@ Boolean paddleQuit = false;
 }
 
 - (IBAction)uninstallMacPlus:(id)sender {
-    [MacForgeKit MacPlus_remove];
+    [MacForgeKit MacEnhance_remove];
 }
 
 - (IBAction)visit_ad:(id)sender {
