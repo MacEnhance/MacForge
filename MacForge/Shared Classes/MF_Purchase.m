@@ -50,6 +50,13 @@ extern AppDelegate* myDelegate;
         Paddle *thePaddle = myDelegate.thePaddle;
         NSString *myPaddleVendorID = @"26643";
         NSString *myPaddleAPIKey = @"02a3c57238af53b3c465ef895729c765";
+                
+        NSLog(@"%@", plugin.webPaddle);
+        
+        if (plugin.webPaddle != nil) {
+            myPaddleVendorID = [plugin.webPaddle objectForKey:@"vendorid"];
+            myPaddleAPIKey = [plugin.webPaddle objectForKey:@"apikey"];
+        }
         
         // Populate a local object in case we're unable to retrieve data from the Vendor Dashboard:
         PADProductConfiguration *defaultProductConfig = [[PADProductConfiguration alloc] init];
@@ -121,7 +128,7 @@ extern AppDelegate* myDelegate;
 }
 
 + (void)installOrPurchase:(MSPlugin*)plugin :(NSButton*)theButton :(NSString*)repo :(NSProgressIndicator*)progress {
-    //    NSLog(@"%s", __PRETTY_FUNCTION__);
+//    NSLog(@"%s", __PRETTY_FUNCTION__);
     NSDictionary* item = plugin.webPlist;
     NSString *productID = [item objectForKey:@"productID"];
     if (productID != nil) {
@@ -129,17 +136,30 @@ extern AppDelegate* myDelegate;
         NSString *myPaddleVendorID = @"26643";
         NSString *myPaddleAPIKey = @"02a3c57238af53b3c465ef895729c765";
         
+        if (plugin.webPaddle != nil) {
+            myPaddleVendorID = [plugin.webPaddle objectForKey:@"vendorid"];
+            myPaddleAPIKey = [plugin.webPaddle objectForKey:@"apikey"];
+        }
+        
         // Populate a local object in case we're unable to retrieve data from the Vendor Dashboard:
         PADProductConfiguration *defaultProductConfig = [[PADProductConfiguration alloc] init];
         defaultProductConfig.productName = @"plugin";
         defaultProductConfig.vendorName = @"macenhance";
-        
+                        
         // Initialize the SDK Instance with Seller details:
-        thePaddle = [Paddle sharedInstanceWithVendorID:myPaddleVendorID
-                                                apiKey:myPaddleAPIKey
-                                             productID:productID
-                                         configuration:defaultProductConfig
-                                              delegate:myDelegate];
+        Paddle *myPaddle = [Paddle sharedInstanceWithVendorID:myPaddleVendorID
+                                                       apiKey:myPaddleAPIKey
+                                                    productID:productID
+                                                configuration:defaultProductConfig
+                                                     delegate:myDelegate];
+                
+//        thePaddle = [Paddle sharedInstanceWithVendorID:myPaddleVendorID
+//                                                apiKey:myPaddleAPIKey
+//                                             productID:productID
+//                                         configuration:defaultProductConfig
+//                                              delegate:myDelegate];
+        
+        NSLog(@"Test: %@", Paddle.sharedInstance.apiKey);
         
         // Initialize the Product you'd like to work with:
         PADProduct *paddleProduct = [[PADProduct alloc] initWithProductID:productID productType:PADProductTypeSDKProduct configuration:defaultProductConfig];
@@ -148,26 +168,48 @@ extern AppDelegate* myDelegate;
         
         // Ask the Product to get it's latest state and info from the Paddle Platform:
         [paddleProduct refresh:^(NSDictionary * _Nullable productDelta, NSError * _Nullable error) {
-            if ([paddleProduct activated]) {
-                [MF_Purchase pluginInstallWithProgress:plugin :repo :theButton :progress];
-//                [MF_Purchase pluginInstall:plugin :theButton :repo];
-            } else {
-                [thePaddle showCheckoutForProduct:paddleProduct options:nil checkoutStatusCompletion:^(PADCheckoutState state, PADCheckoutData * _Nullable checkoutData) {
-                    // Examine checkout state to determine the checkout result
-                    if (state == PADCheckoutPurchased) {
+                    if ([paddleProduct activated]) {
                         [MF_Purchase pluginInstallWithProgress:plugin :repo :theButton :progress];
-//                        [MF_Purchase pluginInstall:plugin :theButton :repo];
+        //                [MF_Purchase pluginInstall:plugin :theButton :repo];
                     } else {
-                        [paddleProduct refresh:^(NSDictionary * _Nullable productDelta, NSError * _Nullable error) {
-                            if ([paddleProduct activated])
+                        [myPaddle showCheckoutForProduct:paddleProduct options:nil checkoutStatusCompletion:^(PADCheckoutState state, PADCheckoutData * _Nullable checkoutData) {
+                            // Examine checkout state to determine the checkout result
+                            if (state == PADCheckoutPurchased) {
                                 [MF_Purchase pluginInstallWithProgress:plugin :repo :theButton :progress];
-//                                [MF_Purchase pluginInstall:plugin :theButton :repo];
-                            NSLog(@"activated : %hhd", [paddleProduct activated]);
+        //                        [MF_Purchase pluginInstall:plugin :theButton :repo];
+                            } else {
+                                [paddleProduct refresh:^(NSDictionary * _Nullable productDelta, NSError * _Nullable error) {
+                                    if ([paddleProduct activated])
+                                        [MF_Purchase pluginInstallWithProgress:plugin :repo :theButton :progress];
+        //                                [MF_Purchase pluginInstall:plugin :theButton :repo];
+                                    NSLog(@"activated : %hhd", [paddleProduct activated]);
+                                }];
+                            }
                         }];
                     }
                 }];
-            }
-        }];
+//        [paddleProduct refresh:^(NSDictionary * _Nullable productDelta, NSError * _Nullable error) {
+//            if ([paddleProduct activated]) {
+//                [MF_Purchase pluginInstallWithProgress:plugin :repo :theButton :progress];
+////                [MF_Purchase pluginInstall:plugin :theButton :repo];
+//            } else {
+//                [thePaddle showCheckoutForProduct:paddleProduct options:nil checkoutStatusCompletion:^(PADCheckoutState state, PADCheckoutData * _Nullable checkoutData) {
+//                    // Examine checkout state to determine the checkout result
+//                    if (state == PADCheckoutPurchased) {
+//                        [MF_Purchase pluginInstallWithProgress:plugin :repo :theButton :progress];
+////                        [MF_Purchase pluginInstall:plugin :theButton :repo];
+//                    } else {
+//                        [paddleProduct refresh:^(NSDictionary * _Nullable productDelta, NSError * _Nullable error) {
+//                            if ([paddleProduct activated])
+//                                [MF_Purchase pluginInstallWithProgress:plugin :repo :theButton :progress];
+////                                [MF_Purchase pluginInstall:plugin :theButton :repo];
+//                            NSLog(@"activated : %hhd", [paddleProduct activated]);
+//                        }];
+//                    }
+//                }];
+//            }
+//        }];
+        
     } else {
         NSLog(@"No product info... lets assume it's FREEEE");
 //        [MF_Purchase pluginInstall:plugin :theButton :repo];

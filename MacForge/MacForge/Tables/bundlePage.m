@@ -8,13 +8,14 @@
 
 @import AppKit;
 @import WebKit;
-
 @import EDStarRating;
 
 #import "PluginManager.h"
 #import "AppDelegate.h"
 #import "pluginData.h"
 #import "SYFlatButton.h"
+
+#import "ZKSwizzle.h"
 
 @interface bundlePage : NSView <EDStarRatingProtocol>
 
@@ -62,6 +63,33 @@
 extern AppDelegate* myDelegate;
 extern NSString *repoPackages;
 extern long selectedRow;
+
+@interface NSObject (logProperties)
+- (void) logProperties;
+@end
+
+#import <objc/runtime.h>
+
+@implementation NSObject (logProperties)
+
+- (void) logProperties {
+
+    NSLog(@"----------------------------------------------- Properties for object %@", self);
+
+    @autoreleasepool {
+        unsigned int numberOfProperties = 0;
+        objc_property_t *propertyArray = class_copyPropertyList([self class], &numberOfProperties);
+        for (NSUInteger i = 0; i < numberOfProperties; i++) {
+            objc_property_t property = propertyArray[i];
+            NSString *name = [[NSString alloc] initWithUTF8String:property_getName(property)];
+            NSLog(@"Property %@ Value: %@", name, [self valueForKey:name]);
+        }
+        free(propertyArray);
+    }
+    NSLog(@"-----------------------------------------------");
+}
+
+@end
 
 @implementation bundlePage {
     bool doOnce;
@@ -130,8 +158,6 @@ extern long selectedRow;
     _starRating.editable=NO;
     _starRating.displayMode=EDStarRatingDisplayAccurate;
     _starRating.rating= randomScore;
-    
-    
     
     _bundleInstall.backgroundNormalColor = [NSColor colorWithRed:0.08 green:0.52 blue:1.0 alpha:1.0];
     _bundleInstall.backgroundHighlightColor = [NSColor colorWithRed:0.08 green:0.52 blue:1.0 alpha:1.0];
@@ -338,46 +364,75 @@ extern long selectedRow;
         _bundlePreviewImages = @[[[NSImage alloc] init], [[NSImage alloc] init]];
         
         NSString *bundle = [NSString stringWithFormat:@"%@", [self->item objectForKey:@"package"]];
-        NSURL *url1 = [NSURL URLWithString:[NSString stringWithFormat:@"%@/images/%@/01.png", repoPackages, bundle]];
-        NSURL *url2 = [NSURL URLWithString:[NSString stringWithFormat:@"%@/images/%@/02.png", repoPackages, bundle]];
-
-        NSData * data = [[NSData alloc] initWithContentsOfURL: url1];
-        NSImage *preview1, *preview2;
-        if ( data == nil ) {
-            preview1 = [[NSImage alloc] init];
-            preview2 = [[NSImage alloc] init];
-        } else {
-            self.bundlePreview1.sd_imageIndicator = SDWebImageActivityIndicator.grayIndicator;
-            self.bundlePreview1.sd_imageIndicator = SDWebImageProgressIndicator.defaultIndicator;
-            
-            self.bundlePreview2.sd_imageIndicator = SDWebImageActivityIndicator.grayIndicator;
-            self.bundlePreview2.sd_imageIndicator = SDWebImageProgressIndicator.defaultIndicator;
-            
-            [self.bundlePreview1 sd_setImageWithURL:url1
-                                   placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
-            
-            [self.bundlePreview2 sd_setImageWithURL:url2
-                                   placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
-            
-            
-            
-            _bundlePreviewImagesMute = [[NSMutableArray alloc] init];
-            SDWebImageDownloader *downloader = [SDWebImageDownloader sharedDownloader];
-            [downloader downloadImageWithURL:url1
-                                   completed:^(NSImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished) {
-                                       if (image) {
-                                           [self->_bundlePreviewImagesMute addObject:image];
-                                           self->_bundlePreviewImages = self->_bundlePreviewImagesMute.copy;
-                                       }
-                                   }];
-            [downloader downloadImageWithURL:url2
-                                   completed:^(NSImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished) {
-                                       if (image) {
-                                           [self->_bundlePreviewImagesMute addObject:image];
-                                           self->_bundlePreviewImages = self->_bundlePreviewImagesMute.copy;
-                                       }
-                                   }];
+        
+        NSMutableArray *abc = [[NSMutableArray alloc] init];
+        for (int i = 1; i <= 6; i++) {
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/images/%@/0%u.png", repoPackages, bundle, i]];
+            [abc addObject:url];
+//            NSLog(@"%@", url.absoluteString);
         }
+        
+//        NSURL *url1 = [NSURL URLWithString:[NSString stringWithFormat:@"%@/images/%@/01.png", repoPackages, bundle]];
+//        NSURL *url2 = [NSURL URLWithString:[NSString stringWithFormat:@"%@/images/%@/02.png", repoPackages, bundle]];
+//        NSURL *url3 = [NSURL URLWithString:[NSString stringWithFormat:@"%@/images/%@/03.png", repoPackages, bundle]];
+//        NSURL *url4 = [NSURL URLWithString:[NSString stringWithFormat:@"%@/images/%@/04.png", repoPackages, bundle]];
+//        NSURL *url5 = [NSURL URLWithString:[NSString stringWithFormat:@"%@/images/%@/05.png", repoPackages, bundle]];
+//        NSURL *url6 = [NSURL URLWithString:[NSString stringWithFormat:@"%@/images/%@/06.png", repoPackages, bundle]];
+        
+        _bundlePreviewImagesMute = [[NSMutableArray alloc] init];
+        SDWebImageDownloader *downloader = [SDWebImageDownloader sharedDownloader];
+        
+        for (int i = 0; i < 6; i++) {
+            NSURL *url = [abc objectAtIndex:i];
+            
+            [downloader downloadImageWithURL:url
+            completed:^(NSImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished) {
+                if (image) {
+                    [self->_bundlePreviewImagesMute addObject:image];
+                    self->_bundlePreviewImages = self->_bundlePreviewImagesMute.copy;
+                }
+            }];
+           
+//            SDWebImageDownloader *downloader = [SDWebImageDownloader sharedDownloader];
+//            [downloader downloadImageWithURL:url1
+//                                   completed:^(NSImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished) {
+//                                       if (image) {
+//                                           [self->_bundlePreviewImagesMute addObject:image];
+//                                           self->_bundlePreviewImages = self->_bundlePreviewImagesMute.copy;
+//                                       }
+//                                   }];
+        }
+        
+        
+        self.bundlePreview1.sd_imageIndicator = SDWebImageActivityIndicator.grayIndicator;
+        self.bundlePreview1.sd_imageIndicator = SDWebImageProgressIndicator.defaultIndicator;
+        
+        self.bundlePreview2.sd_imageIndicator = SDWebImageActivityIndicator.grayIndicator;
+        self.bundlePreview2.sd_imageIndicator = SDWebImageProgressIndicator.defaultIndicator;
+        
+        [self.bundlePreview1 sd_setImageWithURL:abc[0]
+                               placeholderImage:[UIImage imageNamed:NSImageNameBookmarksTemplate]];
+        
+        [self.bundlePreview2 sd_setImageWithURL:abc[1]
+                               placeholderImage:[UIImage imageNamed:NSImageNameBookmarksTemplate]];
+        
+//        dispatch_queue_t backgroundQueue0 = dispatch_queue_create("com.w0lf.MacForge.0", 0);
+//        dispatch_async(backgroundQueue0, ^{
+//
+//            NSData * data = [[NSData alloc] initWithContentsOfURL: abc[0]];
+//            NSImage *preview1, *preview2;
+//
+//            if ( data == nil ) {
+//                preview1 = [[NSImage alloc] init];
+//                preview2 = [[NSImage alloc] init];
+//            } else {
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//
+//                });
+//            }
+//        });
+        
+        
         
         self.bundleImage.image = [PluginManager pluginGetIcon:item];
         [self.bundleImage.cell setImageScaling:NSImageScaleProportionallyUpOrDown];
@@ -393,101 +448,101 @@ extern long selectedRow;
 }
 
 - (IBAction)cyclePreviews:(id)sender {
-//    NSInteger increment = -1;
-//    if ([sender isEqual:_bundlePreviewNext])
-//        increment = 1;
-//    NSInteger newPreview = _currentPreview += increment;
-//    if (increment == 1)
-//        if (newPreview >= _bundlePreviewImages.count)
-//            newPreview = 0;
-//    if (increment == -1)
-//        if (newPreview < 0)
-//            newPreview = _bundlePreviewImages.count - 1;
-//    _currentPreview = newPreview;
-//    self.bundlePreview1.image = self.bundlePreviewImages[newPreview];
+    NSLog(@"%lu", (unsigned long)_bundlePreviewImages.count);
+    
+    if (_bundlePreviewImages.count > 2) {
+        NSInteger increment = -1;
+        if ([sender isEqual:_bundlePreviewNext])
+            increment = 1;
+        
+        NSInteger newPreview = _currentPreview += increment;
+        if (increment == 1)
+            if (newPreview >= _bundlePreviewImages.count)
+                newPreview = 0;
+        
+        if (increment == -1)
+            if (newPreview < 0)
+                newPreview = _bundlePreviewImages.count - 1;
+        
+        _currentPreview = newPreview;
+        self.bundlePreview1.image = self.bundlePreviewImages[newPreview];
+        
+        NSInteger secondPreview = newPreview + 1;
+        if (secondPreview < _bundlePreviewImages.count)
+            self.bundlePreview2.image = self.bundlePreviewImages[secondPreview];
+        else
+            self.bundlePreview2.image = self.bundlePreviewImages[0];
+    }
 }
 
 - (void)verifyPurchased {
 //    NSLog(@"%s", __PRETTY_FUNCTION__);
-    NSString *productID = [item objectForKey:@"productID"];
-    if (productID != nil) {
-        Paddle *thePaddle = myDelegate.thePaddle;
+    
+    NSString *myPaddleProductID = [item objectForKey:@"productID"];
+    if (myPaddleProductID != nil) {
         NSString *myPaddleVendorID = @"26643";
         NSString *myPaddleAPIKey = @"02a3c57238af53b3c465ef895729c765";
+
+        NSDictionary *dict = [item objectForKey:@"paddle"];
+        if (dict != nil) {
+            myPaddleVendorID = [dict objectForKey:@"vendorid"];
+            myPaddleAPIKey = [dict objectForKey:@"apikey"];
+        }
+    
+        NSBundle *b = [NSBundle mainBundle];
+        NSString *execPath = [b pathForResource:@"purchaseValidationApp" ofType:@"app"];
+        execPath = [NSString stringWithFormat:@"%@/Contents/MacOS/purchaseValidationApp", execPath];
         
-        // Populate a local object in case we're unable to retrieve data from the Vendor Dashboard:
-        PADProductConfiguration *defaultProductConfig = [[PADProductConfiguration alloc] init];
-        defaultProductConfig.productName = @"plugin";
-        defaultProductConfig.vendorName = @"macenhance";
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSTask *task = [NSTask launchedTaskWithLaunchPath:execPath arguments:@[myPaddleProductID, myPaddleVendorID, myPaddleAPIKey, @"-v"]];
+            [task waitUntilExit];
+         
+           //This is your completion handler
+           dispatch_sync(dispatch_get_main_queue(), ^{
+               if ([task terminationStatus] == 69) {
+                    NSLog(@"Verified...");
+                    self.bundleInstall.title = @"GET";
+                } else {
+                    self.bundleInstall.title = self.bundlePrice.stringValue;
+                }
+           });
+        });
         
-        // Initialize the SDK Instance with Seller details:
-        thePaddle = [Paddle sharedInstanceWithVendorID:myPaddleVendorID
-                                                apiKey:myPaddleAPIKey
-                                             productID:productID
-                                         configuration:defaultProductConfig
-                                              delegate:myDelegate];
-        
-        // Initialize the Product you'd like to work with:
-        PADProduct *paddleProduct = [[PADProduct alloc] initWithProductID:productID productType:PADProductTypeSDKProduct configuration:defaultProductConfig];
-        
-        // Ask the Product to get it's latest state and info from the Paddle Platform:
-        [paddleProduct refresh:^(NSDictionary * _Nullable productDelta, NSError * _Nullable error) {
-            [self->_bundleInstall setEnabled:true];
-            if ([paddleProduct activated]) {
-                self.bundleInstall.title = @"GET";
-            } else {
-                self.bundleInstall.title = self.bundlePrice.stringValue;
-            }
-        }];
-    } else {
-        NSLog(@"No product info ???");
     }
 }
 
 - (void)installOrPurchase {
 //    NSLog(@"%s", __PRETTY_FUNCTION__);
-    NSString *productID = [item objectForKey:@"productID"];
-    if (productID != nil) {
-        Paddle *thePaddle = myDelegate.thePaddle;
+    
+    NSString *myPaddleProductID = [item objectForKey:@"productID"];
+    if (myPaddleProductID != nil) {
         NSString *myPaddleVendorID = @"26643";
         NSString *myPaddleAPIKey = @"02a3c57238af53b3c465ef895729c765";
+
+        NSDictionary *dict = [item objectForKey:@"paddle"];
+        if (dict != nil) {
+            myPaddleVendorID = [dict objectForKey:@"vendorid"];
+            myPaddleAPIKey = [dict objectForKey:@"apikey"];
+        }
+    
+        NSBundle *b = [NSBundle mainBundle];
+        NSString *execPath = [b pathForResource:@"purchaseValidationApp" ofType:@"app"];
+        execPath = [NSString stringWithFormat:@"%@/Contents/MacOS/purchaseValidationApp", execPath];
+//        NSDictionary* test = [[NSDictionary alloc] initWithObjectsAndKeys:@"535218", @"productID", @"26643", @"vendorID", @"02a3c57238af53b3c465ef895729c765", @"APIKey", nil];
         
-        // Populate a local object in case we're unable to retrieve data from the Vendor Dashboard:
-        PADProductConfiguration *defaultProductConfig = [[PADProductConfiguration alloc] init];
-        defaultProductConfig.productName = @"plugin";
-        defaultProductConfig.vendorName = @"macenhance";
-        
-        // Initialize the SDK Instance with Seller details:
-        thePaddle = [Paddle sharedInstanceWithVendorID:myPaddleVendorID
-                                                apiKey:myPaddleAPIKey
-                                             productID:productID
-                                         configuration:defaultProductConfig
-                                              delegate:myDelegate];
-        
-        // Initialize the Product you'd like to work with:
-        PADProduct *paddleProduct = [[PADProduct alloc] initWithProductID:productID productType:PADProductTypeSDKProduct configuration:defaultProductConfig];
-        
-        // Ask the Product to get it's latest state and info from the Paddle Platform:
-        [paddleProduct refresh:^(NSDictionary * _Nullable productDelta, NSError * _Nullable error) {
-            if ([paddleProduct activated]) {
-                [self pluginInstall];
-            } else {
-                [thePaddle showCheckoutForProduct:paddleProduct options:nil checkoutStatusCompletion:^(PADCheckoutState state, PADCheckoutData * _Nullable checkoutData) {
-                    // Examine checkout state to determine the checkout result
-                    if (state == PADCheckoutPurchased) {
-                        [self pluginInstall];
-                    } else {
-                        [paddleProduct refresh:^(NSDictionary * _Nullable productDelta, NSError * _Nullable error) {
-                            if ([paddleProduct activated])
-                                [self pluginInstall];
-                            NSLog(@"activated : %hhd", [paddleProduct activated]);
-                        }];
-                    }
-                }];
-            }
-        }];
-    } else {
-        NSLog(@"No product info ???");
+        NSTask *task = [NSTask launchedTaskWithLaunchPath:execPath arguments:@[myPaddleProductID, myPaddleVendorID, myPaddleAPIKey]];
+        // Testing
+//        NSTask *task = [NSTask launchedTaskWithLaunchPath:execPath arguments:@[@"520974", @"26643", @"02a3c57238af53b3c465ef895729c765"]];
+//        NSTask *task = [NSTask launchedTaskWithLaunchPath:execPath arguments:@[@"570933", @"102003", @"508205c7de527e9cc702cd1b1e5e2733"]];
+        [task waitUntilExit];
+//        NSLog(@"%d", task.terminationStatus);
+
+        if ([task terminationStatus] == 69) {
+            NSLog(@"Installing...");
+            [self pluginInstall];
+        } else {
+            NSLog(@"Failed to purchase or validate purchase.");
+        }
     }
 }
 

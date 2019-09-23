@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property MF_featuredItemController *largeFeature01;
 @property MF_featuredItemController *largeFeature02;
+@property MF_featuredItemController *largeFeature03;
 
 @property MF_featuredSmallController *smallFeature01;
 @property MF_featuredSmallController *smallFeature02;

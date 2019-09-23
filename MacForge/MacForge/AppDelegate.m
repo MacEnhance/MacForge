@@ -316,6 +316,10 @@ Boolean paddleQuit = false;
     NSString *myPaddleVendorID = @"26643";
     NSString *myPaddleAPIKey = @"02a3c57238af53b3c465ef895729c765";
     
+//    NSString *myPaddleProductID = @"570933";
+//    NSString *myPaddleVendorID = @"102003";
+//    NSString *myPaddleAPIKey = @"508205c7de527e9cc702cd1b1e5e2733";
+    
     // Populate a local object in case we're unable to retrieve data
     // from the Vendor Dashboard:
     PADProductConfiguration *defaultProductConfig = [[PADProductConfiguration alloc] init];

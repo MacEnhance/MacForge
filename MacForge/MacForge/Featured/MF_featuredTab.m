@@ -34,7 +34,7 @@ extern long selectedRow;
         [self.enclosingScrollView.contentView scrollToPoint:newOrigin];
     //    [NSAnimationContext endGrouping];
     //    [self setSubviews:[NSArray array]];
-        
+    
         static dispatch_once_t aToken;
         dispatch_once(&aToken, ^{
             self->needsRefresh = true;
@@ -49,9 +49,11 @@ extern long selectedRow;
             _smallFeature04 = [[MF_featuredSmallController alloc] initWithNibName:0 bundle:nil];
             _smallFeature05 = [[MF_featuredSmallController alloc] initWithNibName:0 bundle:nil];
             _smallFeature06 = [[MF_featuredSmallController alloc] initWithNibName:0 bundle:nil];
+            
             _largeFeature01 = [[MF_featuredItemController alloc] initWithNibName:0 bundle:nil];
             _largeFeature02 = [[MF_featuredItemController alloc] initWithNibName:0 bundle:nil];
-            
+            _largeFeature03 = [[MF_featuredItemController alloc] initWithNibName:0 bundle:nil];
+
             //    NSArray *large = [[NSArray alloc] initWithObjects:_largeFeature01, _largeFeature02, nil];
             NSArray *small = [[NSArray alloc] initWithObjects:_smallFeature01, _smallFeature02, _smallFeature03, _smallFeature04, _smallFeature05, _smallFeature06, nil];
             
@@ -112,9 +114,18 @@ extern long selectedRow;
                     [self setupLargeController:dank :1 :self->_largeFeature02];
                     totalHeight -= test2.frame.size.height + 20;
                     
+                    // Setup 3rd large featured item
+                    test2 = self->_largeFeature03.view;
+                    [test2 setWantsLayer:true];
+                    [test2 setFrame:CGRectMake(12, totalHeight - 50, self.frame.size.width - 30, 180)];
+                    [test2.layer setBackgroundColor:clr];
+                    [test2.layer setCornerRadius:12];
+                    [self addSubview:test2];
+                    [self setupLargeController:dank :2 :self->_largeFeature03];
+                    totalHeight -= test2.frame.size.height + 20;
                    
-                    
-                    for (int i = 0; i < 6; i++) {
+                    NSUInteger totalFeatured = dank.count - 3;
+                    for (int i = 0; i < totalFeatured; i++) {
                         MF_featuredSmallController *cont = (MF_featuredSmallController*)small[i];
                         
                         NSView *test = [cont view];
@@ -137,13 +148,15 @@ extern long selectedRow;
                         [test.layer setBackgroundColor:clr];
                         [test.layer setCornerRadius:12];
                         [self addSubview:test];
-                        [self setupSmallController:dank :i+2 :cont];
+                        [self setupSmallController:dank :i+3 :cont];
 
 
                         //                MSPlugin *item = [dank objectAtIndex:i + 2];
                         //                [cont setupWithPlugin:item];
                     }
                     
+                    [self setFrameSize:CGSizeMake(self.frame.size.width, self.frame.size.height - totalHeight + 20)];
+                    [self scrollPoint:CGPointMake(0, self.frame.size.height)];
                 });
             });
         }

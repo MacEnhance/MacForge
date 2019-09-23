@@ -16,6 +16,7 @@
 
 // Repo Files
 @property NSDictionary  *webPlist;
+@property NSDictionary  *webPaddle;
 @property NSString      *webDeveloperDonate;
 @property NSString      *webDeveloperEmail;
 @property NSString      *webRepository;

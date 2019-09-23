@@ -133,6 +133,7 @@
                 this_is_a_bundle.webFileName = [bundle objectForKey:@"filename"];
                 this_is_a_bundle.webPlist = bundle;
                 this_is_a_bundle.webPaid = [[bundle valueForKey:@"payed"] boolValue];
+                this_is_a_bundle.webPaddle = [bundle objectForKey:@"paddle"];
 
 
                 [self.repoPluginsDic setObject:this_is_a_bundle forKey:bundleIdentifier];
