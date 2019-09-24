@@ -1,19 +1,22 @@
 <!--![Banner](web/banner.png)-->
 
+## MacForge 
+
 MacForge is an open-source plugin manager for macOS. It lets you discover, install and manage plugins to improve the user experience of macOS without the need for manually cloning/building or copying files.
 
-[![Chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/MacEnhance/MacForge)
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/MacEnhance/MacForge)
+[![Discord](https://img.shields.io/discord/608740492561219617)](https://discordapp.com/channels/608740492561219617/608740492640911378)
 
 ![Preview](web/preview.png)
 
-## Installation
+## [Installation]()
 
 - Download the [*latest **beta** release*](https://github.com/w0lfschild/app_updates/raw/master/MacForge/MacForge.zip)
 - Unzip the download if your browser does not do so automatically
 - Open MacForge
 - MacForge will ask to be moved to /Applications
-- MacForge may ask to install or update helper tools
-- Disable System Integrity Protection
+- MacForge will ask to install or update helper tools
+- Disable [System Integrity Protection](https://www.imore.com/how-turn-system-integrity-protection-macos)
 - Start installing and using plugins
 
 ## Functionallity notes
@@ -22,91 +25,28 @@ MacForge is an open-source plugin manager for macOS. It lets you discover, insta
 - Loading plugins into some applications may require [Apple Mobile File Integrity](https://www.theiphonewiki.com/wiki/AppleMobileFileIntegrity) to be disabled
 - Loading plugins into some applications may require the plugin must be *signed* and in the `/Library` directory
 
-## Requirements
+## System Requirements
 
-- MacForge supports macOS 10.10 and above
+- MacForge supports macOS 10.11 and above
 - Plugins distributed through MacForge may have different application and system requirements
 
-## Features
+## [Wiki](https://github.com/w0lfschild/MacForge/wiki/Home)
 
-- Install plugins simply
-    - Drag and drop plugins onto MacForge to automatically install them
-    - MacForge can open files with the `.bundle` extension to automatically install them
+## [Features](https://github.com/w0lfschild/MacForge/wiki/Features)
 
+## [Creating a bundle](https://github.com/w0lfschild/MacForge/wiki/Bundles-:-Creating)
 
-- Featured
-    - browse a few hand picked quality plugins
+## [Publishing a bundle](https://github.com/w0lfschild/MacForge/wiki/Bundles-:-Publishing)
 
-
-- Manage
-    - Delete plugins (Trash can)
-    - Show plugins in Finder (Eye icon)
-    - Enable/Disable plugins (Check box)
-    - Toggle plugins between single user and all users (User icon)
-    - Search for plugins (by name or ID)
-    - MacForge automatically detect existing plugins located in 
-
-
-- Discover
-    - Browse existing plugins
-    - Search though all existing plugins (by name, bundle ID)
-    - See what each reposityory has to offer
-    - Add or remove reposityories
-    - It's easy to host your own repository on GitHub!
-    - Discover, download and update plugins
-
-
-- Changes (coming soon)
-    - See new and recently updated tweaks
-
-
-- Updates
-    - Check what installed plugins have updates
-    - Quickly update all plugins
-
-
-- System Info
-    - Show some basic information about the installation
-    - Blacklist applications from loading plugins
-
-
-- Preferences
-    - Option to automatically keep plugins up to date
-    - Miscillaneous settings
-
-
-- And much more...
-
-## Creating a plugin
-
-- Download and install `MacForge`
-- Open `MacForge`
-- Open `Xcode` and navigate `File` > `New` > `Project...`
-- Search for `MacForge Plugin`
-- Select it and press `Next`
-- Enter a  `Product Name` and target bundle id e.g. `com.apple.loginwindow` and press `Next`
-- Select a location for your project and press `Create`
-- Add your code
-- You can find header dumps of most Apple Applications [HERE](https://github.com/w0lfschild/macOS_headers)
-- Build your code
-- Open your plugin with `MacForge`
-
-## Submitting a plugin
-
-- Head over to the [MacForge plugin repository](https://github.com/w0lfschild/macplugins)
-- [Fork](https://github.com/w0lfschild/macplugins/fork) the project
-- Add your compiled and zipped plugin to the bundles folder
-- Edit packages_v2.plist to include your submission
-- Submit a [pull request](https://github.com/w0lfschild/macplugins/compare)
+## [Selling a bundle](https://github.com/w0lfschild/MacForge/wiki/Bundles-:-ASelling)
 
 ## Troubleshooting
 
 - Having problems? Submit an issue here: [submit](https://github.com/w0lfschild/MacForge/issues/new)
 
-## Uninstalling
+## [Uninstalling]()
 
 - Trashing `MacForge` will stop it from loading into applications 
-- ~~If you want a mostly full clean select `Preferences` from the sidebar, then click `Uninstall MacForge`. Log out and back in for changes to fully apply.~~
 
 ## Developement
 
