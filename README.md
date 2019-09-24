@@ -44,7 +44,7 @@ MacForge is an open-source plugin manager for macOS. It lets you discover, insta
 
 - Having problems? Submit an issue here: [submit](https://github.com/w0lfschild/MacForge/issues/new)
 
-## [Uninstalling]()
+## [Uninstalling](https://github.com/w0lfschild/MacForge/wiki/Uninstallation)
 
 - Trashing `MacForge` will stop it from loading into applications 
 
