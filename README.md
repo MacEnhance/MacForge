@@ -9,7 +9,7 @@ MacForge is an open-source plugin manager for macOS. It lets you discover, insta
 
 ![Preview](web/preview.png)
 
-## [Installation]()
+## [Installation](https://github.com/w0lfschild/MacForge/wiki/Installation)
 
 - Download the [*latest **beta** release*](https://github.com/w0lfschild/app_updates/raw/master/MacForge/MacForge.zip)
 - Unzip the download if your browser does not do so automatically
