@@ -16,7 +16,7 @@
 @implementation AppDelegate
 
 - (void)didDismissPaddleUIType:(PADUIType)uiType triggeredUIType:(PADTriggeredUIType)triggeredUIType product:(nonnull PADProduct *)product {
-    NSLog(@"%ld : %ld : %@", (long)uiType, (long)triggeredUIType, product);
+//    NSLog(@"%ld : %ld : %@", (long)uiType, (long)triggeredUIType, product);
     
     if (triggeredUIType == 6) {
         // Quit pressed
@@ -28,13 +28,13 @@
 
 - (void)applicationWillFinishLaunching:(NSNotification *)notification {
     NSArray *arguments = [[NSProcessInfo processInfo] arguments];
-    //    NSLog(@"%@", arguments);
+//    NSLog(@"%@", arguments);
         
     //    NSDictionary *test = [[NSDictionary alloc] initWithObjectsAndKeys:@"570933", @"productID", @"102003", @"vendorID", @"508205c7de527e9cc702cd1b1e5e2733", @"APIKey", nil];
     NSDictionary *test = [[NSDictionary alloc] initWithObjectsAndKeys:@"534403", @"productID", @"26643", @"vendorID", @"02a3c57238af53b3c465ef895729c765", @"APIKey", nil];
     if (![arguments containsObject:@"-NSDocumentRevisionsDebugMode"])
         test = [[NSDictionary alloc] initWithObjectsAndKeys:arguments[1], @"productID", arguments[2], @"vendorID", arguments[3], @"APIKey", nil];
-    
+        
     if ([arguments containsObject:@"-v"]) {
         [self checkAndReturn:test];
     } else {

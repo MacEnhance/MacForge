@@ -507,7 +507,6 @@ extern long selectedRow;
                 }
            });
         });
-        
     }
 }
 

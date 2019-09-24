@@ -9,8 +9,9 @@
 @import AppKit;
 @import QuartzCore;
 #import "AppDelegate.h"
-#import "PluginManager.h"
+//#import "PluginManager.h"
 #import "MSPlugin.h"
+#import "MF_Purchase.h"
 #import "pluginData.h"
 #import "SYFlatButton.h"
 
@@ -290,8 +291,9 @@ NSString *textFilter;
     
     if ([s.title containsString:@"$"]) {
 //        [PluginManager.sharedInstance pluginUpdateOrInstallWithProgress:dic :cell.pluginData.webRepository :s :cell.bundleProgress];
+        [MF_Purchase pushthebutton:cell.pluginData :s :cell.pluginData.webRepository :cell.bundleProgress];
         dispatch_async(dispatch_get_main_queue(), ^{
-//            [PluginManager.sharedInstance readPlugins:nil];
+            [PluginManager.sharedInstance readPlugins:nil];
 //            [s setTitle:@"OPEN"];
         });
     }

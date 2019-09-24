@@ -280,7 +280,7 @@ void HandleExceptions(NSException *exception) {
     if ([NSBundle.mainBundle.bundleIdentifier isEqualToString:runningApp.bundleIdentifier]) return false;
     
     // Hardcoded blacklist
-    if ([@[@"com.w0lf.MacForge", @"com.w0lf.MacForgeHelper"] containsObject:runningApp.bundleIdentifier]) return false;
+    if ([@[@"com.w0lf.MacForge", @"com.w0lf.MacForgeHelper", @"com.macenhance.purchaseValidationApp"] containsObject:runningApp.bundleIdentifier]) return false;
     
     // Don't inject if somehow the executable doesn't seem to exist
     if (!runningApp.executableURL.path.length) return false;

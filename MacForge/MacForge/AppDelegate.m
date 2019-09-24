@@ -49,6 +49,28 @@ Boolean paddleQuit = false;
 //    NSLog(@"%@", obj);
 }
 
+- (void)movePreviousPurchases {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
+    NSString *applicationSupportDirectory = [paths firstObject];
+    
+    // Probably should have some error checking
+    
+    NSString *MF_SupportDirectory = [NSString stringWithFormat:@"%@/MacForge", applicationSupportDirectory];
+    NSString *PV_SupportDirectory = [NSString stringWithFormat:@"%@/purchaseValidationApp", applicationSupportDirectory];
+//    NSLog(@"applicationSupportDirectory: '%@'", applicationSupportDirectory);
+    for (NSString *file in [FileManager contentsOfDirectoryAtPath:MF_SupportDirectory error:nil]) {
+//        NSLog(@"file: '%@'", file);
+        NSString *transferedLicensePath = [NSString stringWithFormat:@"%@/%@", PV_SupportDirectory, file];
+        if (![FileManager fileExistsAtPath:transferedLicensePath]) {
+            
+            NSLog(@"file: '%@'", file);
+
+            NSString *ogLicensePath = [NSString stringWithFormat:@"%@/%@", MF_SupportDirectory, file];
+            [FileManager copyItemAtPath:ogLicensePath toPath:transferedLicensePath error:nil];
+        }
+    }
+}
+
 - (IBAction)fireBaseLogout:(id)sender {
     NSError *err;
     [FIRAuth.auth signOut:&err];
@@ -384,6 +406,7 @@ Boolean paddleQuit = false;
     [self executionTime:@"setupPrefstab"];
     [self executionTime:@"addLoginItem"];
     [self executionTime:@"launchHelper"];
+    [self executionTime:@"movePreviousPurchases"];
     
     [FIRApp configure];
     [self executionTime:@"fireBaseSetup"];
