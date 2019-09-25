@@ -9,6 +9,8 @@
 @import AppKit;
 @import WebKit;
 
+@import GameplayKit;
+
 #import "PluginManager.h"
 #import "AppDelegate.h"
 #import "pluginData.h"
@@ -71,7 +73,14 @@ extern long selectedRow;
                 });
                 
     //            NSSortDescriptor *sorter = [[NSSortDescriptor alloc] initWithKey:@"webName" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
-                NSArray *dank = [[NSMutableArray alloc] initWithArray:[self->featuredRepo allValues]];
+                NSArray *dank = [[NSArray alloc] initWithArray:[self->featuredRepo allValues]];
+//                dank = [dank shuffledArray];
+                
+//                NSLog(@"%@", self->featuredRepo.allKeys);
+//                for (MSPlugin* p in dank) {
+//                    NSLog(@"%@", p.bundleID);
+//                }
+//                NSLog(@"%@", dank);
                 
                 // Sort table by name
                 //        NSSortDescriptor *sorter = [[NSSortDescriptor alloc] initWithKey:@"webName" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
@@ -124,8 +133,8 @@ extern long selectedRow;
                     [self setupLargeController:dank :2 :self->_largeFeature03];
                     totalHeight -= test2.frame.size.height + 20;
                    
-                    NSUInteger totalFeatured = dank.count - 3;
-                    for (int i = 0; i < totalFeatured; i++) {
+//                    NSUInteger totalFeatured = dank.count - 3;
+                    for (int i = 0; i < small.count; i++) {
                         MF_featuredSmallController *cont = (MF_featuredSmallController*)small[i];
                         
                         NSView *test = [cont view];
@@ -155,7 +164,8 @@ extern long selectedRow;
                         //                [cont setupWithPlugin:item];
                     }
                     
-                    [self setFrameSize:CGSizeMake(self.frame.size.width, self.frame.size.height - totalHeight + 20)];
+//                    NSInteger *newHeight = self.frame.size.height - totalHeight + 20;
+                    [self setFrameSize:CGSizeMake(self.frame.size.width, 1070)];
                     [self scrollPoint:CGPointMake(0, self.frame.size.height)];
                 });
             });

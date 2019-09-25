@@ -35,6 +35,7 @@
 		FB169AFE22F4EEEB001E84E0 /* MF_featuredItemController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB169AFC22F4EEEB001E84E0 /* MF_featuredItemController.xib */; };
 		FB169B0922F50F36001E84E0 /* MF_featuredSmallController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB169B0722F50F36001E84E0 /* MF_featuredSmallController.m */; };
 		FB169B0A22F50F36001E84E0 /* MF_featuredSmallController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB169B0822F50F36001E84E0 /* MF_featuredSmallController.xib */; };
+		FB275D7B2339DE9B001C154A /* GameplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB275D7A2339DE9B001C154A /* GameplayKit.framework */; };
 		FB2FE5C5230626C30082C714 /* MFFlippedView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2FE5C223061DEE0082C714 /* MFFlippedView.m */; };
 		FB2FE5CC230638120082C714 /* SYFlatButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2FE5CB230638120082C714 /* SYFlatButton.m */; };
 		FB37B2CD21B229C4001191C2 /* MacForgeFix.m in Sources */ = {isa = PBXBuildFile; fileRef = FB37B2CB21B229C4001191C2 /* MacForgeFix.m */; };
@@ -342,6 +343,7 @@
 		FB169B0622F50F36001E84E0 /* MF_featuredSmallController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_featuredSmallController.h; sourceTree = "<group>"; };
 		FB169B0722F50F36001E84E0 /* MF_featuredSmallController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_featuredSmallController.m; sourceTree = "<group>"; };
 		FB169B0822F50F36001E84E0 /* MF_featuredSmallController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MF_featuredSmallController.xib; sourceTree = "<group>"; };
+		FB275D7A2339DE9B001C154A /* GameplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameplayKit.framework; path = System/Library/Frameworks/GameplayKit.framework; sourceTree = SDKROOT; };
 		FB2FE5C223061DEE0082C714 /* MFFlippedView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MFFlippedView.m; sourceTree = "<group>"; };
 		FB2FE5CA230638120082C714 /* SYFlatButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYFlatButton.h; sourceTree = "<group>"; };
 		FB2FE5CB230638120082C714 /* SYFlatButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYFlatButton.m; sourceTree = "<group>"; };
@@ -523,6 +525,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2FCA88B6FD11BB87D2CB1185 /* Pods_MacForge.framework in Frameworks */,
+				FB275D7B2339DE9B001C154A /* GameplayKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -532,6 +535,7 @@
 		06A3EAD2AD04399011740EC7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FB275D7A2339DE9B001C154A /* GameplayKit.framework */,
 				FBAA97472334BAF40074B4E2 /* Paddle.framework */,
 				FB9375FEDACBA2F9ED7779DF /* Pods_MacForge.framework */,
 				BB6AA186557851C9C5C553AC /* Pods_MacForgeKit.framework */,
@@ -2186,7 +2190,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = purchaseValidationApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.purchaseValidationApp;
@@ -2225,7 +2229,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = purchaseValidationApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.purchaseValidationApp;
