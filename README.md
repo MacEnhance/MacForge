@@ -74,7 +74,7 @@ MacForge is an open-source plugin manager for macOS. It lets you discover, insta
 - [Submitting Issues 🐞](https://github.com/w0lfschild/MacForge/issues/new/choose)
 - [Creating a bundle 🏗](https://github.com/w0lfschild/MacForge/wiki/Bundles-:-Creating)
 - [Publishing a bundle 🛳](https://github.com/w0lfschild/MacForge/wiki/Bundles-:-Publishing)
-- [Selling a bundle 💰](https://github.com/w0lfschild/MacForge/wiki/Bundles-:-ASelling)
+- [Selling a bundle 💰](https://github.com/w0lfschild/MacForge/wiki/Bundles-:-Selling)
 
 ## Troubleshooting 🐛
 
