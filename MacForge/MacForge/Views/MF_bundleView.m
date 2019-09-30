@@ -16,7 +16,6 @@ extern long selectedRow;
     bool doOnce;
     NSMutableDictionary* installedPlugins;
     NSDictionary* item;
-    NSView *imageView;
 }
 
 - (void)systemDarkModeChange:(NSNotification *)notif {
@@ -319,10 +318,10 @@ extern long selectedRow;
 //                                   }];
         }
         
-        [self.bundlePreviewButton1 setAction:@selector(pluginShowImages)];
+        [self.bundlePreviewButton1 setAction:@selector(pluginShowImages:)];
         [self.bundlePreviewButton1 setTarget:self];
         
-        [self.bundlePreviewButton2 setAction:@selector(pluginShowImages)];
+        [self.bundlePreviewButton2 setAction:@selector(pluginShowImages:)];
         [self.bundlePreviewButton2 setTarget:self];
         
         self.bundlePreviewButton1.sd_imageIndicator = SDWebImageActivityIndicator.grayIndicator;
@@ -552,19 +551,23 @@ extern long selectedRow;
     [self viewWillDraw];
 }
 
-- (void)pluginShowImages {
-    NSView *v = myDelegate.viewImages;
-    [v setFrame:self.frame];
-    [v setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
-    [v setFrame:myDelegate.tabMain.frame];
-    [v setFrameOrigin:NSMakePoint(0, 0)];
-    [v setTranslatesAutoresizingMaskIntoConstraints:true];
-    [self addSubview:v];
-    imageView = v;
-}
-
-- (IBAction)pluginHideImages:(id)sender {
-    [imageView removeFromSuperview];
+- (IBAction)pluginShowImages:(id)sender {
+    if (self.bundlePreviewImages.count > 0) {
+        MF_bundlePreviewView *v = (MF_bundlePreviewView*)myDelegate.viewImages;
+        NSInteger curprev = self.currentPreview;
+        if ([sender isEqualTo:self.bundlePreviewButton2])
+            curprev++;
+        if (curprev > self.bundlePreviewImages.count - 1) curprev = 0;
+        v.currentPreview = curprev;
+        v.bundlePreviewImages = self.bundlePreviewImages;
+        [v.bundlePreview setImage:self.bundlePreviewImages[curprev]];
+        [v setFrame:self.frame];
+        [v setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
+        [v setFrame:myDelegate.tabMain.frame];
+        [v setFrameOrigin:NSMakePoint(0, 0)];
+        [v setTranslatesAutoresizingMaskIntoConstraints:true];
+        [self addSubview:v];
+    }
 }
 
 @end

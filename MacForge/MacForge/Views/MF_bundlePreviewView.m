@@ -17,7 +17,27 @@
 }
 
 - (IBAction)goBack:(id)sender {
-    [self performSelector:@selector(removeFromSuperview)];
+    [self removeFromSuperview];
+}
+
+- (IBAction)cyclePreviews:(id)sender {
+    if (_bundlePreviewImages.count > 1) {
+        NSInteger increment = -1;
+        if ([sender isEqual:_bundlePreviewNext])
+            increment = 1;
+        
+        NSInteger newPreview = _currentPreview += increment;
+        if (increment == 1)
+            if (newPreview >= _bundlePreviewImages.count)
+                newPreview = 0;
+        
+        if (increment == -1)
+            if (newPreview < 0)
+                newPreview = _bundlePreviewImages.count - 1;
+        
+        _currentPreview = newPreview;
+        self.bundlePreview.image = self.bundlePreviewImages[newPreview];
+    }
 }
 
 @end

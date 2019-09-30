@@ -15,5 +15,10 @@
 @property IBOutlet NSButton*        bundlePreviewPrev;
 @property IBOutlet NSButton*        bundleBack;
 
+@property NSArray*                  bundlePreviewImages;
+@property NSMutableArray*           bundlePreviewImagesMute;
+@property NSString*                 currentBundle;
+@property NSInteger                 currentPreview;
+
 @end
 
