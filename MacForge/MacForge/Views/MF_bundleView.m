@@ -55,6 +55,10 @@ extern long selectedRow;
 }
 
 -(void)viewWillDraw {
+    for (NSView* v in self.subviews)
+        if ([v.className isEqualToString:@"MF_bundlePreviewView"])
+            [v removeFromSuperview];
+    
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(systemDarkModeChange:) name:@"AppleInterfaceThemeChangedNotification" object:nil];
@@ -297,6 +301,9 @@ extern long selectedRow;
         _bundlePreviewImagesMute = [[NSMutableArray alloc] init];
         SDWebImageDownloader *downloader = [SDWebImageDownloader sharedDownloader];
         
+        [self.bundlePreviewButton1 setEnabled:false];
+        [self.bundlePreviewButton2 setEnabled:false];
+
         for (int i = 0; i < 6; i++) {
             NSURL *url = [abc objectAtIndex:i];
             
@@ -305,6 +312,9 @@ extern long selectedRow;
                 if (image) {
                     [self->_bundlePreviewImagesMute addObject:image];
                     self->_bundlePreviewImages = self->_bundlePreviewImagesMute.copy;
+                    
+                    [self.bundlePreviewButton1 setEnabled:true];
+                    [self.bundlePreviewButton2 setEnabled:true];
                 }
             }];
            
@@ -552,6 +562,8 @@ extern long selectedRow;
 }
 
 - (IBAction)pluginShowImages:(id)sender {
+//    NSLog(@"%lu", (unsigned long)self.bundlePreviewImages.count);
+    
     if (self.bundlePreviewImages.count > 0) {
         MF_bundlePreviewView *v = (MF_bundlePreviewView*)myDelegate.viewImages;
         NSInteger curprev = self.currentPreview;
@@ -563,7 +575,6 @@ extern long selectedRow;
         [v.bundlePreview setImage:self.bundlePreviewImages[curprev]];
         [v setFrame:self.frame];
         [v setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
-        [v setFrame:myDelegate.tabMain.frame];
         [v setFrameOrigin:NSMakePoint(0, 0)];
         [v setTranslatesAutoresizingMaskIntoConstraints:true];
         [self addSubview:v];
