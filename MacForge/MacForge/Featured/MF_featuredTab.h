@@ -14,18 +14,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MF_featuredTab : NSView
 
-@property MF_featuredItemController *largeFeature01;
-@property MF_featuredItemController *largeFeature02;
-@property MF_featuredItemController *largeFeature03;
+@property NSMutableArray *smallArray;
+@property NSMutableArray *largeArray;
 
-@property MF_featuredSmallController *smallFeature01;
-@property MF_featuredSmallController *smallFeature02;
-@property MF_featuredSmallController *smallFeature03;
-@property MF_featuredSmallController *smallFeature04;
-@property MF_featuredSmallController *smallFeature05;
-@property MF_featuredSmallController *smallFeature06;
-
-@property MF_featuredSmallController *smallFeature;
+//@property MF_featuredItemController *largeFeature01;
+//@property MF_featuredItemController *largeFeature02;
+//@property MF_featuredItemController *largeFeature03;
+//@property MF_featuredSmallController *smallFeature01;
+//@property MF_featuredSmallController *smallFeature02;
+//@property MF_featuredSmallController *smallFeature03;
+//@property MF_featuredSmallController *smallFeature04;
+//@property MF_featuredSmallController *smallFeature05;
+//@property MF_featuredSmallController *smallFeature06;
+//@property MF_featuredSmallController *smallFeature07;
 
 @end
 

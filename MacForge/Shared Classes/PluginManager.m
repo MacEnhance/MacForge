@@ -437,8 +437,10 @@
     // Make sure out pluginsArray is up to date
     [self readPlugins:nil];
     
+    NSString *bundleID = [item objectForKey:@"package"];
+    
     for (NSDictionary* dict in pluginsArray) {
-        if ([[dict objectForKey:@"bundleId"] isEqualToString:[item objectForKey:@"package"]]) {
+        if ([[dict objectForKey:@"bundleId"] isEqualToString:bundleID]) {
             found = true;
             break;
         }
@@ -451,6 +453,26 @@
         NSURL* url = [NSURL fileURLWithPath:path];
         [Workspace activateFileViewerSelectingURLs:[NSArray arrayWithObject:url]];
         return true;
+    }
+    
+    if ([Workspace URLForApplicationWithBundleIdentifier:bundleID]) {
+        NSURL *fileURL = [Workspace URLForApplicationWithBundleIdentifier:bundleID];
+        
+        NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+        [dict setObject:@[] forKey:NSWorkspaceLaunchConfigurationArguments];
+        
+//        NSLog(@"------ %@", [NSRunningApplication runningApplicationsWithBundleIdentifier:[item objectForKey:@"package"]]);
+//        NSLog(@"------ %@", [NSString stringWithFormat:@"%@/Contents/MacOS/%@", fileURL.path, fileURL.path.lastPathComponent.stringByDeletingPathExtension]);
+
+        if ([NSRunningApplication runningApplicationsWithBundleIdentifier:bundleID].count == 0) {
+            NSError *err;
+            [Workspace launchApplicationAtURL:fileURL options:NSWorkspaceLaunchDefault configuration:dict error:&err];
+//            [Workspace launchApplication:fileURL.path];
+            if (err)
+                NSLog(@"------ %@", err);
+        } else {
+            [Workspace activateFileViewerSelectingURLs:[NSArray arrayWithObject:fileURL]];
+        }
     }
     
     return false;;

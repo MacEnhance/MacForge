@@ -35,7 +35,6 @@ extern AppDelegate *myDelegate;
     plug = plugin;
     self.bundleName.stringValue = plugin.webName;
     self.bundleDesc.stringValue = plugin.webDescription;
-//    self.bundleBanner = YES;
     self.bundleBanner.canDrawSubviewsIntoLayer = YES;
     [self.bundleBanner.superview setWantsLayer:YES];
     
@@ -49,17 +48,6 @@ extern AppDelegate *myDelegate;
     _bundleGet.spacing = 0.1;
     _bundleGet.borderWidth = 0;
     _bundleGet.momentary = true;
-
-//    [self.bundleGet setBordered:false];
-//    [self.bundleGet setWantsLayer:true];
-//    [self.bundleGet setFrameSize:NSMakeSize(65, 22)];
-//    [self.bundleGet.layer setCornerRadius:self.bundleGet.layer.frame.size.height/2];
-//    [self.bundleGet.layer setBackgroundColor:[NSColor whiteColor].CGColor];
-//    NSColor *color = [NSColor colorWithRed:0.4 green:0.6 blue:1 alpha:1];
-//    NSMutableAttributedString *colorTitle = [[NSMutableAttributedString alloc] initWithAttributedString:[self.bundleGet attributedTitle]];
-//    NSRange titleRange = NSMakeRange(0, [colorTitle length]);
-//    [colorTitle addAttribute:NSForegroundColorAttributeName value:color range:titleRange];
-//    [self.bundleGet setAttributedTitle:colorTitle];
     
     dispatch_queue_t backgroundQueue0 = dispatch_queue_create("com.w0lf.MacForge", 0);
     dispatch_async(backgroundQueue0, ^{
@@ -89,9 +77,9 @@ extern AppDelegate *myDelegate;
                 self.bundleBanner.image = nil;
             }
         });
+        
+        [MF_Purchase checkStatus:plugin :self.bundleGet];
     });
-    
-    [MF_Purchase checkStatus:plugin :self.bundleGet];
 }
 
 

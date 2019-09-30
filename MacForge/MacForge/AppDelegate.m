@@ -44,9 +44,39 @@ NSArray *tabViews;
 
 Boolean paddleQuit = false;
 
+- (void)searchFieldDidEndSearching:(NSSearchField *)sender {
+    [_searchPlugins abortEditing];
+}
+
 - (void)controlTextDidChange:(NSNotification *)obj{
-//    [myDelegate selectView:_viewSources];
 //    NSLog(@"%@", obj);
+
+//    NSLog(@"----- test ----- %@", [[NSWorkspace sharedWorkspace] URLForApplicationWithBundleIdentifier:@"com.alexbeals.swag"].absoluteString);
+    
+    NSView *v = [tabViews objectAtIndex:[tabViewButtons indexOfObject:_viewSources]];
+    if (![_tabMain.subviews isEqualToArray:@[v]])
+        [myDelegate selectView:_viewSources];
+
+    NSView *myview = myDelegate.tabMain.subviews.firstObject;
+    NSArray *sv = myview.subviews;
+    NSSearchField *sf;
+    NSTableView *tv;
+    if (sv.count > 3) {
+        sf = sv[3];
+        tv = [(NSView*)sv[2] subviews].firstObject.subviews.firstObject.subviews.firstObject;
+
+        [sf setStringValue:_searchPlugins.stringValue];
+        [tv controlTextDidChange:obj];
+
+//        NSLog(@"%@", [(NSView*)sv[2] subviews].firstObject.subviews.firstObject.subviews);
+    }
+//
+//        [myview controlTextDidChange:obj];
+
+//    if ([_searchPlugins.stringValue isEqualToString:@""])
+//        [_searchPlugins abortEditing];
+
+//    NSLog(@"%@", _searchPlugins.stringValue);
 }
 
 - (void)movePreviousPurchases {
@@ -288,12 +318,64 @@ Boolean paddleQuit = false;
     return YES;
 }
 
+// Handle macforge:// url scheme
+- (void)application:(NSApplication *)application
+           openURLs:(NSArray<NSURL *> *)urls {
+    NSLog(@"------------- %@", urls);
+    
+    NSURL *t = urls.lastObject;
+    MSPlugin *p = [[MSPlugin alloc] init];
+    pluginData *data = pluginData.sharedInstance;
+    NSString *repo = t.URLByDeletingLastPathComponent.absoluteString;
+    NSMutableString *test = [[NSMutableString alloc] initWithString:repo];
+    [test deleteCharactersInRange:NSMakeRange([repo length]-1, 1)];
+    if (repo.length >= 8)
+        [test replaceCharactersInRange:NSMakeRange(0, 8) withString:@"https"];
+    repo = test.copy;
+
+    if ([data.repoPluginsDic objectForKey:t.lastPathComponent]) {
+        p = [data.repoPluginsDic objectForKey:t.lastPathComponent];
+    } else {
+        if ([data.sourceListDic.allKeys containsObject:repo]) {
+//            NSLog(@"------------ repo exists %@", data.repoPluginsDic);
+            p = [data.repoPluginsDic objectForKey:t.lastPathComponent];
+        } else {
+//            NSLog(@"------------ new repo %@", data.repoPluginsDic);
+
+            // should we ask user to add repo?
+            [data fetch_repo:repo];
+            p = [data.repoPluginsDic objectForKey:t.lastPathComponent];
+        }
+    }
+
+    if (p) {
+        [myDelegate selectView:_viewDiscover];
+        pluginData.sharedInstance.currentPlugin = p;
+//        p.webRepository = repo;
+        NSView *v = myDelegate.sourcesBundle;
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            [v setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
+            [v setFrame:myDelegate.tabMain.frame];
+            [v setFrameOrigin:NSMakePoint(0, 0)];
+            [v setTranslatesAutoresizingMaskIntoConstraints:true];
+            [myDelegate.tabMain setSubviews:[NSArray arrayWithObject:v]];
+        });
+//        NSLog(@"------------ test %@", repo);
+//        NSLog(@"%@", data.sourceListDic.allKeys);
+    }
+}
+
 // Try to install bundles when passed to application
 - (void)application:(NSApplication *)sender openFiles:(NSArray*)filenames {
     [PluginManager.sharedInstance installBundles:filenames];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    
+//    NSURL* url = [NSURL URLWithString:@"macforge://github.com/w0lfschild/myRepo/raw/master/myPaidRepo/com.github.jslegendre.LiftOff"];
+//    NSURL* url = [NSURL URLWithString:@"macforge://github.com/w0lfschild/myRepo/raw/master/myPaidRepo/org.w0lf.cDock"];
+//    [NSWorkspace.sharedWorkspace openURL:url];
+    
 //    [DevMateKit sendTrackingReport:nil delegate:nil];
 //    [DevMateKit setupIssuesController:nil reportingUnhandledIssues:YES];
     [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(systemDarkModeChange:) name:@"AppleInterfaceThemeChangedNotification" object:nil];
@@ -375,7 +457,7 @@ Boolean paddleQuit = false;
 }
 
 // Loading
-- (void)applicationWillFinishLaunching:(NSNotification *)aNotification {
+- (void)applicationWillFinishLaunching:(NSNotification *)aNotification {    
     sourceItems = [NSArray arrayWithObjects:_sourcesURLS, _sourcesPlugins, _sourcesBundle, nil];
     discoverItems = [NSArray arrayWithObjects:_discoverChanges, _sourcesBundle, nil];
 

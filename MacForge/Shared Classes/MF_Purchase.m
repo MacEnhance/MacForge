@@ -24,18 +24,15 @@ extern AppDelegate* myDelegate;
         if ([theButton.title isEqualToString:@"UPDATE"]) {
             // Installed, update
             [MF_Purchase pluginInstallWithProgress:plugin :repo :theButton :progress];
-//            [MF_Purchase pluginInstall:plugin :theButton :repo];
         } else if ([theButton.title isEqualToString:@"UPDATE"]) {
             // Installed, downgrade
             [MF_Purchase pluginInstallWithProgress:plugin :repo :theButton :progress];
-//            [MF_Purchase pluginInstall:plugin :theButton :repo];
         } else {
             // Installed, reveal in Finder
             [PluginManager.sharedInstance pluginRevealFinder:plugin.webPlist];
         }
     } else {
         // Not installed try to purchase or install
-//        [MF_Purchase pluginInstallWithProgress:plugin :repo :theButton :progress];
         [MF_Purchase installOrPurchase:plugin :theButton :repo :progress];
     }
 }
@@ -77,84 +74,73 @@ extern AppDelegate* myDelegate;
            });
         });
     }
-    
-//    NSDictionary* item = plugin.webPlist;
-//    NSString *productID = [item objectForKey:@"productID"];
-//    if (productID != nil) {
-//        Paddle *thePaddle = myDelegate.thePaddle;
-//        NSString *myPaddleVendorID = @"26643";
-//        NSString *myPaddleAPIKey = @"02a3c57238af53b3c465ef895729c765";
-//
-//        NSLog(@"%@", plugin.webPaddle);
-//
-//        if (plugin.webPaddle != nil) {
-//            myPaddleVendorID = [plugin.webPaddle objectForKey:@"vendorid"];
-//            myPaddleAPIKey = [plugin.webPaddle objectForKey:@"apikey"];
-//        }
-//
-//        // Populate a local object in case we're unable to retrieve data from the Vendor Dashboard:
-//        PADProductConfiguration *defaultProductConfig = [[PADProductConfiguration alloc] init];
-//        defaultProductConfig.productName = @"plugin";
-//        defaultProductConfig.vendorName = @"macenhance";
-//
-//        // Initialize the SDK Instance with Seller details:
-//        thePaddle = [Paddle sharedInstanceWithVendorID:myPaddleVendorID
-//                                                apiKey:myPaddleAPIKey
-//                                             productID:productID
-//                                         configuration:defaultProductConfig
-//                                              delegate:myDelegate];
-//
-//        // Initialize the Product you'd like to work with:
-//        PADProduct *paddleProduct = [[PADProduct alloc] initWithProductID:productID productType:PADProductTypeSDKProduct configuration:defaultProductConfig];
-//
-//        // Ask the Product to get it's latest state and info from the Paddle Platform:
-//        [paddleProduct refresh:^(NSDictionary * _Nullable productDelta, NSError * _Nullable error) {
-//            if ([paddleProduct activated]) {
-//                theButton.title = @"GET";
-//            } else {
-//                theButton.title = plugin.webPrice;
-//            }
-//        }];
-//    } else {
-//        NSLog(@"No product info ???");
-//    }
 }
 
 + (Boolean)packageInstalled:(MSPlugin*)plugin {
     NSDictionary* item = plugin.webPlist;
     NSMutableDictionary *installedPlugins = [PluginManager.sharedInstance getInstalledPlugins];
-    if ([installedPlugins objectForKey:[item objectForKey:@"package"]])
+    NSString *bundleID = [item objectForKey:@"package"];
+    
+    // Bundle
+    if ([installedPlugins objectForKey:bundleID])
         return true;
+    
+    // Application
+    if ([Workspace URLForApplicationWithBundleIdentifier:bundleID])
+        return true;
+    
     return false;
 }
 
 + (void)checkStatus:(MSPlugin*)plugin :(NSButton*)theButton {
     NSDictionary* item = plugin.webPlist;
     NSMutableDictionary *installedPlugins = [PluginManager.sharedInstance getInstalledPlugins];
-    if ([installedPlugins objectForKey:[item objectForKey:@"package"]]) {
+    
+    Boolean installed = false;
+    NSString *bundleID = [item objectForKey:@"package"];
+    NSString *type = [item objectForKey:@"type"];
+    
+    if ([installedPlugins objectForKey:bundleID])
+        installed = true;
+    
+    if ([Workspace URLForApplicationWithBundleIdentifier:bundleID])
+        installed = true;
+        
+    if (installed) {
         // Pack already exists
-//        [self.bundleDelete setEnabled:true];
-        NSDictionary* dic = [[installedPlugins objectForKey:[item objectForKey:@"package"]] objectForKey:@"bundleInfo"];
-        NSString* cur = [dic objectForKey:@"CFBundleShortVersionString"];
-        if ([cur isEqualToString:@""])
-            cur = [dic objectForKey:@"CFBundleVersion"];
+        
+        NSString *cur;
+        if ([type isEqualToString:@"app"]) {
+//            NSLog(@"------ %@", [Workspace URLForApplicationWithBundleIdentifier:bundleID]);
+            NSString *path = [Workspace absolutePathForAppBundleWithIdentifier:bundleID];
+            path = [path stringByAppendingString:@"/Contents/Info.plist"];
+//            NSLog(@"------ %@", path);
+
+            NSDictionary* dic = [[NSDictionary alloc] initWithContentsOfFile:path];
+            cur = [dic objectForKey:@"CFBundleShortVersionString"];
+//            NSLog(@"------ %@", cur);
+        } else {
+            NSDictionary* dic = [[installedPlugins objectForKey:[item objectForKey:@"package"]] objectForKey:@"bundleInfo"];
+            cur = [dic objectForKey:@"CFBundleShortVersionString"];
+            if ([cur isEqualToString:@""])
+                cur = [dic objectForKey:@"CFBundleVersion"];
+        }
+                
         NSString* new = [item objectForKey:@"version"];
         id <SUVersionComparison> comparator = [SUStandardVersionComparator defaultComparator];
         NSInteger result = [comparator compareVersion:cur toVersion:new];
-        if (result == NSOrderedSame) {
-            //versionA == versionB
-            theButton.title = @"OPEN";
-//            [theButton setAction:@selector(pluginFinder)];
-        } else if (result == NSOrderedAscending) {
-            //versionA < versionB
-            theButton.title = @"UPDATE";
-//            [theButton setAction:@selector(pluginInstall)];
-        } else {
-            //versionA > versionB
-            // Actually downgrade
-            theButton.title = @"UPDATE";
-//            [theButton setAction:@selector(pluginInstall)];
-        }
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            if (result == NSOrderedSame) {
+                //versionA == versionB --- Twinnning
+                theButton.title = @"OPEN";
+            } else if (result == NSOrderedAscending) {
+                //versionA < versionB --- Update
+                theButton.title = @"UPDATE";
+            } else {
+                //versionA > versionB --- Downgrade
+                theButton.title = @"UPDATE";
+            }
+        });
     } else {
         // Package not installed
         [MF_Purchase verifyPurchased:plugin :theButton];
@@ -198,71 +184,6 @@ extern AppDelegate* myDelegate;
         NSLog(@"No product info... lets assume it's FREEEE");
         [MF_Purchase pluginInstallWithProgress:plugin :repo :theButton :progress];
     }
-    
-//    NSDictionary* item = plugin.webPlist;
-//    NSString *productID = [item objectForKey:@"productID"];
-//    if (productID != nil) {
-//        Paddle *thePaddle = myDelegate.thePaddle;
-//        NSString *myPaddleVendorID = @"26643";
-//        NSString *myPaddleAPIKey = @"02a3c57238af53b3c465ef895729c765";
-//
-//        if (plugin.webPaddle != nil) {
-//            myPaddleVendorID = [plugin.webPaddle objectForKey:@"vendorid"];
-//            myPaddleAPIKey = [plugin.webPaddle objectForKey:@"apikey"];
-//        }
-//
-//        // Populate a local object in case we're unable to retrieve data from the Vendor Dashboard:
-//        PADProductConfiguration *defaultProductConfig = [[PADProductConfiguration alloc] init];
-//        defaultProductConfig.productName = @"plugin";
-//        defaultProductConfig.vendorName = @"macenhance";
-//
-//        // Initialize the SDK Instance with Seller details:
-//        Paddle *myPaddle = [Paddle sharedInstanceWithVendorID:myPaddleVendorID
-//                                                       apiKey:myPaddleAPIKey
-//                                                    productID:productID
-//                                                configuration:defaultProductConfig
-//                                                     delegate:myDelegate];
-//
-////        thePaddle = [Paddle sharedInstanceWithVendorID:myPaddleVendorID
-////                                                apiKey:myPaddleAPIKey
-////                                             productID:productID
-////                                         configuration:defaultProductConfig
-////                                              delegate:myDelegate];
-//
-//        NSLog(@"Test: %@", Paddle.sharedInstance.apiKey);
-//
-//        // Initialize the Product you'd like to work with:
-//        PADProduct *paddleProduct = [[PADProduct alloc] initWithProductID:productID productType:PADProductTypeSDKProduct configuration:defaultProductConfig];
-//
-//        [thePaddle setCanForceExit:false];
-//
-//        // Ask the Product to get it's latest state and info from the Paddle Platform:
-//        [paddleProduct refresh:^(NSDictionary * _Nullable productDelta, NSError * _Nullable error) {
-//            if ([paddleProduct activated]) {
-//                [MF_Purchase pluginInstallWithProgress:plugin :repo :theButton :progress];
-////                [MF_Purchase pluginInstall:plugin :theButton :repo];
-//            } else {
-//                [myPaddle showCheckoutForProduct:paddleProduct options:nil checkoutStatusCompletion:^(PADCheckoutState state, PADCheckoutData * _Nullable checkoutData) {
-//                    // Examine checkout state to determine the checkout result
-//                    if (state == PADCheckoutPurchased) {
-//                        [MF_Purchase pluginInstallWithProgress:plugin :repo :theButton :progress];
-////                        [MF_Purchase pluginInstall:plugin :theButton :repo];
-//                    } else {
-//                        [paddleProduct refresh:^(NSDictionary * _Nullable productDelta, NSError * _Nullable error) {
-//                            if ([paddleProduct activated])
-//                                [MF_Purchase pluginInstallWithProgress:plugin :repo :theButton :progress];
-////                                [MF_Purchase pluginInstall:plugin :theButton :repo];
-//                            NSLog(@"activated : %hhd", [paddleProduct activated]);
-//                        }];
-//                    }
-//                }];
-//            }
-//        }];
-//    } else {
-//        NSLog(@"No product info... lets assume it's FREEEE");
-////        [MF_Purchase pluginInstall:plugin :theButton :repo];
-//        [MF_Purchase pluginInstallWithProgress:plugin :repo :theButton :progress];
-//    }
 }
 
 + (void)pluginInstallWithProgress:(MSPlugin*)plugin :(NSString*)repo :(NSButton*)theButton :(NSProgressIndicator*)progress {

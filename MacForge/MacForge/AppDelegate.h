@@ -33,6 +33,8 @@
 #import "NSBundle+LoginItem.h"
 #import "blacklistTable.h"
 
+#import "pluginData.h"
+
 @interface AppDelegate : NSObject <PaddleDelegate, NSSearchFieldDelegate> {
     NSMutableArray *watchdogs;
     PluginManager *_sharedMethods;
@@ -62,6 +64,9 @@
 @property IBOutlet NSView *tabFeatured;
 @property IBOutlet NSView *tabSystemInfo;
 @property IBOutlet NSView *tabUpdates;
+
+// ??
+@property IBOutlet NSView *viewImages;
 
 // Plugins view
 @property IBOutlet NSTableView *tblView;

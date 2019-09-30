@@ -259,9 +259,16 @@ NSString *textFilter;
             } else {
                 [result.bundleGet setTitle:@"GET"];
             }
-            if ([_localPlugins containsObject:item.bundleID]) {
+            
+            Boolean installed = false;
+            if ([_localPlugins containsObject:item.bundleID])
+                installed = true;
+            
+            if ([Workspace URLForApplicationWithBundleIdentifier:item.bundleID])
+                installed = true;
+                
+            if (installed)
                 [result.bundleGet setTitle:@"OPEN"];
-            }
                     
             [result.bundleImageInstalled setImageScaling:NSImageScaleProportionallyUpOrDown];
         }
@@ -275,30 +282,7 @@ NSString *textFilter;
 - (void)press_interaction_button:(id)sender {
     SYFlatButton *s = (SYFlatButton*)sender;
     discoverPluginTableCell *cell = (discoverPluginTableCell*)s.superview;
-    NSDictionary *dic = cell.pluginData.webPlist;
-    
-    if ([s.title isEqualToString:@"OPEN"]) {
-        [PluginManager.sharedInstance pluginRevealFinder:dic];
-    }
-    
-    if ([s.title isEqualToString:@"GET"]) {
-        [PluginManager.sharedInstance pluginUpdateOrInstallWithProgress:dic :cell.pluginData.webRepository :s :cell.bundleProgress];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [PluginManager.sharedInstance readPlugins:nil];
-//            [s setTitle:@"OPEN"];
-        });
-    }
-    
-    if ([s.title containsString:@"$"]) {
-//        [PluginManager.sharedInstance pluginUpdateOrInstallWithProgress:dic :cell.pluginData.webRepository :s :cell.bundleProgress];
-        [MF_Purchase pushthebutton:cell.pluginData :s :cell.pluginData.webRepository :cell.bundleProgress];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [PluginManager.sharedInstance readPlugins:nil];
-//            [s setTitle:@"OPEN"];
-        });
-    }
-    
-    //    [PluginManager.sharedInstance pluginRevealFinder:];
+    [MF_Purchase pushthebutton:cell.pluginData :s :cell.pluginData.webRepository :cell.bundleProgress];
 }
     
 - (void)keyDown:(NSEvent *)theEvent {

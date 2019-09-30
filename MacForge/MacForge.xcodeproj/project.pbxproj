@@ -35,6 +35,8 @@
 		FB169AFE22F4EEEB001E84E0 /* MF_featuredItemController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB169AFC22F4EEEB001E84E0 /* MF_featuredItemController.xib */; };
 		FB169B0922F50F36001E84E0 /* MF_featuredSmallController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB169B0722F50F36001E84E0 /* MF_featuredSmallController.m */; };
 		FB169B0A22F50F36001E84E0 /* MF_featuredSmallController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB169B0822F50F36001E84E0 /* MF_featuredSmallController.xib */; };
+		FB1C18B823417E1200BD9F32 /* MF_bundleView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB1C18B723417E1200BD9F32 /* MF_bundleView.m */; };
+		FB1C18B92341811F00BD9F32 /* MF_bundlePreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB8561A723417A3700047845 /* MF_bundlePreviewView.m */; };
 		FB275D7B2339DE9B001C154A /* GameplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB275D7A2339DE9B001C154A /* GameplayKit.framework */; };
 		FB2FE5C5230626C30082C714 /* MFFlippedView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2FE5C223061DEE0082C714 /* MFFlippedView.m */; };
 		FB2FE5CC230638120082C714 /* SYFlatButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2FE5CB230638120082C714 /* SYFlatButton.m */; };
@@ -69,12 +71,11 @@
 		FBA6E8E120F0287500A12ACF /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8E020F0287500A12ACF /* dsa_pub.pem */; };
 		FBA6E8E620F0288300A12ACF /* MSPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8E220F0288300A12ACF /* MSPlugin.m */; };
 		FBA6E8E720F0288300A12ACF /* pluginData.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8E320F0288300A12ACF /* pluginData.m */; };
-		FBA6E8F020F0289B00A12ACF /* bundlePage.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8E820F0289900A12ACF /* bundlePage.m */; };
 		FBA6E8F120F0289B00A12ACF /* discoverPluginTable.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8E920F0289900A12ACF /* discoverPluginTable.m */; };
 		FBA6E8F220F0289B00A12ACF /* PluginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8EA20F0289900A12ACF /* PluginManager.m */; };
 		FBA6E8F320F0289B00A12ACF /* repopluginTable.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8EB20F0289A00A12ACF /* repopluginTable.m */; };
 		FBA6E8F420F0289B00A12ACF /* updatesTable.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8EC20F0289A00A12ACF /* updatesTable.m */; };
-		FBA6E8F520F0289B00A12ACF /* pluginTable.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8ED20F0289A00A12ACF /* pluginTable.m */; };
+		FBA6E8F520F0289B00A12ACF /* loaclPluginTable.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8ED20F0289A00A12ACF /* loaclPluginTable.m */; };
 		FBA6E8F620F0289B00A12ACF /* sourcesTable.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8EE20F0289A00A12ACF /* sourcesTable.m */; };
 		FBA6E8FA20F028A400A12ACF /* Changelog.rtf in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8F720F028A300A12ACF /* Changelog.rtf */; };
 		FBA6E8FB20F028A400A12ACF /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8F820F028A400A12ACF /* Credits.rtf */; };
@@ -343,6 +344,8 @@
 		FB169B0622F50F36001E84E0 /* MF_featuredSmallController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_featuredSmallController.h; sourceTree = "<group>"; };
 		FB169B0722F50F36001E84E0 /* MF_featuredSmallController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_featuredSmallController.m; sourceTree = "<group>"; };
 		FB169B0822F50F36001E84E0 /* MF_featuredSmallController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MF_featuredSmallController.xib; sourceTree = "<group>"; };
+		FB1C18B623417E1200BD9F32 /* MF_bundleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_bundleView.h; sourceTree = "<group>"; };
+		FB1C18B723417E1200BD9F32 /* MF_bundleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_bundleView.m; sourceTree = "<group>"; };
 		FB275D7A2339DE9B001C154A /* GameplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameplayKit.framework; path = System/Library/Frameworks/GameplayKit.framework; sourceTree = SDKROOT; };
 		FB2FE5C223061DEE0082C714 /* MFFlippedView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MFFlippedView.m; sourceTree = "<group>"; };
 		FB2FE5CA230638120082C714 /* SYFlatButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYFlatButton.h; sourceTree = "<group>"; };
@@ -357,6 +360,8 @@
 		FB7259E42314F2BD00701F32 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FB80DBDA231B4C6A00823B67 /* starhighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starhighlighted.png; sourceTree = "<group>"; };
 		FB80DBDB231B4C6A00823B67 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
+		FB8561A723417A3700047845 /* MF_bundlePreviewView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_bundlePreviewView.m; sourceTree = "<group>"; };
+		FB8561A923417A3700047845 /* MF_bundlePreviewView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_bundlePreviewView.h; sourceTree = "<group>"; };
 		FB917F9E213917400013D4E3 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		FB917FA0213917E00013D4E3 /* menu.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = menu.icns; sourceTree = "<group>"; };
 		FB9375FEDACBA2F9ED7779DF /* Pods_MacForge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MacForge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -390,12 +395,11 @@
 		FBA6E8E320F0288300A12ACF /* pluginData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pluginData.m; sourceTree = "<group>"; };
 		FBA6E8E420F0288300A12ACF /* MSPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSPlugin.h; sourceTree = "<group>"; };
 		FBA6E8E520F0288300A12ACF /* pluginData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pluginData.h; sourceTree = "<group>"; };
-		FBA6E8E820F0289900A12ACF /* bundlePage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bundlePage.m; sourceTree = "<group>"; };
 		FBA6E8E920F0289900A12ACF /* discoverPluginTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = discoverPluginTable.m; sourceTree = "<group>"; };
 		FBA6E8EA20F0289900A12ACF /* PluginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PluginManager.m; sourceTree = "<group>"; };
 		FBA6E8EB20F0289A00A12ACF /* repopluginTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = repopluginTable.m; sourceTree = "<group>"; };
 		FBA6E8EC20F0289A00A12ACF /* updatesTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = updatesTable.m; sourceTree = "<group>"; };
-		FBA6E8ED20F0289A00A12ACF /* pluginTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pluginTable.m; sourceTree = "<group>"; };
+		FBA6E8ED20F0289A00A12ACF /* loaclPluginTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = loaclPluginTable.m; sourceTree = "<group>"; };
 		FBA6E8EE20F0289A00A12ACF /* sourcesTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = sourcesTable.m; sourceTree = "<group>"; };
 		FBA6E8EF20F0289A00A12ACF /* PluginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PluginManager.h; sourceTree = "<group>"; };
 		FBA6E8F720F028A300A12ACF /* Changelog.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Changelog.rtf; sourceTree = "<group>"; };
@@ -725,6 +729,17 @@
 			path = SYFlatButton;
 			sourceTree = "<group>";
 		};
+		FB49C44623417A4B0061E458 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FB8561A923417A3700047845 /* MF_bundlePreviewView.h */,
+				FB8561A723417A3700047845 /* MF_bundlePreviewView.m */,
+				FB1C18B623417E1200BD9F32 /* MF_bundleView.h */,
+				FB1C18B723417E1200BD9F32 /* MF_bundleView.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		FB5BB9B423009F44004D3454 /* SipView */ = {
 			isa = PBXGroup;
 			children = (
@@ -852,11 +867,10 @@
 			isa = PBXGroup;
 			children = (
 				FBA6E8E920F0289900A12ACF /* discoverPluginTable.m */,
-				FBA6E8ED20F0289A00A12ACF /* pluginTable.m */,
+				FBA6E8ED20F0289A00A12ACF /* loaclPluginTable.m */,
 				FBA6E8EC20F0289A00A12ACF /* updatesTable.m */,
 				FBA6E8EE20F0289A00A12ACF /* sourcesTable.m */,
 				FBA6E8EB20F0289A00A12ACF /* repopluginTable.m */,
-				FBA6E8E820F0289900A12ACF /* bundlePage.m */,
 				FBF137E1210E79B70001916A /* blacklistTable.h */,
 				FBF137E2210E79B70001916A /* blacklistTable.m */,
 			);
@@ -974,6 +988,7 @@
 				FBA6E8DF20F0286000A12ACF /* Images */,
 				FBA6E90F20F02CAC00A12ACF /* Info */,
 				FB169AF422F4E541001E84E0 /* Featured */,
+				FB49C44623417A4B0061E458 /* Views */,
 				FBA6E91020F02CBD00A12ACF /* Tables */,
 				FBA6E91120F02CC900A12ACF /* Plugins */,
 				FBA6E91220F02D0600A12ACF /* Resource */,
@@ -1674,28 +1689,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FBA6E8CF20F0262A00A12ACF /* SGDirWatchdog.m in Sources */,
-				FBBD8E2322F9319E00A97FEA /* MF_Purchase.m in Sources */,
-				FB169B0922F50F36001E84E0 /* MF_featuredSmallController.m in Sources */,
-				FBA6E88720F0176B00A12ACF /* AppDelegate.m in Sources */,
-				FBA6E8F320F0289B00A12ACF /* repopluginTable.m in Sources */,
-				FBA6E8E620F0288300A12ACF /* MSPlugin.m in Sources */,
-				FBE767F420F00FFE00A42BD5 /* main.m in Sources */,
+				FB1C18B823417E1200BD9F32 /* MF_bundleView.m in Sources */,
+				FB1C18B92341811F00BD9F32 /* MF_bundlePreviewView.m in Sources */,
 				FB169AF322F4B3A3001E84E0 /* MF_featuredTab.m in Sources */,
-				FBA6E8F520F0289B00A12ACF /* pluginTable.m in Sources */,
 				FB169AFD22F4EEEB001E84E0 /* MF_featuredItemController.m in Sources */,
+				FB169B0922F50F36001E84E0 /* MF_featuredSmallController.m in Sources */,
 				FBA6E8F220F0289B00A12ACF /* PluginManager.m in Sources */,
+				FBBD8E2322F9319E00A97FEA /* MF_Purchase.m in Sources */,
 				FBA6E8E720F0288300A12ACF /* pluginData.m in Sources */,
-				FB2FE5CC230638120082C714 /* SYFlatButton.m in Sources */,
-				FBAAB3EF20F22BF5002156DC /* NSBundle+LoginItem.m in Sources */,
-				FBA6E8BB20F01C6300A12ACF /* StartAtLoginController.m in Sources */,
-				FBA6E8F020F0289B00A12ACF /* bundlePage.m in Sources */,
-				FBA6E8F120F0289B00A12ACF /* discoverPluginTable.m in Sources */,
+				FBA6E8E620F0288300A12ACF /* MSPlugin.m in Sources */,
 				FB2FE5C5230626C30082C714 /* MFFlippedView.m in Sources */,
+				FBA6E8F320F0289B00A12ACF /* repopluginTable.m in Sources */,
+				FBA6E8F520F0289B00A12ACF /* loaclPluginTable.m in Sources */,
+				FBA6E8F120F0289B00A12ACF /* discoverPluginTable.m in Sources */,
 				FBF137E3210E79B70001916A /* blacklistTable.m in Sources */,
-				FBA6E89520F0185F00A12ACF /* ZKSwizzle.m in Sources */,
 				FBA6E8F420F0289B00A12ACF /* updatesTable.m in Sources */,
 				FBA6E8F620F0289B00A12ACF /* sourcesTable.m in Sources */,
+				FBA6E88720F0176B00A12ACF /* AppDelegate.m in Sources */,
+				FBE767F420F00FFE00A42BD5 /* main.m in Sources */,
+				FBA6E89520F0185F00A12ACF /* ZKSwizzle.m in Sources */,
+				FBA6E8CF20F0262A00A12ACF /* SGDirWatchdog.m in Sources */,
+				FB2FE5CC230638120082C714 /* SYFlatButton.m in Sources */,
+				FBA6E8BB20F01C6300A12ACF /* StartAtLoginController.m in Sources */,
+				FBAAB3EF20F22BF5002156DC /* NSBundle+LoginItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2266,7 +2282,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2329,7 +2345,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;

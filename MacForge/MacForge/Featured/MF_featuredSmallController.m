@@ -36,10 +36,8 @@ extern AppDelegate *myDelegate;
     plug = plugin;
     self.bundleName.stringValue = plugin.webName;
     self.bundleDesc.stringValue = plugin.webDescription;
-//    self.bundleBanner.animates = YES;
     self.bundleBanner.canDrawSubviewsIntoLayer = YES;
     [self.bundleBanner.superview setWantsLayer:YES];
-//    self.bundleBanner.imageAlignment = NSImageAlignTop;
     
     _bundleGet.backgroundNormalColor = NSColor.whiteColor;
     _bundleGet.backgroundHighlightColor = NSColor.whiteColor;
@@ -81,9 +79,9 @@ extern AppDelegate *myDelegate;
                 self.bundleBanner.image = nil;
             }
         });
+        
+        [MF_Purchase checkStatus:plugin :self.bundleGet];
     });
-
-    [MF_Purchase checkStatus:plugin :self.bundleGet];
 }
 
 

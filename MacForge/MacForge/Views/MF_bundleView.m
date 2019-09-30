@@ -1,100 +1,22 @@
 //
-//  bundlePage.m
-//  MacPlus
+//  MF_bundleView.m
+//  MacForge
 //
-//  Created by Wolfgang Baird on 3/24/16.
-//  Copyright © 2016 Wolfgang Baird. All rights reserved.
+//  Created by Wolfgang Baird on 9/29/19.
+//  Copyright © 2019 MacEnhance. All rights reserved.
 //
 
-@import AppKit;
-@import WebKit;
-@import EDStarRating;
-
-#import "PluginManager.h"
-#import "AppDelegate.h"
-#import "pluginData.h"
-#import "SYFlatButton.h"
-
-#import "ZKSwizzle.h"
-
-@interface bundlePage : NSView <EDStarRatingProtocol>
-
-@property IBOutlet EDStarRating*    starRating;
-@property IBOutlet NSTextField*     starScore;
-@property IBOutlet NSTextField*     starReviews;
-
-// Bundle Display
-@property IBOutlet NSTextField*     bundleName;
-@property IBOutlet NSTextField*     bundleDesc;
-@property IBOutlet NSTextField*     bundleDescShort;
-@property IBOutlet NSImageView*     bundleImage;
-@property IBOutlet NSImageView*     bundlePreview1;
-@property IBOutlet NSImageView*     bundlePreview2;
-@property IBOutlet NSButton*        bundlePreviewNext;
-@property IBOutlet NSButton*        bundlePreviewPrev;
-@property IBOutlet NSButton*        bundleDev;
-
-// Bundle Infobox
-@property IBOutlet NSTextField*     bundleTarget;
-@property IBOutlet NSTextField*     bundleDate;
-@property IBOutlet NSTextField*     bundleVersion;
-@property IBOutlet NSTextField*     bundlePrice;
-@property IBOutlet NSTextField*     bundleSize;
-@property IBOutlet NSTextField*     bundleID;
-@property IBOutlet NSTextField*     bundleCompat;
-
-// Bundle Buttons
-@property IBOutlet SYFlatButton*    bundleInstall;
-@property IBOutlet SYFlatButton*    bundleShare;
-@property IBOutlet NSButton*        bundleDelete;
-@property IBOutlet NSButton*        bundleContact;
-@property IBOutlet NSButton*        bundleDonate;
-
-// Bundle Webview
-@property IBOutlet WebView*         bundleWebView;
-
-@property NSArray*                  bundlePreviewImages;
-@property NSMutableArray*           bundlePreviewImagesMute;
-@property NSString*                 currentBundle;
-@property NSInteger                 currentPreview;
-
-@end
+#import "MF_bundleView.h"
 
 extern AppDelegate* myDelegate;
 extern NSString *repoPackages;
 extern long selectedRow;
 
-@interface NSObject (logProperties)
-- (void) logProperties;
-@end
-
-#import <objc/runtime.h>
-
-@implementation NSObject (logProperties)
-
-- (void) logProperties {
-
-    NSLog(@"----------------------------------------------- Properties for object %@", self);
-
-    @autoreleasepool {
-        unsigned int numberOfProperties = 0;
-        objc_property_t *propertyArray = class_copyPropertyList([self class], &numberOfProperties);
-        for (NSUInteger i = 0; i < numberOfProperties; i++) {
-            objc_property_t property = propertyArray[i];
-            NSString *name = [[NSString alloc] initWithUTF8String:property_getName(property)];
-            NSLog(@"Property %@ Value: %@", name, [self valueForKey:name]);
-        }
-        free(propertyArray);
-    }
-    NSLog(@"-----------------------------------------------");
-}
-
-@end
-
-@implementation bundlePage {
+@implementation MF_bundleView {
     bool doOnce;
     NSMutableDictionary* installedPlugins;
     NSDictionary* item;
+    NSView *imageView;
 }
 
 - (void)systemDarkModeChange:(NSNotification *)notif {
@@ -185,7 +107,7 @@ extern long selectedRow;
     
     if (plugin != nil) {
         item = plugin.webPlist;
-        repoPackages = plugin.webRepository; 
+        repoPackages = plugin.webRepository;
     } else {
         if (![repoPackages isEqualToString:@""]) {
             
@@ -356,28 +278,22 @@ extern long selectedRow;
             }
         }
         
-        self.bundlePreview1.animates = YES;
-        self.bundlePreview1.image = [NSImage imageNamed:NSImageNameBookmarksTemplate];
-        self.bundlePreview2.image = [NSImage imageNamed:NSImageNameBookmarksTemplate];
+//        self.bundlePreview1.animates = YES;
+//        self.bundlePreview1.canDrawSubviewsIntoLayer = YES;
+//        self.bundlePreview1.image = [NSImage imageNamed:NSImageNameBookmarksTemplate];
+//        self.bundlePreview2.image = [NSImage imageNamed:NSImageNameBookmarksTemplate];
         
-        self.bundlePreview1.canDrawSubviewsIntoLayer = YES;
+        self.bundlePreviewButton1.image = [NSImage imageNamed:NSImageNameBookmarksTemplate];
+        self.bundlePreviewButton2.image = [NSImage imageNamed:NSImageNameBookmarksTemplate];
+        
         _bundlePreviewImages = @[[[NSImage alloc] init], [[NSImage alloc] init]];
-        
         NSString *bundle = [NSString stringWithFormat:@"%@", [self->item objectForKey:@"package"]];
         
         NSMutableArray *abc = [[NSMutableArray alloc] init];
         for (int i = 1; i <= 6; i++) {
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/images/%@/0%u.png", repoPackages, bundle, i]];
             [abc addObject:url];
-//            NSLog(@"%@", url.absoluteString);
         }
-        
-//        NSURL *url1 = [NSURL URLWithString:[NSString stringWithFormat:@"%@/images/%@/01.png", repoPackages, bundle]];
-//        NSURL *url2 = [NSURL URLWithString:[NSString stringWithFormat:@"%@/images/%@/02.png", repoPackages, bundle]];
-//        NSURL *url3 = [NSURL URLWithString:[NSString stringWithFormat:@"%@/images/%@/03.png", repoPackages, bundle]];
-//        NSURL *url4 = [NSURL URLWithString:[NSString stringWithFormat:@"%@/images/%@/04.png", repoPackages, bundle]];
-//        NSURL *url5 = [NSURL URLWithString:[NSString stringWithFormat:@"%@/images/%@/05.png", repoPackages, bundle]];
-//        NSURL *url6 = [NSURL URLWithString:[NSString stringWithFormat:@"%@/images/%@/06.png", repoPackages, bundle]];
         
         _bundlePreviewImagesMute = [[NSMutableArray alloc] init];
         SDWebImageDownloader *downloader = [SDWebImageDownloader sharedDownloader];
@@ -403,36 +319,35 @@ extern long selectedRow;
 //                                   }];
         }
         
+        [self.bundlePreviewButton1 setAction:@selector(pluginShowImages)];
+        [self.bundlePreviewButton1 setTarget:self];
         
-        self.bundlePreview1.sd_imageIndicator = SDWebImageActivityIndicator.grayIndicator;
-        self.bundlePreview1.sd_imageIndicator = SDWebImageProgressIndicator.defaultIndicator;
+        [self.bundlePreviewButton2 setAction:@selector(pluginShowImages)];
+        [self.bundlePreviewButton2 setTarget:self];
         
-        self.bundlePreview2.sd_imageIndicator = SDWebImageActivityIndicator.grayIndicator;
-        self.bundlePreview2.sd_imageIndicator = SDWebImageProgressIndicator.defaultIndicator;
+        self.bundlePreviewButton1.sd_imageIndicator = SDWebImageActivityIndicator.grayIndicator;
+        self.bundlePreviewButton1.sd_imageIndicator = SDWebImageProgressIndicator.defaultIndicator;
         
-        [self.bundlePreview1 sd_setImageWithURL:abc[0]
+        self.bundlePreviewButton2.sd_imageIndicator = SDWebImageActivityIndicator.grayIndicator;
+        self.bundlePreviewButton2.sd_imageIndicator = SDWebImageProgressIndicator.defaultIndicator;
+        
+        [self.bundlePreviewButton1 sd_setImageWithURL:abc[0]
                                placeholderImage:[UIImage imageNamed:NSImageNameBookmarksTemplate]];
         
-        [self.bundlePreview2 sd_setImageWithURL:abc[1]
+        [self.bundlePreviewButton2 sd_setImageWithURL:abc[1]
                                placeholderImage:[UIImage imageNamed:NSImageNameBookmarksTemplate]];
         
-//        dispatch_queue_t backgroundQueue0 = dispatch_queue_create("com.w0lf.MacForge.0", 0);
-//        dispatch_async(backgroundQueue0, ^{
+//        self.bundlePreview1.sd_imageIndicator = SDWebImageActivityIndicator.grayIndicator;
+//        self.bundlePreview1.sd_imageIndicator = SDWebImageProgressIndicator.defaultIndicator;
 //
-//            NSData * data = [[NSData alloc] initWithContentsOfURL: abc[0]];
-//            NSImage *preview1, *preview2;
+//        self.bundlePreview2.sd_imageIndicator = SDWebImageActivityIndicator.grayIndicator;
+//        self.bundlePreview2.sd_imageIndicator = SDWebImageProgressIndicator.defaultIndicator;
 //
-//            if ( data == nil ) {
-//                preview1 = [[NSImage alloc] init];
-//                preview2 = [[NSImage alloc] init];
-//            } else {
-//                dispatch_async(dispatch_get_main_queue(), ^{
+//        [self.bundlePreview1 sd_setImageWithURL:abc[0]
+//                               placeholderImage:[UIImage imageNamed:NSImageNameBookmarksTemplate]];
 //
-//                });
-//            }
-//        });
-        
-        
+//        [self.bundlePreview2 sd_setImageWithURL:abc[1]
+//                               placeholderImage:[UIImage imageNamed:NSImageNameBookmarksTemplate]];
         
         self.bundleImage.image = [PluginManager pluginGetIcon:item];
         [self.bundleImage.cell setImageScaling:NSImageScaleProportionallyUpOrDown];
@@ -440,7 +355,30 @@ extern long selectedRow;
 }
 
 - (IBAction)shareMe:(id)sender {
-    NSSharingServicePicker *sharingServicePicker = [[NSSharingServicePicker alloc] initWithItems:@[[NSURL URLWithString:@"https://www.macenhance.com/"]]];
+    MSPlugin *plugin = [pluginData sharedInstance].currentPlugin;
+    
+    if (plugin.webRepository) {
+        
+    }
+    
+    NSURL *shareURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", plugin.webRepository, plugin.bundleID]];
+    shareURL = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"macforge:%@", [shareURL resourceSpecifier]]];
+
+    
+//    NSURLComponents *components = [NSURLComponents new];
+//    components.scheme = @"http";
+//    components.host = @"joris.kluivers.nl";
+//    components.path = @"/blog/2013/10/17/nsurlcomponents/";
+//
+//    NSURL *url = [components URL];
+    
+    NSLog(@"%@", shareURL);
+    
+    [[NSPasteboard generalPasteboard] clearContents];
+    [[NSPasteboard generalPasteboard] setString:shareURL.absoluteString forType:NSStringPboardType];
+    
+    NSSharingServicePicker *sharingServicePicker = [[NSSharingServicePicker alloc] initWithItems:@[shareURL]];
+//    NSSharingServicePicker *sharingServicePicker = [[NSSharingServicePicker alloc] initWithItems:@[[NSURL URLWithString:@"https://www.macenhance.com/"]]];
 //    sharingServicePicker.delegate = [[NSSharingServicePicker alloc] delegate];
     [sharingServicePicker showRelativeToRect:[sender bounds]
                                       ofView:sender
@@ -465,13 +403,19 @@ extern long selectedRow;
                 newPreview = _bundlePreviewImages.count - 1;
         
         _currentPreview = newPreview;
-        self.bundlePreview1.image = self.bundlePreviewImages[newPreview];
+//        self.bundlePreview1.image = self.bundlePreviewImages[newPreview];
+        self.bundlePreviewButton1.image = self.bundlePreviewImages[newPreview];
         
         NSInteger secondPreview = newPreview + 1;
         if (secondPreview < _bundlePreviewImages.count)
-            self.bundlePreview2.image = self.bundlePreviewImages[secondPreview];
+            self.bundlePreviewButton2.image = self.bundlePreviewImages[secondPreview];
         else
-            self.bundlePreview2.image = self.bundlePreviewImages[0];
+            self.bundlePreviewButton2.image = self.bundlePreviewImages[0];
+        
+//        if (secondPreview < _bundlePreviewImages.count)
+//            self.bundlePreview2.image = self.bundlePreviewImages[secondPreview];
+//        else
+//            self.bundlePreview2.image = self.bundlePreviewImages[0];
     }
 }
 
@@ -577,11 +521,11 @@ extern long selectedRow;
 
 - (void)contactDev {
     NSURL *mailtoURL = [NSURL URLWithString:[NSString stringWithFormat:@"mailto:%@", [item objectForKey:@"contact"]]];
-    [[NSWorkspace sharedWorkspace] openURL:mailtoURL];
+    [Workspace openURL:mailtoURL];
 }
 
 - (void)donateDev {
-     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[item objectForKey:@"donate"]]];
+     [Workspace openURL:[NSURL URLWithString:[item objectForKey:@"donate"]]];
 }
 
 - (void)pluginInstall {
@@ -606,6 +550,21 @@ extern long selectedRow;
     [self.bundleInstall setAction:@selector(installOrPurchase)];
     [self.bundleDelete setEnabled:false];
     [self viewWillDraw];
+}
+
+- (void)pluginShowImages {
+    NSView *v = myDelegate.viewImages;
+    [v setFrame:self.frame];
+    [v setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
+    [v setFrame:myDelegate.tabMain.frame];
+    [v setFrameOrigin:NSMakePoint(0, 0)];
+    [v setTranslatesAutoresizingMaskIntoConstraints:true];
+    [self addSubview:v];
+    imageView = v;
+}
+
+- (IBAction)pluginHideImages:(id)sender {
+    [imageView removeFromSuperview];
 }
 
 @end
