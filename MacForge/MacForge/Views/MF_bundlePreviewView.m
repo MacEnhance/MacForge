@@ -13,11 +13,18 @@
 - (void)drawRect:(NSRect)dirtyRect {
     [super drawRect:dirtyRect];
     
+    [self.bundlePreview setWantsLayer:true];
+    [self.bundlePreview setAnimates:true];
     // Drawing code here.
 }
 
 - (IBAction)goBack:(id)sender {
-    [self removeFromSuperview];
+    [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context){
+        [context setDuration:0.2];
+        [[self animator] setFrameOrigin:NSMakePoint(self.frame.size.width, 0)];
+    } completionHandler:^{
+        [self removeFromSuperview];
+    }];
 }
 
 - (IBAction)cyclePreviews:(id)sender {

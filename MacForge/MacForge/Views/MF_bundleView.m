@@ -358,7 +358,20 @@ extern long selectedRow;
 //        [self.bundlePreview2 sd_setImageWithURL:abc[1]
 //                               placeholderImage:[UIImage imageNamed:NSImageNameBookmarksTemplate]];
         
-        self.bundleImage.image = [PluginManager pluginGetIcon:item];
+        NSString *iconpath = [plugin.webPlist objectForKey:@"icon"];
+        NSString *imgurl = [NSString stringWithFormat:@"%@%@", plugin.webRepository, iconpath];
+                    
+        if (iconpath) {
+            self.bundleImage.sd_imageIndicator = SDWebImageActivityIndicator.grayIndicator;
+            self.bundleImage.sd_imageIndicator = SDWebImageProgressIndicator.defaultIndicator;
+            [self.bundleImage sd_setImageWithURL:[NSURL URLWithString:imgurl]
+                                 placeholderImage:[UIImage imageNamed:NSImageNameApplicationIcon]];
+        } else {
+            NSImage *icon = [PluginManager pluginGetIcon:plugin.webPlist];
+            self.bundleImage.image = icon;
+        }
+        
+//        self.bundleImage.image = [PluginManager pluginGetIcon:item];
         [self.bundleImage.cell setImageScaling:NSImageScaleProportionallyUpOrDown];
     }
 }
@@ -575,9 +588,18 @@ extern long selectedRow;
         [v.bundlePreview setImage:self.bundlePreviewImages[curprev]];
         [v setFrame:self.frame];
         [v setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
-        [v setFrameOrigin:NSMakePoint(0, 0)];
+//        [v setFrameOrigin:NSMakePoint(0, 0)];
+        [v setFrameOrigin:NSMakePoint(self.frame.size.width, 0)];
         [v setTranslatesAutoresizingMaskIntoConstraints:true];
         [self addSubview:v];
+                
+        [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context){
+            [context setDuration:0.2];
+            NSPoint startPoint = NSMakePoint(self.frame.size.width, 0);
+            [v setFrameOrigin:startPoint];
+            [[v animator] setFrameOrigin:NSMakePoint(0, 0)];
+        } completionHandler:^{
+        }];
     }
 }
 
