@@ -438,6 +438,13 @@ typedef NS_ENUM(NSInteger, PADTriggeredUIType) {
  */
 - (BOOL)canAutoActivate:(nonnull PADProduct *)product;
 
+/**
+ * @brief Optionally set a custom storage path for license and product files.
+ * @discussion You are responsible for verifying permissions of this path and ensuring the path exists. Once set this path should not be changed. Changing this in future versions could result in activation statuses being lost.
+ * @return An NSString of the full path required for custom storage
+ */
+- (nullable NSString *)customStoragePath;
+
 @end
 
 @class PADProductWindowController;

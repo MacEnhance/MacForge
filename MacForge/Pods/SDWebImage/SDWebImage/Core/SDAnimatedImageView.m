@@ -65,6 +65,7 @@ static NSUInteger SDDeviceFreeMemory() {
 #else
 @property (nonatomic, strong) CADisplayLink *displayLink;
 #endif
+@property (nonatomic) CALayer *imageViewLayer; // The actual rendering layer.
 
 @end
 
@@ -132,10 +133,6 @@ static NSUInteger SDDeviceFreeMemory() {
     self.shouldIncrementalLoad = YES;
 #if SD_MAC
     self.wantsLayer = YES;
-    // Default value from `NSImageView`
-    self.layerContentsRedrawPolicy = NSViewLayerContentsRedrawOnSetNeedsDisplay;
-    self.imageScaling = NSImageScaleProportionallyDown;
-    self.imageAlignment = NSImageAlignCenter;
 #endif
 #if SD_UIKIT
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarning:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
@@ -149,21 +146,15 @@ static NSUInteger SDDeviceFreeMemory() {
     self.animatedImage = nil;
     self.totalFrameCount = 0;
     self.totalLoopCount = 0;
-    self.currentFrame = nil;
-    self.currentFrameIndex = 0;
-    self.currentLoopCount = 0;
-    self.currentTime = 0;
-    self.bufferMiss = NO;
+    // reset current state
+    [self resetCurrentFrameIndex];
     self.shouldAnimate = NO;
     self.isProgressive = NO;
     self.maxBufferCount = 0;
     self.animatedImageScale = 1;
     [_fetchQueue cancelAllOperations];
-    _fetchQueue = nil;
-    SD_LOCK(self.lock);
-    [_frameBuffer removeAllObjects];
-    _frameBuffer = nil;
-    SD_UNLOCK(self.lock);
+    // clear buffer cache
+    [self clearFrameBuffer];
 }
 
 - (void)resetProgressiveImage
@@ -177,6 +168,22 @@ static NSUInteger SDDeviceFreeMemory() {
     self.maxBufferCount = 0;
     self.animatedImageScale = 1;
     // preserve buffer cache
+}
+
+- (void)resetCurrentFrameIndex
+{
+    self.currentFrame = nil;
+    self.currentFrameIndex = 0;
+    self.currentLoopCount = 0;
+    self.currentTime = 0;
+    self.bufferMiss = NO;
+}
+
+- (void)clearFrameBuffer
+{
+    SD_LOCK(self.lock);
+    [_frameBuffer removeAllObjects];
+    SD_UNLOCK(self.lock);
 }
 
 #pragma mark - Accessors
@@ -203,7 +210,7 @@ static NSUInteger SDDeviceFreeMemory() {
     
     // We need call super method to keep function. This will impliedly call `setNeedsDisplay`. But we have no way to avoid this when using animated image. So we call `setNeedsDisplay` again at the end.
     super.image = image;
-    if ([image conformsToProtocol:@protocol(SDAnimatedImage)]) {
+    if ([image.class conformsToProtocol:@protocol(SDAnimatedImage)]) {
         NSUInteger animatedImageFrameCount = ((UIImage<SDAnimatedImage> *)image).animatedImageFrameCount;
         // Check the frame count
         if (animatedImageFrameCount <= 1) {
@@ -236,11 +243,8 @@ static NSUInteger SDDeviceFreeMemory() {
         if (self.shouldAnimate) {
             [self startAnimating];
         }
-        
-        [self.layer setNeedsDisplay];
-#if SD_MAC
-        [self.layer displayIfNeeded]; // macOS's imageViewLayer may not equal to self.layer. But `[super setImage:]` will impliedly mark it needsDisplay. We call `[self.layer displayIfNeeded]` to immediately refresh the imageViewLayer to avoid flashing
-#endif
+
+        [self.imageViewLayer setNeedsDisplay];
     }
 }
 
@@ -466,6 +470,12 @@ static NSUInteger SDDeviceFreeMemory() {
 #else
         _displayLink.paused = YES;
 #endif
+        if (self.resetFrameIndexWhenStopped) {
+            [self resetCurrentFrameIndex];
+        }
+        if (self.clearBufferWhenStopped) {
+            [self clearFrameBuffer];
+        }
     } else {
 #if SD_UIKIT
         [super stopAnimating];
@@ -536,9 +546,11 @@ static NSUInteger SDDeviceFreeMemory() {
         // Early return
         return;
     }
-    if ([image conformsToProtocol:@protocol(SDAnimatedImage)] && image.sd_isIncremental) {
+    // We must use `image.class conformsToProtocol:` instead of `image conformsToProtocol:` here
+    // Because UIKit on macOS, using internal hard-coded override method, which returns NO
+    if ([image.class conformsToProtocol:@protocol(SDAnimatedImage)] && image.sd_isIncremental) {
         UIImage *previousImage = self.image;
-        if ([previousImage conformsToProtocol:@protocol(SDAnimatedImage)] && previousImage.sd_isIncremental) {
+        if ([previousImage.class conformsToProtocol:@protocol(SDAnimatedImage)] && previousImage.sd_isIncremental) {
             NSData *previousData = [((UIImage<SDAnimatedImage> *)previousImage) animatedImageData];
             NSData *currentData = [((UIImage<SDAnimatedImage> *)image) animatedImageData];
             // Check whether to use progressive rendering or not
@@ -625,7 +637,7 @@ static NSUInteger SDDeviceFreeMemory() {
         self.currentFrame = currentFrame;
         self.currentFrameIndex = nextFrameIndex;
         self.bufferMiss = NO;
-        [self.layer setNeedsDisplay];
+        [self.imageViewLayer setNeedsDisplay];
     } else {
         self.bufferMiss = YES;
     }
@@ -665,7 +677,12 @@ static NSUInteger SDDeviceFreeMemory() {
     if (!fetchFrame && !bufferFull && self.fetchQueue.operationCount == 0) {
         // Prefetch next frame in background queue
         UIImage<SDAnimatedImage> *animatedImage = self.animatedImage;
+        @weakify(self);
         NSOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
+            @strongify(self);
+            if (!self) {
+                return;
+            }
             UIImage *frame = [animatedImage animatedImageFrameAtIndex:fetchFrameIndex];
 
             BOOL isAnimating = NO;
@@ -679,6 +696,10 @@ static NSUInteger SDDeviceFreeMemory() {
                 self.frameBuffer[@(fetchFrameIndex)] = frame;
                 SD_UNLOCK(self.lock);
             }
+            // Ensure when self dealloc, it dealloced on the main queue (UIKit/AppKit rule)
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self class];
+            });
         }];
         [self.fetchQueue addOperation:operation];
     }
@@ -696,42 +717,42 @@ static NSUInteger SDDeviceFreeMemory() {
 
 - (void)displayLayer:(CALayer *)layer
 {
-    if (_currentFrame) {
+    if (self.currentFrame) {
         layer.contentsScale = self.animatedImageScale;
-        layer.contents = (__bridge id)_currentFrame.CGImage;
+        layer.contents = (__bridge id)self.currentFrame.CGImage;
     }
 }
 
 #if SD_MAC
-// Layer-backed NSImageView optionally optimize to use a subview to do actual layer rendering.
-// When the optimization is turned on, it calls `updateLayer` instead of `displayLayer:` to update subview's layer.
-// When the optimization it turned off, this return nil and calls `displayLayer:` directly.
-- (CALayer *)imageViewLayer {
-    NSView *imageView = imageView = objc_getAssociatedObject(self, NSSelectorFromString(@"_imageView"));
+// NSImageView use a subview. We need this subview's layer for actual rendering.
+// Why using this design may because of properties like `imageAlignment` and `imageScaling`, which it's not available for UIImageView.contentMode (it's impossible to align left and keep aspect ratio at the same time)
+- (NSView *)imageView {
+    NSImageView *imageView = imageView = objc_getAssociatedObject(self, NSSelectorFromString(@"_imageView"));
     if (!imageView) {
         // macOS 10.14
         imageView = objc_getAssociatedObject(self, NSSelectorFromString(@"_imageSubview"));
     }
-    return imageView.layer;
+    return imageView;
 }
 
-- (void)updateLayer
-{
-    if (_currentFrame) {
-        [self displayLayer:self.imageViewLayer];
-    } else {
-        [super updateLayer];
+// on macOS, it's the imageView subview's layer (we use layer-hosting view to let CALayerDelegate works)
+- (CALayer *)imageViewLayer {
+    NSView *imageView = self.imageView;
+    if (!imageView) {
+        return nil;
     }
+    if (!_imageViewLayer) {
+        _imageViewLayer = [CALayer new];
+        _imageViewLayer.delegate = self;
+        imageView.layer = _imageViewLayer;
+        imageView.wantsLayer = YES;
+    }
+    return _imageViewLayer;
 }
-
-- (BOOL)wantsUpdateLayer {
-    // AppKit is different from UIKit, it need extra check before the layer is updated
-    // When we use the custom animation, the layer.setNeedsDisplay is directly called from display link (See `displayDidRefresh:`). However, for normal image rendering, we must implements and return YES to mark it need display
-    if (_currentFrame) {
-        return NO;
-    } else {
-        return YES;
-    }
+#else
+// on iOS, it's the imageView itself's layer
+- (CALayer *)imageViewLayer {
+    return self.layer;
 }
 
 #endif

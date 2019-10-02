@@ -153,6 +153,11 @@ typedef NS_ENUM(NSInteger, PADErrorCode) {
      * @discussion This error may indicate network connectivity issues.
      */
     PADErrorUnableToFetchPricingData = -121,
+
+    /**
+     * @brief Specifies that the license code has been activated too many times.
+     */
+    PADErrorLicenseCodeUtilized = -122,
 };
 
 /**

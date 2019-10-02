@@ -196,3 +196,6 @@
 
 /* No comment provided by engineer. */
 "after 1 day" = "через 1 день";
+
+/* No comment provided by engineer. */
+"License code has already been utilized" = "Код лицензии уже был использован";
