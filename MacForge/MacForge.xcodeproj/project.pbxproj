@@ -13,6 +13,7 @@
 		48D472ED29E64D0077F2E6A2 /* Pods_MacForgeDockTile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 773A1BF77A1966B3740A649C /* Pods_MacForgeDockTile.framework */; };
 		77B0A177B8D3976298814998 /* Pods_MacForgeHelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D660FE637C95FFEE8D5E83E /* Pods_MacForgeHelper.framework */; };
 		AC9821992991B26D4BF97CA6 /* Pods_MacForgeFix.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F81C85643D544408542951B2 /* Pods_MacForgeFix.framework */; };
+		AEFEBC955C426544A3CF431B /* Pods_purchaseValidationApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F8ED1B7A18AF968A9C5F76E /* Pods_purchaseValidationApp.framework */; };
 		CB184E93EF3BF372BCA22CD6 /* Pods_com_w0lf_MacForge_Injector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B263B51E2E24A2C9D2970D /* Pods_com_w0lf_MacForge_Injector.framework */; };
 		F0ADE0FB166DF941009758CC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0ADE0FA166DF941009758CC /* Cocoa.framework */; };
 		F0ADE107166DF941009758CC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F0ADE106166DF941009758CC /* main.m */; };
@@ -86,8 +87,6 @@
 		FBAA97552334BBFE0074B4E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBAA97542334BBFE0074B4E2 /* Assets.xcassets */; };
 		FBAA97582334BBFE0074B4E2 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = FBAA97562334BBFE0074B4E2 /* MainMenu.xib */; };
 		FBAA975B2334BBFE0074B4E2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAA975A2334BBFE0074B4E2 /* main.m */; };
-		FBAA97602334BC590074B4E2 /* Paddle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBAA97472334BAF40074B4E2 /* Paddle.framework */; };
-		FBAA97612334BC590074B4E2 /* Paddle.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FBAA97472334BAF40074B4E2 /* Paddle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FBAAB3EC20F228FD002156DC /* StartAtLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8B920F01C6300A12ACF /* StartAtLoginController.m */; };
 		FBAAB3EF20F22BF5002156DC /* NSBundle+LoginItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAAB3EE20F22BF5002156DC /* NSBundle+LoginItem.m */; };
 		FBAAB3F020F22BF5002156DC /* NSBundle+LoginItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAAB3EE20F22BF5002156DC /* NSBundle+LoginItem.m */; };
@@ -249,17 +248,6 @@
 			name = "Copy Plugins";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FBAA97622334BC590074B4E2 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				FBAA97612334BC590074B4E2 /* Paddle.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		FBB6D14822FE3E9B003A5B71 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -283,6 +271,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0F8ED1B7A18AF968A9C5F76E /* Pods_purchaseValidationApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_purchaseValidationApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A4A92FE80E4F31C97F3F7D1 /* Pods-com.w0lf.MacForge.Injector.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-com.w0lf.MacForge.Injector.release.xcconfig"; path = "Target Support Files/Pods-com.w0lf.MacForge.Injector/Pods-com.w0lf.MacForge.Injector.release.xcconfig"; sourceTree = "<group>"; };
 		32BCA7B343B9593E54169313 /* Pods-MacForgeFix.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacForgeFix.release.xcconfig"; path = "Target Support Files/Pods-MacForgeFix/Pods-MacForgeFix.release.xcconfig"; sourceTree = "<group>"; };
 		370D6DF2C08D50C20C214C75 /* Pods-MacForgeKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacForgeKit.release.xcconfig"; path = "Target Support Files/Pods-MacForgeKit/Pods-MacForgeKit.release.xcconfig"; sourceTree = "<group>"; };
@@ -291,6 +280,7 @@
 		5D660FE637C95FFEE8D5E83E /* Pods_MacForgeHelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MacForgeHelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EFB1E36CB68CB24F30204A1 /* Pods-com.w0lf.MacForge.Installer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-com.w0lf.MacForge.Installer.release.xcconfig"; path = "Target Support Files/Pods-com.w0lf.MacForge.Installer/Pods-com.w0lf.MacForge.Installer.release.xcconfig"; sourceTree = "<group>"; };
 		773A1BF77A1966B3740A649C /* Pods_MacForgeDockTile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MacForgeDockTile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7DC03DA184A3C2DECC7090AD /* Pods-purchaseValidationApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-purchaseValidationApp.release.xcconfig"; path = "Target Support Files/Pods-purchaseValidationApp/Pods-purchaseValidationApp.release.xcconfig"; sourceTree = "<group>"; };
 		8010E46D92E3A93FFCDCD787 /* Pods-MacForgeKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacForgeKit.debug.xcconfig"; path = "Target Support Files/Pods-MacForgeKit/Pods-MacForgeKit.debug.xcconfig"; sourceTree = "<group>"; };
 		81938B922DC8DB8C0BA42E76 /* Pods-MacForgeHelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacForgeHelper.release.xcconfig"; path = "Target Support Files/Pods-MacForgeHelper/Pods-MacForgeHelper.release.xcconfig"; sourceTree = "<group>"; };
 		8C3D1F62B0E08AD4C29A3525 /* Pods-MacForge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacForge.debug.xcconfig"; path = "Target Support Files/Pods-MacForge/Pods-MacForge.debug.xcconfig"; sourceTree = "<group>"; };
@@ -300,6 +290,7 @@
 		BAEEE19A8BE4096DC7F0BCB3 /* Pods-com.w0lf.MacForge.Injector.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-com.w0lf.MacForge.Injector.debug.xcconfig"; path = "Target Support Files/Pods-com.w0lf.MacForge.Injector/Pods-com.w0lf.MacForge.Injector.debug.xcconfig"; sourceTree = "<group>"; };
 		BB6AA186557851C9C5C553AC /* Pods_MacForgeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MacForgeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C18281B1DFBF79FD6F35467B /* Pods-MacForgeFix.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacForgeFix.debug.xcconfig"; path = "Target Support Files/Pods-MacForgeFix/Pods-MacForgeFix.debug.xcconfig"; sourceTree = "<group>"; };
+		DB8C83A7C25071B285295868 /* Pods-purchaseValidationApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-purchaseValidationApp.debug.xcconfig"; path = "Target Support Files/Pods-purchaseValidationApp/Pods-purchaseValidationApp.debug.xcconfig"; sourceTree = "<group>"; };
 		DE3ED353083B7D8492CE190A /* Pods-MacForgeDockTile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacForgeDockTile.release.xcconfig"; path = "Target Support Files/Pods-MacForgeDockTile/Pods-MacForgeDockTile.release.xcconfig"; sourceTree = "<group>"; };
 		EB4CA17C673612AC0E1CE9D0 /* Pods-com.w0lf.MacForge.Installer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-com.w0lf.MacForge.Installer.debug.xcconfig"; path = "Target Support Files/Pods-com.w0lf.MacForge.Installer/Pods-com.w0lf.MacForge.Installer.debug.xcconfig"; sourceTree = "<group>"; };
 		F0ADE0F6166DF941009758CC /* MacForgeHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacForgeHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -509,7 +500,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FBAA97602334BC590074B4E2 /* Paddle.framework in Frameworks */,
+				AEFEBC955C426544A3CF431B /* Pods_purchaseValidationApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -548,6 +539,7 @@
 				F81C85643D544408542951B2 /* Pods_MacForgeFix.framework */,
 				B5B263B51E2E24A2C9D2970D /* Pods_com_w0lf_MacForge_Injector.framework */,
 				560E972975EF2B331216595B /* Pods_com_w0lf_MacForge_Installer.framework */,
+				0F8ED1B7A18AF968A9C5F76E /* Pods_purchaseValidationApp.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -569,6 +561,8 @@
 				1A4A92FE80E4F31C97F3F7D1 /* Pods-com.w0lf.MacForge.Injector.release.xcconfig */,
 				EB4CA17C673612AC0E1CE9D0 /* Pods-com.w0lf.MacForge.Installer.debug.xcconfig */,
 				6EFB1E36CB68CB24F30204A1 /* Pods-com.w0lf.MacForge.Installer.release.xcconfig */,
+				DB8C83A7C25071B285295868 /* Pods-purchaseValidationApp.debug.xcconfig */,
+				7DC03DA184A3C2DECC7090AD /* Pods-purchaseValidationApp.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -1119,10 +1113,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FBAA975D2334BBFE0074B4E2 /* Build configuration list for PBXNativeTarget "purchaseValidationApp" */;
 			buildPhases = (
+				F32F808E03808B5D0298D207 /* [CP] Check Pods Manifest.lock */,
 				FBAA974B2334BBFC0074B4E2 /* Sources */,
 				FBAA974C2334BBFC0074B4E2 /* Frameworks */,
 				FBAA974D2334BBFC0074B4E2 /* Resources */,
-				FBAA97622334BC590074B4E2 /* Embed Frameworks */,
+				7C030737F3CB0A4B68C5DE51 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1374,7 +1369,6 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/LetsMove/LetsMove.framework",
-				"${PODS_ROOT}/PaddleV4/Paddle.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${PODS_ROOT}/Sparkle/Sparkle.framework",
 				"${PODS_ROOT}/Sparkle/Sparkle.framework.dSYM",
@@ -1387,7 +1381,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LetsMove.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Paddle.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework",
 				"${DWARF_DSYM_FOLDER_PATH}/Sparkle.framework.dSYM",
@@ -1487,6 +1480,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		7C030737F3CB0A4B68C5DE51 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-purchaseValidationApp/Pods-purchaseValidationApp-frameworks.sh",
+				"${PODS_ROOT}/PaddleV4/Paddle.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Paddle.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-purchaseValidationApp/Pods-purchaseValidationApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		82F7C0E7FACBDEE32DEF64F3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1553,6 +1564,28 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		F32F808E03808B5D0298D207 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-purchaseValidationApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		F5116887C21B6D10ECAF3406 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1561,6 +1594,7 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-MacForgeHelper/Pods-MacForgeHelper-frameworks.sh",
 				"${PODS_ROOT}/Sparkle/Sparkle.framework",
+				"${PODS_ROOT}/Sparkle/Sparkle.framework.dSYM",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -1882,7 +1916,6 @@
 				GCC_PREFIX_HEADER = "MacForgeHelper/MacForge-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/MacForgeHelper/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacForgeHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1906,7 +1939,6 @@
 				GCC_PREFIX_HEADER = "MacForgeHelper/MacForge-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/MacForgeHelper/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacForgeHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2133,7 +2165,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "$(SRCROOT)/MacForgeDockTile/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				PRODUCT_BUNDLE_IDENTIFIER = org.w0lf.MacForgeDockTile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2167,7 +2198,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "$(SRCROOT)/MacForgeDockTile/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.w0lf.MacForgeDockTile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2179,6 +2209,7 @@
 		};
 		FBAA975E2334BBFE0074B4E2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DB8C83A7C25071B285295868 /* Pods-purchaseValidationApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -2206,7 +2237,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = purchaseValidationApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.purchaseValidationApp;
@@ -2217,6 +2247,7 @@
 		};
 		FBAA975F2334BBFE0074B4E2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7DC03DA184A3C2DECC7090AD /* Pods-purchaseValidationApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -2245,7 +2276,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = purchaseValidationApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.purchaseValidationApp;
@@ -2307,7 +2337,6 @@
 				INFOPLIST_PREFIX_HEADER = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				PRODUCT_BUNDLE_IDENTIFIER = org.w0lf.MacForgeKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -2370,7 +2399,6 @@
 				INFOPLIST_PREFIX_HEADER = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.w0lf.MacForgeKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -2407,7 +2435,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = MacForge/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacForge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2448,7 +2475,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = MacForge/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacForge;
 				PRODUCT_NAME = "$(TARGET_NAME)";

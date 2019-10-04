@@ -15,6 +15,48 @@
 
 @implementation AppDelegate
 
+- (NSString *)customStoragePath {
+    [self updateToShared];
+    return paddleFldr; //Needs to be full path to custom storage directory
+}
+
+- (void)updateToShared {
+    if (![FileManager fileExistsAtPath:paddleFldr]) {
+        NSError *err;
+        [FileManager createDirectoryAtPath:paddleFldr withIntermediateDirectories:true attributes:nil error:&err];
+        [self updatePaddleData];
+    } else {
+        NSString *updFile = [paddleFldr stringByAppendingPathComponent:@"com.macenhance.purchaseValidationApp"];
+        if (![FileManager fileExistsAtPath:updFile]) {
+            [FileManager createFileAtPath:updFile contents:nil attributes:nil];
+            [self updatePaddleData];
+        }
+    }
+}
+
+- (void)updatePaddleData {
+    // Make sure public folder exists
+    NSError *err;
+    [FileManager createDirectoryAtPath:paddleFldr withIntermediateDirectories:true attributes:nil error:&err];
+    
+    NSString *oldFolder = [NSString stringWithFormat:@"%@/purchaseValidationApp", appSupport];
+    NSArray *paddleFiles = [FileManager contentsOfDirectoryAtPath:oldFolder error:nil];
+        
+    for (NSString *file in paddleFiles) {
+        // Remove old files
+        NSString *publicFile = [paddleFldr stringByAppendingPathComponent:file];
+        NSString *userFile = [NSString stringWithFormat:@"%@/purchaseValidationApp/%@", appSupport, file];
+        if ([FileManager fileExistsAtPath:publicFile]) {
+            [FileManager removeItemAtPath:publicFile error:&err];
+            //        DLog(@"Removed public paddata %@", err);
+        }
+        if ([FileManager fileExistsAtPath:userFile]) {
+            [FileManager copyItemAtPath:userFile toPath:publicFile error:&err];
+            //        DLog(@"Inserted paddata %@", err);
+        }
+    }
+}
+
 - (void)didDismissPaddleUIType:(PADUIType)uiType triggeredUIType:(PADTriggeredUIType)triggeredUIType product:(nonnull PADProduct *)product {
 //    NSLog(@"%ld : %ld : %@", (long)uiType, (long)triggeredUIType, product);
     
@@ -69,6 +111,11 @@
     
     // Initialize the Product you'd like to work with:
     PADProduct *paddleProduct = [[PADProduct alloc] initWithProductID:myPaddleProductID productType:PADProductTypeSDKProduct configuration:defaultProductConfig];
+    
+    // Required for Catlina
+    if (NSProcessInfo.processInfo.operatingSystemVersion.minorVersion >= 15)
+        [paddleProduct verifyActivationWithCompletion:^(PADVerificationState state, NSError * _Nullable error) { }];
+    
     return paddleProduct;
 }
 

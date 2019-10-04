@@ -11,9 +11,12 @@
 
 // Pods
 @import LetsMove;
-@import Paddle;
 @import Sparkle;
 @import EDStarRating;
+
+@import AppCenter;
+@import AppCenterAnalytics;
+@import AppCenterCrashes;
 
 // Firebase
 @import FirebaseCore;
@@ -35,7 +38,7 @@
 
 #import "pluginData.h"
 
-@interface AppDelegate : NSObject <PaddleDelegate, NSSearchFieldDelegate> {
+@interface AppDelegate : NSObject <NSSearchFieldDelegate> {
     NSMutableArray *watchdogs;
     PluginManager *_sharedMethods;
 }
@@ -45,8 +48,6 @@
 @property IBOutlet NSWindow *window;
 @property IBOutlet NSWindow *srcWin;
 @property IBOutlet SUUpdater *updater;
-
-@property (readwrite, nonatomic) Paddle* thePaddle;
 
 // ADs URL
 @property (readwrite, nonatomic) NSString* adURL;

@@ -1,4 +1,12 @@
 PODS:
+  - AppCenter (2.4.0):
+    - AppCenter/Analytics (= 2.4.0)
+    - AppCenter/Crashes (= 2.4.0)
+  - AppCenter/Analytics (2.4.0):
+    - AppCenter/Core
+  - AppCenter/Core (2.4.0)
+  - AppCenter/Crashes (2.4.0):
+    - AppCenter/Core
   - EDStarRating (1.1)
   - FirebaseAuth (6.2.2):
     - FirebaseAuthInterop (~> 1.0)
@@ -53,12 +61,13 @@ PODS:
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
   - PaddleV4 (4.0.13)
-  - SDWebImage (5.2.1):
-    - SDWebImage/Core (= 5.2.1)
-  - SDWebImage/Core (5.2.1)
+  - SDWebImage (5.2.2):
+    - SDWebImage/Core (= 5.2.2)
+  - SDWebImage/Core (5.2.2)
   - Sparkle (1.22.0)
 
 DEPENDENCIES:
+  - AppCenter
   - EDStarRating
   - FirebaseAuth (from `./firebase_sdk/`)
   - FirebaseCore (from `./firebase_sdk/`)
@@ -71,6 +80,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - AppCenter
     - EDStarRating
     - FirebaseAuthInterop
     - FirebaseCoreDiagnostics
@@ -97,6 +107,7 @@ EXTERNAL SOURCES:
     :path: "./firebase_sdk/"
 
 SPEC CHECKSUMS:
+  AppCenter: 49a9ffe114c00e2bf5374aeda816d47eabf1978a
   EDStarRating: a41a6440a945020745d0e9ff8ada7d1afa952114
   FirebaseAuth: 2be1924ddbc741fe2a02cb6963ca747e09a2e05c
   FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
@@ -113,9 +124,9 @@ SPEC CHECKSUMS:
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   PaddleV4: 6c6b5cc81872dfd286e21abca8da0f6f7959b3e7
-  SDWebImage: 336f6958a13d5e8347a317cd68a9f6ee9aaaaf03
+  SDWebImage: 5fcdb02cc35e05fc35791ec514b191d27189f872
   Sparkle: 593ac2e677c07bcb6c3b22d621240e7cbedaab57
 
-PODFILE CHECKSUM: 43082ca89d6fe1b3e937ce19662975fe1cc14223
+PODFILE CHECKSUM: 26db17e99e19698de375e89209c0031416b60fb5
 
 COCOAPODS: 1.7.3

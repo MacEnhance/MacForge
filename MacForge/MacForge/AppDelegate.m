@@ -41,8 +41,7 @@ NSDictionary *sharedDict;
 NSUInteger osx_ver;
 NSArray *tabViewButtons;
 NSArray *tabViews;
-
-Boolean paddleQuit = false;
+Boolean showBundleOnOpen;
 
 - (void)searchFieldDidEndSearching:(NSSearchField *)sender {
     [_searchPlugins abortEditing];
@@ -246,21 +245,6 @@ Boolean paddleQuit = false;
     return myDelegate;
 }
 
-- (PADDisplayConfiguration *)willShowPaddleUIType:(PADUIType)uiType
-                                          product:(PADProduct *)product
-{
-    // We'll unconditionally display all configurable Paddle dialogs as sheets attached to the main window.
-    return [PADDisplayConfiguration configuration:PADDisplayTypeSheet
-                            hideNavigationButtons:NO
-                                     parentWindow:_window];
-}
-
-- (void)didDismissPaddleUIType:(PADUIType)uiType triggeredUIType:(PADTriggeredUIType)triggeredUIType product:(nonnull PADProduct *)product {
-//    NSLog(@"Dissmissed : %ld : %ld :%@", (long)uiType, (long)triggeredUIType, product);
-    if (triggeredUIType == 6)
-        paddleQuit = true;
-}
-
 // Run bash script
 - (NSString*) runCommand: (NSString*)command {
     NSTask *task = [[NSTask alloc] init];
@@ -274,11 +258,6 @@ Boolean paddleQuit = false;
     NSData *data = [file readDataToEndOfFile];
     NSString *output = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     return output;
-}
-
-// Show DevMate feedback
-- (IBAction)showFeedbackDialog:(id)sender {
-//    [DevMateKit showFeedbackDialog:nil inMode:DMFeedbackDefaultMode];
 }
 
 // Cleanup some stuff when user changes dark mode
@@ -321,63 +300,69 @@ Boolean paddleQuit = false;
 // Handle macforge:// url scheme
 - (void)application:(NSApplication *)application
            openURLs:(NSArray<NSURL *> *)urls {
-    NSLog(@"------------- %@", urls);
+//    NSLog(@"------------- %@", urls);
     
-    NSURL *t = urls.lastObject;
-    MSPlugin *p = [[MSPlugin alloc] init];
-    pluginData *data = pluginData.sharedInstance;
-    NSString *repo = t.URLByDeletingLastPathComponent.absoluteString;
-    NSMutableString *test = [[NSMutableString alloc] initWithString:repo];
-    [test deleteCharactersInRange:NSMakeRange([repo length]-1, 1)];
-    if (repo.length >= 8)
-        [test replaceCharactersInRange:NSMakeRange(0, 8) withString:@"https"];
-    repo = test.copy;
+    // Convert urls to paths
+    NSMutableArray *paths = [[NSMutableArray alloc] init];
+    for (NSURL *url in urls)
+        if ([FileManager fileExistsAtPath:url.path])
+            [paths addObject:url.path];
+    
+    // If there are any paths try installing them
+    if (paths.count > 0)
+        [PluginManager.sharedInstance installBundles:paths];
 
-    if ([data.repoPluginsDic objectForKey:t.lastPathComponent]) {
-        p = [data.repoPluginsDic objectForKey:t.lastPathComponent];
-    } else {
-        if ([data.sourceListDic.allKeys containsObject:repo]) {
-//            NSLog(@"------------ repo exists %@", data.repoPluginsDic);
+    // Handle requests to open to specific plugin
+    if ([urls.lastObject.absoluteString containsString:@"macforge://"]) {
+        NSURL *t = urls.lastObject;
+        MSPlugin *p = [[MSPlugin alloc] init];
+        pluginData *data = pluginData.sharedInstance;
+        NSString *repo = t.URLByDeletingLastPathComponent.absoluteString;
+        NSMutableString *test = [[NSMutableString alloc] initWithString:repo];
+        [test deleteCharactersInRange:NSMakeRange([repo length]-1, 1)];
+        if (repo.length >= 8)
+            [test replaceCharactersInRange:NSMakeRange(0, 8) withString:@"https"];
+        repo = test.copy;
+
+        if ([data.repoPluginsDic objectForKey:t.lastPathComponent]) {
             p = [data.repoPluginsDic objectForKey:t.lastPathComponent];
         } else {
-//            NSLog(@"------------ new repo %@", data.repoPluginsDic);
+            if ([data.sourceListDic.allKeys containsObject:repo]) {
+    //            NSLog(@"------------ repo exists %@", data.repoPluginsDic);
+                p = [data.repoPluginsDic objectForKey:t.lastPathComponent];
+            } else {
+    //            NSLog(@"------------ new repo %@", data.repoPluginsDic);
 
-            // should we ask user to add repo?
-            [data fetch_repo:repo];
-            p = [data.repoPluginsDic objectForKey:t.lastPathComponent];
+                // should we ask user to add repo?
+                [data fetch_repo:repo];
+                p = [data.repoPluginsDic objectForKey:t.lastPathComponent];
+            }
+        }
+
+        if (p) {
+            showBundleOnOpen = true;
+            [myDelegate selectView:_viewDiscover];
+            pluginData.sharedInstance.currentPlugin = p;
+    //        p.webRepository = repo;
+            NSView *v = myDelegate.sourcesBundle;
+            dispatch_async(dispatch_get_main_queue(), ^(void){
+                [v setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
+                [v setFrame:myDelegate.tabMain.frame];
+                [v setFrameOrigin:NSMakePoint(0, 0)];
+                [v setTranslatesAutoresizingMaskIntoConstraints:true];
+                [myDelegate.tabMain setSubviews:[NSArray arrayWithObject:v]];
+            });
+    //        NSLog(@"------------ test %@", repo);
+    //        NSLog(@"%@", data.sourceListDic.allKeys);
+        } else {
+            showBundleOnOpen = false;
         }
     }
-
-    if (p) {
-        [myDelegate selectView:_viewDiscover];
-        pluginData.sharedInstance.currentPlugin = p;
-//        p.webRepository = repo;
-        NSView *v = myDelegate.sourcesBundle;
-        dispatch_async(dispatch_get_main_queue(), ^(void){
-            [v setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
-            [v setFrame:myDelegate.tabMain.frame];
-            [v setFrameOrigin:NSMakePoint(0, 0)];
-            [v setTranslatesAutoresizingMaskIntoConstraints:true];
-            [myDelegate.tabMain setSubviews:[NSArray arrayWithObject:v]];
-        });
-//        NSLog(@"------------ test %@", repo);
-//        NSLog(@"%@", data.sourceListDic.allKeys);
-    }
-}
-
-// Try to install bundles when passed to application
-- (void)application:(NSApplication *)sender openFiles:(NSArray*)filenames {
-    [PluginManager.sharedInstance installBundles:filenames];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+//    [MSCrashes generateTestCrash];
     
-//    NSURL* url = [NSURL URLWithString:@"macforge://github.com/w0lfschild/myRepo/raw/master/myPaidRepo/com.github.jslegendre.LiftOff"];
-//    NSURL* url = [NSURL URLWithString:@"macforge://github.com/w0lfschild/myRepo/raw/master/myPaidRepo/org.w0lf.cDock"];
-//    [NSWorkspace.sharedWorkspace openURL:url];
-    
-//    [DevMateKit sendTrackingReport:nil delegate:nil];
-//    [DevMateKit setupIssuesController:nil reportingUnhandledIssues:YES];
     [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(systemDarkModeChange:) name:@"AppleInterfaceThemeChangedNotification" object:nil];
     [[NSDistributedNotificationCenter defaultCenter] addObserverForName:@"com.w0lf.MacForgeNotify"
                                                                  object:nil
@@ -404,45 +389,12 @@ Boolean paddleQuit = false;
         if ([args containsObject:@"manage"]) [self selectView:_viewPlugins];
     }
 
+    // Need to fix this
 //    [self installXcodeTemplate];
-    [self executionTime:@"startPaddle"];
 
     NSDate *methodFinish = [NSDate date];
     NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:appStart];
     NSLog(@"Launch time : %f Seconds", executionTime);
-}
-
-- (void)startPaddle {
-    _thePaddle = [Paddle sharedInstance];
-    
-    // Your Paddle SDK Config from the Vendor Dashboard:
-    NSString *myPaddleProductID = @"534403";
-    NSString *myPaddleVendorID = @"26643";
-    NSString *myPaddleAPIKey = @"02a3c57238af53b3c465ef895729c765";
-    
-//    NSString *myPaddleProductID = @"570933";
-//    NSString *myPaddleVendorID = @"102003";
-//    NSString *myPaddleAPIKey = @"508205c7de527e9cc702cd1b1e5e2733";
-    
-    // Populate a local object in case we're unable to retrieve data
-    // from the Vendor Dashboard:
-    PADProductConfiguration *defaultProductConfig = [[PADProductConfiguration alloc] init];
-    defaultProductConfig.productName = @"MacForge";
-    defaultProductConfig.vendorName = @"MacEnhance";
-    
-    // Initialize the SDK Instance with Seller details:
-    _thePaddle = [Paddle sharedInstanceWithVendorID:myPaddleVendorID
-                                             apiKey:myPaddleAPIKey
-                                          productID:myPaddleProductID
-                                      configuration:defaultProductConfig
-                                           delegate:self];
-    
-    // Initialize the Product you'd like to work with:
-    PADProduct *paddleProduct = [[PADProduct alloc] initWithProductID:myPaddleProductID productType:PADProductTypeSDKProduct configuration:defaultProductConfig];
-    
-    // Ask the Product to get it's latest state and info from the Paddle Platform:
-    [paddleProduct refresh:^(NSDictionary * _Nullable productDelta, NSError * _Nullable error) {
-    }];
 }
 
 - (void)executionTime:(NSString*)s {
@@ -457,7 +409,16 @@ Boolean paddleQuit = false;
 }
 
 // Loading
-- (void)applicationWillFinishLaunching:(NSNotification *)aNotification {    
+- (void)applicationWillFinishLaunching:(NSNotification *)aNotification {
+    // Start alanlytics and crash reporting
+    [MSAppCenter start:@"ffae4e14-d61c-4078-825c-bb4635407861" withServices:@[
+      [MSAnalytics class],
+      [MSCrashes class]
+    ]];
+    
+    // Crash on exceptions?
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"NSApplicationCrashOnExceptions": [NSNumber numberWithBool:true]}];
+    
     sourceItems = [NSArray arrayWithObjects:_sourcesURLS, _sourcesPlugins, _sourcesBundle, nil];
     discoverItems = [NSArray arrayWithObjects:_discoverChanges, _sourcesBundle, nil];
 
@@ -497,31 +458,18 @@ Boolean paddleQuit = false;
     [_tblView registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
     [_blackListTable registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
 
-
     [self setupEventListener];
+    [self executionTime:@"setupSIMBLview"];
+    
     [_window makeKeyAndOrderFront:self];
     
-    [self executionTime:@"setupSIMBLview"];
-//    [self setupSIMBLview];
-
     [NSTimer scheduledTimerWithTimeInterval:30.0 target:self selector:@selector(keepThoseAdsFresh) userInfo:nil repeats:YES];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
     });
     
     // Make sure we're in /Applications
     PFMoveToApplicationsFolderIfNecessary();
-}
-
-- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
-    // Prevent the app from closing when Paddle quit is pressed
-    // Avoids doing any redesigning of the Paddle UI
-    if (paddleQuit) {
-        paddleQuit = false;
-        return NSTerminateCancel;
-    }
-    return NSTerminateNow;
 }
 
 // Cleanup
@@ -702,8 +650,10 @@ Boolean paddleQuit = false;
 //        [self selectView:_viewPlugins];
 //        [_prefStartTab selectItemAtIndex:0];
 //    }
+        
+    if (showBundleOnOpen == false)
+        [self selectView:_viewDiscover];
     
-    [self selectView:_viewDiscover];
     [_prefStartTab selectItemAtIndex:0];
 }
 
@@ -1279,7 +1229,9 @@ Boolean paddleQuit = false;
     NSString *plist = @"Library/Preferences/com.w0lf.MacForgeHelper.plist";
     NSMutableDictionary *SIMBLPrefs = [NSMutableDictionary dictionaryWithContentsOfFile:[NSHomeDirectory() stringByAppendingPathComponent:plist]];
     NSArray *blacklist = [SIMBLPrefs objectForKey:@"SIMBLApplicationIdentifierBlacklist"];
-    NSArray *alwaysBlaklisted = @[@"org.w0lf.mySIMBL", @"org.w0lf.cDock-GUI", @"com.w0lf.MacForge", @"com.w0lf.MacForgeHelper"];
+    NSArray *alwaysBlaklisted = @[@"org.w0lf.mySIMBL", @"org.w0lf.cDock-GUI",
+                                  @"com.w0lf.MacForge", @"com.w0lf.MacForgeHelper",
+                                  @"org.w0lf.cDockHelper", @"com.macenhance.purchaseValidationApp"];
     NSMutableArray *newlist = [[NSMutableArray alloc] initWithArray:blacklist];
     for (NSString *app in alwaysBlaklisted)
         if (![blacklist containsObject:app])

@@ -10,8 +10,14 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface AppDelegate : NSObject <PaddleDelegate, NSApplicationDelegate>
+#define NotificationCenter  [NSNotificationCenter defaultCenter]
+#define Workspace           [NSWorkspace sharedWorkspace]
+#define FileManager         [NSFileManager defaultManager]
+#define Defaults            [NSUserDefaults standardUserDefaults]
+#define paddleFldr          [[NSSearchPathForDirectoriesInDomains(NSUserDirectory, NSAllDomainsMask, YES) firstObject] stringByAppendingString:@"/shared/macenhance"]
+#define appSupport          [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) firstObject]
 
+@interface AppDelegate : NSObject <PaddleDelegate, NSApplicationDelegate>
 
 @end
 

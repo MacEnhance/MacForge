@@ -1,4 +1,4 @@
-platform :osx, '10.11'
+platform :osx, '10.12'
 
 use_frameworks!
 
@@ -8,16 +8,22 @@ end
 
 target 'MacForge' do
   shared_pods
-  pod 'LetsMove'
-  pod 'PaddleV4'
-  pod 'SDWebImage'
+
+  # Basics
+  pod 'AppCenter'
   pod 'EDStarRating'
+  pod 'LetsMove'
+  pod 'SDWebImage'
 
   # Firebase
   pod 'FirebaseCore', :path => './firebase_sdk/'
   pod 'FirebaseDatabase', :path => './firebase_sdk/'
   pod 'FirebaseStorage', :path => './firebase_sdk/'
   pod 'FirebaseAuth', :path => './firebase_sdk/'
+end
+
+target 'purchaseValidationApp' do
+  pod 'PaddleV4'
 end
 
 target 'MacForgeHelper' do

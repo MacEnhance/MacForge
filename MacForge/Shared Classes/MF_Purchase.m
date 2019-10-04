@@ -20,6 +20,7 @@ extern AppDelegate* myDelegate;
 @implementation MF_Purchase
 
 + (void)pushthebutton:(MSPlugin*)plugin :(NSButton*)theButton :(NSString*)repo :(NSProgressIndicator*)progress {
+    [MSAnalytics trackEvent:@"Install, Purchase or Open" withProperties:@{@"Product ID" : plugin.bundleID}];
     if ([MF_Purchase packageInstalled:plugin]) {
         if ([theButton.title isEqualToString:@"UPDATE"]) {
             // Installed, update
@@ -153,6 +154,8 @@ extern AppDelegate* myDelegate;
     NSDictionary* item = plugin.webPlist;
     NSString *myPaddleProductID = [item objectForKey:@"productID"];
     if (myPaddleProductID != nil) {
+        [MSAnalytics trackEvent:@"Purchase Attempt" withProperties:@{@"Product ID" : myPaddleProductID}];
+        
         NSString *myPaddleVendorID = @"26643";
         NSString *myPaddleAPIKey = @"02a3c57238af53b3c465ef895729c765";
 

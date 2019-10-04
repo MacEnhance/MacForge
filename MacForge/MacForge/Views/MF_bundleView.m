@@ -380,7 +380,6 @@ extern long selectedRow;
     MSPlugin *plugin = [pluginData sharedInstance].currentPlugin;
     
     if (plugin.webRepository) {
-        
     }
     
     NSURL *shareURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", plugin.webRepository, plugin.bundleID]];
