@@ -20,17 +20,19 @@ extern AppDelegate* myDelegate;
 @implementation MF_Purchase
 
 + (void)pushthebutton:(MSPlugin*)plugin :(NSButton*)theButton :(NSString*)repo :(NSProgressIndicator*)progress {
-    [MSAnalytics trackEvent:@"Install, Purchase or Open" withProperties:@{@"Product ID" : plugin.bundleID}];
     if ([MF_Purchase packageInstalled:plugin]) {
         if ([theButton.title isEqualToString:@"UPDATE"]) {
             // Installed, update
             [MF_Purchase pluginInstallWithProgress:plugin :repo :theButton :progress];
+            [MSAnalytics trackEvent:@"Update" withProperties:@{@"Product ID" : plugin.bundleID}];
         } else if ([theButton.title isEqualToString:@"UPDATE"]) {
             // Installed, downgrade
             [MF_Purchase pluginInstallWithProgress:plugin :repo :theButton :progress];
+            [MSAnalytics trackEvent:@"Update" withProperties:@{@"Product ID" : plugin.bundleID}];
         } else {
             // Installed, reveal in Finder
             [PluginManager.sharedInstance pluginRevealFinder:plugin.webPlist];
+            [MSAnalytics trackEvent:@"Open" withProperties:@{@"Product ID" : plugin.bundleID}];
         }
     } else {
         // Not installed try to purchase or install
@@ -154,7 +156,7 @@ extern AppDelegate* myDelegate;
     NSDictionary* item = plugin.webPlist;
     NSString *myPaddleProductID = [item objectForKey:@"productID"];
     if (myPaddleProductID != nil) {
-        [MSAnalytics trackEvent:@"Purchase Attempt" withProperties:@{@"Product ID" : myPaddleProductID}];
+        [MSAnalytics trackEvent:@"Purchase Attempt" withProperties:@{@"Product" : plugin.webName, @"Product ID" : myPaddleProductID}];
         
         NSString *myPaddleVendorID = @"26643";
         NSString *myPaddleAPIKey = @"02a3c57238af53b3c465ef895729c765";
@@ -177,15 +179,17 @@ extern AppDelegate* myDelegate;
            //This is your completion handler
            dispatch_sync(dispatch_get_main_queue(), ^{
                if ([task terminationStatus] == 69) {
-                    [MF_Purchase pluginInstallWithProgress:plugin :repo :theButton :progress];
-                } else {
-                    NSLog(@"Purchase canceled or failed.");
-                }
+                   [MSAnalytics trackEvent:@"Purchased Product" withProperties:@{@"Product" : plugin.webName, @"Product ID" : myPaddleProductID}];
+                   [MF_Purchase pluginInstallWithProgress:plugin :repo :theButton :progress];
+               } else {
+                   NSLog(@"Purchase canceled or failed.");
+               }
            });
         });
     } else {
         NSLog(@"No product info... lets assume it's FREEEE");
         [MF_Purchase pluginInstallWithProgress:plugin :repo :theButton :progress];
+        [MSAnalytics trackEvent:@"Install" withProperties:@{@"Product ID" : plugin.bundleID}];
     }
 }
 

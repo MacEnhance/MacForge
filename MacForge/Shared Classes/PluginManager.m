@@ -112,7 +112,7 @@
     }
 }
 
-// Look at a folder and find all MacPlus plugins wihtin it and add them to the given Dictionatry
+// Look at a folder and find all MacForge plugins wihtin it and add them to the given Dictionatry
 - (void)readFolder:(NSString *)str :(NSMutableDictionary *)dict {
     NSArray *appFolderContents = [[NSArray alloc] init];
     appFolderContents = [FileManager contentsOfDirectoryAtPath:str error:nil];
@@ -167,7 +167,7 @@
     }
 }
 
-// Read all install locations looking for MacPlus plugins
+// Read all install locations looking for MacForge plugins
 - (void)readPlugins:(NSTableView *)pluginTable {
     pluginsArray = [[NSMutableArray alloc] init];
     confirmDelete = [[NSMutableArray alloc] init];

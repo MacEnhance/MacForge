@@ -23,7 +23,7 @@
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>NSPrincipalClass</key>
-	<string>MacPlusFix</string>
+	<string>MacForgeFix</string>
 	<key>SIMBLTargetApplications</key>
 	<array>
 		<dict>

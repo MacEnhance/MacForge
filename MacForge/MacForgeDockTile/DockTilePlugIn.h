@@ -1,6 +1,6 @@
 //
 //  DockTilePlugIn.h
-//  MacPlusDockTile
+//  MacForgeDockTile
 //
 //  Created by Wolfgang Baird on 7/5/18.
 //  Copyright © 2018 Wolfgang Baird. All rights reserved.

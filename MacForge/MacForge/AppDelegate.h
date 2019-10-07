@@ -1,6 +1,6 @@
 //
 //  AppDelegate.h
-//  MacPlus
+//  MacForge
 //
 //  Created by Wolfgang Baird on 1/9/16.
 //  Copyright © 2016 Wolfgang Baird. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  blacklistTable.m
-//  MacPlus
+//  MacForge
 //
 //  Created by Wolfgang Baird on 7/29/18.
 //  Copyright © 2018 Erwan Barrier. All rights reserved.

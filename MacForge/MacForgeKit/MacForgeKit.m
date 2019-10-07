@@ -56,10 +56,10 @@ bool _csr_check(int aMask, bool aFlipflag)
 @implementation MacForgeKit
 
 + (MacForgeKit*) sharedInstance {
-    static MacForgeKit* macPlus = nil;
-    if (macPlus == nil)
-        macPlus = [[MacForgeKit alloc] init];
-    return macPlus;
+    static MacForgeKit* MacForge = nil;
+    if (MacForge == nil)
+        MacForge = [[MacForgeKit alloc] init];
+    return MacForge;
 }
 
 + (Boolean)runSTPrivilegedTask:(NSString*)launchPath :(NSArray*)args {
@@ -125,7 +125,7 @@ bool _csr_check(int aMask, bool aFlipflag)
     return [MacForgeKit runSTPrivilegedTask:@"/bin/sh" :args];
 }
 
-+ (void)installMacPlus {
++ (void)installMacForge {
 //    NSError *error;
 //    if ([DKInstaller isInstalled] == NO && [DKInstaller install:&error] == NO) {
 //        assert(error != nil);
@@ -196,7 +196,7 @@ bool _csr_check(int aMask, bool aFlipflag)
 + (void)injectBundle:(NSRunningApplication*)runningApp {
     // Check if there is anything valid to inject
     if ([MacForgeKit shouldInject:runningApp]) {
-        // See if MacPlus is insatlled and if so open it and try to inject
+        // See if MacForge is insatlled and if so open it and try to inject
         NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
         NSString *mpHelper = [workspace absolutePathForAppBundleWithIdentifier:@"com.w0lf.MacForgeHelper"];
         NSURL *mpURL = [NSURL URLWithString:mpHelper];

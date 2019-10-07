@@ -48,19 +48,6 @@ extern long selectedRow;
             _smallArray = [[NSMutableArray alloc] init];
             _largeArray = [[NSMutableArray alloc] init];
             
-//            _smallFeature01 = [[MF_featuredSmallController alloc] initWithNibName:0 bundle:nil];
-//            _smallFeature02 = [[MF_featuredSmallController alloc] initWithNibName:0 bundle:nil];
-//            _smallFeature03 = [[MF_featuredSmallController alloc] initWithNibName:0 bundle:nil];
-//            _smallFeature04 = [[MF_featuredSmallController alloc] initWithNibName:0 bundle:nil];
-//            _smallFeature05 = [[MF_featuredSmallController alloc] initWithNibName:0 bundle:nil];
-//            _smallFeature06 = [[MF_featuredSmallController alloc] initWithNibName:0 bundle:nil];
-//            _largeFeature01 = [[MF_featuredItemController alloc] initWithNibName:0 bundle:nil];
-//            _largeFeature02 = [[MF_featuredItemController alloc] initWithNibName:0 bundle:nil];
-//            _largeFeature03 = [[MF_featuredItemController alloc] initWithNibName:0 bundle:nil];
-
-            //    NSArray *large = [[NSArray alloc] initWithObjects:_largeFeature01, _largeFeature02, nil];
-//            NSArray *small = [[NSArray alloc] initWithObjects:_smallFeature01, _smallFeature02, _smallFeature03, _smallFeature04, _smallFeature05, _smallFeature06, nil];
-            
             dispatch_queue_t backgroundQueue = dispatch_queue_create("com.w0lf.MacForge", 0);
             dispatch_async(backgroundQueue, ^{
                 if (self->_sharedMethods == nil)
@@ -77,6 +64,15 @@ extern long selectedRow;
     //            NSSortDescriptor *sorter = [[NSSortDescriptor alloc] initWithKey:@"webName" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
                 NSArray *dank = [[NSArray alloc] initWithArray:[self->featuredRepo allValues]];
 //                dank = [dank shuffledArray];
+                
+                // Sort by price decending
+                NSMutableArray *mute = dank.mutableCopy;
+                [mute sortUsingDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"webPrice" ascending:NO] ]];
+                
+//                for (MSPlugin* p in mute)
+//                    NSLog(@"%@ : %@", p.webPrice, p.bundleID);
+                
+                dank = mute.copy;
                 
 //                NSLog(@"%@", self->featuredRepo.allKeys);
 //                for (MSPlugin* p in dank) {
@@ -100,7 +96,8 @@ extern long selectedRow;
                     // Background color if no background image provided
                     struct CGColor *clr = [NSColor.grayColor colorWithAlphaComponent:0.4].CGColor;
                     NSString *osxMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
-                    if ([osxMode isEqualToString:@"Dark"]) clr = [NSColor.whiteColor colorWithAlphaComponent:0.1].CGColor;
+                    if (NSProcessInfo.processInfo.operatingSystemVersion.minorVersion >= 14)
+                        if ([osxMode isEqualToString:@"Dark"]) clr = [NSColor.whiteColor colorWithAlphaComponent:0.1].CGColor;
                     
                     // Setup large featured item
                     MF_featuredItemController *lrg = [[MF_featuredItemController alloc] initWithNibName:0 bundle:nil];

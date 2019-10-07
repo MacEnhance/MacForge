@@ -1,6 +1,6 @@
 //
 //  repopluginTable.m
-//  MacPlus
+//  MacForge
 //
 //  Created by Wolfgang Baird on 3/24/16.
 //  Copyright © 2016 Wolfgang Baird. All rights reserved.

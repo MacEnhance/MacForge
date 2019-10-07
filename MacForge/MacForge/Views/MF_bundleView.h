@@ -47,6 +47,7 @@
 @property IBOutlet NSTextField*     bundleSize;
 @property IBOutlet NSTextField*     bundleID;
 @property IBOutlet NSTextField*     bundleCompat;
+@property IBOutlet NSTextField*     bundleSeller;
 
 // Bundle Buttons
 @property IBOutlet SYFlatButton*    bundleInstall;

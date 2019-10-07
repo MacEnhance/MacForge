@@ -301,6 +301,7 @@ Boolean showBundleOnOpen;
 - (void)application:(NSApplication *)application
            openURLs:(NSArray<NSURL *> *)urls {
 //    NSLog(@"------------- %@", urls);
+    NSLog(@"zzt aourls ------------- %@", [NSDate date]);
     
     // Convert urls to paths
     NSMutableArray *paths = [[NSMutableArray alloc] init];
@@ -314,6 +315,8 @@ Boolean showBundleOnOpen;
 
     // Handle requests to open to specific plugin
     if ([urls.lastObject.absoluteString containsString:@"macforge://"]) {
+        [MSAnalytics trackEvent:@"macforge://" withProperties:@{@"Product ID" : urls.lastObject.lastPathComponent}];
+        
         NSURL *t = urls.lastObject;
         MSPlugin *p = [[MSPlugin alloc] init];
         pluginData *data = pluginData.sharedInstance;
@@ -326,18 +329,38 @@ Boolean showBundleOnOpen;
 
         if ([data.repoPluginsDic objectForKey:t.lastPathComponent]) {
             p = [data.repoPluginsDic objectForKey:t.lastPathComponent];
+            
+            NSLog(@"zzt aourls ------------- data.repoPluginsDic objectForKey:t.lastPathComponent ------------- %@", p.webName);
         } else {
             if ([data.sourceListDic.allKeys containsObject:repo]) {
     //            NSLog(@"------------ repo exists %@", data.repoPluginsDic);
                 p = [data.repoPluginsDic objectForKey:t.lastPathComponent];
+                
+                NSLog(@"zzt aourls ------------- data.sourceListDic.allKeys containsObject:repo ------------- %@", p.webName);
             } else {
     //            NSLog(@"------------ new repo %@", data.repoPluginsDic);
 
                 // should we ask user to add repo?
                 [data fetch_repo:repo];
                 p = [data.repoPluginsDic objectForKey:t.lastPathComponent];
+                
+                if (!p) {
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [data fetch_repo:repo];
+                        dispatch_async(dispatch_get_main_queue(), ^(void){
+                            if ([data.repoPluginsDic objectForKey:t.lastPathComponent])
+                                pluginData.sharedInstance.currentPlugin = [data.repoPluginsDic objectForKey:t.lastPathComponent];
+                            NSLog(@"zzt aourls ------------- data fetch_repo:repo ------------- %@", repo);
+                            NSLog(@"zzt aourls ------------- data fetch_repo:repo ------------- %@", pluginData.sharedInstance.currentPlugin);
+                        });
+                    });
+                }
+                
+                NSLog(@"zzt aourls ------------- data fetch_repo:repo ------------- %@", data.repoPluginsDic.allKeys);
             }
         }
+        
+        NSLog(@"zzt aourls ------------- %@", p.webPlist);
 
         if (p) {
             showBundleOnOpen = true;
@@ -389,9 +412,25 @@ Boolean showBundleOnOpen;
         if ([args containsObject:@"manage"]) [self selectView:_viewPlugins];
     }
 
-    // Need to fix this
-//    [self installXcodeTemplate];
+    [self installXcodeTemplate];
+    
+    // Lets try it with a short delay
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (showBundleOnOpen == true) {
+            [myDelegate selectView:self->_viewDiscover];
+            NSView *v = myDelegate.sourcesBundle;
+            dispatch_async(dispatch_get_main_queue(), ^(void){
+                [v setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
+                [v setFrame:myDelegate.tabMain.frame];
+                [v setFrameOrigin:NSMakePoint(0, 0)];
+                [v setTranslatesAutoresizingMaskIntoConstraints:true];
+                [myDelegate.tabMain setSubviews:[NSArray arrayWithObject:v]];
+            });
+        }
+    });
 
+    NSLog(@"zzt adfl ------------- %@", [NSDate date]);
+    
     NSDate *methodFinish = [NSDate date];
     NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:appStart];
     NSLog(@"Launch time : %f Seconds", executionTime);
@@ -416,6 +455,8 @@ Boolean showBundleOnOpen;
       [MSCrashes class]
     ]];
     
+    [MSAnalytics trackEvent:@"Application Launching"];
+    
     // Crash on exceptions?
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"NSApplicationCrashOnExceptions": [NSNumber numberWithBool:true]}];
     
@@ -428,7 +469,6 @@ Boolean showBundleOnOpen;
     
     // Make sure default sources are in place
     NSArray *defaultRepos = @[@"https://github.com/w0lfschild/myRepo/raw/master/mytweaks",
-                              @"https://github.com/w0lfschild/myRepo/raw/master/urtweaks",
                               @"https://github.com/w0lfschild/myRepo/raw/master/myPaidRepo",
                               @"https://github.com/w0lfschild/macplugins/raw/master"];
     
@@ -475,6 +515,7 @@ Boolean showBundleOnOpen;
 // Cleanup
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
+    [MSAnalytics trackEvent:@"Application Closing"];
 }
 
 - (NSMutableDictionary *)getmyPrefs {
@@ -587,14 +628,11 @@ Boolean showBundleOnOpen;
     
     [self executionTime:@"checkSIP"];
     
-    if (osx_ver > 9) {
-        [_window setTitlebarAppearsTransparent:true];
-        [_window setTitleVisibility:NSWindowTitleHidden];
-        [_window setStyleMask:_window.styleMask|NSWindowStyleMaskFullSizeContentView];
-    }
+    [_window setTitlebarAppearsTransparent:true];
+    [_window setTitleVisibility:NSWindowTitleHidden];
+    [_window setStyleMask:_window.styleMask|NSWindowStyleMaskFullSizeContentView];
     
     [self simbl_blacklist];
-//    [self getBlacklistAPPList];
     
     // Add blurred background if NSVisualEffectView exists
     Class vibrantClass=NSClassFromString(@"NSVisualEffectView");
@@ -615,14 +653,6 @@ Boolean showBundleOnOpen;
     [vert setAutoresizingMask:NSViewHeightSizable];
     [_window.contentView addSubview:vert];
     
-//
-//    NSArray *bottomButtons = [NSArray arrayWithObjects:_buttonFeedback, _buttonDonate, _buttonReport, nil];
-//
-//    for (NSButton *btn in bottomButtons) {
-//        [btn setWantsLayer:YES];
-//        [btn.layer setBackgroundColor:[NSColor colorWithCalibratedRed:0.438f green:0.121f blue:0.199f alpha:0.258f].CGColor];
-//    }
-    
     tabViews = [NSArray arrayWithObjects:_tabFeatured, _tabPlugins, _tabSources, _tabUpdates, _tabSystemInfo, _tabAbout, _tabPreferences, _tabAccount, nil];
     
     NSDictionary* infoDict = [[NSBundle mainBundle] infoDictionary];
@@ -641,18 +671,7 @@ Boolean showBundleOnOpen;
     [[_changeLog textStorage] setAttributedString:[[NSAttributedString alloc] initWithURL:[[NSBundle mainBundle] URLForResource:@"Changelog" withExtension:@"rtf"] options:[[NSDictionary alloc] init] documentAttributes:nil error:nil]];
     [self systemDarkModeChange:nil];
     
-    // Select tab view
-//    if ([[myPreferences valueForKey:@"prefStartTab"] integerValue] >= 0) {
-//        NSInteger tab = [[myPreferences valueForKey:@"prefStartTab"] integerValue];
-//        [self selectView:[tabViewButtons objectAtIndex:tab]];
-//        [_prefStartTab selectItemAtIndex:tab];
-//    } else {
-//        [self selectView:_viewPlugins];
-//        [_prefStartTab selectItemAtIndex:0];
-//    }
-        
-    if (showBundleOnOpen == false)
-        [self selectView:_viewDiscover];
+    [self selectView:_viewDiscover];
     
     [_prefStartTab selectItemAtIndex:0];
 }
@@ -779,25 +798,29 @@ Boolean showBundleOnOpen;
 }
 
 - (void)installXcodeTemplate {
-    if ([Workspace absolutePathForAppBundleWithIdentifier:@"com.apple.dt.Xcode"].length > 0) {
-        NSString *localPath = [NSBundle.mainBundle pathForResource:@"plugin_template" ofType:@"zip"];
-        NSString *installPath = [FileManager URLsForDirectory:NSLibraryDirectory inDomains:NSUserDomainMask].firstObject.path;
-        installPath = [NSString stringWithFormat:@"%@/Developer/Xcode/Templates/Project Templates/MacForge", installPath];
-        NSString *installFile = [NSString stringWithFormat:@"%@/MacForge plugin.xctemplate", installPath];
-        if (![FileManager fileExistsAtPath:installFile]) {
-            // Make intermediaries
-            NSError *err;
-            [FileManager createDirectoryAtPath:installPath withIntermediateDirectories:true attributes:nil error:&err];
-            NSLog(@"%@", err);
-            
-            // unzip our plugin demo project
-            NSTask *task = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/unzip" arguments:@[@"-o", localPath, @"-d", installPath]];
-            [task waitUntilExit];
-            if ([task terminationStatus] == 0) {
-                // Yay
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+        if ([Workspace absolutePathForAppBundleWithIdentifier:@"com.apple.dt.Xcode"].length > 0) {
+            NSString *localPath = [NSBundle.mainBundle pathForResource:@"plugin_template" ofType:@"zip"];
+            NSString *installPath = [FileManager URLsForDirectory:NSLibraryDirectory inDomains:NSUserDomainMask].firstObject.path;
+            installPath = [NSString stringWithFormat:@"%@/Developer/Xcode/Templates/Project Templates/MacForge", installPath];
+            NSString *installFile = [NSString stringWithFormat:@"%@/MacForge plugin.xctemplate", installPath];
+            if (![FileManager fileExistsAtPath:installFile]) {
+                // Make intermediaries
+                NSError *err;
+                [FileManager createDirectoryAtPath:installPath withIntermediateDirectories:true attributes:nil error:&err];
+                NSLog(@"%@", err);
+                
+                // unzip our plugin demo project
+                NSTask *task = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/unzip" arguments:@[@"-o", localPath, @"-d", installPath]];
+                [task waitUntilExit];
+                if ([task terminationStatus] == 0) {
+                    // Yay
+                }
             }
         }
-    }
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+        });
+    });
 }
 
 - (IBAction)startCoding:(id)sender {
@@ -825,7 +848,7 @@ Boolean showBundleOnOpen;
 }
 
 - (IBAction)report:(id)sender {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/w0lfschild/MacForge/issues/new"]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/w0lfschild/MacForge/issues/new/choose"]];
 }
 
 - (void)sendEmail {
@@ -1094,6 +1117,11 @@ Boolean showBundleOnOpen;
 - (IBAction)selectView:(id)sender {
     selectedView = sender;
     if ([tabViewButtons containsObject:sender]) {
+        NSString *analyticsTitle = [sender title];
+        if ([sender isEqualTo:_viewAccount])
+            analyticsTitle = @"Account";
+        [MSAnalytics trackEvent:@"Selected View" withProperties:@{@"View" : analyticsTitle}];
+        
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
             NSView *v = [tabViews objectAtIndex:[tabViewButtons indexOfObject:sender]];
             dispatch_async(dispatch_get_main_queue(), ^(void){
@@ -1119,10 +1147,12 @@ Boolean showBundleOnOpen;
     NSColor *primary = NSColor.darkGrayColor;
     NSColor *secondary = NSColor.blackColor;
     NSColor *highlight = NSColor.blackColor;
-    if ([osxMode isEqualToString:@"Dark"]) {
-        primary = NSColor.lightGrayColor;
-        secondary = NSColor.whiteColor;
-        highlight = NSColor.whiteColor;
+    if (osx_ver >= 14) {
+        if ([osxMode isEqualToString:@"Dark"]) {
+            primary = NSColor.lightGrayColor;
+            secondary = NSColor.whiteColor;
+            highlight = NSColor.whiteColor;
+        }
     }
     
     for (NSButton *g in tabViewButtons) {
@@ -1318,12 +1348,13 @@ Boolean showBundleOnOpen;
     }
 }
 
-- (IBAction)uninstallMacPlus:(id)sender {
+- (IBAction)uninstallMacForge:(id)sender {
     [MacForgeKit MacEnhance_remove];
 }
 
 - (IBAction)visit_ad:(id)sender {
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:_adURL]];
+    [MSAnalytics trackEvent:@"Visit ad" withProperties:@{@"URL" : _adURL}];
 }
 
 - (void)keepThoseAdsFresh {

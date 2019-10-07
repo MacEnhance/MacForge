@@ -19,11 +19,13 @@ extern long selectedRow;
 }
 
 - (void)systemDarkModeChange:(NSNotification *)notif {
-    NSString *osxMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
-    if ([osxMode isEqualToString:@"Dark"]) {
-        [_bundleDesc setTextColor:[NSColor whiteColor]];
-    } else {
-        [_bundleDesc setTextColor:[NSColor blackColor]];
+    if (NSProcessInfo.processInfo.operatingSystemVersion.minorVersion >= 14) {
+        NSString *osxMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
+        if ([osxMode isEqualToString:@"Dark"]) {
+            [_bundleDesc setTextColor:[NSColor whiteColor]];
+        } else {
+            [_bundleDesc setTextColor:[NSColor blackColor]];
+        }
     }
 }
 
@@ -74,6 +76,10 @@ extern long selectedRow;
 
     _starScore.stringValue = [NSString stringWithFormat:@"%.1f", randomScore];
     _starReviews.stringValue = [NSString stringWithFormat:@"%.0f ratings", randomReviews];
+    
+//    _starScore.hidden = false;
+//    _starRating.hidden = false;
+//    _starReviews.hidden = false;
 
     _starRating.starImage = star;
     _starRating.starHighlightedImage = highlight;
@@ -182,7 +188,9 @@ extern long selectedRow;
         
         //Developer
         newString = [NSString stringWithFormat:@"%@", [item objectForKey:@"author"]];
-        self.bundleDev.stringValue = newString;
+//        self.bundleDev.stringValue = newString;
+        _bundleDev.title = newString;
+        _bundleSeller.stringValue = newString;
         
         //Compatibility
         newString = [NSString stringWithFormat:@"%@", [item objectForKey:@"compat"]];
@@ -292,6 +300,7 @@ extern long selectedRow;
         _bundlePreviewImages = @[[[NSImage alloc] init], [[NSImage alloc] init]];
         NSString *bundle = [NSString stringWithFormat:@"%@", [self->item objectForKey:@"package"]];
         
+        _currentPreview = 0;
         NSMutableArray *abc = [[NSMutableArray alloc] init];
         for (int i = 1; i <= 6; i++) {
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/images/%@/0%u.png", repoPackages, bundle, i]];
@@ -383,8 +392,7 @@ extern long selectedRow;
     }
     
     NSURL *shareURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", plugin.webRepository, plugin.bundleID]];
-    shareURL = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"macforge:%@", [shareURL resourceSpecifier]]];
-
+    shareURL = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"https://www.macenhance.com/mflink?macforge:%@", [shareURL resourceSpecifier]]];
     
 //    NSURLComponents *components = [NSURLComponents new];
 //    components.scheme = @"http";
@@ -409,22 +417,36 @@ extern long selectedRow;
 - (IBAction)cyclePreviews:(id)sender {
     NSLog(@"%lu", (unsigned long)_bundlePreviewImages.count);
     
+    _bundlePreviewPrev.enabled = true;
+    _bundlePreviewNext.enabled = true;
+    
     if (_bundlePreviewImages.count > 2) {
-        NSInteger increment = -1;
-        if ([sender isEqual:_bundlePreviewNext])
-            increment = 1;
+        NSInteger increment;
+        if ([sender isEqual:_bundlePreviewNext]) {
+            increment = 2;
+        } else {
+            increment = -2;
+        }
         
+        if (increment < 0)
+            if (_currentPreview == 0) {
+                _bundlePreviewPrev.enabled = false;
+                return;
+            }
+        
+        if (increment > 0)
+            if (_currentPreview >= _bundlePreviewImages.count - 2) {
+                _bundlePreviewNext.enabled = false;
+                return;
+            }
+            
         NSInteger newPreview = _currentPreview += increment;
-        if (increment == 1)
-            if (newPreview >= _bundlePreviewImages.count)
-                newPreview = 0;
-        
-        if (increment == -1)
-            if (newPreview < 0)
-                newPreview = _bundlePreviewImages.count - 1;
+        if (newPreview >= _bundlePreviewImages.count)
+            newPreview = 0;
+        else if (newPreview < 0)
+            newPreview = _bundlePreviewImages.count - 1;
         
         _currentPreview = newPreview;
-//        self.bundlePreview1.image = self.bundlePreviewImages[newPreview];
         self.bundlePreviewButton1.image = self.bundlePreviewImages[newPreview];
         
         NSInteger secondPreview = newPreview + 1;
@@ -433,10 +455,7 @@ extern long selectedRow;
         else
             self.bundlePreviewButton2.image = self.bundlePreviewImages[0];
         
-//        if (secondPreview < _bundlePreviewImages.count)
-//            self.bundlePreview2.image = self.bundlePreviewImages[secondPreview];
-//        else
-//            self.bundlePreview2.image = self.bundlePreviewImages[0];
+        NSLog(@"Current preview : %lu : %lu", (unsigned long)_currentPreview, (unsigned long)secondPreview);
     }
 }
 

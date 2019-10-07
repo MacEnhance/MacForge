@@ -1,6 +1,6 @@
 //
 //  updatesTable.m
-//  MacPlus
+//  MacForge
 //
 //  Created by Wolfgang Baird on 12/12/16.
 //  Copyright © 2016 Wolfgang Baird. All rights reserved.
@@ -76,21 +76,27 @@ extern NSMutableDictionary *needsUpdate;
 - (IBAction)updatePlugin:(id)sender {
     NSTableView *t = (NSTableView*)[[[sender superview] superview] superview];
     long selected = [t rowForView:sender];
-    NSString *key = [[needsUpdate allKeys] objectAtIndex:selected];
-    NSDictionary *installDict = [needsUpdate objectForKey:key];
-    [self->sharedMethods pluginUpdateOrInstall:installDict :[installDict objectForKey:@"sourceURL"]];
-    
-    dispatch_queue_t backgroundQueue = dispatch_queue_create("com.w0lf.MacForge", 0);
-    dispatch_async(backgroundQueue, ^{
-        [needsUpdate removeObjectForKey:key];
-        [self->sharedMethods checkforPluginUpdates:self->_tblView :myDelegate.viewUpdateCounter];
-    });
+    @try {
+        NSString *key = [[needsUpdate allKeys] objectAtIndex:selected];
+        NSDictionary *installDict = [needsUpdate objectForKey:key];
+        [self->sharedMethods pluginUpdateOrInstall:installDict :[installDict objectForKey:@"sourceURL"]];
+        
+        dispatch_queue_t backgroundQueue = dispatch_queue_create("com.w0lf.MacForge", 0);
+        dispatch_async(backgroundQueue, ^{
+//            [needsUpdate removeObjectForKey:key];
+            [self->sharedMethods checkforPluginUpdates:self->_tblView :myDelegate.viewUpdateCounter];
+        });
+    } @catch (NSException *exception) {
+        NSLog(@"%@", exception);
+    } @finally {
+        // Do nothing
+    }
 }
 
 - (IBAction)reloadUpdates:(id)sender {
     dispatch_queue_t backgroundQueue = dispatch_queue_create("com.w0lf.MacForge", 0);
     dispatch_async(backgroundQueue, ^{
-        [needsUpdate removeAllObjects];
+//        [needsUpdate removeAllObjects];
         [self->sharedMethods checkforPluginUpdates:self->_tblView :myDelegate.viewUpdateCounter];
     });
 }

@@ -1,6 +1,6 @@
 //
 //  sourcesTable.m
-//  MacPlus
+//  MacForge
 //
 //  Created by Wolfgang Baird on 3/13/16.
 //  Copyright © 2016 Wolfgang Baird. All rights reserved.

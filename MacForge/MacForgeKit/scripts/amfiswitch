@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # flip apple mobile file integrity
-log_dir="$HOME"/Library/"Application Support"/MacPlus/logs
+log_dir="$HOME"/Library/"Application Support"/MacForge/logs
 origargs=$(nvram boot-args)
 origargs=${origargs/boot-args}
 newargs=""

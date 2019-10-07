@@ -106,11 +106,13 @@ void HandleExceptions(NSException *exception) {
 - (void)setupApplication {
     [self setupMenuItem];
         
-    // Start a timer to do daily plugin checks 86400 seconds in a day
-    [NSTimer scheduledTimerWithTimeInterval:86400 target:self selector:@selector(checkForPluginUpdates) userInfo:nil repeats:NO];
+    // Start a timer to do daily plugin and app  update checks 86400 seconds in a day
+    [NSTimer scheduledTimerWithTimeInterval:86400 target:self selector:@selector(checkForPluginUpdates) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:86400 target:self selector:@selector(checkMacForgeForUpdatesBackground) userInfo:nil repeats:YES];
     
-    // Do a plugin check when we launch
+    // Do a plugin and app  update check when we launch
     [self checkForPluginUpdates];
+    [self checkMacForgeForUpdatesBackground];
     
     // Watch for app launches using CarbonEventHandler, this catches apps like the Dock and com.apple.appkit.xpc.openAndSavePanelService
     // Which are not logged with NSWorkspaceDidLaunchApplicationNotification
@@ -122,12 +124,14 @@ void HandleExceptions(NSException *exception) {
 
 - (void)checkForPluginUpdates {
     CFPreferencesAppSynchronize(CFSTR("com.w0lf.MacForge"));
-    Boolean autoUpdatePlugins = CFPreferencesGetAppBooleanValue(CFSTR("prefPluginCheck"), CFSTR("com.w0lf.MacForge"), NULL);
-    Boolean autoCheckPlugins = CFPreferencesGetAppBooleanValue(CFSTR("prefPluginUpdate"), CFSTR("com.w0lf.MacForge"), NULL);
-    if (autoCheckPlugins && !autoUpdatePlugins)
-        [self updatesPlugins];
+    Boolean autoUpdatePlugins = CFPreferencesGetAppBooleanValue(CFSTR("prefPluginUpdate"), CFSTR("com.w0lf.MacForge"), NULL);
+//    Boolean autoCheckPlugins = CFPreferencesGetAppBooleanValue(CFSTR("prefPluginCheck"), CFSTR("com.w0lf.MacForge"), NULL);
+//    if (autoCheckPlugins && !autoUpdatePlugins)
+//        [self updatesPlugins];
     if (autoUpdatePlugins)
         [self updatesPluginsInstall];
+    else
+        [self updatesPlugins];
 }
 
 - (void)updatesPlugins {
@@ -163,30 +167,26 @@ void HandleExceptions(NSException *exception) {
     [(NSMenuItem*)sender setState:!startsAtLogin];
 }
 
-- (void)openMacPlus {
+- (void)openMacForge {
     [self openAppWithArgs:@"MacForge" :@[]];
 }
 
-- (void)openMacPlusManage {
+- (void)openMacForgeManage {
     [self openAppWithArgs:@"MacForge" :@[@"manage"]];
     [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.w0lf.MacForgeNotify" object:@"manage"];
 }
 
-- (void)openMacPlusPrefs {
+- (void)openMacForgePrefs {
     [self openAppWithArgs:@"MacForge" :@[@"prefs"]];
     [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.w0lf.MacForgeNotify" object:@"prefs"];
 }
 
-- (void)openMacPlusAbout {
+- (void)openMacForgeAbout {
     [self openAppWithArgs:@"MacForge" :@[@"about"]];
     [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.w0lf.MacForgeNotify" object:@"about"];
 }
 
-- (void)sendFeedback {
-//    [DevMateKit showFeedbackDialog:nil inMode:DMFeedbackDefaultMode];
-}
-
-- (void)checkMacPlusForUpdates {
+- (void)checkMacForgeForUpdates {
     NSBundle *GUIBundle = [NSBundle bundleWithPath:[NSWorkspace.sharedWorkspace absolutePathForAppBundleWithIdentifier:@"com.w0lf.MacForge"]];
     NSString* mainapp= [NSBundle mainBundle].bundlePath;
     for (int i = 0; i < 4; i++)
@@ -205,7 +205,7 @@ void HandleExceptions(NSException *exception) {
     [myUpdater checkForUpdates:nil];
 }
 
-- (void)checkMacPlusForUpdatesBackground {
+- (void)checkMacForgeForUpdatesBackground {
     NSBundle *GUIBundle = [NSBundle bundleWithPath:[NSWorkspace.sharedWorkspace absolutePathForAppBundleWithIdentifier:@"com.w0lf.MacForge"]];
     SUUpdater *myUpdater = [SUUpdater updaterForBundle:GUIBundle];
     NSDictionary *GUIDefaults = [[NSUserDefaults standardUserDefaults] persistentDomainForName:@"com.w0lf.MacForge"];
@@ -227,20 +227,20 @@ void HandleExceptions(NSException *exception) {
 
 - (void)setupMenuItem {
     NSMenu *stackMenu = [[NSMenu alloc] initWithTitle:@"MacForge"];
-    [self addMenuItemToMenu:stackMenu :@"Manage Plugins" :@selector(openMacPlusManage) :@""];
-    [self addMenuItemToMenu:stackMenu :@"Preferences..." :@selector(openMacPlusPrefs) :@""];
+    [self addMenuItemToMenu:stackMenu :@"Manage Plugins" :@selector(openMacForgeManage) :@""];
+    [self addMenuItemToMenu:stackMenu :@"Preferences..." :@selector(openMacForgePrefs) :@""];
     [stackMenu addItem:NSMenuItem.separatorItem];
     [self addMenuItemToMenu:stackMenu :@"Open at Login" :@selector(toggleStartAtLogin:) :@""];
     [[stackMenu itemAtIndex:3] setState:NSBundle.mainBundle.isLoginItemEnabled];
 //    [self addMenuItemToMenu:stackMenu :@"Show menubar item" :@selector(sendFeedback) :@""];
 //    [[stackMenu itemAtIndex:4] setState:NSBundle.mainBundle.isLoginItemEnabled];
     [stackMenu addItem:NSMenuItem.separatorItem];
-    [self addMenuItemToMenu:stackMenu :@"Open MacForge" :@selector(openMacPlus) :@""];
+    [self addMenuItemToMenu:stackMenu :@"Open MacForge" :@selector(openMacForge) :@""];
     [stackMenu addItem:NSMenuItem.separatorItem];
     [self addMenuItemToMenu:stackMenu :@"Update Plugins..." :@selector(updatesPluginsInstall) :@""];
     [stackMenu addItem:NSMenuItem.separatorItem];
-    [self addMenuItemToMenu:stackMenu :@"Check for Updates..." :@selector(checkMacPlusForUpdates) :@""];
-    [self addMenuItemToMenu:stackMenu :@"About MacForge" :@selector(openMacPlusAbout) :@""];
+    [self addMenuItemToMenu:stackMenu :@"Check for Updates..." :@selector(checkMacForgeForUpdates) :@""];
+    [self addMenuItemToMenu:stackMenu :@"About MacForge" :@selector(openMacForgeAbout) :@""];
     [self addMenuItemToMenu:stackMenu :@"Quit" :@selector(terminate:) :@""];
     _statusBar = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
     [_statusBar setMenu:stackMenu];

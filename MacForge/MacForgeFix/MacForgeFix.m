@@ -1,24 +1,24 @@
 //
-//  MacPlusFix.m
-//  MacPlusFix
+//  MacForgeFix.m
+//  MacForgeFix
 //
 //  Created by Wolfgang Baird on 7/6/18.
 //Copyright © 2018 Erwan Barrier. All rights reserved.
 //
 
-#import "MacPlusFix.h"
+#import "MacForgeFix.h"
 #import "ZKSwizzle/ZKSwizzle.h"
 
-@interface MacPlusFix()
+@interface MacForgeFix()
 
 @end
 
 
-@implementation MacPlusFix
+@implementation MacForgeFix
 
 // Return the single static instance of the plugin object
 + (instancetype)sharedInstance {
-    static MacPlusFix *plugin = nil;
+    static MacForgeFix *plugin = nil;
     @synchronized(self) {
         if (!plugin) {
             plugin = [[self alloc] init];
@@ -30,7 +30,7 @@
 
 // Called when the plugin loads
 + (void)load {
-    MacPlusFix *plugin = [MacPlusFix sharedInstance];
+    MacForgeFix *plugin = [MacForgeFix sharedInstance];
     Boolean loaded = false;
     
     // Terminal
@@ -77,7 +77,7 @@
 
 @implementation wb_msf_BAHController
 
-// Why is this broken by MacPlus loading?
+// Why is this broken by MacForge loading?
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)theApplication {
     return YES;
 }

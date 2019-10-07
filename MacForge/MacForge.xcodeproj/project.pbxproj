@@ -1853,7 +1853,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
@@ -1896,7 +1896,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -1920,6 +1920,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1943,6 +1944,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1973,6 +1975,7 @@
 				PRODUCT_NAME = com.w0lf.MacForge.Installer;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -2002,6 +2005,7 @@
 				PRODUCT_NAME = com.w0lf.MacForge.Installer;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -2034,6 +2038,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
 				VALID_ARCHS = x86_64;
 			};
 			name = Debug;
@@ -2067,6 +2072,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
 				VALID_ARCHS = x86_64;
 			};
 			name = Release;
@@ -2102,6 +2108,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				PRODUCT_BUNDLE_IDENTIFIER = org.w0lf.MacForgeFix;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Debug;
@@ -2138,6 +2145,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.w0lf.MacForgeFix;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;
@@ -2242,6 +2250,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.purchaseValidationApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -2281,6 +2290,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.purchaseValidationApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -2439,6 +2449,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacForge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = NO;
 			};
 			name = Debug;
 		};
@@ -2479,6 +2490,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacForge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = NO;
 			};
 			name = Release;
 		};
