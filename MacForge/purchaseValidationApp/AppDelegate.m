@@ -60,11 +60,17 @@
 - (void)didDismissPaddleUIType:(PADUIType)uiType triggeredUIType:(PADTriggeredUIType)triggeredUIType product:(nonnull PADProduct *)product {
 //    NSLog(@"%ld : %ld : %@", (long)uiType, (long)triggeredUIType, product);
     
-    if (triggeredUIType == 6) {
-        // Quit pressed
-        exit(1337);
-    } else {
-        [self checkEm:product];
+    switch (triggeredUIType) {
+        case PADTriggeredUITypeCancel:
+            // Quit pressed
+            exit(1337);
+            break;
+        case PADTriggeredUITypeContinueTrial:
+            //Continue trial pressed
+            exit(69);
+            break;
+        default:
+            [self checkEm:product];
     }
 }
 
