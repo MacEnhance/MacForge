@@ -825,7 +825,7 @@ Boolean showBundleOnOpen;
 
 - (IBAction)startCoding:(id)sender {
     // Open a test plugin for the user
-    NSString *localPath = [NSBundle.mainBundle pathForResource:@"plugin_template" ofType:@"zip"];
+    NSString *localPath = [NSBundle.mainBundle pathForResource:@"demo_xcode" ofType:@"zip"];
     NSString *installPath = [NSURL fileURLWithPath:[NSHomeDirectory()stringByAppendingPathComponent:@"Desktop"]].path;
     installPath = [NSString stringWithFormat:@"%@/MacForge_plugin_demo", installPath];
     NSString *installFile = [NSString stringWithFormat:@"%@/test.xcodeproj", installPath];
@@ -1119,7 +1119,7 @@ Boolean showBundleOnOpen;
     if ([tabViewButtons containsObject:sender]) {
         NSString *analyticsTitle = [sender title];
         if ([sender isEqualTo:_viewAccount])
-            analyticsTitle = @"Account";
+            analyticsTitle = @"👨‍💻 Account";
         [MSAnalytics trackEvent:@"Selected View" withProperties:@{@"View" : analyticsTitle}];
         
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){

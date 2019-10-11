@@ -16,10 +16,21 @@ target 'MacForge' do
   pod 'SDWebImage'
 
   # Firebase
-  pod 'FirebaseCore', :path => './firebase_sdk/'
-  pod 'FirebaseDatabase', :path => './firebase_sdk/'
-  pod 'FirebaseStorage', :path => './firebase_sdk/'
-  pod 'FirebaseAuth', :path => './firebase_sdk/'
+  # pod 'FirebaseABTesting'
+  pod 'FirebaseAuth'
+  pod 'FirebaseCore'
+  pod 'FirebaseDatabase'
+  pod 'FirebaseFirestore'
+  # pod 'FirebaseFunctions'
+  # pod 'FirebaseMessaging'
+  # pod 'FirebaseRemoteConfig'
+  pod 'FirebaseStorage'
+  
+  # pod 'FirebaseCore', :path => './firebase_sdk/'
+  # pod 'FirebaseDatabase', :path => './firebase_sdk/'
+  # pod 'FirebaseStorage', :path => './firebase_sdk/'
+  # pod 'FirebaseAuth', :path => './firebase_sdk/'
+  # pod 'FirebaseFirestore', :path => './firebase_sdk/'
 end
 
 target 'purchaseValidationApp' do

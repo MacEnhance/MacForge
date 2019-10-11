@@ -196,7 +196,7 @@ void HandleExceptions(NSException *exception) {
             GUIBundle = [NSBundle bundleWithPath:mainapp];
     SUUpdater *myUpdater = [SUUpdater updaterForBundle:GUIBundle];
     NSDictionary *GUIDefaults = [[NSUserDefaults standardUserDefaults] persistentDomainForName:@"com.w0lf.MacForge"];
-    NSLog(@"MacForgeHelper : GUIDefaults - %@", GUIDefaults);
+//    NSLog(@"MacForgeHelper : GUIDefaults - %@", GUIDefaults);
     if (![[GUIDefaults objectForKey:@"SUHasLaunchedBefore"] boolValue]) {
         [myUpdater setAutomaticallyChecksForUpdates:true];
         [myUpdater setAutomaticallyDownloadsUpdates:true];
@@ -209,7 +209,7 @@ void HandleExceptions(NSException *exception) {
     NSBundle *GUIBundle = [NSBundle bundleWithPath:[NSWorkspace.sharedWorkspace absolutePathForAppBundleWithIdentifier:@"com.w0lf.MacForge"]];
     SUUpdater *myUpdater = [SUUpdater updaterForBundle:GUIBundle];
     NSDictionary *GUIDefaults = [[NSUserDefaults standardUserDefaults] persistentDomainForName:@"com.w0lf.MacForge"];
-    NSLog(@"MacForgeHelper : GUIDefaults - %@", GUIDefaults);
+//    NSLog(@"MacForgeHelper : GUIDefaults - %@", GUIDefaults);
     if (![[GUIDefaults objectForKey:@"SUHasLaunchedBefore"] boolValue]) {
         [myUpdater setAutomaticallyChecksForUpdates:true];
         [myUpdater setAutomaticallyDownloadsUpdates:true];
@@ -225,6 +225,31 @@ void HandleExceptions(NSException *exception) {
     [menu addItem:newItem];
 }
 
+- (void)testInject {
+    NSError *error;
+//    pid_t pid = 12915;
+    
+    NSTask *task = [[NSTask alloc] init];
+    [task setLaunchPath:@"/bin/sh"];
+    NSArray *arguments = [NSArray arrayWithObjects:@"-c", @"ps -A | grep -m1 Console | awk '{print $1}'", nil];
+    [task setArguments:arguments];
+    NSPipe *pipe = [NSPipe pipe];
+    [task setStandardOutput:pipe];
+    NSFileHandle *file = [pipe fileHandleForReading];
+    [task launch];
+    NSData *data = [file readDataToEndOfFile];
+    NSString *output = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+
+    pid_t pid = output.intValue;
+    
+    NSLog(@"%d", pid);
+//    ps -A | grep -m1 SidecarRelay | awk '{print $1}'
+    
+    [MFInjectorProxy injectPID:pid :@"/Users/w0lf/Library/Developer/Xcode/DerivedData/Organismo-asgyjglejthmswbxvgvblovgxssz/Build/Products/Debug/Organismo-mac.framework" :&error];
+    
+    NSLog(@"%@", error);
+}
+
 - (void)setupMenuItem {
     NSMenu *stackMenu = [[NSMenu alloc] initWithTitle:@"MacForge"];
     [self addMenuItemToMenu:stackMenu :@"Manage Plugins" :@selector(openMacForgeManage) :@""];
@@ -232,8 +257,7 @@ void HandleExceptions(NSException *exception) {
     [stackMenu addItem:NSMenuItem.separatorItem];
     [self addMenuItemToMenu:stackMenu :@"Open at Login" :@selector(toggleStartAtLogin:) :@""];
     [[stackMenu itemAtIndex:3] setState:NSBundle.mainBundle.isLoginItemEnabled];
-//    [self addMenuItemToMenu:stackMenu :@"Show menubar item" :@selector(sendFeedback) :@""];
-//    [[stackMenu itemAtIndex:4] setState:NSBundle.mainBundle.isLoginItemEnabled];
+    [self addMenuItemToMenu:stackMenu :@"Test inject..." :@selector(testInject) :@""];
     [stackMenu addItem:NSMenuItem.separatorItem];
     [self addMenuItemToMenu:stackMenu :@"Open MacForge" :@selector(openMacForge) :@""];
     [stackMenu addItem:NSMenuItem.separatorItem];
@@ -431,6 +455,7 @@ static OSStatus CarbonEventHandler(EventHandlerCallRef inHandlerCallRef, EventRe
         case kEventAppLaunched:
             // App lauched!
             [MFAppDelegate injectBundle:[NSRunningApplication runningApplicationWithProcessIdentifier:pid]];
+            NSLog(@"%d", pid);
             break;
         case kEventAppTerminated:
             // App terminated!
