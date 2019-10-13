@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 
+NSDictionary *testing;
+
 AppDelegate* myDelegate;
 
 NSWindow *mySHeet;
@@ -98,6 +100,49 @@ Boolean showBundleOnOpen;
             [FileManager copyItemAtPath:ogLicensePath toPath:transferedLicensePath error:nil];
         }
     }
+}
+
+- (IBAction)fireBaseFireStoreTest:(id)sender {
+    NSLog(@"Hello");
+        
+//    NSDictionary *docData = @{
+//      @"purchases": @{
+//        @"520974": @YES,
+//      }
+//    };
+    
+//    // Write to the document reference, merging data with existing
+//    // if the document already exists
+//    [[[self.db collectionWithPath:@"users"] documentWithPath:FIRAuth.auth.currentUser.uid]
+//        setData:docData
+//        merge:YES
+//        completion:^(NSError * _Nullable error) {
+//          // ...
+//    }];
+
+//    FIRDocumentReference *docRef = [[self.db collectionWithPath:@"users"] documentWithPath:FIRAuth.auth.currentUser.uid];
+//    [docRef getDocumentWithCompletion:^(FIRDocumentSnapshot *snapshot, NSError *error) {
+//        if (snapshot.exists) {
+//            // Document data may be nil if the document exists but has no keys or values.
+////            NSLog(@"Document data: %@", snapshot.data);
+//            NSLog(@"Document data: %@", snapshot.data[@"purchases"]);
+//            self->_reviewsDict = snapshot;
+//        } else {
+//            NSLog(@"Document does not exist");
+//        }
+//    }];
+    
+//    FIRDocumentReference *docRef = [[self.db collectionWithPath:@"reviews"] documentWithPath:@"520974"];
+//    [docRef getDocumentWithCompletion:^(FIRDocumentSnapshot *snapshot, NSError *error) {
+//        if (snapshot.exists) {
+//            // Document data may be nil if the document exists but has no keys or values.
+////            NSLog(@"Document data: %@", snapshot.data);
+//            NSLog(@"Document data: %@", snapshot.data[@"ratings"]);
+//            testing = snapshot.data;
+//        } else {
+//            NSLog(@"Document does not exist");
+//        }
+//    }];
 }
 
 - (IBAction)fireBaseLogout:(id)sender {
@@ -193,6 +238,8 @@ Boolean showBundleOnOpen;
 
 - (void)fireBaseSetup {
     self.ref = [[FIRDatabase database] reference];
+    self.db = [FIRFirestore firestore];
+    
     FIRUser *user = [FIRAuth auth].currentUser;
         
     // [END get_user_profile]
@@ -561,7 +608,7 @@ Boolean showBundleOnOpen;
     _imgAccount.layer.masksToBounds = YES;
     _imgAccount.animates = YES;
     
-    NSArray *bottomButtons = [NSArray arrayWithObjects:_buttonDiscord, _buttonReddit, _buttonDonate, _buttonAdvert, _buttonFeedback, _buttonReport, nil];
+    NSArray *bottomButtons = [NSArray arrayWithObjects:_buttonDiscord, _buttonReddit, _buttonDonate, _buttonAdvert, _buttonReport, nil];
     NSMutableArray *visibleButons = [[NSMutableArray alloc] init];
     for (NSButton *btn in bottomButtons)
         if (![btn isHidden])
@@ -612,7 +659,7 @@ Boolean showBundleOnOpen;
         [p.confirm setTarget:self];
         [p.confirm setAction:@selector(closeSIP)];
         
-        mySHeet = [[NSWindow alloc] initWithContentRect:[view frame] styleMask:NSTitledWindowMask backing:NSBackingStoreBuffered defer:YES];
+        mySHeet = [[NSWindow alloc] initWithContentRect:[view frame] styleMask:NSWindowStyleMaskTitled backing:NSBackingStoreBuffered defer:YES];
         [mySHeet setContentView:view];
         [_window beginSheet:mySHeet completionHandler:^(NSModalResponse returnCode) {
             

@@ -11,6 +11,7 @@
 extern AppDelegate* myDelegate;
 extern NSString *repoPackages;
 extern long selectedRow;
+extern NSDictionary *testing;
 
 @implementation MF_bundleView {
     bool doOnce;
@@ -50,7 +51,7 @@ extern long selectedRow;
         [image lockFocus];
         [tint set];
         NSRect imageRect = {NSZeroPoint, [image size]};
-        NSRectFillUsingOperation(imageRect, NSCompositeSourceAtop);
+        NSRectFillUsingOperation(imageRect, NSCompositingOperationSourceAtop);
         [image unlockFocus];
     }
     return image;
@@ -67,6 +68,9 @@ extern long selectedRow;
     });
     
     // Reviews
+    _starScore.hidden = true;
+    _starRating.hidden = true;
+    _starReviews.hidden = true;
     
     NSImage *star = [self imageTintedWithColor:NSColor.lightGrayColor :[NSImage imageNamed:@"star.png"]];
     NSImage *highlight = [self imageTintedWithColor:NSColor.lightGrayColor :[NSImage imageNamed:@"starhighlighted.png"]];
@@ -77,18 +81,33 @@ extern long selectedRow;
     _starScore.stringValue = [NSString stringWithFormat:@"%.1f", randomScore];
     _starReviews.stringValue = [NSString stringWithFormat:@"%.0f ratings", randomReviews];
     
-//    _starScore.hidden = false;
-//    _starRating.hidden = false;
-//    _starReviews.hidden = false;
-
-    _starRating.starImage = star;
-    _starRating.starHighlightedImage = highlight;
-    _starRating.maxRating = 5.0;
-    _starRating.delegate = self;
-    _starRating.horizontalMargin = 12;
-    _starRating.editable=NO;
-    _starRating.displayMode=EDStarRatingDisplayAccurate;
-    _starRating.rating= randomScore;
+    if (testing) {
+//        NSLog(@"%@", testing);
+        
+//        if (reviewsDict.data[@"ratings"]) {
+            NSDictionary *rate = testing[@"ratings"];
+            float total = 0;
+            for (NSString *key in rate.allKeys)
+                total += [[rate valueForKey:key] floatValue];
+            total /= rate.allKeys.count;
+            
+            _starScore.stringValue = [NSString stringWithFormat:@"%.1f", total];
+            _starReviews.stringValue = [NSString stringWithFormat:@"%.0lu ratings", (unsigned long)rate.allKeys.count];
+            
+            _starRating.starImage = star;
+            _starRating.starHighlightedImage = highlight;
+            _starRating.maxRating = 5.0;
+            _starRating.delegate = self;
+            _starRating.horizontalMargin = 12;
+            _starRating.editable=NO;
+            _starRating.displayMode=EDStarRatingDisplayAccurate;
+            _starRating.rating= total;
+        
+            _starScore.hidden = false;
+            _starRating.hidden = false;
+            _starReviews.hidden = false;
+//        }
+    }
     
     _bundleInstall.backgroundNormalColor = [NSColor colorWithRed:0.08 green:0.52 blue:1.0 alpha:1.0];
     _bundleInstall.backgroundHighlightColor = [NSColor colorWithRed:0.08 green:0.52 blue:1.0 alpha:1.0];
@@ -319,22 +338,18 @@ extern long selectedRow;
             [downloader downloadImageWithURL:url
             completed:^(NSImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished) {
                 if (image) {
-                    [self->_bundlePreviewImagesMute addObject:image];
-                    self->_bundlePreviewImages = self->_bundlePreviewImagesMute.copy;
+                    while (self.bundlePreviewImagesMute.count < i)
+                        [self.bundlePreviewImagesMute addObject:[[NSImage alloc] init]];
                     
-                    [self.bundlePreviewButton1 setEnabled:true];
-                    [self.bundlePreviewButton2 setEnabled:true];
+                    [self.bundlePreviewImagesMute setObject:image atIndexedSubscript:i];
+                    self.bundlePreviewImages = self.bundlePreviewImagesMute.copy;
+                    
+                    if (!self.bundlePreviewButton1.enabled) {
+                        [self.bundlePreviewButton1 setEnabled:true];
+                        [self.bundlePreviewButton2 setEnabled:true];
+                    }
                 }
             }];
-           
-//            SDWebImageDownloader *downloader = [SDWebImageDownloader sharedDownloader];
-//            [downloader downloadImageWithURL:url1
-//                                   completed:^(NSImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished) {
-//                                       if (image) {
-//                                           [self->_bundlePreviewImagesMute addObject:image];
-//                                           self->_bundlePreviewImages = self->_bundlePreviewImagesMute.copy;
-//                                       }
-//                                   }];
         }
         
         [self.bundlePreviewButton1 setAction:@selector(pluginShowImages:)];
@@ -598,8 +613,13 @@ extern long selectedRow;
     if (self.bundlePreviewImages.count > 0) {
         MF_bundlePreviewView *v = (MF_bundlePreviewView*)myDelegate.viewImages;
         NSInteger curprev = self.currentPreview;
+        
+        NSLog(@"%ld", (long)curprev);
+        
         if ([sender isEqualTo:self.bundlePreviewButton2])
-            curprev++;
+            if (curprev % 2 == 0)
+                curprev++;
+            
         if (curprev > self.bundlePreviewImages.count - 1) curprev = 0;
         v.currentPreview = curprev;
         v.bundlePreviewImages = self.bundlePreviewImages;

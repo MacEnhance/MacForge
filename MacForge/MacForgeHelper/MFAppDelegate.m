@@ -245,7 +245,7 @@ void HandleExceptions(NSException *exception) {
     NSLog(@"%d", pid);
 //    ps -A | grep -m1 SidecarRelay | awk '{print $1}'
     
-    [MFInjectorProxy injectPID:pid :@"/Users/w0lf/Library/Developer/Xcode/DerivedData/Organismo-asgyjglejthmswbxvgvblovgxssz/Build/Products/Debug/Organismo-mac.framework" :&error];
+    [MFInjectorProxy injectPID:pid :@"" :&error];
     
     NSLog(@"%@", error);
 }
@@ -257,7 +257,7 @@ void HandleExceptions(NSException *exception) {
     [stackMenu addItem:NSMenuItem.separatorItem];
     [self addMenuItemToMenu:stackMenu :@"Open at Login" :@selector(toggleStartAtLogin:) :@""];
     [[stackMenu itemAtIndex:3] setState:NSBundle.mainBundle.isLoginItemEnabled];
-    [self addMenuItemToMenu:stackMenu :@"Test inject..." :@selector(testInject) :@""];
+//    [self addMenuItemToMenu:stackMenu :@"Test inject..." :@selector(testInject) :@""];
     [stackMenu addItem:NSMenuItem.separatorItem];
     [self addMenuItemToMenu:stackMenu :@"Open MacForge" :@selector(openMacForge) :@""];
     [stackMenu addItem:NSMenuItem.separatorItem];

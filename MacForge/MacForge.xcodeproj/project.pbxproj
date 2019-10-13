@@ -47,6 +47,7 @@
 		FB5BB9B323009F39004D3454 /* MFKSipView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB5BB9B023009F39004D3454 /* MFKSipView.xib */; };
 		FB5BB9B92300A3EA004D3454 /* eng_sip_mojave.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB5BB9B72300A3EA004D3454 /* eng_sip_mojave.txt */; };
 		FB5BB9BA2300A3EA004D3454 /* eng_sip.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB5BB9B82300A3EA004D3454 /* eng_sip.txt */; };
+		FB6D0FEA2351B417005A2D5E /* MF_accountView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB6D0FE92351B417005A2D5E /* MF_accountView.m */; };
 		FB7259E52314F2BD00701F32 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB7259E42314F2BD00701F32 /* GoogleService-Info.plist */; };
 		FB78E2A72139BE27002FFE2E /* MacForgeDockTile.docktileplugin in Copy Plugins */ = {isa = PBXBuildFile; fileRef = FBA6E90120F0299B00A12ACF /* MacForgeDockTile.docktileplugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FB80DBDC231B4C6A00823B67 /* starhighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = FB80DBDA231B4C6A00823B67 /* starhighlighted.png */; };
@@ -348,6 +349,8 @@
 		FB5BB9B023009F39004D3454 /* MFKSipView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MFKSipView.xib; sourceTree = "<group>"; };
 		FB5BB9B72300A3EA004D3454 /* eng_sip_mojave.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = eng_sip_mojave.txt; sourceTree = "<group>"; };
 		FB5BB9B82300A3EA004D3454 /* eng_sip.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = eng_sip.txt; sourceTree = "<group>"; };
+		FB6D0FE82351B417005A2D5E /* MF_accountView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_accountView.h; sourceTree = "<group>"; };
+		FB6D0FE92351B417005A2D5E /* MF_accountView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_accountView.m; sourceTree = "<group>"; };
 		FB7259E42314F2BD00701F32 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FB80DBDA231B4C6A00823B67 /* starhighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starhighlighted.png; sourceTree = "<group>"; };
 		FB80DBDB231B4C6A00823B67 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
@@ -714,22 +717,25 @@
 			path = Featured;
 			sourceTree = "<group>";
 		};
-		FB2FE5C9230638120082C714 /* SYFlatButton */ = {
+		FB2FE5C9230638120082C714 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
 				FB2FE5CA230638120082C714 /* SYFlatButton.h */,
 				FB2FE5CB230638120082C714 /* SYFlatButton.m */,
 			);
-			path = SYFlatButton;
+			path = Buttons;
 			sourceTree = "<group>";
 		};
 		FB49C44623417A4B0061E458 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				FB2FE5C223061DEE0082C714 /* MFFlippedView.m */,
 				FB8561A923417A3700047845 /* MF_bundlePreviewView.h */,
 				FB8561A723417A3700047845 /* MF_bundlePreviewView.m */,
 				FB1C18B623417E1200BD9F32 /* MF_bundleView.h */,
 				FB1C18B723417E1200BD9F32 /* MF_bundleView.m */,
+				FB6D0FE82351B417005A2D5E /* MF_accountView.h */,
+				FB6D0FE92351B417005A2D5E /* MF_accountView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -977,10 +983,9 @@
 		FBE767E920F00FFB00A42BD5 /* MacForge */ = {
 			isa = PBXGroup;
 			children = (
-				FB2FE5C223061DEE0082C714 /* MFFlippedView.m */,
-				FB2FE5C9230638120082C714 /* SYFlatButton */,
 				FBA6E8DF20F0286000A12ACF /* Images */,
 				FBA6E90F20F02CAC00A12ACF /* Info */,
+				FB2FE5C9230638120082C714 /* Buttons */,
 				FB169AF422F4E541001E84E0 /* Featured */,
 				FB49C44623417A4B0061E458 /* Views */,
 				FBA6E91020F02CBD00A12ACF /* Tables */,
@@ -1182,7 +1187,7 @@
 			attributes = {
 				CLASSPREFIX = MF;
 				DefaultBuildSystemTypeForWorkspace = Latest;
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1110;
 				ORGANIZATIONNAME = MacEnhance;
 				TargetAttributes = {
 					F0ADE0F5166DF941009758CC = {
@@ -1736,6 +1741,7 @@
 				FB169AF322F4B3A3001E84E0 /* MF_featuredTab.m in Sources */,
 				FB169AFD22F4EEEB001E84E0 /* MF_featuredItemController.m in Sources */,
 				FB169B0922F50F36001E84E0 /* MF_featuredSmallController.m in Sources */,
+				FB6D0FEA2351B417005A2D5E /* MF_accountView.m in Sources */,
 				FBA6E8F220F0289B00A12ACF /* PluginManager.m in Sources */,
 				FBBD8E2322F9319E00A97FEA /* MF_Purchase.m in Sources */,
 				FBA6E8E720F0288300A12ACF /* pluginData.m in Sources */,
@@ -2480,6 +2486,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = EX596BNL45;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;

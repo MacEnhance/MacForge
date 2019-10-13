@@ -28,7 +28,7 @@ extern AppDelegate* myDelegate;
         } else if ([theButton.title isEqualToString:@"UPDATE"]) {
             // Installed, downgrade
             [MF_Purchase pluginInstallWithProgress:plugin :repo :theButton :progress];
-            [MSAnalytics trackEvent:@"Update" withProperties:@{@"Product ID" : plugin.bundleID}];
+            [MSAnalytics trackEvent:@"Downgrade" withProperties:@{@"Product ID" : plugin.bundleID}];
         } else {
             // Installed, reveal in Finder
             [PluginManager.sharedInstance pluginRevealFinder:plugin.webPlist];
@@ -66,15 +66,17 @@ extern AppDelegate* myDelegate;
             NSTask *task = [NSTask launchedTaskWithLaunchPath:execPath arguments:@[myPaddleProductID, myPaddleVendorID, myPaddleAPIKey, @"-v"]];
             [task waitUntilExit];
          
-           //This is your completion handler
-           dispatch_sync(dispatch_get_main_queue(), ^{
-               if ([task terminationStatus] == 69) {
+            //This is your completion handler
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                if ([task terminationStatus] == 69) {
                     NSLog(@"Verified... %@", plugin.bundleID);
                     theButton.title = @"GET";
+                    theButton.toolTip = @"";
                 } else {
                     theButton.title = plugin.webPrice;
+                    theButton.toolTip = @"";
                 }
-           });
+            });
         });
     }
 }
@@ -108,7 +110,11 @@ extern AppDelegate* myDelegate;
     
     if ([Workspace URLForApplicationWithBundleIdentifier:bundleID])
         installed = true;
-        
+      
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        theButton.enabled = true;
+    });
+    
     if (installed) {
         // Pack already exists
         
@@ -136,12 +142,16 @@ extern AppDelegate* myDelegate;
             if (result == NSOrderedSame) {
                 //versionA == versionB --- Twinnning
                 theButton.title = @"OPEN";
+                theButton.toolTip = @"";
             } else if (result == NSOrderedAscending) {
                 //versionA < versionB --- Update
                 theButton.title = @"UPDATE";
+                theButton.toolTip = @"";
             } else {
                 //versionA > versionB --- Downgrade
-                theButton.title = @"UPDATE";
+                theButton.title = @"⬇";
+                theButton.toolTip = @"Downgrade";
+                theButton.enabled = false;
             }
         });
     } else {

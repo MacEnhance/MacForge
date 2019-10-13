@@ -6,6 +6,8 @@
 //  Copyright © 2019 MacEnhance. All rights reserved.
 //
 
+@import FirebaseFirestore;
+
 @import AppKit;
 @import WebKit;
 @import EDStarRating;

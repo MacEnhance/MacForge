@@ -21,6 +21,7 @@
 // Firebase
 @import FirebaseCore;
 @import FirebaseDatabase;
+@import FirebaseFirestore;
 @import FirebaseAuth;
 @import FirebaseStorage;
 @import FirebaseCoreDiagnostics;
@@ -43,11 +44,13 @@
     PluginManager *_sharedMethods;
 }
 
-@property (strong, nonatomic) FIRDatabaseReference *ref;
-
 @property IBOutlet NSWindow *window;
 @property IBOutlet NSWindow *srcWin;
 @property IBOutlet SUUpdater *updater;
+
+// Firebase
+@property (nonatomic, readwrite) FIRFirestore *db;
+@property (strong, nonatomic) FIRDatabaseReference *ref;
 
 // ADs URL
 @property (readwrite, nonatomic) NSString* adURL;

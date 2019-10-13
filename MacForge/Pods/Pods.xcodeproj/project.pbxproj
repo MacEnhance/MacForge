@@ -4644,7 +4644,7 @@
 		0021BFA010C64B59759E5C964E1BA96C /* Copy ../../src/core/ext/filters/client_channel/lb_policy/grpclb/proto/grpc/lb/v1 Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/client_channel/lb_policy/grpclb/proto/grpc/lb/v1";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/client_channel/lb_policy/grpclb/proto/grpc/lb/v1";
 			dstSubfolderSpec = 16;
 			files = (
 				0EAF2FD386F4C19D831CDF7C30141A31 /* load_balancer.pb.h in Copy ../../src/core/ext/filters/client_channel/lb_policy/grpclb/proto/grpc/lb/v1 Private Headers */,
@@ -4655,7 +4655,7 @@
 		03E51F06F9F7A16AE4C5006A7E7C121B /* Copy ../../src/core/ext/filters/deadline Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/deadline";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/deadline";
 			dstSubfolderSpec = 16;
 			files = (
 				115D3FF35CA2DBF5247E81C1D6D7EFBC /* deadline_filter.h in Copy ../../src/core/ext/filters/deadline Private Headers */,
@@ -4679,7 +4679,7 @@
 		05F1177E85D6B8169AF5EB10982DCF0E /* Copy ../../src/core/lib/profiling Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/profiling";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/profiling";
 			dstSubfolderSpec = 16;
 			files = (
 				E6B7722D1AECDD92FCC9B7B0C099152E /* timers.h in Copy ../../src/core/lib/profiling Private Headers */,
@@ -4690,7 +4690,7 @@
 		06BCC7789A9D582ACAF5465F0572335E /* Copy ../../src/core/lib/backoff Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/backoff";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/backoff";
 			dstSubfolderSpec = 16;
 			files = (
 				BA63270A87476CC2F40F62A55469ACAA /* backoff.h in Copy ../../src/core/lib/backoff Private Headers */,
@@ -4701,7 +4701,7 @@
 		07803A1CD9DDE7492231AC6DB47ACE9F /* Copy ../../src/core/tsi/alts/crypt Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/tsi/alts/crypt";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/tsi/alts/crypt";
 			dstSubfolderSpec = 16;
 			files = (
 				1235F05050F7ED208F28CB315EE81D39 /* gsec.h in Copy ../../src/core/tsi/alts/crypt Public Headers */,
@@ -4712,7 +4712,7 @@
 		08F17C73FFF313080D34988C28D3BFF0 /* Copy ../../src/core/ext/filters/client_channel/resolver/fake Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/client_channel/resolver/fake";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/client_channel/resolver/fake";
 			dstSubfolderSpec = 16;
 			files = (
 				484548A65677F65C05042ED40730A4F8 /* fake_resolver.h in Copy ../../src/core/ext/filters/client_channel/resolver/fake Public Headers */,
@@ -4751,7 +4751,7 @@
 		0E15189B35E651319F9BCA852ECBA1BC /* Copy ../../crypto/fipsmodule/rsa Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../crypto/fipsmodule/rsa";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../crypto/fipsmodule/rsa";
 			dstSubfolderSpec = 16;
 			files = (
 				88165E85787758EB95A18BE7A5D60B2D /* internal.h in Copy ../../crypto/fipsmodule/rsa Private Headers */,
@@ -4762,7 +4762,7 @@
 		0FAC5E50402C929EB3666E777785313D /* Copy ../../src/core/lib/surface Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/surface";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/surface";
 			dstSubfolderSpec = 16;
 			files = (
 				65AE2C0FD932B21D7E81E4F3A76A83A7 /* api_trace.h in Copy ../../src/core/lib/surface Private Headers */,
@@ -4785,7 +4785,7 @@
 		112692C428BA3EB900C3612098C6C98B /* Copy ../../src/core/ext/filters/client_channel/health Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/client_channel/health";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/client_channel/health";
 			dstSubfolderSpec = 16;
 			files = (
 				714B400B871A7338A5B2B929FF19B6CF /* health.pb.h in Copy ../../src/core/ext/filters/client_channel/health Private Headers */,
@@ -4829,7 +4829,7 @@
 		1516948B9CF7F1A1D29E56E82033A3A2 /* Copy ../../src/core/lib/surface Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/surface";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/surface";
 			dstSubfolderSpec = 16;
 			files = (
 				3946E3B16B9C6C3A8BA37BF7E67CDD8D /* api_trace.h in Copy ../../src/core/lib/surface Private Headers */,
@@ -4852,7 +4852,7 @@
 		154A2354166F561B4DF4A0275ED5863F /* Copy ../../src/core/lib/security/security_connector/tls Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/lib/security/security_connector/tls";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/security_connector/tls";
 			dstSubfolderSpec = 16;
 			files = (
 				B3469465AD48BE669A066E4BB9CDAF29 /* spiffe_security_connector.h in Copy ../../src/core/lib/security/security_connector/tls Public Headers */,
@@ -4863,7 +4863,7 @@
 		15DB59F79435B08ADEE7A1A94ACF6A67 /* Copy ../../src/core/ext/transport/chttp2/transport Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/ext/transport/chttp2/transport";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/ext/transport/chttp2/transport";
 			dstSubfolderSpec = 16;
 			files = (
 				04CB164E192BE16A9EEE25157BBBCDD8 /* bin_decoder.h in Copy ../../src/core/ext/transport/chttp2/transport Private Headers */,
@@ -4894,7 +4894,7 @@
 		16CB6842AA32D2457B6A39B36339B6FC /* Copy ../../src/core/ext/filters/client_channel/lb_policy/grpclb/proto/grpc/lb/v1 Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/client_channel/lb_policy/grpclb/proto/grpc/lb/v1";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/client_channel/lb_policy/grpclb/proto/grpc/lb/v1";
 			dstSubfolderSpec = 16;
 			files = (
 				E2411B127368C2186E5C3A8AA9E0A438 /* load_balancer.pb.h in Copy ../../src/core/ext/filters/client_channel/lb_policy/grpclb/proto/grpc/lb/v1 Public Headers */,
@@ -4905,7 +4905,7 @@
 		1894248BB491BC5FFE35920C915649A2 /* Copy ../../src/core/ext/filters/http/server Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/http/server";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/http/server";
 			dstSubfolderSpec = 16;
 			files = (
 				8428A81C71CC8B736290DEB2A982D648 /* http_server_filter.h in Copy ../../src/core/ext/filters/http/server Public Headers */,
@@ -4916,7 +4916,7 @@
 		1A7F634B1AABA021D8E4A26871B742A5 /* Copy ../../src/core/ext/transport/chttp2/client Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/ext/transport/chttp2/client";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/ext/transport/chttp2/client";
 			dstSubfolderSpec = 16;
 			files = (
 				27317B0F1A08B2DB0D9468707128BA8F /* authority.h in Copy ../../src/core/ext/transport/chttp2/client Private Headers */,
@@ -4928,7 +4928,7 @@
 		1C525834F68FE8BE8DA41BAA68C59C10 /* Copy ../../crypto/evp Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../crypto/evp";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../crypto/evp";
 			dstSubfolderSpec = 16;
 			files = (
 				2CE54F5A6EBE726E34CD3D926161BE19 /* internal.h in Copy ../../crypto/evp Private Headers */,
@@ -4939,7 +4939,7 @@
 		1CE1439637E55B10761B2D162F5287FD /* Copy ../../src/core/lib/compression Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/compression";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/compression";
 			dstSubfolderSpec = 16;
 			files = (
 				5DBC5F053EA0ACD446B1523574E7AF03 /* algorithm_metadata.h in Copy ../../src/core/lib/compression Private Headers */,
@@ -4956,7 +4956,7 @@
 		1DE47A034DF25A2091577D01605F43F8 /* Copy ../../src/core/ext/filters/client_channel/resolver/dns/c_ares Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/client_channel/resolver/dns/c_ares";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/client_channel/resolver/dns/c_ares";
 			dstSubfolderSpec = 16;
 			files = (
 				39734E5C851115E9FAB254E31042B950 /* grpc_ares_ev_driver.h in Copy ../../src/core/ext/filters/client_channel/resolver/dns/c_ares Public Headers */,
@@ -4968,7 +4968,7 @@
 		1EC88B4A841C18A8F7A3CE61FE995032 /* Copy ../../src/cpp/thread_manager Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/cpp/thread_manager";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/cpp/thread_manager";
 			dstSubfolderSpec = 16;
 			files = (
 				C9FFC869FC41EF48F2135604E574AC26 /* thread_manager.h in Copy ../../src/cpp/thread_manager Private Headers */,
@@ -4979,7 +4979,7 @@
 		1F58FEB339904D321C60231DDEDFA957 /* Copy ../../src/cpp/server/health Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/cpp/server/health";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/cpp/server/health";
 			dstSubfolderSpec = 16;
 			files = (
 				87D7E1885DAA65C158D8C93BA8298932 /* default_health_check_service.h in Copy ../../src/cpp/server/health Private Headers */,
@@ -4990,7 +4990,7 @@
 		1FAFE77A1418A26AAF36965EBE5384AE /* Copy ../../src/core/ext/transport/inproc Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/ext/transport/inproc";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/ext/transport/inproc";
 			dstSubfolderSpec = 16;
 			files = (
 				9A2B129CCD504AC7DEE6A0E7B8901C55 /* inproc_transport.h in Copy ../../src/core/ext/transport/inproc Private Headers */,
@@ -5001,7 +5001,7 @@
 		220603364F023FB07482E53CB0835F46 /* Copy ../../src/core/ext/filters/client_channel Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/client_channel";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/client_channel";
 			dstSubfolderSpec = 16;
 			files = (
 				7C3036AFEF5149CC2EB66088A431ECF2 /* backup_poller.h in Copy ../../src/core/ext/filters/client_channel Public Headers */,
@@ -5036,7 +5036,7 @@
 		221C7E90174C8EF4AE9BA79DBFB38F05 /* Copy ../../src/core/lib/security/credentials/iam Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/security/credentials/iam";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/credentials/iam";
 			dstSubfolderSpec = 16;
 			files = (
 				B76FE3A3159798C7FDC6810533419546 /* iam_credentials.h in Copy ../../src/core/lib/security/credentials/iam Private Headers */,
@@ -5047,7 +5047,7 @@
 		2385B4A3C5C52DF9EC34D19167FE16AE /* Copy ../../src/core/lib/uri Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/uri";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/uri";
 			dstSubfolderSpec = 16;
 			files = (
 				75153CE388D5D5ACD34BADEEC80A6E5F /* uri_parser.h in Copy ../../src/core/lib/uri Private Headers */,
@@ -5058,7 +5058,7 @@
 		24C5892E03A38F72023770195526AB21 /* Copy ../../src/core/ext/filters/http/message_compress Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/http/message_compress";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/http/message_compress";
 			dstSubfolderSpec = 16;
 			files = (
 				76EAF478142C48B3E1CBEDD9FDB78FBD /* message_compress_filter.h in Copy ../../src/core/ext/filters/http/message_compress Private Headers */,
@@ -5069,7 +5069,7 @@
 		29E3BDD0B7A9286767ED2B376F3418DA /* Copy ../../src/core/lib/security/credentials/plugin Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/lib/security/credentials/plugin";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/credentials/plugin";
 			dstSubfolderSpec = 16;
 			files = (
 				5D4DCD3E14AC980B3521C6004EB11063 /* plugin_credentials.h in Copy ../../src/core/lib/security/credentials/plugin Public Headers */,
@@ -5080,7 +5080,7 @@
 		2BD848BA2B8225C9E12BAD9ECA8038CD /* Copy ../../src/core/ext/filters/client_channel/resolver/dns Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/client_channel/resolver/dns";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/client_channel/resolver/dns";
 			dstSubfolderSpec = 16;
 			files = (
 				D5D5C6D6509186B6184FDCF5295C67D3 /* dns_resolver_selection.h in Copy ../../src/core/ext/filters/client_channel/resolver/dns Public Headers */,
@@ -5091,7 +5091,7 @@
 		2CE88A64EBEEA739FD7D7A5BCA6C5003 /* Copy ../../src/core/lib/security/credentials/ssl Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/lib/security/credentials/ssl";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/credentials/ssl";
 			dstSubfolderSpec = 16;
 			files = (
 				F6351BABA18F12F6F13BE87749E5BD1E /* ssl_credentials.h in Copy ../../src/core/lib/security/credentials/ssl Public Headers */,
@@ -5102,7 +5102,7 @@
 		3281FB115127E39D4B2718E654BB60CC /* Copy ../../src/core/ext/filters/client_channel/lb_policy Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/client_channel/lb_policy";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/client_channel/lb_policy";
 			dstSubfolderSpec = 16;
 			files = (
 				0C7FFA21B1E94F9633BCBBC11F561906 /* subchannel_list.h in Copy ../../src/core/ext/filters/client_channel/lb_policy Private Headers */,
@@ -5113,7 +5113,7 @@
 		353C61BB14F78F8CE0DE544BD3F93E13 /* Copy ../../crypto/fipsmodule/rand Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../crypto/fipsmodule/rand";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../crypto/fipsmodule/rand";
 			dstSubfolderSpec = 16;
 			files = (
 				B8C9CE9F38D889AE55B187555BF78961 /* internal.h in Copy ../../crypto/fipsmodule/rand Private Headers */,
@@ -5147,7 +5147,7 @@
 		359FB772E87C6AD525AED614EE961E34 /* Copy ../../src/core/ext/filters/message_size Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/message_size";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/message_size";
 			dstSubfolderSpec = 16;
 			files = (
 				24E6F38150B72DF0D91268F5C29307FE /* message_size_filter.h in Copy ../../src/core/ext/filters/message_size Private Headers */,
@@ -5158,7 +5158,7 @@
 		362F111B789D48A4B70FA95A9BB9EA41 /* Copy ../../src/core/tsi/alts/frame_protector Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/tsi/alts/frame_protector";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/tsi/alts/frame_protector";
 			dstSubfolderSpec = 16;
 			files = (
 				40755AA9C126AF526ABFB8E93CF7ED78 /* alts_counter.h in Copy ../../src/core/tsi/alts/frame_protector Public Headers */,
@@ -5201,7 +5201,7 @@
 		3D848141B1F240325C69D17114A57D0E /* Copy ../../src/core/lib/security/credentials/oauth2 Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/lib/security/credentials/oauth2";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/credentials/oauth2";
 			dstSubfolderSpec = 16;
 			files = (
 				AB41717D7806CD4961957C2ABA689BDC /* oauth2_credentials.h in Copy ../../src/core/lib/security/credentials/oauth2 Public Headers */,
@@ -5212,7 +5212,7 @@
 		3D901E75EBFA940BCA8E49C4BC3A873B /* Copy ../../crypto/bio Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../crypto/bio";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../crypto/bio";
 			dstSubfolderSpec = 16;
 			files = (
 				67986656A8B5B66C06D182052808C937 /* internal.h in Copy ../../crypto/bio Private Headers */,
@@ -5223,7 +5223,7 @@
 		3E524E4FEDFF9725FA0258FD58653B90 /* Copy ../../src/core/ext/filters/workarounds Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/workarounds";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/workarounds";
 			dstSubfolderSpec = 16;
 			files = (
 				5EEEDD3AE52F58C857EDF8A17D2C32E2 /* workaround_cronet_compression_filter.h in Copy ../../src/core/ext/filters/workarounds Private Headers */,
@@ -5235,7 +5235,7 @@
 		41835763BB2EFD780BB9F0FDFF511F02 /* Copy ../../src/core/ext/filters/http Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/http";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/http";
 			dstSubfolderSpec = 16;
 			files = (
 				E362859241CD1976C3DA92FB2505DA2F /* client_authority_filter.h in Copy ../../src/core/ext/filters/http Private Headers */,
@@ -5246,7 +5246,7 @@
 		4451C0B94D905DD24400F41D051DFDA8 /* Copy ../../crypto/pool Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../crypto/pool";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../crypto/pool";
 			dstSubfolderSpec = 16;
 			files = (
 				4883AA47046B955F1826EE9F5038561E /* internal.h in Copy ../../crypto/pool Private Headers */,
@@ -5257,7 +5257,7 @@
 		45B449D2A1C6C2DE524946940ACFCD3F /* Copy ../../crypto/bytestring Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../crypto/bytestring";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../crypto/bytestring";
 			dstSubfolderSpec = 16;
 			files = (
 				A84BE5EE9EF375538ECC9502C303D091 /* internal.h in Copy ../../crypto/bytestring Private Headers */,
@@ -5268,7 +5268,7 @@
 		486A9ECEFEB1C30B88A56DAD8241B86A /* Copy ../../src/core/lib/avl Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/avl";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/avl";
 			dstSubfolderSpec = 16;
 			files = (
 				AD8ACEC8056524AD9F93D7C63FDF481E /* avl.h in Copy ../../src/core/lib/avl Private Headers */,
@@ -5279,7 +5279,7 @@
 		48D9B83C4941C127A374FA2A24765C55 /* Copy ../../src/core/lib/security/security_connector/tls Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/security/security_connector/tls";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/security_connector/tls";
 			dstSubfolderSpec = 16;
 			files = (
 				1FAF97E2DA16E33ED6599DD6DDADB1EB /* spiffe_security_connector.h in Copy ../../src/core/lib/security/security_connector/tls Private Headers */,
@@ -5290,7 +5290,7 @@
 		4A7278C7DEF0C3E203A8892BCAEE8CD4 /* Copy ../../src/core/tsi Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/tsi";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/tsi";
 			dstSubfolderSpec = 16;
 			files = (
 				63D4C1A2D6D2CF83DE154949F67126DA /* fake_transport_security.h in Copy ../../src/core/tsi Private Headers */,
@@ -5308,7 +5308,7 @@
 		4C0EEDF7AE960A8261F8939EC50C9E46 /* Copy ../../src/core/ext/filters/client_channel/resolver/dns Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/client_channel/resolver/dns";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/client_channel/resolver/dns";
 			dstSubfolderSpec = 16;
 			files = (
 				522D3103D1AAD621FC533B0AD904DAA7 /* dns_resolver_selection.h in Copy ../../src/core/ext/filters/client_channel/resolver/dns Private Headers */,
@@ -5319,7 +5319,7 @@
 		4D47880973F3E059295A099C9FE2ABC6 /* Copy ../../src/core/ext/transport/inproc Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/ext/transport/inproc";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/ext/transport/inproc";
 			dstSubfolderSpec = 16;
 			files = (
 				9C1AE55DA3CFD68FE8B5660189706DB2 /* inproc_transport.h in Copy ../../src/core/ext/transport/inproc Private Headers */,
@@ -5330,7 +5330,7 @@
 		4D73AC6BA672614B64B6C78C2463ED93 /* Copy ../../src/core/lib/security/credentials/tls Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/lib/security/credentials/tls";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/credentials/tls";
 			dstSubfolderSpec = 16;
 			files = (
 				D3DC9EDD47137085DF4D21737279DC6B /* grpc_tls_credentials_options.h in Copy ../../src/core/lib/security/credentials/tls Public Headers */,
@@ -5342,7 +5342,7 @@
 		4DA79133B690C19718A9CF4C50889367 /* Copy ../../src/core/lib/security/security_connector Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/lib/security/security_connector";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/security_connector";
 			dstSubfolderSpec = 16;
 			files = (
 				EB4360B62F8B60BFC74021DE22A1EEAA /* load_system_roots.h in Copy ../../src/core/lib/security/security_connector Public Headers */,
@@ -5356,7 +5356,7 @@
 		4EC54B047D50C9D979FB34E991410F54 /* Copy ../../crypto/fipsmodule/des Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../crypto/fipsmodule/des";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../crypto/fipsmodule/des";
 			dstSubfolderSpec = 16;
 			files = (
 				FA5C110672B0E6140BB7330839FF8491 /* internal.h in Copy ../../crypto/fipsmodule/des Private Headers */,
@@ -5367,7 +5367,7 @@
 		503583FDC7B6AB95DCFA308F701ED32D /* Copy ../../src/core/ext/transport/chttp2/server Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/ext/transport/chttp2/server";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/ext/transport/chttp2/server";
 			dstSubfolderSpec = 16;
 			files = (
 				01BCD853BF1B6D17A6FA376801E79F34 /* chttp2_server.h in Copy ../../src/core/ext/transport/chttp2/server Private Headers */,
@@ -5378,7 +5378,7 @@
 		533DD19A3F386A44AE94904BE3830693 /* Copy ../../src/core/lib/security/security_connector/fake Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/security/security_connector/fake";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/security_connector/fake";
 			dstSubfolderSpec = 16;
 			files = (
 				5B2909131F83DA13AA527D72A81107AD /* fake_security_connector.h in Copy ../../src/core/lib/security/security_connector/fake Private Headers */,
@@ -5389,7 +5389,7 @@
 		5346B2F795156B76BD5C1892296F1DAE /* Copy ../../src/core/lib/security/credentials/jwt Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/lib/security/credentials/jwt";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/credentials/jwt";
 			dstSubfolderSpec = 16;
 			files = (
 				BAD7CBB36C1B8CEB1F70EB238A8E6672 /* json_token.h in Copy ../../src/core/lib/security/credentials/jwt Public Headers */,
@@ -5402,7 +5402,7 @@
 		54E5390CF4E16A1ABAFE385177EC4DE2 /* Copy ../../src/core/lib/transport Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/transport";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/transport";
 			dstSubfolderSpec = 16;
 			files = (
 				0F494DD77FA999BC9197A95CEFB73561 /* bdp_estimator.h in Copy ../../src/core/lib/transport Private Headers */,
@@ -5426,7 +5426,7 @@
 		558674A7859269DD7A8E886DD815B88A /* Copy ../../src/core/lib/slice Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/slice";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/slice";
 			dstSubfolderSpec = 16;
 			files = (
 				ACBC282712F331678B12B2F11C841002 /* b64.h in Copy ../../src/core/lib/slice Private Headers */,
@@ -5442,7 +5442,7 @@
 		55B7BA8C25BA20563A9E858C0ACDC0ED /* Copy ../../crypto/fipsmodule Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../crypto/fipsmodule";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../crypto/fipsmodule";
 			dstSubfolderSpec = 16;
 			files = (
 				A7113A5C39D0B18BE490A3D223C25205 /* delocate.h in Copy ../../crypto/fipsmodule Private Headers */,
@@ -5453,7 +5453,7 @@
 		565E51C517E366B2F7B9DA76CC03E51A /* Copy ../../ssl Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../ssl";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../ssl";
 			dstSubfolderSpec = 16;
 			files = (
 				92F294F9BC40630C4DFC0E2E026885E2 /* internal.h in Copy ../../ssl Private Headers */,
@@ -5464,7 +5464,7 @@
 		56663B9CF87FA8E52EEE2FB541D39043 /* Copy ../../src/core/lib/security/context Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/lib/security/context";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/context";
 			dstSubfolderSpec = 16;
 			files = (
 				170EEA063E15592363EED334DE09C6C9 /* security_context.h in Copy ../../src/core/lib/security/context Public Headers */,
@@ -5475,7 +5475,7 @@
 		56F5F22BBDE29C964C43DD19E244254F /* Copy ../../src/core/lib/security/context Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/security/context";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/context";
 			dstSubfolderSpec = 16;
 			files = (
 				D6531AACA598632A0E2400A040EDA3A8 /* security_context.h in Copy ../../src/core/lib/security/context Private Headers */,
@@ -5486,7 +5486,7 @@
 		56FA8B27055D9593C14019E7267A3077 /* Copy ../../src/core/ext/filters/client_channel/lb_policy/grpclb/proto/grpc/lb/v1/google/protobuf Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/client_channel/lb_policy/grpclb/proto/grpc/lb/v1/google/protobuf";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/client_channel/lb_policy/grpclb/proto/grpc/lb/v1/google/protobuf";
 			dstSubfolderSpec = 16;
 			files = (
 				EAB493EF59CE3E4F0794A5E97C86C747 /* duration.pb.h in Copy ../../src/core/ext/filters/client_channel/lb_policy/grpclb/proto/grpc/lb/v1/google/protobuf Public Headers */,
@@ -5498,7 +5498,7 @@
 		5782621762EB2A310BA3DF4EB7F50366 /* Copy ../../crypto/x509 Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../crypto/x509";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../crypto/x509";
 			dstSubfolderSpec = 16;
 			files = (
 				649219E70A776FE9F3457349816E9350 /* charmap.h in Copy ../../crypto/x509 Private Headers */,
@@ -5511,7 +5511,7 @@
 		5A2D89DA7E2FAF603FC1A16B99EBB3E6 /* Copy ../../src/core/lib/security/credentials/iam Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/lib/security/credentials/iam";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/credentials/iam";
 			dstSubfolderSpec = 16;
 			files = (
 				50F33616E41A2544E49C87DCCFE258FF /* iam_credentials.h in Copy ../../src/core/lib/security/credentials/iam Public Headers */,
@@ -5522,7 +5522,7 @@
 		5B55AD51F29B40B3D13F14AC48540575 /* Copy ../../src/core/lib/security/security_connector/fake Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/lib/security/security_connector/fake";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/security_connector/fake";
 			dstSubfolderSpec = 16;
 			files = (
 				82C545B401E389BD73A6357FDCCCADCB /* fake_security_connector.h in Copy ../../src/core/lib/security/security_connector/fake Public Headers */,
@@ -5533,7 +5533,7 @@
 		5BFB7D6DB54F28C7D556818B011B5EA5 /* Copy ../../src/core/lib/security/credentials Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/lib/security/credentials";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/credentials";
 			dstSubfolderSpec = 16;
 			files = (
 				E24E1D86AED74DDC5E53B87132756A87 /* credentials.h in Copy ../../src/core/lib/security/credentials Public Headers */,
@@ -5544,7 +5544,7 @@
 		5CEE4B306A17F92871E47A7947E607FD /* Copy ../../src/core/lib/profiling Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/profiling";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/profiling";
 			dstSubfolderSpec = 16;
 			files = (
 				5A5D07C637B4332985DD933345A8119D /* timers.h in Copy ../../src/core/lib/profiling Private Headers */,
@@ -5555,7 +5555,7 @@
 		5CFADA20D75265053515BE542A1D8ABE /* Copy ../../crypto/conf Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../crypto/conf";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../crypto/conf";
 			dstSubfolderSpec = 16;
 			files = (
 				9659C424B77DE04A7F0188A2BA8F47B1 /* conf_def.h in Copy ../../crypto/conf Private Headers */,
@@ -5567,7 +5567,7 @@
 		5D4A232EFB3B22FC47A1CD34E94932D2 /* Copy ../../crypto/x509v3 Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../crypto/x509v3";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../crypto/x509v3";
 			dstSubfolderSpec = 16;
 			files = (
 				4D7A68B8A626A101AC080C2D5611D949 /* ext_dat.h in Copy ../../crypto/x509v3 Private Headers */,
@@ -5579,7 +5579,7 @@
 		5D6ED9B17FA31A87E7F5608044C0FE9B /* Copy ../../src/core/ext/filters/client_channel Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/client_channel";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/client_channel";
 			dstSubfolderSpec = 16;
 			files = (
 				2D704ECED1E6B3908E2C08089A4FC2AA /* backup_poller.h in Copy ../../src/core/ext/filters/client_channel Private Headers */,
@@ -5614,7 +5614,7 @@
 		5D92AE68AC44128A42021B610FEADAF8 /* Copy ../../src/core/lib/uri Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/uri";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/uri";
 			dstSubfolderSpec = 16;
 			files = (
 				56D472790ABC8F2515F13AF1A92B8AA1 /* uri_parser.h in Copy ../../src/core/lib/uri Private Headers */,
@@ -5625,7 +5625,7 @@
 		5D99A70238D403D1E1FB18AD274C7072 /* Copy ../../src/core/lib/compression Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/compression";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/compression";
 			dstSubfolderSpec = 16;
 			files = (
 				FD2176D09E18DE11046224B7E8251680 /* algorithm_metadata.h in Copy ../../src/core/lib/compression Private Headers */,
@@ -5642,7 +5642,7 @@
 		5F78FF12E80D4A4E5DB9F912EC1D0ADF /* Copy ../../src/core/lib/security/credentials/plugin Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/security/credentials/plugin";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/credentials/plugin";
 			dstSubfolderSpec = 16;
 			files = (
 				BF44EF38F8101B53CE7673250897FD1E /* plugin_credentials.h in Copy ../../src/core/lib/security/credentials/plugin Private Headers */,
@@ -5670,7 +5670,7 @@
 		61598F878EB494FF49C9AB00CFFB7321 /* Copy ../../src/core/lib/security/util Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/security/util";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/util";
 			dstSubfolderSpec = 16;
 			files = (
 				CA27C6FC72044D97B1A831D199A0BE48 /* json_util.h in Copy ../../src/core/lib/security/util Private Headers */,
@@ -5681,7 +5681,7 @@
 		63D6243EF0A64886D591A163EF850EC6 /* Copy ../../crypto/err Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../crypto/err";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../crypto/err";
 			dstSubfolderSpec = 16;
 			files = (
 				3910CAE836FEFEC46644474A7D12D8B9 /* internal.h in Copy ../../crypto/err Private Headers */,
@@ -5746,7 +5746,7 @@
 		65D14C636B7A11934EB8B1135680DD74 /* Copy ../../src/core/lib/security/security_connector/alts Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/lib/security/security_connector/alts";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/security_connector/alts";
 			dstSubfolderSpec = 16;
 			files = (
 				57AE4885C6E269D50D09B0BB5E0A7C2B /* alts_security_connector.h in Copy ../../src/core/lib/security/security_connector/alts Public Headers */,
@@ -5757,7 +5757,7 @@
 		6660DDE832EA4C6212E12E0A5F9654AB /* Copy ../../src/core/tsi/alts/zero_copy_frame_protector Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/tsi/alts/zero_copy_frame_protector";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/tsi/alts/zero_copy_frame_protector";
 			dstSubfolderSpec = 16;
 			files = (
 				D22ABDFE1C1D214491E3AA05166653FF /* alts_grpc_integrity_only_record_protocol.h in Copy ../../src/core/tsi/alts/zero_copy_frame_protector Public Headers */,
@@ -5773,7 +5773,7 @@
 		67256978A743DEFEE569AA1A7A325536 /* Copy ../../src/core/lib/security/util Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/lib/security/util";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/util";
 			dstSubfolderSpec = 16;
 			files = (
 				15A95BDC4C76C7E4369231B0BC924CE9 /* json_util.h in Copy ../../src/core/lib/security/util Public Headers */,
@@ -5784,7 +5784,7 @@
 		6799AA838D021071AD6D1F775CCC4DA9 /* Copy ../../src/cpp/common Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/cpp/common";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/cpp/common";
 			dstSubfolderSpec = 16;
 			files = (
 				348D27B6A749AEC85BF4678D48B9032B /* channel_filter.h in Copy ../../src/cpp/common Private Headers */,
@@ -5796,7 +5796,7 @@
 		67EAD692FA3064DAAF581E4487C412F1 /* Copy ../../src/core/tsi/alts/frame_protector Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/tsi/alts/frame_protector";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/tsi/alts/frame_protector";
 			dstSubfolderSpec = 16;
 			files = (
 				13E2175409DFA43D225B477BAD4A1D23 /* alts_counter.h in Copy ../../src/core/tsi/alts/frame_protector Private Headers */,
@@ -5811,7 +5811,7 @@
 		6B34AC94E026B493A9D1A5C70083FE69 /* Copy ../../src/core/lib/security/credentials/composite Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/security/credentials/composite";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/credentials/composite";
 			dstSubfolderSpec = 16;
 			files = (
 				6FD619C023DDF3B27BFE4089A3D985DA /* composite_credentials.h in Copy ../../src/core/lib/security/credentials/composite Private Headers */,
@@ -5822,7 +5822,7 @@
 		6C83E7E1A4A537A81981A0AB289C9919 /* Copy ../../crypto Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../crypto";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../crypto";
 			dstSubfolderSpec = 16;
 			files = (
 				3043C3118F7092A104E758A3F17879B5 /* internal.h in Copy ../../crypto Private Headers */,
@@ -5833,7 +5833,7 @@
 		6D4541E87E897AFC7F519C6BF4502E05 /* Copy ../../src/core/lib/security/credentials Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/security/credentials";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/credentials";
 			dstSubfolderSpec = 16;
 			files = (
 				347C4308CF02941EA1E0231E964D29CD /* credentials.h in Copy ../../src/core/lib/security/credentials Private Headers */,
@@ -5844,7 +5844,7 @@
 		70F9EF04F2BB6AF028F8E76B67E36776 /* Copy ../../src/core/ext/filters/max_age Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/max_age";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/max_age";
 			dstSubfolderSpec = 16;
 			files = (
 				8FF22024AB9F655DBDFF3E9189FD2D2E /* max_age_filter.h in Copy ../../src/core/ext/filters/max_age Private Headers */,
@@ -5855,7 +5855,7 @@
 		7202693101784DDC0E692F9D6CDC2817 /* Copy ../../src/core/lib/security/security_connector/ssl Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/lib/security/security_connector/ssl";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/security_connector/ssl";
 			dstSubfolderSpec = 16;
 			files = (
 				3046B9EBAAA4A2C4B69038D7AE71BEDD /* ssl_security_connector.h in Copy ../../src/core/lib/security/security_connector/ssl Public Headers */,
@@ -5866,7 +5866,7 @@
 		726AC1E516A2B952C02D0C2C3AFA6CDC /* Copy ../../third_party/fiat Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../third_party/fiat";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../third_party/fiat";
 			dstSubfolderSpec = 16;
 			files = (
 				C7813785B64C6035BCB3E3CB1CBFDFA1 /* curve25519_tables.h in Copy ../../third_party/fiat Public Headers */,
@@ -5878,7 +5878,7 @@
 		7692364A2BB543EAACF1137C6D2A1733 /* Copy ../../crypto/pkcs8 Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../crypto/pkcs8";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../crypto/pkcs8";
 			dstSubfolderSpec = 16;
 			files = (
 				75F8FFD8E68CAB3374B3A86C7916D7AB /* internal.h in Copy ../../crypto/pkcs8 Private Headers */,
@@ -5889,7 +5889,7 @@
 		78FBB926CD5A428BBAB8C38011F2A968 /* Copy ../../src/core/lib/security/security_connector/local Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/security/security_connector/local";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/security_connector/local";
 			dstSubfolderSpec = 16;
 			files = (
 				8BAA276209A43B93FE12D1BE9B75E21D /* local_security_connector.h in Copy ../../src/core/lib/security/security_connector/local Private Headers */,
@@ -5900,7 +5900,7 @@
 		7BC9A4150F2E997A46CE4EC20E708F7D /* Copy ../../src/core/tsi/ssl/session_cache Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/tsi/ssl/session_cache";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/tsi/ssl/session_cache";
 			dstSubfolderSpec = 16;
 			files = (
 				8CDA52D1C491268B36E086690033FBA7 /* ssl_session.h in Copy ../../src/core/tsi/ssl/session_cache Public Headers */,
@@ -5912,7 +5912,7 @@
 		7D7C95AEF2A141973429C8AC2E8AEFA9 /* Copy ../../src/core/lib/gprpp Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/gprpp";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/gprpp";
 			dstSubfolderSpec = 16;
 			files = (
 				A6C0D756BCED001C17CD8ED790A093BB /* abstract.h in Copy ../../src/core/lib/gprpp Private Headers */,
@@ -5942,7 +5942,7 @@
 		7E460B76F02A0030F34D68FDA8E478C7 /* Copy ../../src/core/lib/channel Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/channel";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/channel";
 			dstSubfolderSpec = 16;
 			files = (
 				A67A3A638F29E27000954E244212CBE8 /* channel_args.h in Copy ../../src/core/lib/channel Private Headers */,
@@ -5964,7 +5964,7 @@
 		7F9879FBA4D942664B16194EDD43F8EA /* Copy ../../src/core/ext/filters/client_channel/lb_policy/xds Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/client_channel/lb_policy/xds";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/client_channel/lb_policy/xds";
 			dstSubfolderSpec = 16;
 			files = (
 				A9C0C32C26C09488D705088B479F9797 /* xds.h in Copy ../../src/core/ext/filters/client_channel/lb_policy/xds Public Headers */,
@@ -5978,7 +5978,7 @@
 		811098B85A038E1A58186388BE370E73 /* Copy ../../src/core/ext/filters/client_channel/lb_policy/xds Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/client_channel/lb_policy/xds";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/client_channel/lb_policy/xds";
 			dstSubfolderSpec = 16;
 			files = (
 				1403239D18EAA0A4AEDE259963595605 /* xds.h in Copy ../../src/core/ext/filters/client_channel/lb_policy/xds Private Headers */,
@@ -5992,7 +5992,7 @@
 		86DE4031E5D56BD13D210EA83F25F02D /* Copy ../../src/core/lib/gpr Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/gpr";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/gpr";
 			dstSubfolderSpec = 16;
 			files = (
 				D39BB0F2FA0498FFACCACC5B5D81663F /* alloc.h in Copy ../../src/core/lib/gpr Private Headers */,
@@ -6018,7 +6018,7 @@
 		87B70B8E8457F123033C54EC26B1A6BC /* Copy ../../src/core/lib/security/credentials/tls Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/security/credentials/tls";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/credentials/tls";
 			dstSubfolderSpec = 16;
 			files = (
 				31FB45A514C208581C0AB5DBB4738954 /* grpc_tls_credentials_options.h in Copy ../../src/core/lib/security/credentials/tls Private Headers */,
@@ -6030,7 +6030,7 @@
 		89AA567989F8E6B71E126D28D9EEFA1B /* Copy ../../src/core/lib/security/credentials/google_default Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/security/credentials/google_default";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/credentials/google_default";
 			dstSubfolderSpec = 16;
 			files = (
 				E8DF2CD52F7BFFCD602F1229ED2105B8 /* google_default_credentials.h in Copy ../../src/core/lib/security/credentials/google_default Private Headers */,
@@ -6041,7 +6041,7 @@
 		8ABD4B074451141DAC3954199614E81B /* Copy ../../src/core/lib/security/credentials/alts Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/security/credentials/alts";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/credentials/alts";
 			dstSubfolderSpec = 16;
 			files = (
 				D5A27B9EC95334F71CFA69EEEF8ECE05 /* alts_credentials.h in Copy ../../src/core/lib/security/credentials/alts Private Headers */,
@@ -6054,7 +6054,7 @@
 		8B3DC658E2E47571F0958019D42E291C /* Copy ../../ssl/test/runner/curve25519 Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../ssl/test/runner/curve25519";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../ssl/test/runner/curve25519";
 			dstSubfolderSpec = 16;
 			files = (
 				7E1D3AB07756DB4AA70EB565AAA68AAD /* const_amd64.h in Copy ../../ssl/test/runner/curve25519 Private Headers */,
@@ -6088,7 +6088,7 @@
 		925281D7A5F59B3C7BED3E00915549F8 /* Copy ../../src/core/lib/json Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/json";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/json";
 			dstSubfolderSpec = 16;
 			files = (
 				3139BDD4CA4677B70ED17FC6E3C27050 /* json.h in Copy ../../src/core/lib/json Private Headers */,
@@ -6102,7 +6102,7 @@
 		94D1F78F3D5B62B0ECCD57C92C5E1622 /* Copy ../../src/core/ext/filters/workarounds Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/workarounds";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/workarounds";
 			dstSubfolderSpec = 16;
 			files = (
 				BE758475BBDFAFE58DE5067E52EC153A /* workaround_cronet_compression_filter.h in Copy ../../src/core/ext/filters/workarounds Public Headers */,
@@ -6114,7 +6114,7 @@
 		99B1DAE058CD8D6AC9ECD26141842195 /* Copy ../../src/core/lib/transport Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/transport";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/transport";
 			dstSubfolderSpec = 16;
 			files = (
 				C86FA3CCD423B13A47698D4EC6FF5F77 /* bdp_estimator.h in Copy ../../src/core/lib/transport Private Headers */,
@@ -6138,7 +6138,7 @@
 		9BE535B4319E1E196CEE721AC9DAB40B /* Copy ../../src/core/ext/filters/client_channel/resolver/dns/c_ares Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/client_channel/resolver/dns/c_ares";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/client_channel/resolver/dns/c_ares";
 			dstSubfolderSpec = 16;
 			files = (
 				3BDB45A607FC3B69148ACCABB5AE9680 /* grpc_ares_ev_driver.h in Copy ../../src/core/ext/filters/client_channel/resolver/dns/c_ares Private Headers */,
@@ -6150,7 +6150,7 @@
 		9C5543925D3B6939FCF449111DDEF543 /* Copy ../../crypto/poly1305 Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../crypto/poly1305";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../crypto/poly1305";
 			dstSubfolderSpec = 16;
 			files = (
 				00A3280B5F7167444092A0EEB48DAEB4 /* internal.h in Copy ../../crypto/poly1305 Private Headers */,
@@ -6161,7 +6161,7 @@
 		9C8AB15CBA651F2BFD490E504E3C2625 /* Copy ../../src/core/ext/filters/client_channel/health Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/client_channel/health";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/client_channel/health";
 			dstSubfolderSpec = 16;
 			files = (
 				5141BF9E010BA2721BC49E00A58A8C8D /* health_check_client.h in Copy ../../src/core/ext/filters/client_channel/health Public Headers */,
@@ -6172,7 +6172,7 @@
 		9D90266A0162B460ED2E11B8955496E9 /* Copy ../../src/core/ext/transport/chttp2/transport Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/ext/transport/chttp2/transport";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/ext/transport/chttp2/transport";
 			dstSubfolderSpec = 16;
 			files = (
 				249C4C8B0DE5310FE6E08CBF0F6A1A14 /* bin_decoder.h in Copy ../../src/core/ext/transport/chttp2/transport Public Headers */,
@@ -6203,7 +6203,7 @@
 		A07150525338A5707E53BC999D46C0E6 /* Copy ../../src/core/tsi/alts/handshaker Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/tsi/alts/handshaker";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/tsi/alts/handshaker";
 			dstSubfolderSpec = 16;
 			files = (
 				45AB8EB8B65620DD2F871831F420CBA3 /* alts_handshaker_client.h in Copy ../../src/core/tsi/alts/handshaker Public Headers */,
@@ -6224,7 +6224,7 @@
 		A284EAA8AA95C81C1DF305D13286BC98 /* Copy ../../src/core/ext/filters/http/client Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/http/client";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/http/client";
 			dstSubfolderSpec = 16;
 			files = (
 				18AD59E9149BBF4E6A412B633E835886 /* http_client_filter.h in Copy ../../src/core/ext/filters/http/client Public Headers */,
@@ -6235,7 +6235,7 @@
 		A3C0915D03F0425BA8CE908B9C7ACCE9 /* Copy ../../src/core/lib/security/credentials/google_default Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/lib/security/credentials/google_default";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/credentials/google_default";
 			dstSubfolderSpec = 16;
 			files = (
 				35F38D27509AB1C92A3C5E08DE1540FC /* google_default_credentials.h in Copy ../../src/core/lib/security/credentials/google_default Public Headers */,
@@ -6246,7 +6246,7 @@
 		A67545AD62574AB0791D87BDA90BB2AF /* Copy ../../src/core/lib/channel Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/channel";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/channel";
 			dstSubfolderSpec = 16;
 			files = (
 				8F6625597CE0137C36654C90601671C9 /* channel_args.h in Copy ../../src/core/lib/channel Private Headers */,
@@ -6268,7 +6268,7 @@
 		A6D906122251D803243437465A7190D3 /* Copy ../../src/core/lib/iomgr Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/iomgr";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/iomgr";
 			dstSubfolderSpec = 16;
 			files = (
 				F808E924853D4AC43E04B727B11AB074 /* block_annotate.h in Copy ../../src/core/lib/iomgr Private Headers */,
@@ -6347,7 +6347,7 @@
 		A83D550F94A24BD22C0A7BD5E8D7EC93 /* Copy ../../crypto/fipsmodule/cipher Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../crypto/fipsmodule/cipher";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../crypto/fipsmodule/cipher";
 			dstSubfolderSpec = 16;
 			files = (
 				4033975B455BCE3AA8D1EA4DA88AD124 /* internal.h in Copy ../../crypto/fipsmodule/cipher Private Headers */,
@@ -6358,7 +6358,7 @@
 		A88A313A555F504782AB4AED34838831 /* Copy ../../src/core/lib/security/credentials/composite Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/lib/security/credentials/composite";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/credentials/composite";
 			dstSubfolderSpec = 16;
 			files = (
 				9EB00B2940E16CEA360AE29369BBE99D /* composite_credentials.h in Copy ../../src/core/lib/security/credentials/composite Public Headers */,
@@ -6369,7 +6369,7 @@
 		A91185E75A4794FD0A314A35D3636F0F /* Copy ../../src/core/lib/security/credentials/alts Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/lib/security/credentials/alts";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/credentials/alts";
 			dstSubfolderSpec = 16;
 			files = (
 				22BBDD90B52E5506F239A10A047E57F4 /* alts_credentials.h in Copy ../../src/core/lib/security/credentials/alts Public Headers */,
@@ -6382,7 +6382,7 @@
 		AA175EF4CA93BBB8634189C2FFA18694 /* Copy ../../src/core/tsi/alts/zero_copy_frame_protector Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/tsi/alts/zero_copy_frame_protector";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/tsi/alts/zero_copy_frame_protector";
 			dstSubfolderSpec = 16;
 			files = (
 				3FA4AF854F1C66EF4530A24458397D63 /* alts_grpc_integrity_only_record_protocol.h in Copy ../../src/core/tsi/alts/zero_copy_frame_protector Private Headers */,
@@ -6398,7 +6398,7 @@
 		AA1EE66E788D0F27293BF59E669CA13F /* Copy ../../crypto/fipsmodule/aes Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../crypto/fipsmodule/aes";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../crypto/fipsmodule/aes";
 			dstSubfolderSpec = 16;
 			files = (
 				AF997AB17CC7B89C70836D7F895BFB35 /* internal.h in Copy ../../crypto/fipsmodule/aes Private Headers */,
@@ -6409,7 +6409,7 @@
 		AA51B1D229745413F8ADE34AF1F0D5F8 /* Copy ../../src/core/ext/transport/chttp2/client Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/ext/transport/chttp2/client";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/ext/transport/chttp2/client";
 			dstSubfolderSpec = 16;
 			files = (
 				C18176200882C666D137513456CB23C1 /* authority.h in Copy ../../src/core/ext/transport/chttp2/client Public Headers */,
@@ -6421,7 +6421,7 @@
 		AB4DEBA8B05A13A8FE3D6A06C9E7D486 /* Copy ../../crypto/pkcs7 Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../crypto/pkcs7";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../crypto/pkcs7";
 			dstSubfolderSpec = 16;
 			files = (
 				258CB2CF0C70567DDB98F4174F59CE4C /* internal.h in Copy ../../crypto/pkcs7 Private Headers */,
@@ -6432,7 +6432,7 @@
 		AB5A5C12F97D56DC71CDB4E1582F2D51 /* Copy ../../src/core/lib/http Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/http";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/http";
 			dstSubfolderSpec = 16;
 			files = (
 				9D4437C6D001DD5FC96345396C7D8301 /* format_request.h in Copy ../../src/core/lib/http Private Headers */,
@@ -6445,7 +6445,7 @@
 		AB76623426001984B736C1F63D1BC8D8 /* Copy ../../src/core/ext/filters/http/server Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/http/server";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/http/server";
 			dstSubfolderSpec = 16;
 			files = (
 				C8DD0CBC034A9B263C6A568D4C0A0A6F /* http_server_filter.h in Copy ../../src/core/ext/filters/http/server Private Headers */,
@@ -6467,7 +6467,7 @@
 		AE58E2309927076A0A735F883733B9DE /* Copy ../../crypto/fipsmodule/tls Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../crypto/fipsmodule/tls";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../crypto/fipsmodule/tls";
 			dstSubfolderSpec = 16;
 			files = (
 				55DC421414ABBDC61191FEBB5AF475D8 /* internal.h in Copy ../../crypto/fipsmodule/tls Private Headers */,
@@ -6478,7 +6478,7 @@
 		AF18E891B4A21C9E85072D451FA978E0 /* Copy ../../src/core/lib/security/credentials/ssl Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/security/credentials/ssl";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/credentials/ssl";
 			dstSubfolderSpec = 16;
 			files = (
 				6D6FDC6FFCA7250B8EEAFD93D5C49EEA /* ssl_credentials.h in Copy ../../src/core/lib/security/credentials/ssl Private Headers */,
@@ -6489,7 +6489,7 @@
 		AF334A47A3D5C15EA8EDA0604C0AC5A9 /* Copy ../../src/core/lib/security/credentials/fake Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/lib/security/credentials/fake";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/credentials/fake";
 			dstSubfolderSpec = 16;
 			files = (
 				4CC72525887936A47B42F10AD35AFDF7 /* fake_credentials.h in Copy ../../src/core/lib/security/credentials/fake Public Headers */,
@@ -6532,7 +6532,7 @@
 		B0FABBF9D5BDFDF768795AE5E8045011 /* Copy ../../src/core/ext/filters/client_channel/lb_policy Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/client_channel/lb_policy";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/client_channel/lb_policy";
 			dstSubfolderSpec = 16;
 			files = (
 				8B5584AEAC2BCBA12F3CF13A6010E675 /* subchannel_list.h in Copy ../../src/core/ext/filters/client_channel/lb_policy Public Headers */,
@@ -6543,7 +6543,7 @@
 		B14078FEE4AF0BBF43E262A35EF0C49A /* Copy ../../src/core/lib/avl Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/avl";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/avl";
 			dstSubfolderSpec = 16;
 			files = (
 				87F34FF9E6FC2F59E71F139A0F2A9332 /* avl.h in Copy ../../src/core/lib/avl Private Headers */,
@@ -6585,7 +6585,7 @@
 		B25897240BF021ABEC086DCE76FF8B33 /* Copy ../../src/core/lib/http Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/http";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/http";
 			dstSubfolderSpec = 16;
 			files = (
 				9BB7A6C6A8EF955088AA0DF75C12C974 /* format_request.h in Copy ../../src/core/lib/http Private Headers */,
@@ -6598,7 +6598,7 @@
 		B336D08D411BB44CE26163F032EBB403 /* Copy ../../src/core/lib/slice Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/slice";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/slice";
 			dstSubfolderSpec = 16;
 			files = (
 				89E3587ED8ECB6637152671FAD4CD6FB /* b64.h in Copy ../../src/core/lib/slice Private Headers */,
@@ -6614,7 +6614,7 @@
 		B37838DE545F0C429E057F2E51E8140A /* Copy ../../crypto/cipher_extra Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../crypto/cipher_extra";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../crypto/cipher_extra";
 			dstSubfolderSpec = 16;
 			files = (
 				84C800E829ED020189EAF2D7E9F216EB /* internal.h in Copy ../../crypto/cipher_extra Private Headers */,
@@ -6625,7 +6625,7 @@
 		B3C7FCEF0946991EC0BB42910A72ED30 /* Copy ../../src/core/tsi/ssl/session_cache Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/tsi/ssl/session_cache";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/tsi/ssl/session_cache";
 			dstSubfolderSpec = 16;
 			files = (
 				14918A064C2427D04C3E89386A0A977D /* ssl_session.h in Copy ../../src/core/tsi/ssl/session_cache Private Headers */,
@@ -6637,7 +6637,7 @@
 		B44CFE528348ED23E2C4D7F6ABF13884 /* Copy ../../crypto/asn1 Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../crypto/asn1";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../crypto/asn1";
 			dstSubfolderSpec = 16;
 			files = (
 				913E2FFA35E7AE0E82968EF810632845 /* asn1_locl.h in Copy ../../crypto/asn1 Private Headers */,
@@ -6680,7 +6680,7 @@
 		B4BAEBDA35C32C9199C456EC566FEABF /* Copy ../../crypto/fipsmodule/modes Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../crypto/fipsmodule/modes";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../crypto/fipsmodule/modes";
 			dstSubfolderSpec = 16;
 			files = (
 				7D58DA8CA75693A4A2D1C257B6B75250 /* internal.h in Copy ../../crypto/fipsmodule/modes Private Headers */,
@@ -6691,7 +6691,7 @@
 		B50D9EB6EAA6C6D4B67A6288335801FC /* Copy ../../src/core/lib/gprpp Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/gprpp";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/gprpp";
 			dstSubfolderSpec = 16;
 			files = (
 				ADD98683683B6103144FF125AA8DF194 /* abstract.h in Copy ../../src/core/lib/gprpp Private Headers */,
@@ -6721,7 +6721,7 @@
 		B5EE44DFD7F3CDA4F9104A05743336D7 /* Copy ../../src/core/ext/transport/chttp2/alpn Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/ext/transport/chttp2/alpn";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/ext/transport/chttp2/alpn";
 			dstSubfolderSpec = 16;
 			files = (
 				33D14673D6970ED75E5397BAF90B10B7 /* alpn.h in Copy ../../src/core/ext/transport/chttp2/alpn Private Headers */,
@@ -6732,7 +6732,7 @@
 		B6926631B9DE355304C4976322FC36F6 /* Copy ../../src/core/ext/filters/message_size Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/message_size";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/message_size";
 			dstSubfolderSpec = 16;
 			files = (
 				DBD793BEB75467C6029DD84D1AD7BD24 /* message_size_filter.h in Copy ../../src/core/ext/filters/message_size Public Headers */,
@@ -6743,7 +6743,7 @@
 		B6C3574494B56AA55769B42ECCA76A35 /* Copy ../../crypto/fipsmodule/ec Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../crypto/fipsmodule/ec";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../crypto/fipsmodule/ec";
 			dstSubfolderSpec = 16;
 			files = (
 				03E5D10B0A291C588707DFAFA45C6310 /* internal.h in Copy ../../crypto/fipsmodule/ec Private Headers */,
@@ -6756,7 +6756,7 @@
 		B985E6A25CF480D9B33F027B1F455EB5 /* Copy ../../src/core/lib/security/transport Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/lib/security/transport";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/transport";
 			dstSubfolderSpec = 16;
 			files = (
 				98525AA65520A1DAF02385A9D7F49918 /* auth_filters.h in Copy ../../src/core/lib/security/transport Public Headers */,
@@ -6771,7 +6771,7 @@
 		BDFD99C572FD2E6CEB758E6A6D0F41C3 /* Copy ../../src/core/ext/filters/max_age Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/max_age";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/max_age";
 			dstSubfolderSpec = 16;
 			files = (
 				857ADC77DA79C57E132E573A3914F4C7 /* max_age_filter.h in Copy ../../src/core/ext/filters/max_age Public Headers */,
@@ -6793,7 +6793,7 @@
 		C3555DB398377005DFCEC777F597B8C7 /* Copy ../../src/core/lib/debug Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/debug";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/debug";
 			dstSubfolderSpec = 16;
 			files = (
 				620FF216E3DF40757273D54552DBE7E3 /* stats.h in Copy ../../src/core/lib/debug Private Headers */,
@@ -6806,7 +6806,7 @@
 		C75007434105CD7442E4B2C063A26F4E /* Copy ../../crypto/fipsmodule/digest Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../crypto/fipsmodule/digest";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../crypto/fipsmodule/digest";
 			dstSubfolderSpec = 16;
 			files = (
 				4957C47B3AAA6D4E060ADE18FEA7BCC1 /* internal.h in Copy ../../crypto/fipsmodule/digest Private Headers */,
@@ -6818,7 +6818,7 @@
 		C75698F5B61A70097FC55E959E94237B /* Copy ../../crypto/fipsmodule/bn Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../crypto/fipsmodule/bn";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../crypto/fipsmodule/bn";
 			dstSubfolderSpec = 16;
 			files = (
 				7993ECD659889C266E093825B2FF2A8B /* internal.h in Copy ../../crypto/fipsmodule/bn Private Headers */,
@@ -6830,7 +6830,7 @@
 		C8B48CF5AF895B82D84017F25E04E0CB /* Copy ../../src/core/lib/security/security_connector/alts Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/security/security_connector/alts";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/security_connector/alts";
 			dstSubfolderSpec = 16;
 			files = (
 				18F71A958568EBDF65C7995922FA6674 /* alts_security_connector.h in Copy ../../src/core/lib/security/security_connector/alts Private Headers */,
@@ -6841,7 +6841,7 @@
 		CBECEF21401EEEE4AEB17777BDC061A5 /* Copy ../../crypto/obj Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../crypto/obj";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../crypto/obj";
 			dstSubfolderSpec = 16;
 			files = (
 				44D291BE9CFBE6F028D8A27B6E266F71 /* obj_dat.h in Copy ../../crypto/obj Private Headers */,
@@ -6852,7 +6852,7 @@
 		CC5C9F6FE4FB80919756DB1C5545962F /* Copy ../../src/core/lib/security/credentials/local Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/lib/security/credentials/local";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/credentials/local";
 			dstSubfolderSpec = 16;
 			files = (
 				951CA20CD4DFCAA85756E1A57924AFDF /* local_credentials.h in Copy ../../src/core/lib/security/credentials/local Public Headers */,
@@ -6863,7 +6863,7 @@
 		CC9DE1C6F614152C4D1525BA6F7309B5 /* Copy ../../src/core/ext/transport/chttp2/alpn Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/ext/transport/chttp2/alpn";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/ext/transport/chttp2/alpn";
 			dstSubfolderSpec = 16;
 			files = (
 				857DBE9FFB924742663C51F8A8EB4C79 /* alpn.h in Copy ../../src/core/ext/transport/chttp2/alpn Public Headers */,
@@ -6874,7 +6874,7 @@
 		CDC86344A91717A3517DAFA708326EFE /* Copy ../../src/core/lib/gpr Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/gpr";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/gpr";
 			dstSubfolderSpec = 16;
 			files = (
 				140E9C248E217AB356908B4FCE19F039 /* alloc.h in Copy ../../src/core/lib/gpr Private Headers */,
@@ -6984,7 +6984,7 @@
 		D388A82DEF04AFC360E42522433229E2 /* Copy ../../src/core/tsi/alts/crypt Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/tsi/alts/crypt";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/tsi/alts/crypt";
 			dstSubfolderSpec = 16;
 			files = (
 				67D904B84B8B50D3E8A4ED33B5056F9F /* gsec.h in Copy ../../src/core/tsi/alts/crypt Private Headers */,
@@ -6995,7 +6995,7 @@
 		D3AE30D8DA2F98EF79FAE969C4059BD2 /* Copy ../../src/core/lib/security/security_connector/ssl Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/security/security_connector/ssl";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/security_connector/ssl";
 			dstSubfolderSpec = 16;
 			files = (
 				CCF4EBB89F0F41AEC9BD0DC861B2DB51 /* ssl_security_connector.h in Copy ../../src/core/lib/security/security_connector/ssl Private Headers */,
@@ -7006,7 +7006,7 @@
 		D658FC95F780C415EAB9784C46A8F3B5 /* Copy ../../src/core/tsi Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/tsi";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/tsi";
 			dstSubfolderSpec = 16;
 			files = (
 				083DF84604730A82A4CC6DE99A7089B7 /* fake_transport_security.h in Copy ../../src/core/tsi Public Headers */,
@@ -7048,7 +7048,7 @@
 		DC399AA2483091E39283DE1D201DA14A /* Copy ../../src/core/lib/security/transport Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/security/transport";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/transport";
 			dstSubfolderSpec = 16;
 			files = (
 				1994F2764761F48A16E96AE8E292A749 /* auth_filters.h in Copy ../../src/core/lib/security/transport Private Headers */,
@@ -7063,7 +7063,7 @@
 		DC942559372A73B47F0E93EE827C5BAD /* Copy ../../src/core/ext/filters/deadline Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/deadline";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/deadline";
 			dstSubfolderSpec = 16;
 			files = (
 				56FF65B6DBD3F0704560AFEE5E6AA172 /* deadline_filter.h in Copy ../../src/core/ext/filters/deadline Public Headers */,
@@ -7074,7 +7074,7 @@
 		DF0E5B34EBC55C949E08C2BE37062A16 /* Copy ../../src/core/lib/security/security_connector Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/security/security_connector";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/security_connector";
 			dstSubfolderSpec = 16;
 			files = (
 				71E06500CA44E2DDF088EBDAA873DDD3 /* load_system_roots.h in Copy ../../src/core/lib/security/security_connector Private Headers */,
@@ -7088,7 +7088,7 @@
 		E4AC1D8545B07A04C0204289115512F6 /* Copy ../../src/core/lib/debug Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/debug";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/debug";
 			dstSubfolderSpec = 16;
 			files = (
 				3F616D6DF48EBEA8683CFBDE43629510 /* stats.h in Copy ../../src/core/lib/debug Private Headers */,
@@ -7101,7 +7101,7 @@
 		E52F3ED3C8CA97BABBDE4EE62FED25D6 /* Copy ../../src/core/lib/security/credentials/oauth2 Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/security/credentials/oauth2";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/credentials/oauth2";
 			dstSubfolderSpec = 16;
 			files = (
 				7414F9FEA341C5AE8116F3E94E5A0FEA /* oauth2_credentials.h in Copy ../../src/core/lib/security/credentials/oauth2 Private Headers */,
@@ -7112,7 +7112,7 @@
 		E5936AD9A3CC5A22EAF5D057DFE9EE63 /* Copy ../../src/core/ext/filters/client_channel/lb_policy/grpclb/proto/grpc/lb/v1/google/protobuf Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/client_channel/lb_policy/grpclb/proto/grpc/lb/v1/google/protobuf";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/client_channel/lb_policy/grpclb/proto/grpc/lb/v1/google/protobuf";
 			dstSubfolderSpec = 16;
 			files = (
 				8309FF41E80B502D67E508C310747DF3 /* duration.pb.h in Copy ../../src/core/ext/filters/client_channel/lb_policy/grpclb/proto/grpc/lb/v1/google/protobuf Private Headers */,
@@ -7124,7 +7124,7 @@
 		E6C58862F2389A92411F2030AFC6EDCA /* Copy ../../src/core/lib/json Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/json";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/json";
 			dstSubfolderSpec = 16;
 			files = (
 				9BC5312C7BA9571E0F208D586DF48DA5 /* json.h in Copy ../../src/core/lib/json Private Headers */,
@@ -7138,7 +7138,7 @@
 		E960641FA586BDCEBA5E5FE80DBA2C64 /* Copy ../../src/core/lib/security/credentials/local Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/security/credentials/local";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/credentials/local";
 			dstSubfolderSpec = 16;
 			files = (
 				C48800BA5378EF818820C6B6497B008D /* local_credentials.h in Copy ../../src/core/lib/security/credentials/local Private Headers */,
@@ -7149,7 +7149,7 @@
 		EAF9F78E2D1B4D0158ACD41E0DC4C94A /* Copy ../../src/core/ext/filters/client_channel/lb_policy/grpclb Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/client_channel/lb_policy/grpclb";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/client_channel/lb_policy/grpclb";
 			dstSubfolderSpec = 16;
 			files = (
 				4DF57382B883974B41EA4AA720D339AE /* client_load_reporting_filter.h in Copy ../../src/core/ext/filters/client_channel/lb_policy/grpclb Private Headers */,
@@ -7164,7 +7164,7 @@
 		EBC4FD2FEC3065F366ED84371D5D9B1D /* Copy ../../src/core/ext/filters/client_channel/health Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/client_channel/health";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/client_channel/health";
 			dstSubfolderSpec = 16;
 			files = (
 				34B4BFA60B3C356190C7A622B2FDA3FE /* health.pb.h in Copy ../../src/core/ext/filters/client_channel/health Private Headers */,
@@ -7175,7 +7175,7 @@
 		EDDB46040420A52D336D92C846C71783 /* Copy ../../src/core/ext/filters/http/message_compress Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/http/message_compress";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/http/message_compress";
 			dstSubfolderSpec = 16;
 			files = (
 				86122AEF9A7FBC0B2687069FD0756CC4 /* message_compress_filter.h in Copy ../../src/core/ext/filters/http/message_compress Public Headers */,
@@ -7186,7 +7186,7 @@
 		F08AC5AB32837D4EBAD19D155AD1B9B4 /* Copy ../../src/core/lib/security/security_connector/local Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/lib/security/security_connector/local";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/security_connector/local";
 			dstSubfolderSpec = 16;
 			files = (
 				4E7B98B58E2A5DB0D10F0A03B38E3403 /* local_security_connector.h in Copy ../../src/core/lib/security/security_connector/local Public Headers */,
@@ -7197,7 +7197,7 @@
 		F2699ED03AE9455C59F3C7DAB50CA571 /* Copy ../../src/core/ext/transport/chttp2/server Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/ext/transport/chttp2/server";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/ext/transport/chttp2/server";
 			dstSubfolderSpec = 16;
 			files = (
 				CA25D3206FC241C08589792BC661F05B /* chttp2_server.h in Copy ../../src/core/ext/transport/chttp2/server Public Headers */,
@@ -7208,7 +7208,7 @@
 		F315AE12F8420272540A71EFD6582072 /* Copy ../../src/core/lib/security/credentials/fake Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/security/credentials/fake";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/credentials/fake";
 			dstSubfolderSpec = 16;
 			files = (
 				5B6BDCECD6BCAC730E4F1AC624F06106 /* fake_credentials.h in Copy ../../src/core/lib/security/credentials/fake Private Headers */,
@@ -7219,7 +7219,7 @@
 		F38057B4EFA282455322D28934783415 /* Copy ../../src/cpp/client Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/cpp/client";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/cpp/client";
 			dstSubfolderSpec = 16;
 			files = (
 				49F704F162FD8AD5971B41621D3D978C /* create_channel_internal.h in Copy ../../src/cpp/client Private Headers */,
@@ -7231,7 +7231,7 @@
 		F4170BFDEA4CA6010F238B8994D89D54 /* Copy ../../src/core/ext/filters/client_channel/lb_policy/grpclb Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/client_channel/lb_policy/grpclb";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/client_channel/lb_policy/grpclb";
 			dstSubfolderSpec = 16;
 			files = (
 				4CCF3F57E993C07C515634E964DC921C /* client_load_reporting_filter.h in Copy ../../src/core/ext/filters/client_channel/lb_policy/grpclb Public Headers */,
@@ -7246,7 +7246,7 @@
 		FA0EE2E62298E8F199BEA7CFF5EED56F /* Copy ../../src/core/tsi/alts/handshaker Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/tsi/alts/handshaker";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/tsi/alts/handshaker";
 			dstSubfolderSpec = 16;
 			files = (
 				88F161B524ACF75C1416EBB668DAA67E /* alts_handshaker_client.h in Copy ../../src/core/tsi/alts/handshaker Private Headers */,
@@ -7267,7 +7267,7 @@
 		FB291280EBB8CFD04247B70331F10953 /* Copy ../../src/core/lib/backoff Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/backoff";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/backoff";
 			dstSubfolderSpec = 16;
 			files = (
 				013A06BD53C838D3569E87E6E8C56D90 /* backoff.h in Copy ../../src/core/lib/backoff Private Headers */,
@@ -7278,7 +7278,7 @@
 		FB4901EE42D3F42D69932D180793EFB3 /* Copy ../../src/core/lib/security/credentials/jwt Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/security/credentials/jwt";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/security/credentials/jwt";
 			dstSubfolderSpec = 16;
 			files = (
 				85C3C9A5B0F62C8B2FD35C97A4F02D47 /* json_token.h in Copy ../../src/core/lib/security/credentials/jwt Private Headers */,
@@ -7291,7 +7291,7 @@
 		FC2F04C2C3A66062EAE473816A334BDD /* Copy ../../src/core/ext/filters/client_channel/resolver/fake Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/client_channel/resolver/fake";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/client_channel/resolver/fake";
 			dstSubfolderSpec = 16;
 			files = (
 				81407863D9FF499E97D53F688DD76A41 /* fake_resolver.h in Copy ../../src/core/ext/filters/client_channel/resolver/fake Private Headers */,
@@ -7302,7 +7302,7 @@
 		FEDF5D37BD902B3133AD71DC532C5675 /* Copy ../../src/core/ext/filters/http/client Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/http/client";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/http/client";
 			dstSubfolderSpec = 16;
 			files = (
 				F045D83741016C23AB1AD4AA720A3E47 /* http_client_filter.h in Copy ../../src/core/ext/filters/http/client Private Headers */,
@@ -7324,7 +7324,7 @@
 		FF8E50E2306754148FF291C85E313B5C /* Copy ../../src/core/lib/iomgr Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/core/lib/iomgr";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/core/lib/iomgr";
 			dstSubfolderSpec = 16;
 			files = (
 				0CD03BCE3DE4555B858D326F5F7219D3 /* block_annotate.h in Copy ../../src/core/lib/iomgr Private Headers */,
@@ -7403,7 +7403,7 @@
 		FFA38854F0AA0163648F4A41D57741EB /* Copy ../../src/core/ext/filters/http Public Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../src/core/ext/filters/http";
+			dstPath = "$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../src/core/ext/filters/http";
 			dstSubfolderSpec = 16;
 			files = (
 				74BB826A8776D34BEFBB531C860865E5 /* client_authority_filter.h in Copy ../../src/core/ext/filters/http Public Headers */,
@@ -7414,7 +7414,7 @@
 		FFD066EB4FCA16C7F33F504BA51A8D74 /* Copy ../../src/cpp/server Private Headers */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../src/cpp/server";
+			dstPath = "$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../src/cpp/server";
 			dstSubfolderSpec = 16;
 			files = (
 				936BF5A53951C988FCDE09A3A7B98357 /* dynamic_thread_pool.h in Copy ../../src/cpp/server Private Headers */,

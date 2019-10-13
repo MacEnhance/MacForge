@@ -25,12 +25,6 @@ target 'MacForge' do
   # pod 'FirebaseMessaging'
   # pod 'FirebaseRemoteConfig'
   pod 'FirebaseStorage'
-  
-  # pod 'FirebaseCore', :path => './firebase_sdk/'
-  # pod 'FirebaseDatabase', :path => './firebase_sdk/'
-  # pod 'FirebaseStorage', :path => './firebase_sdk/'
-  # pod 'FirebaseAuth', :path => './firebase_sdk/'
-  # pod 'FirebaseFirestore', :path => './firebase_sdk/'
 end
 
 target 'purchaseValidationApp' do
@@ -54,4 +48,21 @@ target 'MacForgeFix' do
 end
 
 target 'MacForgeKit' do
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    if target.name.start_with?('BoringSSL') or target.name.start_with?('gRPC')
+      target.build_phases.each do |phase|
+        if phase.is_a?(Xcodeproj::Project::Object::PBXCopyFilesBuildPhase) and phase.name.end_with?('Headers')
+          if phase.dst_path.start_with? '$(PUBLIC_HEADERS_FOLDER_PATH)/../../'
+            phase.dst_path.sub! '$(PUBLIC_HEADERS_FOLDER_PATH)/../../', '$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../'
+          end
+          if phase.dst_path.start_with? '$(PRIVATE_HEADERS_FOLDER_PATH)/../../'
+            phase.dst_path.sub! '$(PRIVATE_HEADERS_FOLDER_PATH)/../../', '$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../'
+          end
+        end
+      end
+    end
+  end
 end
