@@ -683,4 +683,65 @@
     [self updateApplicationIcon];
 }
 
+// Check for plugin updates and update the application icon badge
+- (NSUserNotification*)checkforPluginUpdatesNotify {
+    needsUpdate = [[NSMutableDictionary alloc] init];
+    [self readPlugins:nil];
+    
+    NSDictionary *plugins = [[NSDictionary alloc] initWithDictionary:[installedPluginDICT copy]];
+    CFPreferencesAppSynchronize(CFSTR("com.w0lf.MacForge"));
+    NSArray *sourceURLS = CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("sources"), CFSTR("com.w0lf.MacForge")));
+    
+    NSMutableDictionary *sourceDICTS = [[NSMutableDictionary alloc] init];
+    for (NSString *source in sourceURLS) {
+        NSURL* data = [NSURL URLWithString:[NSString stringWithFormat:@"%@/packages_v2.plist", source]];
+        NSMutableDictionary* dic = [[NSMutableDictionary alloc] initWithContentsOfURL:data];
+        if (dic != nil) {
+            for (NSString *key in dic) {
+                NSMutableDictionary *bundle = [dic objectForKey:key];
+                [bundle setObject:source forKey:@"sourceURL"];
+            }
+            [sourceDICTS addEntriesFromDictionary:[dic copy]];
+        }
+    }
+    
+    for (NSString* key in plugins) {
+        id value = [plugins objectForKey:key];
+        id bundleID = [value objectForKey:@"bundleId"];
+        id localVersion = [value objectForKey:@"version"];
+        if ([sourceDICTS objectForKey:bundleID]) {
+            NSDictionary *bundleInfo = [[NSDictionary alloc] initWithDictionary:[sourceDICTS objectForKey:bundleID]];
+            id updateVersion = [bundleInfo objectForKey:@"version"];
+            NSComparisonResult res = [PluginManager compareVersion:(NSString*)updateVersion toVersion:(NSString*)localVersion];
+            if (res == 1)
+                [needsUpdate setObject:bundleInfo forKey:bundleID];
+        }
+    }
+        
+    NSUserNotification *notification = [[NSUserNotification alloc] init];
+    
+    if ([NSBundle.mainBundle.bundleIdentifier isEqualToString:@"com.w0lf.MacForgeHelper"]) {
+        CFPreferencesAppSynchronize(CFSTR("com.w0lf.MacForge"));
+        NSDictionary *GUIDefaults = [[NSUserDefaults standardUserDefaults] persistentDomainForName:@"com.w0lf.MacForge"];
+        if ([[GUIDefaults objectForKey:@"prefPluginNotifications"] boolValue]) {
+            NSString *packages = @"";
+            for (NSString *key in needsUpdate.allKeys) {
+                NSDictionary *dic = [needsUpdate objectForKey:key];
+                if (packages.length > 0) packages = [packages stringByAppendingString:@", "];
+                packages = [packages stringByAppendingString:[dic objectForKey:@"name"]];
+            }
+            
+            notification.title = @"Plugins need updating";
+            notification.subtitle = @"";
+            notification.informativeText = packages;
+            notification.soundName = NSUserNotificationDefaultSoundName;
+            notification.contentImage = [NSImage imageNamed:@"icon_Upload-Information-icon_24x24"];
+        }
+    }
+        
+    [self updateApplicationIcon];
+    
+    return notification;
+}
+
 @end

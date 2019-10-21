@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface MFAppDelegate : NSObject <NSApplicationDelegate> {
+@interface MFAppDelegate : NSObject <NSApplicationDelegate, NSUserNotificationCenterDelegate> {
     NSMutableArray *watchdogs;
 }
 

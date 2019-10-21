@@ -34,27 +34,20 @@ void HandleExceptions(NSException *exception) {
     [alert runModal];
 }
 
-//- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
-//    NSAlert *alert = [[NSAlert alloc] init];
-//    [alert setMessageText:@"Are you sure you want to quit? If you do plugins will no longer be loaded into Applications."];
-//    [alert addButtonWithTitle:@"Cancel"];
-//    [alert addButtonWithTitle:@"OK"];
+//- (void)userNotificationCenter:(NSUserNotificationCenter *)center
+//        didDeliverNotification:(NSUserNotification *)notification {
 //
-////    NSTextField *input = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 200, 24)];
-////    [input setStringValue:@"Yolo!"];
-////    [alert setAccessoryView:input];
-//
-//    NSInteger button = [alert runModal];
-//    NSApplicationTerminateReply terminator = NSTerminateNow;
-//    if (button == NSAlertFirstButtonReturn) {
-//        terminator = NSTerminateCancel;
-////        [input validateEditing];
-//    } else if (button == NSAlertSecondButtonReturn) {
-//    } else {
-//    }
-//
-//    return terminator;
 //}
+
+- (void)userNotificationCenter:(NSUserNotificationCenter *)center
+       didActivateNotification:(NSUserNotification *)notification {
+    [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.w0lf.MacForgeNotify" object:@"update"];
+}
+
+- (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center
+     shouldPresentNotification:(NSUserNotification *)notification {
+    return YES;
+}
 
 // Cleanup
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
@@ -128,15 +121,20 @@ void HandleExceptions(NSException *exception) {
 //    Boolean autoCheckPlugins = CFPreferencesGetAppBooleanValue(CFSTR("prefPluginCheck"), CFSTR("com.w0lf.MacForge"), NULL);
 //    if (autoCheckPlugins && !autoUpdatePlugins)
 //        [self updatesPlugins];
-    if (autoUpdatePlugins)
+    if (autoUpdatePlugins) {
         [self updatesPluginsInstall];
-    else
+    } else {
         [self updatesPlugins];
+    }
 }
 
 - (void)updatesPlugins {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [[PluginManager sharedInstance] checkforPluginUpdates:nil];
+        NSUserNotification *notif = [[PluginManager sharedInstance] checkforPluginUpdatesNotify];
+        if (notif) {
+            NSUserNotificationCenter.defaultUserNotificationCenter.delegate = self;
+            [NSUserNotificationCenter.defaultUserNotificationCenter deliverNotification:notif];
+        }
         [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.w0lf.MacForgeNotify" object:@"check"];
     });
 }
@@ -245,8 +243,10 @@ void HandleExceptions(NSException *exception) {
     NSLog(@"%d", pid);
 //    ps -A | grep -m1 SidecarRelay | awk '{print $1}'
     
-    [MFInjectorProxy injectPID:pid :@"" :&error];
-    
+//    [MFInjectorProxy injectPID:pid :@"/Users/w0lf/Library/Developer/Xcode/DerivedData/poopbutt-edtzriagafrshgeqwfflriaduapq/Build/Products/Debug/libpoopbutt.dylib" :&error];
+//    [MFInjectorProxy injectPID:pid :@"/Library/Application Support/MacEnhance/Plugins (Disabled)/Afloat.bundle" :&error];
+    [MFInjectorProxy injectPID:86959 :@"/Library/Application Support/MacEnhance/Plugins (Disabled)/Afloat.bundle" :&error];
+
     NSLog(@"%@", error);
 }
 
@@ -257,7 +257,7 @@ void HandleExceptions(NSException *exception) {
     [stackMenu addItem:NSMenuItem.separatorItem];
     [self addMenuItemToMenu:stackMenu :@"Open at Login" :@selector(toggleStartAtLogin:) :@""];
     [[stackMenu itemAtIndex:3] setState:NSBundle.mainBundle.isLoginItemEnabled];
-//    [self addMenuItemToMenu:stackMenu :@"Test inject..." :@selector(testInject) :@""];
+    [self addMenuItemToMenu:stackMenu :@"Test inject..." :@selector(testInject) :@""];
     [stackMenu addItem:NSMenuItem.separatorItem];
     [self addMenuItemToMenu:stackMenu :@"Open MacForge" :@selector(openMacForge) :@""];
     [stackMenu addItem:NSMenuItem.separatorItem];
@@ -318,7 +318,7 @@ void HandleExceptions(NSException *exception) {
     // Log some info about the app
     NSString* appName = runningApp.localizedName;
     SIMBLLogInfo(@"%@ started", appName);
-    SIMBLLogDebug(@"app start notification: %@", runningApp);
+    SIMBLLogDebug(@"App start notification: %@", runningApp);
     
     // Check to see if there are plugins to load
     if (runningApp.bundleURL)

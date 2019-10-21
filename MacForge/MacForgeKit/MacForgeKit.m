@@ -115,22 +115,47 @@ bool _csr_check(int aMask, bool aFlipflag)
     return !([result rangeOfString:@"amfi_get_out_of_my_way=1"].length);
 }
 
++ (Boolean)toggleBootArg:(NSString*)arg {
+    NSString *newBootArgs = [MacForgeKit runScript:@"nvram boot-args"];
+    NSString *argEnabled = [arg stringByAppendingString:@"=1"];
+    
+    
+    // Remove cs_enforcement_disable=1
+    if ([newBootArgs containsString:argEnabled]) {
+        newBootArgs = [newBootArgs stringByReplacingOccurrencesOfString:argEnabled withString:@""];
+    } else {
+    // Add cs_enforcement_disable=1
+        newBootArgs = [newBootArgs stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+        newBootArgs = [newBootArgs stringByAppendingFormat:@" %@", argEnabled];
+    }
+    
+    newBootArgs = [newBootArgs stringByReplacingOccurrencesOfString:@"boot-args" withString:@""];
+    newBootArgs = [newBootArgs stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    newBootArgs = [newBootArgs stringByReplacingOccurrencesOfString: @"[ \t]+"
+                                                         withString: @" "
+                                                            options: NSRegularExpressionSearch
+                                                              range: NSMakeRange(0, newBootArgs.length)];
+    
+    newBootArgs = [NSString stringWithFormat:@"boot-args=%@", newBootArgs];
+    [MacForgeKit runSTPrivilegedTask:@"/usr/sbin/nvram" :@[newBootArgs]];
+    return !([newBootArgs rangeOfString:argEnabled].length);
+}
+
++ (Boolean)AASIG_toggle {
+    return [MacForgeKit toggleBootArg:@"amfi_allow_any_signature"];
+}
+
++ (Boolean)CSEN_toggle {
+    return [MacForgeKit toggleBootArg:@"cs_enforcement_disable"];
+}
+
 + (Boolean)AMFI_toggle {
-    NSArray *args = [NSArray arrayWithObject:[[NSBundle bundleForClass:[MacForgeKit class]] pathForResource:@"amfiswitch" ofType:nil]];
-    return [MacForgeKit runSTPrivilegedTask:@"/bin/sh" :args];
+    return [MacForgeKit toggleBootArg:@"amfi_get_out_of_my_way"];
 }
 
 + (Boolean)MacEnhance_remove {
     NSArray *args = [NSArray arrayWithObject:[[NSBundle bundleForClass:[MacForgeKit class]] pathForResource:@"cleanup" ofType:nil]];
     return [MacForgeKit runSTPrivilegedTask:@"/bin/sh" :args];
-}
-
-+ (void)installMacForge {
-//    NSError *error;
-//    if ([DKInstaller isInstalled] == NO && [DKInstaller install:&error] == NO) {
-//        assert(error != nil);
-//        NSLog(@"Couldn't install MachInjectSample (domain: %@ code: %@)", error.domain, [NSNumber numberWithInteger:error.code]);
-//    }
 }
 
 + (void)startWatching {

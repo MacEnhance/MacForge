@@ -27,8 +27,7 @@
 */
 
 
-OSErr pascal InjectEventHandler(const AppleEvent *ev, AppleEvent *reply, SInt32 refcon)
-{
+OSErr pascal InjectEventHandler(const AppleEvent *ev, AppleEvent *reply, SInt32 refcon) {
     OSErr resultCode = noErr;
     SIMBLLogInfo(@"load SIMBL plugins");
     [SIMBL installPlugins];

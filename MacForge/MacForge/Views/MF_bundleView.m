@@ -58,6 +58,8 @@ extern NSDictionary *testing;
 }
 
 -(void)viewWillDraw {
+    self.bundlePreviewAVPlayer.hidden = true;
+    
     for (NSView* v in self.subviews)
         if ([v.className isEqualToString:@"MF_bundlePreviewView"])
             [v removeFromSuperview];
@@ -348,6 +350,12 @@ extern NSDictionary *testing;
                         [self.bundlePreviewButton1 setEnabled:true];
                         [self.bundlePreviewButton2 setEnabled:true];
                     }
+                    
+//                    [self.bundlePreviewButton1 setFrameOrigin:CGPointMake(0, 0)];
+//                    [self.bundlePreviewAVPlayer.contentOverlayView setSubviews:@[self.bundlePreviewButton1]];
+//                    [self.bundlePreviewButton1 setFrameSize:self.bundlePreviewAVPlayer.contentOverlayView.frame.size];
+//                    [self.bundlePreviewAVPlayer.layer setBackgroundColor:NSColor.clearColor.CGColor];
+//                    self.bundlePreviewAVPlayer.controlsStyle = AVPlayerViewControlsStyleNone;
                 }
             }];
         }

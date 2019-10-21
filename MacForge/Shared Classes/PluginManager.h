@@ -31,6 +31,7 @@
 - (void)checkforPluginUpdates:(NSTableView*)table :(NSButton*)counter;
 - (void)checkforPluginUpdates:(NSTableView*)table;
 - (void)checkforPluginUpdatesAndInstall:(NSTableView*)table;
+- (NSUserNotification*)checkforPluginUpdatesNotify;
 
 - (void)readPlugins:(NSTableView *)pluginTable;
 

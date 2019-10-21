@@ -8,8 +8,7 @@
 
 @implementation NSAlert (SIMBLAlert)
 
-+ (void) errorAlert:(NSString*)_message withDetails:(NSString*)_details, ...
-{
++ (void) errorAlert:(NSString*)_message withDetails:(NSString*)_details, ... {
 	va_list ap;
 	va_start(ap, _details);
 
@@ -21,19 +20,6 @@
     [alert setInformativeText:detailsFormatted];
     [alert setAlertStyle:NSAlertStyleWarning];
     [alert beginSheetModalForWindow:NSApp.mainWindow completionHandler:^(NSModalResponse returnCode) { }];
-    
-//    NSBeginAlertSheet(
-//        _message,         // sheet message
-//        nil,              // default button label
-//        nil,              // alternate button label
-//        nil,              // no third button
-//        nil,              // window sheet is attached to fixme: should i attach to the front-most window
-//        nil,              // we don't need a delegate
-//        nil,              // did-end selector
-//        nil,              // no need for did-dismiss selector
-//        nil,              // context info
-//        detailsFormatted,    // additional text
-//        nil);             // no parameters in message
 }
 
 @end

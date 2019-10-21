@@ -44,6 +44,8 @@ NSUInteger osx_ver;
 NSArray *tabViewButtons;
 NSArray *tabViews;
 Boolean showBundleOnOpen;
+Boolean appSetupFinished = false;
+
 
 - (void)searchFieldDidEndSearching:(NSSearchField *)sender {
     [_searchPlugins abortEditing];
@@ -409,7 +411,24 @@ Boolean showBundleOnOpen;
         
         NSLog(@"zzt aourls ------------- %@", p.webPlist);
 
-        if (p) {
+        if (appSetupFinished) {
+            [myDelegate showLink:p];
+        } else {
+            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+                // Wait for the app to finish launching
+                while (!appSetupFinished)
+                    [NSThread sleepForTimeInterval:1.0f];
+                [myDelegate showLink:p];
+                dispatch_async(dispatch_get_main_queue(), ^(void){
+                    
+                });
+            });
+        }
+    }
+}
+
+- (void)showLink:(MSPlugin*)p {
+    if (p) {
             showBundleOnOpen = true;
             [myDelegate selectView:_viewDiscover];
             pluginData.sharedInstance.currentPlugin = p;
@@ -424,9 +443,8 @@ Boolean showBundleOnOpen;
             });
     //        NSLog(@"------------ test %@", repo);
     //        NSLog(@"%@", data.sourceListDic.allKeys);
-        } else {
-            showBundleOnOpen = false;
-        }
+    } else {
+        showBundleOnOpen = false;
     }
 }
 
@@ -443,6 +461,7 @@ Boolean showBundleOnOpen;
             if ([notification.object isEqualToString:@"prefs"]) [self selectView:self->_viewPreferences];
             if ([notification.object isEqualToString:@"about"]) [self selectView:self->_viewAbout];
             if ([notification.object isEqualToString:@"manage"]) [self selectView:self->_viewPlugins];
+            if ([notification.object isEqualToString:@"update"]) [self selectView:self->_viewChanges];
             if ([notification.object isEqualToString:@"check"]) { [PluginManager.sharedInstance checkforPluginUpdates:nil :self->_viewUpdateCounter]; }
         });
     }];
@@ -457,6 +476,7 @@ Boolean showBundleOnOpen;
         if ([args containsObject:@"prefs"]) [self selectView:_viewPreferences];
         if ([args containsObject:@"about"]) [self selectView:_viewAbout];
         if ([args containsObject:@"manage"]) [self selectView:_viewPlugins];
+        if ([args containsObject:@"update"]) [self selectView:_viewChanges];
     }
 
     [self installXcodeTemplate];
@@ -476,8 +496,8 @@ Boolean showBundleOnOpen;
         }
     });
 
-    NSLog(@"zzt adfl ------------- %@", [NSDate date]);
-    
+    appSetupFinished = true;
+        
     NSDate *methodFinish = [NSDate date];
     NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:appStart];
     NSLog(@"Launch time : %f Seconds", executionTime);

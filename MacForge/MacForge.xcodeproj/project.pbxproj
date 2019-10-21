@@ -100,7 +100,6 @@
 		FBE767A220EF426D00A42BD5 /* MacForgeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = FBE767A020EF426D00A42BD5 /* MacForgeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FBE767AB20EF428F00A42BD5 /* STPrivilegedTask.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE767A620EF428F00A42BD5 /* STPrivilegedTask.m */; };
 		FBE767AC20EF428F00A42BD5 /* STPrivilegedTask.h in Headers */ = {isa = PBXBuildFile; fileRef = FBE767A720EF428F00A42BD5 /* STPrivilegedTask.h */; };
-		FBE767AD20EF428F00A42BD5 /* amfiswitch in Resources */ = {isa = PBXBuildFile; fileRef = FBE767A820EF428F00A42BD5 /* amfiswitch */; };
 		FBE767AE20EF428F00A42BD5 /* cleanup in Resources */ = {isa = PBXBuildFile; fileRef = FBE767A920EF428F00A42BD5 /* cleanup */; };
 		FBE767AF20EF428F00A42BD5 /* sipvid.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = FBE767AA20EF428F00A42BD5 /* sipvid.mp4 */; };
 		FBE767B420EF432700A42BD5 /* MacForgeKit.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE767B320EF432700A42BD5 /* MacForgeKit.m */; };
@@ -428,12 +427,12 @@
 		FBBD8E2122F9319E00A97FEA /* MF_Purchase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_Purchase.h; sourceTree = "<group>"; };
 		FBBD8E2222F9319E00A97FEA /* MF_Purchase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_Purchase.m; sourceTree = "<group>"; };
 		FBC54081213912AD00A53FA4 /* MacForge.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MacForge.icns; sourceTree = "<group>"; };
+		FBDCD2A12356CF710043A601 /* mach_inject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mach_inject.h; path = ../../mach_inject/mach_inject.h; sourceTree = "<group>"; };
 		FBE7679E20EF426D00A42BD5 /* MacForgeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MacForgeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBE767A020EF426D00A42BD5 /* MacForgeKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MacForgeKit.h; sourceTree = "<group>"; };
 		FBE767A120EF426D00A42BD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FBE767A620EF428F00A42BD5 /* STPrivilegedTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STPrivilegedTask.m; sourceTree = "<group>"; };
 		FBE767A720EF428F00A42BD5 /* STPrivilegedTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPrivilegedTask.h; sourceTree = "<group>"; };
-		FBE767A820EF428F00A42BD5 /* amfiswitch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = amfiswitch; sourceTree = "<group>"; };
 		FBE767A920EF428F00A42BD5 /* cleanup */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = cleanup; sourceTree = "<group>"; };
 		FBE767AA20EF428F00A42BD5 /* sipvid.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = sipvid.mp4; sourceTree = "<group>"; };
 		FBE767B320EF432700A42BD5 /* MacForgeKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MacForgeKit.m; sourceTree = "<group>"; };
@@ -647,6 +646,7 @@
 		F0ADE129166DF9FB009758CC /* Injector */ = {
 			isa = PBXGroup;
 			children = (
+				FBDCD2A12356CF710043A601 /* mach_inject.h */,
 				F0ADE1C5166E0874009758CC /* main.m */,
 				F0ADE12A166DF9FB009758CC /* MFInjector.h */,
 				F0ADE12B166DF9FB009758CC /* MFInjector.m */,
@@ -956,7 +956,6 @@
 		FBE767B020EF429300A42BD5 /* scripts */ = {
 			isa = PBXGroup;
 			children = (
-				FBE767A820EF428F00A42BD5 /* amfiswitch */,
 				FBE767A920EF428F00A42BD5 /* cleanup */,
 			);
 			path = scripts;
@@ -1320,7 +1319,6 @@
 				FBE767AF20EF428F00A42BD5 /* sipvid.mp4 in Resources */,
 				FB5BB9BA2300A3EA004D3454 /* eng_sip.txt in Resources */,
 				FBE767AE20EF428F00A42BD5 /* cleanup in Resources */,
-				FBE767AD20EF428F00A42BD5 /* amfiswitch in Resources */,
 				FB5BB9B92300A3EA004D3454 /* eng_sip_mojave.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
