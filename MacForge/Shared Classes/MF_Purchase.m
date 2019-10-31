@@ -127,6 +127,8 @@ extern AppDelegate* myDelegate;
 
             NSDictionary* dic = [[NSDictionary alloc] initWithContentsOfFile:path];
             cur = [dic objectForKey:@"CFBundleShortVersionString"];
+            if ([cur isEqualToString:@""])
+                cur = [dic objectForKey:@"CFBundleVersion"];
 //            NSLog(@"------ %@", cur);
         } else {
             NSDictionary* dic = [[installedPlugins objectForKey:[item objectForKey:@"package"]] objectForKey:@"bundleInfo"];

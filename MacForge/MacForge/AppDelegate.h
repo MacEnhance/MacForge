@@ -19,12 +19,12 @@
 @import AppCenterCrashes;
 
 // Firebase
-@import FirebaseCore;
-@import FirebaseDatabase;
-@import FirebaseFirestore;
-@import FirebaseAuth;
-@import FirebaseStorage;
-@import FirebaseCoreDiagnostics;
+//@import FirebaseCore;
+//@import FirebaseDatabase;
+//@import FirebaseFirestore;
+//@import FirebaseAuth;
+//@import FirebaseStorage;
+//@import FirebaseCoreDiagnostics;
 
 // MacForgeKit
 @import MacForgeKit;
@@ -49,8 +49,8 @@
 @property IBOutlet SUUpdater *updater;
 
 // Firebase
-@property (nonatomic, readwrite) FIRFirestore *db;
-@property (strong, nonatomic) FIRDatabaseReference *ref;
+//@property (nonatomic, readwrite) FIRFirestore *db;
+//@property (strong, nonatomic) FIRDatabaseReference *ref;
 
 // ADs URL
 @property (readwrite, nonatomic) NSString* adURL;

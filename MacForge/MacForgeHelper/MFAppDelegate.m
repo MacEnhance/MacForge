@@ -58,6 +58,8 @@ void HandleExceptions(NSException *exception) {
     NSError *error;
     NSSetUncaughtExceptionHandler(&HandleExceptions);
     
+    [self setupApplication];
+    
 //    [MFInstaller install:&error];
     
     // Make sure helpers are installed
@@ -92,7 +94,6 @@ void HandleExceptions(NSException *exception) {
         if (cmd) [NSApp terminate:nil];
     }
 
-    [self setupApplication];
     [self watchForPlugins];
 }
 
@@ -257,7 +258,7 @@ void HandleExceptions(NSException *exception) {
     [stackMenu addItem:NSMenuItem.separatorItem];
     [self addMenuItemToMenu:stackMenu :@"Open at Login" :@selector(toggleStartAtLogin:) :@""];
     [[stackMenu itemAtIndex:3] setState:NSBundle.mainBundle.isLoginItemEnabled];
-    [self addMenuItemToMenu:stackMenu :@"Test inject..." :@selector(testInject) :@""];
+//    [self addMenuItemToMenu:stackMenu :@"Test inject..." :@selector(testInject) :@""];
     [stackMenu addItem:NSMenuItem.separatorItem];
     [self addMenuItemToMenu:stackMenu :@"Open MacForge" :@selector(openMacForge) :@""];
     [stackMenu addItem:NSMenuItem.separatorItem];
@@ -269,9 +270,9 @@ void HandleExceptions(NSException *exception) {
     _statusBar = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
     [_statusBar setMenu:stackMenu];
     [_statusBar setTitle:@""];
-    NSImage *statusImage = [NSImage imageNamed:@"menu.icns"];
+    NSImage *statusImage = [NSImage imageNamed:@"Menubar18"];
     [statusImage setTemplate:true];
-    [statusImage setSize:NSMakeSize(20, 20)];
+//    [statusImage setSize:NSMakeSize(20, 20)];
     [_statusBar setImage:statusImage];
 }
 
@@ -341,18 +342,27 @@ void HandleExceptions(NSException *exception) {
 
 // Try injecting all valid bundles into an running application
 + (void)injectBundle:(NSRunningApplication*)runningApp {
-    // Check if there is anything valid to inject
-    if ([MFAppDelegate shouldInject:runningApp]) {
-        pid_t pid = [runningApp processIdentifier];
-        // Try injecting each valid plugin into the application
-        for (NSString *bundlePath in [SIMBL pluginsToLoadList:[NSBundle bundleWithPath:runningApp.bundleURL.path]]) {
-            NSError *error;
-            if ([MFInjectorProxy injectPID:pid :bundlePath :&error] == false) {
-                assert(error != nil);
-                SIMBLLogNotice(@"Couldn't inject App (domain: %@ code: %@)", error.domain, [NSNumber numberWithInteger:error.code]);
-            }
-        }
-    }
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+       // Wait for the app to finish launching
+       // Check if there is anything valid to inject
+       if ([MFAppDelegate shouldInject:runningApp]) {
+           pid_t pid = [runningApp processIdentifier];
+           // Try injecting each valid plugin into the application
+           for (NSString *bundlePath in [SIMBL pluginsToLoadList:[NSBundle bundleWithPath:runningApp.bundleURL.path]]) {
+               NSError *error;
+   //            NSLog(@"Try inject App %@", runningApp.bundleIdentifier);
+
+               if ([MFInjectorProxy injectPID:pid :bundlePath :&error] == false) {
+                   assert(error != nil);
+                   NSLog(@"Couldn't inject into %d : %@ (domain: %@ code: %@)", pid, runningApp.localizedName, error.domain, [NSNumber numberWithInteger:error.code]);
+                   SIMBLLogNotice(@"Couldn't inject App (domain: %@ code: %@)", error.domain, [NSNumber numberWithInteger:error.code]);
+               }
+           }
+       }
+       dispatch_async(dispatch_get_main_queue(), ^(void){
+           
+       });
+    });
 }
 
 // Try injecting all valid bundles into an application based on bundle ID

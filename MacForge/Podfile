@@ -17,14 +17,13 @@ target 'MacForge' do
 
   # Firebase
   # pod 'FirebaseABTesting'
-  pod 'FirebaseAuth'
-  pod 'FirebaseCore'
-  pod 'FirebaseDatabase'
-  pod 'FirebaseFirestore'
+  # pod 'FirebaseAuth'
+  # pod 'FirebaseDatabase'
+  # pod 'FirebaseFirestore'
   # pod 'FirebaseFunctions'
   # pod 'FirebaseMessaging'
   # pod 'FirebaseRemoteConfig'
-  pod 'FirebaseStorage'
+  # pod 'FirebaseStorage'
 end
 
 target 'purchaseValidationApp' do

@@ -1,6 +1,9 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
+#ifndef MS_LOG_H
+#define MS_LOG_H
+
 #import <Foundation/Foundation.h>
 
 @class MSDevice;
@@ -66,3 +69,5 @@
 - (NSSet *)transmissionTargetTokens;
 
 @end
+
+#endif

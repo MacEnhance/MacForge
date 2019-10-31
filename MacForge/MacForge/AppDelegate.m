@@ -104,6 +104,9 @@ Boolean appSetupFinished = false;
     }
 }
 
+
+/*
+
 - (IBAction)fireBaseFireStoreTest:(id)sender {
     NSLog(@"Hello");
         
@@ -113,8 +116,8 @@ Boolean appSetupFinished = false;
 //      }
 //    };
     
-//    // Write to the document reference, merging data with existing
-//    // if the document already exists
+    // Write to the document reference, merging data with existing
+    // if the document already exists
 //    [[[self.db collectionWithPath:@"users"] documentWithPath:FIRAuth.auth.currentUser.uid]
 //        setData:docData
 //        merge:YES
@@ -239,8 +242,8 @@ Boolean appSetupFinished = false;
 }
 
 - (void)fireBaseSetup {
-    self.ref = [[FIRDatabase database] reference];
-    self.db = [FIRFirestore firestore];
+//    self.ref = [[FIRDatabase database] reference];
+//    self.db = [FIRFirestore firestore];
     
     FIRUser *user = [FIRAuth auth].currentUser;
         
@@ -283,6 +286,8 @@ Boolean appSetupFinished = false;
         }
     }
 }
+ 
+ */
 
 // Shared instance
 + (AppDelegate*) sharedInstance {
@@ -374,8 +379,8 @@ Boolean appSetupFinished = false;
         [test deleteCharactersInRange:NSMakeRange([repo length]-1, 1)];
         if (repo.length >= 8)
             [test replaceCharactersInRange:NSMakeRange(0, 8) withString:@"https"];
-        repo = test.copy;
-
+        repo = test.copy;        
+        
         if ([data.repoPluginsDic objectForKey:t.lastPathComponent]) {
             p = [data.repoPluginsDic objectForKey:t.lastPathComponent];
             
@@ -558,8 +563,8 @@ Boolean appSetupFinished = false;
     [self executionTime:@"launchHelper"];
     [self executionTime:@"movePreviousPurchases"];
     
-    [FIRApp configure];
-    [self executionTime:@"fireBaseSetup"];
+//    [FIRApp configure];
+//    [self executionTime:@"fireBaseSetup"];
     
     // Setup plugin table
     [_tblView registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
@@ -1422,6 +1427,18 @@ Boolean appSetupFinished = false;
 - (IBAction)visit_ad:(id)sender {
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:_adURL]];
     [MSAnalytics trackEvent:@"Visit ad" withProperties:@{@"URL" : _adURL}];
+}
+
+- (IBAction)storeSelectView:(id)sender {
+    NSMenuItem *item = (NSMenuItem*)sender;
+    NSMenu *m = item.menu;
+    NSUInteger position = [m indexOfItem:item];
+    if (position > 1) position -= 2;
+    NSArray *items = @[_viewDiscover, _viewPlugins, _viewSources, _viewChanges, _viewSystem, _viewAbout, _viewPreferences, _viewAccount];
+    if (position == 11) position = 7;
+    [self selectView:items[position]];
+    
+//    NSLog(@"%lu", (unsigned long)position);
 }
 
 - (void)keepThoseAdsFresh {

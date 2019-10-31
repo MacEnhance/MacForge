@@ -1,6 +1,9 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
+#ifndef MS_SERVICE_ABSTRACT_H
+#define MS_SERVICE_ABSTRACT_H
+
 #import <Foundation/Foundation.h>
 
 #import "MSService.h"
@@ -48,3 +51,5 @@
 - (BOOL)isAppSecretRequired;
 
 @end
+
+#endif
