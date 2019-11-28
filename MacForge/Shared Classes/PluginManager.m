@@ -478,6 +478,16 @@
     return false;;
 }
 
+-(void)pluginGetIcon:(NSString*)string withCompletion:(void(^)(BOOL success, NSError* error, id responce))completion
+{
+    NSString *str =[NSString stringWithFormat:@"MY FUNTn CALLBACK %@",string];
+    if (completion){
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completion(YES,nil,str); // here that call when method complete
+        });
+    }
+}
+
 // Fetch an icon for a bundle given it's plist
 + (NSImage*)pluginGetIcon:(NSDictionary*)plist {
     NSImage* result = nil;
@@ -513,6 +523,8 @@
 //            if (result) return result;
 //        }
 //    }
+    
+//    NSLog(@"%@%@", [plist objectForKey:@"sourceURL"], [plist objectForKey:@"icon"]);
     
     // Try finding an icon based on target applications
     // We will always use the first icon found
@@ -665,6 +677,9 @@
         id value = [plugins objectForKey:key];
         id bundleID = [value objectForKey:@"bundleId"];
         id localVersion = [value objectForKey:@"version"];
+        
+//        NSLog(@"%@ : %@", bundleID, localVersion);
+        
         if ([sourceDICTS objectForKey:bundleID]) {
             NSDictionary *bundleInfo = [[NSDictionary alloc] initWithDictionary:[sourceDICTS objectForKey:bundleID]];
             id updateVersion = [bundleInfo objectForKey:@"version"];

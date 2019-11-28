@@ -31,8 +31,7 @@
 //        NSLog(@"Injected App");
         return YES;
     } else {
-        NSLog(@"an error occurred while injecting %@: %@ (error code: %@)", appName, [NSString stringWithCString:mach_error_string(err) encoding:NSASCIIStringEncoding], [NSNumber numberWithInt:err]);
-        
+//        NSLog(@"an error occurred while injecting %@: %@ (error code: %@)", appName, [NSString stringWithCString:mach_error_string(err) encoding:NSASCIIStringEncoding], [NSNumber numberWithInt:err]);
         *error = [[NSError alloc] initWithDomain:MFErrorDomain
                                             code:MFErrInjection
                                         userInfo:@{NSLocalizedDescriptionKey: MFErrInjectionDescription}];
@@ -61,8 +60,7 @@
     NSLog(@"Injected App");
     return YES;
   } else {
-    NSLog(@"an error occurred while injecting %@: %@ (error code: %@)", appName, [NSString stringWithCString:mach_error_string(err) encoding:NSASCIIStringEncoding], [NSNumber numberWithInt:err]);
-
+//    NSLog(@"an error occurred while injecting %@: %@ (error code: %@)", appName, [NSString stringWithCString:mach_error_string(err) encoding:NSASCIIStringEncoding], [NSNumber numberWithInt:err]);
     *error = [[NSError alloc] initWithDomain:MFErrorDomain
                                         code:MFErrInjection
                                     userInfo:@{NSLocalizedDescriptionKey: MFErrInjectionDescription}];

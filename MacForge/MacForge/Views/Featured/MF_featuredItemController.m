@@ -60,7 +60,6 @@ extern AppDelegate *myDelegate;
         
         dispatch_async(dispatch_get_main_queue(), ^{
             if (iconpath) {
-                self.bundleButton.sd_imageIndicator = SDWebImageActivityIndicator.grayIndicator;
                 self.bundleButton.sd_imageIndicator = SDWebImageProgressIndicator.defaultIndicator;
                 [self.bundleButton sd_setImageWithURL:[NSURL URLWithString:imgurl]
                                      placeholderImage:[UIImage imageNamed:NSImageNameApplicationIcon]];
@@ -69,7 +68,6 @@ extern AppDelegate *myDelegate;
             }
             
             if (banpath) {
-                self.bundleBanner.sd_imageIndicator = SDWebImageActivityIndicator.grayIndicator;
                 self.bundleBanner.sd_imageIndicator = SDWebImageProgressIndicator.defaultIndicator;
                 [self.bundleBanner sd_setImageWithURL:[NSURL URLWithString:banurl]
                                      placeholderImage:nil];

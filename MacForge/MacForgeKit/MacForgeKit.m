@@ -10,48 +10,48 @@
 #import "MacForgeKit.h"
 #import "SIMBL.h"
 
-//
 //  SYSTEM INTEGRITY PROTECTION RELATED
-//
+//  https://github.com/JayBrown/csrstat-NG
 
 typedef uint32_t csr_config_t;
+csr_config_t config = 0;
 
 /* Rootless configuration flags */
-#define CSR_ALLOW_UNTRUSTED_KEXTS       (1 << 0)    // 1
-#define CSR_ALLOW_UNRESTRICTED_FS       (1 << 1)    // 2
-#define CSR_ALLOW_TASK_FOR_PID          (1 << 2)    // 4
-#define CSR_ALLOW_KERNEL_DEBUGGER       (1 << 3)    // 8
-#define CSR_ALLOW_APPLE_INTERNAL        (1 << 4)    // 16
-#define CSR_ALLOW_UNRESTRICTED_DTRACE   (1 << 5)    // 32
-#define CSR_ALLOW_UNRESTRICTED_NVRAM    (1 << 6)    // 64
+#define CSR_ALLOW_UNTRUSTED_KEXTS               (1 << 0)    // 1
+#define CSR_ALLOW_UNRESTRICTED_FS               (1 << 1)    // 2
+#define CSR_ALLOW_TASK_FOR_PID                  (1 << 2)    // 4
+#define CSR_ALLOW_KERNEL_DEBUGGER               (1 << 3)    // 8
+#define CSR_ALLOW_APPLE_INTERNAL                (1 << 4)    // 16
+#define CSR_ALLOW_UNRESTRICTED_DTRACE           (1 << 5)    // 32
+#define CSR_ALLOW_UNRESTRICTED_NVRAM            (1 << 6)    // 64
+#define CSR_ALLOW_DEVICE_CONFIGURATION          (1 << 7)    // 128
+#define CSR_ALLOW_ANY_RECOVERY_OS               (1 << 8)    // 256
+#define CSR_ALLOW_UNAPPROVED_KEXTS              (1 << 9)    // 512
+#define CSR_ALLOW_EXECUTABLE_POLICY_OVERRIDE    (1 << 10)   // 1024
 
 #define CSR_VALID_FLAGS (CSR_ALLOW_UNTRUSTED_KEXTS | \
-CSR_ALLOW_UNRESTRICTED_FS | \
-CSR_ALLOW_TASK_FOR_PID | \
-CSR_ALLOW_KERNEL_DEBUGGER | \
-CSR_ALLOW_APPLE_INTERNAL | \
-CSR_ALLOW_UNRESTRICTED_DTRACE | \
-CSR_ALLOW_UNRESTRICTED_NVRAM)
+    CSR_ALLOW_UNRESTRICTED_FS | \
+    CSR_ALLOW_TASK_FOR_PID | \
+    CSR_ALLOW_KERNEL_DEBUGGER | \
+    CSR_ALLOW_APPLE_INTERNAL | \
+    CSR_ALLOW_UNRESTRICTED_DTRACE | \
+    CSR_ALLOW_UNRESTRICTED_NVRAM  | \
+    CSR_ALLOW_DEVICE_CONFIGURATION | \
+    CSR_ALLOW_ANY_RECOVERY_OS | \
+    CSR_ALLOW_UNAPPROVED_KEXTS | \
+    CSR_ALLOW_EXECUTABLE_POLICY_OVERRIDE)
 
-/* Syscalls */
-// mark these symbols as weakly linked, as they may not be available
-// at runtime on older OS X versions.
 extern int csr_check(csr_config_t mask) __attribute__((weak_import));
 extern int csr_get_active_config(csr_config_t* config) __attribute__((weak_import));
 
-/*
- * Our own implementation of csr_chec() that allows flipping the flag
- * for easier information gathering.
- */
-bool _csr_check(int aMask, bool aFlipflag);
-
-bool _csr_check(int aMask, bool aFlipflag)
-{
+bool _csr_check(int aMask, bool aFlipflag) {
     if (!csr_check)
         return (aFlipflag) ? 0 : 1; // return "UNRESTRICTED" when on old macOS version
-    
-    return (aFlipflag) ? !(csr_check(aMask) != 0) : (csr_check(aMask) != 0);
+    bool bit = (config & aMask);
+    return bit;
 }
+
+// END SYSTEM INTEGRITY PROTECTION RELATED
 
 @implementation MacForgeKit
 
@@ -97,10 +97,42 @@ bool _csr_check(int aMask, bool aFlipflag)
 }
 
 + (Boolean)SIP_enabled {
-    BOOL allowsFS = _csr_check(CSR_ALLOW_UNRESTRICTED_FS, 0);
-    BOOL allowsInjection = _csr_check(CSR_ALLOW_UNRESTRICTED_DTRACE, 0);
-//    NSLog(@"FS %hhd : Injection %hhd", allowsFS, allowsInjection);
-    return  (allowsFS || allowsInjection);
+    csr_get_active_config(&config);
+    // SIP fully disabled
+    if (!_csr_check(CSR_ALLOW_APPLE_INTERNAL, 0) &&
+        _csr_check(CSR_ALLOW_UNTRUSTED_KEXTS, 1) &&
+        _csr_check(CSR_ALLOW_TASK_FOR_PID, 1) &&
+        _csr_check(CSR_ALLOW_UNRESTRICTED_FS, 1) &&
+        _csr_check(CSR_ALLOW_UNRESTRICTED_NVRAM, 1) &&
+        !_csr_check(CSR_ALLOW_DEVICE_CONFIGURATION, 0)) {
+        return false;
+    }
+    // SIP is at least partially or fully enabled
+    return true;
+}
+
++ (Boolean)SIP_HasRequiredFlags {
+    csr_get_active_config(&config);
+    // These are the two flags required for code injection to work
+    return (_csr_check(CSR_ALLOW_UNRESTRICTED_FS, 1) && _csr_check(CSR_ALLOW_TASK_FOR_PID, 1));
+}
+
++ (Boolean)SIP_NVRAM {
+    csr_get_active_config(&config);
+    BOOL allowsNVRAM = _csr_check(CSR_ALLOW_UNRESTRICTED_NVRAM, 1);
+    return !allowsNVRAM;
+}
+
++ (Boolean)SIP_TASK_FOR_PID {
+    csr_get_active_config(&config);
+    BOOL allowsTFPID = _csr_check(CSR_ALLOW_TASK_FOR_PID, 1);
+    return !allowsTFPID;
+}
+
++ (Boolean)SIP_Filesystem {
+    csr_get_active_config(&config);
+    BOOL allowsFS = _csr_check(CSR_ALLOW_UNRESTRICTED_FS, 1);
+    return !allowsFS;
 }
 
 // Note:
@@ -111,8 +143,12 @@ bool _csr_check(int aMask, bool aFlipflag)
 
 + (Boolean)AMFI_enabled {
     NSString *result = [MacForgeKit runScript:@"nvram boot-args 2>&1"];
-//    NSLog(@"%@", result);
     return !([result rangeOfString:@"amfi_get_out_of_my_way=1"].length);
+}
+
++ (Boolean)NVRAM_arg_present:(NSString*)arg {
+    NSString *result = [MacForgeKit runScript:@"nvram boot-args 2>&1"];
+    return [result rangeOfString:arg].length;
 }
 
 + (Boolean)toggleBootArg:(NSString*)arg {
@@ -141,15 +177,15 @@ bool _csr_check(int aMask, bool aFlipflag)
     return !([newBootArgs rangeOfString:argEnabled].length);
 }
 
-+ (Boolean)AASIG_toggle {
++ (Boolean)AMFI_amfi_allow_any_signature_toggle {
     return [MacForgeKit toggleBootArg:@"amfi_allow_any_signature"];
 }
 
-+ (Boolean)CSEN_toggle {
++ (Boolean)AMFI_cs_enforcement_disable_toggle {
     return [MacForgeKit toggleBootArg:@"cs_enforcement_disable"];
 }
 
-+ (Boolean)AMFI_toggle {
++ (Boolean)AMFI_amfi_get_out_of_my_way_toggle {
     return [MacForgeKit toggleBootArg:@"amfi_get_out_of_my_way"];
 }
 

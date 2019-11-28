@@ -163,6 +163,15 @@ NSString *textFilter;
 //    return 16;
 //}
 
+//- (NSRect)visibleRect {
+//    NSRect r = [super visibleRect];
+//    NSRange rows = [self rowsInRect:r];
+//    NSInteger firstVisibleRowIndex = rows.location;
+////    NSLog(@"%@", NSStringFromRect(r));
+//    NSLog(@"%ld", (long)firstVisibleRowIndex);
+//    return r;
+//}
+
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     
     NSView* theResult = NSView.alloc.init;
@@ -270,7 +279,18 @@ NSString *textFilter;
                 }
             }
 
-            result.bundleImage.image = [PluginManager pluginGetIcon:item.webPlist];
+            NSImage *basicFetch = [PluginManager pluginGetIcon:item.webPlist];
+            if ([item.webPlist objectForKey:@"customIcon"]) {
+//                NSLog(@"%@%@", [item.webPlist objectForKey:@"sourceURL"], [item.webPlist objectForKey:@"icon"]);
+                result.bundleImage.sd_imageIndicator = SDWebImageProgressIndicator.defaultIndicator;
+                NSString *icoSTR = [[item.webPlist objectForKey:@"sourceURL"] stringByAppendingFormat:@"/images/%@/icon.png", item.bundleID];
+//                NSLog(@"%@", icoSTR);
+                [result.bundleImage sd_setImageWithURL:[NSURL URLWithString:icoSTR]
+                                      placeholderImage:basicFetch];
+            } else {
+                result.bundleImage.image = basicFetch;
+            }
+            
             [result.bundleImage.cell setImageScaling:NSImageScaleProportionallyUpOrDown];
             
             

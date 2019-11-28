@@ -60,6 +60,17 @@ void HandleExceptions(NSException *exception) {
     
     [self setupApplication];
     
+    [[NSDistributedNotificationCenter defaultCenter] addObserverForName:@"com.macenhance.MacForgeHelperNotify"
+                                                                 object:nil
+                                                                  queue:nil
+                                                             usingBlock:^(NSNotification *notification)
+    {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([notification.object isEqualToString:@"showMenu"]) [self setupMenuItem];
+            if ([notification.object isEqualToString:@"hideMenu"]) [self noStatusIcon];
+        });
+    }];
+    
 //    [MFInstaller install:&error];
     
     // Make sure helpers are installed
@@ -98,7 +109,9 @@ void HandleExceptions(NSException *exception) {
 }
 
 - (void)setupApplication {
-    [self setupMenuItem];
+    NSDictionary *GUIDefaults = [[NSUserDefaults standardUserDefaults] persistentDomainForName:@"com.w0lf.MacForge"];
+    if (![[GUIDefaults objectForKey:@"prefHideMenubar"] boolValue])
+        [self setupMenuItem];
         
     // Start a timer to do daily plugin and app  update checks 86400 seconds in a day
     [NSTimer scheduledTimerWithTimeInterval:86400 target:self selector:@selector(checkForPluginUpdates) userInfo:nil repeats:YES];
@@ -251,18 +264,27 @@ void HandleExceptions(NSException *exception) {
     NSLog(@"%@", error);
 }
 
+- (void)noStatusIconApplyPrefs {
+    [self noStatusIcon];
+    NSDictionary *GUIDefaults = [[NSUserDefaults standardUserDefaults] persistentDomainForName:@"com.w0lf.MacForge"];
+    [GUIDefaults setValue:[NSNumber numberWithBool:true] forKey:@"prefHideMenubar"];
+    [[NSUserDefaults standardUserDefaults] setPersistentDomain:GUIDefaults forName:@"com.w0lf.MacForge"];
+}
+
+- (void)noStatusIcon {
+    [[NSStatusBar systemStatusBar] removeStatusItem:_statusBar];
+}
+
 - (void)setupMenuItem {
     NSMenu *stackMenu = [[NSMenu alloc] initWithTitle:@"MacForge"];
-    [self addMenuItemToMenu:stackMenu :@"Manage Plugins" :@selector(openMacForgeManage) :@""];
     [self addMenuItemToMenu:stackMenu :@"Preferences..." :@selector(openMacForgePrefs) :@""];
-    [stackMenu addItem:NSMenuItem.separatorItem];
     [self addMenuItemToMenu:stackMenu :@"Open at Login" :@selector(toggleStartAtLogin:) :@""];
-    [[stackMenu itemAtIndex:3] setState:NSBundle.mainBundle.isLoginItemEnabled];
-//    [self addMenuItemToMenu:stackMenu :@"Test inject..." :@selector(testInject) :@""];
+    [[stackMenu itemAtIndex:1] setState:NSBundle.mainBundle.isLoginItemEnabled];
+    [self addMenuItemToMenu:stackMenu :@"Hide Menubar Icon" :@selector(noStatusIconApplyPrefs) :@""];
     [stackMenu addItem:NSMenuItem.separatorItem];
-    [self addMenuItemToMenu:stackMenu :@"Open MacForge" :@selector(openMacForge) :@""];
-    [stackMenu addItem:NSMenuItem.separatorItem];
+    [self addMenuItemToMenu:stackMenu :@"Manage Plugins" :@selector(openMacForgeManage) :@""];
     [self addMenuItemToMenu:stackMenu :@"Update Plugins..." :@selector(updatesPluginsInstall) :@""];
+//    [self addMenuItemToMenu:stackMenu :@"Test inject..." :@selector(testInject) :@""];
     [stackMenu addItem:NSMenuItem.separatorItem];
     [self addMenuItemToMenu:stackMenu :@"Check for Updates..." :@selector(checkMacForgeForUpdates) :@""];
     [self addMenuItemToMenu:stackMenu :@"About MacForge" :@selector(openMacForgeAbout) :@""];
@@ -272,6 +294,11 @@ void HandleExceptions(NSException *exception) {
     [_statusBar setTitle:@""];
     NSImage *statusImage = [NSImage imageNamed:@"Menubar18"];
     [statusImage setTemplate:true];
+    if (@available(macOS 10.14, *)) {
+        _statusBar.button.contentTintColor = NSColor.controlAccentColor;
+    } else {
+        // Fallback on earlier versions
+    }
 //    [statusImage setSize:NSMakeSize(20, 20)];
     [_statusBar setImage:statusImage];
 }
@@ -342,27 +369,28 @@ void HandleExceptions(NSException *exception) {
 
 // Try injecting all valid bundles into an running application
 + (void)injectBundle:(NSRunningApplication*)runningApp {
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+//    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
        // Wait for the app to finish launching
        // Check if there is anything valid to inject
        if ([MFAppDelegate shouldInject:runningApp]) {
            pid_t pid = [runningApp processIdentifier];
            // Try injecting each valid plugin into the application
            for (NSString *bundlePath in [SIMBL pluginsToLoadList:[NSBundle bundleWithPath:runningApp.bundleURL.path]]) {
-               NSError *error;
    //            NSLog(@"Try inject App %@", runningApp.bundleIdentifier);
 
-               if ([MFInjectorProxy injectPID:pid :bundlePath :&error] == false) {
-                   assert(error != nil);
-                   NSLog(@"Couldn't inject into %d : %@ (domain: %@ code: %@)", pid, runningApp.localizedName, error.domain, [NSNumber numberWithInteger:error.code]);
-                   SIMBLLogNotice(@"Couldn't inject App (domain: %@ code: %@)", error.domain, [NSNumber numberWithInteger:error.code]);
-               }
+//               dispatch_async(dispatch_get_main_queue(), ^(void){
+                   NSError *error;
+                   if ([MFInjectorProxy injectPID:pid :bundlePath :&error] == false) {
+                        assert(error != nil);
+                        NSLog(@"Couldn't inject into %d : %@ (domain: %@ code: %@)", pid, runningApp.localizedName, error.domain, [NSNumber numberWithInteger:error.code]);
+                        SIMBLLogNotice(@"Couldn't inject App (domain: %@ code: %@)", error.domain, [NSNumber numberWithInteger:error.code]);
+                   }
+//               });
+              
            }
        }
-       dispatch_async(dispatch_get_main_queue(), ^(void){
-           
-       });
-    });
+       
+//    });
 }
 
 // Try injecting all valid bundles into an application based on bundle ID

@@ -20,9 +20,20 @@ FOUNDATION_EXPORT const unsigned char MacForgeKitVersionString[];
 @interface MacForgeKit : NSObject
 
 + (MacForgeKit *)sharedInstance;
+
 + (Boolean)AMFI_enabled;
-+ (Boolean)AMFI_toggle;
++ (Boolean)AMFI_amfi_allow_any_signature_toggle;
++ (Boolean)AMFI_cs_enforcement_disable_toggle;
++ (Boolean)AMFI_amfi_get_out_of_my_way_toggle;
+
++ (Boolean)NVRAM_arg_present:(NSString*)arg;
+
 + (Boolean)SIP_enabled;
++ (Boolean)SIP_HasRequiredFlags;
++ (Boolean)SIP_NVRAM;
++ (Boolean)SIP_TASK_FOR_PID;
++ (Boolean)SIP_Filesystem;
+
 + (Boolean)MacEnhance_remove;
 
 @end

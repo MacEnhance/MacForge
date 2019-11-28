@@ -455,7 +455,7 @@ Boolean appSetupFinished = false;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 //    [MSCrashes generateTestCrash];
-    
+        
     [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(systemDarkModeChange:) name:@"AppleInterfaceThemeChangedNotification" object:nil];
     [[NSDistributedNotificationCenter defaultCenter] addObserverForName:@"com.w0lf.MacForgeNotify"
                                                                  object:nil
@@ -672,7 +672,7 @@ Boolean appSetupFinished = false;
 }
 
 - (void)checkSIP {
-    if ([MacForgeKit SIP_enabled]) {
+    if (![MacForgeKit SIP_HasRequiredFlags]) {
         NSString *frameworkBundleID = @"org.w0lf.MacForgeKit";
         NSBundle *frameworkBundle = [NSBundle bundleWithIdentifier:frameworkBundleID];
         MFKSipView *p = [[MFKSipView alloc] initWithNibName:@"MFKSipView" bundle:frameworkBundle];
@@ -820,6 +820,7 @@ Boolean appSetupFinished = false;
     [_prefDonate setState:[[myPreferences objectForKey:@"prefDonate"] boolValue]];
     [_prefTips setState:[[myPreferences objectForKey:@"prefTips"] boolValue]];
     [_prefWindow setState:[[myPreferences objectForKey:@"prefWindow"] boolValue]];
+    [_prefHideMenubar setState:[[myPreferences objectForKey:@"prefHideMenubar"] boolValue]];
 
     if ([[myPreferences objectForKey:@"prefWindow"] boolValue])
         [_window setFrameAutosaveName:@"MainWindow"];
@@ -1000,6 +1001,16 @@ Boolean appSetupFinished = false;
         [test setInitialToolTipDelay:0.1];
     else
         [test setInitialToolTipDelay:2];
+}
+
+- (IBAction)toggleHideMenubar:(id)sender {
+    NSButton *btn = sender;
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:[btn state]] forKey:@"prefHideMenubar"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    NSString *message = @"showMenu";
+    if (btn.state == NSOnState) message = @"hideMenu";
+    [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.macenhance.MacForgeHelperNotify" object:message];
+
 }
 
 - (IBAction)toggleSaveWindow:(id)sender {
@@ -1305,26 +1316,31 @@ Boolean appSetupFinished = false;
 }
 
 - (IBAction)toggleAMFI:(id)sender {
-    [MacForgeKit AMFI_toggle];
+    [MacForgeKit AMFI_amfi_get_out_of_my_way_toggle];
     [_AMFIStatus setState:[MacForgeKit AMFI_enabled]];
 }
 
 - (void)setupSIMBLview {
     [_SIMBLTogggle setState:[FileManager fileExistsAtPath:@"/Library/PrivilegedHelperTools/com.w0lf.MacForge.Injector"]];
     [_SIMBLAgentToggle setState:[FileManager fileExistsAtPath:@"/Library/PrivilegedHelperTools/com.w0lf.MacForge.Installer"]];
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-        Boolean sip = [MacForgeKit SIP_enabled];
-        Boolean amfi = [MacForgeKit AMFI_enabled];
-        dispatch_async(dispatch_get_main_queue(), ^(void){
-            [self->_SIPStatus setState:sip];
-            [self->_AMFIStatus setState:amfi];
-            if (amfi == false && sip == false) {
-                [self->_SIPWarning setHidden:true];
-            } else {
-                [self->_SIPWarning setHidden:false];
-            }
-        });
-    });
+        
+    Boolean sipEnabled = [MacForgeKit SIP_enabled];
+    Boolean sipHasFlags = [MacForgeKit SIP_HasRequiredFlags];
+    Boolean amfiEnabled = [MacForgeKit AMFI_enabled];
+    
+    [_SIP_NVRAM setState:![MacForgeKit SIP_NVRAM]];
+    [_SIP_TaskPID setState:![MacForgeKit SIP_TASK_FOR_PID]];
+    [_SIP_filesystem setState:![MacForgeKit SIP_Filesystem]];
+    
+    if (!sipEnabled) [_SIP_status setStringValue:@"Disabled"];
+    if (!amfiEnabled) [_AMFI_status setStringValue:@"Disabled"];;
+    if (sipEnabled && sipHasFlags) [_SIP_status setStringValue:@"Enabled (Custom)"];
+    
+    if (!amfiEnabled && sipHasFlags) {
+        [_SIPWarning setHidden:true];
+    } else {
+        [_SIPWarning setHidden:false];
+    }
 }
 
 - (void)simbl_blacklist {

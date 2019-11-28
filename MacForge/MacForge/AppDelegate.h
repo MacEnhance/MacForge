@@ -167,6 +167,7 @@
 @property IBOutlet NSButton         *prefUpdateBeta;
 @property IBOutlet NSButton         *prefTips;
 @property IBOutlet NSButton         *prefWindow;
+@property IBOutlet NSButton         *prefHideMenubar;
 @property IBOutlet NSPopUpButton    *prefUpdateAuto;
 @property IBOutlet NSPopUpButton    *prefUpdateInterval;
 @property IBOutlet NSPopUpButton    *prefStartTab;
@@ -175,8 +176,17 @@
 @property IBOutlet NSButton         *SIMBLAgentToggle;
 @property IBOutlet NSButton         *SIMBLTogggle;
 @property IBOutlet NSPopUpButton    *SIMBLLogging;
-@property IBOutlet NSButton         *SIPStatus;
+
 @property IBOutlet NSButton         *AMFIStatus;
+@property IBOutlet NSButton         *SIPStatus;
+
+@property IBOutlet NSButton         *SIP_filesystem;
+@property IBOutlet NSButton         *SIP_TaskPID;
+@property IBOutlet NSButton         *SIP_NVRAM;
+
+@property IBOutlet NSTextField      *SIP_status;
+@property IBOutlet NSTextField      *AMFI_status;
+
 @property IBOutlet NSScrollView     *blacklistScroll;
 @property IBOutlet blacklistTable   *blackListTable;
 
