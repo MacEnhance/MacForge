@@ -8,6 +8,7 @@
 
 @import AppKit;
 #import "blacklistTable.h"
+#import "MF_BlacklistManager.h"
 
 NSUserDefaults *blPrefs;
 NSDictionary *blDict;
@@ -26,35 +27,8 @@ NSDictionary *blDict;
     NSPasteboard *pboard = [info draggingPasteboard];
     if ([[pboard types] containsObject:NSURLPboardType]) {
         NSArray* urls = [pboard readObjectsForClasses:@[[NSURL class]] options:nil];
-        NSMutableArray* sorted = [[NSMutableArray alloc] init];
-        for (NSURL* url in urls) {
-            if ([[url.path pathExtension] isEqualToString:@"app"]) {
-                [sorted addObject:url.path];
-                
-                blPrefs = [[NSUserDefaults alloc] initWithSuiteName:@"com.w0lf.MacForgeHelper"];
-                blDict = [blPrefs dictionaryRepresentation];
-                NSMutableArray *newBlacklist = [[NSMutableArray alloc] initWithArray:[blPrefs objectForKey:@"SIMBLApplicationIdentifierBlacklist"]];
-                
-                NSString *path = url.path;
-                NSBundle *bundle = [NSBundle bundleWithPath:path];
-                NSString *bundleID = [bundle bundleIdentifier];
-                if (![newBlacklist containsObject:bundleID]) {
-                    NSLog(@"Adding key: %@", bundleID);
-                    [newBlacklist addObject:bundleID];
-                }
-
-                
-                [blPrefs setObject:[newBlacklist copy] forKey:@"SIMBLApplicationIdentifierBlacklist"];
-                [blPrefs synchronize];
-                
-                NSError *error;
-                if (error)
-                    NSLog(@"%@", error);
-            }
-        }
-        if ([sorted count]) {
-            [aTableView reloadData];
-        }
+        [MF_BlacklistManager addBlacklistItems:urls];
+        [aTableView reloadData];
     }
     return YES;
 }

@@ -67,12 +67,9 @@ extern long selectedRow;
                 
                 // Sort by price decending
                 NSMutableArray *mute = dank.mutableCopy;
-                [mute sortUsingDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"webPrice" ascending:NO] ]];
-                
-//                for (MSPlugin* p in mute)
-//                    NSLog(@"%@ : %@", p.webPrice, p.bundleID);
-                
-                dank = mute.copy;
+//                [mute sortUsingDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"webPrice" ascending:NO] ]];
+//                dank = mute.copy;
+                dank = mute.shuffledArray.copy;
                 
 //                NSLog(@"%@", self->featuredRepo.allKeys);
 //                for (MSPlugin* p in dank) {

@@ -99,8 +99,11 @@
 		FBAAB3F020F22BF5002156DC /* NSBundle+LoginItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAAB3EE20F22BF5002156DC /* NSBundle+LoginItem.m */; };
 		FBAAB41720F2CDB0002156DC /* demo_xcode.zip in Resources */ = {isa = PBXBuildFile; fileRef = FBAAB41620F2CDAF002156DC /* demo_xcode.zip */; };
 		FBB19F8120F2D18A003F421B /* plugin_template.zip in Resources */ = {isa = PBXBuildFile; fileRef = FBB19F8020F2D18A003F421B /* plugin_template.zip */; };
-		FBB6D14922FE3EA6003A5B71 /* mach_inject_bundle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F0CF07F0166F563E009D198D /* mach_inject_bundle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FBB6D14922FE3EA6003A5B71 /* mach_inject_bundle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = F0CF07F0166F563E009D198D /* mach_inject_bundle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FBBD8E2322F9319E00A97FEA /* MF_Purchase.m in Sources */ = {isa = PBXBuildFile; fileRef = FBBD8E2222F9319E00A97FEA /* MF_Purchase.m */; };
+		FBC2123423B459CE006F4485 /* MF_BlacklistManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FBC2123323B459CE006F4485 /* MF_BlacklistManager.m */; };
+		FBC2123623B45FE8006F4485 /* MacForgeKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FBE7679E20EF426D00A42BD5 /* MacForgeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FBC2123923B46434006F4485 /* MF_accountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FBC2123823B46434006F4485 /* MF_accountManager.m */; };
 		FBCC0B3021278DF900CB5CD4 /* SGDirWatchdog.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E89120F0185300A12ACF /* SGDirWatchdog.m */; };
 		FBE767A220EF426D00A42BD5 /* MacForgeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = FBE767A020EF426D00A42BD5 /* MacForgeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FBE767AB20EF428F00A42BD5 /* STPrivilegedTask.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE767A620EF428F00A42BD5 /* STPrivilegedTask.m */; };
@@ -229,15 +232,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
-		FB5B2D0522FFA020000FA9A4 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		FBA6E8D020F027AC00A12ACF /* Copy Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -261,14 +255,16 @@
 			name = "Copy Plugins";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FBB6D14822FE3E9B003A5B71 /* CopyFiles */ = {
+		FBB6D14822FE3E9B003A5B71 /* Copy Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				FBB6D14922FE3EA6003A5B71 /* mach_inject_bundle.framework in CopyFiles */,
+				FBB6D14922FE3EA6003A5B71 /* mach_inject_bundle.framework in Copy Frameworks */,
+				FBC2123623B45FE8006F4485 /* MacForgeKit.framework in Copy Frameworks */,
 			);
+			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		FBF137D92105AB3E0001916A /* CopyFiles */ = {
@@ -449,6 +445,10 @@
 		FBB19F8020F2D18A003F421B /* plugin_template.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = plugin_template.zip; sourceTree = "<group>"; };
 		FBBD8E2122F9319E00A97FEA /* MF_Purchase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_Purchase.h; sourceTree = "<group>"; };
 		FBBD8E2222F9319E00A97FEA /* MF_Purchase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_Purchase.m; sourceTree = "<group>"; };
+		FBC2123223B459CE006F4485 /* MF_BlacklistManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_BlacklistManager.h; sourceTree = "<group>"; };
+		FBC2123323B459CE006F4485 /* MF_BlacklistManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_BlacklistManager.m; sourceTree = "<group>"; };
+		FBC2123723B46434006F4485 /* MF_accountManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_accountManager.h; sourceTree = "<group>"; };
+		FBC2123823B46434006F4485 /* MF_accountManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_accountManager.m; sourceTree = "<group>"; };
 		FBDCD2A12356CF710043A601 /* mach_inject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mach_inject.h; path = ../../mach_inject/mach_inject.h; sourceTree = "<group>"; };
 		FBE7679E20EF426D00A42BD5 /* MacForgeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MacForgeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBE767A020EF426D00A42BD5 /* MacForgeKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MacForgeKit.h; sourceTree = "<group>"; };
@@ -717,6 +717,8 @@
 				FBA6E8EA20F0289900A12ACF /* PluginManager.m */,
 				FBBD8E2122F9319E00A97FEA /* MF_Purchase.h */,
 				FBBD8E2222F9319E00A97FEA /* MF_Purchase.m */,
+				FBC2123223B459CE006F4485 /* MF_BlacklistManager.h */,
+				FBC2123323B459CE006F4485 /* MF_BlacklistManager.m */,
 			);
 			path = "Shared Classes";
 			sourceTree = "<group>";
@@ -765,6 +767,8 @@
 				FB306A8F236672B6008A6E61 /* MF_accountLoggedInView.m */,
 				FB6D0FE82351B417005A2D5E /* MF_accountView.h */,
 				FB6D0FE92351B417005A2D5E /* MF_accountView.m */,
+				FBC2123723B46434006F4485 /* MF_accountManager.h */,
+				FBC2123823B46434006F4485 /* MF_accountManager.m */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -1077,10 +1081,9 @@
 				3614C4D2B6D0229AE45C5CEB /* [CP] Check Pods Manifest.lock */,
 				F0ADE0F2166DF941009758CC /* Sources */,
 				F0ADE0F3166DF941009758CC /* Frameworks */,
-				FB5B2D0522FFA020000FA9A4 /* CopyFiles */,
 				F0ADE0F4166DF941009758CC /* Resources */,
 				F0ADE15F166DFC2D009758CC /* CopyFiles */,
-				FBB6D14822FE3E9B003A5B71 /* CopyFiles */,
+				FBB6D14822FE3E9B003A5B71 /* Copy Frameworks */,
 				FBB6D14A22FE4831003A5B71 /* ShellScript */,
 				F5116887C21B6D10ECAF3406 /* [CP] Embed Pods Frameworks */,
 			);
@@ -1259,7 +1262,7 @@
 			attributes = {
 				CLASSPREFIX = MF;
 				DefaultBuildSystemTypeForWorkspace = Latest;
-				LastUpgradeCheck = 1120;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = MacEnhance;
 				TargetAttributes = {
 					F0ADE0F5166DF941009758CC = {
@@ -1825,6 +1828,7 @@
 				FBA6E8E620F0288300A12ACF /* MSPlugin.m in Sources */,
 				FB2FE5C5230626C30082C714 /* MFFlippedView.m in Sources */,
 				FBA6E8F320F0289B00A12ACF /* repopluginTable.m in Sources */,
+				FBC2123923B46434006F4485 /* MF_accountManager.m in Sources */,
 				FBA6E8F520F0289B00A12ACF /* loaclPluginTable.m in Sources */,
 				FBA6E8F120F0289B00A12ACF /* discoverPluginTable.m in Sources */,
 				FBF137E3210E79B70001916A /* blacklistTable.m in Sources */,
@@ -1834,6 +1838,7 @@
 				FBE767F420F00FFE00A42BD5 /* main.m in Sources */,
 				FBA6E89520F0185F00A12ACF /* ZKSwizzle.m in Sources */,
 				FBA6E8CF20F0262A00A12ACF /* SGDirWatchdog.m in Sources */,
+				FBC2123423B459CE006F4485 /* MF_BlacklistManager.m in Sources */,
 				FB2FE5CC230638120082C714 /* SYFlatButton.m in Sources */,
 				FBA6E8BB20F01C6300A12ACF /* StartAtLoginController.m in Sources */,
 				FBAAB3EF20F22BF5002156DC /* NSBundle+LoginItem.m in Sources */,
@@ -2019,7 +2024,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = EX596BNL45;
@@ -2044,7 +2049,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = EX596BNL45;
@@ -2067,7 +2072,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EB4CA17C673612AC0E1CE9D0 /* Pods-com.w0lf.MacForge.Installer.debug.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = EX596BNL45;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -2097,7 +2102,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6EFB1E36CB68CB24F30204A1 /* Pods-com.w0lf.MacForge.Installer.release.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = EX596BNL45;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -2129,7 +2134,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = EX596BNL45;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -2163,7 +2168,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = EX596BNL45;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -2204,7 +2209,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = MacForgeTodayView/TodayView.entitlements;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -2238,7 +2243,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = MacForgeTodayView/TodayView.entitlements;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -2346,7 +2351,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -2378,7 +2383,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -2413,7 +2418,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = purchaseValidationApp/purchaseValidationApp.entitlements;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -2452,7 +2457,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = purchaseValidationApp/purchaseValidationApp.entitlements;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -2505,7 +2510,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2;
@@ -2568,7 +2573,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -2619,7 +2624,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = MacForge/Resource/MacForge.entitlements;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2631,7 +2636,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = MacForge/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MARKETING_VERSION = 0.13.2;
+				MARKETING_VERSION = 0.13.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacForge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2656,7 +2661,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = MacForge/Resource/MacForge.entitlements;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -2675,7 +2680,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = MacForge/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MARKETING_VERSION = 0.13.2;
+				MARKETING_VERSION = 0.13.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacForge;
 				PRODUCT_NAME = "$(TARGET_NAME)";

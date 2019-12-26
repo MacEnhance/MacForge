@@ -53,9 +53,7 @@ Boolean appSetupFinished = false;
 
 - (void)controlTextDidChange:(NSNotification *)obj{
 //    NSLog(@"%@", obj);
-
 //    NSLog(@"----- test ----- %@", [[NSWorkspace sharedWorkspace] URLForApplicationWithBundleIdentifier:@"com.alexbeals.swag"].absoluteString);
-    
     NSView *v = [tabViews objectAtIndex:[tabViewButtons indexOfObject:_viewSources]];
     if (![_tabMain.subviews isEqualToArray:@[v]])
         [myDelegate selectView:_viewSources];
@@ -67,18 +65,13 @@ Boolean appSetupFinished = false;
     if (sv.count > 3) {
         sf = sv[3];
         tv = [(NSView*)sv[2] subviews].firstObject.subviews.firstObject.subviews.firstObject;
-
         [sf setStringValue:_searchPlugins.stringValue];
         [tv controlTextDidChange:obj];
-
 //        NSLog(@"%@", [(NSView*)sv[2] subviews].firstObject.subviews.firstObject.subviews);
     }
-//
 //        [myview controlTextDidChange:obj];
-
 //    if ([_searchPlugins.stringValue isEqualToString:@""])
 //        [_searchPlugins abortEditing];
-
 //    NSLog(@"%@", _searchPlugins.stringValue);
 }
 
@@ -103,191 +96,6 @@ Boolean appSetupFinished = false;
         }
     }
 }
-
-
-/*
-
-- (IBAction)fireBaseFireStoreTest:(id)sender {
-    NSLog(@"Hello");
-        
-//    NSDictionary *docData = @{
-//      @"purchases": @{
-//        @"520974": @YES,
-//      }
-//    };
-    
-    // Write to the document reference, merging data with existing
-    // if the document already exists
-//    [[[self.db collectionWithPath:@"users"] documentWithPath:FIRAuth.auth.currentUser.uid]
-//        setData:docData
-//        merge:YES
-//        completion:^(NSError * _Nullable error) {
-//          // ...
-//    }];
-
-//    FIRDocumentReference *docRef = [[self.db collectionWithPath:@"users"] documentWithPath:FIRAuth.auth.currentUser.uid];
-//    [docRef getDocumentWithCompletion:^(FIRDocumentSnapshot *snapshot, NSError *error) {
-//        if (snapshot.exists) {
-//            // Document data may be nil if the document exists but has no keys or values.
-////            NSLog(@"Document data: %@", snapshot.data);
-//            NSLog(@"Document data: %@", snapshot.data[@"purchases"]);
-//            self->_reviewsDict = snapshot;
-//        } else {
-//            NSLog(@"Document does not exist");
-//        }
-//    }];
-    
-//    FIRDocumentReference *docRef = [[self.db collectionWithPath:@"reviews"] documentWithPath:@"520974"];
-//    [docRef getDocumentWithCompletion:^(FIRDocumentSnapshot *snapshot, NSError *error) {
-//        if (snapshot.exists) {
-//            // Document data may be nil if the document exists but has no keys or values.
-////            NSLog(@"Document data: %@", snapshot.data);
-//            NSLog(@"Document data: %@", snapshot.data[@"ratings"]);
-//            testing = snapshot.data;
-//        } else {
-//            NSLog(@"Document does not exist");
-//        }
-//    }];
-}
-
-- (IBAction)fireBaseLogout:(id)sender {
-    NSError *err;
-    [FIRAuth.auth signOut:&err];
-    
-    _imgAccount.image = [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].image;
-    _viewAccount.title = [NSString stringWithFormat:@"                    %@", [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].fullName];
-    
-    _loginImageURL.stringValue = @"";
-    _loginUsername.stringValue = @"";
-    _loginUID.stringValue = @"";
-    _loginEmail.stringValue = @"";
-    _loginPassword.stringValue = @"";
-    
-    NSLog(@"%@", err);
-}
-
-- (IBAction)fireBaseRegister:(id)sender {
-    FIRUser *user = [FIRAuth auth].currentUser;
-    
-    if (user) {
-        FIRUserProfileChangeRequest *changeRequest = [[FIRAuth auth].currentUser profileChangeRequest];
-        changeRequest.photoURL = [NSURL URLWithString:_loginImageURL.stringValue];
-        changeRequest.displayName = _loginUsername.stringValue;
-        [changeRequest commitChangesWithCompletion:^(NSError *_Nullable error) {
-            NSLog(@"%@", error);
-            [self fireBaseSetup];
-        }];
-    } else {
-        [[FIRAuth auth] signInWithEmail:_loginEmail.stringValue
-                               password:_loginPassword.stringValue
-                             completion:^(FIRAuthDataResult * _Nullable authResult, NSError * _Nullable error) {
-                                            NSLog(@"%@", error);
-                                            [self fireBaseSetup];
-                                        }];
-    }
-}
-
-- (IBAction)fireBaseLogin:(id)sender {
-    FIRUser *user = [FIRAuth auth].currentUser;
-    
-//    FIRUserProfileChangeRequest *changeRequest = [[FIRAuth auth].currentUser profileChangeRequest];
-//    changeRequest.photoURL = [NSURL URLWithString:@"https://avatars3.githubusercontent.com/u/1920148?s=460&v=4"];
-//    changeRequest.displayName = _loginUsername.stringValue;
-//    [changeRequest commitChangesWithCompletion:^(NSError *_Nullable error) {
-//        NSLog(@"%@", error);
-//        // ...
-//    }];
-    
-    // [END get_user_profile]
-    // [START user_profile]
-    if (user) {
-        // The user's ID, unique to the Firebase project.
-        // Do NOT use this value to authenticate with your backend server,
-        // if you have one. Use getTokenWithCompletion:completion: instead.
-        NSString *uid = user.uid;
-        NSString *email = user.email;
-        NSURL *photoURL = user.photoURL;
-        NSString *displayName = user.displayName;
-        // [START_EXCLUDE]
-        _loginUID.stringValue = uid;
-        _loginEmail.stringValue = email;
-        if (displayName)
-            _viewAccount.title = [NSString stringWithFormat:@"                    %@", displayName];
-        else
-            _viewAccount.title = [NSString stringWithFormat:@"                    %@", [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].fullName];
-        
-        static NSURL *lastPhotoURL = nil;
-        lastPhotoURL = photoURL;  // to prevent earlier image overwrites later one.
-        if (photoURL) {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^() {
-                NSImage *image = [NSImage sd_imageWithData:[NSData dataWithContentsOfURL:photoURL]];
-                dispatch_async(dispatch_get_main_queue(), ^() {
-                    if (photoURL == lastPhotoURL) {
-                        self->_imgAccount.image = image;
-                    }
-                });
-            });
-        } else {
-            _imgAccount.image = [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].image;
-        }
-        // [END_EXCLUDE]
-    } else {
-        [[FIRAuth auth] signInWithEmail:_loginEmail.stringValue
-                               password:_loginPassword.stringValue
-                             completion:^(FIRAuthDataResult * _Nullable authResult, NSError * _Nullable error) {
-                                            NSLog(@"%@", error);
-                                            [self fireBaseSetup];
-                                        }];
-    }
-}
-
-- (void)fireBaseSetup {
-//    self.ref = [[FIRDatabase database] reference];
-//    self.db = [FIRFirestore firestore];
-    
-    FIRUser *user = [FIRAuth auth].currentUser;
-        
-    // [END get_user_profile]
-    // [START user_profile]
-    if (user) {
-        // The user's ID, unique to the Firebase project.
-        // Do NOT use this value to authenticate with your backend server,
-        // if you have one. Use getTokenWithCompletion:completion: instead.
-        NSString *uid = user.uid;
-        NSString *email = user.email;
-        NSURL *photoURL = user.photoURL;
-        NSString *displayName = user.displayName;
-        
-        _loginUID.stringValue = uid;
-        _loginEmail.stringValue = email;
-        if (displayName) {
-            _loginUsername.stringValue = displayName;
-            _viewAccount.title = [NSString stringWithFormat:@"                    %@", displayName];
-        } else {
-            _viewAccount.title = [NSString stringWithFormat:@"                    %@", [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].fullName];
-        }
-        
-        _loginImageURL.stringValue = photoURL.absoluteString;
-        
-        static NSURL *lastPhotoURL = nil;
-        lastPhotoURL = photoURL;  // to prevent earlier image overwrites later one.
-        if (photoURL) {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^() {
-                NSImage *image = [NSImage sd_imageWithData:[NSData dataWithContentsOfURL:photoURL]];
-                dispatch_async(dispatch_get_main_queue(), ^() {
-                    if (photoURL == lastPhotoURL) {
-                        self->_imgAccount.image = image;
-                    }
-                });
-            });
-        } else {
-            _imgAccount.image = [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].image;
-            _viewAccount.title = [NSString stringWithFormat:@"                    %@", [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].fullName];
-        }
-    }
-}
- 
- */
 
 // Shared instance
 + (AppDelegate*) sharedInstance {
@@ -739,7 +547,7 @@ Boolean appSetupFinished = false;
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy"];
     NSString * currentYEAR = [formatter stringFromDate:[NSDate date]];
-    [_appCopyright setStringValue:[NSString stringWithFormat:@"Copyright © 2015 - %@ Wolfgang Baird", currentYEAR]];
+    [_appCopyright setStringValue:[NSString stringWithFormat:@"Copyright © 2015 - %@ macEnhance", currentYEAR]];
     [[_changeLog textStorage] setAttributedString:[[NSAttributedString alloc] initWithURL:[[NSBundle mainBundle] URLForResource:@"Changelog" withExtension:@"rtf"] options:[[NSDictionary alloc] init] documentAttributes:nil error:nil]];
     [self systemDarkModeChange:nil];
     
@@ -1368,28 +1176,23 @@ Boolean appSetupFinished = false;
 }
 
 - (void)removeBlacklistItem {
-    sharedPrefs = [[NSUserDefaults alloc] initWithSuiteName:@"com.w0lf.MacForgeHelper"];
-    sharedDict = [sharedPrefs dictionaryRepresentation];
-    NSMutableArray *newBlacklist = [[NSMutableArray alloc] initWithArray:[sharedPrefs objectForKey:@"SIMBLApplicationIdentifierBlacklist"]];
-    
+    NSMutableArray *bundleIDs = [[NSMutableArray alloc] init];
     NSIndexSet *selected = _blackListTable.selectedRowIndexes;
     NSUInteger idx = [selected firstIndex];
     while (idx != NSNotFound) {
         // do work with "idx"
 //        NSLog (@"The current index is %lu", (unsigned long)idx);
-        
+
         // Get row at specified index of column 0 ( We just have 1 column)
         blacklistTableCell *cellView = [_blackListTable viewAtColumn:0 row:idx makeIfNecessary:YES];
         NSString *bundleID = cellView.bundleID;
         NSLog(@"Deleting key: %@", bundleID);
-        [newBlacklist removeObject:bundleID];
-        
+        [bundleIDs addObject:bundleID];
+
         // get the next index in the set
         idx = [selected indexGreaterThanIndex:idx];
     }
-    
-    [sharedPrefs setObject:[newBlacklist copy] forKey:@"SIMBLApplicationIdentifierBlacklist"];
-    [sharedPrefs synchronize];
+    [MF_BlacklistManager removeBlacklistItems:bundleIDs.copy];
     [_blackListTable reloadData];
 }
 
@@ -1399,38 +1202,15 @@ Boolean appSetupFinished = false;
     [opnDlg setPrompt:@"Blacklist"];
     [opnDlg setDirectoryURL:[NSURL fileURLWithPath:[NSSearchPathForDirectoriesInDomains(NSApplicationDirectory, NSLocalDomainMask, YES) firstObject]]];
     [opnDlg setAllowedFileTypes:@[@"app"]];
-
     [opnDlg setCanChooseFiles:true];            //Disable file selection
     [opnDlg setCanChooseDirectories: false];    //Enable folder selection
     [opnDlg setResolvesAliases: true];          //Enable alias resolving
     [opnDlg setAllowsMultipleSelection: true];  //Enable multiple selection
-    
     if ([opnDlg runModal] == NSModalResponseOK) {
         // Got it, use the panel.URL field for something
-        NSLog(@"MacForge : %@", [opnDlg URL]);
-        
-        sharedPrefs = [[NSUserDefaults alloc] initWithSuiteName:@"com.w0lf.MacForgeHelper"];
-        sharedDict = [sharedPrefs dictionaryRepresentation];
-        NSMutableArray *newBlacklist = [[NSMutableArray alloc] initWithArray:[sharedPrefs objectForKey:@"SIMBLApplicationIdentifierBlacklist"]];
-
-        NSArray *paths = opnDlg.URLs;
-        for (NSURL *url in paths) {
-            NSString *path = url.path;
-            NSBundle *bundle = [NSBundle bundleWithPath:path];
-            NSString *bundleID = [bundle bundleIdentifier];
-            if (![newBlacklist containsObject:bundleID]) {
-                NSLog(@"Adding key: %@", bundleID);
-                [newBlacklist addObject:bundleID];
-            }
-        }
-        
-        [sharedPrefs setObject:[newBlacklist copy] forKey:@"SIMBLApplicationIdentifierBlacklist"];
-        [sharedPrefs synchronize];
+        NSLog(@"MacForge : %@", [opnDlg URLs]);
+        [MF_BlacklistManager addBlacklistItems:opnDlg.URLs];
         [_blackListTable reloadData];
-
-        NSError *error;
-        if (error)
-        NSLog(@"%@", error);
     } else {
         // Cancel was pressed...
     }
@@ -1500,7 +1280,7 @@ Boolean appSetupFinished = false;
     if (url)
         _adURL = url;
     else
-        _adURL = @"https://github.com/w0lfschild/mySIMBL";
+        _adURL = @"https://github.com/w0lfschild/MacForge";
     
     _adArray = dict;
     _lastAD = displayNum;
@@ -1508,7 +1288,7 @@ Boolean appSetupFinished = false;
     // Check web for new ads
 
     // 1
-    NSURL *dataUrl = [NSURL URLWithString:@"https://github.com/w0lfschild/app_updates/raw/master/mySIMBL/ads.plist"];
+    NSURL *dataUrl = [NSURL URLWithString:@"https://github.com/w0lfschild/app_updates/raw/master/MacForge/ads.plist"];
     
     // 2
     NSURLSessionDataTask *downloadTask = [[NSURLSession sharedSession]

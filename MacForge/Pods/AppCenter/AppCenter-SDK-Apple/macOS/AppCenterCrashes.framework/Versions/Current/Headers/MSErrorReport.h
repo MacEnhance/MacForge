@@ -52,25 +52,15 @@
  */
 @property(nonatomic, readonly, assign) NSUInteger appProcessIdentifier;
 
-// TODO Please review this doc that contains method name which doesn't exist.
 /**
  * Indicates if the app was killed while being in foreground from the iOS.
- *
- * If `[MSCrashes enableAppNotTerminatingCleanlyDetection]` is enabled, use this on startup to check if the app starts the first time after
- * it was killed by iOS in the previous session.
  *
  * This can happen if it consumed too much memory or the watchdog killed the app because it took too long to startup or blocks the main
  * thread for too long, or other reasons. See Apple documentation:
  * https://developer.apple.com/library/ios/qa/qa1693/_index.html.
  *
- * See `[MSCrashes enableAppNotTerminatingCleanlyDetection]` for more details about which kind of kills can be detected.
+ * @return YES if the details represent an app kill instead of a crash.
  *
- * @return YES if the details represent an app kill instead of a crash
- *
- * @warning This property only has a correct value, once `[BITHockeyManager startManager]` was invoked! In addition, it is automatically
- * disabled while a debugger session is active!
- *
- * @see `[MSCrashes enableAppNotTerminatingCleanlyDetection]`
  * @see `[MSCrashes didReceiveMemoryWarningInLastSession]`
  */
 - (BOOL)isAppKill;

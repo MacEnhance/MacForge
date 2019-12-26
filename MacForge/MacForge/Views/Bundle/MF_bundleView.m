@@ -284,16 +284,42 @@ extern NSDictionary *testing;
         //    NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:startTime];
         //    NSLog(@"%@ execution time : %f Seconds", startTime, executionTime);
         
-        if ([installedPlugins objectForKey:[item objectForKey:@"package"]]) {
+        Boolean installed = false;
+        Boolean isApp = false;
+        NSString *bundleID = [item objectForKey:@"package"];
+
+        if ([installedPlugins objectForKey:bundleID])
+            installed = true;
+
+        if ([Workspace URLForApplicationWithBundleIdentifier:bundleID]) {
+            installed = true;
+            isApp = true;
+        }
+           
+        if (installed) {
+//        if ([installedPlugins objectForKey:[item objectForKey:@"package"]]) {
             // Pack already exists
             [self.bundleDelete setEnabled:true];
+            
             NSDictionary* dic = [[installedPlugins objectForKey:[item objectForKey:@"package"]] objectForKey:@"bundleInfo"];
             NSString* cur = [dic objectForKey:@"CFBundleShortVersionString"];
             if ([cur isEqualToString:@""])
-                cur = [dic objectForKey:@"CFBundleVersion"];
+               cur = [dic objectForKey:@"CFBundleVersion"];
+            
+            if (isApp) {
+                NSURL *url = [Workspace URLForApplicationWithBundleIdentifier:bundleID];
+                NSBundle *b = [NSBundle bundleWithURL:url];
+                NSDictionary *d = [b infoDictionary];
+                cur = [d valueForKey:@"CFBundleShortVersionString"];
+            }
+                        
             NSString* new = [item objectForKey:@"version"];
             id <SUVersionComparison> comparator = [SUStandardVersionComparator defaultComparator];
             NSInteger result = [comparator compareVersion:cur toVersion:new];
+            
+            NSLog(@"----------  %@ : %@", cur, new);
+
+            
             if (result == NSOrderedSame) {
                 //versionA == versionB
                 [self.bundleInstall setEnabled:true];
@@ -668,14 +694,13 @@ extern NSDictionary *testing;
 }
 
 - (void)pluginInstall {
-    [PluginManager.sharedInstance pluginUpdateOrInstall:item :repoPackages];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [PluginManager.sharedInstance readPlugins:nil];
-        [self.bundleInstall setTitle:@"Open"];
-        [self.bundleInstall setAction:@selector(pluginFinder)];
-        [self.bundleDelete setEnabled:true];
-        [self viewWillDraw];
-    });
+    [PluginManager.sharedInstance pluginUpdateOrInstall:item :repoPackages withCompletionHandler:^(BOOL res) {
+            [PluginManager.sharedInstance readPlugins:nil];
+            [self.bundleInstall setTitle:@"Open"];
+            [self.bundleInstall setAction:@selector(pluginFinder)];
+            [self.bundleDelete setEnabled:true];
+            [self viewWillDraw];
+    }];
 }
 
 - (void)pluginFinder {
@@ -685,8 +710,15 @@ extern NSDictionary *testing;
 - (void)pluginDelete {
     [PluginManager.sharedInstance pluginDelete:item];
     [PluginManager.sharedInstance readPlugins:nil];
-    [self.bundleInstall setTitle:@"GET"];
-    [self.bundleInstall setAction:@selector(installOrPurchase)];
+    if ([[item objectForKey:@"payed"] boolValue]) {
+        self.bundleInstall.title = @"Verifying...";
+        [self verifyPurchased];
+        [self.bundleInstall setAction:@selector(installOrPurchase)];
+    } else {
+        [self.bundleInstall setEnabled:true];
+        self.bundleInstall.title = @"GET";
+        [self.bundleInstall setAction:@selector(pluginInstall)];
+    }
     [self.bundleDelete setEnabled:false];
     [self viewWillDraw];
 }

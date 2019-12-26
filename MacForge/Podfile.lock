@@ -1,18 +1,18 @@
 PODS:
-  - AppCenter (2.5.0):
-    - AppCenter/Analytics (= 2.5.0)
-    - AppCenter/Crashes (= 2.5.0)
-  - AppCenter/Analytics (2.5.0):
+  - AppCenter (2.5.3):
+    - AppCenter/Analytics (= 2.5.3)
+    - AppCenter/Crashes (= 2.5.3)
+  - AppCenter/Analytics (2.5.3):
     - AppCenter/Core
-  - AppCenter/Core (2.5.0)
-  - AppCenter/Crashes (2.5.0):
+  - AppCenter/Core (2.5.3)
+  - AppCenter/Crashes (2.5.3):
     - AppCenter/Core
   - EDStarRating (1.1)
   - LetsMove (1.24)
-  - PaddleV4 (4.0.13)
-  - SDWebImage (5.2.5):
-    - SDWebImage/Core (= 5.2.5)
-  - SDWebImage/Core (5.2.5)
+  - PaddleV4 (4.0.14)
+  - SDWebImage (5.4.0):
+    - SDWebImage/Core (= 5.4.0)
+  - SDWebImage/Core (5.4.0)
   - Sparkle (1.22.0)
 
 DEPENDENCIES:
@@ -33,11 +33,11 @@ SPEC REPOS:
     - Sparkle
 
 SPEC CHECKSUMS:
-  AppCenter: 637f180deefc61e8ab3f94223869ee50f61dabea
+  AppCenter: 765ff38c4d360fc5ec61b61a8be24d74cd6d4d83
   EDStarRating: a41a6440a945020745d0e9ff8ada7d1afa952114
   LetsMove: fefe56bc7bc7fb7d37049e28a14f297961229fc5
-  PaddleV4: 6c6b5cc81872dfd286e21abca8da0f6f7959b3e7
-  SDWebImage: 4eabf2fa6695c95c47724214417a9c036c965e4a
+  PaddleV4: ad5e0d74cf4a1e9288d3a0c1d6028c89b3f58ab0
+  SDWebImage: 5bf6aec6481ae2a062bdc59f9d6c1d1e552090e0
   Sparkle: 593ac2e677c07bcb6c3b22d621240e7cbedaab57
 
 PODFILE CHECKSUM: 2c1099a1372e10a4f160883ea7069dddad319d1e

@@ -343,8 +343,8 @@
 }
 
 // Try to update or install a plugin given a bundle plist and a repo
-- (Boolean)pluginUpdateOrInstall:(NSDictionary *)item :(NSString *)repo {
-    Boolean success = false;
+- (Boolean)pluginUpdateOrInstall:(NSDictionary *)item :(NSString *)repo withCompletionHandler:(void (^)(BOOL result))completionBlock {
+    __block Boolean success = false;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         // Get installation URL
@@ -376,9 +376,7 @@
             NSTask *task = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/unzip" arguments:@[@"-o", temp, @"-d", unzipDir]];
             [task waitUntilExit];
             if ([task terminationStatus] == 0) {
-                // presumably the only case where we've successfully installed
-                // ???
-    //                success = true;
+                success = true;
             }
             
             // Try to install the contents
@@ -388,10 +386,11 @@
             [self readPlugins:nil];
         }
                        
-       //This is your completion handler
-       dispatch_sync(dispatch_get_main_queue(), ^{
-           
-       });
+        // This is your completion handler
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            if (completionBlock)
+                completionBlock(success);
+        });
     });
     
     return success;
@@ -594,8 +593,10 @@
     if (needsUpdate.count > 0) {
         for (NSString *key in needsUpdate.allKeys) {
             NSDictionary *itemDict = [needsUpdate objectForKey:key];
-            if ([self pluginUpdateOrInstall:itemDict :[itemDict objectForKey:@"sourceURL"]])
-                [needsUpdate removeObjectForKey:key];
+            [self pluginUpdateOrInstall:itemDict :[itemDict objectForKey:@"sourceURL"] withCompletionHandler:^(BOOL res) {
+                if (res)
+                    [needsUpdate removeObjectForKey:key];
+            }];
         }
         [self updateApplicationIcon];
     }

@@ -16,10 +16,19 @@
 
 + (BOOL)injectPID:(pid_t)pid :(NSString*)bundlePath :(NSError **)error {
     NSConnection *c = [NSConnection connectionWithRegisteredName:@"com.w0lf.MacForge.Injector.mach" host:nil];
-    assert(c != nil);
+    if (c != nil) {
+        NSAlert* alert = [[NSAlert alloc] init];
+        [alert setMessageText:@"hol up"];
+        [alert setInformativeText:@"snoopy dogg"];
+        [alert setAlertStyle:NSAlertStyleWarning];
+        [alert runModal];
+    }
+//    assert(c != nil);
+    
+    [c setReplyTimeout:0.5];
     
     MFInjector *injector = (MFInjector *)[c rootProxy];
-    assert(injector != nil);
+//    assert(injector != nil);
     
     NSString *appName = [NSRunningApplication runningApplicationWithProcessIdentifier:pid].localizedName;
 //    NSString *appID = [NSRunningApplication runningApplicationWithProcessIdentifier:pid].bundleIdentifier;
@@ -28,10 +37,10 @@
     mach_error_t err = [injector inject:pid withBundle:[bundlePath fileSystemRepresentation]];
     
     if (err == 0) {
-//        NSLog(@"Injected App");
+        NSLog(@"Injected %@", appName);
         return YES;
     } else {
-//        NSLog(@"an error occurred while injecting %@: %@ (error code: %@)", appName, [NSString stringWithCString:mach_error_string(err) encoding:NSASCIIStringEncoding], [NSNumber numberWithInt:err]);
+        NSLog(@"an error occurred while injecting %@: %@ (error code: %@)", appName, [NSString stringWithCString:mach_error_string(err) encoding:NSASCIIStringEncoding], [NSNumber numberWithInt:err]);
         *error = [[NSError alloc] initWithDomain:MFErrorDomain
                                             code:MFErrInjection
                                         userInfo:@{NSLocalizedDescriptionKey: MFErrInjectionDescription}];

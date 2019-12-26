@@ -37,7 +37,7 @@
 
 - (void)installBundles:(NSArray*)pathArray;
 - (void)replaceFile:(NSString*)start :(NSString*)end;
-- (Boolean)pluginUpdateOrInstall:(NSDictionary*)item :(NSString*)repo;
+- (Boolean)pluginUpdateOrInstall:(NSDictionary*)item :(NSString*)repo withCompletionHandler:(void (^)(BOOL))completionBlock;
 - (Boolean)pluginDelete:(NSDictionary*)item;
 - (Boolean)pluginRevealFinder:(NSDictionary*)item;
 

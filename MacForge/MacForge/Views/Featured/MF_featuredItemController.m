@@ -52,9 +52,10 @@ extern AppDelegate *myDelegate;
     dispatch_queue_t backgroundQueue0 = dispatch_queue_create("com.w0lf.MacForge", 0);
     dispatch_async(backgroundQueue0, ^{
         NSImage *icon = [PluginManager pluginGetIcon:plugin.webPlist];
+            
         NSString *iconpath = [plugin.webPlist objectForKey:@"icon"];
         NSString *banpath = [plugin.webPlist objectForKey:@"banner"];
-
+        
         NSString *imgurl = [NSString stringWithFormat:@"https://github.com/w0lfschild/myRepo/raw/master/featuredRepo%@", iconpath];
         NSString *banurl = [NSString stringWithFormat:@"https://github.com/w0lfschild/myRepo/raw/master/featuredRepo%@", banpath];
         

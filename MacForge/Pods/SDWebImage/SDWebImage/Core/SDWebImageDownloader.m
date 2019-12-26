@@ -272,6 +272,16 @@ static void * SDWebImageDownloaderContext = &SDWebImageDownloaderContext;
     SD_LOCK(self.HTTPHeadersLock);
     mutableRequest.allHTTPHeaderFields = self.HTTPHeaders;
     SD_UNLOCK(self.HTTPHeadersLock);
+    
+    // Context Option
+    SDWebImageMutableContext *mutableContext;
+    if (context) {
+        mutableContext = [context mutableCopy];
+    } else {
+        mutableContext = [NSMutableDictionary dictionary];
+    }
+    
+    // Request Modifier
     id<SDWebImageDownloaderRequestModifier> requestModifier;
     if ([context valueForKey:SDWebImageContextDownloadRequestModifier]) {
         requestModifier = [context valueForKey:SDWebImageContextDownloadRequestModifier];
@@ -291,6 +301,30 @@ static void * SDWebImageDownloaderContext = &SDWebImageDownloaderContext;
     } else {
         request = [mutableRequest copy];
     }
+    // Response Modifier
+    id<SDWebImageDownloaderResponseModifier> responseModifier;
+    if ([context valueForKey:SDWebImageContextDownloadResponseModifier]) {
+        responseModifier = [context valueForKey:SDWebImageContextDownloadResponseModifier];
+    } else {
+        responseModifier = self.responseModifier;
+    }
+    if (responseModifier) {
+        mutableContext[SDWebImageContextDownloadResponseModifier] = responseModifier;
+    }
+    // Decryptor
+    id<SDWebImageDownloaderDecryptor> decryptor;
+    if ([context valueForKey:SDWebImageContextDownloadDecryptor]) {
+        decryptor = [context valueForKey:SDWebImageContextDownloadDecryptor];
+    } else {
+        decryptor = self.decryptor;
+    }
+    if (decryptor) {
+        mutableContext[SDWebImageContextDownloadDecryptor] = decryptor;
+    }
+    
+    context = [mutableContext copy];
+    
+    // Operation Class
     Class operationClass = self.config.operationClass;
     if (operationClass && [operationClass isSubclassOfClass:[NSOperation class]] && [operationClass conformsToProtocol:@protocol(SDWebImageDownloaderOperation)]) {
         // Custom operation class
@@ -369,7 +403,12 @@ static void * SDWebImageDownloaderContext = &SDWebImageDownloaderContext;
     NSOperation<SDWebImageDownloaderOperation> *returnOperation = nil;
     for (NSOperation<SDWebImageDownloaderOperation> *operation in self.downloadQueue.operations) {
         if ([operation respondsToSelector:@selector(dataTask)]) {
-            if (operation.dataTask.taskIdentifier == task.taskIdentifier) {
+            // So we lock the operation here, and in `SDWebImageDownloaderOperation`, we use `@synchonzied (self)`, to ensure the thread safe between these two classes.
+            NSURLSessionTask *operationTask;
+            @synchronized (operation) {
+                operationTask = operation.dataTask;
+            }
+            if (operationTask.taskIdentifier == task.taskIdentifier) {
                 returnOperation = operation;
                 break;
             }

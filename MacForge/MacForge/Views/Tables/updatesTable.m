@@ -61,10 +61,18 @@ extern NSMutableDictionary *needsUpdate;
 }
 
 - (IBAction)updateAll:(id)sender {
+    __block NSUInteger count = [needsUpdate count];
+    
     for (NSString* key in [needsUpdate allKeys]) {
         NSDictionary *installDict = [needsUpdate objectForKey:key];
-        [self->sharedMethods pluginUpdateOrInstall:installDict :[installDict objectForKey:@"sourceURL"]];
+        [self->sharedMethods pluginUpdateOrInstall:installDict :[installDict objectForKey:@"sourceURL"] withCompletionHandler:^(BOOL res) {
+            count--;
+        }];
     }
+    
+    /* wait until all installs have finished */
+    while (count != 0)
+        ;
     
     dispatch_queue_t backgroundQueue = dispatch_queue_create("com.w0lf.MacForge", 0);
     dispatch_async(backgroundQueue, ^{
@@ -77,13 +85,20 @@ extern NSMutableDictionary *needsUpdate;
     NSTableView *t = (NSTableView*)[[[sender superview] superview] superview];
     long selected = [t rowForView:sender];
     @try {
+        __block NSUInteger count = [needsUpdate count];
+        
         NSString *key = [[needsUpdate allKeys] objectAtIndex:selected];
         NSDictionary *installDict = [needsUpdate objectForKey:key];
-        [self->sharedMethods pluginUpdateOrInstall:installDict :[installDict objectForKey:@"sourceURL"]];
+        [self->sharedMethods pluginUpdateOrInstall:installDict :[installDict objectForKey:@"sourceURL"] withCompletionHandler:^(BOOL res) {
+            count--;
+        }];
+        
+        /* wait until all installs have finished */
+        while (count != 0)
+            ;
         
         dispatch_queue_t backgroundQueue = dispatch_queue_create("com.w0lf.MacForge", 0);
         dispatch_async(backgroundQueue, ^{
-//            [needsUpdate removeObjectForKey:key];
             [self->sharedMethods checkforPluginUpdates:self->_tblView :myDelegate.viewUpdateCounter];
         });
     } @catch (NSException *exception) {

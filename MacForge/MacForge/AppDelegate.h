@@ -36,6 +36,7 @@
 #import "SGDirWatchdog.h"
 #import "NSBundle+LoginItem.h"
 #import "blacklistTable.h"
+#import "MF_BlacklistManager.h"
 
 #import "pluginData.h"
 

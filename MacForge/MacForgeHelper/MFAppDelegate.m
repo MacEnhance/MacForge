@@ -7,6 +7,7 @@
 //
 
 @import Sparkle;
+@import MacForgeKit;
 
 #import "MFAppDelegate.h"
 #import "MFInstaller.h"
@@ -123,7 +124,8 @@ void HandleExceptions(NSException *exception) {
     
     // Watch for app launches using CarbonEventHandler, this catches apps like the Dock and com.apple.appkit.xpc.openAndSavePanelService
     // Which are not logged with NSWorkspaceDidLaunchApplicationNotification
-    [MFAppDelegate watchForApplications];
+//    [MFAppDelegate watchForApplications];
+    [self watchForApplications];
     
     // Try injecting into all runnning process in NSWorkspace.sharedWorkspace
     [MFAppDelegate injectAllProc];
@@ -333,6 +335,7 @@ void HandleExceptions(NSException *exception) {
     
     // Hardcoded blacklist
     if ([@[@"com.w0lf.MacForge", @"com.w0lf.MacForgeHelper", @"com.macenhance.purchaseValidationApp"] containsObject:runningApp.bundleIdentifier]) return false;
+//     @"com.apple.AccountProfileRemoteViewService"
     
     // Don't inject if somehow the executable doesn't seem to exist
     if (!runningApp.executableURL.path.length) return false;
@@ -376,7 +379,7 @@ void HandleExceptions(NSException *exception) {
            pid_t pid = [runningApp processIdentifier];
            // Try injecting each valid plugin into the application
            for (NSString *bundlePath in [SIMBL pluginsToLoadList:[NSBundle bundleWithPath:runningApp.bundleURL.path]]) {
-   //            NSLog(@"Try inject App %@", runningApp.bundleIdentifier);
+               NSLog(@"Try inject App %@", runningApp.bundleIdentifier);
 
 //               dispatch_async(dispatch_get_main_queue(), ^(void){
                    NSError *error;
@@ -473,17 +476,46 @@ void HandleExceptions(NSException *exception) {
     }
 }
 
+static const void *kMyKVOContext = (void*)&kMyKVOContext;
+
 // Setup Carbon Event handler to watch for application launches
-+ (void)watchForApplications {
+- (void)watchForApplications {
     static EventHandlerRef sCarbonEventsRef = NULL;
     static const EventTypeSpec kEvents[] = {
         { kEventClassApplication, kEventAppLaunched },
-        { kEventClassApplication, kEventAppTerminated }
+        { kEventClassApplication, kEventAppTerminated },
     };
     if (sCarbonEventsRef == NULL) {
         (void) InstallEventHandler(GetApplicationEventTarget(), (EventHandlerUPP) CarbonEventHandler, GetEventTypeCount(kEvents), kEvents, (__bridge void *)(self), &sCarbonEventsRef);
     }
+
+//   [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver: self
+//                                                          selector: @selector(launchedApp:)
+//                                                              name: @"NSWorkspaceWillLaunchApplicationNotification"
+//                                                            object: nil
+//    ];
+    
+//    [[NSWorkspace sharedWorkspace] addObserver:self
+//                                    forKeyPath:@"runningApplications"
+//                                       options:NSKeyValueObservingOptionNew // maybe | NSKeyValueObservingOptionInitial
+//                                       context:kMyKVOContext];
 }
+
+//- (void)launchedApp:(NSNotification*)note {
+//    NSString* AppPID = [note.userInfo objectForKey:@"NSApplicationProcessIdentifier"];
+//    NSLog(@"Launching nc : %@ : %f", AppPID, [NSDate timeIntervalSinceReferenceDate] * 1000);
+//}
+
+//- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+//{
+//    if (context == kMyKVOContext) {
+//        if ([keyPath isEqualToString:@"runningApplications"]) {
+//            NSLog(@"runningApplications : %f", [NSDate timeIntervalSinceReferenceDate] * 1000);
+//        }
+//    } else {
+//        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+//    }
+//}
 
 // Inject into launched applications
 static OSStatus CarbonEventHandler(EventHandlerCallRef inHandlerCallRef, EventRef inEvent, void* inUserData) {
@@ -493,7 +525,7 @@ static OSStatus CarbonEventHandler(EventHandlerCallRef inHandlerCallRef, EventRe
         case kEventAppLaunched:
             // App lauched!
             [MFAppDelegate injectBundle:[NSRunningApplication runningApplicationWithProcessIdentifier:pid]];
-            NSLog(@"%d", pid);
+//            NSLog(@"%d", pid);
             break;
         case kEventAppTerminated:
             // App terminated!

@@ -5,8 +5,11 @@
 
 #import "MSCrashHandlerSetupDelegate.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class MSErrorReport;
 @class MSErrorAttachmentLog;
+@class MSException;
 
 /**
  * This general class allows wrappers to supplement the Crashes SDK with their own behavior.
@@ -58,4 +61,30 @@
  */
 + (void)sendErrorAttachments:(NSArray<MSErrorAttachmentLog *> *)errorAttachments withIncidentIdentifier:(NSString *)incidentIdentifier;
 
+/**
+ * Track handled exception directly as model form.
+ * This API is used by wrapper SDKs.
+ *
+ * @param exception model form exception.
+ * @param properties dictionary of properties.
+ * @param attachments a list of attachments.
+ *
+ * @return handled error ID.
+ */
++ (NSString *)trackModelException:(MSException *)exception
+                   withProperties:(nullable NSDictionary<NSString *, NSString *> *)properties
+                  withAttachments:(nullable NSArray<MSErrorAttachmentLog *> *)attachments;
+
+/**
+ * Get a generic error report representation for an handled exception.
+ * This API is used by wrapper SDKs.
+ *
+ * @param errorID handled error ID.
+ *
+ * @return an error report.
+ */
++ (MSErrorReport *)buildHandledErrorReportWithErrorID:(NSString *)errorID;
+
 @end
+
+NS_ASSUME_NONNULL_END

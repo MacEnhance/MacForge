@@ -101,6 +101,18 @@ typedef NS_ENUM(NSUInteger, MSUserConfirmation) {
  */
 + (nullable MSErrorReport *)lastSessionCrashReport;
 
+#if TARGET_OS_OSX
+/**
+ * Callback for report exception.
+ *
+ * NOTE: This method should be called only if you explicitly disabled swizzling for it.
+ *
+ * On OS X runtime, not all uncaught exceptions end in a custom `NSUncaughtExceptionHandler`.
+ * Forward exception from overrided `[NSApplication reportException:]` to catch additional exceptions.
+ */
++ (void)applicationDidReportException:(NSException *_Nonnull)exception;
+#endif
+
 ///-----------------------------------------------------------------------------
 /// @name Configuration
 ///-----------------------------------------------------------------------------
