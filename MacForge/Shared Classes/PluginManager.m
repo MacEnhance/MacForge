@@ -396,90 +396,43 @@
     return success;
 }
 
+- (NSString*)pluginLocalPath:(NSString *)bundleID {
+    NSString *result = @"";
+        
+    // Looks like it's an app
+    NSURL *fileURL = [Workspace URLForApplicationWithBundleIdentifier:bundleID];
+    if ([fileURL.path.pathComponents.firstObject containsString:@"/Applications"])
+        result = fileURL.path;
+    
+    // Maybe it's a bundle
+    if ([installedPluginDICT.allKeys containsObject:bundleID])
+        result = installedPluginDICT[bundleID][@"path"];
+
+    return result;
+}
+
 // Delete a plugin given it's plist
 - (Boolean)pluginDelete:(NSDictionary*)item {
-    int pos = 0;
-    bool found = false;
-    
-    // Make sure out pluginsArray is up to date
     [self readPlugins:nil];
-    
-    // Look for the plugin
-    for (NSDictionary* dict in pluginsArray) {
-        if ([[dict objectForKey:@"bundleId"] isEqualToString:[item objectForKey:@"package"]]) {
-            found = true;
-            break;
-        }
-        pos += 1;
-    }
-    
-    // If we found the plugin delete it
-    if (found) {
-        NSDictionary* obj = [pluginsArray objectAtIndex:pos];
-        NSString* path = [obj objectForKey:@"path"];
-        NSURL* url = [NSURL fileURLWithPath:path];
-        NSURL* trash;
-        NSError* error;
-        [FileManager trashItemAtURL:url resultingItemURL:&trash error:&error];
-        if (error == noErr)
-            return true;
-    }
-    
-    return false;;
+    NSError* error;
+    NSURL* trash;
+    NSURL *localPath = [NSURL fileURLWithPath:[self pluginLocalPath:item[@"package"]]];
+    if (localPath.path.length)
+        [FileManager trashItemAtURL:localPath resultingItemURL:&trash error:&error];
+    return false;
 }
 
 // Reveal a plugin in Finder
 - (Boolean)pluginRevealFinder:(NSDictionary*)item {
-    int pos = 0;
-    bool found = false;
-    
-    // Make sure out pluginsArray is up to date
     [self readPlugins:nil];
-    
-    NSString *bundleID = [item objectForKey:@"package"];
-    
-    for (NSDictionary* dict in pluginsArray) {
-        if ([[dict objectForKey:@"bundleId"] isEqualToString:bundleID]) {
-            found = true;
-            break;
-        }
-        pos += 1;
-    }
-    
-    if (found) {
-        NSDictionary* obj = [pluginsArray objectAtIndex:pos];
-        NSString* path = [obj objectForKey:@"path"];
-        NSURL* url = [NSURL fileURLWithPath:path];
-        [Workspace activateFileViewerSelectingURLs:[NSArray arrayWithObject:url]];
-        return true;
-    }
-    
-    if ([Workspace URLForApplicationWithBundleIdentifier:bundleID]) {
-        NSURL *fileURL = [Workspace URLForApplicationWithBundleIdentifier:bundleID];
-        
-        NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:@[] forKey:NSWorkspaceLaunchConfigurationArguments];
-        
-//        NSLog(@"------ %@", [NSRunningApplication runningApplicationsWithBundleIdentifier:[item objectForKey:@"package"]]);
-//        NSLog(@"------ %@", [NSString stringWithFormat:@"%@/Contents/MacOS/%@", fileURL.path, fileURL.path.lastPathComponent.stringByDeletingPathExtension]);
-
-        if ([NSRunningApplication runningApplicationsWithBundleIdentifier:bundleID].count == 0) {
-            NSError *err;
-            [Workspace launchApplicationAtURL:fileURL options:NSWorkspaceLaunchDefault configuration:dict error:&err];
-//            [Workspace launchApplication:fileURL.path];
-            if (err)
-                NSLog(@"------ %@", err);
-        } else {
-            [Workspace activateFileViewerSelectingURLs:[NSArray arrayWithObject:fileURL]];
-        }
-    }
-    
+    NSURL *localPath = [NSURL fileURLWithPath:[self pluginLocalPath:item[@"package"]]];
+    if (localPath.path.length)
+        [Workspace activateFileViewerSelectingURLs:[NSArray arrayWithObject:localPath]];
     return false;;
 }
 
--(void)pluginGetIcon:(NSString*)string withCompletion:(void(^)(BOOL success, NSError* error, id responce))completion
-{
-    NSString *str =[NSString stringWithFormat:@"MY FUNTn CALLBACK %@",string];
+- (void)pluginGetIcon:(NSString*)string withCompletion:(void(^)(BOOL success, NSError* error, id responce))completion {
+    NSString *str = [NSString stringWithFormat:@"MY FUNTn CALLBACK %@",string];
     if (completion){
         dispatch_async(dispatch_get_main_queue(), ^{
             completion(YES,nil,str); // here that call when method complete
@@ -528,8 +481,7 @@
     // Try finding an icon based on target applications
     // We will always use the first icon found
     for (NSDictionary* targetApp in targets) {
-        iconPath = [targetApp objectForKey:@"BundleIdentifier"];
-        iconPath = [Workspace absolutePathForAppBundleWithIdentifier:iconPath];
+        iconPath = [Workspace absolutePathForAppBundleWithIdentifier:targetApp[@"BundleIdentifier"]];
 
         if ([iconPath length]) {
             // Use specific icon for Notification Center
@@ -595,7 +547,7 @@
             NSDictionary *itemDict = [needsUpdate objectForKey:key];
             [self pluginUpdateOrInstall:itemDict :[itemDict objectForKey:@"sourceURL"] withCompletionHandler:^(BOOL res) {
                 if (res)
-                    [needsUpdate removeObjectForKey:key];
+                    [self->needsUpdate removeObjectForKey:key];
             }];
         }
         [self updateApplicationIcon];

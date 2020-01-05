@@ -55,32 +55,38 @@ void HandleExceptions(NSException *exception) {
     // Insert code here to tear down your application
 }
 
+- (void)applicationWillFinishLaunching:(NSNotification *)notification {
+    NSSetUncaughtExceptionHandler(&HandleExceptions);
+    NSDictionary *GUIDefaults = [[NSUserDefaults standardUserDefaults] persistentDomainForName:@"com.w0lf.MacForge"];
+    if (![[GUIDefaults objectForKey:@"prefHideMenubar"] boolValue])
+        [self setupMenuItem];
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     NSError *error;
-    NSSetUncaughtExceptionHandler(&HandleExceptions);
-    
-    [self setupApplication];
-    
-    [[NSDistributedNotificationCenter defaultCenter] addObserverForName:@"com.macenhance.MacForgeHelperNotify"
-                                                                 object:nil
-                                                                  queue:nil
-                                                             usingBlock:^(NSNotification *notification)
-    {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if ([notification.object isEqualToString:@"showMenu"]) [self setupMenuItem];
-            if ([notification.object isEqualToString:@"hideMenu"]) [self noStatusIcon];
-        });
-    }];
-    
-//    [MFInstaller install:&error];
-    
+
     // Make sure helpers are installed
     if ([MFInstaller isInstalled] == NO && [MFInstaller install:&error] == NO) {
-        assert(error != nil);
+//        assert(error != nil);
         NSLog(@"Couldn't install MachInjectSample (domain: %@ code: %@)", error.domain, [NSNumber numberWithInteger:error.code]);
         NSAlert *alert = [NSAlert alertWithError:error];
         [alert runModal];
     }
+    
+    [[NSDistributedNotificationCenter defaultCenter] addObserverForName:@"com.macenhance.MacForgeHelperNotify"
+                                                                    object:nil
+                                                                     queue:nil
+                                                                usingBlock:^(NSNotification *notification)
+    {
+       dispatch_async(dispatch_get_main_queue(), ^{
+           if ([notification.object isEqualToString:@"showMenu"]) [self setupMenuItem];
+           if ([notification.object isEqualToString:@"hideMenu"]) [self noStatusIcon];
+       });
+    }];
+    
+    // setUp
+    [self setupApplication];
+   
     
     // Check for args so we can run as a command line tool
     NSArray *args = [[NSProcessInfo processInfo] arguments];
@@ -110,10 +116,6 @@ void HandleExceptions(NSException *exception) {
 }
 
 - (void)setupApplication {
-    NSDictionary *GUIDefaults = [[NSUserDefaults standardUserDefaults] persistentDomainForName:@"com.w0lf.MacForge"];
-    if (![[GUIDefaults objectForKey:@"prefHideMenubar"] boolValue])
-        [self setupMenuItem];
-        
     // Start a timer to do daily plugin and app  update checks 86400 seconds in a day
     [NSTimer scheduledTimerWithTimeInterval:86400 target:self selector:@selector(checkForPluginUpdates) userInfo:nil repeats:YES];
     [NSTimer scheduledTimerWithTimeInterval:86400 target:self selector:@selector(checkMacForgeForUpdatesBackground) userInfo:nil repeats:YES];
@@ -379,12 +381,12 @@ void HandleExceptions(NSException *exception) {
            pid_t pid = [runningApp processIdentifier];
            // Try injecting each valid plugin into the application
            for (NSString *bundlePath in [SIMBL pluginsToLoadList:[NSBundle bundleWithPath:runningApp.bundleURL.path]]) {
-               NSLog(@"Try inject App %@", runningApp.bundleIdentifier);
+//               NSLog(@"Try inject App %@", runningApp.bundleIdentifier);
 
 //               dispatch_async(dispatch_get_main_queue(), ^(void){
                    NSError *error;
                    if ([MFInjectorProxy injectPID:pid :bundlePath :&error] == false) {
-                        assert(error != nil);
+//                        assert(error != nil);
                         NSLog(@"Couldn't inject into %d : %@ (domain: %@ code: %@)", pid, runningApp.localizedName, error.domain, [NSNumber numberWithInteger:error.code]);
                         SIMBLLogNotice(@"Couldn't inject App (domain: %@ code: %@)", error.domain, [NSNumber numberWithInteger:error.code]);
                    }
@@ -416,7 +418,7 @@ void HandleExceptions(NSException *exception) {
             NSError *error;
             // Inject the bundle
             if ([MFInjectorProxy injectPID:pid :bundlePath :&error] == false) {
-                assert(error != nil);
+//                assert(error != nil);
                 SIMBLLogNotice(@"Couldn't inject App (domain: %@ code: %@)", error.domain, [NSNumber numberWithInteger:error.code]);
             }
         }

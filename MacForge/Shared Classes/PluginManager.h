@@ -25,6 +25,8 @@
 + (NSArray*)MacEnhancePluginPaths;
 + (NSImage*)pluginGetIcon:(NSDictionary*)plist;
 
+- (NSString*)pluginLocalPath:(NSString*)bundleID;
+
 - (NSMutableDictionary*)getInstalledPlugins;
 
 - (NSMutableDictionary*)getNeedsUpdate;

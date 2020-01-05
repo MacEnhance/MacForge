@@ -26,14 +26,18 @@ NSString *const MFInstallerExecutablLabel = @"com.w0lf.MacForge.Installer";
     NSString *versionInstalled = [[NSUserDefaults standardUserDefaults] stringForKey:MFUserDefaultsInstalledVersionKey];
     NSString *currentVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     BOOL result = false;
+    
     if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Library/PrivilegedHelperTools/com.w0lf.MacForge.Injector"])
         result = true;
+    
     if (result && ([currentVersion compare:versionInstalled] == NSOrderedSame))
         result = true;
     else
         result = false;
+    
     if (![[NSFileManager defaultManager] isWritableFileAtPath:@"/Library/Application Support/MacEnhance/Plugins"])
         result = false;
+    
     return result;
 }
 
@@ -122,10 +126,10 @@ NSString *const MFInstallerExecutablLabel = @"com.w0lf.MacForge.Installer";
   BOOL result = YES;
 
   NSConnection *c = [NSConnection connectionWithRegisteredName:@"com.w0lf.MacForge.Installer.mach" host:nil];
-  assert(c != nil);
+//  assert(c != nil);
 
   MFFrameworkInstaller *installer = (MFFrameworkInstaller *)[c rootProxy];
-  assert(installer != nil);
+//  assert(installer != nil);
 
   result = [installer installFramework:frameworkPath];
 
@@ -146,10 +150,10 @@ NSString *const MFInstallerExecutablLabel = @"com.w0lf.MacForge.Installer";
     BOOL result = YES;
     
     NSConnection *c = [NSConnection connectionWithRegisteredName:@"com.w0lf.MacForge.Installer.mach" host:nil];
-    assert(c != nil);
+//    assert(c != nil);
     
     MFFrameworkInstaller *installer = (MFFrameworkInstaller *)[c rootProxy];
-    assert(installer != nil);
+//    assert(installer != nil);
     
     result = [installer setupPluginFolder];
     

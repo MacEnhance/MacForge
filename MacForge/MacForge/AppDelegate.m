@@ -263,7 +263,7 @@ Boolean appSetupFinished = false;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 //    [MSCrashes generateTestCrash];
-        
+
     [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(systemDarkModeChange:) name:@"AppleInterfaceThemeChangedNotification" object:nil];
     [[NSDistributedNotificationCenter defaultCenter] addObserverForName:@"com.w0lf.MacForgeNotify"
                                                                  object:nil
@@ -298,13 +298,8 @@ Boolean appSetupFinished = false;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (showBundleOnOpen == true) {
             [myDelegate selectView:self->_viewDiscover];
-            NSView *v = myDelegate.sourcesBundle;
             dispatch_async(dispatch_get_main_queue(), ^(void){
-                [v setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
-                [v setFrame:myDelegate.tabMain.frame];
-                [v setFrameOrigin:NSMakePoint(0, 0)];
-                [v setTranslatesAutoresizingMaskIntoConstraints:true];
-                [myDelegate.tabMain setSubviews:[NSArray arrayWithObject:v]];
+                [self setViewSubView:myDelegate.tabMain :myDelegate.sourcesBundle];
             });
         }
     });
@@ -339,6 +334,34 @@ Boolean appSetupFinished = false;
     
     // Crash on exceptions?
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"NSApplicationCrashOnExceptions": [NSNumber numberWithBool:true]}];
+    
+    /* Configure Firebase */
+    [FIRApp configure];
+    
+    /* Setup our handler for Authenthication events */
+    [[FIRAuth auth] addAuthStateDidChangeListener:^(FIRAuth *_Nonnull auth, FIRUser *_Nullable user) {
+        self->_user = user;
+        
+        [self updateUserButtonWithUser:user andAuth:auth];
+        
+        /* Update the Under Construction view's login/logout button */
+        self->_signInOrOutButton.title = (self->_user) ? @"Sign Out" : @"Sign In";
+        
+        if (user)
+            [self setViewSubView:self.tabAccount :self.tabAccountPurchases];
+        else
+            [self setViewSubView:self.tabAccount :self.tabAccountRegister];
+    }];
+    
+    /* Get signed-in user */
+    _user = [FIRAuth auth].currentUser;
+    
+    /* Check if there actually is someone signed-in */
+    if (_user) {
+        NSLog(@"Current signed-in user id: %@", _user.uid);
+    } else {
+        NSLog(@"No user signed-in.");
+    }
     
     sourceItems = [NSArray arrayWithObjects:_sourcesURLS, _sourcesPlugins, _sourcesBundle, nil];
     discoverItems = [NSArray arrayWithObjects:_discoverChanges, _sourcesBundle, nil];
@@ -548,9 +571,13 @@ Boolean appSetupFinished = false;
     [formatter setDateFormat:@"yyyy"];
     NSString * currentYEAR = [formatter stringFromDate:[NSDate date]];
     [_appCopyright setStringValue:[NSString stringWithFormat:@"Copyright © 2015 - %@ macEnhance", currentYEAR]];
-    [[_changeLog textStorage] setAttributedString:[[NSAttributedString alloc] initWithURL:[[NSBundle mainBundle] URLForResource:@"Changelog" withExtension:@"rtf"] options:[[NSDictionary alloc] init] documentAttributes:nil error:nil]];
-    [self systemDarkModeChange:nil];
+        
+    NSString *path = [[[NSBundle mainBundle] URLForResource:@"CHANGELOG" withExtension:@"md"] path];
+    CMDocument *cmd = [[CMDocument alloc] initWithContentsOfFile:path options:CMDocumentOptionsNormalize];
+    CMAttributedStringRenderer *asr = [[CMAttributedStringRenderer alloc] initWithDocument:cmd attributes:[[CMTextAttributes alloc] init]];
+    [_changeLog.textStorage setAttributedString:asr.render];
     
+    [self systemDarkModeChange:nil];
     [self selectView:_viewDiscover];
     
     [_prefStartTab selectItemAtIndex:0];
@@ -865,30 +892,46 @@ Boolean appSetupFinished = false;
 
 - (IBAction)aboutInfo:(id)sender {
     if ([sender isEqualTo:_showChanges]) {
-        [_changeLog setEditable:true];
-        [_changeLog.textStorage setAttributedString:[[NSAttributedString alloc] initWithURL:[[NSBundle mainBundle] URLForResource:@"Changelog" withExtension:@"rtf"] options:@{NSDocumentTypeDocumentAttribute:NSRTFTextDocumentType} documentAttributes:nil error:nil]];
-        [_changeLog selectAll:self];
-        [_changeLog alignLeft:nil];
-        [_changeLog setSelectedRange:NSMakeRange(0,0)];
-        [_changeLog setEditable:false];
+        NSString *path = [[[NSBundle mainBundle] URLForResource:@"CHANGELOG" withExtension:@"md"] path];
+        CMDocument *cmd = [[CMDocument alloc] initWithContentsOfFile:path options:CMDocumentOptionsNormalize];
+        CMAttributedStringRenderer *asr = [[CMAttributedStringRenderer alloc] initWithDocument:cmd attributes:[[CMTextAttributes alloc] init]];
+        [_changeLog.textStorage setAttributedString:asr.render];
     }
     if ([sender isEqualTo:_showCredits]) {
-        [_changeLog setEditable:true];
-        [_changeLog.textStorage setAttributedString:[[NSAttributedString alloc] initWithURL:[[NSBundle mainBundle] URLForResource:@"Credits" withExtension:@"rtf"] options:@{NSDocumentTypeDocumentAttribute:NSRTFTextDocumentType} documentAttributes:nil error:nil]];
-        [_changeLog selectAll:self];
-        [_changeLog alignCenter:nil];
-        [_changeLog setSelectedRange:NSMakeRange(0,0)];
-        [_changeLog setEditable:false];
+        NSString *path = [[[NSBundle mainBundle] URLForResource:@"CREDITS" withExtension:@"md"] path];
+        CMDocument *cmd = [[CMDocument alloc] initWithContentsOfFile:path options:CMDocumentOptionsNormalize];
+        CMAttributedStringRenderer *asr = [[CMAttributedStringRenderer alloc] initWithDocument:cmd attributes:[[CMTextAttributes alloc] init]];
+        [_changeLog.textStorage setAttributedString:asr.render];
     }
     if ([sender isEqualTo:_showEULA]) {
         NSMutableAttributedString *mutableAttString = [[NSMutableAttributedString alloc] init];
         for (NSString *item in [FileManager contentsOfDirectoryAtPath:NSBundle.mainBundle.resourcePath error:nil]) {
             if ([item containsString:@"LICENSE"]) {
+                
+                NSString *unicodeStr = @"\n\u00a0\t\t\n\n";
+                NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:unicodeStr];
+                NSRange strRange = NSMakeRange(0, str.length);
+
+                NSMutableParagraphStyle *const tabStyle = [[NSMutableParagraphStyle alloc] init];
+                tabStyle.headIndent = 16; //padding on left and right edges
+                tabStyle.firstLineHeadIndent = 16;
+                tabStyle.tailIndent = -70;
+                NSTextTab *listTab = [[NSTextTab alloc] initWithTextAlignment:NSTextAlignmentCenter location:_changeLog.frame.size.width - tabStyle.headIndent + tabStyle.tailIndent options:@{}]; //this is how long I want the line to be
+                tabStyle.tabStops = @[listTab];
+                [str  addAttribute:NSParagraphStyleAttributeName value:tabStyle range:strRange];
+                [str addAttribute:NSStrikethroughStyleAttributeName value:[NSNumber numberWithInt:2] range:strRange];
+                
                 [mutableAttString appendAttributedString:[[NSAttributedString alloc] initWithURL:[[NSBundle mainBundle] URLForResource:item withExtension:@""] options:[[NSDictionary alloc] init] documentAttributes:nil error:nil]];
-                [mutableAttString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n---------- ---------- ---------- ---------- ----------\n\n"]];
+                [mutableAttString appendAttributedString:str];
             }
         }
         [_changeLog.textStorage setAttributedString:mutableAttString];
+    }
+    if ([sender isEqualTo:_showDev]) {
+        NSString *path = [[[NSBundle mainBundle] URLForResource:@"README" withExtension:@"md"] path];
+        CMDocument *cmd = [[CMDocument alloc] initWithContentsOfFile:path options:CMDocumentOptionsNormalize];
+        CMAttributedStringRenderer *asr = [[CMAttributedStringRenderer alloc] initWithDocument:cmd attributes:[[CMTextAttributes alloc] init]];
+        [_changeLog.textStorage setAttributedString:asr.render];
     }
     
     [NSAnimationContext beginGrouping];
@@ -1016,12 +1059,7 @@ Boolean appSetupFinished = false;
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
             NSView *v = [tabViews objectAtIndex:[tabViewButtons indexOfObject:sender]];
             dispatch_async(dispatch_get_main_queue(), ^(void){
-//                [v.layer setBackgroundColor:[NSColor redColor].CGColor];
-                [v setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
-                [v setFrame:self->_tabMain.frame];
-                [v setFrameOrigin:NSMakePoint(0, 0)];
-                [v setTranslatesAutoresizingMaskIntoConstraints:true];
-                [self->_tabMain setSubviews:[NSArray arrayWithObject:v]];
+                [self setViewSubView:self.tabMain :v];
             });
         });
     }
@@ -1350,6 +1388,183 @@ Boolean appSetupFinished = false;
     }
     
     return specKey;
+}
+
+// -------------------
+// USER AUTHENTICATION
+// -------------------
+
+// XXX Later support Google account (OAuth?)
+
+- (void)setViewSubView:(NSView*)container :(NSView*)subview {
+    [subview setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
+    [subview setFrame:container.frame];
+    [subview setFrameOrigin:NSMakePoint(0, 0)];
+    [subview setTranslatesAutoresizingMaskIntoConstraints:true];
+    //    [subview setWantsLayer:true];
+    //    subview.layer.backgroundColor = NSColor.redColor.CGColor;
+    [container setSubviews:[NSArray arrayWithObject:subview]];
+}
+
+- (void)setViewSubViewWithAnimation:(NSView*)container :(NSView*)subview {
+    [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context){
+        [context setDuration:0.1];
+        [[container.subviews.firstObject animator] setFrameOrigin:NSMakePoint(0, container.frame.size.height)];
+    } completionHandler:^{
+        [container.subviews.firstObject removeFromSuperview];
+        [self setViewSubView:container :subview];
+        [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context){
+            [context setDuration:0.2];
+            NSPoint startPoint = NSMakePoint(0, subview.frame.size.height);
+            [subview setFrameOrigin:startPoint];
+            [[subview animator] setFrameOrigin:NSMakePoint(0, 0)];
+        } completionHandler:^{
+        }];
+    }];
+}
+
+- (IBAction)showPurchases:(id)sender {
+    [self setViewSubView:self.tabAccount :self.tabAccountPurchases];
+}
+
+- (IBAction)showUser:(id)sender {
+    [self setViewSubView:self.tabAccount :self.tabAccountManage];
+}
+
+- (IBAction)signUpUser:(id)sender {
+    NSString *username  = _loginUsername.stringValue;
+    NSString *email     = _email.stringValue;
+    NSString *password  = _password.stringValue;
+    NSURL *photoURL     = [NSURL URLWithString:_loginImageURL.stringValue];
+    
+    MF_accountManager *accountManager = [[MF_accountManager alloc] init];
+    
+    /* Try to create a new account */
+    [accountManager createAccountWithUsername:username
+                                        email:email
+                                     password:password
+                                  andPhotoURL:photoURL
+                        withCompletionHandler:^(FIRAuthDataResult * _Nullable authResult, NSError * _Nullable err) {
+        if (!err) {
+            NSLog(@"Successfully created user!");
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self->_loginUID.stringValue = authResult.user.uid;
+            });
+        }
+        else {
+            NSLog(@"%@", err);
+        }
+    }];
+}
+
+- (IBAction)updateUser:(id)sender {
+    NSString *username = _loginUsername.stringValue;
+    NSURL *photoURL = [NSURL URLWithString:_loginImageURL.stringValue];
+    
+    MF_accountManager *accountManager = [[MF_accountManager alloc] init];
+    
+    /* Try to update account */
+    [accountManager updateAccountWithUsername:username andPhotoURL:photoURL withCompletionHandler:^(FIRAuthDataResult * _Nullable authResult, NSError * _Nullable err) {
+        if (!err) {
+            [self updateUserButtonWithUser:self->_user andAuth:nil];
+            NSLog(@"Successfully signed-in!");
+        } else {
+            NSLog(@"%@", err);
+        }
+    }];
+}
+
+- (IBAction)signInUser:(id)sender {
+    NSString *email = _email.stringValue;
+    NSString *password = _password.stringValue;
+    
+    MF_accountManager *accountManager = [[MF_accountManager alloc] init];
+    
+    /* Try to log into an account */
+    [accountManager loginAccountWithEmail:email
+                              andPassword:password
+                    withCompletionHandler:^(FIRAuthDataResult * _Nullable authResult, NSError * _Nullable err) {
+        if (!err) {
+            NSLog(@"Successfully signed-in!");
+            
+            [self selectView:self->_viewAccount];
+        }
+        else {
+            NSLog(@"%@", err);
+        }
+    }];
+}
+
+- (IBAction)signOutUSer:(id)sender {
+    NSError *signOutError;
+    
+    NSLog(@"Signing-out user: %@", [FIRAuth auth].currentUser.uid);
+    
+    BOOL status = [[FIRAuth auth] signOut:&signOutError];
+    
+    if (!status) {
+        NSLog(@"Error signing out: %@", signOutError);
+        return;
+    }
+    
+    NSLog(@"Successfully signed-out.");
+    
+    /* show sign-in form */
+    [self selectView:_tabAccountRegister];
+}
+
+- (IBAction)signInOrOut:(id)sender {
+    if (_user)
+        [self signOutUSer:sender];
+    else
+        [self selectView:_tabAccountRegister];
+}
+
+- (IBAction)openRegisterForm:(id)sender {
+    [self selectView:_tabAccountRegister];
+}
+
+- (IBAction)setPhotoURL:(id)sender {
+    NSOpenPanel *op = [NSOpenPanel openPanel];
+    
+    op.allowsMultipleSelection = NO;
+    op.allowedFileTypes = @[@"jpg", @"png", @"tiff"];
+    [op runModal];
+    
+    _loginImageURL.stringValue = op.URL.absoluteString;
+}
+
+// Updates title and photo of user on sidebar upon FIRAuth event
+- (void)updateUserButtonWithUser:(FIRUser *)user andAuth:(FIRAuth *)auth {
+    NSLog(@"Auth-event for user: %@", user.displayName);
+    
+    /* check if a user is signed-in */
+    if (_user) {
+        NSURL *photoURL = _user.photoURL;
+        NSString *displayName = _user.displayName;
+        
+        if (displayName) {
+            _viewAccount.title = [NSString stringWithFormat:@"                    %@", displayName];
+        } else {
+            _viewAccount.title = [NSString stringWithFormat:@"                    %@", [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].fullName];
+        }
+        
+        if (photoURL)
+            _imgAccount.image = [NSImage sd_imageWithData:[NSData dataWithContentsOfURL:photoURL]];
+        
+        _loginImageURL.stringValue = photoURL.absoluteString;
+        _loginUsername.stringValue = displayName;
+        _loginEmail.stringValue = _user.email;
+        _loginUID.stringValue = _user.uid;
+//        _user.emailVerified
+//        _user.providerID
+    }
+    /* no user signed-in; going with OS user */
+    else {
+        _imgAccount.image = [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].image;
+        _viewAccount.title = [NSString stringWithFormat:@"                    %@", [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].fullName];
+    }
 }
 
 @end

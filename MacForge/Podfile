@@ -15,11 +15,9 @@ target 'MacForge' do
   pod 'LetsMove'
   pod 'SDWebImage'
 
-  pod "CocoaMarkdown", :git => 'https://github.com/indragiek/CocoaMarkdown.git'
-
   # Firebase
   # pod 'FirebaseABTesting'
-  # pod 'FirebaseAuth'
+  pod 'FirebaseAuth'
   # pod 'FirebaseDatabase'
   # pod 'FirebaseFirestore'
   # pod 'FirebaseFunctions'

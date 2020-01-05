@@ -23,6 +23,10 @@ NSArray *allPlugins;
 NSArray *filteredPlugins;
 NSString *textFilter;
 
+NSInteger selRow;
+NSInteger selCol;
+NSInteger curItem;
+
 @interface discoverPluginTable : NSTableView <NSSearchFieldDelegate, NSTableViewDataSource, NSTableViewDelegate> {
     PluginManager *_sharedMethods;
     pluginData *_pluginData;
@@ -314,12 +318,12 @@ NSString *textFilter;
                 [result.bundleGet setTitle:@"GET"];
             }
             
-            Boolean installed = false;
-            if ([_localPlugins containsObject:item.bundleID])
-                installed = true;
-            
-            if ([Workspace URLForApplicationWithBundleIdentifier:item.bundleID])
-                installed = true;
+            Boolean installed = [PluginManager.sharedInstance pluginLocalPath:item.bundleID].length;
+//            if ([_localPlugins containsObject:item.bundleID])
+//                installed = true;
+//
+//            if ([Workspace URLForApplicationWithBundleIdentifier:item.bundleID])
+//                installed = true;
                 
             if (installed)
                 [result.bundleGet setTitle:@"OPEN"];
@@ -341,7 +345,56 @@ NSString *textFilter;
     
 - (void)keyDown:(NSEvent *)theEvent {
     Boolean result = [myDelegate keypressed:theEvent];
+    if (!result) result = [self keypressed:theEvent];
     if (!result) [super keyDown:theEvent];
+}
+
+- (Boolean)keypressed:(NSEvent *)theEvent {
+    NSString*   const   character   =   [theEvent charactersIgnoringModifiers];
+    unichar     const   code        =   [character characterAtIndex:0];
+    bool                specKey     =   false;
+    
+    switch (code) {
+        case NSDownArrowFunctionKey: {
+            [self selectNextItem:true];
+            specKey = true;
+            break;
+        }
+        case NSUpArrowFunctionKey: {
+            [self selectNextItem:false];
+            specKey = true;
+            break;
+        }
+    }
+    
+    return specKey;
+}
+
+- (void)selectNextItem:(Boolean)goUp {
+    if (!curItem)
+        curItem = 0;
+    
+    if (goUp) {
+        if (curItem < self.numberOfRows * self.numberOfColumns) {
+            curItem++;
+        } else {
+            curItem = 0;
+        }
+    } else {
+        if (curItem > 0) {
+            curItem--;
+        } else {
+            curItem = self.numberOfRows * self.numberOfColumns;
+        }
+    }
+
+    NSIndexSet *row = [NSIndexSet indexSetWithIndex:curItem / 2];
+    NSIndexSet *col = [NSIndexSet indexSetWithIndex:0];
+    if ( curItem % 2 == 1)
+        col = [NSIndexSet indexSetWithIndex:1];
+
+    [self selectRowIndexes:row byExtendingSelection:NO];
+    [self selectColumnIndexes:col byExtendingSelection:NO];
 }
 
 -(IBAction)showMoreInfo:(id)sender {
@@ -358,13 +411,25 @@ NSString *textFilter;
     
 -(void)tableChange:(NSNotification *)aNotification {
     id sender = [aNotification object];
-    NSInteger index = [sender selectedRow] * 2 + [sender selectedColumn];
     
-    if (index > 0 && index < _tableContent.count) {
+    NSTableView* s = (NSTableView*)sender;
+    if (s.selectedRow >= 0)
+        selRow = s.selectedRow;
+    
+    if (s.selectedColumn >= 0)
+        selCol = s.selectedColumn;
+    else
+        selCol = 0;
+    
+//    NSInteger index = [sender selectedRow] * 2 + [sender selectedColumn];
+    NSInteger index = selRow * 2 + selCol;
+    
+    if (index >= 0 && index < _tableContent.count) {
         MSPlugin *item = [_tableContent objectAtIndex:index];
 
-        NSTableView* s = (NSTableView*)sender;
-        NSLog(@"row : %ld column : %ld", (long)s.selectedRow, (long)s.selectedColumn);
+//        NSTableView* s = (NSTableView*)sender;
+//        NSLog(@"row : %ld column : %ld", (long)s.selectedRow, (long)s.selectedColumn);
+//        NSLog(@"row : %ld column : %ld index :%ld", selRow, selCol, index);
 
         [pluginData sharedInstance].currentPlugin = item;
     }

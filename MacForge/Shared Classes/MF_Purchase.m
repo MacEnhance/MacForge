@@ -82,49 +82,39 @@ extern AppDelegate* myDelegate;
 }
 
 + (Boolean)packageInstalled:(MSPlugin*)plugin {
-    NSDictionary* item = plugin.webPlist;
-    NSMutableDictionary *installedPlugins = [PluginManager.sharedInstance getInstalledPlugins];
-    NSString *bundleID = [item objectForKey:@"package"];
-    
-    // Bundle
-    if ([installedPlugins objectForKey:bundleID])
+    if ([PluginManager.sharedInstance pluginLocalPath:plugin.bundleID].length)
         return true;
-    
-    // Application
-    if ([Workspace URLForApplicationWithBundleIdentifier:bundleID])
-        return true;
-    
     return false;
 }
 
 + (void)checkStatus:(MSPlugin*)plugin :(NSButton*)theButton {
     NSDictionary* item = plugin.webPlist;
     NSMutableDictionary *installedPlugins = [PluginManager.sharedInstance getInstalledPlugins];
-    
-    Boolean installed = false;
+//
+//    Boolean installed = false;
     NSString *bundleID = [item objectForKey:@"package"];
     NSString *type = [item objectForKey:@"type"];
+//
+//    if ([installedPlugins objectForKey:bundleID])
+//        installed = true;
+//
+//    if ([Workspace URLForApplicationWithBundleIdentifier:bundleID]) {
+//        if ([[Workspace URLForApplicationWithBundleIdentifier:bundleID].path.pathComponents.firstObject isEqualToString:@"/Applications"])
+//            installed = true;
+//    }
     
-    if ([installedPlugins objectForKey:bundleID])
-        installed = true;
-    
-    if ([Workspace URLForApplicationWithBundleIdentifier:bundleID])
-        installed = true;
-      
     dispatch_sync(dispatch_get_main_queue(), ^{
         theButton.enabled = true;
     });
     
-    if (installed) {
+    if ([PluginManager.sharedInstance pluginLocalPath:bundleID].length) {
         // Pack already exists
         
         NSString *cur;
         if ([type isEqualToString:@"app"]) {
-//            NSLog(@"------ %@", [Workspace URLForApplicationWithBundleIdentifier:bundleID]);
             NSString *path = [Workspace absolutePathForAppBundleWithIdentifier:bundleID];
             path = [path stringByAppendingString:@"/Contents/Info.plist"];
 //            NSLog(@"------ %@", path);
-
             NSDictionary* dic = [[NSDictionary alloc] initWithContentsOfFile:path];
             cur = [dic objectForKey:@"CFBundleShortVersionString"];
             if ([cur isEqualToString:@""])
@@ -147,13 +137,13 @@ extern AppDelegate* myDelegate;
                 theButton.toolTip = @"";
             } else if (result == NSOrderedAscending) {
                 //versionA < versionB --- Update
-                theButton.title = @"UPDATE";
-                theButton.toolTip = @"";
+                theButton.title = @"⬆";
+                theButton.toolTip = @"Update";
             } else {
                 //versionA > versionB --- Downgrade
                 theButton.title = @"⬇";
                 theButton.toolTip = @"Downgrade";
-                theButton.enabled = false;
+//                theButton.enabled = false;
             }
         });
     } else {

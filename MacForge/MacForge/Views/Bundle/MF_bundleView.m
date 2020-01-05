@@ -284,19 +284,20 @@ extern NSDictionary *testing;
         //    NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:startTime];
         //    NSLog(@"%@ execution time : %f Seconds", startTime, executionTime);
         
-        Boolean installed = false;
+//        Boolean installed = false;
         Boolean isApp = false;
         NSString *bundleID = [item objectForKey:@"package"];
+        if ([Workspace URLForApplicationWithBundleIdentifier:bundleID]) isApp = true;
+//        if ([installedPlugins objectForKey:bundleID])
+//            installed = true;
 
-        if ([installedPlugins objectForKey:bundleID])
-            installed = true;
-
-        if ([Workspace URLForApplicationWithBundleIdentifier:bundleID]) {
-            installed = true;
-            isApp = true;
-        }
+//        if ([Workspace URLForApplicationWithBundleIdentifier:bundleID]) {
+//            isApp = true;
+//            if ([[Workspace URLForApplicationWithBundleIdentifier:bundleID].path.pathComponents.firstObject isEqualToString:@"/Applications"])
+//                installed = true;
+//        }
            
-        if (installed) {
+        if ([PluginManager.sharedInstance pluginLocalPath:bundleID].length) {
 //        if ([installedPlugins objectForKey:[item objectForKey:@"package"]]) {
             // Pack already exists
             [self.bundleDelete setEnabled:true];
@@ -388,15 +389,24 @@ extern NSDictionary *testing;
                         [self.bundlePreviewButton1 setEnabled:true];
                         [self.bundlePreviewButton2 setEnabled:true];
                     }
-                    
-//                    [self.bundlePreviewButton1 setFrameOrigin:CGPointMake(0, 0)];
-//                    [self.bundlePreviewAVPlayer.contentOverlayView setSubviews:@[self.bundlePreviewButton1]];
-//                    [self.bundlePreviewButton1 setFrameSize:self.bundlePreviewAVPlayer.contentOverlayView.frame.size];
-//                    [self.bundlePreviewAVPlayer.layer setBackgroundColor:NSColor.clearColor.CGColor];
-//                    self.bundlePreviewAVPlayer.controlsStyle = AVPlayerViewControlsStyleNone;
                 }
             }];
         }
+        
+//        [self.bundlePreviewAVPlayer.contentOverlayView setSubviews:@[self.bundlePreviewButton1]];
+//        [self.bundlePreviewButton1 setFrameOrigin:CGPointMake(0, 0)];
+//        [self.bundlePreviewButton1 setFrameSize:self.bundlePreviewAVPlayer.contentOverlayView.frame.size];
+//        [self.bundlePreviewAVPlayer.layer setBackgroundColor:NSColor.clearColor.CGColor];
+//        self.bundlePreviewAVPlayer.controlsStyle = AVPlayerViewControlsStyleNone;
+//        self.bundlePreviewButton1.hidden = true;
+//        self.bundlePreviewAVPlayer.player = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:@"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"]];
+//        self.bundlePreviewAVPlayer.controlsStyle = AVPlayerViewControlsStyleInline;
+//        if (@available(macOS 10.15, *)) {
+//            self.bundlePreviewAVPlayer.allowsPictureInPicturePlayback = true;
+//        } else {
+//            // Fallback on earlier versions
+//        }
+//        [self.bundlePreviewAVPlayer.player play];
         
         [self.bundlePreviewButton1 setAction:@selector(pluginShowImages:)];
         [self.bundlePreviewButton1 setTarget:self];
@@ -409,6 +419,9 @@ extern NSDictionary *testing;
         
         self.bundlePreview2.sd_imageIndicator = SDWebImageActivityIndicator.grayIndicator;
         self.bundlePreview2.sd_imageIndicator = SDWebImageProgressIndicator.defaultIndicator;
+        
+        [self.bundlePreviewButton1 sd_setImageWithURL:abc[0]
+                                     placeholderImage:[UIImage imageNamed:NSImageNameBookmarksTemplate]];
         
         [self.bundlePreview1 sd_setImageWithURL:abc[0]
                                placeholderImage:[UIImage imageNamed:NSImageNameBookmarksTemplate]];

@@ -41,8 +41,6 @@
         return;
     }
     
-    NSLog(@"Hellooooooo");
-
     UInt32 seedValue;
     CFArrayRef sharedFileListArray = LSSharedFileListCopySnapshot(sharedFileList, &seedValue);
     if (sharedFileListArray) {

@@ -13,7 +13,6 @@
 
 @end
 
-
 @implementation MacForgeFix
 
 // Return the single static instance of the plugin object

@@ -11,6 +11,143 @@
 @implementation MF_accountManager
 
 /*
+ * @returns YES upon success
+ *          NO  upon failure
+ * @param error is set upon failure
+ */
+
+- (void)createAccountWithUsername:(NSString *)username
+                            email:(NSString *)email
+                         password:(NSString *)password
+                      andPhotoURL:(NSURL *)photoURL
+            withCompletionHandler:(void (^)(FIRAuthDataResult * _Nullable authResult, NSError * _Nullable err))handler {
+    
+    NSLog(@"Creating account:");
+    NSLog(@"\n%@\n%@\n%@\n%@", username, email, password, photoURL.absoluteString);
+    
+    /*
+     * XXX
+     * Before I createUser():
+     * 1. verify email
+     * 2. verify password
+     * 3. verify if user already exists or we want to make a change through the register view that works as an "edit" form...
+     */
+    
+    /* Create new user */
+    [[FIRAuth auth] createUserWithEmail:email
+                               password:password
+                             completion:^(FIRAuthDataResult * _Nullable authResult, NSError * _Nullable error) {
+        /* oops, something failed; call handler and return */
+        if (error) {
+            handler(authResult, error);
+            return;
+        }
+        
+        /*
+         * We need to set the username and the photo for this user.
+         * Pretty interesting that the API doesn't support this through `-createUser:`;
+         * Using the change-request API should do it!
+         */
+        FIRUserProfileChangeRequest *changeRequest = [[FIRAuth auth].currentUser profileChangeRequest];
+        
+        changeRequest.photoURL = photoURL;
+        changeRequest.displayName = username;
+        
+        [changeRequest commitChangesWithCompletion:^(NSError *_Nullable _error) {
+            /* call handler */
+            handler(authResult, _error);
+        }];
+    }];
+}
+
+- (void)updateAccountWithUsername:(NSString *)username
+                      andPhotoURL:(NSURL *)photoURL
+            withCompletionHandler:(void (^)(FIRAuthDataResult * _Nullable authResult, NSError * _Nullable err))handler {
+    NSLog(@"Updating account:");
+    NSLog(@"\n%@\n%@", username, photoURL.absoluteString);
+    FIRUserProfileChangeRequest *changeRequest = [[FIRAuth auth].currentUser profileChangeRequest];
+    changeRequest.photoURL = photoURL;
+    changeRequest.displayName = username;
+    [changeRequest commitChangesWithCompletion:^(NSError *_Nullable _error) {
+        handler(nil, _error);
+    }];
+}
+
+- (void)loginAccountWithEmail:(NSString *)email
+                  andPassword:(NSString *)password
+        withCompletionHandler:(void (^)(FIRAuthDataResult * _Nullable authResult, NSError * _Nullable err))handler {
+    
+    NSLog(@"Loging-in account:");
+    NSLog(@"\n%@\n%@", email, password);
+    
+    [[FIRAuth auth] signInWithEmail:email
+                           password:password
+                         completion:^(FIRAuthDataResult * _Nullable authResult, NSError * _Nullable error) {
+        handler(authResult, error);
+    }];
+}
+
+//- (void)createAccountWithUsername:(NSString *)username
+//                            email:(NSString *)email
+//                         password:(NSString *)password
+//                      andPhotoURL:(NSURL *)photoURL
+//            withCompletionHandler:(void (^)(FIRAuthDataResult * _Nullable authResult, NSError * _Nullable err))handler {
+//
+//    NSLog(@"Creating account:");
+//    NSLog(@"\n%@\n%@\n%@\n%@", username, email, password, photoURL.absoluteString);
+//
+//    /*
+//     * XXX
+//     * Before I createUser():
+//     * 1. verify email
+//     * 2. verify password
+//     * 3. verify if user already exists or we want to make a change through the register view that works as an "edit" form...
+//     */
+//
+//    /* Create new user */
+//    [[FIRAuth auth] createUserWithEmail:email
+//                               password:password
+//                             completion:^(FIRAuthDataResult * _Nullable authResult, NSError * _Nullable error) {
+//                                 /* oops, something failed; call handler and return */
+//                                 if (error) {
+//                                     handler(authResult, error);
+//                                     return;
+//                                 }
+//
+//                                 /*
+//                                  * We need to set the username and the photo for this user.
+//                                  * Pretty interesting that the API doesn't support this through `-createUser:`;
+//                                  * Using the change-request API should do it!
+//                                  */
+//                                 FIRUserProfileChangeRequest *changeRequest = [[FIRAuth auth].currentUser profileChangeRequest];
+//
+//                                 changeRequest.photoURL = photoURL;
+//                                 changeRequest.displayName = username;
+//
+//                                 [changeRequest commitChangesWithCompletion:^(NSError *_Nullable _error) {
+//                                     // (npyl): talk to wolf about setting authResult to (-1) as an internal way of understanding that the problem happened during the change phase; there is no other way of knowing this unless we analyse the error nicely.
+//
+//                                     /* call handler */
+//                                     handler(nil, _error);
+//                                 }];
+//                             }];
+//}
+//
+//- (void)loginAccountWithEmail:(NSString *)email
+//                  andPassword:(NSString *)password
+//        withCompletionHandler:(void (^)(FIRAuthDataResult * _Nullable authResult, NSError * _Nullable err))handler {
+//
+//    NSLog(@"Loging-in account:");
+//    NSLog(@"\n%@\n%@", email, password);
+//
+//    [[FIRAuth auth] signInWithEmail:email
+//                           password:password
+//                         completion:^(FIRAuthDataResult * _Nullable authResult, NSError * _Nullable error) {
+//                             handler(authResult, error);
+//                         }];
+//}
+
+/*
 
 - (IBAction)fireBaseFireStoreTest:(id)sender {
     NSLog(@"Hello");
