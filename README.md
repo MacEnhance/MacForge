@@ -29,7 +29,8 @@ MacForge is an open-source plugin manager for macOS. It lets you discover, insta
 
 ## System Requirements 🖥
 
-- MacForge supports macOS 10.11 and above
+- MacForge supports macOS 10.12 and above
+- For macOS 10.11 and below check out [mySIMBL](https://github.com/w0lfschild/mySIMBL)
 - Bundles distributed through MacForge may have different application and system requirements
 
 ## [Wiki](https://github.com/w0lfschild/MacForge/wiki/Home) 📑
