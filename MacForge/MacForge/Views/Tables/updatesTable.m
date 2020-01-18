@@ -71,8 +71,7 @@ extern NSMutableDictionary *needsUpdate;
     }
     
     /* wait until all installs have finished */
-    while (count != 0)
-        ;
+//    while (count != 0) NSLog(@"%lu", (unsigned long)count);
     
     dispatch_queue_t backgroundQueue = dispatch_queue_create("com.w0lf.MacForge", 0);
     dispatch_async(backgroundQueue, ^{
@@ -94,8 +93,7 @@ extern NSMutableDictionary *needsUpdate;
         }];
         
         /* wait until all installs have finished */
-        while (count != 0)
-            ;
+//        while (count > 0) NSLog(@"%lu", (unsigned long)count);
         
         dispatch_queue_t backgroundQueue = dispatch_queue_create("com.w0lf.MacForge", 0);
         dispatch_async(backgroundQueue, ^{

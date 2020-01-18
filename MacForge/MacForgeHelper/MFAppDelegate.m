@@ -28,11 +28,13 @@
 void HandleExceptions(NSException *exception) {
     NSLog(@"The app has encountered an unhandled exception: %@", [exception debugDescription]);
     // Save application data on crash
-    NSAlert* alert = [[NSAlert alloc] init];
-    [alert setMessageText:exception.name];
-    [alert setInformativeText:exception.reason];
-    [alert setAlertStyle:NSAlertStyleWarning];
-    [alert runModal];
+    
+    // Show an error message
+//    NSAlert* alert = [[NSAlert alloc] init];
+//    [alert setMessageText:exception.name];
+//    [alert setInformativeText:exception.reason];
+//    [alert setAlertStyle:NSAlertStyleWarning];
+//    [alert runModal];
 }
 
 //- (void)userNotificationCenter:(NSUserNotificationCenter *)center

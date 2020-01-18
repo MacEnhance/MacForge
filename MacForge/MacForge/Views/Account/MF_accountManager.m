@@ -48,15 +48,17 @@
          * Pretty interesting that the API doesn't support this through `-createUser:`;
          * Using the change-request API should do it!
          */
-        FIRUserProfileChangeRequest *changeRequest = [[FIRAuth auth].currentUser profileChangeRequest];
-        
-        changeRequest.photoURL = photoURL;
-        changeRequest.displayName = username;
-        
-        [changeRequest commitChangesWithCompletion:^(NSError *_Nullable _error) {
-            /* call handler */
-            handler(authResult, _error);
-        }];
+        if (password.length && photoURL.absoluteString.length) {
+            FIRUserProfileChangeRequest *changeRequest = [[FIRAuth auth].currentUser profileChangeRequest];
+            
+            changeRequest.photoURL = photoURL;
+            changeRequest.displayName = username;
+            
+            [changeRequest commitChangesWithCompletion:^(NSError *_Nullable _error) {
+                /* call handler */
+                handler(authResult, _error);
+            }];
+        }
     }];
 }
 
@@ -64,10 +66,23 @@
                       andPhotoURL:(NSURL *)photoURL
             withCompletionHandler:(void (^)(FIRAuthDataResult * _Nullable authResult, NSError * _Nullable err))handler {
     NSLog(@"Updating account:");
+    
+    // Fix local file paths
+    if ([photoURL.absoluteString.pathComponents.firstObject isEqualToString:@"/"]) {
+        NSString *fix = photoURL.absoluteString;
+        if ([NSFileManager.defaultManager fileExistsAtPath:fix]) {
+            fix = [@"file://" stringByAppendingString:fix];
+            photoURL = [NSURL URLWithString:fix];
+        }
+    }
+    
     NSLog(@"\n%@\n%@", username, photoURL.absoluteString);
+    
     FIRUserProfileChangeRequest *changeRequest = [[FIRAuth auth].currentUser profileChangeRequest];
+    
     changeRequest.photoURL = photoURL;
     changeRequest.displayName = username;
+    
     [changeRequest commitChangesWithCompletion:^(NSError *_Nullable _error) {
         handler(nil, _error);
     }];

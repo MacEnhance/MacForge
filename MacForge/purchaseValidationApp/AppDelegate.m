@@ -168,7 +168,7 @@
     
     // Check product
     [paddleProduct refresh:^(NSDictionary * _Nullable productDelta, NSError * _Nullable error) {
-        if ([paddleProduct activated]) {
+        if ([paddleProduct activated] || ([paddleProduct trialDaysRemaining] > 0)) {
             NSLog(@"Verfied activation");
             exit(69);
         } else {

@@ -27,7 +27,9 @@ NSString *const MFInstallerExecutablLabel = @"com.w0lf.MacForge.Installer";
     NSString *currentVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     BOOL result = false;
     
-    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Library/PrivilegedHelperTools/com.w0lf.MacForge.Injector"])
+    if (![[NSFileManager defaultManager] fileExistsAtPath:@"/Library/PrivilegedHelperTools/com.w0lf.MacForge.Injector"])
+        return false;
+    else
         result = true;
     
     if (result && ([currentVersion compare:versionInstalled] == NSOrderedSame))

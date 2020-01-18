@@ -4,7 +4,10 @@
 
 -    Fixed Helper freezing if injection failed
 -    Fixed Helper crashing if injector not installed
+-    Fixed Helper failing to launch
 -    Changelogs now use markdown format
+-    Discover view can be navigated with arrow keys
+-    Accounts tab is back but partly non-functional
 
 ### 0.13.3
 

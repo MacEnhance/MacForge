@@ -1543,27 +1543,38 @@ Boolean appSetupFinished = false;
     if (_user) {
         NSURL *photoURL = _user.photoURL;
         NSString *displayName = _user.displayName;
-        
-        if (displayName) {
+
+        if (displayName.length > 0) {
             _viewAccount.title = [NSString stringWithFormat:@"                    %@", displayName];
+            _loginUsername.stringValue = displayName;
         } else {
             _viewAccount.title = [NSString stringWithFormat:@"                    %@", [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].fullName];
+            _loginUsername.stringValue = @"";
+        }
+
+        if (photoURL.absoluteString.length > 0) {
+            _imgAccount.image = [NSImage sd_imageWithData:[NSData dataWithContentsOfURL:photoURL]];
+            _loginImageURL.stringValue = photoURL.absoluteString;
+        } else {
+            _imgAccount.image = [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].image;
+            _loginImageURL.stringValue = @"";
         }
         
-        if (photoURL)
-            _imgAccount.image = [NSImage sd_imageWithData:[NSData dataWithContentsOfURL:photoURL]];
-        
-        _loginImageURL.stringValue = photoURL.absoluteString;
-        _loginUsername.stringValue = displayName;
         _loginEmail.stringValue = _user.email;
         _loginUID.stringValue = _user.uid;
 //        _user.emailVerified
 //        _user.providerID
+        
+        _imgAccount.layer.backgroundColor = NSColor.clearColor.CGColor;
     }
     /* no user signed-in; going with OS user */
     else {
-        _imgAccount.image = [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].image;
-        _viewAccount.title = [NSString stringWithFormat:@"                    %@", [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].fullName];
+//        _imgAccount.image = [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].image;
+//        _viewAccount.title = [NSString stringWithFormat:@"                    %@", [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].fullName];
+        
+        _imgAccount.image = [NSImage imageNamed:NSImageNameUserGroup];
+        _imgAccount.layer.backgroundColor = NSColor.grayColor.CGColor;
+        _viewAccount.title = [NSString stringWithFormat:@"                    Create Account"];
     }
 }
 

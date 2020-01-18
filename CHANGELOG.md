@@ -2,6 +2,10 @@
 
 -    Fixed Helper freezing if injection failed
 -    Fixed Helper crashing if injector not installed
+-    Fixed Helper failing to launch
+-    Changelogs now use markdown format
+-    Discover view can be navigated with arrow keys
+-    Accounts tab is back but partly non-functional
 
 ### 0.13.3
 
@@ -174,47 +178,47 @@
 -    Now installs plugins to /Library/Application Support/MacEnhance/Plugins
 
 -    Switch from SIMBL to  mach_inject
-      -    Allows loading on Mojave (macOS 1### 0.14)
-      -    Doesn't require SIP to be off to install helpers
-      -    Requires SIP to be off to load into applications
-      -    You can use "csrutil enable --without debug --without fs"
-      -    New System Integrity Protection warning 
-      -    Removed system component warnings
+-    Allows loading on Mojave (macOS 1### 0.14)
+-    Doesn't require SIP to be off to install helpers
+-    Requires SIP to be off to load into applications
+-    You can use "csrutil enable --without debug --without fs"
+-    New System Integrity Protection warning 
+-    Removed system component warnings
 
 -    SIMBLAgent (injector) is now the MacForgeHelper
-      -    Helper is now in charge of injection
-      -    Helper automatically tries to load new bundles when main app is closed
-      -    Helper checks for bundle updates in background    
-      -    Helper can automatically keep bundles up to date
-      -    Plugins won't automatically load if MacForgeHelper isn't open
-      -    Can be run via command line
-      -    ./MacForgeHelper -i BUNDLE_ID ---- injects into specific app
-      -    ./MacForgeHelper -u ---- updates all plugins
-      -    MacForgeHelper is a menubar application
+-    Helper is now in charge of injection
+-    Helper automatically tries to load new bundles when main app is closed
+-    Helper checks for bundle updates in background    
+-    Helper can automatically keep bundles up to date
+-    Plugins won't automatically load if MacForgeHelper isn't open
+-    Can be run via command line
+-    ./MacForgeHelper -i BUNDLE_ID ---- injects into specific app
+-    ./MacForgeHelper -u ---- updates all plugins
+-    MacForgeHelper is a menubar application
 
 -    UI redesign
-      -    Redesigned to resemble Mojave App Store
-      -    Larger sidebar buttons
-      -    Larger window size
-      -    Window is now resize-able
-      -    Window uses system light / dark mode
-      -    Switch from colored circles to check boxes for toggles
-      -    Mojave Dark mode support
+-    Redesigned to resemble Mojave App Store
+-    Larger sidebar buttons
+-    Larger window size
+-    Window is now resize-able
+-    Window uses system light / dark mode
+-    Switch from colored circles to check boxes for toggles
+-    Mojave Dark mode support
 
 -    Manage view
-      -    Implemented search (name or bundle ID)
+-    Implemented search (name or bundle ID)
 
 -    Discover view 
-      -    Improved search (name or bundle ID)
+-    Improved search (name or bundle ID)
 
 -    System view
-      -    Removed SIMBL info
-      -    Added MacForge info
-      -    Revised Blacklist view
+-    Removed SIMBL info
+-    Added MacForge info
+-    Revised Blacklist view
 
 -    About view
-      -    Shifted view to left
-      -    Added button to quickly start building a plugin in Xcode 
+-    Shifted view to left
+-    Added button to quickly start building a plugin in Xcode 
 
 -    Added DockTilePlugin to show bundle updates in dock when app is closed
 -    Included plugin with fixes for a few issues caused when plugins are loaded into Archive Utility and TextEdit
@@ -237,42 +241,42 @@
 ### 0.7.0
 
 -    Redesigned sidebar
-      -    Smaller buttons
-      -    Icons for each button
-      -    Buttons with views are moved to top
+-    Smaller buttons
+-    Icons for each button
+-    Buttons with views are moved to top
 
 -    Redesigned Manage view
-      -    Manage view is now searchable
-      -    Reveal in Finder is now an eye icon
-      -    Trash now trashes in one click
-      -    Toggle between single and all users with person icon
-      -    Toggle between enabled and disabled with green/red circle icon
-      -    Add or Remove source view is now a child of main window
+-    Manage view is now searchable
+-    Reveal in Finder is now an eye icon
+-    Trash now trashes in one click
+-    Toggle between single and all users with person icon
+-    Toggle between enabled and disabled with green/red circle icon
+-    Add or Remove source view is now a child of main window
 
 -    Redesigned Discover view 
-      -    Discover view now has subview  "Sources" view and "All Plugins" view
-      -    All Plugins is a combined list of all plugins from all repos
-      -    All Plugins is searchable
+-    Discover view now has subview  "Sources" view and "All Plugins" view
+-    All Plugins is a combined list of all plugins from all repos
+-    All Plugins is searchable
 
 -    Bundle pages improved
-      -    Fix some title sizing issues
-      -    Extended description box to fill length of view
-      -    Fix Donate and Contact buttons being switched
-      -    Fix buttons getting stuck in on or off state
+-    Fix some title sizing issues
+-    Extended description box to fill length of view
+-    Fix Donate and Contact buttons being switched
+-    Fix buttons getting stuck in on or off state
 
 -    Redesigned SIMBL tab 
-      -    Renamed tab to System Info
-      -    Removed allow load in Xcode/Safari
-      -    Now has Apple Mobile File Integrity status
-      -    Now has toggle for Apple Mobile File Integrity
-      -    Both 'Apple Mobile File Integrity' and 'System Integrity Protection' must be disabled to allow loading into some apps like:
-      -    iTunes
-      -    Xcode
-      -    Safari
+-    Renamed tab to System Info
+-    Removed allow load in Xcode/Safari
+-    Now has Apple Mobile File Integrity status
+-    Now has toggle for Apple Mobile File Integrity
+-    Both 'Apple Mobile File Integrity' and 'System Integrity Protection' must be disabled to allow loading into some apps like:
+-    iTunes
+-    Xcode
+-    Safari
 
 -    Better icon loading for plugins
-      -    Icons will use plugin image instead of Stock app icon if target app has no icon
-      -    More custom icons for stock apps without icons
+-    Icons will use plugin image instead of Stock app icon if target app has no icon
+-    More custom icons for stock apps without icons
 
 -    Window now stays vibrant in background
 -    Updating disabled plugins now properly updates the disabled plugin instead of installing the update in /Library/Application Support/SIMBL/Plugins/
@@ -313,19 +317,19 @@
 ### 0.4.1
 
 -    New  Updates tab
-      -    Update all plugins
-      -    Update individual plugins
-      -    New repo packages.plist format
+-    Update all plugins
+-    Update individual plugins
+-    New repo packages.plist format
 -    New SIMBL tab
-      -    Show SIMBL status
-      -    Show SIMBLAgent status
-      -    Show System Integrity Protection status
-      -    SIMBL Blacklist
-      -    SIMBL Logging options have moved here
-      -    Load into all applications has moved here
+-    Show SIMBL status
+-    Show SIMBLAgent status
+-    Show System Integrity Protection status
+-    SIMBL Blacklist
+-    SIMBL Logging options have moved here
+-    Load into all applications has moved here
 -    Sources tab
-      -    Show checkmark for downloaded plugins (enabled and disabled)
-      -    Improved bundle page information
+-    Show checkmark for downloaded plugins (enabled and disabled)
+-    Improved bundle page information
 -    Sparkle 1.15.1
 -    PFMoveApplication updated
 -    UI Changes
@@ -349,9 +353,9 @@
 
 -    macOS 1### 0.12 support
 -    SIMBL Agent updated
-      -    SIMBL Agent moved to /Library/Application Support/SIMBL
-      -    Injects into root applications (Dock, Finder, Spotlight, etc)
-      -    Injects into apps that loaded before itself
+-    SIMBL Agent moved to /Library/Application Support/SIMBL
+-    Injects into root applications (Dock, Finder, Spotlight, etc)
+-    Injects into apps that loaded before itself
 -    Warning dialog for SIMBL updates
 -    Warning dialog for System Integrity Protection
 -    SIMBL updates handled by main app instead of helper
@@ -389,12 +393,12 @@
 ### 0.2.0
 
 -    Sources view implemented 
-      -    One repo included
-      -    Basic repo implementation
-      -    Structure
-      -    Source View (Root)
-      -    Source Bundles
-      -    Bundle Page
+-    One repo included
+-    Basic repo implementation
+-    Structure
+-    Source View (Root)
+-    Source Bundles
+-    Bundle Page
 
 -    UI adjustments
 -    Code refactoring
@@ -436,15 +440,15 @@
 -    Show bundle in Finder (Magnifying Glass)
 -    Bundles will display custom icon if located in <bundle>/Contents/icon.icns
 -    Easy bundle installation
-      -    Drag and drop install bundles in /Library/Application Support/SIMBL/Plugins
-      -    Open bundles with app to install in /Library/Application Support/SIMBL/Plugins
+-    Drag and drop install bundles in /Library/Application Support/SIMBL/Plugins
+-    Open bundles with app to install in /Library/Application Support/SIMBL/Plugins
 -    Show bundle developer page (Globe Icon)
-      -    plist value is string 'DevURL'
+-    plist value is string 'DevURL'
 -    Toggle bundles between (Colored Circle Icon)
-      -    /Library/Application Support/SIMBL/Plugins
-      -    /Library/Application Support/SIMBL/Plugins (Disabled)
-      -    ~/Library/Application Support/SIMBL/Plugins (User only)
+-    /Library/Application Support/SIMBL/Plugins
+-    /Library/Application Support/SIMBL/Plugins (Disabled)
+-    ~/Library/Application Support/SIMBL/Plugins (User only)
 -    Watch for changes to
-      -    /Library/Application Support/SIMBL/Plugins
-      -    /Library/Application Support/SIMBL/Plugins (Disabled)
-      -    ~/Library/Application Support/SIMBL/Plugins
+-    /Library/Application Support/SIMBL/Plugins
+-    /Library/Application Support/SIMBL/Plugins (Disabled)
+-    ~/Library/Application Support/SIMBL/Plugins
