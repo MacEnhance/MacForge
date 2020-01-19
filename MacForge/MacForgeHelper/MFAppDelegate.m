@@ -23,13 +23,17 @@
 
 #include <syslog.h>
 
+static MFAppDelegate *mfAppDelegate;
+
+@interface MFAppDelegate ()
+@property (strong, atomic) MFInjectorProxy *injectorProxy;
+@end
+
 @implementation MFAppDelegate
 
 void HandleExceptions(NSException *exception) {
     NSLog(@"The app has encountered an unhandled exception: %@", [exception debugDescription]);
     // Save application data on crash
-    
-    // Show an error message
 //    NSAlert* alert = [[NSAlert alloc] init];
 //    [alert setMessageText:exception.name];
 //    [alert setInformativeText:exception.reason];
@@ -66,7 +70,8 @@ void HandleExceptions(NSException *exception) {
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     NSError *error;
-
+    mfAppDelegate = self;
+    
     // Make sure helpers are installed
     if ([MFInstaller isInstalled] == NO && [MFInstaller install:&error] == NO) {
 //        assert(error != nil);
@@ -74,6 +79,8 @@ void HandleExceptions(NSException *exception) {
         NSAlert *alert = [NSAlert alertWithError:error];
         [alert runModal];
     }
+    
+    self.injectorProxy = [MFInjectorProxy new];
     
     [[NSDistributedNotificationCenter defaultCenter] addObserverForName:@"com.macenhance.MacForgeHelperNotify"
                                                                     object:nil
@@ -102,7 +109,7 @@ void HandleExceptions(NSException *exception) {
             if (args.count > index) {
                 NSString *bundleID = [args objectAtIndex:index];
                 if (bundleID.length > 0)
-                    [MFAppDelegate injectOneProc:bundleID];
+                    [mfAppDelegate injectOneProc:bundleID];
             }
         }
 
@@ -132,7 +139,7 @@ void HandleExceptions(NSException *exception) {
     [self watchForApplications];
     
     // Try injecting into all runnning process in NSWorkspace.sharedWorkspace
-    [MFAppDelegate injectAllProc];
+    [self injectAllProc];
 }
 
 - (void)checkForPluginUpdates {
@@ -243,32 +250,32 @@ void HandleExceptions(NSException *exception) {
     [menu addItem:newItem];
 }
 
-- (void)testInject {
-    NSError *error;
-//    pid_t pid = 12915;
-    
-    NSTask *task = [[NSTask alloc] init];
-    [task setLaunchPath:@"/bin/sh"];
-    NSArray *arguments = [NSArray arrayWithObjects:@"-c", @"ps -A | grep -m1 Console | awk '{print $1}'", nil];
-    [task setArguments:arguments];
-    NSPipe *pipe = [NSPipe pipe];
-    [task setStandardOutput:pipe];
-    NSFileHandle *file = [pipe fileHandleForReading];
-    [task launch];
-    NSData *data = [file readDataToEndOfFile];
-    NSString *output = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-
-    pid_t pid = output.intValue;
-    
-    NSLog(@"%d", pid);
-//    ps -A | grep -m1 SidecarRelay | awk '{print $1}'
-    
-//    [MFInjectorProxy injectPID:pid :@"/Users/w0lf/Library/Developer/Xcode/DerivedData/poopbutt-edtzriagafrshgeqwfflriaduapq/Build/Products/Debug/libpoopbutt.dylib" :&error];
-//    [MFInjectorProxy injectPID:pid :@"/Library/Application Support/MacEnhance/Plugins (Disabled)/Afloat.bundle" :&error];
-    [MFInjectorProxy injectPID:86959 :@"/Library/Application Support/MacEnhance/Plugins (Disabled)/Afloat.bundle" :&error];
-
-    NSLog(@"%@", error);
-}
+//- (void)testInject {
+//    NSError *error;
+////    pid_t pid = 12915;
+//
+//    NSTask *task = [[NSTask alloc] init];
+//    [task setLaunchPath:@"/bin/sh"];
+//    NSArray *arguments = [NSArray arrayWithObjects:@"-c", @"ps -A | grep -m1 Console | awk '{print $1}'", nil];
+//    [task setArguments:arguments];
+//    NSPipe *pipe = [NSPipe pipe];
+//    [task setStandardOutput:pipe];
+//    NSFileHandle *file = [pipe fileHandleForReading];
+//    [task launch];
+//    NSData *data = [file readDataToEndOfFile];
+//    NSString *output = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+//
+//    pid_t pid = output.intValue;
+//
+//    NSLog(@"%d", pid);
+////    ps -A | grep -m1 SidecarRelay | awk '{print $1}'
+//
+////    [MFInjectorProxy injectPID:pid :@"/Users/w0lf/Library/Developer/Xcode/DerivedData/poopbutt-edtzriagafrshgeqwfflriaduapq/Build/Products/Debug/libpoopbutt.dylib" :&error];
+////    [MFInjectorProxy injectPID:pid :@"/Library/Application Support/MacEnhance/Plugins (Disabled)/Afloat.bundle" :&error];
+//    [MFInjectorProxy injectPID:86959 :@"/Library/Application Support/MacEnhance/Plugins (Disabled)/Afloat.bundle" :&error];
+//
+//    NSLog(@"%@", error);
+//}
 
 - (void)noStatusIconApplyPrefs {
     [self noStatusIcon];
@@ -321,7 +328,7 @@ void HandleExceptions(NSException *exception) {
                                 usingBlock:^(NSNotification * _Nonnull note) {
                                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                                         NSRunningApplication *app = [note.userInfo valueForKey:NSWorkspaceApplicationKey];
-                                        [MFAppDelegate injectBundle:app];
+                                        [mfAppDelegate injectBundle:app];
                                     });
                                 }];
 }
@@ -375,43 +382,33 @@ void HandleExceptions(NSException *exception) {
 }
 
 // Try injecting all valid bundles into an running application
-+ (void)injectBundle:(NSRunningApplication*)runningApp {
-//    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-       // Wait for the app to finish launching
-       // Check if there is anything valid to inject
+- (void)injectBundle:(NSRunningApplication*)runningApp {
        if ([MFAppDelegate shouldInject:runningApp]) {
            pid_t pid = [runningApp processIdentifier];
            // Try injecting each valid plugin into the application
            for (NSString *bundlePath in [SIMBL pluginsToLoadList:[NSBundle bundleWithPath:runningApp.bundleURL.path]]) {
-//               NSLog(@"Try inject App %@", runningApp.bundleIdentifier);
-
-//               dispatch_async(dispatch_get_main_queue(), ^(void){
-                   NSError *error;
-                   if ([MFInjectorProxy injectPID:pid :bundlePath :&error] == false) {
-//                        assert(error != nil);
-                        NSLog(@"Couldn't inject into %d : %@ (domain: %@ code: %@)", pid, runningApp.localizedName, error.domain, [NSNumber numberWithInteger:error.code]);
-                        SIMBLLogNotice(@"Couldn't inject App (domain: %@ code: %@)", error.domain, [NSNumber numberWithInteger:error.code]);
-                   }
-//               });
-              
+               NSError *error;
+               [self.injectorProxy injectPID:pid :bundlePath :&error];
+               if(error) {
+                   NSLog(@"Couldn't inject into %d : %@ (domain: %@ code: %@)", pid, runningApp.localizedName, error.domain, [NSNumber numberWithInteger:error.code]);
+                   SIMBLLogNotice(@"Couldn't inject App (domain: %@ code: %@)", error.domain, [NSNumber numberWithInteger:error.code]);
+               }
            }
        }
-       
-//    });
 }
 
 // Try injecting all valid bundles into an application based on bundle ID
-+ (void)injectOneProc:(NSString*)bundleID {
+- (void)injectOneProc:(NSString*)bundleID {
     // List of all runnning applications with specific bundle ID
     NSArray *apps = [NSRunningApplication runningApplicationsWithBundleIdentifier:bundleID];
     
     // Try to inject each item with all valid bundles
     for (NSRunningApplication *runningApp in apps)
-        [MFAppDelegate injectBundle:runningApp];
+        [self injectBundle:runningApp];
 }
 
 // Try injecting one specific bundle into all running applications
-+ (void)injectOneBundle:(NSString*)bundlePath {
+- (void)injectOneBundle:(NSString*)bundlePath {
     // List of all runnning applications
     for (NSRunningApplication *runningApp in NSWorkspace.sharedWorkspace.runningApplications) {
         // Check if the specified bundle should load into the application
@@ -419,8 +416,8 @@ void HandleExceptions(NSException *exception) {
             pid_t pid = [runningApp processIdentifier];
             NSError *error;
             // Inject the bundle
-            if ([MFInjectorProxy injectPID:pid :bundlePath :&error] == false) {
-//                assert(error != nil);
+            [self.injectorProxy injectPID:pid :bundlePath :&error];
+            if(error) {
                 SIMBLLogNotice(@"Couldn't inject App (domain: %@ code: %@)", error.domain, [NSNumber numberWithInteger:error.code]);
             }
         }
@@ -428,9 +425,9 @@ void HandleExceptions(NSException *exception) {
 }
 
 // Try injecting all valid bundles into all running applications
-+ (void)injectAllProc {
+- (void)injectAllProc {
     for (NSRunningApplication *app in NSWorkspace.sharedWorkspace.runningApplications)
-        [MFAppDelegate injectBundle:app];
+        [self injectBundle:app];
 }
 
 // Set up a watcher to automatically load plugins if they're manually placed in one of the valid plugin folders
@@ -446,7 +443,7 @@ void HandleExceptions(NSException *exception) {
     
     // Plugin watcher
     for (NSString *path in [PluginManager MacEnhancePluginPaths]) {
-        SGDirWatchdog *watchDog = [[SGDirWatchdog alloc] initWithPath:path update:^{ [MFAppDelegate injectAllProc]; }];
+        SGDirWatchdog *watchDog = [[SGDirWatchdog alloc] initWithPath:path update:^{ [self injectAllProc]; }];
         [watchDog start];
         [watchdogs addObject:watchDog];
     }
@@ -528,7 +525,8 @@ static OSStatus CarbonEventHandler(EventHandlerCallRef inHandlerCallRef, EventRe
     switch ( GetEventKind(inEvent) ) {
         case kEventAppLaunched:
             // App lauched!
-            [MFAppDelegate injectBundle:[NSRunningApplication runningApplicationWithProcessIdentifier:pid]];
+            if(mfAppDelegate)
+                [mfAppDelegate injectBundle:[NSRunningApplication runningApplicationWithProcessIdentifier:pid]];
 //            NSLog(@"%d", pid);
             break;
         case kEventAppTerminated:

@@ -1,0 +1,6 @@
+framework module EDStarRating {
+  umbrella header "EDStarRating-umbrella.h"
+
+  export *
+  module * { export * }
+}

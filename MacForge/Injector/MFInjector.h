@@ -8,10 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
-extern dispatch_source_t g_timer_source;
+@protocol MFInjectorProtocol
 
-@interface MFInjector : NSObject
+- (void)inject:(pid_t)pid withBundle:(const char *)bundlePackageFileSystemRepresentation withReply:(void (^)(mach_error_t))reply;
+- (void)inject:(pid_t)pid withLib:(const char *)executablePath withReply:(void (^)(mach_error_t))reply;
 
-- (mach_error_t)inject:(pid_t)pid withBundle:(const char *)bundlePackageFileSystemRepresentation;
+@end
+
+@interface MFInjector : NSObject <NSXPCListenerDelegate, MFInjectorProtocol>
+
+- (void)run;
 
 @end
