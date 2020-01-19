@@ -7,10 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MFInjector.h"
 
 @interface MFInjectorProxy : NSObject
 
-+ (BOOL)injectPID:(pid_t)pid :(NSString*)bundlePath :(NSError **)error;
-+ (BOOL)inject:(NSError **)error;
+- (BOOL)injectPID:(pid_t)pid :(NSString*)bundlePath :(NSError **)error;
+- (BOOL)inject:(NSError **)error;
 
 @end

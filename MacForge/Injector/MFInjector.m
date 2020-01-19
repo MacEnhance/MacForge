@@ -13,41 +13,55 @@
 
 #import "MFInjector.h"
 
+@interface MFInjector ()
+@property (atomic, strong, readwrite) NSXPCListener *listener;
+@end
+
 @implementation MFInjector
 
-- (mach_error_t)inject:(pid_t)pid withBundle:(const char *)bundlePackageFileSystemRepresentation {
-  // Disarm timer while installing framework
-  dispatch_source_set_timer(g_timer_source, DISPATCH_TIME_FOREVER, 0llu, 0llu);
-
-  mach_error_t error = mach_inject_bundle_pid(bundlePackageFileSystemRepresentation, pid);
-  
-  // Rearm timer
-  dispatch_time_t t0 = dispatch_time(DISPATCH_TIME_NOW, 5llu * NSEC_PER_SEC);
-  dispatch_source_set_timer(g_timer_source, t0, 0llu, 0llu);
-
-  return (error);
+- (void)inject:(pid_t)pid withBundle:(const char *)bundlePackageFileSystemRepresentation withReply:(void (^)(mach_error_t))reply {
+    mach_error_t error = mach_inject_bundle_pid(bundlePackageFileSystemRepresentation, pid);
+    reply(error);
 }
 
-- (mach_error_t)inject:(pid_t)pid withExec:(const char *)executablePath {
-   // Disarm timer while installing framework
-    dispatch_source_set_timer(g_timer_source, DISPATCH_TIME_FOREVER, 0llu, 0llu);
-
+- (void)inject:(pid_t)pid withLib:(const char *)libraryPath withReply:(void (^)(mach_error_t))reply {
     void *module;
     void *bootstrapfn;
     module = dlopen("/Library/PrivilegedHelperTools/bootstrap.dylib",
         RTLD_NOW | RTLD_LOCAL);
-  // if(!module)... Kelly, can you handle this?
+    // if(!module)... Kelly, can you handle this?
 
     bootstrapfn = dlsym(module, "bootstrap");
-  //if(!bootstrapfn)... Beyonce, can you handle this?
+    //if(!bootstrapfn)... Beyonce, can you handle this?
 
-    mach_error_t error = mach_inject((mach_inject_entry)bootstrapfn, executablePath, strlen(executablePath) + 1, pid, 0);
-        
-    // Rearm timer
-    dispatch_time_t t0 = dispatch_time(DISPATCH_TIME_NOW, 5llu * NSEC_PER_SEC);
-    dispatch_source_set_timer(g_timer_source, t0, 0llu, 0llu);
+    mach_error_t error = mach_inject((mach_inject_entry)bootstrapfn, libraryPath, strlen(libraryPath) + 1, pid, 0);
 
-    return (error);
+    reply(error);
+}
+
+- (id)init {
+    self = [super init];
+    if (self != nil) {
+        // Set up our XPC listener to handle requests on our Mach service.
+        self.listener = [[NSXPCListener alloc] initWithMachServiceName:@"com.w0lf.MacForge.Injector.mach"];
+        self.listener.delegate = self;
+    }
+    return self;
+}
+
+- (void)run {
+    [self.listener resume];
+    [[NSRunLoop currentRunLoop] run];
+}
+
+#pragma mark XPCListenerDelegate
+
+- (BOOL)listener:(NSXPCListener *)listener shouldAcceptNewConnection:(NSXPCConnection *)newConnection {
+    newConnection.exportedInterface = [NSXPCInterface interfaceWithProtocol:@protocol(MFInjectorProtocol)];
+    newConnection.exportedObject = self;
+    [newConnection resume];
+    
+    return YES;
 }
 
 @end
