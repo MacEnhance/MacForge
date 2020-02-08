@@ -318,13 +318,7 @@ NSInteger curItem;
                 [result.bundleGet setTitle:@"GET"];
             }
             
-            Boolean installed = [PluginManager.sharedInstance pluginLocalPath:item.bundleID].length;
-//            if ([_localPlugins containsObject:item.bundleID])
-//                installed = true;
-//
-//            if ([Workspace URLForApplicationWithBundleIdentifier:item.bundleID])
-//                installed = true;
-                
+            Boolean installed = [PluginManager.sharedInstance pluginLocalPath:item.bundleID].length;                
             if (installed)
                 [result.bundleGet setTitle:@"OPEN"];
                     

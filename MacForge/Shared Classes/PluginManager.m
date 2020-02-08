@@ -401,8 +401,12 @@
         
     // Looks like it's an app
     NSURL *fileURL = [Workspace URLForApplicationWithBundleIdentifier:bundleID];
-    if ([fileURL.path.pathComponents.firstObject containsString:@"/Applications"])
-        result = fileURL.path;
+    
+    // If it's in /Applications consider it installed
+    NSArray *comp = fileURL.path.pathComponents;
+    if (comp.count > 0)
+        if ([fileURL.path.pathComponents[1] containsString:@"Applications"])
+            result = fileURL.path;
     
     // Maybe it's a bundle
     if ([installedPluginDICT.allKeys containsObject:bundleID])

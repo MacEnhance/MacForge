@@ -14,11 +14,6 @@
 			<key>orderHint</key>
 			<integer>5</integer>
 		</dict>
-		<key>MacForgeFix.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>6</integer>
-		</dict>
 		<key>MacForgeHelper.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -32,7 +27,7 @@
 		<key>TodayView.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>44</integer>
+			<integer>43</integer>
 		</dict>
 		<key>com.w0lf.MacForge.Injector.xcscheme</key>
 		<dict>
@@ -47,7 +42,7 @@
 		<key>purchaseValidationApp.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>43</integer>
+			<integer>42</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>

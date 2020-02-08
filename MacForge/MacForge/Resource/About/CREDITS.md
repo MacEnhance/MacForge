@@ -14,12 +14,12 @@
 
 ### Lead Developer
 
-- [Wolfgang Baird](https://github.com/w0lfschild) ([@w0lfschild](https://github.com/w0lfschild)) ([MacEnhance](https://www.macenhance.com/))
+- [Wolfgang Baird](https://github.com/w0lfschild) ([w0lfschild](https://github.com/w0lfschild)) ([MacEnhance](https://www.macenhance.com/))
 
 
 ### Contributors
 
-- nypl
-- jslegendre
+- [nypl](https://github.com/nypl)
+- [jslegendre](https://github.com/jslegendre)
 
 

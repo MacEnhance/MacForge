@@ -430,6 +430,7 @@ Boolean appSetupFinished = false;
     NSInteger height = 42;
     
     tabViewButtons = [NSArray arrayWithObjects:_viewDiscover, _viewPlugins, _viewSources, _viewChanges, _viewSystem, _viewAbout, _viewPreferences, _viewAccount, nil];
+    
     NSArray *topButtons = [NSArray arrayWithObjects:_viewDiscover, _viewApps, _viewPlugins, _viewSources, _viewChanges, _viewSystem, _viewAbout, _viewPreferences, nil];
     NSUInteger yLoc = _window.frame.size.height - 96 - height;
     for (NSButton *btn in topButtons) {

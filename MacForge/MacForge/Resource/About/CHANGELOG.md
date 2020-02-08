@@ -1,5 +1,24 @@
 # Changelog
 
+### 1.0.0
+
+-   Helper changed to using XPC connection for injection [@jslegendre](https://github.com/jslegendre)
+-   Fix helper hanging if SIP is enabled
+-   Removed option for multiple sources
+-   macforge:// links can now just use the bundleID
+    -   eg macforge://org.w0lf.cDock-GUI
+-   Removed search bar from discover view
+-   Removed navigation bar from discover view
+-   Removed reddit sidebar button
+-   Feedback button moved to about
+-   Discover view renamed Browse
+-   Updated Xcode Plugin template
+-   Updated Demo Plugin
+-   Bundle ratings and reviews
+-   Added more applications that don't require SIP
+-   Improved SIP notification window
+-   Added indicators to Bundle pages which show bundle requirements to function
+
 ### 0.14.1
 
 -    Fixed Helper freezing if injection failed
