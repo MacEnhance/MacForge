@@ -9,9 +9,7 @@
 #import "MF_bundleView.h"
 
 extern AppDelegate* myDelegate;
-extern NSString *repoPackages;
-extern long selectedRow;
-extern NSDictionary *testing;
+NSDictionary *testing;
 
 @implementation MF_bundleView {
     bool doOnce;
@@ -83,9 +81,7 @@ extern NSDictionary *testing;
     _starScore.stringValue = [NSString stringWithFormat:@"%.1f", randomScore];
     _starReviews.stringValue = [NSString stringWithFormat:@"%.0f ratings", randomReviews];
     
-    if (testing) {
-//        NSLog(@"%@", testing);
-        
+    if (!testing) {
 //        if (reviewsDict.data[@"ratings"]) {
             NSDictionary *rate = testing[@"ratings"];
             float total = 0;
@@ -93,18 +89,18 @@ extern NSDictionary *testing;
                 total += [[rate valueForKey:key] floatValue];
             total /= rate.allKeys.count;
 
-            _starScore.stringValue = [NSString stringWithFormat:@"%.1f", total];
-            _starReviews.stringValue = [NSString stringWithFormat:@"%.0lu ratings", (unsigned long)rate.allKeys.count];
+//            _starScore.stringValue = [NSString stringWithFormat:@"%.1f", total];
+//            _starReviews.stringValue = [NSString stringWithFormat:@"%.0lu ratings", (unsigned long)rate.allKeys.count];
 
             _starRating.starImage = star;
             _starRating.starHighlightedImage = highlight;
             _starRating.maxRating = 5.0;
             _starRating.delegate = self;
             _starRating.horizontalMargin = 12;
-            _starRating.editable=NO;
-            _starRating.displayMode=EDStarRatingDisplayAccurate;
-            _starRating.rating= total;
-        
+            _starRating.editable = NO;
+            _starRating.displayMode = EDStarRatingDisplayAccurate;
+            _starRating.rating = randomScore;
+
             _starScore.hidden = false;
             _starRating.hidden = false;
             _starReviews.hidden = false;
@@ -146,38 +142,37 @@ extern NSDictionary *testing;
     [self setWantsLayer:YES];
     self.layer.masksToBounds = YES;
     
-    NSArray *allPlugins;
+//    NSArray *allPlugins;
     MSPlugin *plugin = [pluginData sharedInstance].currentPlugin;
     
     if (plugin != nil) {
         item = plugin.webPlist;
-        repoPackages = plugin.webRepository;
     } else {
-        if (![repoPackages isEqualToString:@""]) {
-            
-            // Sometimes this is slow
-            
-            NSURL *dicURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/packages_v2.plist", repoPackages]];
-            NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithContentsOfURL:dicURL];
-            allPlugins = [dict allValues];
-            
-            // Hmmm...
-            
-            NSSortDescriptor *sortByName = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)];
-            NSArray *sortDescriptors = [NSArray arrayWithObject:sortByName];
-            NSArray *sortedArray = [allPlugins sortedArrayUsingDescriptors:sortDescriptors];
-            allPlugins = sortedArray;
-        } else {
-            NSMutableArray *sourceURLS = [[NSMutableArray alloc] initWithArray:[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] objectForKey:@"sources"]];
-            NSMutableDictionary *comboDic = [[NSMutableDictionary alloc] init];
-            for (NSString *url in sourceURLS) {
-                NSURL *dicURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/packages_v2.plist", url]];
-                NSMutableDictionary *sourceDic = [[NSMutableDictionary alloc] initWithContentsOfURL:dicURL];
-                [comboDic addEntriesFromDictionary:sourceDic];
-            }
-            allPlugins = [comboDic allValues];
-        }
-        item = [[NSMutableDictionary alloc] initWithDictionary:[allPlugins objectAtIndex:selectedRow]];
+//        if (![repoPackages isEqualToString:@""]) {
+//            
+//            // Sometimes this is slow
+//            
+//            NSURL *dicURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/packages.plist", repoPackages]];
+//            NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithContentsOfURL:dicURL];
+//            allPlugins = [dict allValues];
+//            
+//            // Hmmm...
+//            
+//            NSSortDescriptor *sortByName = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)];
+//            NSArray *sortDescriptors = [NSArray arrayWithObject:sortByName];
+//            NSArray *sortedArray = [allPlugins sortedArrayUsingDescriptors:sortDescriptors];
+//            allPlugins = sortedArray;
+//        } else {
+//            NSMutableArray *sourceURLS = [[NSMutableArray alloc] initWithArray:[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] objectForKey:@"sources"]];
+//            NSMutableDictionary *comboDic = [[NSMutableDictionary alloc] init];
+//            for (NSString *url in sourceURLS) {
+//                NSURL *dicURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/packages.plist", url]];
+//                NSMutableDictionary *sourceDic = [[NSMutableDictionary alloc] initWithContentsOfURL:dicURL];
+//                [comboDic addEntriesFromDictionary:sourceDic];
+//            }
+//            allPlugins = [comboDic allValues];
+//        }
+//        item = [[NSMutableDictionary alloc] initWithDictionary:[allPlugins objectAtIndex:selectedRow]];
     }
         
     NSString* newString;
@@ -343,7 +338,7 @@ extern NSDictionary *testing;
             //        NSString *price = [NSString stringWithFormat:@"%@", [item objectForKey:@"price"]];
             if ([[item objectForKey:@"payed"] boolValue]) {
                 self.bundleInstall.title = @"Verifying...";
-                [self verifyPurchased];
+//                [self verifyPurchased];
                 [self.bundleInstall setAction:@selector(installOrPurchase)];
             } else {
                 [self.bundleInstall setEnabled:true];
@@ -363,7 +358,7 @@ extern NSDictionary *testing;
         _currentPreview = 0;
         NSMutableArray *abc = [[NSMutableArray alloc] init];
         for (int i = 1; i <= 6; i++) {
-            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/images/%@/0%u.png", repoPackages, bundle, i]];
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/docs/%@/previewImages/0%u.png", @"file:///Users/w0lf/Documents/GitHub/wb_myRepo/testRepo", bundle, i]];
             [abc addObject:url];
         }
         
@@ -465,7 +460,6 @@ extern NSDictionary *testing;
         if (![item objectForKey:@"description"])
             hasDescription = false;
         
-        NSView *content = _containerView.documentView;
         NSUInteger diff = 10;
         NSUInteger newDescHeight = 0;
         diff += _viewHeader.frame.size.height;
@@ -483,23 +477,32 @@ extern NSDictionary *testing;
             diff += _viewDescription.frame.size.height;
         }
         diff += _viewInfo.frame.size.height;
-                
-        NSUInteger currentYPos = diff;
-        [content setFrameSize:CGSizeMake(content.frame.size.width, diff)];
+           
+        // Padding
+        NSUInteger xPad = 10;
+        NSUInteger yPad = 20;
+        NSUInteger wide = self.superview.frame.size.width - (xPad * 2);
         
-        NSView *container = content.subviews.firstObject;
-        [container setFrame:content.frame];
+        // Current frame position
+        NSUInteger currentYPos = diff;
+        
+        // Adjust container frame
+        [self setFrameSize:CGSizeMake(self.frame.size.width, diff + yPad)];
+    
+        
+        NSView *container = self.superview;
+        [container setFrame:self.frame];
         [container setFrameOrigin:CGPointMake(0, 0)];
-
+                
         // Header
         currentYPos -= _viewHeader.frame.size.height;
-        [_viewHeader setFrameOrigin:CGPointMake(0, currentYPos)];
+        [_viewHeader setFrame:CGRectMake(xPad, currentYPos, wide, _viewHeader.frame.size.height)];
         
         // Images
         if ([item objectForKey:@"hasPreview"]) {
             [_viewPreviews setHidden:false];
             currentYPos -= _viewPreviews.frame.size.height;
-            [_viewPreviews setFrameOrigin:CGPointMake(0, currentYPos)];
+            [_viewPreviews setFrame:CGRectMake(xPad, currentYPos, wide, _viewPreviews.frame.size.height)];
         } else {
             [_viewPreviews setHidden:true];
         }
@@ -508,18 +511,18 @@ extern NSDictionary *testing;
         if (hasDescription) {
             [_viewDescription setHidden:false];
             currentYPos -= _viewDescription.frame.size.height;
-            [_viewDescription setFrameOrigin:CGPointMake(0, currentYPos)];
+            [_viewDescription setFrame:CGRectMake(xPad, currentYPos, wide, _viewDescription.frame.size.height)];
         } else {
             [_viewDescription setHidden:true];
         }
         
         // Info
         currentYPos -= _viewInfo.frame.size.height;
-        [_viewInfo setFrameOrigin:CGPointMake(0, currentYPos)];
+        [_viewInfo setFrame:CGRectMake(xPad, currentYPos, wide, _viewInfo.frame.size.height)];
         
-//        [container.layer setBackgroundColor:NSColor.blueColor.CGColor];
+//        [self.layer setBackgroundColor:NSColor.blueColor.CGColor];
 //        [content.layer setBackgroundColor:[NSColor.redColor colorWithAlphaComponent:0.2].CGColor];
-        [content scrollPoint:CGPointZero];
+//        [self.containerView scrollPoint:CGPointZero];
     }
 }
 
@@ -667,36 +670,6 @@ extern NSDictionary *testing;
     }
 }
 
-- (void)keyDown:(NSEvent *)theEvent {
-    NSString*   const   character   =   [theEvent charactersIgnoringModifiers];
-    unichar     const   code        =   [character characterAtIndex:0];
-    bool                specKey     =   false;
-    switch (code)
-    {
-        case NSLeftArrowFunctionKey:
-        {
-            [myDelegate popView:nil];
-            specKey = true;
-            break;
-        }
-        case NSRightArrowFunctionKey:
-        {
-            [myDelegate pushView:nil];
-            specKey = true;
-            break;
-        }
-        case NSCarriageReturnCharacter:
-        {
-            [self.bundleInstall performClick:nil];
-            specKey = true;
-            break;
-        }
-    }
-    
-    if (!specKey)
-        [super keyDown:theEvent];
-}
-
 - (void)contactDev {
     NSURL *mailtoURL = [NSURL URLWithString:[NSString stringWithFormat:@"mailto:%@", [item objectForKey:@"contact"]]];
     [Workspace openURL:mailtoURL];
@@ -707,7 +680,7 @@ extern NSDictionary *testing;
 }
 
 - (void)pluginInstall {
-    [PluginManager.sharedInstance pluginUpdateOrInstall:item :repoPackages withCompletionHandler:^(BOOL res) {
+    [PluginManager.sharedInstance pluginUpdateOrInstall:item :@"file:///Users/w0lf/Documents/GitHub/wb_myRepo/testRepo" withCompletionHandler:^(BOOL res) {
             [PluginManager.sharedInstance readPlugins:nil];
             [self.bundleInstall setTitle:@"Open"];
             [self.bundleInstall setAction:@selector(pluginFinder)];
@@ -725,7 +698,7 @@ extern NSDictionary *testing;
     [PluginManager.sharedInstance readPlugins:nil];
     if ([[item objectForKey:@"payed"] boolValue]) {
         self.bundleInstall.title = @"Verifying...";
-        [self verifyPurchased];
+//        [self verifyPurchased];
         [self.bundleInstall setAction:@selector(installOrPurchase)];
     } else {
         [self.bundleInstall setEnabled:true];

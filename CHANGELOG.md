@@ -1,3 +1,31 @@
+### WIP
+
+-   Bundle ratings and reviews
+-   Added more applications that don't require SIP
+-   Added indicators to Bundle pages which show bundle requirements to function
+-   Hide bundles that dont work on users macOS version
+
+### 0.20.1
+
+-   UI redesign
+-   Major code clean
+-   macforge:// links now just use the bundleID
+-   Removed option for multiple sources
+-   Removed search bar from discover view
+-   Removed navigation bar from discover view
+-   Updated Xcode Plugin template
+-   Updated Demo Plugin
+-   Updated information regarding AMFI
+-   Updated SIP notification window
+-   Repect launch at login setting
+
+### 0.14.2
+
+-   Helper changed to using XPC connection for injection [@jslegendre](https://github.com/jslegendre)
+-   Fix helper hanging if SIP is enabled
+-   Removed reddit sidebar button
+-   Feedback button moved to about
+
 ### 0.14.1
 
 -    Fixed Helper freezing if injection failed

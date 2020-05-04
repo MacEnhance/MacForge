@@ -15,25 +15,21 @@
 #import "AppDelegate.h"
 #import "pluginData.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
-@interface MF_featuredItemController : NSViewController
-{
+@interface MF_featuredItemController : NSViewController {
     MSPlugin *plug;
 }
 
-@property IBOutlet NSTextField*     bundleName;
-@property IBOutlet NSTextField*     bundleDesc;
-//@property IBOutlet NSImageView*     bundleBanner;
-@property IBOutlet NSButton*        bundleBanner;
-@property IBOutlet NSButton*        bundleButton;
-@property IBOutlet SYFlatButton*    bundleGet;
-@property IBOutlet NSProgressIndicator*    bundleProgress;
+@property IBOutlet NSTextField          *bundleName;
+@property IBOutlet NSTextField          *bundleDesc;
+@property IBOutlet NSTextField          *bundleDescFull;
+@property IBOutlet NSImageView          *bundlePreview;
+@property IBOutlet NSButton             *bundleBanner;
+@property IBOutlet NSButton             *bundleButton;
+@property IBOutlet SYFlatButton         *bundleGet;
+@property IBOutlet NSProgressIndicator  *bundleProgress;
 
 - (IBAction)getOrOpen:(id)sender;
 - (IBAction)moreInfo:(id)sender;
 - (void)setupWithPlugin:(MSPlugin*)plugin;
 
 @end
-
-NS_ASSUME_NONNULL_END

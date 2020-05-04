@@ -2,8 +2,8 @@
 //  InjectorWrapper.m
 //  Dark
 //
-//  Created by Erwan Barrier on 8/6/12.
-//  Copyright (c) 2012 Erwan Barrier. All rights reserved.
+//  Created by Wolfgang Baird on 8/6/12.
+//  Copyright (c) 2020 MacEnhance. All rights reserved.
 //
 
 #import <ServiceManagement/ServiceManagement.h>

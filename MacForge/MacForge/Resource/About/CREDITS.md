@@ -1,5 +1,3 @@
-# Credits
-
 ### Resources
 
 - Code Injection : [mach_inject](https://www.github.com/rentzsch/mach_inject)

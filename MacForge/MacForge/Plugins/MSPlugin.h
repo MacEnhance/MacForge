@@ -31,7 +31,13 @@
 @property NSString      *webCompatability;
 @property NSString      *webFileName;
 @property NSString      *webSize;
+@property Boolean       webFeatured;
 @property Boolean       webPaid;
+
+// Info
+@property Boolean           hasPurchased;
+@property NSImage           *featuredImage;
+@property NSMutableArray    *previewImages;
 
 // Local Files
 @property NSDictionary  *localPlist;

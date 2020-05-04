@@ -2,8 +2,8 @@
 //  MFAppDelegate.m
 //  MachInjectSample
 //
-//  Created by Erwan Barrier on 04/12/12.
-//  Copyright (c) 2012 Erwan Barrier. All rights reserved.
+//  Created by Wolfgang Baird on 04/12/12.
+//  Copyright (c) 2020 MacEnhance. All rights reserved.
 //
 
 @import Sparkle;
@@ -14,13 +14,12 @@
 #import "MFInjectorProxy.h"
 
 #import "SGDirWatchdog.h"
-
 #import "NSBundle+LoginItem.h"
-
 #import "SIMBL.h"
-#import "PluginManager.h"
-#import <Carbon/Carbon.h>
 
+#import "PluginManager.h"
+
+#import <Carbon/Carbon.h>
 #include <syslog.h>
 
 static MFAppDelegate *mfAppDelegate;
@@ -40,11 +39,6 @@ void HandleExceptions(NSException *exception) {
 //    [alert setAlertStyle:NSAlertStyleWarning];
 //    [alert runModal];
 }
-
-//- (void)userNotificationCenter:(NSUserNotificationCenter *)center
-//        didDeliverNotification:(NSUserNotification *)notification {
-//
-//}
 
 - (void)userNotificationCenter:(NSUserNotificationCenter *)center
        didActivateNotification:(NSUserNotification *)notification {
@@ -89,7 +83,7 @@ void HandleExceptions(NSException *exception) {
     {
        dispatch_async(dispatch_get_main_queue(), ^{
            if ([notification.object isEqualToString:@"showMenu"]) [self setupMenuItem];
-           if ([notification.object isEqualToString:@"hideMenu"]) [self noStatusIcon];
+           if ([notification.object isEqualToString:@"hideMenu"]) [self goodbyeMenu];
        });
     }];
     
@@ -250,42 +244,56 @@ void HandleExceptions(NSException *exception) {
     [menu addItem:newItem];
 }
 
-//- (void)testInject {
-//    NSError *error;
-////    pid_t pid = 12915;
-//
-//    NSTask *task = [[NSTask alloc] init];
-//    [task setLaunchPath:@"/bin/sh"];
-//    NSArray *arguments = [NSArray arrayWithObjects:@"-c", @"ps -A | grep -m1 Console | awk '{print $1}'", nil];
-//    [task setArguments:arguments];
-//    NSPipe *pipe = [NSPipe pipe];
-//    [task setStandardOutput:pipe];
-//    NSFileHandle *file = [pipe fileHandleForReading];
-//    [task launch];
-//    NSData *data = [file readDataToEndOfFile];
-//    NSString *output = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-//
-//    pid_t pid = output.intValue;
-//
-//    NSLog(@"%d", pid);
-////    ps -A | grep -m1 SidecarRelay | awk '{print $1}'
-//
-////    [MFInjectorProxy injectPID:pid :@"/Users/w0lf/Library/Developer/Xcode/DerivedData/poopbutt-edtzriagafrshgeqwfflriaduapq/Build/Products/Debug/libpoopbutt.dylib" :&error];
-////    [MFInjectorProxy injectPID:pid :@"/Library/Application Support/MacEnhance/Plugins (Disabled)/Afloat.bundle" :&error];
-//    [MFInjectorProxy injectPID:86959 :@"/Library/Application Support/MacEnhance/Plugins (Disabled)/Afloat.bundle" :&error];
-//
-//    NSLog(@"%@", error);
-//}
+- (void)testInject {
+    NSError *error;
+//    pid_t pid = 12915;
 
-- (void)noStatusIconApplyPrefs {
-    [self noStatusIcon];
-    NSDictionary *GUIDefaults = [[NSUserDefaults standardUserDefaults] persistentDomainForName:@"com.w0lf.MacForge"];
-    [GUIDefaults setValue:[NSNumber numberWithBool:true] forKey:@"prefHideMenubar"];
-    [[NSUserDefaults standardUserDefaults] setPersistentDomain:GUIDefaults forName:@"com.w0lf.MacForge"];
+    NSTask *task = [[NSTask alloc] init];
+    [task setLaunchPath:@"/bin/sh"];
+//    NSArray *arguments = [NSArray arrayWithObjects:@"-c", @"ps -A | grep -m1 Console | awk '{print $1}'", nil];
+    NSArray *arguments = [NSArray arrayWithObjects:@"-c", @"ps aux | grep SidecarRelay | awk '{print $2}' | head -n 1", nil];
+    [task setArguments:arguments];
+    NSPipe *pipe = [NSPipe pipe];
+    [task setStandardOutput:pipe];
+    NSFileHandle *file = [pipe fileHandleForReading];
+    [task launch];
+    NSData *data = [file readDataToEndOfFile];
+    NSString *output = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+
+    pid_t pid = output.intValue;
+
+    NSLog(@"%d", pid);
+//    ps -A | grep -m1 SidecarRelay | awk '{print $1}'
+
+//    [MFInjectorProxy injectPID:pid :@"/Users/w0lf/Library/Developer/Xcode/DerivedData/poopbutt-edtzriagafrshgeqwfflriaduapq/Build/Products/Debug/libpoopbutt.dylib" :&error];
+//    [MFInjectorProxy injectPID:pid :@"/Library/Application Support/MacEnhance/Plugins (Disabled)/Afloat.bundle" :&error];
+//    [MFInjectorProxy injectPID:86959 :@"/Library/Application Support/MacEnhance/Plugins (Disabled)/Afloat.bundle" :&error];
+    [self.injectorProxy injectPID:pid :@"/Library/Application Support/MacEnhance/Plugins/Musclecar.bundle" :&error];
+
+    NSLog(@"%@", error);
 }
 
-- (void)noStatusIcon {
-    [[NSStatusBar systemStatusBar] removeStatusItem:_statusBar];
+- (void)colorStatusIconApplyPrefs:(NSObject*)sender {
+    NSDictionary *GUIDefaults = [[NSUserDefaults standardUserDefaults] persistentDomainForName:@"com.w0lf.MacForge"];
+    Boolean doColor = [[GUIDefaults valueForKey:@"prefColorMenuBar"] boolValue];
+    
+    if (sender) {
+        doColor = !doColor;
+        [GUIDefaults setValue:[NSNumber numberWithBool:doColor] forKey:@"prefColorMenuBar"];
+        [[NSUserDefaults standardUserDefaults] setPersistentDomain:GUIDefaults forName:@"com.w0lf.MacForge"];
+    }
+    
+    if (@available(macOS 10.14, *)) {
+        if (doColor)
+            _statusBar.button.contentTintColor = NSColor.controlAccentColor;
+        else
+            _statusBar.button.contentTintColor = nil;
+    }
+}
+
+- (void)goodbyeMenu {
+    NSLog(@"Howdy");
+    [NSStatusBar.systemStatusBar removeStatusItem:_statusBar];
 }
 
 - (void)setupMenuItem {
@@ -293,11 +301,13 @@ void HandleExceptions(NSException *exception) {
     [self addMenuItemToMenu:stackMenu :@"Preferences..." :@selector(openMacForgePrefs) :@""];
     [self addMenuItemToMenu:stackMenu :@"Open at Login" :@selector(toggleStartAtLogin:) :@""];
     [[stackMenu itemAtIndex:1] setState:NSBundle.mainBundle.isLoginItemEnabled];
+    [self addMenuItemToMenu:stackMenu :@"Color Menubar Icon" :@selector(colorStatusIconApplyPrefs:) :@""];
+    [[stackMenu itemAtIndex:2] setState:NSBundle.mainBundle.isLoginItemEnabled];
     [self addMenuItemToMenu:stackMenu :@"Hide Menubar Icon" :@selector(noStatusIconApplyPrefs) :@""];
     [stackMenu addItem:NSMenuItem.separatorItem];
     [self addMenuItemToMenu:stackMenu :@"Manage Plugins" :@selector(openMacForgeManage) :@""];
     [self addMenuItemToMenu:stackMenu :@"Update Plugins..." :@selector(updatesPluginsInstall) :@""];
-//    [self addMenuItemToMenu:stackMenu :@"Test inject..." :@selector(testInject) :@""];
+    [self addMenuItemToMenu:stackMenu :@"Test inject..." :@selector(testInject) :@""];
     [stackMenu addItem:NSMenuItem.separatorItem];
     [self addMenuItemToMenu:stackMenu :@"Check for Updates..." :@selector(checkMacForgeForUpdates) :@""];
     [self addMenuItemToMenu:stackMenu :@"About MacForge" :@selector(openMacForgeAbout) :@""];
@@ -307,12 +317,7 @@ void HandleExceptions(NSException *exception) {
     [_statusBar setTitle:@""];
     NSImage *statusImage = [NSImage imageNamed:@"Menubar18"];
     [statusImage setTemplate:true];
-    if (@available(macOS 10.14, *)) {
-        _statusBar.button.contentTintColor = NSColor.controlAccentColor;
-    } else {
-        // Fallback on earlier versions
-    }
-//    [statusImage setSize:NSMakeSize(20, 20)];
+    [self colorStatusIconApplyPrefs:nil];
     [_statusBar setImage:statusImage];
 }
 
@@ -381,17 +386,49 @@ void HandleExceptions(NSException *exception) {
     return true;
 }
 
+- (NSString*)runScript:(NSString*)script {
+    NSPipe *pipe = [NSPipe pipe];
+    NSFileHandle *file = pipe.fileHandleForReading;
+    NSTask *task = [[NSTask alloc] init];
+    task.launchPath = @"/bin/sh";
+    task.arguments = @[@"-c", script];
+    task.standardOutput = pipe;
+    [task launch];
+    NSData *data = [file readDataToEndOfFile];
+    [file closeFile];
+    NSString *output = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+    return output;
+}
+
+- (Boolean)xcodeAttached:(pid_t)pid {
+    NSString *script = [NSString stringWithFormat:@"lsof -p %d | grep /Applications/Xcode.app/Contents/Developer/usr/lib/libMainThreadChecker.dylib", pid];
+    NSString *res = [self runScript:script];
+    if (res.length > 0)
+        return true;
+    return false;
+}
+
 // Try injecting all valid bundles into an running application
 - (void)injectBundle:(NSRunningApplication*)runningApp {
        if ([MFAppDelegate shouldInject:runningApp]) {
            pid_t pid = [runningApp processIdentifier];
            // Try injecting each valid plugin into the application
-           for (NSString *bundlePath in [SIMBL pluginsToLoadList:[NSBundle bundleWithPath:runningApp.bundleURL.path]]) {
-               NSError *error;
-               [self.injectorProxy injectPID:pid :bundlePath :&error];
-               if(error) {
-                   NSLog(@"Couldn't inject into %d : %@ (domain: %@ code: %@)", pid, runningApp.localizedName, error.domain, [NSNumber numberWithInteger:error.code]);
-                   SIMBLLogNotice(@"Couldn't inject App (domain: %@ code: %@)", error.domain, [NSNumber numberWithInteger:error.code]);
+                      
+           // Check if Xcode is attached to process
+           Boolean isXcodeRunning = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.dt.Xcode"].count;
+           Boolean isXcodeAttached = false;
+           if (isXcodeRunning)
+               isXcodeAttached = [self xcodeAttached:pid];
+           
+           // Do the injecting
+           if (!isXcodeAttached) {
+               for (NSString *bundlePath in [SIMBL pluginsToLoadList:[NSBundle bundleWithPath:runningApp.bundleURL.path]]) {
+                       NSError *error;
+                       [self.injectorProxy injectPID:pid :bundlePath :&error];
+                       if(error) {
+                           NSLog(@"Couldn't inject into %d : %@ (domain: %@ code: %@)", pid, runningApp.localizedName, error.domain, [NSNumber numberWithInteger:error.code]);
+                           SIMBLLogNotice(@"Couldn't inject App (domain: %@ code: %@)", error.domain, [NSNumber numberWithInteger:error.code]);
+                       }
                }
            }
        }

@@ -17,17 +17,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MF_featuredSmallController : NSViewController
-{
+@interface MF_featuredSmallController : NSViewController {
     MSPlugin *plug;
 }
 
-@property (weak) IBOutlet NSTextField*     bundleName;
-@property (weak) IBOutlet NSTextField*     bundleDesc;
-@property (weak) IBOutlet NSButton*        bundleBanner;
-@property (weak) IBOutlet NSButton*        bundleButton;
-@property (weak) IBOutlet SYFlatButton*    bundleGet;
-@property (weak) IBOutlet NSProgressIndicator*    bundleProgress;
+@property (weak) IBOutlet NSTextField           *bundleName;
+@property (weak) IBOutlet NSTextField           *bundleDesc;
+@property (weak) IBOutlet NSButton              *bundleBanner;
+@property (weak) IBOutlet NSButton              *bundleButton;
+@property (weak) IBOutlet SYFlatButton          *bundleGet;
+@property (weak) IBOutlet NSProgressIndicator   *bundleProgress;
 
 - (IBAction)getOrOpen:(id)sender;
 - (IBAction)moreInfo:(id)sender;

@@ -109,26 +109,19 @@
 			<key>orderHint</key>
 			<integer>35</integer>
 		</dict>
-		<key>Pods-MacForgeFix.xcscheme</key>
+		<key>Pods-MacForgeHelper.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>36</integer>
 		</dict>
-		<key>Pods-MacForgeHelper.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-			<key>orderHint</key>
-			<integer>37</integer>
-		</dict>
 		<key>Pods-MacForgeKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>38</integer>
+			<integer>37</integer>
 		</dict>
 		<key>Pods-com.w0lf.MacForge.Injector.xcscheme</key>
 		<dict>
@@ -145,6 +138,13 @@
 			<integer>33</integer>
 		</dict>
 		<key>Pods-purchaseValidationApp.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>38</integer>
+		</dict>
+		<key>PromisesObjC.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

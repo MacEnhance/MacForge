@@ -12,7 +12,6 @@
 #import "pluginData.h"
 #import "MSPlugin.h"
 
-extern NSMutableArray *confirmDelete;
 extern NSMutableArray *pluginsArray;
 NSInteger previusRow = -1;
 

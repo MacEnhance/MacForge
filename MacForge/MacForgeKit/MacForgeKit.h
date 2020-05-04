@@ -21,12 +21,20 @@ FOUNDATION_EXPORT const unsigned char MacForgeKitVersionString[];
 
 + (MacForgeKit *)sharedInstance;
 
++ (void)AMFI_NUKE;
 + (Boolean)AMFI_enabled;
 + (Boolean)AMFI_amfi_allow_any_signature_toggle;
 + (Boolean)AMFI_cs_enforcement_disable_toggle;
 + (Boolean)AMFI_amfi_get_out_of_my_way_toggle;
 
++ (Boolean)shouldWarnAboutAMFI;
++ (void)showAMFIWarning:(NSWindow*)inWindow;
++ (void)setShowAMFIWarning:(Boolean)shouldWarn;
+
 + (Boolean)NVRAM_arg_present:(NSString*)arg;
+
++ (Boolean)LIBRARYVALIDATION_enabled;
++ (Boolean)LIBRARYVALIDATION_toggle;
 
 + (Boolean)SIP_enabled;
 + (Boolean)SIP_HasRequiredFlags;

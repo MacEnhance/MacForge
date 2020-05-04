@@ -10,8 +10,6 @@
 
 @import FirebaseAuth;
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface MF_accountManager : NSObject
 
 - (void)createAccountWithUsername:(NSString *)username
@@ -29,5 +27,3 @@ NS_ASSUME_NONNULL_BEGIN
             withCompletionHandler:(void (^)(FIRAuthDataResult * _Nullable authResult, NSError * _Nullable err))handler;
 
 @end
-
-NS_ASSUME_NONNULL_END

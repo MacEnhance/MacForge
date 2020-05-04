@@ -11,9 +11,8 @@
 #import "AppDelegate.h"
 
 extern AppDelegate* myDelegate;
-extern NSMutableArray *confirmDelete;
 extern NSMutableArray *pluginsArray;
-extern NSMutableDictionary *needsUpdate;
+NSMutableDictionary *needsUpdate;
 
 @interface updatesTable : NSTableView {
     PluginManager *sharedMethods;

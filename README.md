@@ -4,10 +4,6 @@
 
 MacForge is an open-source plugin manager for macOS. It lets you discover, install and manage plugins to improve the user experience of macOS without the need for manually cloning/building or copying files.
 
-<!--
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/MacEnhance/MacForge)
-[![Discord](https://img.shields.io/discord/608740492561219617)](https://discordapp.com/channels/608740492561219617/608740492640911378)
--->
 [![Discord](https://discordapp.com/api/guilds/608740492561219617/widget.png?style=banner2)](https://discordapp.com/channels/608740492561219617/608740492640911378)
 
 ![Preview](web/preview.png)
@@ -18,45 +14,29 @@ MacForge is an open-source plugin manager for macOS. It lets you discover, insta
 - Unzip the download if your browser does not do so automatically
 - Open MacForge and allow it to install helper tools
 - Disable [System Integrity Protection](https://www.imore.com/how-turn-system-integrity-protection-macos)
+- Disable *Library Validation* if needed `sudeo defaults write /Library/Preferences/com.apple.security.libraryvalidation.plist DisableLibraryValidation -bool true`
 - Start installing and using plugins
 
 ## Functionallity notes 📝
 
 - Loading plugins into system applications requires that [System Integrity Protection](https://apple.stackexchange.com/questions/208478/how-do-i-disable-system-integrity-protection-sip-aka-rootless-on-os-x-10-11) is disabled
-- Loading plugins into some applications may require [Apple Mobile File Integrity](https://www.theiphonewiki.com/wiki/AppleMobileFileIntegrity) to be disabled
+- Loading plugins into some applications may require *Library Validation* is disabled  `sudeo defaults write /Library/Preferences/com.apple.security.libraryvalidation.plist DisableLibraryValidation -bool true`
 - Loading plugins into some applications may require the plugin must be *signed* and in the `/Library` directory
-- Applications installed by MacForge may not require SIP to be disabled to function
+- Some applications installed by MacForge may not require *System Integrity Protection* or *Library Validation* to be disabled to function
 
 ## System Requirements 🖥
 
-- MacForge supports macOS 10.12 and above
-- For macOS 10.11 and below check out [mySIMBL](https://github.com/w0lfschild/mySIMBL)
+- MacForge supports macOS 10.13 and above
+- For macOS 10.12 and below check out [mySIMBL](https://github.com/w0lfschild/mySIMBL)
 - Bundles distributed through MacForge may have different application and system requirements
 
 ## [Wiki](https://github.com/w0lfschild/MacForge/wiki/Home) 📑
 
 ## [Features](https://github.com/w0lfschild/MacForge/wiki/Features) 💪
 
-- Manage bundles 📦
-    - Browse an extensive and growing collection of plugins, apps and themes!
-    - Drag and drop plugins `.bundle` onto MacForge to automatically install them
-    - MacForge can open files with the `.bundle` extension to automatically install them
-    - Show some basic information about the installation
-    - Blacklist applications from loading plugins
-    - Quickly and easily manage plugins
-    - Delete plugins (Trash can)
-    - Show plugins in Finder (Eye icon)
-    - Enable/Disable plugins (Check box)
-    - Toggle plugins between single user and all users (User icon)
-    - Search for plugins (by name or ID)
-    - MacForge automatically detect existing plugins located in 
-        ```
-        /Library/Application Support/MacEnhance/Plugins
-        /Library/Application Support/MacEnhance/Plugins (Disabled)
-        /Library/Application Support/MacEnhance/Themes
-        ```
-
 - Discover what's new 🔍
+    - Browse an extensive and growing collection of Plugins, Application and Themes!
+    - Search for plugins (Name, Developer, ID)
     - See new and recently updated tweaks
     - Browse existing bundles
     - Search through all existing bundles (by name, bundle ID)
@@ -64,6 +44,16 @@ MacForge is an open-source plugin manager for macOS. It lets you discover, insta
     - Add or remove repositories
     - It's easy to host your own repository on GitHub!
     - Discover, download and update bundles
+    
+- Manage bundles 📦
+    - Drag and drop plugins `.bundle` onto MacForge to automatically install them
+    - MacForge can open files with the `.bundle` extension to automatically install them
+    - Blacklist applications from loading plugins
+    - Quickly and easily manage plugins
+    - Delete plugins
+    - Show plugins in Finder
+    - Enable/Disable plugins
+    - Toggle plugins between single user and all users (User icon)
 
 - Stay up to date 📲
     - Check what installed bundles have updates

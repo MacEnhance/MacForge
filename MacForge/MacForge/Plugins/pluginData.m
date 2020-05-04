@@ -30,10 +30,20 @@
     return self;
 }
 
+- (NSMutableArray*)fetch_featured:(NSString*)source {
+    NSURL* data = [NSURL URLWithString:[NSString stringWithFormat:@"%@/featured.plist", source]];
+    NSMutableArray* featuredPackages = [[NSMutableArray alloc] initWithContentsOfURL:data];
+    return featuredPackages;
+}
+
 - (NSMutableDictionary*)fetch_repo:(NSString*)source {
     NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
     NSURL* data = [NSURL URLWithString:[NSString stringWithFormat:@"%@/packages_v2.plist", source]];
     NSMutableDictionary* repoPackages = [[NSMutableDictionary alloc] initWithContentsOfURL:data];
+    
+    if (repoPackages == nil)
+        repoPackages = [[NSMutableDictionary alloc] initWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/packages.plist", source]]];
+    
     if (repoPackages != nil) {
 //        NSMutableDictionary *sourceDic = [[NSMutableDictionary alloc] init];
 //        [sourceDic setObject:repoPackages forKey:@"raw_repoPackages"];
@@ -59,7 +69,7 @@
             this_is_a_bundle.webFileName = [bundle objectForKey:@"filename"];
             this_is_a_bundle.webPlist = bundle;
             this_is_a_bundle.webPaid = [[bundle valueForKey:@"payed"] boolValue];
-            
+            this_is_a_bundle.webFeatured = [[bundle valueForKey:@"featured"] boolValue];
             
             [result setObject:this_is_a_bundle forKey:bundleIdentifier];
 //            [sourceDic setObject:this_is_a_bundle forKey:bundleIdentifier];
@@ -102,6 +112,9 @@
         // Read the repo file
         NSURL* data = [NSURL URLWithString:[NSString stringWithFormat:@"%@/packages_v2.plist", source]];
         NSMutableDictionary* repoPackages = [[NSMutableDictionary alloc] initWithContentsOfURL:data];
+        
+        if (repoPackages == nil)
+            repoPackages = [[NSMutableDictionary alloc] initWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/packages.plist", source]]];
         
         // Repo has some contents
         if (repoPackages != nil) {
@@ -169,25 +182,6 @@
     if (packagesinCheck.allKeys.count > 0) {
         [changesPLIST setObject:packagesinCheck forKey:checkTimeStamp];
     }
-    
-    // key (bundleID) >
-    //                  most recent version
-    //                  most recent update
-    
-//    NSArray *blacklist = [SIMBLPrefs objectForKey:@"SIMBLApplicationIdentifierBlacklist"];
-//    NSArray *alwaysBlaklisted = @[@"org.w0lf.mySIMBL", @"org.w0lf.cDock-GUI", @"com.w0lf.MacForge", @"com.w0lf.MacForgeHelper"];
-//    NSMutableArray *newlist = [[NSMutableArray alloc] initWithArray:blacklist];
-//    for (NSString *app in alwaysBlaklisted)
-//        if (![blacklist containsObject:app])
-//            [newlist addObject:app];
-//    [SIMBLPrefs setObject:newlist forKey:@"SIMBLApplicationIdentifierBlacklist"];
-    
-//    NSLog(@"%@", changesPLIST);
-//    NSLog(@"%@", @"~/Library/Application Support/MacForge/packageIDs.plist".stringByExpandingTildeInPath);
-    [packageIDs writeToFile:@"~/Library/Application Support/MacForge/packageIDs.plist".stringByExpandingTildeInPath atomically:YES];
-    [changesPLIST writeToFile:@"~/Library/Application Support/MacForge/newPackages.plist".stringByExpandingTildeInPath atomically:YES];
-    
-//    NSLog(@"%@", self.sourceListDic);
 }
 
 - (void)fetch_local {

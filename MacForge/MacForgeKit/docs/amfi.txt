@@ -1,0 +1,11 @@
+New security features introduced in macOS Mojave prevent <appname> from functioning properly.
+
+<appname> has determined that Apple Mobile File Integrity is disabled on your system.
+
+Due to recent system updates you will not be able to add applications to System Preferences > Security & Privacy > Privacy. This can completely prevent some applications form functioning or break critical functionality.
+
+In order restore these features and prevent future problems you must enable Apple Mobile File Integrity.
+
+You can continue using <appname> by switching to disabling Library Validation instead.
+
+After entering your password you will be required to restart for changes to take effect.

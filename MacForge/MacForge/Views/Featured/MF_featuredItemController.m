@@ -8,6 +8,8 @@
 
 #import "MF_featuredItemController.h"
 
+#import "MF_bundleView.h"
+
 extern AppDelegate *myDelegate;
 
 @interface MF_featuredItemController ()
@@ -34,7 +36,8 @@ extern AppDelegate *myDelegate;
 - (void)setupWithPlugin:(MSPlugin*)plugin {
     plug = plugin;
     self.bundleName.stringValue = plugin.webName;
-    self.bundleDesc.stringValue = plugin.webDescription;
+    self.bundleDesc.stringValue = plugin.webDescriptionShort;
+    self.bundleDescFull.stringValue = plugin.webDescription;
     self.bundleBanner.canDrawSubviewsIntoLayer = YES;
     [self.bundleBanner.superview setWantsLayer:YES];
     
@@ -49,15 +52,20 @@ extern AppDelegate *myDelegate;
     _bundleGet.borderWidth = 0;
     _bundleGet.momentary = true;
     
+    self.bundlePreview.animates = YES;
+    self.bundlePreview.canDrawSubviewsIntoLayer = YES;
+    self.bundlePreview.wantsLayer = true;
+//    self.bundlePreview.image = [NSImage imageNamed:NSImageNameBookmarksTemplate];
+//    self.view.wantsLayer = true;
+//    self.view.layer.backgroundColor = NSColor.redColor.CGColor;
+    
     dispatch_queue_t backgroundQueue0 = dispatch_queue_create("com.w0lf.MacForge", 0);
     dispatch_async(backgroundQueue0, ^{
         NSImage *icon = [PluginManager pluginGetIcon:plugin.webPlist];
-            
         NSString *iconpath = [plugin.webPlist objectForKey:@"icon"];
-        NSString *banpath = [plugin.webPlist objectForKey:@"banner"];
-        
-        NSString *imgurl = [NSString stringWithFormat:@"https://github.com/w0lfschild/myRepo/raw/master/featuredRepo%@", iconpath];
-        NSString *banurl = [NSString stringWithFormat:@"https://github.com/w0lfschild/myRepo/raw/master/featuredRepo%@", banpath];
+        NSString *repostring = @"file:///Users/w0lf/Documents/GitHub/wb_myRepo/testRepo"; //@"https://github.com/w0lfschild/myRepo/raw/master/featuredRepo";
+        NSString *imgurl = [NSString stringWithFormat:@"%@/docs/%@/icon.png", repostring, plugin.bundleID]; //[NSString stringWithFormat:@"%@%@", repostring, iconpath];
+        NSString *preview = [NSString stringWithFormat:@"%@/docs/%@/previewImages/01.png", repostring, plugin.bundleID];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             if (iconpath) {
@@ -68,12 +76,12 @@ extern AppDelegate *myDelegate;
                 self.bundleButton.image = icon;
             }
             
-            if (banpath) {
-                self.bundleBanner.sd_imageIndicator = SDWebImageProgressIndicator.defaultIndicator;
-                [self.bundleBanner sd_setImageWithURL:[NSURL URLWithString:banurl]
+            if (preview) {
+                self.bundlePreview.sd_imageIndicator = SDWebImageProgressIndicator.defaultIndicator;
+                [self.bundlePreview sd_setImageWithURL:[NSURL URLWithString:preview]
                                      placeholderImage:nil];
             } else {
-                self.bundleBanner.image = nil;
+//                self.bundlePreview.image = nil;
             }
         });
         
@@ -84,29 +92,14 @@ extern AppDelegate *myDelegate;
 
 - (IBAction)getOrOpen:(id)sender {
     [MF_Purchase pushthebutton:plug :sender :@"https://github.com/w0lfschild/myRepo/raw/master/featuredRepo" :_bundleProgress];
-//    
 }
 
 - (IBAction)moreInfo:(id)sender {
-//    NSLog(@"%@", plug.webPlist);
-//    NSLog(@"check %@", myDelegate.sourcesBundle);
-//    [[myDelegate.sourcesRoot animator] replaceSubview:[myDelegate.sourcesRoot.subviews objectAtIndex:0] with:myDelegate.sourcesBundle];
-    
-//    NSLog(@"%@", plug.webPlist);
-    
     pluginData.sharedInstance.currentPlugin = plug;
     plug.webRepository = @"https://github.com/w0lfschild/myRepo/raw/master/featuredRepo";
-    NSView *v = myDelegate.sourcesBundle;
     dispatch_async(dispatch_get_main_queue(), ^(void){
-        //                [v.layer setBackgroundColor:[NSColor redColor].CGColor];
-        [v setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
-        [v setFrame:myDelegate.tabMain.frame];
-        [v setFrameOrigin:NSMakePoint(0, 0)];
-        [v setTranslatesAutoresizingMaskIntoConstraints:true];
-        [myDelegate.tabMain setSubviews:[NSArray arrayWithObject:v]];
+        [myDelegate setMainViewSubView:myDelegate.sourcesBundle :true];
     });
-    
-//    [self.view.superview setSubviews:[NSArray arrayWithObjects:myDelegate.sourcesBundle, nil]];
 }
 
 @end

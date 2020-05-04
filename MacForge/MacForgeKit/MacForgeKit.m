@@ -55,6 +55,8 @@ bool _csr_check(int aMask, bool aFlipflag) {
 
 @implementation MacForgeKit
 
+NSString *const MFAMFIWarningKey = @"MF_AMFIShowWarning";
+
 + (MacForgeKit*) sharedInstance {
     static MacForgeKit* MacForge = nil;
     if (MacForge == nil)
@@ -96,6 +98,9 @@ bool _csr_check(int aMask, bool aFlipflag) {
     return output;
 }
 
+
+/* ------------------ SIP ------------------ */
+
 + (Boolean)SIP_enabled {
     csr_get_active_config(&config);
     // SIP fully disabled
@@ -135,11 +140,120 @@ bool _csr_check(int aMask, bool aFlipflag) {
     return !allowsFS;
 }
 
+/* ------------------ Library Validation ------------------ */
+
++ (void)showAMFIWarning:(NSWindow*)inWindow {
+    NSError *err;
+    NSString *app = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+    if (app == nil) app = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"];
+    if (app == nil) app = @"macOS Plugin Framework";
+    NSString *sipFile = @"amfi";
+    NSString *text = [NSString stringWithContentsOfURL:[[NSBundle bundleForClass:[self class]]
+                                                        URLForResource:sipFile withExtension:@"txt"]
+                                              encoding:NSUTF8StringEncoding
+                                                 error:&err];
+    
+    text = [text stringByReplacingOccurrencesOfString:@"<appname>" withString:app];
+    NSAlert *alert = [[NSAlert alloc] init];
+    [alert setMessageText:@"Apple Mobile File Integrity Warning!"];
+    [alert setInformativeText:text];
+    [alert addButtonWithTitle:@"Okay"];
+    [alert addButtonWithTitle:@"Cancel"];
+    [alert setAlertStyle:NSAlertStyleWarning];
+    [alert setShowsSuppressionButton:true];
+    alert.suppressionButton.title = @"Don't show this again";
+
+    if (inWindow != nil) {
+        [alert beginSheetModalForWindow:inWindow completionHandler:^(NSModalResponse returnCode) {
+            if (alert.suppressionButton.state == NSOnState) [MacForgeKit setShowAMFIWarning:false];
+            if (returnCode == NSAlertSecondButtonReturn) {
+                return;
+            } else {
+                [MacForgeKit AMFI_NUKE_NOCHECK];
+            }
+        }];
+    } else {
+        NSModalResponse res = alert.runModal;
+        if (alert.suppressionButton.state == NSOnState) [MacForgeKit setShowAMFIWarning:false];
+        if (res == NSAlertSecondButtonReturn) {
+            return;
+        } else {
+            [MacForgeKit AMFI_NUKE_NOCHECK];
+        }
+    }
+}
+
++ (Boolean)shouldWarnAboutAMFI {
+    Boolean result = true;
+//    if ([MacForgeKit AMFI_enabled]) result = false;
+    NSUserDefaults *d = [NSUserDefaults standardUserDefaults];
+    if ([d valueForKey:MFAMFIWarningKey])
+        result = [[d valueForKey:MFAMFIWarningKey] boolValue];
+    return result;
+}
+
++ (void)setShowAMFIWarning:(Boolean)suppress {
+    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:suppress] forKey:MFAMFIWarningKey];
+}
+
++ (void)AMFI_NUKE_NOCHECK {
+    AuthorizationRef authorizationRef;
+    OSStatus status;
+    status = AuthorizationCreate(NULL, kAuthorizationEmptyEnvironment, kAuthorizationFlagDefaults, &authorizationRef);
+    
+    [STPrivilegedTask launchedPrivilegedTaskWithLaunchPath:@"/usr/sbin/nvram"
+                                                 arguments:@[@"-d", @"boot-args"]
+                                          currentDirectory:[[NSBundle mainBundle] resourcePath]
+                                             authorization:authorizationRef];
+    
+    [STPrivilegedTask launchedPrivilegedTaskWithLaunchPath:@"/usr/bin/defaults"
+                                                 arguments:@[@"write", @"/Library/Preferences/com.apple.security.libraryvalidation.plist", @"DisableLibraryValidation", @"-bool", @"true"]
+                                          currentDirectory:[[NSBundle mainBundle] resourcePath]
+                                             authorization:authorizationRef];
+}
+
++ (void)AMFI_NUKE {
+    NSString *result = [MacForgeKit runScript:@"nvram boot-args 2>&1"];
+    if ([result containsString:@"amfi_get_out_of_my_way"]) {
+        AuthorizationRef authorizationRef;
+        OSStatus status;
+        status = AuthorizationCreate(NULL, kAuthorizationEmptyEnvironment, kAuthorizationFlagDefaults, &authorizationRef);
+        
+        [STPrivilegedTask launchedPrivilegedTaskWithLaunchPath:@"/usr/sbin/nvram"
+                                                     arguments:@[@"-d", @"boot-args"]
+                                              currentDirectory:[[NSBundle mainBundle] resourcePath]
+                                                 authorization:authorizationRef];
+        
+        [STPrivilegedTask launchedPrivilegedTaskWithLaunchPath:@"/usr/bin/defaults"
+                                                     arguments:@[@"write", @"/Library/Preferences/com.apple.security.libraryvalidation.plist", @"DisableLibraryValidation", @"-bool", @"true"]
+                                              currentDirectory:[[NSBundle mainBundle] resourcePath]
+                                                 authorization:authorizationRef];
+    }
+}
+
++ (Boolean)LIBRARYVALIDATION_enabled {
+    NSString *result = [MacForgeKit runScript:@"defaults read /Library/Preferences/com.apple.security.libraryvalidation.plist DisableLibraryValidation"];
+    return !([result rangeOfString:@"1"].length);
+}
+
++ (Boolean)LIBRARYVALIDATION_toggle {
+//    sudo defaults write /Library/Preferences/com.apple.security.libraryvalidation.plist DisableLibraryValidation -bool true
+    NSString *newBootArgs = [MacForgeKit runScript:@"defaults read /Library/Preferences/com.apple.security.libraryvalidation.plist DisableLibraryValidation"];
+    if ([newBootArgs containsString:@"0"] || newBootArgs == nil) {
+        newBootArgs = @"true";
+    } else {
+        newBootArgs = @"false";
+    }
+    [MacForgeKit runSTPrivilegedTask:@"/usr/bin/defaults" :@[@"write", @"/Library/Preferences/com.apple.security.libraryvalidation.plist", @"DisableLibraryValidation", @"-bool", newBootArgs]];
+    NSString *result = [MacForgeKit runScript:@"defaults read /Library/Preferences/com.apple.security.libraryvalidation.plist DisableLibraryValidation"];
+    return ![result isEqualToString:newBootArgs];
+}
+
+/* ------------------ AMFI ------------------ */
+
 // Note:
-//
 // cs_enforcement_disable=1
 // amfi_get_out_of_my_way=1
-//
 
 + (Boolean)AMFI_enabled {
     NSString *result = [MacForgeKit runScript:@"nvram boot-args 2>&1"];
@@ -189,90 +303,11 @@ bool _csr_check(int aMask, bool aFlipflag) {
     return [MacForgeKit toggleBootArg:@"amfi_get_out_of_my_way"];
 }
 
+/* ------------------ Extra ------------------ */
+
 + (Boolean)MacEnhance_remove {
     NSArray *args = [NSArray arrayWithObject:[[NSBundle bundleForClass:[MacForgeKit class]] pathForResource:@"cleanup" ofType:nil]];
     return [MacForgeKit runSTPrivilegedTask:@"/bin/sh" :args];
-}
-
-+ (void)startWatching {
-    NSNotificationCenter *notificationCenter = [[NSWorkspace sharedWorkspace] notificationCenter];
-    [notificationCenter addObserverForName:NSWorkspaceDidLaunchApplicationNotification
-                                    object:nil
-                                     queue:nil
-                                usingBlock:^(NSNotification * _Nonnull note) {
-                                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                        NSRunningApplication *app = [note.userInfo valueForKey:NSWorkspaceApplicationKey];
-                                        [MacForgeKit injectBundle:app];
-                                    });
-                                }];
-}
-
-// Check if a bundle should be injected into specified running application
-+ (Boolean)shouldInject:(NSRunningApplication*)runningApp {
-    // Abort if you're running something other than macOS 10.X.X
-    if (NSProcessInfo.processInfo.operatingSystemVersion.majorVersion != 10) {
-        SIMBLLogNotice(@"something fishy - OS X version %ld", NSProcessInfo.processInfo.operatingSystemVersion.majorVersion);
-        return false;
-    }
-    
-    // Don't inject into ourself
-    if ([NSBundle.mainBundle.bundleIdentifier isEqualToString:runningApp.bundleIdentifier]) return false;
-    
-    // Hardcoded blacklist
-    if ([@[@"com.w0lf.MacForge", @"com.w0lf.MacForgeHelper", @"com.macenhance.purchaseValidationApp", @"com.apple.AccountProfileRemoteViewService"] containsObject:runningApp.bundleIdentifier]) return false;
-
-    // Don't inject if somehow the executable doesn't seem to exist
-    if (!runningApp.executableURL.path.length) return false;
-    
-    // If you change the log level externally, there is pretty much no way
-    // to know when the changed. Just reading from the defaults doesn't validate
-    // against the backing file very ofter, or so it seems.
-    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-    [defaults synchronize];
-    
-    // Log some info about the app
-    NSString* appName = runningApp.localizedName;
-    SIMBLLogInfo(@"%@ started", appName);
-    SIMBLLogDebug(@"app start notification: %@", runningApp);
-    
-    // Check to see if there are plugins to load
-    if ([SIMBL shouldInstallPluginsIntoApplication:[NSBundle bundleWithURL:runningApp.bundleURL]] == NO) return false;
-    
-    // User Blacklist
-    NSString* appIdentifier = runningApp.bundleIdentifier;
-    NSArray* blacklistedIdentifiers = [defaults stringArrayForKey:@"SIMBLApplicationIdentifierBlacklist"];
-    if (blacklistedIdentifiers != nil && [blacklistedIdentifiers containsObject:appIdentifier]) {
-        SIMBLLogNotice(@"ignoring injection attempt for blacklisted application %@ (%@)", appName, appIdentifier);
-        return false;
-    }
-    
-    // System item Inject
-    if (runningApp.executableURL.path.pathComponents > 0)
-        if ([runningApp.executableURL.path.pathComponents[1] isEqualToString:@"System"]) SIMBLLogDebug(@"injecting into system process");
-    
-    return true;
-}
-
-// Try injecting all valid bundles into an running application
-+ (void)injectBundle:(NSRunningApplication*)runningApp {
-    // Check if there is anything valid to inject
-    if ([MacForgeKit shouldInject:runningApp]) {
-        // See if MacForge is insatlled and if so open it and try to inject
-        NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
-        NSString *mpHelper = [workspace absolutePathForAppBundleWithIdentifier:@"com.w0lf.MacForgeHelper"];
-        NSURL *mpURL = [NSURL URLWithString:mpHelper];
-        NSArray *args = @[@"-i", runningApp.bundleIdentifier];
-        NSError *error = nil;
-        [workspace launchApplicationAtURL:mpURL
-                                  options:0
-                            configuration:[NSDictionary dictionaryWithObject:args forKey:NSWorkspaceLaunchConfigurationArguments]
-                                    error:&error];
-    }
-}
-
-+ (void)injectAllProc {
-    for (NSRunningApplication *app in NSWorkspace.sharedWorkspace.runningApplications)
-        [MacForgeKit injectBundle:app];
 }
 
 @end

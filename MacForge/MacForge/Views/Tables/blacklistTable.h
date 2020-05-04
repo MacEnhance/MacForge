@@ -3,12 +3,10 @@
 //  MacForge
 //
 //  Created by Wolfgang Baird on 7/29/18.
-//  Copyright © 2018 Erwan Barrier. All rights reserved.
+//  Copyright © 2019 MacEnhance. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-
-NS_ASSUME_NONNULL_BEGIN
 
 @interface blacklistTable : NSTableView
 @property NSArray *blackList;
@@ -17,5 +15,3 @@ NS_ASSUME_NONNULL_BEGIN
 @interface blacklistTableCell : NSTableCellView <NSTableViewDataSource, NSTableViewDelegate>
 @property NSString *bundleID;
 @end
-
-NS_ASSUME_NONNULL_END

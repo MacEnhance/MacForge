@@ -14,7 +14,7 @@
 #define Workspace           [NSWorkspace sharedWorkspace]
 #define FileManager         [NSFileManager defaultManager]
 #define Defaults            [NSUserDefaults standardUserDefaults]
-#define paddleFldr          [[NSSearchPathForDirectoriesInDomains(NSUserDirectory, NSAllDomainsMask, YES) firstObject] stringByAppendingString:@"/shared/macenhance"]
+#define paddleFldr          [[NSSearchPathForDirectoriesInDomains(NSUserDirectory, NSAllDomainsMask, YES) firstObject] stringByAppendingString:@"/Shared/macenhance"]
 #define appSupport          [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) firstObject]
 
 @interface AppDelegate : NSObject <PaddleDelegate, NSApplicationDelegate>

@@ -1,23 +1,29 @@
-# Changelog
+### WIP
 
-### 1.0.0
+-   Bundle ratings and reviews
+-   Added more applications that don't require SIP
+-   Added indicators to Bundle pages which show bundle requirements to function
+-   Hide bundles that dont work on users macOS version
+
+### 0.20.1
+
+-   UI redesign
+-   Major code clean
+-   macforge:// links now just use the bundleID
+-   Removed option for multiple sources
+-   Removed search bar from discover view
+-   Removed navigation bar from discover view-   Updated Xcode Plugin template
+-   Updated Demo Plugin
+-   Updated information regarding AMFI
+-   Updated SIP notification window
+-   Repect launch at login setting
+
+### 0.14.2
 
 -   Helper changed to using XPC connection for injection [@jslegendre](https://github.com/jslegendre)
 -   Fix helper hanging if SIP is enabled
--   Removed option for multiple sources
--   macforge:// links can now just use the bundleID
-    -   eg macforge://org.w0lf.cDock-GUI
--   Removed search bar from discover view
--   Removed navigation bar from discover view
 -   Removed reddit sidebar button
 -   Feedback button moved to about
--   Discover view renamed Browse
--   Updated Xcode Plugin template
--   Updated Demo Plugin
--   Bundle ratings and reviews
--   Added more applications that don't require SIP
--   Improved SIP notification window
--   Added indicators to Bundle pages which show bundle requirements to function
 
 ### 0.14.1
 
@@ -117,20 +123,20 @@
 -    Account tab allows for account creation
 -    3rd parties can now sell plugins
 
-### 0.1### 0.3
+### 0.10.3
 
 -    Featured page improvements
 -    Fix error pop-up
 -    Fix codesign issue
 -    Bug fixes
 
-### 0.1### 0.2
+### 0.10.2
 
 -    Fix install error if .zip contained __MACOS folder
 -    Updated preferences tab UI
 -    Bug fixes
 
-### 0.1### 0.1
+### 0.10.1
 
 -    Minimum macOS version bumped to 1### 0.11
 -    UI design adjustments
@@ -197,7 +203,6 @@
 -    New Icon
 -    Mojave support
 -    Now installs plugins to /Library/Application Support/MacEnhance/Plugins
-
 -    Switch from SIMBL to  mach_inject
       -    Allows loading on Mojave (macOS 1### 0.14)
       -    Doesn't require SIP to be off to install helpers
@@ -205,7 +210,6 @@
       -    You can use "csrutil enable --without debug --without fs"
       -    New System Integrity Protection warning 
       -    Removed system component warnings
-
 -    SIMBLAgent (injector) is now the MacForgeHelper
       -    Helper is now in charge of injection
       -    Helper automatically tries to load new bundles when main app is closed
@@ -216,7 +220,6 @@
       -    ./MacForgeHelper -i BUNDLE_ID ---- injects into specific app
       -    ./MacForgeHelper -u ---- updates all plugins
       -    MacForgeHelper is a menubar application
-
 -    UI redesign
       -    Redesigned to resemble Mojave App Store
       -    Larger sidebar buttons
@@ -225,22 +228,17 @@
       -    Window uses system light / dark mode
       -    Switch from colored circles to check boxes for toggles
       -    Mojave Dark mode support
-
 -    Manage view
       -    Implemented search (name or bundle ID)
-
 -    Discover view 
       -    Improved search (name or bundle ID)
-
 -    System view
       -    Removed SIMBL info
       -    Added MacForge info
       -    Revised Blacklist view
-
 -    About view
       -    Shifted view to left
       -    Added button to quickly start building a plugin in Xcode 
-
 -    Added DockTilePlugin to show bundle updates in dock when app is closed
 -    Included plugin with fixes for a few issues caused when plugins are loaded into Archive Utility and TextEdit
 -    Automatically add Xcode template for making plugins
@@ -261,11 +259,17 @@
 
 ### 0.7.0
 
+-    Window now stays vibrant in background
+-    Updating disabled plugins now properly updates the disabled plugin instead of installing the update in /Library/Application Support/SIMBL/Plugins/
+-    Updated mySIMBLFramework
+-    Added mySIMBL to default SIMBLBlacklist (for safety)
+-    Code clean
+-    UI Adjustments
+-    Bug fixes
 -    Redesigned sidebar
       -    Smaller buttons
       -    Icons for each button
       -    Buttons with views are moved to top
-
 -    Redesigned Manage view
       -    Manage view is now searchable
       -    Reveal in Finder is now an eye icon
@@ -273,18 +277,15 @@
       -    Toggle between single and all users with person icon
       -    Toggle between enabled and disabled with green/red circle icon
       -    Add or Remove source view is now a child of main window
-
 -    Redesigned Discover view 
       -    Discover view now has subview  "Sources" view and "All Plugins" view
       -    All Plugins is a combined list of all plugins from all repos
       -    All Plugins is searchable
-
 -    Bundle pages improved
       -    Fix some title sizing issues
       -    Extended description box to fill length of view
       -    Fix Donate and Contact buttons being switched
       -    Fix buttons getting stuck in on or off state
-
 -    Redesigned SIMBL tab 
       -    Renamed tab to System Info
       -    Removed allow load in Xcode/Safari
@@ -294,18 +295,9 @@
       -    iTunes
       -    Xcode
       -    Safari
-
 -    Better icon loading for plugins
       -    Icons will use plugin image instead of Stock app icon if target app has no icon
       -    More custom icons for stock apps without icons
-
--    Window now stays vibrant in background
--    Updating disabled plugins now properly updates the disabled plugin instead of installing the update in /Library/Application Support/SIMBL/Plugins/
--    Updated mySIMBLFramework
--    Added mySIMBL to default SIMBLBlacklist (for safety)
--    Code clean
--    UI Adjustments
--    Bug fixes
 
 ### 0.5.3
 
@@ -420,7 +412,6 @@
       -    Source View (Root)
       -    Source Bundles
       -    Bundle Page
-
 -    UI adjustments
 -    Code refactoring
 -    Startup tab preference

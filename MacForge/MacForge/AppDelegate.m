@@ -8,71 +8,31 @@
 
 #import "AppDelegate.h"
 
-NSDictionary *testing;
-
-AppDelegate* myDelegate;
-
-NSWindow *mySHeet;
-
-NSMutableArray *allLocalPlugins;
-NSMutableArray *allReposPlugins;
-NSMutableArray *allRepos;
-
-NSMutableDictionary *myPreferences;
-NSMutableArray *pluginsArray;
-
-NSMutableDictionary *installedPluginDICT;
-NSMutableDictionary *needsUpdate;
-
-NSMutableArray *confirmDelete;
-
-NSArray *sourceItems;
-NSArray *discoverItems;
-Boolean isdiscoverView = true;
-
-NSDate *appStart;
-
-NSButton *selectedView;
-
-NSMutableDictionary *myDict;
-NSUserDefaults *sharedPrefs;
-NSDictionary *sharedDict;
+AppDelegate             *myDelegate;
+Boolean                 isdiscoverView = true;
+NSDate                  *appStart;
+NSMutableDictionary     *myPreferences;
+NSWindow                *sipWarningWindow;
 
 @implementation AppDelegate
 
 NSUInteger osx_ver;
 NSArray *tabViewButtons;
-NSArray *tabViews;
 Boolean showBundleOnOpen;
 Boolean appSetupFinished = false;
-
 
 - (void)searchFieldDidEndSearching:(NSSearchField *)sender {
     [_searchPlugins abortEditing];
 }
 
 - (void)controlTextDidChange:(NSNotification *)obj{
-//    NSLog(@"%@", obj);
-//    NSLog(@"----- test ----- %@", [[NSWorkspace sharedWorkspace] URLForApplicationWithBundleIdentifier:@"com.alexbeals.swag"].absoluteString);
-    NSView *v = [tabViews objectAtIndex:[tabViewButtons indexOfObject:_viewSources]];
-    if (![_tabMain.subviews isEqualToArray:@[v]])
-        [myDelegate selectView:_viewSources];
-
-    NSView *myview = myDelegate.tabMain.subviews.firstObject;
-    NSArray *sv = myview.subviews;
-    NSSearchField *sf;
-    NSTableView *tv;
-    if (sv.count > 3) {
-        sf = sv[3];
-        tv = [(NSView*)sv[2] subviews].firstObject.subviews.firstObject.subviews.firstObject;
-        [sf setStringValue:_searchPlugins.stringValue];
-        [tv controlTextDidChange:obj];
-//        NSLog(@"%@", [(NSView*)sv[2] subviews].firstObject.subviews.firstObject.subviews);
+    [(MF_featuredTab*)_tabFeatured setFilter:_searchPlugins.stringValue];
+    if (_tabFeatured.superview == NULL) {
+        [myDelegate selectView:_sidebarDiscover];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [(MF_featuredTab*)self.tabFeatured setFilter:self.searchPlugins.stringValue];
+        });
     }
-//        [myview controlTextDidChange:obj];
-//    if ([_searchPlugins.stringValue isEqualToString:@""])
-//        [_searchPlugins abortEditing];
-//    NSLog(@"%@", _searchPlugins.stringValue);
 }
 
 - (void)movePreviousPurchases {
@@ -80,17 +40,11 @@ Boolean appSetupFinished = false;
     NSString *applicationSupportDirectory = [paths firstObject];
     
     // Probably should have some error checking
-    
     NSString *MF_SupportDirectory = [NSString stringWithFormat:@"%@/MacForge", applicationSupportDirectory];
     NSString *PV_SupportDirectory = [NSString stringWithFormat:@"%@/purchaseValidationApp", applicationSupportDirectory];
-//    NSLog(@"applicationSupportDirectory: '%@'", applicationSupportDirectory);
     for (NSString *file in [FileManager contentsOfDirectoryAtPath:MF_SupportDirectory error:nil]) {
-//        NSLog(@"file: '%@'", file);
         NSString *transferedLicensePath = [NSString stringWithFormat:@"%@/%@", PV_SupportDirectory, file];
         if (![FileManager fileExistsAtPath:transferedLicensePath]) {
-            
-            NSLog(@"file: '%@'", file);
-
             NSString *ogLicensePath = [NSString stringWithFormat:@"%@/%@", MF_SupportDirectory, file];
             [FileManager copyItemAtPath:ogLicensePath toPath:transferedLicensePath error:nil];
         }
@@ -100,10 +54,8 @@ Boolean appSetupFinished = false;
 // Shared instance
 + (AppDelegate*) sharedInstance {
     static AppDelegate* myDelegate = nil;
-    
     if (myDelegate == nil)
         myDelegate = [[AppDelegate alloc] init];
-    
     return myDelegate;
 }
 
@@ -124,9 +76,6 @@ Boolean appSetupFinished = false;
 
 // Cleanup some stuff when user changes dark mode
 - (void)systemDarkModeChange:(NSNotification *)notif {
-    if (selectedView != nil)
-        [self selectView:selectedView];
-    
     if (osx_ver >= 14) {
         if (notif == nil) {
             // Need to fix for older versions of macos
@@ -150,7 +99,7 @@ Boolean appSetupFinished = false;
 - (instancetype)init {
     myDelegate = self;
     appStart = [NSDate date];
-    osx_ver = [[NSProcessInfo processInfo] operatingSystemVersion].minorVersion;
+    osx_ver = NSProcessInfo.processInfo.operatingSystemVersion.minorVersion;
     return self;
 }
 
@@ -177,53 +126,33 @@ Boolean appSetupFinished = false;
 
     // Handle requests to open to specific plugin
     if ([urls.lastObject.absoluteString containsString:@"macforge://"]) {
-        [MSAnalytics trackEvent:@"macforge://" withProperties:@{@"Product ID" : urls.lastObject.lastPathComponent}];
-        
-        NSURL *t = urls.lastObject;
+        NSString *bundleID = urls.lastObject.absoluteString.lastPathComponent;
+        [MSAnalytics trackEvent:@"macforge://" withProperties:@{@"Product ID" : bundleID}];
         MSPlugin *p = [[MSPlugin alloc] init];
         pluginData *data = pluginData.sharedInstance;
-        NSString *repo = t.URLByDeletingLastPathComponent.absoluteString;
-        NSMutableString *test = [[NSMutableString alloc] initWithString:repo];
-        [test deleteCharactersInRange:NSMakeRange([repo length]-1, 1)];
-        if (repo.length >= 8)
-            [test replaceCharactersInRange:NSMakeRange(0, 8) withString:@"https"];
-        repo = test.copy;        
+        NSString *repo = @"file:///Users/w0lf/Documents/GitHub/wb_myRepo/testRepo";
         
-        if ([data.repoPluginsDic objectForKey:t.lastPathComponent]) {
-            p = [data.repoPluginsDic objectForKey:t.lastPathComponent];
-            
+        if ([data.repoPluginsDic objectForKey:bundleID]) {
+            p = [data.repoPluginsDic objectForKey:bundleID];
             NSLog(@"zzt aourls ------------- data.repoPluginsDic objectForKey:t.lastPathComponent ------------- %@", p.webName);
         } else {
-            if ([data.sourceListDic.allKeys containsObject:repo]) {
-    //            NSLog(@"------------ repo exists %@", data.repoPluginsDic);
-                p = [data.repoPluginsDic objectForKey:t.lastPathComponent];
-                
-                NSLog(@"zzt aourls ------------- data.sourceListDic.allKeys containsObject:repo ------------- %@", p.webName);
-            } else {
-    //            NSLog(@"------------ new repo %@", data.repoPluginsDic);
-
-                // should we ask user to add repo?
-                [data fetch_repo:repo];
-                p = [data.repoPluginsDic objectForKey:t.lastPathComponent];
-                
-                if (!p) {
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [data fetch_repo:repo];
-                        dispatch_async(dispatch_get_main_queue(), ^(void){
-                            if ([data.repoPluginsDic objectForKey:t.lastPathComponent])
-                                pluginData.sharedInstance.currentPlugin = [data.repoPluginsDic objectForKey:t.lastPathComponent];
-                            NSLog(@"zzt aourls ------------- data fetch_repo:repo ------------- %@", repo);
-                            NSLog(@"zzt aourls ------------- data fetch_repo:repo ------------- %@", pluginData.sharedInstance.currentPlugin);
-                        });
+            [data fetch_repo:repo];
+            p = [data.repoPluginsDic objectForKey:bundleID];
+            
+            if (!p) {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [data fetch_repo:repo];
+                    dispatch_async(dispatch_get_main_queue(), ^(void){
+                        if ([data.repoPluginsDic objectForKey:bundleID])
+                            pluginData.sharedInstance.currentPlugin = [data.repoPluginsDic objectForKey:bundleID];
+                        
+                        NSLog(@"zzt aourls ------------- data fetch_repo:repo ------------- %@", bundleID);
+                        NSLog(@"zzt aourls ------------- data fetch_repo:repo ------------- %@", pluginData.sharedInstance.currentPlugin.bundleID);
                     });
-                }
-                
-                NSLog(@"zzt aourls ------------- data fetch_repo:repo ------------- %@", data.repoPluginsDic.allKeys);
+                });
             }
         }
         
-        NSLog(@"zzt aourls ------------- %@", p.webPlist);
-
         if (appSetupFinished) {
             [myDelegate showLink:p];
         } else {
@@ -243,19 +172,12 @@ Boolean appSetupFinished = false;
 - (void)showLink:(MSPlugin*)p {
     if (p) {
             showBundleOnOpen = true;
-            [myDelegate selectView:_viewDiscover];
+            [myDelegate selectView:_sidebarFeatured];
             pluginData.sharedInstance.currentPlugin = p;
-    //        p.webRepository = repo;
             NSView *v = myDelegate.sourcesBundle;
             dispatch_async(dispatch_get_main_queue(), ^(void){
-                [v setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
-                [v setFrame:myDelegate.tabMain.frame];
-                [v setFrameOrigin:NSMakePoint(0, 0)];
-                [v setTranslatesAutoresizingMaskIntoConstraints:true];
-                [myDelegate.tabMain setSubviews:[NSArray arrayWithObject:v]];
+                [self setMainViewSubView:v :true];
             });
-    //        NSLog(@"------------ test %@", repo);
-    //        NSLog(@"%@", data.sourceListDic.allKeys);
     } else {
         showBundleOnOpen = false;
     }
@@ -271,10 +193,10 @@ Boolean appSetupFinished = false;
                                                              usingBlock:^(NSNotification *notification)
     {
         dispatch_async(dispatch_get_main_queue(), ^{
-            if ([notification.object isEqualToString:@"prefs"]) [self selectView:self->_viewPreferences];
-            if ([notification.object isEqualToString:@"about"]) [self selectView:self->_viewAbout];
-            if ([notification.object isEqualToString:@"manage"]) [self selectView:self->_viewPlugins];
-            if ([notification.object isEqualToString:@"update"]) [self selectView:self->_viewChanges];
+            if ([notification.object isEqualToString:@"prefs"]) [self showPreferences:nil];
+            if ([notification.object isEqualToString:@"about"]) [self showAbout:nil];
+            if ([notification.object isEqualToString:@"manage"]) [self selectView:self.sidebarManage];
+            if ([notification.object isEqualToString:@"update"]) [self selectView:self.sidebarUpdates];
             if ([notification.object isEqualToString:@"check"]) { [PluginManager.sharedInstance checkforPluginUpdates:nil :self->_viewUpdateCounter]; }
         });
     }];
@@ -286,24 +208,13 @@ Boolean appSetupFinished = false;
 
     NSArray *args = [[NSProcessInfo processInfo] arguments];
     if (args.count > 1) {
-        if ([args containsObject:@"prefs"]) [self selectView:_viewPreferences];
-        if ([args containsObject:@"about"]) [self selectView:_viewAbout];
-        if ([args containsObject:@"manage"]) [self selectView:_viewPlugins];
-        if ([args containsObject:@"update"]) [self selectView:_viewChanges];
+        if ([args containsObject:@"prefs"]) [self showPreferences:nil];
+        if ([args containsObject:@"about"]) [self showAbout:nil];
+        if ([args containsObject:@"manage"]) [self selectView:self.sidebarManage];
+        if ([args containsObject:@"update"]) [self selectView:self.sidebarUpdates];
     }
 
     [self installXcodeTemplate];
-    
-    // Lets try it with a short delay
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (showBundleOnOpen == true) {
-            [myDelegate selectView:self->_viewDiscover];
-            dispatch_async(dispatch_get_main_queue(), ^(void){
-                [self setViewSubView:myDelegate.tabMain :myDelegate.sourcesBundle];
-            });
-        }
-    });
-
     appSetupFinished = true;
         
     NSDate *methodFinish = [NSDate date];
@@ -319,7 +230,7 @@ Boolean appSetupFinished = false;
     
     NSDate *methodFinish = [NSDate date];
     NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:startTime];
-    NSLog(@"%@ execution time : %f Seconds", s, executionTime);
+    NSLog(@"%f Seconds : %@", executionTime, s);
 }
 
 // Loading
@@ -333,7 +244,7 @@ Boolean appSetupFinished = false;
     [MSAnalytics trackEvent:@"Application Launching"];
     
     // Crash on exceptions?
-    [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"NSApplicationCrashOnExceptions": [NSNumber numberWithBool:true]}];
+    [NSUserDefaults.standardUserDefaults registerDefaults:@{@"NSApplicationCrashOnExceptions": [NSNumber numberWithBool:true]}];
     
     /* Configure Firebase */
     [FIRApp configure];
@@ -363,36 +274,27 @@ Boolean appSetupFinished = false;
         NSLog(@"No user signed-in.");
     }
     
-    sourceItems = [NSArray arrayWithObjects:_sourcesURLS, _sourcesPlugins, _sourcesBundle, nil];
-    discoverItems = [NSArray arrayWithObjects:_discoverChanges, _sourcesBundle, nil];
-
-    [_sourcesPush setEnabled:true];
-    [_sourcesPop setEnabled:false];
     myPreferences = [self getmyPrefs];
     
     // Make sure default sources are in place
     NSArray *defaultRepos = @[@"https://github.com/w0lfschild/myRepo/raw/master/mytweaks",
                               @"https://github.com/w0lfschild/myRepo/raw/master/myPaidRepo",
                               @"https://github.com/w0lfschild/macplugins/raw/master"];
-    
-//    NSArray *defaultRepos = @[@"https://github.com/w0lfschild/myRepo/raw/master/myPaidRepo"];
-    
+        
     NSMutableArray *newArray = [NSMutableArray arrayWithArray:[myPreferences objectForKey:@"sources"]];
     for (NSString *item in defaultRepos)
         if (![[myPreferences objectForKey:@"sources"] containsObject:item])
             [newArray addObject:item];
     [[NSUserDefaults standardUserDefaults] setObject:newArray forKey:@"sources"];
     [myPreferences setObject:newArray forKey:@"sources"];
-
-    [_sourcesRoot setSubviews:[[NSArray alloc] initWithObjects:_discoverChanges, nil]];
     
-    [self executionTime:@"updateAdButton"];
     [self executionTime:@"tabs_sideBar"];
     [self executionTime:@"setupWindow"];
     [self executionTime:@"setupPrefstab"];
-    [self executionTime:@"addLoginItem"];
+//    [self executionTime:@"addLoginItem"];
     [self executionTime:@"launchHelper"];
     [self executionTime:@"movePreviousPurchases"];
+    [self toggleLoginItem:nil];
     
 //    [FIRApp configure];
 //    [self executionTime:@"fireBaseSetup"];
@@ -405,9 +307,7 @@ Boolean appSetupFinished = false;
     [self executionTime:@"setupSIMBLview"];
     
     [_window makeKeyAndOrderFront:self];
-    
-    [NSTimer scheduledTimerWithTimeInterval:30.0 target:self selector:@selector(keepThoseAdsFresh) userInfo:nil repeats:YES];
-    
+        
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     });
     
@@ -425,70 +325,80 @@ Boolean appSetupFinished = false;
     return [[NSMutableDictionary alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] dictionaryRepresentation]];
 }
 
+- (IBAction)resetSidebar:(id)sender {
+    [self tabs_sideBar];
+}
+
 // Setup sidebar
 - (void)tabs_sideBar {
+    // Establish the sidebar order
+    tabViewButtons = @[_sidebarFeatured, _sidebarDiscover, _sidebarManage, _sidebarSystem, _sidebarUpdates, _sidebarAccount];
+    
+    // Setup top buttons
     NSInteger height = 42;
-    
-    tabViewButtons = [NSArray arrayWithObjects:_viewDiscover, _viewPlugins, _viewSources, _viewChanges, _viewSystem, _viewAbout, _viewPreferences, _viewAccount, nil];
-    
-    NSArray *topButtons = [NSArray arrayWithObjects:_viewDiscover, _viewApps, _viewPlugins, _viewSources, _viewChanges, _viewSystem, _viewAbout, _viewPreferences, nil];
+    NSArray *topButtons = @[_sidebarFeatured, _sidebarDiscover, _sidebarManage, _sidebarSystem, _sidebarUpdates];
     NSUInteger yLoc = _window.frame.size.height - 96 - height;
-    for (NSButton *btn in topButtons) {
+    for (MF_sidebarButton *sideButton in topButtons) {
+        NSButton *btn = sideButton.buttonClickArea;
         if (btn.enabled) {
-            NSRect newFrame = [btn frame];
+            sideButton.hidden = false;
+            NSRect newFrame = [sideButton frame];
             newFrame.origin.x = 0;
             newFrame.origin.y = yLoc;
             newFrame.size.height = 42;
             yLoc -= height;
-            [btn setFrame:newFrame];
-            [btn setWantsLayer:YES];
-            [btn setTarget:self];
+            [sideButton setFrame:newFrame];
+            [sideButton setWantsLayer:YES];
         } else {
-            btn.hidden = true;
+            sideButton.hidden = true;
         }
     }
-        
-    [_viewUpdateCounter setFrameOrigin:CGPointMake(_viewChanges.frame.origin.x + _viewChanges.frame.size.width * .6,
-                                                   _viewChanges.frame.origin.y + _viewChanges.frame.size.height * .5 - _viewUpdateCounter.frame.size.height * .5)];
     
-    for (NSButton *btn in tabViewButtons)
+    // Set target + action
+    for (MF_sidebarButton *sideButton in tabViewButtons) {
+        NSButton *btn = sideButton.buttonClickArea;
+        [btn setTarget:self];
         [btn setAction:@selector(selectView:)];
-    
-    NSButton *btn = _viewAccount;
-    [btn setWantsLayer:YES];
-    [btn setTarget:self];
-    [btn setAction:@selector(selectView:)];
-    _imgAccount.image = [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].image;
-    _viewAccount.title = [NSString stringWithFormat:@"                    %@", [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].fullName];
-    [_imgAccount setWantsLayer: YES];
-    _imgAccount.layer.cornerRadius = _imgAccount.layer.frame.size.height/2;
-    _imgAccount.layer.masksToBounds = YES;
-    _imgAccount.animates = YES;
-    
-    NSArray *bottomButtons = [NSArray arrayWithObjects:_buttonDiscord, _buttonReddit, _buttonDonate, _buttonAdvert, _buttonReport, nil];
-    NSMutableArray *visibleButons = [[NSMutableArray alloc] init];
-    for (NSButton *btn in bottomButtons)
-        if (![btn isHidden])
-            [visibleButons addObject:btn];
-    bottomButtons = [visibleButons copy];
-    
-    height = 30;
-    yLoc = ([bottomButtons count] - 1) * (height - 1) + 80;
-    for (NSButton *btn in bottomButtons) {
-        if (btn.enabled) {
-            [btn setFont:[NSFont fontWithName:btn.font.fontName size:14]];
-            NSRect newFrame = [btn frame];
-            newFrame.size.height = height;
-            newFrame.origin.x = 0;
-            newFrame.origin.y = yLoc;
-            yLoc -= (height - 1);
-            [btn setFrame:newFrame];
-            [btn setAutoresizingMask:NSViewMaxYMargin];
-            [btn setWantsLayer:YES];
-        } else {
-            btn.hidden = true;
-        }
     }
+    
+    NSUInteger buttonYPos = 70;
+    
+    // Discord Button
+    if (![NSUserDefaults.standardUserDefaults boolForKey:@"prefHideDiscord"]) {
+        [_sidebarDiscord setFrame:CGRectMake(0, buttonYPos, _sidebarDiscord.frame.size.width, 60)];
+        [_sidebarDiscord.buttonClickArea sd_setImageWithURL:[NSURL URLWithString:@"https://discordapp.com/api/guilds/608740492561219617/widget.png?style=banner2"]];
+        [_sidebarDiscord.buttonClickArea setImageScaling:NSImageScaleAxesIndependently];
+        [_sidebarDiscord.buttonClickArea setAutoresizingMask:NSViewMaxYMargin];
+        [_sidebarDiscord setHidden:false];
+        buttonYPos += 60;
+    } else {
+        [_sidebarDiscord setHidden:true];
+    }
+    
+    // Warning button
+    if (![MacForgeKit SIP_HasRequiredFlags] || [MacForgeKit LIBRARYVALIDATION_enabled]) {
+        [_sidebarWarning setFrame:CGRectMake(0, buttonYPos, _sidebarWarning.frame.size.width, 60)];
+        [_sidebarWarning setWantsLayer:YES];
+        [_sidebarWarning.layer setBackgroundColor:NSColor.systemPinkColor.CGColor];
+        [_sidebarWarning.buttonClickArea setTarget:self];
+        [_sidebarWarning.buttonClickArea setAction:@selector(selectView:)];
+        [_sidebarWarning setHidden:false];
+    } else {
+        [_sidebarWarning setHidden:true];
+    }
+    
+    // Account Button
+    [_sidebarAccount setFrameOrigin:CGPointMake(0, 10)];
+    _sidebarAccount.buttonClickArea.wantsLayer = YES;
+    _sidebarAccount.buttonClickArea.target = self;
+    _sidebarAccount.buttonClickArea.action = @selector(selectView:);
+    _sidebarAccount.buttonLabel.stringValue = [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].fullName;
+    _sidebarAccount.buttonImage.image = [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].image;
+    _sidebarAccount.buttonImage.wantsLayer = YES;
+    _sidebarAccount.buttonImage.layer.cornerRadius = _sidebarAccount.buttonImage.layer.frame.size.height/2;
+    _sidebarAccount.buttonImage.layer.masksToBounds = YES;
+    _sidebarAccount.buttonImage.animates = YES;
+    
 }
 
 - (void)byeSIP {
@@ -500,7 +410,7 @@ Boolean appSetupFinished = false;
 }
 
 - (void)closeSIP {
-    [_window endSheet:mySHeet];
+    [_window endSheet:sipWarningWindow];
 }
 
 - (void)checkSIP {
@@ -516,20 +426,16 @@ Boolean appSetupFinished = false;
         [p.confirm setTarget:self];
         [p.confirm setAction:@selector(closeSIP)];
         
-        mySHeet = [[NSWindow alloc] initWithContentRect:[view frame] styleMask:NSWindowStyleMaskTitled backing:NSBackingStoreBuffered defer:YES];
-        [mySHeet setContentView:view];
-        [_window beginSheet:mySHeet completionHandler:^(NSModalResponse returnCode) {
-            
-        }];
+        sipWarningWindow = [[NSWindow alloc] initWithContentRect:[view frame] styleMask:NSWindowStyleMaskTitled backing:NSBackingStoreBuffered defer:YES];
+        [sipWarningWindow setContentView:view];
+        [_window beginSheet:sipWarningWindow completionHandler:^(NSModalResponse returnCode) { }];
     }
 }
 
 - (void)setupWindow {
     [_window setTitle:@""];
     [_window setMovableByWindowBackground:YES];
-    
-//    NSLog(@"%@",[FileManager attributesOfItemAtPath:@"/Library/Application Support/MacEnhance/Plugins" error:nil]);
-    
+        
     [self executionTime:@"checkSIP"];
     
     [_window setTitlebarAppearsTransparent:true];
@@ -552,12 +458,10 @@ Boolean appSetupFinished = false;
     
     [_window.contentView setWantsLayer:YES];
     
-    NSBox *vert = [[NSBox alloc] initWithFrame:CGRectMake(_viewPlugins.frame.size.width - 1, 0, 1, _window.frame.size.height)];
+    NSBox *vert = [[NSBox alloc] initWithFrame:CGRectMake(_sidebarManage.frame.size.width - 1, 0, 1, _window.frame.size.height)];
     [vert setBoxType:NSBoxSeparator];
     [vert setAutoresizingMask:NSViewHeightSizable];
     [_window.contentView addSubview:vert];
-    
-    tabViews = [NSArray arrayWithObjects:_tabFeatured, _tabPlugins, _tabSources, _tabUpdates, _tabSystemInfo, _tabAbout, _tabPreferences, _tabAccount, nil];
     
     NSDictionary* infoDict = [[NSBundle mainBundle] infoDictionary];
     [_appVersion setStringValue:[NSString stringWithFormat:@"Version %@ (%@)",
@@ -579,22 +483,17 @@ Boolean appSetupFinished = false;
     [_changeLog.textStorage setAttributedString:asr.render];
     
     [self systemDarkModeChange:nil];
-    [self selectView:_viewDiscover];
-    
-    [_prefStartTab selectItemAtIndex:0];
-}
-
-- (void)addLoginItem {
-    NSBundle *helperBUNDLE = [NSBundle bundleWithPath:[NSString stringWithFormat:@"%@/Contents/Library/LoginItems/MacForgeHelper.app", [[NSBundle mainBundle] bundlePath]]];
-    [helperBUNDLE enableLoginItem];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self selectView:self.sidebarFeatured];
+    });
 }
 
 - (IBAction)toggleLoginItem:(NSButton*)sender {
     NSBundle *helperBUNDLE = [NSBundle bundleWithPath:[NSString stringWithFormat:@"%@/Contents/Library/LoginItems/MacForgeHelper.app", [[NSBundle mainBundle] bundlePath]]];
-    if (sender.state == NSOnState){
-        [helperBUNDLE enableLoginItem];
-    } else {
+    if ([NSUserDefaults.standardUserDefaults boolForKey:@"prefsNoAutoLaunch"]) {
         [helperBUNDLE disableLoginItem];
+    } else {
+        [helperBUNDLE enableLoginItem];
     }
 }
 
@@ -612,98 +511,26 @@ Boolean appSetupFinished = false;
             [run terminate];
         
         // Seems to need to run on main thread
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^(void){
             [Workspace launchApplication:path];
             [[NSRunningApplication currentApplication] performSelector:@selector(activateWithOptions:) withObject:[NSNumber numberWithUnsignedInteger:NSApplicationActivateIgnoringOtherApps] afterDelay:0.0];
         });
     });
 }
 
-//- (IBAction)pref_setBeta:(NSButton*)sender {
-//    Boolean isBeta = [sender state];
-//    [Defaults setObject:[NSNumber numberWithBool:isBeta] forKey:@"SUUpdaterChecksForBetaUpdates"];
-//    [Defaults synchronize];
-//}
-
 - (void)setupPrefstab {
-    NSTask *task = [[NSTask alloc] init];
-    [task setLaunchPath:@"/bin/sh"];
-    [task setArguments:[NSArray arrayWithObjects:@"-c",@"sw_vers -buildVersion",nil]];
-    NSPipe *pipe = [NSPipe pipe];
-    [task setStandardOutput:pipe];
-    [task launch];
-    NSData *data = [[pipe fileHandleForReading] readDataToEndOfFile];
-    [task waitUntilExit];
-    NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    result = [result stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    unichar ch = [result characterAtIndex:result.length - 1];
-    BOOL isBeta = [[NSCharacterSet letterCharacterSet] characterIsMember: ch];
     
-    if (isBeta) {
-        NSLog(@"Beta OS Detected");
-        [Defaults setObject:[NSNumber numberWithBool:true] forKey:@"SUUpdaterChecksForBetaUpdates"];
-        [Defaults synchronize];
-        [_prefUpdateBeta setEnabled:false];
-    } else {
-//        Boolean betaUpdates = [Defaults boolForKey:@"SUUpdaterChecksForBetaUpdates"];
-//        [_prefUpdateBeta setState:betaUpdates];
-//        [self pref_setBeta:_prefUpdateBeta];
-    }
+    // Set defaults
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:true] forKey:@"SUAutomaticallyUpdate"];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:84000] forKey:@"SUScheduledCheckInterval"];
     
-    NSString *plist = [NSString stringWithFormat:@"%@/Library/Preferences/net.culater.SIMBL.plist", NSHomeDirectory()];
-    NSUInteger logLevel = [[[NSDictionary dictionaryWithContentsOfFile:plist] objectForKey:@"SIMBLLogLevel"] integerValue];
-    [_SIMBLLogging selectItemAtIndex:logLevel];
-    [_prefDonate setState:[[myPreferences objectForKey:@"prefDonate"] boolValue]];
-    [_prefTips setState:[[myPreferences objectForKey:@"prefTips"] boolValue]];
-    [_prefWindow setState:[[myPreferences objectForKey:@"prefWindow"] boolValue]];
-    [_prefHideMenubar setState:[[myPreferences objectForKey:@"prefHideMenubar"] boolValue]];
-
-    if ([[myPreferences objectForKey:@"prefWindow"] boolValue])
-        [_window setFrameAutosaveName:@"MainWindow"];
-
     if ([[myPreferences objectForKey:@"prefTips"] boolValue]) {
         NSToolTipManager *test = [NSToolTipManager sharedToolTipManager];
         [test setInitialToolTipDelay:0.1];
     }
 
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"SUAutomaticallyUpdate"]) {
-        [_prefUpdateAuto selectItemAtIndex:2];
-        [_updater checkForUpdatesInBackground];
-    } else if ([[NSUserDefaults standardUserDefaults] boolForKey:@"SUEnableAutomaticChecks"]) {
-        [_prefUpdateAuto selectItemAtIndex:1];
-        [_updater checkForUpdatesInBackground];
-    } else {
-        [_prefUpdateAuto selectItemAtIndex:0];
-    }
-
-    [_prefUpdateInterval selectItemWithTag:[[myPreferences objectForKey:@"SUScheduledCheckInterval"] integerValue]];
-
-    NSImage *img = [NSImage imageNamed:@"github"];
-    [img setTemplate:true];
-    [_gitButton setImage:img];
-    
-    img = [NSImage imageNamed:@"reddit"];
-    [img setTemplate:true];
-    [_emailButton setImage:img];
-    
-    img = [NSImage imageNamed:@"code"];
-    [img setTemplate:true];
-    [_sourceButton setImage:img];
-    
-    img = [NSImage imageNamed:@"tools"];
-    [img setTemplate:true];
-    [_xCodeButton setImage:img];
-    
-    [[_gitButton cell] setImageScaling:NSImageScaleProportionallyDown];
-    [[_sourceButton cell] setImageScaling:NSImageScaleProportionallyDown];
-    [[_emailButton cell] setImageScaling:NSImageScaleProportionallyDown];
-    [[_xCodeButton cell] setImageScaling:NSImageScaleProportionallyDown];
     [[_webButton cell] setImageScaling:NSImageScaleProportionallyUpOrDown];
-    
-    [_sourceButton setAction:@selector(visitSource)];
-    [_gitButton setAction:@selector(visitGithub)];
-    [_webButton setAction:@selector(visitWebsite)];
-    [_emailButton setAction:@selector(sendEmail)];
+    [_webButton setAction:@selector(visitWebsite:)];
 }
 
 - (void)installXcodeTemplate {
@@ -756,37 +583,12 @@ Boolean appSetupFinished = false;
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://goo.gl/DSyEFR"]];
 }
 
-- (IBAction)report:(id)sender {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/w0lfschild/MacForge/issues/new/choose"]];
-}
-
-- (void)sendEmail {
-    [self visitReddit];
-//    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"mailto:aguywithlonghair@gmail.com"]];
-}
-
-- (IBAction)visitReddit:(id)sender {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://www.reddit.com/r/OSXTweaks"]];
+- (IBAction)visitWebsite:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://discord.gg/zjCHuew"]];
 }
 
 - (IBAction)visitDiscord:(id)sender {
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://discord.gg/zjCHuew"]];
-}
-
-- (void)visitGithub {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/w0lfschild"]];
-}
-
-- (void)visitSource {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/w0lfschild/MacForge"]];
-}
-
-- (void)visitReddit {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://www.reddit.com/r/OSXTweaks"]];
-}
-
-- (void)visitWebsite {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://www.macenhance.com/macforge"]];
 }
 
 - (void)setupEventListener {
@@ -801,370 +603,18 @@ Boolean appSetupFinished = false;
     }
 }
 
-- (IBAction)changeAutoUpdates:(id)sender {
-    int selected = (int)[(NSPopUpButton*)sender indexOfSelectedItem];
-    if (selected == 0)
-        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:false] forKey:@"SUEnableAutomaticChecks"];
-    if (selected == 1) {
-        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:true] forKey:@"SUEnableAutomaticChecks"];
-        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:false] forKey:@"SUAutomaticallyUpdate"];
-    }
-    if (selected == 2) {
-        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:true] forKey:@"SUEnableAutomaticChecks"];
-        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:true] forKey:@"SUAutomaticallyUpdate"];
-    }
-}
-
-- (IBAction)changeUpdateFrequency:(id)sender {
-    int selected = (int)[(NSPopUpButton*)sender selectedTag];
-    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:selected] forKey:@"SUScheduledCheckInterval"];
-}
-
-- (IBAction)changeSIMBLLogging:(id)sender {
-    NSString *plist = [NSString stringWithFormat:@"%@/Library/Preferences/net.culater.SIMBL.plist", NSHomeDirectory()];
-    NSMutableDictionary *dict = [[NSDictionary dictionaryWithContentsOfFile:plist] mutableCopy];
-    NSString *logLevel = [NSString stringWithFormat:@"%ld", [_SIMBLLogging indexOfSelectedItem]];
-    [dict setObject:logLevel forKey:@"SIMBLLogLevel"];
-    [dict writeToFile:plist atomically:YES];
-}
-
 - (IBAction)toggleTips:(id)sender {
-    NSButton *btn = sender;
-    //    [myPreferences setObject:[NSNumber numberWithBool:[btn state]] forKey:@"prefTips"];
-//    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:[btn state]] forKey:@"prefTips"];
     NSToolTipManager *test = [NSToolTipManager sharedToolTipManager];
-    if ([btn state])
+    if ([(NSButton*)sender state])
         [test setInitialToolTipDelay:0.1];
     else
         [test setInitialToolTipDelay:2];
 }
 
 - (IBAction)toggleHideMenubar:(id)sender {
-    NSButton *btn = sender;
-    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:[btn state]] forKey:@"prefHideMenubar"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
     NSString *message = @"showMenu";
-    if (btn.state == NSOnState) message = @"hideMenu";
+    if (![(NSButton*)sender state]) message = @"hideMenu";
     [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.macenhance.MacForgeHelperNotify" object:message];
-
-}
-
-- (IBAction)toggleSaveWindow:(id)sender {
-    NSButton *btn = sender;
-    //    [myPreferences setObject:[NSNumber numberWithBool:[btn state]] forKey:@"prefWindow"];
-    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:[btn state]] forKey:@"prefWindow"];
-    if ([btn state]) {
-        [[_window windowController] setShouldCascadeWindows:NO];      // Tell the controller to not cascade its windows.
-        [_window setFrameAutosaveName:[_window representedFilename]];
-    } else {
-        [_window setFrameAutosaveName:@""];
-    }
-}
-
-- (IBAction)toggleDonateButton:(id)sender {
-    NSButton *btn = sender;
-    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:[btn state]] forKey:@"prefDonate"];
-    if ([btn state]) {
-        [NSAnimationContext beginGrouping];
-        [[NSAnimationContext currentContext] setDuration:1.0];
-        [[_buttonDonate animator] setAlphaValue:0];
-        [[_buttonDonate animator] setHidden:true];
-        [NSAnimationContext endGrouping];
-    } else {
-        [NSAnimationContext beginGrouping];
-        [[NSAnimationContext currentContext] setDuration:1.0];
-        [[_buttonDonate animator] setAlphaValue:1];
-        [[_buttonDonate animator] setHidden:false];
-        [NSAnimationContext endGrouping];
-    }
-}
-
-- (IBAction)showAbout:(id)sender {
-    [self selectView:_viewAbout];
-}
-
-- (IBAction)showPrefs:(id)sender {
-    [self selectView:_viewPreferences];
-}
-
-- (IBAction)showSysinfo:(id)sender {
-    [self selectView:_viewSystem];
-}
-
-- (IBAction)aboutInfo:(id)sender {
-    if ([sender isEqualTo:_showChanges]) {
-        NSString *path = [[[NSBundle mainBundle] URLForResource:@"CHANGELOG" withExtension:@"md"] path];
-        CMDocument *cmd = [[CMDocument alloc] initWithContentsOfFile:path options:CMDocumentOptionsNormalize];
-        CMAttributedStringRenderer *asr = [[CMAttributedStringRenderer alloc] initWithDocument:cmd attributes:[[CMTextAttributes alloc] init]];
-        [_changeLog.textStorage setAttributedString:asr.render];
-    }
-    if ([sender isEqualTo:_showCredits]) {
-        NSString *path = [[[NSBundle mainBundle] URLForResource:@"CREDITS" withExtension:@"md"] path];
-        CMDocument *cmd = [[CMDocument alloc] initWithContentsOfFile:path options:CMDocumentOptionsNormalize];
-        CMAttributedStringRenderer *asr = [[CMAttributedStringRenderer alloc] initWithDocument:cmd attributes:[[CMTextAttributes alloc] init]];
-        [_changeLog.textStorage setAttributedString:asr.render];
-    }
-    if ([sender isEqualTo:_showEULA]) {
-        NSMutableAttributedString *mutableAttString = [[NSMutableAttributedString alloc] init];
-        for (NSString *item in [FileManager contentsOfDirectoryAtPath:NSBundle.mainBundle.resourcePath error:nil]) {
-            if ([item containsString:@"LICENSE"]) {
-                
-                NSString *unicodeStr = @"\n\u00a0\t\t\n\n";
-                NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:unicodeStr];
-                NSRange strRange = NSMakeRange(0, str.length);
-
-                NSMutableParagraphStyle *const tabStyle = [[NSMutableParagraphStyle alloc] init];
-                tabStyle.headIndent = 16; //padding on left and right edges
-                tabStyle.firstLineHeadIndent = 16;
-                tabStyle.tailIndent = -70;
-                NSTextTab *listTab = [[NSTextTab alloc] initWithTextAlignment:NSTextAlignmentCenter location:_changeLog.frame.size.width - tabStyle.headIndent + tabStyle.tailIndent options:@{}]; //this is how long I want the line to be
-                tabStyle.tabStops = @[listTab];
-                [str  addAttribute:NSParagraphStyleAttributeName value:tabStyle range:strRange];
-                [str addAttribute:NSStrikethroughStyleAttributeName value:[NSNumber numberWithInt:2] range:strRange];
-                
-                [mutableAttString appendAttributedString:[[NSAttributedString alloc] initWithURL:[[NSBundle mainBundle] URLForResource:item withExtension:@""] options:[[NSDictionary alloc] init] documentAttributes:nil error:nil]];
-                [mutableAttString appendAttributedString:str];
-            }
-        }
-        [_changeLog.textStorage setAttributedString:mutableAttString];
-    }
-    if ([sender isEqualTo:_showDev]) {
-        NSString *path = [[[NSBundle mainBundle] URLForResource:@"README" withExtension:@"md"] path];
-        CMDocument *cmd = [[CMDocument alloc] initWithContentsOfFile:path options:CMDocumentOptionsNormalize];
-        CMAttributedStringRenderer *asr = [[CMAttributedStringRenderer alloc] initWithDocument:cmd attributes:[[CMTextAttributes alloc] init]];
-        [_changeLog.textStorage setAttributedString:asr.render];
-    }
-    
-    [NSAnimationContext beginGrouping];
-    NSClipView* clipView = _changeLog.enclosingScrollView.contentView;
-    NSPoint newOrigin = [clipView bounds].origin;
-    newOrigin.y = 0;
-    [[clipView animator] setBoundsOrigin:newOrigin];
-    [NSAnimationContext endGrouping];
-    
-    [self systemDarkModeChange:nil];
-}
-
-- (IBAction)toggleStartTab:(id)sender {
-    NSPopUpButton *btn = sender;
-    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:[btn indexOfSelectedItem]] forKey:@"prefStartTab"];
-}
-
-- (IBAction)segmentDiscoverTogglePush:(id)sender {
-    NSInteger clickedSegment = [sender selectedSegment];
-    NSArray *segements = @[_sourcesURLS, _discoverChanges];
-    NSView* view = segements[clickedSegment];
-    [view setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
-    [view setFrameSize:_sourcesRoot.frame.size];
-    isdiscoverView = clickedSegment;
-    [_sourcesPush setEnabled:true];
-    [_sourcesPop setEnabled:false];
-    [[_sourcesRoot animator] replaceSubview:[_sourcesRoot.subviews objectAtIndex:0] with:view];
-//    [_sourcesRoot.layer setBackgroundColor:NSColor.greenColor.CGColor];
-}
-
-- (IBAction)segmentNavPush:(id)sender {
-    NSInteger clickedSegment = [sender selectedSegment];
-    if (clickedSegment == 0) {
-        [self popView:nil];
-    } else {
-        [self pushView:nil];
-    }
-}
-
-- (void)reloadTable:(NSView *)view {
-    // Get the subviews of the view
-    NSArray *subviews = [view subviews];
-    
-    // Return if there are no subviews
-    if ([subviews count] == 0) return; // COUNT CHECK LINE
-    
-    for (NSView *subview in subviews) {
-        // Do what you want to do with the subview
-        if ([subview.className isEqualToString:@"repopluginTable"]) {
-            [subview performSelector:@selector(reloadData)];
-            break;
-        } else {
-            // List the subviews of subview
-            [self reloadTable:subview];
-        }
-    }
-}
-
-- (IBAction)pushView:(id)sender {
-    NSArray *currView = sourceItems;
-    if (isdiscoverView) currView = discoverItems;
-    
-    long cur = [currView indexOfObject:[_sourcesRoot.subviews objectAtIndex:0]];
-    if ([_sourcesAllTable selectedRow] > -1) {
-        [_sourcesPop setEnabled:true];
-
-        if ((cur + 1) < [currView count]) {
-            NSView *newView = [currView objectAtIndex:cur + 1];
-            [newView setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
-            [newView setFrameSize:_sourcesRoot.frame.size];
-//            [[_sourcesRoot animator] setSubviews:@[newView]];
-            [[_sourcesRoot animator] replaceSubview:[_sourcesRoot.subviews objectAtIndex:0] with:[currView objectAtIndex:cur + 1]];
-            [_window makeFirstResponder: [currView objectAtIndex:cur + 1]];
-        }
-        
-        if ((cur + 2) >= [currView count]) {
-            [_sourcesPush setEnabled:false];
-        } else {
-            [_sourcesPush setEnabled:true];
-            [self reloadTable:_sourcesRoot];
-//            dumpViews(_sourcesRoot, 0);
-//            if (osx_ver > 9) {
-//                [[[[[[[_sourcesRoot subviews] firstObject] subviews] firstObject] subviews] firstObject] reloadData];
-//            } else {
-//                [[[[[[[_sourcesRoot subviews] firstObject] subviews] firstObject] subviews] lastObject] reloadData];
-//            }
-        }
-        
-        [_sourcesRoot setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
-    }
-}
-
-- (IBAction)popView:(id)sender {
-    NSArray *currView = sourceItems;
-    if (isdiscoverView) currView = discoverItems;
-    long cur = [currView indexOfObject:[_sourcesRoot.subviews objectAtIndex:0]];
-    [_sourcesPush setEnabled:true];
-    if ((cur - 1) <= 0)
-        [_sourcesPop setEnabled:false];
-    else
-        [_sourcesPop setEnabled:true];
-    if ((cur - 1) >= 0) {
-        NSView *incoming = [currView objectAtIndex:cur - 1];
-        [[_sourcesRoot animator] replaceSubview:[_sourcesRoot.subviews objectAtIndex:0] with:incoming];
-        [_window makeFirstResponder:incoming];
-    }
-}
-
-- (IBAction)rootView:(id)sender {
-    [_sourcesPush setEnabled:true];
-    [_sourcesPop setEnabled:false];
-    NSView *currView = _sourcesURLS;
-    if (isdiscoverView) currView = _discoverChanges;
-    [[_sourcesRoot animator] replaceSubview:[_sourcesRoot.subviews objectAtIndex:0] with:currView];
-}
-
-- (IBAction)selectView:(id)sender {
-    selectedView = sender;
-    if ([tabViewButtons containsObject:sender]) {
-        NSString *analyticsTitle = [sender title];
-        if ([sender isEqualTo:_viewAccount])
-            analyticsTitle = @"👨‍💻 Account";
-        [MSAnalytics trackEvent:@"Selected View" withProperties:@{@"View" : analyticsTitle}];
-        
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-            NSView *v = [tabViews objectAtIndex:[tabViewButtons indexOfObject:sender]];
-            dispatch_async(dispatch_get_main_queue(), ^(void){
-                [self setViewSubView:self.tabMain :v];
-            });
-        });
-    }
-    
-//    [_tabFeatured setWantsLayer:true];
-//    [_tabFeatured.layer setBackgroundColor:NSColor.redColor.CGColor];
-//    for (NSView *v in _tabFeatured.subviews) {
-//        [v setWantsLayer:true];
-//        [v.layer setBackgroundColor:NSColor.blueColor.CGColor];
-//    }
-    
-    [_tabMain setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
-    NSString *osxMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
-    NSColor *primary = NSColor.darkGrayColor;
-    NSColor *secondary = NSColor.blackColor;
-    NSColor *highlight = NSColor.blackColor;
-    if (osx_ver >= 14) {
-        if ([osxMode isEqualToString:@"Dark"]) {
-            primary = NSColor.lightGrayColor;
-            secondary = NSColor.whiteColor;
-            highlight = NSColor.whiteColor;
-        }
-    }
-    
-    for (NSButton *g in tabViewButtons) {
-        if (![g isEqualTo:sender]) {
-            [[g layer] setBackgroundColor:[NSColor clearColor].CGColor];
-            NSMutableAttributedString *colorTitle = [[NSMutableAttributedString alloc] initWithString:g.title];
-            [colorTitle addAttribute:NSForegroundColorAttributeName value:primary range:NSMakeRange(0, g.attributedTitle.length)];
-            [g setAttributedTitle:colorTitle];
-        } else {
-            [[g layer] setBackgroundColor:[highlight colorWithAlphaComponent:.25].CGColor];
-            NSMutableAttributedString *colorTitle = [[NSMutableAttributedString alloc] initWithString:g.title];
-            [colorTitle addAttribute:NSForegroundColorAttributeName value:secondary range:NSMakeRange(0, g.attributedTitle.length)];
-            [g setAttributedTitle:colorTitle];
-        }
-    }
-}
-
-- (IBAction)sourceAddorRemove:(id)sender {
-    if ([[sender className] isEqualToString:@"NSMenuItem"]) {
-        NSMutableArray *newSources = [[[NSUserDefaults standardUserDefaults] objectForKey:@"sources"] mutableCopy];
-        NSString *str = (NSString*)[newSources objectAtIndex:[_sourcesRepoTable selectedRow]];
-        [newSources removeObject:str];
-        [[NSUserDefaults standardUserDefaults] setObject:newSources forKey:@"sources"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        [myPreferences setObject:newSources forKey:@"sources"];
-    } else {
-        NSMutableArray *newArray = [NSMutableArray arrayWithArray:[myPreferences objectForKey:@"sources"]];
-        NSString *input = _addsourcesTextFiled.stringValue;
-        NSArray *arr = [input componentsSeparatedByString:@"\n"];
-        for (NSString* item in arr) {
-            if ([item length]) {
-                if ([newArray containsObject:item]) {
-                    [newArray removeObject:item];
-                } else {
-                    [newArray addObject:item];
-                }
-            }
-        }
-        
-        [[NSUserDefaults standardUserDefaults] setObject:newArray forKey:@"sources"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        [myPreferences setObject:newArray forKey:@"sources"];
-    }
-    
-    [_srcWin close];
-    [_sourcesAllTable reloadData];
-    [_sourcesRepoTable reloadData];
-}
-
-- (IBAction)refreshSources:(id)sender {
-    [_sourcesAllTable reloadData];
-    [_sourcesRepoTable reloadData];
-}
-
-- (IBAction)sourceAddNew:(id)sender {
-    NSRect newFrame = _window.frame;
-    newFrame.origin.x += (_window.frame.size.width / 2) - (_srcWin.frame.size.width / 2);
-    newFrame.origin.y += (_window.frame.size.height / 2) - (_srcWin.frame.size.height / 2);
-    newFrame.size.width = _srcWin.frame.size.width;
-    newFrame.size.height = _srcWin.frame.size.height;
-    [_srcWin setFrame:newFrame display:true];
-    [_window addChildWindow:_srcWin ordered:NSWindowAbove];
-    [_srcWin makeKeyAndOrderFront:self];
-}
-
-- (CGFloat)splitView:(NSSplitView *)splitView constrainMinCoordinate:(CGFloat)proposedMinimumPosition ofSubviewAt:(NSInteger)dividerIndex {
-    if (proposedMinimumPosition < 125) {
-        proposedMinimumPosition = 125;
-    }
-    return proposedMinimumPosition;
-}
-
-- (CGFloat)splitView:(NSSplitView *)splitView constrainMaxCoordinate:(CGFloat)proposedMaximumPosition ofSubviewAt:(NSInteger)dividerIndex {
-    if (proposedMaximumPosition >= 124) {
-        proposedMaximumPosition = 125;
-    }
-    return proposedMaximumPosition;
-}
-
-- (IBAction)toggleAMFI:(id)sender {
-    [MacForgeKit AMFI_amfi_get_out_of_my_way_toggle];
-    [_AMFIStatus setState:[MacForgeKit AMFI_enabled]];
 }
 
 - (void)setupSIMBLview {
@@ -1174,20 +624,19 @@ Boolean appSetupFinished = false;
     Boolean sipEnabled = [MacForgeKit SIP_enabled];
     Boolean sipHasFlags = [MacForgeKit SIP_HasRequiredFlags];
     Boolean amfiEnabled = [MacForgeKit AMFI_enabled];
+    Boolean LVEnabled = [MacForgeKit LIBRARYVALIDATION_enabled];
     
-    [_SIP_NVRAM setState:![MacForgeKit SIP_NVRAM]];
     [_SIP_TaskPID setState:![MacForgeKit SIP_TASK_FOR_PID]];
     [_SIP_filesystem setState:![MacForgeKit SIP_Filesystem]];
     
     if (!sipEnabled) [_SIP_status setStringValue:@"Disabled"];
-    if (!amfiEnabled) [_AMFI_status setStringValue:@"Disabled"];;
+    if (!amfiEnabled) [_AMFI_status setStringValue:@"Disabled"];
+    if (!LVEnabled) [_LV_status setStringValue:@"Disabled"];
     if (sipEnabled && sipHasFlags) [_SIP_status setStringValue:@"Enabled (Custom)"];
     
-    if (!amfiEnabled && sipHasFlags) {
-        [_SIPWarning setHidden:true];
-    } else {
-        [_SIPWarning setHidden:false];
-    }
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+        [MacForgeKit AMFI_NUKE];
+    });
 }
 
 - (void)simbl_blacklist {
@@ -1259,152 +708,195 @@ Boolean appSetupFinished = false;
     [MacForgeKit MacEnhance_remove];
 }
 
-- (IBAction)visit_ad:(id)sender {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:_adURL]];
-    [MSAnalytics trackEvent:@"Visit ad" withProperties:@{@"URL" : _adURL}];
-}
-
 - (IBAction)storeSelectView:(id)sender {
     NSMenuItem *item = (NSMenuItem*)sender;
     NSMenu *m = item.menu;
     NSUInteger position = [m indexOfItem:item];
     if (position > 1) position -= 2;
-    NSArray *items = @[_viewDiscover, _viewPlugins, _viewSources, _viewChanges, _viewSystem, _viewAbout, _viewPreferences, _viewAccount];
-    if (position == 11) position = 7;
+    NSArray *items = @[_sidebarFeatured, _sidebarDiscover, _sidebarManage, _sidebarSystem, _sidebarUpdates, _sidebarAccount];
+    if (position == 9) position = 5;
     [self selectView:items[position]];
-    
-//    NSLog(@"%lu", (unsigned long)position);
 }
 
-- (void)keepThoseAdsFresh {
-    if (_adArray != nil) {
-        if (!_buttonAdvert.hidden) {
-            NSInteger arraySize = _adArray.count;
-            NSInteger displayNum = (NSInteger)arc4random_uniform((int)[_adArray count]);
-            if (displayNum == _lastAD) {
-                displayNum++;
-                if (displayNum >= arraySize)
-                    displayNum -= 2;
-                if (displayNum < 0)
-                    displayNum = 0;
+- (IBAction)selectView:(id)sender {
+    MF_sidebarButton *buttonContainer = nil;
+    
+    NSButton *button = (NSButton*)sender;
+    if (button.superview.class == MF_sidebarButton.class) {
+        buttonContainer = (MF_sidebarButton*)button.superview;
+    } else if ([sender class] == MF_sidebarButton.class) {
+        buttonContainer = (MF_sidebarButton*)sender;
+        button = buttonContainer.buttonClickArea;
+    }
+           
+    // Select the view
+    if (buttonContainer) {
+        // Log that the user clicked on a sidebar button
+        NSString *analyticsTitle = [button title];
+        if ([buttonContainer isEqualTo:_sidebarAccount]) analyticsTitle = @"👨‍💻 Account";
+        [MSAnalytics trackEvent:@"Selected View" withProperties:@{@"View" : analyticsTitle}];
+        
+        // Set if the view is a scrolling view
+        Boolean viewScrolls = false;
+        if ([buttonContainer isEqualTo:self.sidebarFeatured] || [buttonContainer isEqualTo:self.sidebarDiscover])
+            viewScrolls = true;
+            
+        // Special stuff for web views
+        if ([buttonContainer isEqualTo:self.sidebarFeatured]) [(MF_featuredTab*)self.tabFeatured showFeatured];
+        if ([buttonContainer isEqualTo:self.sidebarDiscover]) [(MF_featuredTab*)self.tabFeatured setFilter:@""];
+        
+        // Add the view to our main view
+        [self setMainViewSubView:buttonContainer.linkedView :viewScrolls];
+    }
+    
+    // Adjust text and background color
+    [_tabMain setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
+    NSString *osxMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
+    NSColor *primary = NSColor.darkGrayColor;
+    NSColor *secondary = NSColor.blackColor;
+    NSColor *highlight = NSColor.blackColor;
+    if (osx_ver >= 14) {
+        if ([osxMode isEqualToString:@"Dark"]) {
+            primary = NSColor.lightGrayColor;
+            secondary = NSColor.whiteColor;
+            highlight = NSColor.whiteColor;
+        }
+    }
+
+    for (MF_sidebarButton *sidebarButton in tabViewButtons) {
+        NSTextField *g = sidebarButton.buttonLabel;
+        NSMutableAttributedString *colorTitle = [[NSMutableAttributedString alloc] initWithString:g.stringValue];
+        if (![sidebarButton isEqualTo:buttonContainer]) {
+            [[sidebarButton layer] setBackgroundColor:[NSColor clearColor].CGColor];
+            [colorTitle addAttribute:NSForegroundColorAttributeName value:primary range:NSMakeRange(0, g.attributedStringValue.length)];
+            [g setAttributedStringValue:colorTitle];
+        } else {
+            [[sidebarButton layer] setBackgroundColor:[highlight colorWithAlphaComponent:.25].CGColor];
+            [colorTitle addAttribute:NSForegroundColorAttributeName value:secondary range:NSMakeRange(0, g.attributedStringValue.length)];
+            [g setAttributedStringValue:colorTitle];
+        }
+    }
+}
+
+- (IBAction)selectAboutInfo:(id)sender {
+    NSUInteger selected = [(NSSegmentedControl*)sender selectedSegment];
+    
+    if (selected == 0) {
+        NSString *path = [[[NSBundle mainBundle] URLForResource:@"CHANGELOG" withExtension:@"md"] path];
+        CMDocument *cmd = [[CMDocument alloc] initWithContentsOfFile:path options:CMDocumentOptionsNormalize];
+        CMAttributedStringRenderer *asr = [[CMAttributedStringRenderer alloc] initWithDocument:cmd attributes:[[CMTextAttributes alloc] init]];
+        [_changeLog.textStorage setAttributedString:asr.render];
+    }
+    if (selected == 1) {
+        NSString *path = [[[NSBundle mainBundle] URLForResource:@"CREDITS" withExtension:@"md"] path];
+        CMDocument *cmd = [[CMDocument alloc] initWithContentsOfFile:path options:CMDocumentOptionsNormalize];
+        CMAttributedStringRenderer *asr = [[CMAttributedStringRenderer alloc] initWithDocument:cmd attributes:[[CMTextAttributes alloc] init]];
+        [_changeLog.textStorage setAttributedString:asr.render];
+    }
+    if (selected == 2) {
+        NSMutableAttributedString *mutableAttString = [[NSMutableAttributedString alloc] init];
+        for (NSString *item in [FileManager contentsOfDirectoryAtPath:NSBundle.mainBundle.resourcePath error:nil]) {
+            if ([item containsString:@"LICENSE"]) {
+                
+                NSString *unicodeStr = @"\n\u00a0\t\t\n\n";
+                NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:unicodeStr];
+                NSRange strRange = NSMakeRange(0, str.length);
+
+                NSMutableParagraphStyle *const tabStyle = [[NSMutableParagraphStyle alloc] init];
+                tabStyle.headIndent = 16; //padding on left and right edges
+                tabStyle.firstLineHeadIndent = 16;
+                tabStyle.tailIndent = -70;
+                NSTextTab *listTab = [[NSTextTab alloc] initWithTextAlignment:NSTextAlignmentCenter location:_changeLog.frame.size.width - tabStyle.headIndent + tabStyle.tailIndent options:@{}]; //this is how long I want the line to be
+                tabStyle.tabStops = @[listTab];
+                [str  addAttribute:NSParagraphStyleAttributeName value:tabStyle range:strRange];
+                [str addAttribute:NSStrikethroughStyleAttributeName value:[NSNumber numberWithInt:2] range:strRange];
+                
+                [mutableAttString appendAttributedString:[[NSAttributedString alloc] initWithURL:[[NSBundle mainBundle] URLForResource:item withExtension:@""] options:[[NSDictionary alloc] init] documentAttributes:nil error:nil]];
+                [mutableAttString appendAttributedString:str];
             }
-            _lastAD = displayNum;
-            NSDictionary *dic = [_adArray objectAtIndex:displayNum];
-            NSString *name = [dic objectForKey:@"name"];
-            name = [NSString stringWithFormat:@"    %@", name];
-            NSString *url = [dic objectForKey:@"homepage"];
-            [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context){
-                [context setDuration:1.25];
-                [[self->_buttonAdvert animator] setTitle:name];
-            } completionHandler:^{
-            }];
-            if (url)
-                _adURL = url;
-            else
-                _adURL = @"https://github.com/w0lfschild/mySIMBL";
         }
+        [_changeLog.textStorage setAttributedString:mutableAttString];
     }
-}
-
-- (void)updateAdButton {
-    // Local ads
-    NSArray *dict = [[NSArray alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ads" ofType:@"plist"]];
-    NSInteger displayNum = (NSInteger)arc4random_uniform((int)[dict count]);
-    NSDictionary *dic = [dict objectAtIndex:displayNum];
-    NSString *name = [dic objectForKey:@"name"];
-    name = [NSString stringWithFormat:@"    %@", name];
-    NSString *url = [dic objectForKey:@"homepage"];
-    
-    [_buttonAdvert setTitle:name];
-    if (url)
-        _adURL = url;
-    else
-        _adURL = @"https://github.com/w0lfschild/MacForge";
-    
-    _adArray = dict;
-    _lastAD = displayNum;
-    
-    // Check web for new ads
-
-    // 1
-    NSURL *dataUrl = [NSURL URLWithString:@"https://github.com/w0lfschild/app_updates/raw/master/MacForge/ads.plist"];
-    
-    // 2
-    NSURLSessionDataTask *downloadTask = [[NSURLSession sharedSession]
-                                          dataTaskWithURL:dataUrl completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                              // 4: Handle response here
-                                              NSPropertyListFormat format;
-                                              NSError *err;
-                                              NSArray *dict = (NSArray*)[NSPropertyListSerialization propertyListWithData:data
-                                                                                                                  options:NSPropertyListMutableContainersAndLeaves
-                                                                                                                   format:&format
-                                                                                                                    error:&err];
-                                              // NSLog(@"mySIMBL : %@", dict);
-                                              if (dict) {
-                                                  dispatch_async(dispatch_get_main_queue(), ^{
-                                                      NSInteger displayNum = (NSInteger)arc4random_uniform((int)[dict count]);
-                                                      NSDictionary *dic = [dict objectAtIndex:displayNum];
-                                                      NSString *name = [dic objectForKey:@"name"];
-                                                      name = [NSString stringWithFormat:@"    %@", name];
-                                                      NSString *url = [dic objectForKey:@"homepage"];
-                                                      
-                                                      [self->_buttonAdvert setTitle:name];
-                                                      if (url)
-                                                          self->_adURL = url;
-                                                      else
-                                                          self->_adURL = @"https://github.com/w0lfschild/MacForge";
-                                                      
-                                                      self->_adArray = dict;
-                                                      self->_lastAD = displayNum;
-                                                  });
-                                              }
-                                              
-                                          }];
-    
-    // 3
-    [downloadTask resume];
-}
-
-- (Boolean)keypressed:(NSEvent *)theEvent {
-    NSString*   const   character   =   [theEvent charactersIgnoringModifiers];
-    unichar     const   code        =   [character characterAtIndex:0];
-    bool                specKey     =   false;
-    
-    switch (code) {
-        case NSLeftArrowFunctionKey: {
-            [self popView:nil];
-            specKey = true;
-            break;
-        }
-        case NSRightArrowFunctionKey: {
-            [self pushView:nil];
-            specKey = true;
-            break;
-        }
-        case NSCarriageReturnCharacter: {
-            [self pushView:nil];
-            specKey = true;
-            break;
-        }
+    if (selected == 3) {
+        NSString *path = [[[NSBundle mainBundle] URLForResource:@"README" withExtension:@"md"] path];
+        CMDocument *cmd = [[CMDocument alloc] initWithContentsOfFile:path options:CMDocumentOptionsNormalize];
+        CMAttributedStringRenderer *asr = [[CMAttributedStringRenderer alloc] initWithDocument:cmd attributes:[[CMTextAttributes alloc] init]];
+        [_changeLog.textStorage setAttributedString:asr.render];
     }
     
-    return specKey;
+    [NSAnimationContext beginGrouping];
+    NSClipView* clipView = _changeLog.enclosingScrollView.contentView;
+    NSPoint newOrigin = [clipView bounds].origin;
+    newOrigin.y = 0;
+    [[clipView animator] setBoundsOrigin:newOrigin];
+    [NSAnimationContext endGrouping];
+    
+    [self systemDarkModeChange:nil];
+}
+
+- (IBAction)showAbout:(id)sender {
+    [_preferencesTabController setSelectedSegment:_preferencesTabController.segmentCount - 1];
+    [self selectPreference:_preferencesTabController];
+}
+
+- (IBAction)showPreferences:(id)sender {
+    [self selectPreference:_preferencesTabController];
+}
+
+- (IBAction)selectPreference:(id)sender {
+    NSArray *preferenceViews = @[_preferencesGeneral, _preferencesBundles, _preferencesData, _preferencesAbout];
+    NSView *selectedPane = [preferenceViews objectAtIndex:[(NSSegmentedControl*)sender selectedSegment]];
+    [_windowPreferences setIsVisible:true];
+    [_windowPreferences.contentView setSubviews:@[selectedPane]];
+    Class vibrantClass=NSClassFromString(@"NSVisualEffectView");
+    if (vibrantClass) {
+        NSVisualEffectView *vibrant=[[vibrantClass alloc] initWithFrame:[[_windowPreferences contentView] bounds]];
+        [vibrant setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
+        [vibrant setBlendingMode:NSVisualEffectBlendingModeBehindWindow];
+        [vibrant setState:NSVisualEffectStateActive];
+        [[_windowPreferences contentView] addSubview:vibrant positioned:NSWindowBelow relativeTo:nil];
+    }
+    CGRect newFrame = _windowPreferences.frame;
+    CGFloat contentHeight = [_windowPreferences contentRectForFrameRect: _windowPreferences.frame].size.height;
+    CGFloat titleHeight = _windowPreferences.frame.size.height - contentHeight;
+    newFrame.size.height = selectedPane.frame.size.height + titleHeight;
+    newFrame.size.width = selectedPane.frame.size.width;
+    CGFloat yDiff = _windowPreferences.frame.size.height - newFrame.size.height;
+    newFrame.origin.y += yDiff;
+    [_windowPreferences setFrame:newFrame display:true animate:true];
+    _windowPreferences.styleMask &= ~NSWindowStyleMaskResizable;
+    [NSApp activateIgnoringOtherApps:true];
 }
 
 // -------------------
 // USER AUTHENTICATION
 // -------------------
 
-// XXX Later support Google account (OAuth?)
+- (void)setMainViewSubView:(NSView*)subview :(BOOL)scrolls {
+    MFFlippedView *documentView = [[MFFlippedView alloc] initWithFrame:NSMakeRect(0, 0, _mainViewHolder.frame.size.width, subview.frame.size.height)];
+    _mainViewHolder.documentView = documentView;
+    
+    [subview setFrameOrigin:CGPointZero];
+    
+    if (scrolls) {
+        [subview setAutoresizingMask:NSViewWidthSizable];
+        [subview setFrameSize:CGSizeMake(_mainViewHolder.frame.size.width, subview.frame.size.height)];
+        [documentView setAutoresizingMask:NSViewWidthSizable];
+    } else {
+        [subview setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+        [subview setFrameSize:CGSizeMake(_mainViewHolder.frame.size.width, _mainViewHolder.frame.size.height - 2)];
+        [documentView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+        [documentView setFrameSize:CGSizeMake(_mainViewHolder.frame.size.width, _mainViewHolder.frame.size.height - 2)];
+    }
+    
+    [documentView setSubviews:@[subview]];
+    [_mainViewHolder scrollPoint:CGPointZero];
+}
 
 - (void)setViewSubView:(NSView*)container :(NSView*)subview {
     [subview setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
-    [subview setFrame:container.frame];
-    [subview setFrameOrigin:NSMakePoint(0, 0)];
-    [subview setTranslatesAutoresizingMaskIntoConstraints:true];
-    //    [subview setWantsLayer:true];
-    //    subview.layer.backgroundColor = NSColor.redColor.CGColor;
-    [container setSubviews:[NSArray arrayWithObject:subview]];
+    [subview setFrameSize:CGSizeMake(container.frame.size.width, container.frame.size.height)];
+    [container setSubviews:@[subview]];
 }
 
 - (void)setViewSubViewWithAnimation:(NSView*)container :(NSView*)subview {
@@ -1412,7 +904,6 @@ Boolean appSetupFinished = false;
         [context setDuration:0.1];
         [[container.subviews.firstObject animator] setFrameOrigin:NSMakePoint(0, container.frame.size.height)];
     } completionHandler:^{
-        [container.subviews.firstObject removeFromSuperview];
         [self setViewSubView:container :subview];
         [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context){
             [context setDuration:0.2];
@@ -1489,7 +980,7 @@ Boolean appSetupFinished = false;
         if (!err) {
             NSLog(@"Successfully signed-in!");
             
-            [self selectView:self->_viewAccount];
+            [self selectView:self.sidebarAccount];
         }
         else {
             NSLog(@"%@", err);
@@ -1546,18 +1037,18 @@ Boolean appSetupFinished = false;
         NSString *displayName = _user.displayName;
 
         if (displayName.length > 0) {
-            _viewAccount.title = [NSString stringWithFormat:@"                    %@", displayName];
+            _sidebarAccount.buttonLabel.stringValue = displayName;
             _loginUsername.stringValue = displayName;
         } else {
-            _viewAccount.title = [NSString stringWithFormat:@"                    %@", [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].fullName];
+            _sidebarAccount.buttonLabel.stringValue = [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].fullName;
             _loginUsername.stringValue = @"";
         }
 
         if (photoURL.absoluteString.length > 0) {
-            _imgAccount.image = [NSImage sd_imageWithData:[NSData dataWithContentsOfURL:photoURL]];
+            _sidebarAccount.buttonImage.image = [NSImage sd_imageWithData:[NSData dataWithContentsOfURL:photoURL]];
             _loginImageURL.stringValue = photoURL.absoluteString;
         } else {
-            _imgAccount.image = [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].image;
+            _sidebarAccount.buttonImage.image = [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].image;
             _loginImageURL.stringValue = @"";
         }
         
@@ -1566,16 +1057,13 @@ Boolean appSetupFinished = false;
 //        _user.emailVerified
 //        _user.providerID
         
-        _imgAccount.layer.backgroundColor = NSColor.clearColor.CGColor;
+        _sidebarAccount.buttonImage.layer.backgroundColor = NSColor.clearColor.CGColor;
     }
     /* no user signed-in; going with OS user */
     else {
-//        _imgAccount.image = [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].image;
-//        _viewAccount.title = [NSString stringWithFormat:@"                    %@", [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].fullName];
-        
-        _imgAccount.image = [NSImage imageNamed:NSImageNameUserGroup];
-        _imgAccount.layer.backgroundColor = NSColor.grayColor.CGColor;
-        _viewAccount.title = [NSString stringWithFormat:@"                    Create Account"];
+        _sidebarAccount.buttonImage.image = [NSImage imageNamed:NSImageNameUserGroup];
+        _sidebarAccount.buttonImage.layer.backgroundColor = NSColor.grayColor.CGColor;
+        _sidebarAccount.buttonLabel.stringValue = @"Create Account";
     }
 }
 

@@ -25,6 +25,8 @@
 @property IBOutlet EDStarRating*    starRating;
 @property IBOutlet NSTextField*     starScore;
 @property IBOutlet NSTextField*     starReviews;
+@property IBOutlet NSButton*        bundleRequiresSIP;
+@property IBOutlet NSButton*        bundleRequiresLIB;
 
 @property IBOutlet NSView*          viewHeader;
 @property IBOutlet NSView*          viewPreviews;

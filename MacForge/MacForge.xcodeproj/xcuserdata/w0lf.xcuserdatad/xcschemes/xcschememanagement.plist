@@ -24,11 +24,6 @@
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
-		<key>TodayView.xcscheme_^#shared#^_</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>43</integer>
-		</dict>
 		<key>com.w0lf.MacForge.Injector.xcscheme</key>
 		<dict>
 			<key>orderHint</key>

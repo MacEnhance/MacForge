@@ -6,10 +6,7 @@
 //  Copyright © 2019 MacEnhance. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
-
-@interface MFFlippedView : NSView
-@end
+#import "MFFlippedView.h"
 
 @implementation MFFlippedView
 

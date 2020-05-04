@@ -8,10 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface MF_accountLoggedInView : NSView
 
 @end
-
-NS_ASSUME_NONNULL_END
