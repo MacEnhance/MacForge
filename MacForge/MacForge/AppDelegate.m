@@ -130,7 +130,7 @@ Boolean appSetupFinished = false;
         [MSAnalytics trackEvent:@"macforge://" withProperties:@{@"Product ID" : bundleID}];
         MSPlugin *p = [[MSPlugin alloc] init];
         pluginData *data = pluginData.sharedInstance;
-        NSString *repo = @"file:///Users/w0lf/Documents/GitHub/wb_myRepo/testRepo";
+        NSString *repo = @"https://github.com/MacEnhance/MacForgeRepo/raw/master/repo";
         
         if ([data.repoPluginsDic objectForKey:bundleID]) {
             p = [data.repoPluginsDic objectForKey:bundleID];

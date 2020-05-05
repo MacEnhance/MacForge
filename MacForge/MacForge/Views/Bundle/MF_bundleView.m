@@ -358,7 +358,7 @@ NSDictionary *testing;
         _currentPreview = 0;
         NSMutableArray *abc = [[NSMutableArray alloc] init];
         for (int i = 1; i <= 6; i++) {
-            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/docs/%@/previewImages/0%u.png", @"file:///Users/w0lf/Documents/GitHub/wb_myRepo/testRepo", bundle, i]];
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/documents/%@/previewImages/0%u.png", @"https://github.com/MacEnhance/MacForgeRepo/raw/master/repo", bundle, i]];
             [abc addObject:url];
         }
         
@@ -680,7 +680,7 @@ NSDictionary *testing;
 }
 
 - (void)pluginInstall {
-    [PluginManager.sharedInstance pluginUpdateOrInstall:item :@"file:///Users/w0lf/Documents/GitHub/wb_myRepo/testRepo" withCompletionHandler:^(BOOL res) {
+    [PluginManager.sharedInstance pluginUpdateOrInstall:item :@"https://github.com/MacEnhance/MacForgeRepo/raw/master/repo" withCompletionHandler:^(BOOL res) {
             [PluginManager.sharedInstance readPlugins:nil];
             [self.bundleInstall setTitle:@"Open"];
             [self.bundleInstall setAction:@selector(pluginFinder)];

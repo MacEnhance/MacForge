@@ -63,9 +63,9 @@ extern AppDelegate *myDelegate;
     dispatch_async(backgroundQueue0, ^{
         NSImage *icon = [PluginManager pluginGetIcon:plugin.webPlist];
         NSString *iconpath = [plugin.webPlist objectForKey:@"icon"];
-        NSString *repostring = @"file:///Users/w0lf/Documents/GitHub/wb_myRepo/testRepo"; //@"https://github.com/w0lfschild/myRepo/raw/master/featuredRepo";
-        NSString *imgurl = [NSString stringWithFormat:@"%@/docs/%@/icon.png", repostring, plugin.bundleID]; //[NSString stringWithFormat:@"%@%@", repostring, iconpath];
-        NSString *preview = [NSString stringWithFormat:@"%@/docs/%@/previewImages/01.png", repostring, plugin.bundleID];
+        NSString *repostring = @"https://github.com/MacEnhance/MacForgeRepo/raw/master/repo"; //@"https://github.com/w0lfschild/myRepo/raw/master/featuredRepo";
+        NSString *imgurl = [NSString stringWithFormat:@"%@/documents/%@/icon.png", repostring, plugin.bundleID]; //[NSString stringWithFormat:@"%@%@", repostring, iconpath];
+        NSString *preview = [NSString stringWithFormat:@"%@/documents/%@/previewImages/01.png", repostring, plugin.bundleID];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             if (iconpath) {

@@ -35,7 +35,7 @@ extern long selectedRow;
 -(void)showFeatured {
     [self setSubviews:@[]];
     NSArray *dank = [[NSArray alloc] initWithArray:[self->featuredRepo allValues]];
-    NSArray *filter = [pluginData.sharedInstance fetch_featured:@"file:///Users/w0lf/Documents/GitHub/wb_myRepo/testRepo"].copy;
+    NSArray *filter = [pluginData.sharedInstance fetch_featured:@"https://github.com/MacEnhance/MacForgeRepo/raw/master/repo"].copy;
     NSArray *result = [dank filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"bundleID in %@", filter]];
     dank = result;
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -159,7 +159,7 @@ extern long selectedRow;
                     self->_pluginData = [pluginData sharedInstance];
                     [self->_pluginData fetch_repos];
 //                    self->featuredRepo = [self->_pluginData fetch_repo:@"https://github.com/w0lfschild/myRepo/raw/master/featuredRepo"];
-                    self->featuredRepo = [self->_pluginData fetch_repo:@"file:///Users/w0lf/Documents/GitHub/wb_myRepo/testRepo"];
+                    self->featuredRepo = [self->_pluginData fetch_repo:@"https://github.com/MacEnhance/MacForgeRepo/raw/master/repo"];
                 });
                 
     //            NSSortDescriptor *sorter = [[NSSortDescriptor alloc] initWithKey:@"webName" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
