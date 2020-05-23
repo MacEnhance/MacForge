@@ -8,15 +8,15 @@
 
 @import AppKit;
 #import "FConvenience.h"
-#import "PluginManager.h"
+#import "MF_PluginManager.h"
 
-@implementation PluginManager
+@implementation MF_PluginManager
 
 // Shared instance if needed
-+ (PluginManager*) sharedInstance {
-    static PluginManager* pData = nil;
++ (MF_PluginManager*) sharedInstance {
+    static MF_PluginManager* pData = nil;
     if (pData == nil)
-        pData = [[PluginManager alloc] init];
+        pData = [[MF_PluginManager alloc] init];
     return pData;
 }
 
@@ -70,7 +70,7 @@
         if ([[path pathExtension] isEqualToString:@"bundle"]) {
             NSArray* pathComp=[path pathComponents];
             NSString* name=[pathComp objectAtIndex:[pathComp count] - 1];
-            NSString* newPath = [NSString stringWithFormat:@"%@/%@", [PluginManager MacEnhancePluginPaths][0], name];
+            NSString* newPath = [NSString stringWithFormat:@"%@/%@", [MF_PluginManager MacEnhancePluginPaths][0], name];
             [self replaceFile:path :newPath];
         }
         
@@ -172,7 +172,7 @@
     pluginsArray = [[NSMutableArray alloc] init];
     NSMutableDictionary *myDict = [[NSMutableDictionary alloc] init];
     
-    for (NSString *path in [PluginManager MacEnhancePluginPaths])
+    for (NSString *path in [MF_PluginManager MacEnhancePluginPaths])
         [self readFolder:path :myDict];
     
     NSArray *keys = [myDict allKeys];
@@ -209,7 +209,7 @@
 
 + (Boolean)installItem:(NSString*)filePath {
     // Create domain list
-    NSArray *domains = [PluginManager MacEnhancePluginPaths];
+    NSArray *domains = [MF_PluginManager MacEnhancePluginPaths];
     
     // Set install location to /Library/Application Support/MacEnhance/Plugins
     NSString *installPath = [NSString stringWithFormat:@"%@/%@", domains[0], filePath.lastPathComponent];
@@ -250,16 +250,16 @@
 }
 
 + (void)folderinstall:(NSString*)folderPath {
-    for (NSString *file in [PluginManager arrayOfFoldersInFolder:folderPath]) {
+    for (NSString *file in [MF_PluginManager arrayOfFoldersInFolder:folderPath]) {
         NSString *filePath = [NSString stringWithFormat:@"%@/%@", folderPath, file];
         BOOL isDir;
         if ([FileManager fileExistsAtPath:filePath isDirectory:&isDir] && [filePath.pathExtension isEqualToString:@""]) {
             // Looks like a folder... lets see what's inside
             if (![filePath.lastPathComponent isEqualToString:@"__MACOSX"])
-                [PluginManager folderinstall:filePath];
+                [MF_PluginManager folderinstall:filePath];
         } else {
             // Probably a file, lets try to install it
-            [PluginManager installItem:filePath];
+            [MF_PluginManager installItem:filePath];
         }
     }
 }
@@ -327,7 +327,7 @@
     }
     
     // Try to install the contents
-    [PluginManager folderinstall:unzipDir];
+    [MF_PluginManager folderinstall:unzipDir];
     
     if (downloadButton) {
         downloadButton.enabled = true;
@@ -378,7 +378,7 @@
             }
             
             // Try to install the contents
-            [PluginManager folderinstall:unzipDir];
+            [MF_PluginManager folderinstall:unzipDir];
             
             // Update the installed plugins list
             [self readPlugins:nil];
@@ -638,7 +638,7 @@
         if ([sourceDICTS objectForKey:bundleID]) {
             NSDictionary *bundleInfo = [[NSDictionary alloc] initWithDictionary:[sourceDICTS objectForKey:bundleID]];
             id updateVersion = [bundleInfo objectForKey:@"version"];
-            NSComparisonResult res = [PluginManager compareVersion:(NSString*)updateVersion toVersion:(NSString*)localVersion];
+            NSComparisonResult res = [MF_PluginManager compareVersion:(NSString*)updateVersion toVersion:(NSString*)localVersion];
             if (res == 1)
                 [needsUpdate setObject:bundleInfo forKey:bundleID];
         }
@@ -682,7 +682,7 @@
         if ([sourceDICTS objectForKey:bundleID]) {
             NSDictionary *bundleInfo = [[NSDictionary alloc] initWithDictionary:[sourceDICTS objectForKey:bundleID]];
             id updateVersion = [bundleInfo objectForKey:@"version"];
-            NSComparisonResult res = [PluginManager compareVersion:(NSString*)updateVersion toVersion:(NSString*)localVersion];
+            NSComparisonResult res = [MF_PluginManager compareVersion:(NSString*)updateVersion toVersion:(NSString*)localVersion];
             if (res == 1)
                 [needsUpdate setObject:bundleInfo forKey:bundleID];
         }

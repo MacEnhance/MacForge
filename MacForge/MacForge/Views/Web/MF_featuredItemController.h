@@ -7,16 +7,16 @@
 //
 
 @import AppKit;
-#import "MSPlugin.h"
-#import "PluginManager.h"
+#import "MF_Plugin.h"
+#import "MF_PluginManager.h"
 #import "MF_Purchase.h"
 #import <SDWebImage/SDWebImage.h>
 #import "SYFlatButton.h"
 #import "AppDelegate.h"
-#import "pluginData.h"
+#import "MF_repoData.h"
 
 @interface MF_featuredItemController : NSViewController {
-    MSPlugin *plug;
+    MF_Plugin *plug;
 }
 
 @property IBOutlet NSTextField          *bundleName;
@@ -30,6 +30,6 @@
 
 - (IBAction)getOrOpen:(id)sender;
 - (IBAction)moreInfo:(id)sender;
-- (void)setupWithPlugin:(MSPlugin*)plugin;
+- (void)setupWithPlugin:(MF_Plugin*)plugin;
 
 @end

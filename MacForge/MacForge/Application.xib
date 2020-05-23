@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -13,18 +13,18 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <window title="MacForge" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" animationBehavior="default" titlebarAppearsTransparent="YES" id="QvC-M9-y7g" userLabel="Main Window">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="390" width="1000" height="700"/>
+            <rect key="contentRect" x="335" y="390" width="1600" height="1000"/>
             <rect key="screenRect" x="0.0" y="0.0" width="3840" height="2137"/>
-            <value key="minSize" type="size" width="1000" height="700"/>
-            <value key="maxSize" type="size" width="1200" height="900"/>
+            <value key="minSize" type="size" width="1600" height="1000"/>
+            <value key="maxSize" type="size" width="1600" height="1000"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="1000" height="700"/>
+                <rect key="frame" x="0.0" y="0.0" width="1600" height="1000"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <searchField wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Yu-LC-Qe3">
-                        <rect key="frame" x="15" y="630" width="190" height="22"/>
+                        <rect key="frame" x="15" y="930" width="190" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" focusRingType="none" usesSingleLineMode="YES" bezelStyle="round" maximumRecents="10" id="RsX-LY-48S">
                             <font key="font" metaFont="system"/>
@@ -36,29 +36,29 @@
                         </connections>
                     </searchField>
                     <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="NUg-cw-VO0">
-                        <rect key="frame" x="220" y="-1" width="781" height="702"/>
+                        <rect key="frame" x="220" y="-1" width="1382" height="1002"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="vrb-53-RLj">
-                            <rect key="frame" x="1" y="1" width="779" height="700"/>
+                            <rect key="frame" x="1" y="1" width="1380" height="1000"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <view id="zar-RE-422">
-                                    <rect key="frame" x="0.0" y="0.0" width="764" height="685"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1365" height="985"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                             </subviews>
                         </clipView>
                         <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="iHS-fW-rYX">
-                            <rect key="frame" x="1" y="685" width="779" height="16"/>
+                            <rect key="frame" x="1" y="985" width="1380" height="16"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="bfV-N3-bY3">
-                            <rect key="frame" x="764" y="1" width="16" height="700"/>
+                            <rect key="frame" x="1365" y="1" width="16" height="1000"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
                     <visualEffectView hidden="YES" fixedFrame="YES" blendingMode="withinWindow" material="titlebar" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="s8T-h6-4Ua">
-                        <rect key="frame" x="221" y="660" width="787" height="40"/>
+                        <rect key="frame" x="221" y="960" width="1387" height="40"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <subviews>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oz8-KQ-DTp">
@@ -72,7 +72,7 @@
                         </subviews>
                     </visualEffectView>
                     <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="anT-t4-Vba" userLabel="sidebar System" customClass="MF_sidebarButton">
-                        <rect key="frame" x="0.0" y="413" width="220" height="42"/>
+                        <rect key="frame" x="0.0" y="713" width="220" height="42"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3HC-zO-pMb">
@@ -106,7 +106,7 @@
                         </connections>
                     </customView>
                     <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9qG-8V-nNx" userLabel="sidebar Updates" customClass="MF_sidebarButton">
-                        <rect key="frame" x="0.0" y="363" width="220" height="42"/>
+                        <rect key="frame" x="0.0" y="663" width="220" height="42"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2f3-aR-Fjt">
@@ -148,7 +148,7 @@
                         </connections>
                     </customView>
                     <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8xS-3K-b75" userLabel="sidebar Manage" customClass="MF_sidebarButton">
-                        <rect key="frame" x="0.0" y="463" width="220" height="42"/>
+                        <rect key="frame" x="0.0" y="763" width="220" height="42"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6H2-5T-6YO">
@@ -182,7 +182,7 @@
                         </connections>
                     </customView>
                     <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ST3-7q-Xrp" userLabel="sidebar Discover" customClass="MF_sidebarButton">
-                        <rect key="frame" x="0.0" y="513" width="220" height="42"/>
+                        <rect key="frame" x="0.0" y="813" width="220" height="42"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GYY-zs-Q55">
@@ -212,11 +212,11 @@
                             <outlet property="buttonClickArea" destination="vM7-Hd-ieg" id="ZMq-H6-jWb"/>
                             <outlet property="buttonImage" destination="GYY-zs-Q55" id="H4w-4T-aw9"/>
                             <outlet property="buttonLabel" destination="Fhw-uh-4xU" id="lsn-W2-RNs"/>
-                            <outlet property="linkedView" destination="FRc-yL-SJ4" id="sBA-gQ-lig"/>
+                            <outlet property="linkedView" destination="FRc-yL-SJ4" id="NQ6-u9-05y"/>
                         </connections>
                     </customView>
                     <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YxR-sS-nZz" userLabel="sidebar Featured" customClass="MF_sidebarButton">
-                        <rect key="frame" x="0.0" y="563" width="220" height="42"/>
+                        <rect key="frame" x="0.0" y="863" width="220" height="42"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ERV-KI-Scw">
@@ -246,7 +246,7 @@
                             <outlet property="buttonClickArea" destination="FAl-5A-bzH" id="IzX-KV-0oN"/>
                             <outlet property="buttonImage" destination="ERV-KI-Scw" id="aTZ-eb-eAR"/>
                             <outlet property="buttonLabel" destination="HgO-Eh-ZXQ" id="k0k-Q1-brX"/>
-                            <outlet property="linkedView" destination="FRc-yL-SJ4" id="0rD-8b-Wie"/>
+                            <outlet property="linkedView" destination="pqe-uU-yWl" id="Apa-ob-x25"/>
                         </connections>
                     </customView>
                     <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hQB-vB-0gT" userLabel="sidebar Account" customClass="MF_sidebarButton">
@@ -353,6 +353,40 @@
                             <outlet property="buttonLabel" destination="0jT-dl-kJK" id="psT-Fr-HGl"/>
                         </connections>
                     </customView>
+                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MaD-Bj-3Od" userLabel="sidebar Plugin Prefs" customClass="MF_sidebarButton">
+                        <rect key="frame" x="0.0" y="613" width="220" height="42"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <subviews>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IAd-jx-fYx">
+                                <rect key="frame" x="20" y="0.0" width="42" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSTouchBarSidebarTemplate" id="fid-Fv-Ats"/>
+                            </imageView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bIR-T5-p17">
+                                <rect key="frame" x="68" y="9" width="134" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Plugin Prefs" id="dkO-Rd-CoQ">
+                                    <font key="font" metaFont="system" size="20"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hU8-wZ-8z2">
+                                <rect key="frame" x="0.0" y="0.0" width="220" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" alignment="center" imageScaling="proportionallyDown" inset="2" id="kqe-4Q-exh">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                        </subviews>
+                        <connections>
+                            <outlet property="buttonClickArea" destination="hU8-wZ-8z2" id="ZM6-sE-8UH"/>
+                            <outlet property="buttonImage" destination="IAd-jx-fYx" id="2tv-8g-HGc"/>
+                            <outlet property="buttonLabel" destination="bIR-T5-p17" id="YDh-sC-dR6"/>
+                            <outlet property="linkedView" destination="u60-6H-hIq" id="OYW-IP-kpZ"/>
+                        </connections>
+                    </customView>
                 </subviews>
             </view>
             <toolbar key="toolbar" implicitIdentifier="AE2CC5FD-C3DD-4714-8858-1C85B6FC6726" autosavesConfiguration="NO" showsBaselineSeparator="NO" displayMode="iconOnly" sizeMode="regular" id="HxD-9e-0O8">
@@ -365,7 +399,7 @@
                 </allowedToolbarItems>
                 <defaultToolbarItems/>
             </toolbar>
-            <point key="canvasLocation" x="-792" y="533"/>
+            <point key="canvasLocation" x="-994" y="535"/>
         </window>
         <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="fiC-1c-umx" userLabel="Preferences">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
@@ -1243,7 +1277,17 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
             <point key="canvasLocation" x="-1817" y="-702"/>
         </customView>
+        <customView id="u60-6H-hIq" userLabel="Tab Plugin Prefs" customClass="MF_pluginPreferencesView">
+            <rect key="frame" x="0.0" y="0.0" width="722" height="700"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <point key="canvasLocation" x="-2218" y="1149"/>
+        </customView>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="pqe-uU-yWl" userLabel="Tab Featured" customClass="MF_featuredView">
+            <rect key="frame" x="0.0" y="0.0" width="722" height="700"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <point key="canvasLocation" x="-2218" y="1911"/>
+        </customView>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate">
             <connections>
@@ -1254,6 +1298,7 @@
                 <outlet property="SIP_TaskPID" destination="nYt-Dx-SCz" id="m70-aK-XBJ"/>
                 <outlet property="SIP_filesystem" destination="xk7-FP-Hey" id="ASK-jS-93U"/>
                 <outlet property="SIP_status" destination="Bpb-Y4-I5c" id="AI4-QP-4V3"/>
+                <outlet property="aboutSelector" destination="Ah9-Af-mPm" id="wBQ-0H-Jm2"/>
                 <outlet property="appCopyright" destination="i4i-aW-H22" id="aUu-y5-198"/>
                 <outlet property="appName" destination="8It-pl-7nd" id="9kR-2Y-xdC"/>
                 <outlet property="appVersion" destination="QxU-Wr-Rab" id="bJJ-qE-n6S"/>
@@ -1278,6 +1323,7 @@
                 <outlet property="sidebarDiscover" destination="ST3-7q-Xrp" id="Eyg-s3-6tp"/>
                 <outlet property="sidebarFeatured" destination="YxR-sS-nZz" id="aP6-o4-Ptm"/>
                 <outlet property="sidebarManage" destination="8xS-3K-b75" id="uGY-vc-Cz8"/>
+                <outlet property="sidebarPluginPrefs" destination="MaD-Bj-3Od" id="72y-vO-nDc"/>
                 <outlet property="sidebarSystem" destination="anT-t4-Vba" id="gjr-GY-CNN"/>
                 <outlet property="sidebarUpdates" destination="9qG-8V-nNx" id="cbh-iF-8Ni"/>
                 <outlet property="sidebarWarning" destination="Mqq-Cw-936" id="6dF-Ow-k2s"/>
@@ -1306,10 +1352,10 @@
                 <userDefinedRuntimeAttribute type="string" keyPath="identifier" value="com.w0lf.MacForgeHelper"/>
             </userDefinedRuntimeAttributes>
         </customObject>
-        <customView id="FRc-yL-SJ4" userLabel="Tab Featured" customClass="MF_featuredTab">
-            <rect key="frame" x="0.0" y="0.0" width="748" height="690"/>
+        <customView id="FRc-yL-SJ4" userLabel="Tab Discover" customClass="MF_discoverView">
+            <rect key="frame" x="0.0" y="0.0" width="750" height="700"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <point key="canvasLocation" x="606" y="-1200"/>
+            <point key="canvasLocation" x="-1419" y="1444"/>
         </customView>
         <customObject id="Dne-do-X5l" userLabel="Sparkle Updater" customClass="SUUpdater"/>
         <customObject id="6fJ-Hm-stw" userLabel="Local Plugin Table" customClass="pluginTable">
@@ -1587,7 +1633,7 @@ csrutil enable --without fs --without nvram --without debug
                     </textFieldCell>
                 </textField>
             </subviews>
-            <point key="canvasLocation" x="-1772" y="221"/>
+            <point key="canvasLocation" x="-2218" y="385"/>
         </customView>
         <customObject id="zqE-Nl-DGV" customClass="blacklistTable"/>
         <menu title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
@@ -2027,7 +2073,7 @@ csrutil enable --without fs --without nvram --without debug
                     </menu>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="-1558" y="194"/>
+            <point key="canvasLocation" x="-1098" y="111"/>
         </menu>
         <customView id="nKi-ng-4zR" userLabel="Tab Manage">
             <rect key="frame" x="0.0" y="0.0" width="600" height="500"/>
@@ -2041,14 +2087,14 @@ csrutil enable --without fs --without nvram --without debug
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="40" rowSizeStyle="automatic" viewBased="YES" id="E3Q-ip-sqv">
-                                <rect key="frame" x="0.0" y="0.0" width="560" height="405"/>
+                                <rect key="frame" x="0.0" y="0.0" width="562" height="405"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn identifier="MyView" width="557" minWidth="40" maxWidth="1000" id="sCX-9R-TsV">
+                                    <tableColumn identifier="MyView" width="559" minWidth="100" maxWidth="1500" id="sCX-9R-TsV">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -2058,10 +2104,10 @@ csrutil enable --without fs --without nvram --without debug
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
-                                        <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                        <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="MyView" id="Z8X-Qx-N3j" customClass="CustomTableCell">
-                                                <rect key="frame" x="1" y="1" width="557" height="40"/>
+                                                <rect key="frame" x="1" y="1" width="559" height="40"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SoX-61-Ahb">
@@ -2072,7 +2118,7 @@ csrutil enable --without fs --without nvram --without debug
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="xxE-7D-RnH"/>
                                                     </imageView>
                                                     <textField horizontalHuggingPriority="249" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Apb-lj-8fj">
-                                                        <rect key="frame" x="48" y="3" width="401" height="14"/>
+                                                        <rect key="frame" x="48" y="3" width="403" height="14"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="nyk-IA-Czb">
                                                             <font key="font" metaFont="menu" size="11"/>
@@ -2081,7 +2127,7 @@ csrutil enable --without fs --without nvram --without debug
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lGX-rm-0R1">
-                                                        <rect key="frame" x="48" y="20" width="401" height="17"/>
+                                                        <rect key="frame" x="48" y="20" width="403" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="FGH-JX-Ouc">
                                                             <font key="font" metaFont="system"/>
@@ -2090,15 +2136,15 @@ csrutil enable --without fs --without nvram --without debug
                                                         </textFieldCell>
                                                     </textField>
                                                     <box horizontalHuggingPriority="750" verticalHuggingPriority="244" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="huh-b5-R5D">
-                                                        <rect key="frame" x="507" y="1" width="5" height="40"/>
+                                                        <rect key="frame" x="509" y="1" width="5" height="40"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                     </box>
                                                     <box horizontalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="XsU-rp-FSN">
-                                                        <rect key="frame" x="457" y="1" width="9" height="40"/>
+                                                        <rect key="frame" x="459" y="1" width="9" height="40"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                     </box>
                                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kCH-YJ-ZtU">
-                                                        <rect key="frame" x="525" y="9" width="22" height="22"/>
+                                                        <rect key="frame" x="527" y="9" width="22" height="22"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" inset="2" id="MOV-Qy-hRd">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -2109,7 +2155,7 @@ csrutil enable --without fs --without nvram --without debug
                                                         </connections>
                                                     </button>
                                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="23C-vh-W8c">
-                                                        <rect key="frame" x="474" y="9" width="22" height="22"/>
+                                                        <rect key="frame" x="476" y="9" width="22" height="22"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSUserGroup" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="GTQ-3x-bgN">
                                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
@@ -2144,8 +2190,8 @@ csrutil enable --without fs --without nvram --without debug
                         </subviews>
                         <nil key="backgroundColor"/>
                     </clipView>
-                    <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="MXV-Ms-ug4">
-                        <rect key="frame" x="1" y="-15" width="0.0" height="16"/>
+                    <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="MXV-Ms-ug4">
+                        <rect key="frame" x="0.0" y="389" width="560" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="VSb-dZ-G2K">
@@ -2363,7 +2409,7 @@ csrutil enable --without fs --without nvram --without debug
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HYY-dN-OVT">
                     <rect key="frame" x="18" y="326" width="365" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Luanch MacForge at login" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="msm-xi-TdN">
+                    <buttonCell key="cell" type="check" title="Luanch MacForge at login (required for plugins to load)" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="msm-xi-TdN">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -2379,7 +2425,7 @@ csrutil enable --without fs --without nvram --without debug
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oip-Kt-5Od">
                     <rect key="frame" x="36" y="306" width="380" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" title="Start MacForge automatically." id="CVJ-w7-rOg">
+                    <textFieldCell key="cell" lineBreakMode="clipping" title="Start MacForge Helper automatically." id="CVJ-w7-rOg">
                         <font key="font" metaFont="menu" size="11"/>
                         <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -2477,11 +2523,11 @@ csrutil enable --without fs --without nvram --without debug
             <point key="canvasLocation" x="174" y="554"/>
         </customView>
         <customView id="GRb-lT-7cB" userLabel="prefs Data">
-            <rect key="frame" x="0.0" y="0.0" width="426" height="215"/>
+            <rect key="frame" x="0.0" y="0.0" width="426" height="169"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="meV-vi-tDi">
-                    <rect key="frame" x="36" y="133" width="372" height="42"/>
+                    <rect key="frame" x="36" y="87" width="372" height="42"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" id="ijE-k7-5yS">
                         <font key="font" metaFont="menu" size="11"/>
@@ -2491,7 +2537,7 @@ csrutil enable --without fs --without nvram --without debug
                     </textFieldCell>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gag-Gl-jkV">
-                    <rect key="frame" x="18" y="179" width="361" height="18"/>
+                    <rect key="frame" x="18" y="133" width="361" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Share MacForge Analytics with macEnhance" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="pd9-op-tcR">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -2499,7 +2545,7 @@ csrutil enable --without fs --without nvram --without debug
                     </buttonCell>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6ZV-da-1Y3">
-                    <rect key="frame" x="36" y="66" width="372" height="28"/>
+                    <rect key="frame" x="36" y="20" width="372" height="28"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" title="Help macEnhance improve our apps by sharing your crash data with us." id="p66-91-GVX">
                         <font key="font" metaFont="menu" size="11"/>
@@ -2508,32 +2554,15 @@ csrutil enable --without fs --without nvram --without debug
                     </textFieldCell>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Eze-sG-5b2">
-                    <rect key="frame" x="18" y="98" width="361" height="18"/>
+                    <rect key="frame" x="18" y="52" width="361" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Share crash data with macEnhance" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="lBP-rS-pc7">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                 </button>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HXd-FU-ISG">
-                    <rect key="frame" x="18" y="42" width="361" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Push Notifications" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="fnp-ZW-W9o">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                </button>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n88-fX-rgM">
-                    <rect key="frame" x="36" y="20" width="372" height="14"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" title="Allows MacForge to send you push notifications." id="jrV-Ri-IW6">
-                        <font key="font" metaFont="menu" size="11"/>
-                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
             </subviews>
-            <point key="canvasLocation" x="666" y="481"/>
+            <point key="canvasLocation" x="666" y="457.5"/>
         </customView>
         <customView id="aHe-bF-n4J" userLabel="prefs Bundles">
             <rect key="frame" x="0.0" y="0.0" width="426" height="307"/>
@@ -2756,7 +2785,7 @@ csrutil enable --without fs --without nvram --without debug
                     </connections>
                 </segmentedControl>
             </subviews>
-            <point key="canvasLocation" x="688" y="840"/>
+            <point key="canvasLocation" x="688" y="793"/>
         </customView>
     </objects>
     <resources>
@@ -2778,6 +2807,7 @@ csrutil enable --without fs --without nvram --without debug
         <image name="NSTouchBarGetInfoTemplate" width="18" height="30"/>
         <image name="NSTouchBarNewMessageTemplate" width="18" height="30"/>
         <image name="NSTouchBarSearchTemplate" width="19" height="30"/>
+        <image name="NSTouchBarSidebarTemplate" width="22" height="30"/>
         <image name="NSTouchBarUserGroupTemplate" width="24" height="30"/>
         <image name="NSTrashFull" width="32" height="32"/>
         <image name="NSUserGroup" width="32" height="32"/>

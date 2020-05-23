@@ -1,21 +1,21 @@
 //
-//  pluginData.m
+//  MF_repoData.m
 //  MacForge
 //
 //  Created by Wolfgang Baird on 6/22/17.
 //  Copyright © 2017 Wolfgang Baird. All rights reserved.
 //
 
-#import "pluginData.h"
-#import "PluginManager.h"
+#import "MF_repoData.h"
+#import "MF_PluginManager.h"
 
-@implementation pluginData
+@implementation MF_repoData
 
-+ (pluginData*) sharedInstance {
-    static pluginData* pData = nil;
++ (MF_repoData*) sharedInstance {
+    static MF_repoData* pData = nil;
     
     if (pData == nil)
-        pData = [[pluginData alloc] init];
+        pData = [[MF_repoData alloc] init];
     
     return pData;
 }
@@ -25,7 +25,7 @@
         _sourceListDic = [[NSMutableDictionary alloc] init];
         _repoPluginsDic = [[NSMutableDictionary alloc] init];
         _localPluginsDic = [[NSMutableDictionary alloc] init];
-        _currentPlugin = [[MSPlugin alloc] init];
+        _currentPlugin = [[MF_Plugin alloc] init];
     }
     return self;
 }
@@ -38,11 +38,8 @@
 
 - (NSMutableDictionary*)fetch_repo:(NSString*)source {
     NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
-    NSURL* data = [NSURL URLWithString:[NSString stringWithFormat:@"%@/packages_v2.plist", source]];
+    NSURL* data = [NSURL URLWithString:[NSString stringWithFormat:@"%@/packages.plist", source]];
     NSMutableDictionary* repoPackages = [[NSMutableDictionary alloc] initWithContentsOfURL:data];
-    
-    if (repoPackages == nil)
-        repoPackages = [[NSMutableDictionary alloc] initWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/packages.plist", source]]];
         
     if (repoPackages != nil) {
 //        NSMutableDictionary *sourceDic = [[NSMutableDictionary alloc] init];
@@ -51,7 +48,7 @@
             NSMutableDictionary *bundle = [repoPackages objectForKey:bundleIdentifier];
             [bundle setObject:source forKey:@"sourceURL"];
             
-            MSPlugin *this_is_a_bundle = [[MSPlugin alloc] init];
+            MF_Plugin *this_is_a_bundle = [[MF_Plugin alloc] init];
             
             this_is_a_bundle.bundleID = [bundle objectForKey:@"package"];
             this_is_a_bundle.webName = [bundle objectForKey:@"name"];
@@ -128,7 +125,7 @@
                 NSMutableDictionary *bundle = [repoPackages objectForKey:bundleIdentifier];
                 [bundle setObject:source forKey:@"sourceURL"];
 
-                MSPlugin *this_is_a_bundle = [[MSPlugin alloc] init];
+                MF_Plugin *this_is_a_bundle = [[MF_Plugin alloc] init];
 
                 this_is_a_bundle.bundleID = [bundle objectForKey:@"package"];
                 this_is_a_bundle.webName = [bundle objectForKey:@"name"];
@@ -186,7 +183,7 @@
 
 - (void)fetch_local {
     self.localPluginsDic = [[NSMutableDictionary alloc] init];
-    NSArray *folders = [PluginManager MacEnhancePluginPaths];
+    NSArray *folders = [MF_PluginManager MacEnhancePluginPaths];
     for (NSString *str in folders) {
         NSArray *appFolderContents = [[NSArray alloc] init];
         appFolderContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:str error:nil];
@@ -228,7 +225,7 @@
                         isUser = true;
                 }
                 
-                MSPlugin *this_is_a_bundle = [[MSPlugin alloc] init];
+                MF_Plugin *this_is_a_bundle = [[MF_Plugin alloc] init];
                 
                 this_is_a_bundle.localName = name;
                 this_is_a_bundle.bundleID = bundleIdentifier;
@@ -247,7 +244,7 @@
     }
 }
 
-- (NSImage*)fetch_icon:(MSPlugin*)plugin {
+- (NSImage*)fetch_icon:(MF_Plugin*)plugin {
     NSImage* result = nil;
     NSArray* targets = [[NSArray alloc] init];
     targets = [plugin.localPlist objectForKey:@"SIMBLTargetApplications"];

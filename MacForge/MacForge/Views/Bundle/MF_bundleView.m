@@ -143,7 +143,7 @@ NSDictionary *testing;
     self.layer.masksToBounds = YES;
     
 //    NSArray *allPlugins;
-    MSPlugin *plugin = [pluginData sharedInstance].currentPlugin;
+    MF_Plugin *plugin = [MF_repoData sharedInstance].currentPlugin;
     
     if (plugin != nil) {
         item = plugin.webPlist;
@@ -273,7 +273,7 @@ NSDictionary *testing;
 //            [installedPlugins setObject:itemDict forKey:[itemDict objectForKey:@"bundleId"]];
 //        }
         
-        NSMutableDictionary *installedPlugins = [PluginManager.sharedInstance getInstalledPlugins];
+        NSMutableDictionary *installedPlugins = [MF_PluginManager.sharedInstance getInstalledPlugins];
 
         //    NSDate *methodFinish = [NSDate date];
         //    NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:startTime];
@@ -292,7 +292,7 @@ NSDictionary *testing;
 //                installed = true;
 //        }
            
-        if ([PluginManager.sharedInstance pluginLocalPath:bundleID].length) {
+        if ([MF_PluginManager.sharedInstance pluginLocalPath:bundleID].length) {
 //        if ([installedPlugins objectForKey:[item objectForKey:@"package"]]) {
             // Pack already exists
             [self.bundleDelete setEnabled:true];
@@ -445,7 +445,7 @@ NSDictionary *testing;
             [self.bundleImage sd_setImageWithURL:[NSURL URLWithString:imgurl]
                                  placeholderImage:[UIImage imageNamed:NSImageNameApplicationIcon]];
         } else {
-            NSImage *icon = [PluginManager pluginGetIcon:plugin.webPlist];
+            NSImage *icon = [MF_PluginManager pluginGetIcon:plugin.webPlist];
             self.bundleImage.image = icon;
         }
         
@@ -527,7 +527,7 @@ NSDictionary *testing;
 }
 
 - (IBAction)shareMe:(id)sender {
-    MSPlugin *plugin = [pluginData sharedInstance].currentPlugin;
+    MF_Plugin *plugin = [MF_repoData sharedInstance].currentPlugin;
     
     if (plugin.webRepository) {
     }
@@ -680,8 +680,8 @@ NSDictionary *testing;
 }
 
 - (void)pluginInstall {
-    [PluginManager.sharedInstance pluginUpdateOrInstall:item :@"https://github.com/MacEnhance/MacForgeRepo/raw/master/repo" withCompletionHandler:^(BOOL res) {
-            [PluginManager.sharedInstance readPlugins:nil];
+    [MF_PluginManager.sharedInstance pluginUpdateOrInstall:item :@"https://github.com/MacEnhance/MacForgeRepo/raw/master/repo" withCompletionHandler:^(BOOL res) {
+            [MF_PluginManager.sharedInstance readPlugins:nil];
             [self.bundleInstall setTitle:@"Open"];
             [self.bundleInstall setAction:@selector(pluginFinder)];
             [self.bundleDelete setEnabled:true];
@@ -690,12 +690,12 @@ NSDictionary *testing;
 }
 
 - (void)pluginFinder {
-    [PluginManager.sharedInstance pluginRevealFinder:item];
+    [MF_PluginManager.sharedInstance pluginRevealFinder:item];
 }
 
 - (void)pluginDelete {
-    [PluginManager.sharedInstance pluginDelete:item];
-    [PluginManager.sharedInstance readPlugins:nil];
+    [MF_PluginManager.sharedInstance pluginDelete:item];
+    [MF_PluginManager.sharedInstance readPlugins:nil];
     if ([[item objectForKey:@"payed"] boolValue]) {
         self.bundleInstall.title = @"Verifying...";
 //        [self verifyPurchased];

@@ -12,9 +12,9 @@
 @import WebKit;
 @import EDStarRating;
 
-#import "PluginManager.h"
+#import "MF_PluginManager.h"
 #import "AppDelegate.h"
-#import "pluginData.h"
+#import "MF_repoData.h"
 #import "MF_bundlePreviewView.h"
 
 #import "SYFlatButton.h"

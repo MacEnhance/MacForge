@@ -37,19 +37,19 @@
 #import "SGDirWatchdog.h"
 #import "NSBundle+LoginItem.h"
 
+#import "MF_extra.h"
+#import "MF_pluginPreferencesView.h"
 #import "MF_accountManager.h"
 #import "MF_BlacklistManager.h"
-#import "MF_sidebarButton.h"
-#import "MF_featuredTab.h"
 #import "MFFlippedView.h"
 
-#import "pluginData.h"
-#import "PluginManager.h"
+#import "MF_repoData.h"
+#import "MF_PluginManager.h"
 #import "blacklistTable.h"
 
-@interface AppDelegate : NSObject <NSSearchFieldDelegate> {
+@interface AppDelegate : NSObject <NSApplicationDelegate, NSSearchFieldDelegate> {
     NSMutableArray *watchdogs;
-    PluginManager *_sharedMethods;
+    MF_PluginManager *_sharedMethods;
     FIRUser *_user;  // Firebase User
 }
 
@@ -65,6 +65,7 @@
 @property IBOutlet SUUpdater            *updater;
 
 // Preferences
+@property IBOutlet NSSegmentedControl   *aboutSelector;
 @property IBOutlet NSSegmentedControl   *preferencesTabController;
 @property IBOutlet NSView               *preferencesGeneral;
 @property IBOutlet NSView               *preferencesAbout;
@@ -85,6 +86,8 @@
 @property IBOutlet NSView               *viewImages;
 @property IBOutlet NSView               *sourcesBundle;
 
+@property IBOutlet MF_extra             *sidebarController;
+
 // Top sidebar items
 @property IBOutlet NSSearchField        *searchPlugins;
 @property IBOutlet MF_sidebarButton     *sidebarFeatured;
@@ -93,6 +96,7 @@
 @property IBOutlet NSButton             *viewUpdateCounter;
 @property IBOutlet MF_sidebarButton     *sidebarSystem;
 @property IBOutlet MF_sidebarButton     *sidebarManage;
+@property IBOutlet MF_sidebarButton     *sidebarPluginPrefs;
 
 // Bottom sidebar items
 @property IBOutlet MF_sidebarButton     *sidebarWarning;

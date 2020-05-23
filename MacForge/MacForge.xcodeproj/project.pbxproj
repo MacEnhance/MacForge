@@ -30,14 +30,13 @@
 		F3951D972432B35A007F09E8 /* amfi.txt in Resources */ = {isa = PBXBuildFile; fileRef = F3951D962432B35A007F09E8 /* amfi.txt */; };
 		F3A95F7423EF842A004635FD /* MF_bundleTinyItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A95F7223EF842A004635FD /* MF_bundleTinyItem.m */; };
 		F3A95F7523EF842A004635FD /* MF_bundleTinyItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3A95F7323EF842A004635FD /* MF_bundleTinyItem.xib */; };
-		FB0227A920F0539B006566EF /* PluginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8EA20F0289900A12ACF /* PluginManager.m */; };
+		FB0227A920F0539B006566EF /* MF_PluginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8EA20F0289900A12ACF /* MF_PluginManager.m */; };
 		FB057CC62139B1B2002B3BB3 /* com.w0lf.MacForge.Installer in CopyFiles */ = {isa = PBXBuildFile; fileRef = F0ADE14F166DFB8B009758CC /* com.w0lf.MacForge.Installer */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		FB057CC72139B1B4002B3BB3 /* com.w0lf.MacForge.Injector in CopyFiles */ = {isa = PBXBuildFile; fileRef = F0ADE1B8166E0820009758CC /* com.w0lf.MacForge.Injector */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		FB169AF322F4B3A3001E84E0 /* MF_featuredTab.m in Sources */ = {isa = PBXBuildFile; fileRef = FB169AF222F4B3A3001E84E0 /* MF_featuredTab.m */; };
+		FB1241362478997500528C29 /* MF_searchView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB1241352478997500528C29 /* MF_searchView.m */; };
+		FB12413C247899F600528C29 /* MF_extra.m in Sources */ = {isa = PBXBuildFile; fileRef = FB12413B247899F600528C29 /* MF_extra.m */; };
 		FB169AFD22F4EEEB001E84E0 /* MF_featuredItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB169AFB22F4EEEB001E84E0 /* MF_featuredItemController.m */; };
 		FB169AFE22F4EEEB001E84E0 /* MF_featuredItemController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB169AFC22F4EEEB001E84E0 /* MF_featuredItemController.xib */; };
-		FB169B0922F50F36001E84E0 /* MF_featuredSmallController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB169B0722F50F36001E84E0 /* MF_featuredSmallController.m */; };
-		FB169B0A22F50F36001E84E0 /* MF_featuredSmallController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB169B0822F50F36001E84E0 /* MF_featuredSmallController.xib */; };
 		FB1C18B823417E1200BD9F32 /* MF_bundleView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB1C18B723417E1200BD9F32 /* MF_bundleView.m */; };
 		FB1C18B92341811F00BD9F32 /* MF_bundlePreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB8561A723417A3700047845 /* MF_bundlePreviewView.m */; };
 		FB275D7B2339DE9B001C154A /* GameplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB275D7A2339DE9B001C154A /* GameplayKit.framework */; };
@@ -51,7 +50,6 @@
 		FB5BB9B323009F39004D3454 /* MFKSipView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB5BB9B023009F39004D3454 /* MFKSipView.xib */; };
 		FB5BB9B92300A3EA004D3454 /* eng_sip_mojave.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB5BB9B72300A3EA004D3454 /* eng_sip_mojave.txt */; };
 		FB5BB9BA2300A3EA004D3454 /* eng_sip.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB5BB9B82300A3EA004D3454 /* eng_sip.txt */; };
-		FB667A89245B9E2800806029 /* MF_sidebarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FB667A88245B9E2800806029 /* MF_sidebarButton.m */; };
 		FB6D0FEA2351B417005A2D5E /* MF_accountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB6D0FE92351B417005A2D5E /* MF_accountViewController.m */; };
 		FB7259E52314F2BD00701F32 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB7259E42314F2BD00701F32 /* GoogleService-Info.plist */; };
 		FB78E2A72139BE27002FFE2E /* MacForgeDockTile.docktileplugin in Copy Plugins */ = {isa = PBXBuildFile; fileRef = FBA6E90120F0299B00A12ACF /* MacForgeDockTile.docktileplugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -71,9 +69,9 @@
 		FBA6E8DB20F0285B00A12ACF /* webicon.png in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8D520F0285A00A12ACF /* webicon.png */; };
 		FBA6E8DD20F0285B00A12ACF /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8D720F0285A00A12ACF /* checkmark.png */; };
 		FBA6E8E120F0287500A12ACF /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8E020F0287500A12ACF /* dsa_pub.pem */; };
-		FBA6E8E620F0288300A12ACF /* MSPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8E220F0288300A12ACF /* MSPlugin.m */; };
-		FBA6E8E720F0288300A12ACF /* pluginData.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8E320F0288300A12ACF /* pluginData.m */; };
-		FBA6E8F220F0289B00A12ACF /* PluginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8EA20F0289900A12ACF /* PluginManager.m */; };
+		FBA6E8E620F0288300A12ACF /* MF_Plugin.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8E220F0288300A12ACF /* MF_Plugin.m */; };
+		FBA6E8E720F0288300A12ACF /* MF_repoData.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8E320F0288300A12ACF /* MF_repoData.m */; };
+		FBA6E8F220F0289B00A12ACF /* MF_PluginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8EA20F0289900A12ACF /* MF_PluginManager.m */; };
 		FBA6E8F420F0289B00A12ACF /* updatesTable.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8EC20F0289A00A12ACF /* updatesTable.m */; };
 		FBA6E8F520F0289B00A12ACF /* loaclPluginTable.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8ED20F0289A00A12ACF /* loaclPluginTable.m */; };
 		FBA6E8FC20F028A400A12ACF /* LICENSE_EULA in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8F920F028A400A12ACF /* LICENSE_EULA */; };
@@ -129,6 +127,11 @@
 		FBF137D6210582540001916A /* checkmark_test.png in Resources */ = {isa = PBXBuildFile; fileRef = FBF137D5210582540001916A /* checkmark_test.png */; };
 		FBF137DC2105AB8B0001916A /* MacForgeHelper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = F0ADE0F6166DF941009758CC /* MacForgeHelper.app */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FBF137E3210E79B70001916A /* blacklistTable.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF137E2210E79B70001916A /* blacklistTable.m */; };
+		FBFC745F24774B2D0015D36C /* MF_featuredView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBFC745E24774B2D0015D36C /* MF_featuredView.m */; };
+		FBFC7462247767030015D36C /* MF_pluginPreferenceLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = FBFC7461247767030015D36C /* MF_pluginPreferenceLoader.m */; };
+		FBFC7466247769280015D36C /* MF_pluginPreferencesView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBFC7465247769280015D36C /* MF_pluginPreferencesView.m */; };
+		FBFC7468247769510015D36C /* MF_pluginPreferencesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FBFC7467247769510015D36C /* MF_pluginPreferencesView.xib */; };
+		FBFC746D2477CCD30015D36C /* MF_discoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBFC746C2477CCD30015D36C /* MF_discoverView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -368,14 +371,13 @@
 		F3A95F7123EF842A004635FD /* MF_bundleTinyItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_bundleTinyItem.h; sourceTree = "<group>"; };
 		F3A95F7223EF842A004635FD /* MF_bundleTinyItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_bundleTinyItem.m; sourceTree = "<group>"; };
 		F3A95F7323EF842A004635FD /* MF_bundleTinyItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MF_bundleTinyItem.xib; sourceTree = "<group>"; };
-		FB169AF122F4B3A3001E84E0 /* MF_featuredTab.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_featuredTab.h; sourceTree = "<group>"; };
-		FB169AF222F4B3A3001E84E0 /* MF_featuredTab.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_featuredTab.m; sourceTree = "<group>"; };
+		FB1241342478997500528C29 /* MF_searchView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_searchView.h; sourceTree = "<group>"; };
+		FB1241352478997500528C29 /* MF_searchView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_searchView.m; sourceTree = "<group>"; };
+		FB12413A247899F600528C29 /* MF_extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MF_extra.h; sourceTree = "<group>"; };
+		FB12413B247899F600528C29 /* MF_extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MF_extra.m; sourceTree = "<group>"; };
 		FB169AFA22F4EEEB001E84E0 /* MF_featuredItemController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_featuredItemController.h; sourceTree = "<group>"; };
 		FB169AFB22F4EEEB001E84E0 /* MF_featuredItemController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_featuredItemController.m; sourceTree = "<group>"; };
 		FB169AFC22F4EEEB001E84E0 /* MF_featuredItemController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MF_featuredItemController.xib; sourceTree = "<group>"; };
-		FB169B0622F50F36001E84E0 /* MF_featuredSmallController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_featuredSmallController.h; sourceTree = "<group>"; };
-		FB169B0722F50F36001E84E0 /* MF_featuredSmallController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_featuredSmallController.m; sourceTree = "<group>"; };
-		FB169B0822F50F36001E84E0 /* MF_featuredSmallController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MF_featuredSmallController.xib; sourceTree = "<group>"; };
 		FB1C18B623417E1200BD9F32 /* MF_bundleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_bundleView.h; sourceTree = "<group>"; };
 		FB1C18B723417E1200BD9F32 /* MF_bundleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_bundleView.m; sourceTree = "<group>"; };
 		FB275D7A2339DE9B001C154A /* GameplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameplayKit.framework; path = System/Library/Frameworks/GameplayKit.framework; sourceTree = SDKROOT; };
@@ -392,8 +394,6 @@
 		FB5BB9B023009F39004D3454 /* MFKSipView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MFKSipView.xib; sourceTree = "<group>"; };
 		FB5BB9B72300A3EA004D3454 /* eng_sip_mojave.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = eng_sip_mojave.txt; sourceTree = "<group>"; };
 		FB5BB9B82300A3EA004D3454 /* eng_sip.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = eng_sip.txt; sourceTree = "<group>"; };
-		FB667A87245B9E2800806029 /* MF_sidebarButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_sidebarButton.h; sourceTree = "<group>"; };
-		FB667A88245B9E2800806029 /* MF_sidebarButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_sidebarButton.m; sourceTree = "<group>"; };
 		FB6D0FE82351B417005A2D5E /* MF_accountViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_accountViewController.h; sourceTree = "<group>"; };
 		FB6D0FE92351B417005A2D5E /* MF_accountViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_accountViewController.m; sourceTree = "<group>"; };
 		FB7259E42314F2BD00701F32 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -422,14 +422,14 @@
 		FBA6E8D520F0285A00A12ACF /* webicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = webicon.png; sourceTree = "<group>"; };
 		FBA6E8D720F0285A00A12ACF /* checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark.png; sourceTree = "<group>"; };
 		FBA6E8E020F0287500A12ACF /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
-		FBA6E8E220F0288300A12ACF /* MSPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSPlugin.m; sourceTree = "<group>"; };
-		FBA6E8E320F0288300A12ACF /* pluginData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pluginData.m; sourceTree = "<group>"; };
-		FBA6E8E420F0288300A12ACF /* MSPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSPlugin.h; sourceTree = "<group>"; };
-		FBA6E8E520F0288300A12ACF /* pluginData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pluginData.h; sourceTree = "<group>"; };
-		FBA6E8EA20F0289900A12ACF /* PluginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PluginManager.m; sourceTree = "<group>"; };
+		FBA6E8E220F0288300A12ACF /* MF_Plugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MF_Plugin.m; sourceTree = "<group>"; };
+		FBA6E8E320F0288300A12ACF /* MF_repoData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MF_repoData.m; sourceTree = "<group>"; };
+		FBA6E8E420F0288300A12ACF /* MF_Plugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MF_Plugin.h; sourceTree = "<group>"; };
+		FBA6E8E520F0288300A12ACF /* MF_repoData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MF_repoData.h; sourceTree = "<group>"; };
+		FBA6E8EA20F0289900A12ACF /* MF_PluginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MF_PluginManager.m; sourceTree = "<group>"; };
 		FBA6E8EC20F0289A00A12ACF /* updatesTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = updatesTable.m; sourceTree = "<group>"; };
 		FBA6E8ED20F0289A00A12ACF /* loaclPluginTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = loaclPluginTable.m; sourceTree = "<group>"; };
-		FBA6E8EF20F0289A00A12ACF /* PluginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PluginManager.h; sourceTree = "<group>"; };
+		FBA6E8EF20F0289A00A12ACF /* MF_PluginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MF_PluginManager.h; sourceTree = "<group>"; };
 		FBA6E8F920F028A400A12ACF /* LICENSE_EULA */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE_EULA; sourceTree = "<group>"; };
 		FBA6E90120F0299B00A12ACF /* MacForgeDockTile.docktileplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacForgeDockTile.docktileplugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBA6E90320F0299B00A12ACF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -493,6 +493,15 @@
 		FBF137D5210582540001916A /* checkmark_test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark_test.png; sourceTree = "<group>"; };
 		FBF137E1210E79B70001916A /* blacklistTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = blacklistTable.h; sourceTree = "<group>"; };
 		FBF137E2210E79B70001916A /* blacklistTable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = blacklistTable.m; sourceTree = "<group>"; };
+		FBFC745D24774B2D0015D36C /* MF_featuredView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_featuredView.h; sourceTree = "<group>"; };
+		FBFC745E24774B2D0015D36C /* MF_featuredView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_featuredView.m; sourceTree = "<group>"; };
+		FBFC7460247767030015D36C /* MF_pluginPreferenceLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_pluginPreferenceLoader.h; sourceTree = "<group>"; };
+		FBFC7461247767030015D36C /* MF_pluginPreferenceLoader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_pluginPreferenceLoader.m; sourceTree = "<group>"; };
+		FBFC7464247769280015D36C /* MF_pluginPreferencesView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_pluginPreferencesView.h; sourceTree = "<group>"; };
+		FBFC7465247769280015D36C /* MF_pluginPreferencesView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_pluginPreferencesView.m; sourceTree = "<group>"; };
+		FBFC7467247769510015D36C /* MF_pluginPreferencesView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MF_pluginPreferencesView.xib; sourceTree = "<group>"; };
+		FBFC746B2477CCD30015D36C /* MF_discoverView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_discoverView.h; sourceTree = "<group>"; };
+		FBFC746C2477CCD30015D36C /* MF_discoverView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_discoverView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -730,22 +739,23 @@
 			name = Classes;
 			sourceTree = "<group>";
 		};
-		FB169AF422F4E541001E84E0 /* Featured */ = {
+		FB169AF422F4E541001E84E0 /* Web */ = {
 			isa = PBXGroup;
 			children = (
-				FB169AF122F4B3A3001E84E0 /* MF_featuredTab.h */,
-				FB169AF222F4B3A3001E84E0 /* MF_featuredTab.m */,
+				FB1241342478997500528C29 /* MF_searchView.h */,
+				FB1241352478997500528C29 /* MF_searchView.m */,
+				FBFC746B2477CCD30015D36C /* MF_discoverView.h */,
+				FBFC746C2477CCD30015D36C /* MF_discoverView.m */,
+				FBFC745D24774B2D0015D36C /* MF_featuredView.h */,
+				FBFC745E24774B2D0015D36C /* MF_featuredView.m */,
 				FB169AFA22F4EEEB001E84E0 /* MF_featuredItemController.h */,
 				FB169AFB22F4EEEB001E84E0 /* MF_featuredItemController.m */,
 				FB169AFC22F4EEEB001E84E0 /* MF_featuredItemController.xib */,
-				FB169B0622F50F36001E84E0 /* MF_featuredSmallController.h */,
-				FB169B0722F50F36001E84E0 /* MF_featuredSmallController.m */,
-				FB169B0822F50F36001E84E0 /* MF_featuredSmallController.xib */,
 				F3A95F7123EF842A004635FD /* MF_bundleTinyItem.h */,
 				F3A95F7223EF842A004635FD /* MF_bundleTinyItem.m */,
 				F3A95F7323EF842A004635FD /* MF_bundleTinyItem.xib */,
 			);
-			path = Featured;
+			path = Web;
 			sourceTree = "<group>";
 		};
 		FB306A91236672C3008A6E61 /* Account */ = {
@@ -776,14 +786,13 @@
 		FB49C44623417A4B0061E458 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				FB667A87245B9E2800806029 /* MF_sidebarButton.h */,
-				FB667A88245B9E2800806029 /* MF_sidebarButton.m */,
 				F372132523F0F9FF00222A4F /* MFFlippedView.h */,
 				FB2FE5C223061DEE0082C714 /* MFFlippedView.m */,
 				FB306A91236672C3008A6E61 /* Account */,
-				FB169AF422F4E541001E84E0 /* Featured */,
-				FBA6E91020F02CBD00A12ACF /* Tables */,
 				FB306ACF2367F9BA008A6E61 /* Bundle */,
+				FBA6E91020F02CBD00A12ACF /* Local */,
+				FBFC74632477670B0015D36C /* Plugin Prefs */,
+				FB169AF422F4E541001E84E0 /* Web */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -872,7 +881,7 @@
 			path = MacForgeDockTile;
 			sourceTree = "<group>";
 		};
-		FBA6E91020F02CBD00A12ACF /* Tables */ = {
+		FBA6E91020F02CBD00A12ACF /* Local */ = {
 			isa = PBXGroup;
 			children = (
 				FBA6E8ED20F0289A00A12ACF /* loaclPluginTable.m */,
@@ -880,7 +889,7 @@
 				FBF137E1210E79B70001916A /* blacklistTable.h */,
 				FBF137E2210E79B70001916A /* blacklistTable.m */,
 			);
-			path = Tables;
+			path = Local;
 			sourceTree = "<group>";
 		};
 		FBA6E91220F02D0600A12ACF /* Resource */ = {
@@ -931,12 +940,10 @@
 		FBAAD0FB2460E00D00F7B2F8 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
-				FBA6E8E420F0288300A12ACF /* MSPlugin.h */,
-				FBA6E8E220F0288300A12ACF /* MSPlugin.m */,
-				FBA6E8E520F0288300A12ACF /* pluginData.h */,
-				FBA6E8E320F0288300A12ACF /* pluginData.m */,
-				FBA6E8EF20F0289A00A12ACF /* PluginManager.h */,
-				FBA6E8EA20F0289900A12ACF /* PluginManager.m */,
+				FBA6E8E420F0288300A12ACF /* MF_Plugin.h */,
+				FBA6E8E220F0288300A12ACF /* MF_Plugin.m */,
+				FBA6E8EF20F0289A00A12ACF /* MF_PluginManager.h */,
+				FBA6E8EA20F0289900A12ACF /* MF_PluginManager.m */,
 			);
 			path = Plugins;
 			sourceTree = "<group>";
@@ -1034,8 +1041,12 @@
 		FBE767E920F00FFB00A42BD5 /* MacForge */ = {
 			isa = PBXGroup;
 			children = (
+				FB12413A247899F600528C29 /* MF_extra.h */,
+				FB12413B247899F600528C29 /* MF_extra.m */,
 				FBC2123223B459CE006F4485 /* MF_BlacklistManager.h */,
 				FBC2123323B459CE006F4485 /* MF_BlacklistManager.m */,
+				FBA6E8E520F0288300A12ACF /* MF_repoData.h */,
+				FBA6E8E320F0288300A12ACF /* MF_repoData.m */,
 				FBAAD0FC2460E02F00F7B2F8 /* Purchases */,
 				FBAAD0FB2460E00D00F7B2F8 /* Plugins */,
 				FB49C44623417A4B0061E458 /* Views */,
@@ -1048,6 +1059,18 @@
 				FB306ACD2367CD0F008A6E61 /* Media.xcassets */,
 			);
 			path = MacForge;
+			sourceTree = "<group>";
+		};
+		FBFC74632477670B0015D36C /* Plugin Prefs */ = {
+			isa = PBXGroup;
+			children = (
+				FBFC7467247769510015D36C /* MF_pluginPreferencesView.xib */,
+				FBFC7460247767030015D36C /* MF_pluginPreferenceLoader.h */,
+				FBFC7461247767030015D36C /* MF_pluginPreferenceLoader.m */,
+				FBFC7464247769280015D36C /* MF_pluginPreferencesView.h */,
+				FBFC7465247769280015D36C /* MF_pluginPreferencesView.m */,
+			);
+			path = "Plugin Prefs";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1406,7 +1429,6 @@
 				FBA6E8DB20F0285B00A12ACF /* webicon.png in Resources */,
 				FBA6E8DD20F0285B00A12ACF /* checkmark.png in Resources */,
 				FBAAB41720F2CDB0002156DC /* demo_xcode.zip in Resources */,
-				FB169B0A22F50F36001E84E0 /* MF_featuredSmallController.xib in Resources */,
 				FBA911EE23C038AD008627B1 /* MF_accountView.xib in Resources */,
 				FBA6E8E120F0287500A12ACF /* dsa_pub.pem in Resources */,
 				FBA6E8CE20F025A100A12ACF /* Application.xib in Resources */,
@@ -1416,6 +1438,7 @@
 				FBA6E8C220F01D4000A12ACF /* LICENSE_StartAtLoginController in Resources */,
 				FBF137D22105782A0001916A /* reddit.png in Resources */,
 				FBF137CC210575ED0001916A /* code.png in Resources */,
+				FBFC7468247769510015D36C /* MF_pluginPreferencesView.xib in Resources */,
 				FBA6E8C420F01D7500A12ACF /* LICENSE_SIMBL in Resources */,
 				FB306ACE2367CD0F008A6E61 /* Media.xcassets in Resources */,
 				FB169AFE22F4EEEB001E84E0 /* MF_featuredItemController.xib in Resources */,
@@ -1695,7 +1718,7 @@
 			files = (
 				FBCC0B3021278DF900CB5CD4 /* SGDirWatchdog.m in Sources */,
 				FBAAB3EC20F228FD002156DC /* StartAtLoginController.m in Sources */,
-				FB0227A920F0539B006566EF /* PluginManager.m in Sources */,
+				FB0227A920F0539B006566EF /* MF_PluginManager.m in Sources */,
 				FBE767FB20F0116600A42BD5 /* SIMBLPlugin.m in Sources */,
 				FBE767FA20F0116000A42BD5 /* SIMBL.m in Sources */,
 				FBE767F920F0115B00A42BD5 /* NSAlert_SIMBL.m in Sources */,
@@ -1760,18 +1783,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBFC746D2477CCD30015D36C /* MF_discoverView.m in Sources */,
 				FB1C18B823417E1200BD9F32 /* MF_bundleView.m in Sources */,
+				FBFC7462247767030015D36C /* MF_pluginPreferenceLoader.m in Sources */,
 				FB1C18B92341811F00BD9F32 /* MF_bundlePreviewView.m in Sources */,
-				FB667A89245B9E2800806029 /* MF_sidebarButton.m in Sources */,
-				FB169AF322F4B3A3001E84E0 /* MF_featuredTab.m in Sources */,
+				FBFC7466247769280015D36C /* MF_pluginPreferencesView.m in Sources */,
 				FB169AFD22F4EEEB001E84E0 /* MF_featuredItemController.m in Sources */,
-				FB169B0922F50F36001E84E0 /* MF_featuredSmallController.m in Sources */,
+				FB12413C247899F600528C29 /* MF_extra.m in Sources */,
 				FB6D0FEA2351B417005A2D5E /* MF_accountViewController.m in Sources */,
-				FBA6E8F220F0289B00A12ACF /* PluginManager.m in Sources */,
+				FBA6E8F220F0289B00A12ACF /* MF_PluginManager.m in Sources */,
 				FBBD8E2322F9319E00A97FEA /* MF_Purchase.m in Sources */,
 				FB306A90236672B6008A6E61 /* MF_accountLoggedInView.m in Sources */,
-				FBA6E8E720F0288300A12ACF /* pluginData.m in Sources */,
-				FBA6E8E620F0288300A12ACF /* MSPlugin.m in Sources */,
+				FBA6E8E720F0288300A12ACF /* MF_repoData.m in Sources */,
+				FBFC745F24774B2D0015D36C /* MF_featuredView.m in Sources */,
+				FBA6E8E620F0288300A12ACF /* MF_Plugin.m in Sources */,
 				FB2FE5C5230626C30082C714 /* MFFlippedView.m in Sources */,
 				FBC2123923B46434006F4485 /* MF_accountManager.m in Sources */,
 				FBA6E8F520F0289B00A12ACF /* loaclPluginTable.m in Sources */,
@@ -1782,6 +1807,7 @@
 				FBE767F420F00FFE00A42BD5 /* main.m in Sources */,
 				FBA6E89520F0185F00A12ACF /* ZKSwizzle.m in Sources */,
 				FBA6E8CF20F0262A00A12ACF /* SGDirWatchdog.m in Sources */,
+				FB1241362478997500528C29 /* MF_searchView.m in Sources */,
 				FBC2123423B459CE006F4485 /* MF_BlacklistManager.m in Sources */,
 				FB2FE5CC230638120082C714 /* SYFlatButton.m in Sources */,
 				FBA6E8BB20F01C6300A12ACF /* StartAtLoginController.m in Sources */,

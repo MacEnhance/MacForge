@@ -8,16 +8,16 @@
 
 @import AppKit;
 @import CoreImage;
-#import "PluginManager.h"
-#import "pluginData.h"
-#import "MSPlugin.h"
+#import "MF_PluginManager.h"
+#import "MF_repoData.h"
+#import "MF_Plugin.h"
 
 extern NSMutableArray *pluginsArray;
 NSInteger previusRow = -1;
 
 @interface pluginTable : NSObject {
-    PluginManager *_sharedMethods;
-    pluginData *_pluginData;
+    MF_PluginManager *_sharedMethods;
+    MF_repoData *_pluginData;
     NSArray *image_array;
     NSImage *user;
     NSImage *group;
@@ -38,7 +38,7 @@ NSInteger previusRow = -1;
 @property (weak) IBOutlet NSTextField*  pluginDescription;
 @property (weak) IBOutlet NSImageView*  pluginImage;
 @property (weak) IBOutlet NSString*     pluginID;
-@property (weak) IBOutlet MSPlugin*     pluginPlugin;
+@property (weak) IBOutlet MF_Plugin*     pluginPlugin;
 @end
 
 @implementation pluginTable
@@ -58,9 +58,9 @@ NSInteger previusRow = -1;
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
     if (_sharedMethods == nil)
-        _sharedMethods = [PluginManager sharedInstance];
+        _sharedMethods = [MF_PluginManager sharedInstance];
     
-    _pluginData = [pluginData sharedInstance];
+    _pluginData = [MF_repoData sharedInstance];
     [_pluginData fetch_local];
     
     NSSortDescriptor *sorter = [[NSSortDescriptor alloc] initWithKey:@"localName" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
@@ -122,7 +122,7 @@ NSInteger previusRow = -1;
 
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     CustomTableCell *result = (CustomTableCell*)[tableView makeViewWithIdentifier:@"MyView" owner:self];
-    MSPlugin *aBundle = [_tableContent objectAtIndex:row];
+    MF_Plugin *aBundle = [_tableContent objectAtIndex:row];
     
     result.pluginName.stringValue = aBundle.localName;
     if([aBundle.localPath length]) {
@@ -159,10 +159,10 @@ NSInteger previusRow = -1;
 }
 
 - (IBAction)pluginLocToggle:(id)sender {
-    MSPlugin *plug = [_tableContent objectAtIndex:(long)[_tblView rowForView:sender]];
+    MF_Plugin *plug = [_tableContent objectAtIndex:(long)[_tblView rowForView:sender]];
     NSString *name = plug.localName;
     NSString *path = plug.localPath;
-    NSArray *paths = [PluginManager MacEnhancePluginPaths];
+    NSArray *paths = [MF_PluginManager MacEnhancePluginPaths];
     NSInteger respath = 0;
     if (!plug.isUser) respath = 2;
     if (!plug.isEnabled) respath += 1;
@@ -170,10 +170,10 @@ NSInteger previusRow = -1;
 }
 
 - (IBAction)pluginToggle:(id)sender {
-    MSPlugin *plug = [_tableContent objectAtIndex:(long)[_tblView rowForView:sender]];
+    MF_Plugin *plug = [_tableContent objectAtIndex:(long)[_tblView rowForView:sender]];
     NSString *name = plug.localName;
     NSString *path = plug.localPath;
-    NSArray *paths = [PluginManager MacEnhancePluginPaths];
+    NSArray *paths = [MF_PluginManager MacEnhancePluginPaths];
     NSInteger respath = 0;
     if (plug.isUser) respath = 2;
     if (plug.isEnabled) respath += 1;
@@ -182,7 +182,7 @@ NSInteger previusRow = -1;
 
 - (IBAction)pluginFinder:(id)sender {
     if (_tblView.selectedRow >= 0) {
-        MSPlugin *plug = [_tableContent objectAtIndex:_tblView.selectedRow];
+        MF_Plugin *plug = [_tableContent objectAtIndex:_tblView.selectedRow];
         NSURL *fileURL = [[NSURL alloc] initFileURLWithPath:plug.localPath];
         [[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs:[NSArray arrayWithObject:fileURL]];
     }
@@ -190,7 +190,7 @@ NSInteger previusRow = -1;
 
 - (IBAction)pluginDelete:(id)sender {
     if (_tblView.selectedRow >= 0) {
-        MSPlugin *plug = [_tableContent objectAtIndex:_tblView.selectedRow];
+        MF_Plugin *plug = [_tableContent objectAtIndex:_tblView.selectedRow];
         NSURL* url = [NSURL fileURLWithPath:plug.localPath];
         NSURL* trash;
         NSError* error;

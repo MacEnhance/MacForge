@@ -1,0 +1,219 @@
+//
+//  MF_discoverView.m
+//  MacForge
+//
+//  Created by Wolfgang Baird on 5/22/20.
+//  Copyright © 2020 MacEnhance. All rights reserved.
+//
+
+#import "AppDelegate.h"
+#import "MF_bundleTinyItem.h"
+#import "MF_discoverView.h"
+
+extern AppDelegate *myDelegate;
+
+@implementation MF_discoverView {
+    int                 columns;
+    MF_Plugin           *plug;
+    MF_PluginManager    *sharedMethods;
+    MF_repoData         *pluginData;
+    NSMutableDictionary *featuredRepo;
+    NSMutableArray      *smallArray;
+    NSArray             *tableContents;
+}
+
+- (void)drawRect:(NSRect)dirtyRect {
+    [super drawRect:dirtyRect];
+}
+
+-(void)setFilter:(NSString*)filt {
+//    NSArray *dank = [[NSArray alloc] initWithArray:[self->featuredRepo allValues]];
+//    NSString *filterText = filt;
+//    NSArray *result = dank;
+//    NSString *filter = @"(webName CONTAINS[cd] %@) OR (bundleID CONTAINS[cd] %@) OR (webTarget CONTAINS[cd] %@)";
+//    if (filterText.length > 0) {
+//        result = [dank filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:filter, filterText, filterText, filterText]];
+//    }
+//    dank = result;
+    
+    NSMutableDictionary *dict = featuredRepo; //dictionary to be sorted
+
+    NSArray *sortedKeys = [dict keysSortedByValueUsingComparator: ^(id obj1, id obj2) {
+        //get the key value.
+        NSString *s1 = [obj1 valueForKey:@"webPublishDate"];
+        NSString *s2 = [obj2 valueForKey:@"webPublishDate"];
+
+        //Convert NSString to NSDate:
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        //Set the AM and PM symbols
+//        [dateFormatter setAMSymbol:@"AM"];
+//        [dateFormatter setPMSymbol:@"PM"];
+       //Specify only 1 M for month, 1 d for day and 1 h for hour
+       [dateFormatter setDateFormat:@"MMM dd, yyyy"];
+       NSDate *d1 = [dateFormatter dateFromString:s1];
+       NSDate *d2 = [dateFormatter dateFromString:s2];
+
+        if ([d1 compare:d2] == NSOrderedAscending)
+            return (NSComparisonResult)NSOrderedAscending;
+        if ([d1 compare:d2] == NSOrderedDescending)
+            return (NSComparisonResult)NSOrderedDescending;
+        return (NSComparisonResult)NSOrderedSame;
+    }];
+//    NSArray *sortedValues = [[dict allValues] sortedArrayUsingSelector:@selector(compare:)];
+    
+    NSArray         *reversedArray = [[sortedKeys reverseObjectEnumerator] allObjects];
+    NSString        *currentDateStr = @"";
+    NSMutableArray  *sortedArray = NSMutableArray.new;
+    NSMutableArray  *groupCluster = NSMutableArray.new;
+    
+    // Sort are array into usable table data
+    for (NSString *key in reversedArray) {
+        MF_Plugin *plug = [featuredRepo valueForKey:key];
+        NSString *pluginUpdateStr = plug.webPublishDate;
+        
+        // New group
+        if (![currentDateStr isEqualToString:pluginUpdateStr] && pluginUpdateStr.length) {
+            
+            // Set new header string
+            currentDateStr = pluginUpdateStr;
+            
+            // Pad out current cluster
+            while (groupCluster.count % columns != 0)
+                [groupCluster addObject:NSObject.new];
+                
+            // Add cluster to tableContents
+            for (NSObject *o in groupCluster)
+                [sortedArray addObject:o];
+            
+            // Null out cludter
+            groupCluster = NSMutableArray.new;
+            
+            // Add header group
+            [groupCluster addObject:pluginUpdateStr];
+            for (int i = 0; i < columns - 1; i++)
+                [groupCluster addObject:NSObject.new];
+            
+        }
+        [groupCluster addObject:plug];
+    }
+    
+    tableContents = sortedArray.copy;
+//    NSLog(@"%@", tableContents);
+        
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//    [dateFormatter setDateFormat:@"MMM dd, yyyy"];
+//    NSDate *dateFromString = [dateFormatter dateFromString:dateString];
+                                        
+    // Sort table by name
+//    NSSortDescriptor *sorter = [[NSSortDescriptor alloc] initWithKey:@"webName" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
+//    dank = [[dank sortedArrayUsingDescriptors:@[sorter]] copy];
+}
+
+- (void)viewWillDraw {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        columns = 4;
+        smallArray = NSMutableArray.new;
+        
+        // create a table view and a scroll view
+        NSScrollView * tableContainer = [[NSScrollView alloc] initWithFrame:self.frame];
+        tableContainer.drawsBackground = false;
+        
+        _tv = [[NSTableView alloc] initWithFrame:NSMakeRect(0, 0, 500, 500)];
+        [_tv setDelegate:self];
+        [_tv setDataSource:self];
+        _tv.gridColor = NSColor.clearColor;
+        _tv.backgroundColor = NSColor.clearColor;
+        _tv.headerView = nil;
+        _tv.floatsGroupRows = true;
+        
+        // embed the table view in the scroll view, and add the scroll view to our window.
+        [tableContainer setDocumentView:_tv];
+        [tableContainer setHasVerticalScroller:YES];
+        [self addSubview:tableContainer];
+        
+        dispatch_queue_t backgroundQueue = dispatch_queue_create("com.w0lf.MacForge", 0);
+        dispatch_async(backgroundQueue, ^{
+            if (self->sharedMethods == nil)
+                self->sharedMethods = [MF_PluginManager sharedInstance];
+
+            // Fetch repo content
+            static dispatch_once_t aToken;
+            dispatch_once(&aToken, ^{
+                self->pluginData = [MF_repoData sharedInstance];
+                [self->pluginData fetch_repos];
+                self->featuredRepo = [self->pluginData fetch_repo:@"https://github.com/MacEnhance/MacForgeRepo/raw/master/repo"];
+
+                [self setFilter:@""];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.tv reloadData];
+                });
+            });
+        });
+    });
+    
+    // create columns for our table
+    for (int i = 0; i < columns; i++) {
+        NSString *identify = [NSString stringWithFormat:@"Col%d", i];
+        NSTableColumn * column = [[NSTableColumn alloc] initWithIdentifier:identify];
+        [column setWidth:self.frame.size.width/columns];
+        [_tv addTableColumn:column];
+    }
+}
+
+- (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
+    if ([tableContents[row * columns] isKindOfClass:NSString.class])
+        return 40;
+    return 77;
+}
+
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
+    [self setFilter:@""];
+    return ceil(tableContents.count/columns);
+}
+
+- (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    if ([[tableView rowViewAtRow:row makeIfNecessary:NO] isGroupRowStyle]) {
+        NSObject *obj = tableContents[row * columns];
+
+        NSTableCellView *result = NSTableCellView.new;
+        [result setFrame:CGRectMake(0, 0, 1382, 40)];
+
+        NSTextField *t = [[NSTextField alloc] initWithFrame:CGRectMake(0, 0, 1382, 40)];
+        [t setEditable:false];
+        [t setFont:[NSFont systemFontOfSize:24]];
+        [t setStringValue:(NSString*)obj];
+
+        [result addSubview:t];
+
+        return result;
+    } else {
+        NSUInteger index = (row * columns + [[tableView tableColumns] indexOfObject:tableColumn]);
+        
+        if (index < tableContents.count) {
+            if ([[[tableContents objectAtIndex:index] class] isEqualTo:MF_Plugin.class]) {
+                            
+                NSTableCellView *result;
+                MF_bundleTinyItem *cont = [[MF_bundleTinyItem alloc] initWithNibName:0 bundle:nil];
+                [smallArray addObject:cont];
+                result = [[NSTableCellView alloc] initWithFrame:cont.view.frame];
+                MF_Plugin *p = [[MF_Plugin alloc] init];
+                [result addSubview:cont.view];
+                p = [tableContents objectAtIndex:index];
+                [cont setupWithPlugin:p];
+                
+                return result;
+            }
+        }
+    }
+    return nil;
+}
+
+- (BOOL)tableView:(NSTableView *)tableView isGroupRow:(NSInteger)row {
+    if ([tableContents[row * columns] isKindOfClass:NSString.class])
+        return true;
+    return false;
+}
+
+@end

@@ -12,7 +12,8 @@
 -   macforge:// links now just use the bundleID
 -   Removed option for multiple sources
 -   Removed search bar from discover view
--   Removed navigation bar from discover view-   Updated Xcode Plugin template
+-   Removed navigation bar from discover view
+-   Updated Xcode Plugin template
 -   Updated Demo Plugin
 -   Updated information regarding AMFI
 -   Updated SIP notification window

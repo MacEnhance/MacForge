@@ -9,8 +9,8 @@
 @import AppKit;
 @import WebKit;
 
-#import "PluginManager.h"
-#import "pluginData.h"
+#import "MF_PluginManager.h"
+#import "MF_repoData.h"
 #import "MF_Purchase.h"
 
 #import "AppDelegate.h"
@@ -19,7 +19,7 @@ extern AppDelegate* myDelegate;
 
 @implementation MF_Purchase
 
-+ (void)pushthebutton:(MSPlugin*)plugin :(NSButton*)theButton :(NSString*)repo :(NSProgressIndicator*)progress {
++ (void)pushthebutton:(MF_Plugin*)plugin :(NSButton*)theButton :(NSString*)repo :(NSProgressIndicator*)progress {
     if ([MF_Purchase packageInstalled:plugin]) {
         if ([theButton.title isEqualToString:@"UPDATE"]) {
             // Installed, update
@@ -31,7 +31,7 @@ extern AppDelegate* myDelegate;
             [MSAnalytics trackEvent:@"Downgrade" withProperties:@{@"Product ID" : plugin.bundleID}];
         } else {
             // Installed, reveal in Finder
-            [PluginManager.sharedInstance pluginRevealFinder:plugin.webPlist];
+            [MF_PluginManager.sharedInstance pluginRevealFinder:plugin.webPlist];
             [MSAnalytics trackEvent:@"Open" withProperties:@{@"Product ID" : plugin.bundleID}];
         }
     } else {
@@ -40,7 +40,7 @@ extern AppDelegate* myDelegate;
     }
 }
 
-+ (void)verifyPurchased:(MSPlugin*)plugin :(NSButton*)theButton {
++ (void)verifyPurchased:(MF_Plugin*)plugin :(NSButton*)theButton {
 //    NSLog(@"%s", __PRETTY_FUNCTION__);
 //    NSLog(@"%@ : %@", plugin.bundleID, theButton);
     
@@ -81,15 +81,15 @@ extern AppDelegate* myDelegate;
     }
 }
 
-+ (Boolean)packageInstalled:(MSPlugin*)plugin {
-    if ([PluginManager.sharedInstance pluginLocalPath:plugin.bundleID].length)
++ (Boolean)packageInstalled:(MF_Plugin*)plugin {
+    if ([MF_PluginManager.sharedInstance pluginLocalPath:plugin.bundleID].length)
         return true;
     return false;
 }
 
-+ (void)checkStatus:(MSPlugin*)plugin :(NSButton*)theButton {
++ (void)checkStatus:(MF_Plugin*)plugin :(NSButton*)theButton {
     NSDictionary* item = plugin.webPlist;
-    NSMutableDictionary *installedPlugins = [PluginManager.sharedInstance getInstalledPlugins];
+    NSMutableDictionary *installedPlugins = [MF_PluginManager.sharedInstance getInstalledPlugins];
 //
 //    Boolean installed = false;
     NSString *bundleID = [item objectForKey:@"package"];
@@ -107,7 +107,7 @@ extern AppDelegate* myDelegate;
         theButton.enabled = true;
     });
     
-    if ([PluginManager.sharedInstance pluginLocalPath:bundleID].length) {
+    if ([MF_PluginManager.sharedInstance pluginLocalPath:bundleID].length) {
         // Pack already exists
         
         NSString *cur;
@@ -152,7 +152,7 @@ extern AppDelegate* myDelegate;
     }
 }
 
-+ (void)installOrPurchase:(MSPlugin*)plugin :(NSButton*)theButton :(NSString*)repo :(NSProgressIndicator*)progress {
++ (void)installOrPurchase:(MF_Plugin*)plugin :(NSButton*)theButton :(NSString*)repo :(NSProgressIndicator*)progress {
 //    NSLog(@"%s", __PRETTY_FUNCTION__);
     
     NSDictionary* item = plugin.webPlist;
@@ -195,13 +195,13 @@ extern AppDelegate* myDelegate;
     }
 }
 
-+ (void)pluginInstallWithProgress:(MSPlugin*)plugin :(NSString*)repo :(NSButton*)theButton :(NSProgressIndicator*)progress {
++ (void)pluginInstallWithProgress:(MF_Plugin*)plugin :(NSString*)repo :(NSButton*)theButton :(NSProgressIndicator*)progress {
     NSLog(@"%@", progress);
     if (progress) {
         NSDictionary* item = plugin.webPlist;
-        [PluginManager.sharedInstance pluginUpdateOrInstallWithProgress:item :repo :theButton :progress];
+        [MF_PluginManager.sharedInstance pluginUpdateOrInstallWithProgress:item :repo :theButton :progress];
         dispatch_async(dispatch_get_main_queue(), ^{
-            [PluginManager.sharedInstance readPlugins:nil];
+            [MF_PluginManager.sharedInstance readPlugins:nil];
             [theButton setTitle:@"OPEN"];
         });
     } else {
@@ -209,10 +209,10 @@ extern AppDelegate* myDelegate;
     }
 }
 
-+ (void)pluginInstall:(MSPlugin*)plugin :(NSButton*)theButton :(NSString*)repo {
++ (void)pluginInstall:(MF_Plugin*)plugin :(NSButton*)theButton :(NSString*)repo {
    NSDictionary* item = plugin.webPlist;
-    [PluginManager.sharedInstance pluginUpdateOrInstall:item :repo withCompletionHandler:^(BOOL res) {
-        [PluginManager.sharedInstance readPlugins:nil];
+    [MF_PluginManager.sharedInstance pluginUpdateOrInstall:item :repo withCompletionHandler:^(BOOL res) {
+        [MF_PluginManager.sharedInstance readPlugins:nil];
         [theButton setTitle:@"OPEN"];
     }];
 }

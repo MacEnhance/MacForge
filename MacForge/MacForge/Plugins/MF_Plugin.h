@@ -1,5 +1,5 @@
 //
-//  MSPlugin.h
+//  MF_Plugin.h
 //  MacForge
 //
 //  Created by Wolfgang Baird on 6/22/17.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MSPlugin : NSObject
+@interface MF_Plugin : NSObject
     
 // Local or Repo
 @property NSString      *bundleID;  // Must be unique

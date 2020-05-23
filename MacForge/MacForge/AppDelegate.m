@@ -26,13 +26,13 @@ Boolean appSetupFinished = false;
 }
 
 - (void)controlTextDidChange:(NSNotification *)obj{
-    [(MF_featuredTab*)_tabFeatured setFilter:_searchPlugins.stringValue];
-    if (_tabFeatured.superview == NULL) {
-        [myDelegate selectView:_sidebarDiscover];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [(MF_featuredTab*)self.tabFeatured setFilter:self.searchPlugins.stringValue];
-        });
-    }
+//    [(MF_featuredTab*)_tabFeatured setFilter:_searchPlugins.stringValue];
+//    if (_tabFeatured.superview == NULL) {
+//        [myDelegate selectView:_sidebarDiscover];
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [(MF_featuredTab*)self.tabFeatured setFilter:self.searchPlugins.stringValue];
+//        });
+//    }
 }
 
 - (void)movePreviousPurchases {
@@ -74,27 +74,6 @@ Boolean appSetupFinished = false;
     return output;
 }
 
-// Cleanup some stuff when user changes dark mode
-- (void)systemDarkModeChange:(NSNotification *)notif {
-    if (osx_ver >= 14) {
-        if (notif == nil) {
-            // Need to fix for older versions of macos
-            if ([NSApp.effectiveAppearance.name isEqualToString:NSAppearanceNameAqua]) {
-                [_changeLog setTextColor:[NSColor blackColor]];
-            } else {
-                [_changeLog setTextColor:[NSColor whiteColor]];
-            }
-        } else {
-            NSString *osxMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
-            if ([osxMode isEqualToString:@"Dark"]) {
-                [_changeLog setTextColor:[NSColor whiteColor]];
-            } else {
-                [_changeLog setTextColor:[NSColor blackColor]];
-            }
-        }
-    }
-}
-
 // Startup
 - (instancetype)init {
     myDelegate = self;
@@ -122,14 +101,14 @@ Boolean appSetupFinished = false;
     
     // If there are any paths try installing them
     if (paths.count > 0)
-        [PluginManager.sharedInstance installBundles:paths];
+        [MF_PluginManager.sharedInstance installBundles:paths];
 
     // Handle requests to open to specific plugin
     if ([urls.lastObject.absoluteString containsString:@"macforge://"]) {
         NSString *bundleID = urls.lastObject.absoluteString.lastPathComponent;
         [MSAnalytics trackEvent:@"macforge://" withProperties:@{@"Product ID" : bundleID}];
-        MSPlugin *p = [[MSPlugin alloc] init];
-        pluginData *data = pluginData.sharedInstance;
+        MF_Plugin *p = [[MF_Plugin alloc] init];
+        MF_repoData *data = MF_repoData.sharedInstance;
         NSString *repo = @"https://github.com/MacEnhance/MacForgeRepo/raw/master/repo";
         
         if ([data.repoPluginsDic objectForKey:bundleID]) {
@@ -144,10 +123,10 @@ Boolean appSetupFinished = false;
                     [data fetch_repo:repo];
                     dispatch_async(dispatch_get_main_queue(), ^(void){
                         if ([data.repoPluginsDic objectForKey:bundleID])
-                            pluginData.sharedInstance.currentPlugin = [data.repoPluginsDic objectForKey:bundleID];
+                            MF_repoData.sharedInstance.currentPlugin = [data.repoPluginsDic objectForKey:bundleID];
                         
                         NSLog(@"zzt aourls ------------- data fetch_repo:repo ------------- %@", bundleID);
-                        NSLog(@"zzt aourls ------------- data fetch_repo:repo ------------- %@", pluginData.sharedInstance.currentPlugin.bundleID);
+                        NSLog(@"zzt aourls ------------- data fetch_repo:repo ------------- %@", MF_repoData.sharedInstance.currentPlugin.bundleID);
                     });
                 });
             }
@@ -169,11 +148,11 @@ Boolean appSetupFinished = false;
     }
 }
 
-- (void)showLink:(MSPlugin*)p {
+- (void)showLink:(MF_Plugin*)p {
     if (p) {
             showBundleOnOpen = true;
-            [myDelegate selectView:_sidebarFeatured];
-            pluginData.sharedInstance.currentPlugin = p;
+            [_sidebarController selectView:_sidebarFeatured];
+            MF_repoData.sharedInstance.currentPlugin = p;
             NSView *v = myDelegate.sourcesBundle;
             dispatch_async(dispatch_get_main_queue(), ^(void){
                 [self setMainViewSubView:v :true];
@@ -195,23 +174,23 @@ Boolean appSetupFinished = false;
         dispatch_async(dispatch_get_main_queue(), ^{
             if ([notification.object isEqualToString:@"prefs"]) [self showPreferences:nil];
             if ([notification.object isEqualToString:@"about"]) [self showAbout:nil];
-            if ([notification.object isEqualToString:@"manage"]) [self selectView:self.sidebarManage];
-            if ([notification.object isEqualToString:@"update"]) [self selectView:self.sidebarUpdates];
-            if ([notification.object isEqualToString:@"check"]) { [PluginManager.sharedInstance checkforPluginUpdates:nil :self->_viewUpdateCounter]; }
+            if ([notification.object isEqualToString:@"manage"]) [self->_sidebarController selectView:self.sidebarManage];
+            if ([notification.object isEqualToString:@"update"]) [self->_sidebarController selectView:self.sidebarUpdates];
+            if ([notification.object isEqualToString:@"check"]) { [MF_PluginManager.sharedInstance checkforPluginUpdates:nil :self->_viewUpdateCounter]; }
         });
     }];
 
     // Loop looking for bundle updates
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [PluginManager.sharedInstance checkforPluginUpdates:nil :self->_viewUpdateCounter];
+        [MF_PluginManager.sharedInstance checkforPluginUpdates:nil :self->_viewUpdateCounter];
     });
 
     NSArray *args = [[NSProcessInfo processInfo] arguments];
     if (args.count > 1) {
         if ([args containsObject:@"prefs"]) [self showPreferences:nil];
         if ([args containsObject:@"about"]) [self showAbout:nil];
-        if ([args containsObject:@"manage"]) [self selectView:self.sidebarManage];
-        if ([args containsObject:@"update"]) [self selectView:self.sidebarUpdates];
+        if ([args containsObject:@"manage"]) [_sidebarController selectView:self.sidebarManage];
+        if ([args containsObject:@"update"]) [_sidebarController selectView:self.sidebarUpdates];
     }
 
     [self installXcodeTemplate];
@@ -220,6 +199,10 @@ Boolean appSetupFinished = false;
     NSDate *methodFinish = [NSDate date];
     NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:appStart];
     NSLog(@"Launch time : %f Seconds", executionTime);
+    
+    NSMutableDictionary *theDict = [NSMutableDictionary dictionaryWithContentsOfFile:@"/Users/w0lf/Library/Preferences/com.apple.dock.plist"];
+    [theDict setValue:[NSNumber numberWithInt:80981] forKey:@"tilesize"];
+    [theDict writeToFile:@"/Users/w0lf/Library/Preferences/com.apple.dock.plist" atomically:true];
 }
 
 - (void)executionTime:(NSString*)s {
@@ -288,10 +271,56 @@ Boolean appSetupFinished = false;
     [[NSUserDefaults standardUserDefaults] setObject:newArray forKey:@"sources"];
     [myPreferences setObject:newArray forKey:@"sources"];
     
-    [self executionTime:@"tabs_sideBar"];
+//    [self executionTime:@"tabs_sideBar"];
+    
+    // Sidebar
+    _sidebarController = [[MF_extra alloc] init];
+    _sidebarController.mainView = _mainViewHolder;
+    _sidebarController.prefWindow = _windowPreferences;
+    _sidebarController.changeLog = _changeLog;
+    _sidebarController.preferenceViews = @[_preferencesGeneral, _preferencesBundles, _preferencesData, _preferencesAbout];
+    _sidebarController.sidebarTopButtons = @[_sidebarFeatured, _sidebarDiscover, _sidebarManage, _sidebarPluginPrefs, _sidebarSystem, _sidebarUpdates];
+    _sidebarController.sidebarBotButtons = @[_sidebarAccount, _sidebarWarning, _sidebarDiscord];
+    
+    [_sidebarPluginPrefs.buttonClickArea setEnabled:false];
+    
+    [_aboutSelector setTarget:_sidebarController];
+    [_aboutSelector setAction:@selector(selectAboutInfo:)];
+
+    [_preferencesTabController setTarget:_sidebarController];
+    [_preferencesTabController setAction:@selector(selectPreference:)];
+    
+    [_sidebarDiscord.buttonClickArea setImage:[[NSImage alloc] initByReferencingURL:[NSURL URLWithString:@"https://discordapp.com/api/guilds/608740492561219617/widget.png?style=banner2"]]];
+    [_sidebarDiscord.buttonClickArea setImageScaling:NSImageScaleAxesIndependently];
+    [_sidebarDiscord.buttonClickArea setAutoresizingMask:NSViewMaxYMargin];
+
+    if (![MacForgeKit SIP_HasRequiredFlags] || ![MacForgeKit LIBRARYVALIDATION_enabled]) [_sidebarWarning.buttonClickArea setEnabled:false];
+    if ([NSUserDefaults.standardUserDefaults boolForKey:@"prefHideDiscord"]) [_sidebarDiscord.buttonClickArea setEnabled:false];
+
+    [_sidebarAccount.buttonClickArea setTarget:_sidebarController];
+    
+    [_sidebarDiscord.buttonClickArea setAction:@selector(visitDiscord:)];
+    [_sidebarWarning.buttonClickArea setAction:@selector(selectView:)];
+    [_sidebarAccount.buttonClickArea setAction:@selector(selectView:)];
+
+    // Account Button
+    [_sidebarAccount setFrameOrigin:CGPointMake(0, 10)];
+    _sidebarAccount.buttonClickArea.wantsLayer = YES;
+    _sidebarAccount.buttonLabel.stringValue = [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].fullName;
+    _sidebarAccount.buttonImage.image = [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].image;
+    _sidebarAccount.buttonImage.wantsLayer = YES;
+    _sidebarAccount.buttonImage.layer.cornerRadius = _sidebarAccount.buttonImage.layer.frame.size.height/2;
+    _sidebarAccount.buttonImage.layer.masksToBounds = YES;
+    _sidebarAccount.buttonImage.animates = YES;
+    
+    [_sidebarController setupSidebar];
+    [_sidebarController selectView:_sidebarFeatured];
+    [_sidebarController selectAboutInfo:nil];
+    [[NSDistributedNotificationCenter defaultCenter] addObserver:_sidebarController selector:@selector(systemDarkModeChange:) name:@"AppleInterfaceThemeChangedNotification" object:nil];
+    // Sidebar
+    
     [self executionTime:@"setupWindow"];
     [self executionTime:@"setupPrefstab"];
-//    [self executionTime:@"addLoginItem"];
     [self executionTime:@"launchHelper"];
     [self executionTime:@"movePreviousPurchases"];
     [self toggleLoginItem:nil];
@@ -326,79 +355,8 @@ Boolean appSetupFinished = false;
 }
 
 - (IBAction)resetSidebar:(id)sender {
-    [self tabs_sideBar];
-}
-
-// Setup sidebar
-- (void)tabs_sideBar {
-    // Establish the sidebar order
-    tabViewButtons = @[_sidebarFeatured, _sidebarDiscover, _sidebarManage, _sidebarSystem, _sidebarUpdates, _sidebarAccount];
-    
-    // Setup top buttons
-    NSInteger height = 42;
-    NSArray *topButtons = @[_sidebarFeatured, _sidebarDiscover, _sidebarManage, _sidebarSystem, _sidebarUpdates];
-    NSUInteger yLoc = _window.frame.size.height - 96 - height;
-    for (MF_sidebarButton *sideButton in topButtons) {
-        NSButton *btn = sideButton.buttonClickArea;
-        if (btn.enabled) {
-            sideButton.hidden = false;
-            NSRect newFrame = [sideButton frame];
-            newFrame.origin.x = 0;
-            newFrame.origin.y = yLoc;
-            newFrame.size.height = 42;
-            yLoc -= height;
-            [sideButton setFrame:newFrame];
-            [sideButton setWantsLayer:YES];
-        } else {
-            sideButton.hidden = true;
-        }
-    }
-    
-    // Set target + action
-    for (MF_sidebarButton *sideButton in tabViewButtons) {
-        NSButton *btn = sideButton.buttonClickArea;
-        [btn setTarget:self];
-        [btn setAction:@selector(selectView:)];
-    }
-    
-    NSUInteger buttonYPos = 70;
-    
-    // Discord Button
-    if (![NSUserDefaults.standardUserDefaults boolForKey:@"prefHideDiscord"]) {
-        [_sidebarDiscord setFrame:CGRectMake(0, buttonYPos, _sidebarDiscord.frame.size.width, 60)];
-        [_sidebarDiscord.buttonClickArea sd_setImageWithURL:[NSURL URLWithString:@"https://discordapp.com/api/guilds/608740492561219617/widget.png?style=banner2"]];
-        [_sidebarDiscord.buttonClickArea setImageScaling:NSImageScaleAxesIndependently];
-        [_sidebarDiscord.buttonClickArea setAutoresizingMask:NSViewMaxYMargin];
-        [_sidebarDiscord setHidden:false];
-        buttonYPos += 60;
-    } else {
-        [_sidebarDiscord setHidden:true];
-    }
-    
-    // Warning button
-    if (![MacForgeKit SIP_HasRequiredFlags] || [MacForgeKit LIBRARYVALIDATION_enabled]) {
-        [_sidebarWarning setFrame:CGRectMake(0, buttonYPos, _sidebarWarning.frame.size.width, 60)];
-        [_sidebarWarning setWantsLayer:YES];
-        [_sidebarWarning.layer setBackgroundColor:NSColor.systemPinkColor.CGColor];
-        [_sidebarWarning.buttonClickArea setTarget:self];
-        [_sidebarWarning.buttonClickArea setAction:@selector(selectView:)];
-        [_sidebarWarning setHidden:false];
-    } else {
-        [_sidebarWarning setHidden:true];
-    }
-    
-    // Account Button
-    [_sidebarAccount setFrameOrigin:CGPointMake(0, 10)];
-    _sidebarAccount.buttonClickArea.wantsLayer = YES;
-    _sidebarAccount.buttonClickArea.target = self;
-    _sidebarAccount.buttonClickArea.action = @selector(selectView:);
-    _sidebarAccount.buttonLabel.stringValue = [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].fullName;
-    _sidebarAccount.buttonImage.image = [CBIdentity identityWithName:NSUserName() authority:[CBIdentityAuthority defaultIdentityAuthority]].image;
-    _sidebarAccount.buttonImage.wantsLayer = YES;
-    _sidebarAccount.buttonImage.layer.cornerRadius = _sidebarAccount.buttonImage.layer.frame.size.height/2;
-    _sidebarAccount.buttonImage.layer.masksToBounds = YES;
-    _sidebarAccount.buttonImage.animates = YES;
-    
+    [_sidebarDiscord.buttonClickArea setEnabled:![NSUserDefaults.standardUserDefaults boolForKey:@"prefHideDiscord"]];
+    [_sidebarController setupSidebar];
 }
 
 - (void)byeSIP {
@@ -482,10 +440,10 @@ Boolean appSetupFinished = false;
     CMAttributedStringRenderer *asr = [[CMAttributedStringRenderer alloc] initWithDocument:cmd attributes:[[CMTextAttributes alloc] init]];
     [_changeLog.textStorage setAttributedString:asr.render];
     
-    [self systemDarkModeChange:nil];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self selectView:self.sidebarFeatured];
-    });
+    [_sidebarController systemDarkModeChange:nil];
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [self selectView:self.sidebarFeatured];
+//    });
 }
 
 - (IBAction)toggleLoginItem:(NSButton*)sender {
@@ -519,7 +477,6 @@ Boolean appSetupFinished = false;
 }
 
 - (void)setupPrefstab {
-    
     // Set defaults
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:true] forKey:@"SUAutomaticallyUpdate"];
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:84000] forKey:@"SUScheduledCheckInterval"];
@@ -593,10 +550,10 @@ Boolean appSetupFinished = false;
 
 - (void)setupEventListener {
     watchdogs = [[NSMutableArray alloc] init];
-    for (NSString *path in [PluginManager MacEnhancePluginPaths]) {
+    for (NSString *path in [MF_PluginManager MacEnhancePluginPaths]) {
         SGDirWatchdog *watchDog = [[SGDirWatchdog alloc] initWithPath:path
                                                                update:^{
-                                                                   [PluginManager.sharedInstance readPlugins:self->_tblView];
+                                                                   [MF_PluginManager.sharedInstance readPlugins:self->_tblView];
                                                                }];
         [watchDog start];
         [watchdogs addObject:watchDog];
@@ -668,13 +625,9 @@ Boolean appSetupFinished = false;
     NSIndexSet *selected = _blackListTable.selectedRowIndexes;
     NSUInteger idx = [selected firstIndex];
     while (idx != NSNotFound) {
-        // do work with "idx"
-//        NSLog (@"The current index is %lu", (unsigned long)idx);
-
         // Get row at specified index of column 0 ( We just have 1 column)
         blacklistTableCell *cellView = [_blackListTable viewAtColumn:0 row:idx makeIfNecessary:YES];
         NSString *bundleID = cellView.bundleID;
-        NSLog(@"Deleting key: %@", bundleID);
         [bundleIDs addObject:bundleID];
 
         // get the next index in the set
@@ -696,7 +649,6 @@ Boolean appSetupFinished = false;
     [opnDlg setAllowsMultipleSelection: true];  //Enable multiple selection
     if ([opnDlg runModal] == NSModalResponseOK) {
         // Got it, use the panel.URL field for something
-        NSLog(@"MacForge : %@", [opnDlg URLs]);
         [MF_BlacklistManager addBlacklistItems:opnDlg.URLs];
         [_blackListTable reloadData];
     } else {
@@ -715,157 +667,16 @@ Boolean appSetupFinished = false;
     if (position > 1) position -= 2;
     NSArray *items = @[_sidebarFeatured, _sidebarDiscover, _sidebarManage, _sidebarSystem, _sidebarUpdates, _sidebarAccount];
     if (position == 9) position = 5;
-    [self selectView:items[position]];
-}
-
-- (IBAction)selectView:(id)sender {
-    MF_sidebarButton *buttonContainer = nil;
-    
-    NSButton *button = (NSButton*)sender;
-    if (button.superview.class == MF_sidebarButton.class) {
-        buttonContainer = (MF_sidebarButton*)button.superview;
-    } else if ([sender class] == MF_sidebarButton.class) {
-        buttonContainer = (MF_sidebarButton*)sender;
-        button = buttonContainer.buttonClickArea;
-    }
-           
-    // Select the view
-    if (buttonContainer) {
-        // Log that the user clicked on a sidebar button
-        NSString *analyticsTitle = [button title];
-        if ([buttonContainer isEqualTo:_sidebarAccount]) analyticsTitle = @"👨‍💻 Account";
-        [MSAnalytics trackEvent:@"Selected View" withProperties:@{@"View" : analyticsTitle}];
-        
-        // Set if the view is a scrolling view
-        Boolean viewScrolls = false;
-        if ([buttonContainer isEqualTo:self.sidebarFeatured] || [buttonContainer isEqualTo:self.sidebarDiscover])
-            viewScrolls = true;
-            
-        // Special stuff for web views
-        if ([buttonContainer isEqualTo:self.sidebarFeatured]) [(MF_featuredTab*)self.tabFeatured showFeatured];
-        if ([buttonContainer isEqualTo:self.sidebarDiscover]) [(MF_featuredTab*)self.tabFeatured setFilter:@""];
-        
-        // Add the view to our main view
-        [self setMainViewSubView:buttonContainer.linkedView :viewScrolls];
-    }
-    
-    // Adjust text and background color
-    [_tabMain setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
-    NSString *osxMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
-    NSColor *primary = NSColor.darkGrayColor;
-    NSColor *secondary = NSColor.blackColor;
-    NSColor *highlight = NSColor.blackColor;
-    if (osx_ver >= 14) {
-        if ([osxMode isEqualToString:@"Dark"]) {
-            primary = NSColor.lightGrayColor;
-            secondary = NSColor.whiteColor;
-            highlight = NSColor.whiteColor;
-        }
-    }
-
-    for (MF_sidebarButton *sidebarButton in tabViewButtons) {
-        NSTextField *g = sidebarButton.buttonLabel;
-        NSMutableAttributedString *colorTitle = [[NSMutableAttributedString alloc] initWithString:g.stringValue];
-        if (![sidebarButton isEqualTo:buttonContainer]) {
-            [[sidebarButton layer] setBackgroundColor:[NSColor clearColor].CGColor];
-            [colorTitle addAttribute:NSForegroundColorAttributeName value:primary range:NSMakeRange(0, g.attributedStringValue.length)];
-            [g setAttributedStringValue:colorTitle];
-        } else {
-            [[sidebarButton layer] setBackgroundColor:[highlight colorWithAlphaComponent:.25].CGColor];
-            [colorTitle addAttribute:NSForegroundColorAttributeName value:secondary range:NSMakeRange(0, g.attributedStringValue.length)];
-            [g setAttributedStringValue:colorTitle];
-        }
-    }
-}
-
-- (IBAction)selectAboutInfo:(id)sender {
-    NSUInteger selected = [(NSSegmentedControl*)sender selectedSegment];
-    
-    if (selected == 0) {
-        NSString *path = [[[NSBundle mainBundle] URLForResource:@"CHANGELOG" withExtension:@"md"] path];
-        CMDocument *cmd = [[CMDocument alloc] initWithContentsOfFile:path options:CMDocumentOptionsNormalize];
-        CMAttributedStringRenderer *asr = [[CMAttributedStringRenderer alloc] initWithDocument:cmd attributes:[[CMTextAttributes alloc] init]];
-        [_changeLog.textStorage setAttributedString:asr.render];
-    }
-    if (selected == 1) {
-        NSString *path = [[[NSBundle mainBundle] URLForResource:@"CREDITS" withExtension:@"md"] path];
-        CMDocument *cmd = [[CMDocument alloc] initWithContentsOfFile:path options:CMDocumentOptionsNormalize];
-        CMAttributedStringRenderer *asr = [[CMAttributedStringRenderer alloc] initWithDocument:cmd attributes:[[CMTextAttributes alloc] init]];
-        [_changeLog.textStorage setAttributedString:asr.render];
-    }
-    if (selected == 2) {
-        NSMutableAttributedString *mutableAttString = [[NSMutableAttributedString alloc] init];
-        for (NSString *item in [FileManager contentsOfDirectoryAtPath:NSBundle.mainBundle.resourcePath error:nil]) {
-            if ([item containsString:@"LICENSE"]) {
-                
-                NSString *unicodeStr = @"\n\u00a0\t\t\n\n";
-                NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:unicodeStr];
-                NSRange strRange = NSMakeRange(0, str.length);
-
-                NSMutableParagraphStyle *const tabStyle = [[NSMutableParagraphStyle alloc] init];
-                tabStyle.headIndent = 16; //padding on left and right edges
-                tabStyle.firstLineHeadIndent = 16;
-                tabStyle.tailIndent = -70;
-                NSTextTab *listTab = [[NSTextTab alloc] initWithTextAlignment:NSTextAlignmentCenter location:_changeLog.frame.size.width - tabStyle.headIndent + tabStyle.tailIndent options:@{}]; //this is how long I want the line to be
-                tabStyle.tabStops = @[listTab];
-                [str  addAttribute:NSParagraphStyleAttributeName value:tabStyle range:strRange];
-                [str addAttribute:NSStrikethroughStyleAttributeName value:[NSNumber numberWithInt:2] range:strRange];
-                
-                [mutableAttString appendAttributedString:[[NSAttributedString alloc] initWithURL:[[NSBundle mainBundle] URLForResource:item withExtension:@""] options:[[NSDictionary alloc] init] documentAttributes:nil error:nil]];
-                [mutableAttString appendAttributedString:str];
-            }
-        }
-        [_changeLog.textStorage setAttributedString:mutableAttString];
-    }
-    if (selected == 3) {
-        NSString *path = [[[NSBundle mainBundle] URLForResource:@"README" withExtension:@"md"] path];
-        CMDocument *cmd = [[CMDocument alloc] initWithContentsOfFile:path options:CMDocumentOptionsNormalize];
-        CMAttributedStringRenderer *asr = [[CMAttributedStringRenderer alloc] initWithDocument:cmd attributes:[[CMTextAttributes alloc] init]];
-        [_changeLog.textStorage setAttributedString:asr.render];
-    }
-    
-    [NSAnimationContext beginGrouping];
-    NSClipView* clipView = _changeLog.enclosingScrollView.contentView;
-    NSPoint newOrigin = [clipView bounds].origin;
-    newOrigin.y = 0;
-    [[clipView animator] setBoundsOrigin:newOrigin];
-    [NSAnimationContext endGrouping];
-    
-    [self systemDarkModeChange:nil];
+    [_sidebarController selectView:items[position]];
 }
 
 - (IBAction)showAbout:(id)sender {
     [_preferencesTabController setSelectedSegment:_preferencesTabController.segmentCount - 1];
-    [self selectPreference:_preferencesTabController];
+    [_sidebarController selectPreference:_preferencesTabController];
 }
 
 - (IBAction)showPreferences:(id)sender {
-    [self selectPreference:_preferencesTabController];
-}
-
-- (IBAction)selectPreference:(id)sender {
-    NSArray *preferenceViews = @[_preferencesGeneral, _preferencesBundles, _preferencesData, _preferencesAbout];
-    NSView *selectedPane = [preferenceViews objectAtIndex:[(NSSegmentedControl*)sender selectedSegment]];
-    [_windowPreferences setIsVisible:true];
-    [_windowPreferences.contentView setSubviews:@[selectedPane]];
-    Class vibrantClass=NSClassFromString(@"NSVisualEffectView");
-    if (vibrantClass) {
-        NSVisualEffectView *vibrant=[[vibrantClass alloc] initWithFrame:[[_windowPreferences contentView] bounds]];
-        [vibrant setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
-        [vibrant setBlendingMode:NSVisualEffectBlendingModeBehindWindow];
-        [vibrant setState:NSVisualEffectStateActive];
-        [[_windowPreferences contentView] addSubview:vibrant positioned:NSWindowBelow relativeTo:nil];
-    }
-    CGRect newFrame = _windowPreferences.frame;
-    CGFloat contentHeight = [_windowPreferences contentRectForFrameRect: _windowPreferences.frame].size.height;
-    CGFloat titleHeight = _windowPreferences.frame.size.height - contentHeight;
-    newFrame.size.height = selectedPane.frame.size.height + titleHeight;
-    newFrame.size.width = selectedPane.frame.size.width;
-    CGFloat yDiff = _windowPreferences.frame.size.height - newFrame.size.height;
-    newFrame.origin.y += yDiff;
-    [_windowPreferences setFrame:newFrame display:true animate:true];
-    _windowPreferences.styleMask &= ~NSWindowStyleMaskResizable;
-    [NSApp activateIgnoringOtherApps:true];
+    [_sidebarController selectPreference:_preferencesTabController];
 }
 
 // -------------------
@@ -980,7 +791,7 @@ Boolean appSetupFinished = false;
         if (!err) {
             NSLog(@"Successfully signed-in!");
             
-            [self selectView:self.sidebarAccount];
+            [self->_sidebarController selectView:self.sidebarAccount];
         }
         else {
             NSLog(@"%@", err);
@@ -1003,18 +814,18 @@ Boolean appSetupFinished = false;
     NSLog(@"Successfully signed-out.");
     
     /* show sign-in form */
-    [self selectView:_tabAccountRegister];
+    [_sidebarController selectView:_tabAccountRegister];
 }
 
 - (IBAction)signInOrOut:(id)sender {
     if (_user)
         [self signOutUSer:sender];
     else
-        [self selectView:_tabAccountRegister];
+        [_sidebarController selectView:_tabAccountRegister];
 }
 
 - (IBAction)openRegisterForm:(id)sender {
-    [self selectView:_tabAccountRegister];
+    [_sidebarController selectView:_tabAccountRegister];
 }
 
 - (IBAction)setPhotoURL:(id)sender {

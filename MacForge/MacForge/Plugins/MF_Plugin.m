@@ -1,21 +1,21 @@
 //
-//  MSPlugin.m
+//  MF_Plugin.m
 //  MacForge
 //
 //  Created by Wolfgang Baird on 6/22/17.
 //  Copyright © 2017 Wolfgang Baird. All rights reserved.
 //
 
-#import "MSPlugin.h"
+#import "MF_Plugin.h"
 
-@implementation MSPlugin
+@implementation MF_Plugin
 
-+ (MSPlugin*) sharedInstance
++ (MF_Plugin*) sharedInstance
 {
-    static MSPlugin* msP = nil;
+    static MF_Plugin* msP = nil;
     
     if (msP == nil)
-        msP = [[MSPlugin alloc] init];
+        msP = [[MF_Plugin alloc] init];
     
     return msP;
 }

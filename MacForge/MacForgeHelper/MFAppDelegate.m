@@ -17,7 +17,7 @@
 #import "NSBundle+LoginItem.h"
 #import "SIMBL.h"
 
-#import "PluginManager.h"
+#import "MF_PluginManager.h"
 
 #import <Carbon/Carbon.h>
 #include <syslog.h>
@@ -109,7 +109,7 @@ void HandleExceptions(NSException *exception) {
 
         if ([args containsObject:@"-u"]) {
             cmd = true;
-            [[PluginManager sharedInstance] checkforPluginUpdatesAndInstall:nil];
+            [[MF_PluginManager sharedInstance] checkforPluginUpdatesAndInstall:nil];
         }
 
         if (cmd) [NSApp terminate:nil];
@@ -151,7 +151,7 @@ void HandleExceptions(NSException *exception) {
 
 - (void)updatesPlugins {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSUserNotification *notif = [[PluginManager sharedInstance] checkforPluginUpdatesNotify];
+        NSUserNotification *notif = [[MF_PluginManager sharedInstance] checkforPluginUpdatesNotify];
         if (notif) {
             NSUserNotificationCenter.defaultUserNotificationCenter.delegate = self;
             [NSUserNotificationCenter.defaultUserNotificationCenter deliverNotification:notif];
@@ -162,7 +162,7 @@ void HandleExceptions(NSException *exception) {
 
 - (void)updatesPluginsInstall {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [[PluginManager sharedInstance] checkforPluginUpdatesAndInstall:nil];
+        [[MF_PluginManager sharedInstance] checkforPluginUpdatesAndInstall:nil];
         [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.w0lf.MacForgeNotify" object:@"check"];
     });
 }
@@ -479,7 +479,7 @@ void HandleExceptions(NSException *exception) {
     [watchdogs addObject:watchDog];
     
     // Plugin watcher
-    for (NSString *path in [PluginManager MacEnhancePluginPaths]) {
+    for (NSString *path in [MF_PluginManager MacEnhancePluginPaths]) {
         SGDirWatchdog *watchDog = [[SGDirWatchdog alloc] initWithPath:path update:^{ [self injectAllProc]; }];
         [watchDog start];
         [watchdogs addObject:watchDog];

@@ -6,7 +6,7 @@
 //  Copyright © 2016 Wolfgang Baird. All rights reserved.
 //
 
-@interface PluginManager : NSObject <NSURLSessionDataDelegate, NSURLSessionDelegate, NSURLSessionTaskDelegate> {
+@interface MF_PluginManager : NSObject <NSURLSessionDataDelegate, NSURLSessionDelegate, NSURLSessionTaskDelegate> {
     NSMutableArray      *pluginsArray;
     NSMutableDictionary *installedPluginDICT;
     NSMutableDictionary *needsUpdate;
@@ -19,7 +19,7 @@
 @property (nonatomic) float downloadSize;
 @property (nonatomic, retain) NSDictionary *plugin;
 
-+ (PluginManager*) sharedInstance;
++ (MF_PluginManager*) sharedInstance;
 + (NSArray*)MacEnhancePluginPaths;
 + (NSImage*)pluginGetIcon:(NSDictionary*)plist;
 

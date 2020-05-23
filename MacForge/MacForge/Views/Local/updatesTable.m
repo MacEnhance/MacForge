@@ -7,7 +7,7 @@
 //
 
 @import AppKit;
-#import "PluginManager.h"
+#import "MF_PluginManager.h"
 #import "AppDelegate.h"
 
 extern AppDelegate* myDelegate;
@@ -15,7 +15,7 @@ extern NSMutableArray *pluginsArray;
 NSMutableDictionary *needsUpdate;
 
 @interface updatesTable : NSTableView {
-    PluginManager *sharedMethods;
+    MF_PluginManager *sharedMethods;
 }
 @property (weak) IBOutlet NSTableView*  tblView;
 - (IBAction)updateAll:(id)sender;
@@ -34,7 +34,7 @@ NSMutableDictionary *needsUpdate;
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
     if (sharedMethods == nil)
-        sharedMethods = [PluginManager sharedInstance];
+        sharedMethods = [MF_PluginManager sharedInstance];
     
     [sharedMethods checkforPluginUpdates:nil :myDelegate.viewUpdateCounter];
     needsUpdate = sharedMethods.getNeedsUpdate;
@@ -53,7 +53,7 @@ NSMutableDictionary *needsUpdate;
     result.pluginName.stringValue = [item objectForKey:@"name"];
     result.pluginInfo.stringValue = bInfo;
     result.pluginDescription.stringValue = [item objectForKey:@"description"];
-    result.pluginImage.image = [PluginManager pluginGetIcon:item];
+    result.pluginImage.image = [MF_PluginManager pluginGetIcon:item];
     
     // Return the result
     return result;
