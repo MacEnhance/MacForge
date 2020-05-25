@@ -22,7 +22,6 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        _sourceListDic = [[NSMutableDictionary alloc] init];
         _repoPluginsDic = [[NSMutableDictionary alloc] init];
         _localPluginsDic = [[NSMutableDictionary alloc] init];
         _currentPlugin = [[MF_Plugin alloc] init];
@@ -69,36 +68,21 @@
             this_is_a_bundle.webFeatured = [[bundle valueForKey:@"featured"] boolValue];
             
             [result setObject:this_is_a_bundle forKey:bundleIdentifier];
+            
+            if (![self.repoPluginsDic valueForKey:bundleIdentifier])
+                [self.repoPluginsDic setObject:this_is_a_bundle forKey:bundleIdentifier];
 //            [sourceDic setObject:this_is_a_bundle forKey:bundleIdentifier];
         }
     }
+    
+    if (result.allKeys.count > 0)
+        _hasFetched = true;
+    
     return result;
 }
 
 - (void)fetch_repos {
-    _sourceListDic = [[NSMutableDictionary alloc] init];
     _repoPluginsDic = [[NSMutableDictionary alloc] init];
-    
-    // Changes
-    NSString *plist;
-    
-    plist = @"~/Library/Application Support/MacForge/packageIDs.plist".stringByExpandingTildeInPath;
-    NSMutableDictionary *packageIDs = [[NSMutableDictionary alloc] init];
-    if ([NSFileManager.defaultManager fileExistsAtPath:plist])
-        packageIDs= [NSMutableDictionary dictionaryWithContentsOfFile:plist];
-    
-    plist = @"~/Library/Application Support/MacForge/newPackages.plist".stringByExpandingTildeInPath;
-    NSMutableDictionary *changesPLIST = [[NSMutableDictionary alloc] init];
-    if ([NSFileManager.defaultManager fileExistsAtPath:plist])
-        changesPLIST= [NSMutableDictionary dictionaryWithContentsOfFile:plist];
-    
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"dd/MM/yyyy HH:mm"];
-    NSString *checkTimeStamp = [dateFormat stringFromDate:NSDate.date];
-    NSLog(@"Update time : %@", checkTimeStamp);
-    
-    NSMutableDictionary *packagesinCheck = [[NSMutableDictionary alloc] init];
-    //
     
     NSMutableArray *sourceURLS = [[NSMutableArray alloc] initWithArray:[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] objectForKey:@"sources"]];
     for (NSString *source in sourceURLS) {
@@ -107,11 +91,8 @@
 //        [self.sourceListDic setObject:sourceDic forKey:source];
         
         // Read the repo file
-        NSURL* data = [NSURL URLWithString:[NSString stringWithFormat:@"%@/packages_v2.plist", source]];
+        NSURL* data = [NSURL URLWithString:[NSString stringWithFormat:@"%@/packages.plist", source]];
         NSMutableDictionary* repoPackages = [[NSMutableDictionary alloc] initWithContentsOfURL:data];
-        
-        if (repoPackages == nil)
-            repoPackages = [[NSMutableDictionary alloc] initWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/packages.plist", source]]];
         
         // Repo has some contents
         if (repoPackages != nil) {
@@ -149,35 +130,9 @@
                 [self.repoPluginsDic setObject:this_is_a_bundle forKey:bundleIdentifier];
                 [sourceDic setObject:this_is_a_bundle forKey:bundleIdentifier];
 //                NSLog(@"%@", this_is_a_bundle);
-                
-                NSString *bundleID = this_is_a_bundle.bundleID;
-                if ([packageIDs objectForKey:bundleID]) {
-                    
-                    NSMutableDictionary *packagebundle = [packageIDs objectForKey:bundleID];
-                    
-                    // Package updated
-                    if (![[packagebundle objectForKey:@"version"] isEqualTo:this_is_a_bundle.webVersion]) {
-                        [bundle setObject:checkTimeStamp forKey:@"checkdate"];
-                        [packageIDs setObject:bundle forKey:bundleID];
-                        [packagesinCheck setObject:bundle forKey:bundleID];
-                    }
-                    
-                } else {
-                    
-                    // New package
-                    [bundle setObject:checkTimeStamp forKey:@"checkdate"];
-                    [packageIDs setObject:bundle forKey:bundleID];
-                    [packagesinCheck setObject:bundle forKey:bundleID];
-                    
-                }
             }
-            [self.sourceListDic setObject:sourceDic forKey:source];
+//            [self.sourceListDic setObject:sourceDic forKey:source];
         }
-        
-    }
-    
-    if (packagesinCheck.allKeys.count > 0) {
-        [changesPLIST setObject:packagesinCheck forKey:checkTimeStamp];
     }
 }
 

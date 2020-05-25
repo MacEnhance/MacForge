@@ -7,13 +7,17 @@
 //
 
 @import AppKit;
+
+#import "AppDelegate.h"
+
 #import "MF_Plugin.h"
 #import "MF_PluginManager.h"
 #import "MF_Purchase.h"
-#import <SDWebImage/SDWebImage.h>
-#import "SYFlatButton.h"
-#import "AppDelegate.h"
 #import "MF_repoData.h"
+
+#import "SYFlatButton.h"
+#import <SDWebImage/SDWebImage.h>
+
 
 @interface MF_bundleTinyItem : NSViewController
 {

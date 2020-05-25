@@ -6,8 +6,6 @@ MacForge is an open-source plugin manager for macOS. It lets you discover, insta
 
 [![Discord](https://discordapp.com/api/guilds/608740492561219617/widget.png?style=banner2)](https://discordapp.com/channels/608740492561219617/608740492640911378)
 
-![Preview](web/preview.png)
-
 ## [Installation](https://github.com/w0lfschild/MacForge/wiki/Installation) 📂
 
 - Download the [latest release](https://github.com/w0lfschild/app_updates/raw/master/MacForge/MacForge.zip)

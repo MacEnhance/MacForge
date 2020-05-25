@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 
 AppDelegate             *myDelegate;
-Boolean                 isdiscoverView = true;
 NSDate                  *appStart;
 NSMutableDictionary     *myPreferences;
 NSWindow                *sipWarningWindow;
@@ -165,7 +164,6 @@ Boolean appSetupFinished = false;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 //    [MSCrashes generateTestCrash];
 
-    [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(systemDarkModeChange:) name:@"AppleInterfaceThemeChangedNotification" object:nil];
     [[NSDistributedNotificationCenter defaultCenter] addObserverForName:@"com.w0lf.MacForgeNotify"
                                                                  object:nil
                                                                   queue:nil
@@ -258,23 +256,10 @@ Boolean appSetupFinished = false;
     }
     
     myPreferences = [self getmyPrefs];
-    
-    // Make sure default sources are in place
-    NSArray *defaultRepos = @[@"https://github.com/w0lfschild/myRepo/raw/master/mytweaks",
-                              @"https://github.com/w0lfschild/myRepo/raw/master/myPaidRepo",
-                              @"https://github.com/w0lfschild/macplugins/raw/master"];
         
-    NSMutableArray *newArray = [NSMutableArray arrayWithArray:[myPreferences objectForKey:@"sources"]];
-    for (NSString *item in defaultRepos)
-        if (![[myPreferences objectForKey:@"sources"] containsObject:item])
-            [newArray addObject:item];
-    [[NSUserDefaults standardUserDefaults] setObject:newArray forKey:@"sources"];
-    [myPreferences setObject:newArray forKey:@"sources"];
-    
-//    [self executionTime:@"tabs_sideBar"];
-    
     // Sidebar
     _sidebarController = [[MF_extra alloc] init];
+    [[NSDistributedNotificationCenter defaultCenter] addObserver:_sidebarController selector:@selector(systemDarkModeChange:) name:@"AppleInterfaceThemeChangedNotification" object:nil];
     _sidebarController.mainView = _mainViewHolder;
     _sidebarController.prefWindow = _windowPreferences;
     _sidebarController.changeLog = _changeLog;
@@ -316,7 +301,6 @@ Boolean appSetupFinished = false;
     [_sidebarController setupSidebar];
     [_sidebarController selectView:_sidebarFeatured];
     [_sidebarController selectAboutInfo:nil];
-    [[NSDistributedNotificationCenter defaultCenter] addObserver:_sidebarController selector:@selector(systemDarkModeChange:) name:@"AppleInterfaceThemeChangedNotification" object:nil];
     // Sidebar
     
     [self executionTime:@"setupWindow"];

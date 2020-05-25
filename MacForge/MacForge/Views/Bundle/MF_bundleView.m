@@ -338,7 +338,8 @@ NSDictionary *testing;
             //        NSString *price = [NSString stringWithFormat:@"%@", [item objectForKey:@"price"]];
             if ([[item objectForKey:@"payed"] boolValue]) {
                 self.bundleInstall.title = @"Verifying...";
-//                [self verifyPurchased];
+                self.bundleInstall.enabled = false;
+                [self verifyPurchased];
                 [self.bundleInstall setAction:@selector(installOrPurchase)];
             } else {
                 [self.bundleInstall setEnabled:true];
@@ -421,8 +422,15 @@ NSDictionary *testing;
         [self.bundlePreview1 sd_setImageWithURL:abc[0]
                                placeholderImage:[UIImage imageNamed:NSImageNameBookmarksTemplate]];
         
+        self.bundlePreview1.layer.backgroundColor = [NSColor colorWithRed:1 green:1 blue:1 alpha:0.6].CGColor;
+        self.bundlePreview1.layer.cornerRadius = 5;
+        
+        
         [self.bundlePreview2 sd_setImageWithURL:abc[1]
                                placeholderImage:[UIImage imageNamed:NSImageNameBookmarksTemplate]];
+        
+        self.bundlePreview2.layer.backgroundColor = [NSColor colorWithRed:1 green:1 blue:1 alpha:0.6].CGColor;
+        self.bundlePreview2.layer.cornerRadius = 5;
         
 //        self.bundlePreview1.sd_imageIndicator = SDWebImageActivityIndicator.grayIndicator;
 //        self.bundlePreview1.sd_imageIndicator = SDWebImageProgressIndicator.defaultIndicator;
@@ -459,6 +467,10 @@ NSDictionary *testing;
             hasDescription = false;
         if (![item objectForKey:@"description"])
             hasDescription = false;
+        
+        NSRect prev = _viewPreviews.frame;
+        prev.size.height = self.bundlePreview1.frame.size.width / 1.6 + 40;
+        [_viewPreviews setFrame:prev];
         
         NSUInteger diff = 10;
         NSUInteger newDescHeight = 0;
@@ -603,36 +615,38 @@ NSDictionary *testing;
 - (void)verifyPurchased {
 //    NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    NSString *myPaddleProductID = [item objectForKey:@"productID"];
-    if (myPaddleProductID != nil) {
-        NSString *myPaddleVendorID = @"26643";
-        NSString *myPaddleAPIKey = @"02a3c57238af53b3c465ef895729c765";
-
-        NSDictionary *dict = [item objectForKey:@"paddle"];
-        if (dict != nil) {
-            myPaddleVendorID = [dict objectForKey:@"vendorid"];
-            myPaddleAPIKey = [dict objectForKey:@"apikey"];
-        }
+    [MF_Purchase verifyPurchased:[MF_repoData sharedInstance].currentPlugin :self.bundleInstall];
     
-        NSBundle *b = [NSBundle mainBundle];
-        NSString *execPath = [b pathForResource:@"purchaseValidationApp" ofType:@"app"];
-        execPath = [NSString stringWithFormat:@"%@/Contents/MacOS/purchaseValidationApp", execPath];
-        
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            NSTask *task = [NSTask launchedTaskWithLaunchPath:execPath arguments:@[myPaddleProductID, myPaddleVendorID, myPaddleAPIKey, @"-v"]];
-            [task waitUntilExit];
-         
-           //This is your completion handler
-           dispatch_sync(dispatch_get_main_queue(), ^{
-               if ([task terminationStatus] == 69) {
-                    NSLog(@"Verified...");
-                    self.bundleInstall.title = @"GET";
-                } else {
-                    self.bundleInstall.title = self.bundlePrice.stringValue;
-                }
-           });
-        });
-    }
+//    NSString *myPaddleProductID = [item objectForKey:@"productID"];
+//    if (myPaddleProductID != nil) {
+//        NSString *myPaddleVendorID = @"26643";
+//        NSString *myPaddleAPIKey = @"02a3c57238af53b3c465ef895729c765";
+//
+//        NSDictionary *dict = [item objectForKey:@"paddle"];
+//        if (dict != nil) {
+//            myPaddleVendorID = [dict objectForKey:@"vendorid"];
+//            myPaddleAPIKey = [dict objectForKey:@"apikey"];
+//        }
+//
+//        NSBundle *b = [NSBundle mainBundle];
+//        NSString *execPath = [b pathForResource:@"purchaseValidationApp" ofType:@"app"];
+//        execPath = [NSString stringWithFormat:@"%@/Contents/MacOS/purchaseValidationApp", execPath];
+//
+//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//            NSTask *task = [NSTask launchedTaskWithLaunchPath:execPath arguments:@[myPaddleProductID, myPaddleVendorID, myPaddleAPIKey, @"-v"]];
+//            [task waitUntilExit];
+//
+//           //This is your completion handler
+//           dispatch_sync(dispatch_get_main_queue(), ^{
+//               if ([task terminationStatus] == 69) {
+//                    NSLog(@"Verified...");
+//                    self.bundleInstall.title = @"GET";
+//                } else {
+//                    self.bundleInstall.title = self.bundlePrice.stringValue;
+//                }
+//           });
+//        });
+//    }
 }
 
 - (void)installOrPurchase {
@@ -698,7 +712,7 @@ NSDictionary *testing;
     [MF_PluginManager.sharedInstance readPlugins:nil];
     if ([[item objectForKey:@"payed"] boolValue]) {
         self.bundleInstall.title = @"Verifying...";
-//        [self verifyPurchased];
+        [self verifyPurchased];
         [self.bundleInstall setAction:@selector(installOrPurchase)];
     } else {
         [self.bundleInstall setEnabled:true];

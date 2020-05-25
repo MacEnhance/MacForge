@@ -809,6 +809,15 @@
 			path = SipView;
 			sourceTree = "<group>";
 		};
+		FB5F76D12479B82500B2DC65 /* Repo */ = {
+			isa = PBXGroup;
+			children = (
+				FBA6E8E520F0288300A12ACF /* MF_repoData.h */,
+				FBA6E8E320F0288300A12ACF /* MF_repoData.m */,
+			);
+			path = Repo;
+			sourceTree = "<group>";
+		};
 		FBA6E88F20F0184000A12ACF /* External Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -1045,8 +1054,7 @@
 				FB12413B247899F600528C29 /* MF_extra.m */,
 				FBC2123223B459CE006F4485 /* MF_BlacklistManager.h */,
 				FBC2123323B459CE006F4485 /* MF_BlacklistManager.m */,
-				FBA6E8E520F0288300A12ACF /* MF_repoData.h */,
-				FBA6E8E320F0288300A12ACF /* MF_repoData.m */,
+				FB5F76D12479B82500B2DC65 /* Repo */,
 				FBAAD0FC2460E02F00F7B2F8 /* Purchases */,
 				FBAAD0FB2460E00D00F7B2F8 /* Plugins */,
 				FB49C44623417A4B0061E458 /* Views */,

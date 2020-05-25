@@ -12,11 +12,10 @@
 
 @interface MF_repoData : NSObject
 
-@property NSMutableDictionary *sourceListDic;
-@property NSMutableDictionary *repoPluginsDic;
-@property NSMutableDictionary *localPluginsDic;
-@property MF_Plugin *currentPlugin;
-
+@property MF_Plugin             *currentPlugin;
+@property NSMutableDictionary   *repoPluginsDic;
+@property NSMutableDictionary   *localPluginsDic;
+@property Boolean               hasFetched;
 
 + (MF_repoData*) sharedInstance;
 - (NSMutableDictionary*)fetch_repo:(NSString*)source;

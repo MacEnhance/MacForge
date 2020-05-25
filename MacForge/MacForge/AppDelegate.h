@@ -78,6 +78,7 @@
 @property IBOutlet NSView               *tabMain;
 @property IBOutlet NSView               *tabPlugins;
 @property IBOutlet NSView               *tabFeatured;
+@property IBOutlet NSView               *tabSearch;
 @property IBOutlet NSView               *tabSystemInfo;
 @property IBOutlet NSView               *tabUpdates;
 

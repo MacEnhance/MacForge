@@ -12,13 +12,13 @@
 @import WebKit;
 @import EDStarRating;
 
-#import "MF_PluginManager.h"
 #import "AppDelegate.h"
 #import "MF_repoData.h"
 #import "MF_bundlePreviewView.h"
+#import "MF_Purchase.h"
+#import "MF_PluginManager.h"
 
 #import "SYFlatButton.h"
-#import "ZKSwizzle.h"
 
 @interface MF_bundleView : NSView <EDStarRatingProtocol>
 

@@ -8,10 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
-@interface MF_searchView : NSView
-
+@interface MF_searchView : NSView <NSTableViewDataSource, NSTableViewDelegate>
+@property NSTableView *tv;
 @end
 
-NS_ASSUME_NONNULL_END

@@ -76,6 +76,7 @@ extern AppDelegate* myDelegate;
                     theButton.title = plugin.webPrice;
                     theButton.toolTip = @"";
                 }
+                theButton.enabled = true;
             });
         });
     }
@@ -148,7 +149,7 @@ extern AppDelegate* myDelegate;
         });
     } else {
         // Package not installed
-//        [MF_Purchase verifyPurchased:plugin :theButton];
+        [MF_Purchase verifyPurchased:plugin :theButton];
     }
 }
 

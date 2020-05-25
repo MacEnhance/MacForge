@@ -165,7 +165,6 @@
 
 - (IBAction)selectPreference:(id)sender {
     NSView *selectedPane = [_preferenceViews objectAtIndex:[(NSSegmentedControl*)sender selectedSegment]];
-    [_prefWindow setIsVisible:true];
     [_prefWindow.contentView setSubviews:@[selectedPane]];
     Class vibrantClass=NSClassFromString(@"NSVisualEffectView");
     if (vibrantClass) {
@@ -184,7 +183,20 @@
     newFrame.origin.y += yDiff;
     [_prefWindow setFrame:newFrame display:true animate:true];
     _prefWindow.styleMask &= ~NSWindowStyleMaskResizable;
+    
+    // Center the window in our main window
+    if (![_prefWindow isVisible]) {
+        NSRect frm      = NSApp.mainWindow.frame;
+        NSRect myfrm    = _prefWindow.frame;
+        [_prefWindow setFrameOrigin:CGPointMake(frm.origin.x + frm.size.width / 2 - myfrm.size.width / 2,
+                                                frm.origin.y + frm.size.height / 2 - myfrm.size.height / 2)];
+    }
+    
+    // Focus the window
     [NSApp activateIgnoringOtherApps:true];
+    [_prefWindow setIsVisible:true];
+    [_prefWindow makeKeyWindow];
+    [_prefWindow makeKeyAndOrderFront:self];
 }
 
 - (IBAction)selectAboutInfo:(id)sender {

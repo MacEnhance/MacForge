@@ -14,10 +14,7 @@ extern AppDelegate *myDelegate;
 
 @implementation MF_discoverView {
     int                 columns;
-    MF_Plugin           *plug;
-    MF_PluginManager    *sharedMethods;
     MF_repoData         *pluginData;
-    NSMutableDictionary *featuredRepo;
     NSMutableArray      *smallArray;
     NSArray             *tableContents;
 }
@@ -26,7 +23,7 @@ extern AppDelegate *myDelegate;
     [super drawRect:dirtyRect];
 }
 
--(void)setFilter:(NSString*)filt {
+-(void)generateTableContents {
 //    NSArray *dank = [[NSArray alloc] initWithArray:[self->featuredRepo allValues]];
 //    NSString *filterText = filt;
 //    NSArray *result = dank;
@@ -36,7 +33,7 @@ extern AppDelegate *myDelegate;
 //    }
 //    dank = result;
     
-    NSMutableDictionary *dict = featuredRepo; //dictionary to be sorted
+    NSMutableDictionary *dict = MF_repoData.sharedInstance.repoPluginsDic; //dictionary to be sorted
 
     NSArray *sortedKeys = [dict keysSortedByValueUsingComparator: ^(id obj1, id obj2) {
         //get the key value.
@@ -68,7 +65,7 @@ extern AppDelegate *myDelegate;
     
     // Sort are array into usable table data
     for (NSString *key in reversedArray) {
-        MF_Plugin *plug = [featuredRepo valueForKey:key];
+        MF_Plugin *plug = [MF_repoData.sharedInstance.repoPluginsDic valueForKey:key];
         NSString *pluginUpdateStr = plug.webPublishDate;
         
         // New group
@@ -120,8 +117,8 @@ extern AppDelegate *myDelegate;
         tableContainer.drawsBackground = false;
         
         _tv = [[NSTableView alloc] initWithFrame:NSMakeRect(0, 0, 500, 500)];
-        [_tv setDelegate:self];
-        [_tv setDataSource:self];
+        _tv.delegate = self;
+        _tv.dataSource = self;
         _tv.gridColor = NSColor.clearColor;
         _tv.backgroundColor = NSColor.clearColor;
         _tv.headerView = nil;
@@ -134,32 +131,25 @@ extern AppDelegate *myDelegate;
         
         dispatch_queue_t backgroundQueue = dispatch_queue_create("com.w0lf.MacForge", 0);
         dispatch_async(backgroundQueue, ^{
-            if (self->sharedMethods == nil)
-                self->sharedMethods = [MF_PluginManager sharedInstance];
-
-            // Fetch repo content
-            static dispatch_once_t aToken;
-            dispatch_once(&aToken, ^{
-                self->pluginData = [MF_repoData sharedInstance];
-                [self->pluginData fetch_repos];
-                self->featuredRepo = [self->pluginData fetch_repo:@"https://github.com/MacEnhance/MacForgeRepo/raw/master/repo"];
-
-                [self setFilter:@""];
-                
+            if (!MF_repoData.sharedInstance.hasFetched) {
+                [MF_repoData.sharedInstance fetch_repo:@"https://github.com/MacEnhance/MacForgeRepo/raw/master/repo"];
+                [self generateTableContents];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.tv reloadData];
                 });
-            });
+            }
         });
+        
+        // create columns for our table
+        for (int i = 0; i < columns; i++) {
+            NSString *identify = [NSString stringWithFormat:@"Col%d", i];
+            NSTableColumn * column = [[NSTableColumn alloc] initWithIdentifier:identify];
+            [column setWidth:self.frame.size.width/columns];
+            [_tv addTableColumn:column];
+        }
     });
     
-    // create columns for our table
-    for (int i = 0; i < columns; i++) {
-        NSString *identify = [NSString stringWithFormat:@"Col%d", i];
-        NSTableColumn * column = [[NSTableColumn alloc] initWithIdentifier:identify];
-        [column setWidth:self.frame.size.width/columns];
-        [_tv addTableColumn:column];
-    }
+    [_tv sizeToFit];
 }
 
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
@@ -169,7 +159,7 @@ extern AppDelegate *myDelegate;
 }
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
-    [self setFilter:@""];
+    [self generateTableContents];
     return ceil(tableContents.count/columns);
 }
 
