@@ -22,6 +22,36 @@ extern AppDelegate *myDelegate;
     NSMutableArray      *smallArray;
 }
 
+- (void)drawRect:(NSRect)dirtyRect {
+    [super drawRect:dirtyRect];
+}
+
+- (void)updateColumCount {
+    // remove extra columns
+    if (_tv.numberOfColumns > columns)
+        for (int i = 0; i < _tv.numberOfColumns - columns; i++)
+            [_tv removeTableColumn:_tv.tableColumns.lastObject];
+    
+    // add needed columns
+    if (_tv.numberOfColumns < columns) {
+        for (int i = 0; i < columns - _tv.numberOfColumns; i++) {
+            NSString *identify = [NSString stringWithFormat:@"Col%d", (int)_tv.numberOfColumns + 1];
+            NSTableColumn * column = [[NSTableColumn alloc] initWithIdentifier:identify];
+            [column setWidth:self.frame.size.width/columns];
+            [_tv addTableColumn:column];
+        }
+    }
+    
+    // set columns to equal width
+    for (NSTableColumn *col in _tv.tableColumns) {
+        [col setWidth:self.frame.size.width/columns];
+    }
+    
+    // redraw and fit
+    [_tv reloadData];
+    [_tv sizeToFit];
+}
+
 - (void)viewWillDraw {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -66,7 +96,10 @@ extern AppDelegate *myDelegate;
         }
     });
     
-    [_tv sizeToFit];
+    if (floor(self.frame.size.width/390.0) != columns) {
+        columns = floor(self.frame.size.width/390.0);
+        [self updateColumCount];
+    }
 }
 
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
@@ -77,7 +110,7 @@ extern AppDelegate *myDelegate;
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
     NSArray *filter = [MF_repoData.sharedInstance fetch_featured:@"https://github.com/MacEnhance/MacForgeRepo/raw/master/repo"].copy;
     bundles = [MF_repoData.sharedInstance.repoPluginsDic.allValues filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"bundleID in %@", filter]];
-    return ceil(bundles.count/columns);
+    return ceil(bundles.count/(float)columns);
 }
 
 - (NSView *)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
@@ -85,17 +118,21 @@ extern AppDelegate *myDelegate;
 }
 
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-    MF_featuredItemController *cont = [[MF_featuredItemController alloc] initWithNibName:0 bundle:nil];
-    [smallArray addObject:cont];
-    NSTableCellView *result = [[NSTableCellView alloc] initWithFrame:cont.view.frame];
-    MF_Plugin *p = [[MF_Plugin alloc] init];
     NSUInteger index = (row * columns + [[tableView tableColumns] indexOfObject:tableColumn]);
     if (index < bundles.count) {
-        p = [bundles objectAtIndex:index];
-        [cont setupWithPlugin:p];
+        MF_featuredItemController *cont = [[MF_featuredItemController alloc] initWithNibName:0 bundle:nil];
+        [smallArray addObject:cont];
+        NSTableCellView *result = [[NSTableCellView alloc] initWithFrame:cont.view.frame];
+        MF_Plugin *p = [[MF_Plugin alloc] init];
+        NSUInteger index = (row * columns + [[tableView tableColumns] indexOfObject:tableColumn]);
+        if (index < bundles.count) {
+            p = [bundles objectAtIndex:index];
+            [cont setupWithPlugin:p];
+        }
+        [result addSubview:cont.view];
+        return result;
     }
-    [result addSubview:cont.view];
-    return result;
+    return nil;
 }
 
 @end

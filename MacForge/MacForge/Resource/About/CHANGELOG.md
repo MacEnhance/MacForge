@@ -8,8 +8,10 @@
 ### 0.20.1
 
 -   UI redesign
--   Major code clean
+-   Major code clean / Organization
 -   macforge:// links now just use the bundleID
+-   MacForge can now host a UI for plugin settings [@jslegendre](https://github.com/jslegendre)
+-   Improvements made to injector
 -   Removed option for multiple sources
 -   Removed search bar from discover view
 -   Removed navigation bar from discover view
@@ -17,7 +19,6 @@
 -   Updated Demo Plugin
 -   Updated information regarding AMFI
 -   Updated SIP notification window
--   Repect launch at login setting
 
 ### 0.14.2
 

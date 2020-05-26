@@ -105,53 +105,56 @@ extern AppDelegate *myDelegate;
 //    dank = [[dank sortedArrayUsingDescriptors:@[sorter]] copy];
 }
 
+- (void)setupView {
+    // create a table view
+    _tv = [[NSTableView alloc] initWithFrame:NSMakeRect(0, 0, 500, 500)];
+    _tv.delegate = self;
+    _tv.dataSource = self;
+    _tv.gridColor = NSColor.clearColor;
+    _tv.backgroundColor = NSColor.clearColor;
+    _tv.headerView = nil;
+    _tv.floatsGroupRows = true;
+    _tv.columnAutoresizingStyle = NSTableViewUniformColumnAutoresizingStyle;
+    
+    // Create a scroll view and embed the table view in the scroll view, and add the scroll view to our window.
+    NSScrollView * tableContainer = [[NSScrollView alloc] initWithFrame:self.frame];
+    tableContainer.documentView = _tv;
+    tableContainer.drawsBackground = false;
+    tableContainer.hasVerticalScroller = true;
+    tableContainer.hasHorizontalScroller = false;
+    tableContainer.horizontalScrollElasticity = NSScrollElasticityNone;
+    tableContainer.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+    [self addSubview:tableContainer];
+
+    dispatch_queue_t backgroundQueue = dispatch_queue_create("com.w0lf.MacForge", 0);
+    dispatch_async(backgroundQueue, ^{
+        if (!MF_repoData.sharedInstance.hasFetched) {
+            [MF_repoData.sharedInstance fetch_repo:@"https://github.com/MacEnhance/MacForgeRepo/raw/master/repo"];
+            [self generateTableContents];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tv reloadData];
+            });
+        }
+    });
+    
+    // create columns for our table
+    for (int i = 0; i < columns; i++) {
+        NSString *identify = [NSString stringWithFormat:@"Col%d", i];
+        NSTableColumn * column = [[NSTableColumn alloc] initWithIdentifier:identify];
+        [column setWidth:self.frame.size.width/columns];
+        [_tv addTableColumn:column];
+    }
+    
+    [_tv sizeToFit];
+}
+
 - (void)viewWillDraw {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         columns = 2;
         smallArray = NSMutableArray.new;
-        
-        // create a table view
-        _tv = [[NSTableView alloc] initWithFrame:NSMakeRect(0, 0, 500, 500)];
-        _tv.delegate = self;
-        _tv.dataSource = self;
-        _tv.gridColor = NSColor.clearColor;
-        _tv.backgroundColor = NSColor.clearColor;
-        _tv.headerView = nil;
-        _tv.floatsGroupRows = true;
-        _tv.columnAutoresizingStyle = NSTableViewUniformColumnAutoresizingStyle;
-        
-        // Create a scroll view and embed the table view in the scroll view, and add the scroll view to our window.
-        NSScrollView * tableContainer = [[NSScrollView alloc] initWithFrame:self.frame];
-        tableContainer.documentView = _tv;
-        tableContainer.drawsBackground = false;
-        tableContainer.hasVerticalScroller = true;
-        tableContainer.hasHorizontalScroller = false;
-        tableContainer.horizontalScrollElasticity = NSScrollElasticityNone;
-        tableContainer.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-        [self addSubview:tableContainer];
-
-        dispatch_queue_t backgroundQueue = dispatch_queue_create("com.w0lf.MacForge", 0);
-        dispatch_async(backgroundQueue, ^{
-            if (!MF_repoData.sharedInstance.hasFetched) {
-                [MF_repoData.sharedInstance fetch_repo:@"https://github.com/MacEnhance/MacForgeRepo/raw/master/repo"];
-                [self generateTableContents];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.tv reloadData];
-                });
-            }
-        });
-        
-        // create columns for our table
-        for (int i = 0; i < columns; i++) {
-            NSString *identify = [NSString stringWithFormat:@"Col%d", i];
-            NSTableColumn * column = [[NSTableColumn alloc] initWithIdentifier:identify];
-            [column setWidth:self.frame.size.width/columns];
-            [_tv addTableColumn:column];
-        }
+        [self setupView];
     });
-    
-    [_tv sizeToFit];
 }
 
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
@@ -162,7 +165,7 @@ extern AppDelegate *myDelegate;
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
     [self generateTableContents];
-    return ceil(tableContents.count/columns);
+    return ceil(tableContents.count/(float)columns);
 }
 
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
@@ -170,12 +173,14 @@ extern AppDelegate *myDelegate;
         NSObject *obj = tableContents[row * columns];
 
         NSTableCellView *result = NSTableCellView.new;
-        [result setFrame:CGRectMake(0, 0, 1382, 40)];
+        [result setFrame:CGRectMake(0, 0, 1000, 40)];
+        [result setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
 
-        NSTextField *t = [[NSTextField alloc] initWithFrame:CGRectMake(0, 0, 1382, 40)];
+        NSTextField *t = [[NSTextField alloc] initWithFrame:CGRectMake(0, 0, 1000, 40)];
         [t setEditable:false];
         [t setFont:[NSFont systemFontOfSize:24]];
         [t setStringValue:(NSString*)obj];
+        [t setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
 
         [result addSubview:t];
 

@@ -25,13 +25,17 @@ Boolean appSetupFinished = false;
 }
 
 - (void)controlTextDidChange:(NSNotification *)obj{
-//    if (_tabFeatured.superview == NULL) {        
+    if (self.searchPlugins.stringValue.length == 0) {
+        // Set the main view to featured
+        [_sidebarController selectView:_sidebarFeatured];
+    } else {
+        // Set the serach tab filter
         [_tabSearch setFilter:self.searchPlugins.stringValue];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self->_tabSearch.tv reloadData];
-        });
+        // Force a reload
+        [self->_tabSearch.tv reloadData];
+        // Set our main view to hold the contents
         [_sidebarController setMainViewSubView:_tabSearch];
-//    }
+    }
 }
 
 - (void)movePreviousPurchases {
