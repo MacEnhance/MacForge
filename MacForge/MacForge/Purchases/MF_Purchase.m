@@ -48,7 +48,7 @@ extern AppDelegate* myDelegate;
     
         if (plugin.hasPurchased) {
             
-            NSLog(@"%@ is purchased", plugin.bundleID);
+//            NSLog(@"%@ is purchased", plugin.bundleID);
             dispatch_async(dispatch_get_main_queue(), ^{
                 theButton.enabled = true;
                 theButton.title = @"GET";
@@ -57,7 +57,7 @@ extern AppDelegate* myDelegate;
             
         } else {
             
-            NSLog(@"%@ is not purchased", plugin.bundleID);
+//            NSLog(@"%@ is not purchased", plugin.bundleID);
             dispatch_async(dispatch_get_main_queue(), ^{
                 theButton.enabled = true;
                 theButton.title = plugin.webPrice;

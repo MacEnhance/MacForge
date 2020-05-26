@@ -14,9 +14,12 @@
 - (void)viewWillDraw{
     NSTableColumn *yourColumn = self.tv.tableColumns.lastObject;
     [yourColumn.headerCell setStringValue:@"Select a preference bundle"];
-//    [self doAQuery];
     [_tv setDelegate:self];
     [_tv setDataSource:self];
+    
+    _preferencesContainer.wantsLayer = true;
+    _preferencesContainer.layer.borderColor = NSColor.grayColor.CGColor;
+    _preferencesContainer.layer.borderWidth = 1;
     
     _currentPrefView = NULL;
     
@@ -37,7 +40,7 @@
     for (NSString *file in dirs) {
         if ([file.pathExtension isEqualToString:@"bundle"]) {
             NSBundle *preferenceBundle = [NSBundle bundleWithPath:[@"/Library/Application Support/MacEnhance/Preferences/" stringByAppendingString:file]];
-            if(preferenceBundle) {
+            if (preferenceBundle) {
                 [res addObject:preferenceBundle];
             }
 //            [res addObject:[@"/Library/Application Support/MacEnhance/Preferences/" stringByAppendingString:file]];
@@ -49,35 +52,39 @@
 
 - (void)tableViewSelectionDidChange:(NSNotification *)notification {
 
+    // Clear the view
     if(_currentPrefView)
         [_currentPrefView invalidate];
-    
-    NSBundle *selectedPref = [_pluginList objectAtIndex:[_tv selectedRow]];
-    NSString *path = [selectedPref bundlePath];
-    NSLog(@"Bundle path %@", path);
-    __weak typeof(self) weakSelf = self;
-    
-    [_prefLoaderProxy setPluginPath:path
-                      withReply:^(BOOL set) {
-        NSLog(@"Path Set");
-        dispatch_async(dispatch_get_main_queue(), ^(){
-            weakSelf.currentPrefView = [[NSRemoteView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-            [weakSelf.currentPrefView setTranslatesAutoresizingMaskIntoConstraints:NO];
-            [weakSelf.currentPrefView setSynchronizesImplicitAnimations:NO];
-            [weakSelf.currentPrefView setShouldMaskToBounds:NO];
-            [weakSelf.currentPrefView setServiceName:@"com.w0lf.MacForge.PreferenceLoader"];
-            [weakSelf.currentPrefView setServiceSubclassName:@"PreferenceLoaderServiceView"];
-            
-            [weakSelf.currentPrefView advanceToRunPhaseIfNeeded:^(NSError *err){
-                dispatch_async(dispatch_get_main_queue(), ^(){
-                    NSRect frame = weakSelf.currentPrefView.frame;
-                    frame.origin.y = weakSelf.preferencesContainer.frame.size.height - frame.size.height;
-                    [weakSelf.currentPrefView setFrame:frame];
-                    [weakSelf.preferencesContainer addSubview:weakSelf.currentPrefView];
-                });
-            }];
-        });
-    }];
+        
+    // Load view if there is a selected item
+    if (_tv.selectedRow >= 0) {
+        NSBundle *selectedPref = [_pluginList objectAtIndex:[_tv selectedRow]];
+        NSString *path = [selectedPref bundlePath];
+        NSLog(@"Bundle path %@", path);
+        __weak typeof(self) weakSelf = self;
+
+        [_prefLoaderProxy setPluginPath:path
+                          withReply:^(BOOL set) {
+            NSLog(@"Path Set");
+            dispatch_async(dispatch_get_main_queue(), ^(){
+                weakSelf.currentPrefView = [[NSRemoteView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+                [weakSelf.currentPrefView setTranslatesAutoresizingMaskIntoConstraints:NO];
+                [weakSelf.currentPrefView setSynchronizesImplicitAnimations:NO];
+                [weakSelf.currentPrefView setShouldMaskToBounds:NO];
+                [weakSelf.currentPrefView setServiceName:@"com.w0lf.MacForge.PreferenceLoader"];
+                [weakSelf.currentPrefView setServiceSubclassName:@"PreferenceLoaderServiceView"];
+
+                [weakSelf.currentPrefView advanceToRunPhaseIfNeeded:^(NSError *err){
+                    dispatch_async(dispatch_get_main_queue(), ^(){
+                        NSRect frame = weakSelf.currentPrefView.frame;
+                        frame.origin.y = weakSelf.preferencesContainer.frame.size.height - frame.size.height;
+                        [weakSelf.currentPrefView setFrame:frame];
+                        [weakSelf.preferencesContainer addSubview:weakSelf.currentPrefView];
+                    });
+                }];
+            });
+        }];
+    }
 }
 
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {

@@ -6,6 +6,7 @@
 //  Copyright © 2019 MacEnhance. All rights reserved.
 //
 
+#import "MF_Plugin.h"
 #import <Foundation/Foundation.h>
 
 @interface MF_Purchase : NSObject

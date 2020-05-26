@@ -12,9 +12,8 @@
 
 extern AppDelegate *myDelegate;
 
-int columns = 3;
-
 @implementation MF_featuredView {
+    int columns;
     MF_Plugin           *plug;
     MF_PluginManager    *sharedMethods;
     MF_repoData         *pluginData;
@@ -26,6 +25,7 @@ int columns = 3;
 - (void)viewWillDraw {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
+        columns = 2;
         smallArray = NSMutableArray.new;
         
         // Create a table view
@@ -35,6 +35,7 @@ int columns = 3;
         _tv.gridColor = NSColor.clearColor;
         _tv.backgroundColor = NSColor.clearColor;
         _tv.headerView = nil;
+        _tv.columnAutoresizingStyle = NSTableViewUniformColumnAutoresizingStyle;
         
         // Create a scroll view and embed the table view in the scroll view, and add the scroll view to our window.
         NSScrollView * tableContainer = [[NSScrollView alloc] initWithFrame:self.frame];
@@ -43,6 +44,7 @@ int columns = 3;
         tableContainer.hasVerticalScroller = true;
         tableContainer.hasHorizontalScroller = false;
         tableContainer.horizontalScrollElasticity = NSScrollElasticityNone;
+        tableContainer.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
         [self addSubview:tableContainer];
         
         dispatch_queue_t backgroundQueue = dispatch_queue_create("com.w0lf.MacForge", 0);

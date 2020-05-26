@@ -108,13 +108,10 @@ extern AppDelegate *myDelegate;
 - (void)viewWillDraw {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        columns = 4;
+        columns = 2;
         smallArray = NSMutableArray.new;
         
-        // create a table view and a scroll view
-        NSScrollView * tableContainer = [[NSScrollView alloc] initWithFrame:self.frame];
-        tableContainer.drawsBackground = false;
-        
+        // create a table view
         _tv = [[NSTableView alloc] initWithFrame:NSMakeRect(0, 0, 500, 500)];
         _tv.delegate = self;
         _tv.dataSource = self;
@@ -122,12 +119,18 @@ extern AppDelegate *myDelegate;
         _tv.backgroundColor = NSColor.clearColor;
         _tv.headerView = nil;
         _tv.floatsGroupRows = true;
+        _tv.columnAutoresizingStyle = NSTableViewUniformColumnAutoresizingStyle;
         
-        // embed the table view in the scroll view, and add the scroll view to our window.
-        [tableContainer setDocumentView:_tv];
-        [tableContainer setHasVerticalScroller:YES];
+        // Create a scroll view and embed the table view in the scroll view, and add the scroll view to our window.
+        NSScrollView * tableContainer = [[NSScrollView alloc] initWithFrame:self.frame];
+        tableContainer.documentView = _tv;
+        tableContainer.drawsBackground = false;
+        tableContainer.hasVerticalScroller = true;
+        tableContainer.hasHorizontalScroller = false;
+        tableContainer.horizontalScrollElasticity = NSScrollElasticityNone;
+        tableContainer.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
         [self addSubview:tableContainer];
-        
+
         dispatch_queue_t backgroundQueue = dispatch_queue_create("com.w0lf.MacForge", 0);
         dispatch_async(backgroundQueue, ^{
             if (!MF_repoData.sharedInstance.hasFetched) {

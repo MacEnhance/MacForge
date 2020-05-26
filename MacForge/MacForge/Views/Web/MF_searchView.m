@@ -27,7 +27,7 @@ extern AppDelegate *myDelegate;
 - (void)viewWillDraw {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        columns = 4;
+        columns = 2;
         smallArray = NSMutableArray.new;
         
         // Create a table view
@@ -37,6 +37,7 @@ extern AppDelegate *myDelegate;
         _tv.gridColor = NSColor.clearColor;
         _tv.backgroundColor = NSColor.clearColor;
         _tv.headerView = nil;
+        _tv.columnAutoresizingStyle = NSTableViewUniformColumnAutoresizingStyle;
         
         // Create a scroll view and embed the table view in the scroll view, and add the scroll view to our window.
         NSScrollView * tableContainer = [[NSScrollView alloc] initWithFrame:self.frame];
@@ -45,6 +46,7 @@ extern AppDelegate *myDelegate;
         tableContainer.hasVerticalScroller = true;
         tableContainer.hasHorizontalScroller = false;
         tableContainer.horizontalScrollElasticity = NSScrollElasticityNone;
+        tableContainer.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
         [self addSubview:tableContainer];
         
         dispatch_queue_t backgroundQueue = dispatch_queue_create("com.w0lf.MacForge", 0);
