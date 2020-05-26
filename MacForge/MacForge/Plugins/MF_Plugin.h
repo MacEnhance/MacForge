@@ -35,6 +35,7 @@
 @property Boolean       webPaid;
 
 // Info
+@property Boolean           checkedPurchase;
 @property Boolean           hasPurchased;
 @property NSImage           *featuredImage;
 @property NSMutableArray    *previewImages;

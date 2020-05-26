@@ -25,12 +25,12 @@ Boolean appSetupFinished = false;
 }
 
 - (void)controlTextDidChange:(NSNotification *)obj{
-//    [(MF_featuredTab*)_tabFeatured setFilter:_searchPlugins.stringValue];
-//    if (_tabFeatured.superview == NULL) {
-//        [myDelegate selectView:_sidebarDiscover];
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            [(MF_featuredTab*)self.tabFeatured setFilter:self.searchPlugins.stringValue];
-//        });
+//    if (_tabFeatured.superview == NULL) {        
+        [_tabSearch setFilter:self.searchPlugins.stringValue];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self->_tabSearch.tv reloadData];
+        });
+        [_sidebarController setMainViewSubView:_tabSearch];
 //    }
 }
 
@@ -258,8 +258,9 @@ Boolean appSetupFinished = false;
     myPreferences = [self getmyPrefs];
         
     // Sidebar
+    
+    // Init the sidebar controller
     _sidebarController = [[MF_extra alloc] init];
-    [[NSDistributedNotificationCenter defaultCenter] addObserver:_sidebarController selector:@selector(systemDarkModeChange:) name:@"AppleInterfaceThemeChangedNotification" object:nil];
     _sidebarController.mainView = _mainViewHolder;
     _sidebarController.prefWindow = _windowPreferences;
     _sidebarController.changeLog = _changeLog;
@@ -267,11 +268,14 @@ Boolean appSetupFinished = false;
     _sidebarController.sidebarTopButtons = @[_sidebarFeatured, _sidebarDiscover, _sidebarManage, _sidebarPluginPrefs, _sidebarSystem, _sidebarUpdates];
     _sidebarController.sidebarBotButtons = @[_sidebarAccount, _sidebarWarning, _sidebarDiscord];
     
-    [_sidebarPluginPrefs.buttonClickArea setEnabled:false];
+    // Watch for system darkmode changes
+    [[NSDistributedNotificationCenter defaultCenter] addObserver:_sidebarController selector:@selector(systemDarkModeChange:) name:@"AppleInterfaceThemeChangedNotification" object:nil];
+    
+//    [_sidebarPluginPrefs.buttonClickArea setEnabled:false];
     
     [_aboutSelector setTarget:_sidebarController];
     [_aboutSelector setAction:@selector(selectAboutInfo:)];
-
+    
     [_preferencesTabController setTarget:_sidebarController];
     [_preferencesTabController setAction:@selector(selectPreference:)];
     

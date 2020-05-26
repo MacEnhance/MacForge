@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface MF_Purchase : NSObject
 
 + (void)pluginInstall:(MF_Plugin*)plugin :(NSButton*)theButton :(NSString*)repo;
@@ -18,5 +16,3 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)verifyPurchased:(MF_Plugin*)plugin :(NSButton*)theButton;
 
 @end
-
-NS_ASSUME_NONNULL_END

@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 @interface MF_searchView : NSView <NSTableViewDataSource, NSTableViewDelegate>
-@property NSTableView *tv;
+@property NSTableView   *tv;
+@property NSString      *filter;
 @end
 

@@ -41,6 +41,7 @@
 #import "MF_pluginPreferencesView.h"
 #import "MF_accountManager.h"
 #import "MF_BlacklistManager.h"
+#import "MF_searchView.h"
 #import "MFFlippedView.h"
 
 #import "MF_repoData.h"
@@ -77,10 +78,12 @@
 @property IBOutlet NSScrollView         *mainViewHolder;
 @property IBOutlet NSView               *tabMain;
 @property IBOutlet NSView               *tabPlugins;
-@property IBOutlet NSView               *tabFeatured;
-@property IBOutlet NSView               *tabSearch;
 @property IBOutlet NSView               *tabSystemInfo;
 @property IBOutlet NSView               *tabUpdates;
+
+@property IBOutlet NSView               *tabFeatured;
+@property IBOutlet NSView               *tabDiscover;
+@property IBOutlet MF_searchView        *tabSearch;
 
 // Plugins view
 @property IBOutlet NSTableView          *tblView;

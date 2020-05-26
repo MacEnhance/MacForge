@@ -24,15 +24,6 @@ extern AppDelegate *myDelegate;
 }
 
 -(void)generateTableContents {
-//    NSArray *dank = [[NSArray alloc] initWithArray:[self->featuredRepo allValues]];
-//    NSString *filterText = filt;
-//    NSArray *result = dank;
-//    NSString *filter = @"(webName CONTAINS[cd] %@) OR (bundleID CONTAINS[cd] %@) OR (webTarget CONTAINS[cd] %@)";
-//    if (filterText.length > 0) {
-//        result = [dank filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:filter, filterText, filterText, filterText]];
-//    }
-//    dank = result;
-    
     NSMutableDictionary *dict = MF_repoData.sharedInstance.repoPluginsDic; //dictionary to be sorted
 
     NSArray *sortedKeys = [dict keysSortedByValueUsingComparator: ^(id obj1, id obj2) {
@@ -73,6 +64,14 @@ extern AppDelegate *myDelegate;
             
             // Set new header string
             currentDateStr = pluginUpdateStr;
+            
+            // Sort group by name
+            if (groupCluster.count > columns) {
+                NSArray *pluginSubArray = [groupCluster subarrayWithRange:NSMakeRange(columns, groupCluster.count - columns)];
+                NSSortDescriptor *sorter = [[NSSortDescriptor alloc] initWithKey:@"webName" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
+                pluginSubArray = [[pluginSubArray sortedArrayUsingDescriptors:@[sorter]] copy];
+                groupCluster = [[groupCluster subarrayWithRange:NSMakeRange(0, columns)] arrayByAddingObjectsFromArray:pluginSubArray].mutableCopy;
+            }
             
             // Pad out current cluster
             while (groupCluster.count % columns != 0)

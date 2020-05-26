@@ -10,8 +10,12 @@
 
 @interface MF_pluginPreferencesView : NSView <NSTableViewDataSource, NSTableViewDelegate>
 
-@property NSArray *applicationList;
-@property NSMetadataQuery *query;
-@property NSTableView *tv;
+@property NSMetadataQuery       *query;
+
+@property NSArray               *applicationList;
+@property NSArray               *pluginList;
+
+@property IBOutlet NSView       *preferencesContainer;
+@property IBOutlet NSTableView  *tv;
 
 @end

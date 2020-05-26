@@ -128,9 +128,7 @@
 		FBF137DC2105AB8B0001916A /* MacForgeHelper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = F0ADE0F6166DF941009758CC /* MacForgeHelper.app */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FBF137E3210E79B70001916A /* blacklistTable.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF137E2210E79B70001916A /* blacklistTable.m */; };
 		FBFC745F24774B2D0015D36C /* MF_featuredView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBFC745E24774B2D0015D36C /* MF_featuredView.m */; };
-		FBFC7462247767030015D36C /* MF_pluginPreferenceLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = FBFC7461247767030015D36C /* MF_pluginPreferenceLoader.m */; };
 		FBFC7466247769280015D36C /* MF_pluginPreferencesView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBFC7465247769280015D36C /* MF_pluginPreferencesView.m */; };
-		FBFC7468247769510015D36C /* MF_pluginPreferencesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FBFC7467247769510015D36C /* MF_pluginPreferencesView.xib */; };
 		FBFC746D2477CCD30015D36C /* MF_discoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBFC746C2477CCD30015D36C /* MF_discoverView.m */; };
 /* End PBXBuildFile section */
 
@@ -495,11 +493,8 @@
 		FBF137E2210E79B70001916A /* blacklistTable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = blacklistTable.m; sourceTree = "<group>"; };
 		FBFC745D24774B2D0015D36C /* MF_featuredView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_featuredView.h; sourceTree = "<group>"; };
 		FBFC745E24774B2D0015D36C /* MF_featuredView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_featuredView.m; sourceTree = "<group>"; };
-		FBFC7460247767030015D36C /* MF_pluginPreferenceLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_pluginPreferenceLoader.h; sourceTree = "<group>"; };
-		FBFC7461247767030015D36C /* MF_pluginPreferenceLoader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_pluginPreferenceLoader.m; sourceTree = "<group>"; };
 		FBFC7464247769280015D36C /* MF_pluginPreferencesView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_pluginPreferencesView.h; sourceTree = "<group>"; };
 		FBFC7465247769280015D36C /* MF_pluginPreferencesView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_pluginPreferencesView.m; sourceTree = "<group>"; };
-		FBFC7467247769510015D36C /* MF_pluginPreferencesView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MF_pluginPreferencesView.xib; sourceTree = "<group>"; };
 		FBFC746B2477CCD30015D36C /* MF_discoverView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_discoverView.h; sourceTree = "<group>"; };
 		FBFC746C2477CCD30015D36C /* MF_discoverView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_discoverView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1072,9 +1067,6 @@
 		FBFC74632477670B0015D36C /* Plugin Prefs */ = {
 			isa = PBXGroup;
 			children = (
-				FBFC7467247769510015D36C /* MF_pluginPreferencesView.xib */,
-				FBFC7460247767030015D36C /* MF_pluginPreferenceLoader.h */,
-				FBFC7461247767030015D36C /* MF_pluginPreferenceLoader.m */,
 				FBFC7464247769280015D36C /* MF_pluginPreferencesView.h */,
 				FBFC7465247769280015D36C /* MF_pluginPreferencesView.m */,
 			);
@@ -1446,7 +1438,6 @@
 				FBA6E8C220F01D4000A12ACF /* LICENSE_StartAtLoginController in Resources */,
 				FBF137D22105782A0001916A /* reddit.png in Resources */,
 				FBF137CC210575ED0001916A /* code.png in Resources */,
-				FBFC7468247769510015D36C /* MF_pluginPreferencesView.xib in Resources */,
 				FBA6E8C420F01D7500A12ACF /* LICENSE_SIMBL in Resources */,
 				FB306ACE2367CD0F008A6E61 /* Media.xcassets in Resources */,
 				FB169AFE22F4EEEB001E84E0 /* MF_featuredItemController.xib in Resources */,
@@ -1793,7 +1784,6 @@
 			files = (
 				FBFC746D2477CCD30015D36C /* MF_discoverView.m in Sources */,
 				FB1C18B823417E1200BD9F32 /* MF_bundleView.m in Sources */,
-				FBFC7462247767030015D36C /* MF_pluginPreferenceLoader.m in Sources */,
 				FB1C18B92341811F00BD9F32 /* MF_bundlePreviewView.m in Sources */,
 				FBFC7466247769280015D36C /* MF_pluginPreferencesView.m in Sources */,
 				FB169AFD22F4EEEB001E84E0 /* MF_featuredItemController.m in Sources */,

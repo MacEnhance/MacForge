@@ -9,5 +9,5 @@
 @import AppKit;
 
 @interface MF_discoverView : NSView <NSTableViewDataSource, NSTableViewDelegate>
-@property NSTableView *tv;
+@property NSTableView   *tv;
 @end
