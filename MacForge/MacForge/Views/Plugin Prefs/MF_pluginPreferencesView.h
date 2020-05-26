@@ -7,6 +7,8 @@
 //
 
 @import AppKit;
+#import "../../../ViewBridge Headers/ViewBridge.h"
+#import "../../../PreferenceLoader/PreferenceLoaderProtocol.h"
 
 @interface MF_pluginPreferencesView : NSView <NSTableViewDataSource, NSTableViewDelegate>
 
@@ -18,4 +20,7 @@
 @property IBOutlet NSView       *preferencesContainer;
 @property IBOutlet NSTableView  *tv;
 
+@property (retain) NSXPCConnection *prefLoaderConnection;
+@property (retain) id<PreferenceLoaderProtocol> prefLoaderProxy;
+@property (retain) NSRemoteView *currentPrefView;
 @end
