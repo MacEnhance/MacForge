@@ -7,6 +7,7 @@
 //
 
 #import "MF_pluginPreferencesView.h"
+#import "../../../PreferenceLoader/PreferenceLoaderProtocol.h"
 
 @implementation MF_pluginPreferencesView
 
@@ -16,6 +17,14 @@
 //    [self doAQuery];
     [_tv setDelegate:self];
     [_tv setDataSource:self];
+    
+    _currentPrefView = NULL;
+    
+    _prefLoaderConnection = [NSXPCSharedListener connectionForListenerNamed:@"com.w0lf.MacForge" fromServiceNamed:@"com.w0lf.MacForge.PreferenceLoader"];
+    _prefLoaderConnection.remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:@protocol(PreferenceLoaderProtocol)];
+    [_prefLoaderConnection resume];
+    
+    _prefLoaderProxy = _prefLoaderConnection.remoteObjectProxy;
 }
 
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
@@ -26,21 +35,49 @@
     NSMutableArray* dirs = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:@"/Library/Application Support/MacEnhance/Preferences" error:Nil].mutableCopy;
     NSMutableArray *res = NSMutableArray.new;
     for (NSString *file in dirs) {
-        if ([file.pathExtension isEqualToString:@"bundle"])
-            [res addObject:[@"/Library/Application Support/MacEnhance/Preferences/" stringByAppendingString:file]];
+        if ([file.pathExtension isEqualToString:@"bundle"]) {
+            NSBundle *preferenceBundle = [NSBundle bundleWithPath:[@"/Library/Application Support/MacEnhance/Preferences/" stringByAppendingString:file]];
+            if(preferenceBundle) {
+                [res addObject:preferenceBundle];
+            }
+//            [res addObject:[@"/Library/Application Support/MacEnhance/Preferences/" stringByAppendingString:file]];
+        }
     }
     _pluginList = res.copy;
     return res.count;
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)notification {
+
+    if(_currentPrefView)
+        [_currentPrefView invalidate];
     
-    NSLog(@"%@", notification);
+    NSBundle *selectedPref = [_pluginList objectAtIndex:[_tv selectedRow]];
+    NSString *path = [selectedPref bundlePath];
+    NSLog(@"Bundle path %@", path);
+    __weak typeof(self) weakSelf = self;
     
-    // Fill container based on selection
-    
-    // TODO
-    
+    [_prefLoaderProxy setPluginPath:path
+                      withReply:^(BOOL set) {
+        NSLog(@"Path Set");
+        dispatch_async(dispatch_get_main_queue(), ^(){
+            weakSelf.currentPrefView = [[NSRemoteView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+            [weakSelf.currentPrefView setTranslatesAutoresizingMaskIntoConstraints:NO];
+            [weakSelf.currentPrefView setSynchronizesImplicitAnimations:NO];
+            [weakSelf.currentPrefView setShouldMaskToBounds:NO];
+            [weakSelf.currentPrefView setServiceName:@"com.w0lf.MacForge.PreferenceLoader"];
+            [weakSelf.currentPrefView setServiceSubclassName:@"PreferenceLoaderServiceView"];
+            
+            [weakSelf.currentPrefView advanceToRunPhaseIfNeeded:^(NSError *err){
+                dispatch_async(dispatch_get_main_queue(), ^(){
+                    NSRect frame = weakSelf.currentPrefView.frame;
+                    frame.origin.y = weakSelf.preferencesContainer.frame.size.height - frame.size.height;
+                    [weakSelf.currentPrefView setFrame:frame];
+                    [weakSelf.preferencesContainer addSubview:weakSelf.currentPrefView];
+                });
+            }];
+        });
+    }];
 }
 
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
@@ -71,7 +108,7 @@
     appNameView.bezeled = NO;
     [appNameView setSelectable:false];
     [appNameView setDrawsBackground:false];
-    appNameView.stringValue = [_pluginList[row] lastPathComponent];
+    appNameView.stringValue = [[(NSBundle *)(_pluginList[row]) executablePath] lastPathComponent];
 
     [img setImage:appIMG];
     [result addSubview:appNameView];

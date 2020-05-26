@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		096DEFC5247CA727009F7CF5 /* PreferenceLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 096DEFC4247CA727009F7CF5 /* PreferenceLoader.m */; };
+		096DEFC7247CA727009F7CF5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 096DEFC6247CA727009F7CF5 /* main.m */; };
+		096DEFCB247CA727009F7CF5 /* PreferenceLoader.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = 096DEFC0247CA727009F7CF5 /* PreferenceLoader.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		096DEFD1247CA7CB009F7CF5 /* ViewBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 096DEFD0247CA7CB009F7CF5 /* ViewBridge.framework */; };
+		096DEFD4247CA7EC009F7CF5 /* ViewBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 096DEFD0247CA7CB009F7CF5 /* ViewBridge.framework */; };
 		2F1140E251C79C73E4ED4960 /* Pods_com_w0lf_MacForge_Installer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 560E972975EF2B331216595B /* Pods_com_w0lf_MacForge_Installer.framework */; };
 		2FCA88B6FD11BB87D2CB1185 /* Pods_MacForge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB9375FEDACBA2F9ED7779DF /* Pods_MacForge.framework */; };
 		342B4D11E29483B353536D9E /* Pods_MacForgeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB6AA186557851C9C5C553AC /* Pods_MacForgeKit.framework */; };
@@ -133,6 +138,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		096DEFC9247CA727009F7CF5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F0ADE0ED166DF941009758CC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 096DEFBF247CA727009F7CF5;
+			remoteInfo = PreferenceLoader;
+		};
 		F0ADE15D166DFBFE009758CC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F0ADE0ED166DF941009758CC /* Project object */;
@@ -234,6 +246,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		096DEFCF247CA727009F7CF5 /* Embed XPC Services */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
+			dstSubfolderSpec = 16;
+			files = (
+				096DEFCB247CA727009F7CF5 /* PreferenceLoader.xpc in Embed XPC Services */,
+			);
+			name = "Embed XPC Services";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F0ADE14D166DFB8B009758CC /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -311,6 +334,19 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		096DEFC0247CA727009F7CF5 /* PreferenceLoader.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = PreferenceLoader.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
+		096DEFC2247CA727009F7CF5 /* PreferenceLoaderProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreferenceLoaderProtocol.h; sourceTree = "<group>"; };
+		096DEFC3247CA727009F7CF5 /* PreferenceLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreferenceLoader.h; sourceTree = "<group>"; };
+		096DEFC4247CA727009F7CF5 /* PreferenceLoader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreferenceLoader.m; sourceTree = "<group>"; };
+		096DEFC6247CA727009F7CF5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		096DEFC8247CA727009F7CF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		096DEFD0247CA7CB009F7CF5 /* ViewBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ViewBridge.framework; path = ../../../../../System/Library/PrivateFrameworks/ViewBridge.framework; sourceTree = "<group>"; };
+		096DEFD6247CA7FF009F7CF5 /* ViewBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ViewBridge.framework; sourceTree = "<group>"; };
+		096DEFD8247CAA91009F7CF5 /* ViewBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewBridge.h; sourceTree = "<group>"; };
+		096DEFD9247CAA91009F7CF5 /* NSViewBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSViewBridge.h; sourceTree = "<group>"; };
+		096DEFDA247CAA91009F7CF5 /* NSServiceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSServiceViewController.h; sourceTree = "<group>"; };
+		096DEFDB247CAA91009F7CF5 /* NSXPCSharedListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSXPCSharedListener.h; sourceTree = "<group>"; };
+		096DEFDC247CAA91009F7CF5 /* NSRemoteView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSRemoteView.h; sourceTree = "<group>"; };
 		0F8ED1B7A18AF968A9C5F76E /* Pods_purchaseValidationApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_purchaseValidationApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A4A92FE80E4F31C97F3F7D1 /* Pods-com.w0lf.MacForge.Injector.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-com.w0lf.MacForge.Injector.release.xcconfig"; path = "Target Support Files/Pods-com.w0lf.MacForge.Injector/Pods-com.w0lf.MacForge.Injector.release.xcconfig"; sourceTree = "<group>"; };
 		370D6DF2C08D50C20C214C75 /* Pods-MacForgeKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacForgeKit.release.xcconfig"; path = "Target Support Files/Pods-MacForgeKit/Pods-MacForgeKit.release.xcconfig"; sourceTree = "<group>"; };
@@ -500,6 +536,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		096DEFBD247CA727009F7CF5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				096DEFD1247CA7CB009F7CF5 /* ViewBridge.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F0ADE0F3166DF941009758CC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -563,6 +607,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				096DEFD4247CA7EC009F7CF5 /* ViewBridge.framework in Frameworks */,
 				FBC2129223B58045006F4485 /* CocoaMarkdown.framework in Frameworks */,
 				2FCA88B6FD11BB87D2CB1185 /* Pods_MacForge.framework in Frameworks */,
 				FB275D7B2339DE9B001C154A /* GameplayKit.framework in Frameworks */,
@@ -575,6 +620,7 @@
 		06A3EAD2AD04399011740EC7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				096DEFD0247CA7CB009F7CF5 /* ViewBridge.framework */,
 				FB275D7A2339DE9B001C154A /* GameplayKit.framework */,
 				FBAA97472334BAF40074B4E2 /* Paddle.framework */,
 				FB9375FEDACBA2F9ED7779DF /* Pods_MacForge.framework */,
@@ -587,6 +633,30 @@
 				FB3C2EC7236A7FB5002B21C1 /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		096DEFC1247CA727009F7CF5 /* PreferenceLoader */ = {
+			isa = PBXGroup;
+			children = (
+				096DEFC2247CA727009F7CF5 /* PreferenceLoaderProtocol.h */,
+				096DEFC3247CA727009F7CF5 /* PreferenceLoader.h */,
+				096DEFC4247CA727009F7CF5 /* PreferenceLoader.m */,
+				096DEFC6247CA727009F7CF5 /* main.m */,
+				096DEFC8247CA727009F7CF5 /* Info.plist */,
+			);
+			path = PreferenceLoader;
+			sourceTree = "<group>";
+		};
+		096DEFD7247CAA91009F7CF5 /* ViewBridge Headers */ = {
+			isa = PBXGroup;
+			children = (
+				096DEFD8247CAA91009F7CF5 /* ViewBridge.h */,
+				096DEFD9247CAA91009F7CF5 /* NSViewBridge.h */,
+				096DEFDA247CAA91009F7CF5 /* NSServiceViewController.h */,
+				096DEFDB247CAA91009F7CF5 /* NSXPCSharedListener.h */,
+				096DEFDC247CAA91009F7CF5 /* NSRemoteView.h */,
+			);
+			path = "ViewBridge Headers";
 			sourceTree = "<group>";
 		};
 		28FCEADAD0206F660B45DABE /* Pods */ = {
@@ -630,6 +700,8 @@
 				F0ADE0F9166DF941009758CC /* Local Frameworks */,
 				28FCEADAD0206F660B45DABE /* Pods */,
 				FBAA97502334BBFC0074B4E2 /* purchaseValidationApp */,
+				096DEFD7247CAA91009F7CF5 /* ViewBridge Headers */,
+				096DEFC1247CA727009F7CF5 /* PreferenceLoader */,
 				06A3EAD2AD04399011740EC7 /* Frameworks */,
 				F0ADE0F7166DF941009758CC /* Products */,
 			);
@@ -645,6 +717,7 @@
 				FBE767E820F00FFB00A42BD5 /* MacForge.app */,
 				FBA6E90120F0299B00A12ACF /* MacForgeDockTile.docktileplugin */,
 				FBAA974F2334BBFC0074B4E2 /* purchaseValidationApp.app */,
+				096DEFC0247CA727009F7CF5 /* PreferenceLoader.xpc */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -652,6 +725,7 @@
 		F0ADE0F9166DF941009758CC /* Local Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				096DEFD6247CA7FF009F7CF5 /* ViewBridge.framework */,
 				FBA6E88920F0179700A12ACF /* AppKit.framework */,
 				FBA6E88820F0179600A12ACF /* CoreData.framework */,
 				F0ADE1C9166E0992009758CC /* Carbon.framework */,
@@ -1089,6 +1163,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		096DEFBF247CA727009F7CF5 /* PreferenceLoader */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 096DEFCC247CA727009F7CF5 /* Build configuration list for PBXNativeTarget "PreferenceLoader" */;
+			buildPhases = (
+				096DEFBC247CA727009F7CF5 /* Sources */,
+				096DEFBD247CA727009F7CF5 /* Frameworks */,
+				096DEFBE247CA727009F7CF5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PreferenceLoader;
+			productName = PreferenceLoader;
+			productReference = 096DEFC0247CA727009F7CF5 /* PreferenceLoader.xpc */;
+			productType = "com.apple.product-type.xpc-service";
+		};
 		F0ADE0F5166DF941009758CC /* MacForgeHelper */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F0ADE114166DF942009758CC /* Build configuration list for PBXNativeTarget "MacForgeHelper" */;
@@ -1219,6 +1310,7 @@
 				FBF137D92105AB3E0001916A /* CopyFiles */,
 				FBB6D14B22FE4963003A5B71 /* Update build version */,
 				13417830BB059634108B650C /* [CP] Embed Pods Frameworks */,
+				096DEFCF247CA727009F7CF5 /* Embed XPC Services */,
 			);
 			buildRules = (
 			);
@@ -1227,6 +1319,7 @@
 				FBA6E91720F0310E00A12ACF /* PBXTargetDependency */,
 				FBA6E90B20F029E400A12ACF /* PBXTargetDependency */,
 				FBE7680320F015DD00A42BD5 /* PBXTargetDependency */,
+				096DEFCA247CA727009F7CF5 /* PBXTargetDependency */,
 			);
 			name = MacForge;
 			productName = MacPlus;
@@ -1244,21 +1337,21 @@
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = MacEnhance;
 				TargetAttributes = {
+					096DEFBF247CA727009F7CF5 = {
+						CreatedOnToolsVersion = 11.4.1;
+						ProvisioningStyle = Automatic;
+					};
 					F0ADE0F5166DF941009758CC = {
-						DevelopmentTeam = EX596BNL45;
 						ProvisioningStyle = Automatic;
 					};
 					F0ADE14E166DFB8B009758CC = {
-						DevelopmentTeam = EX596BNL45;
 						ProvisioningStyle = Manual;
 					};
 					F0ADE1B7166E0820009758CC = {
-						DevelopmentTeam = EX596BNL45;
 						ProvisioningStyle = Manual;
 					};
 					FBA6E90020F0299B00A12ACF = {
 						CreatedOnToolsVersion = 10.0;
-						DevelopmentTeam = EX596BNL45;
 						ProvisioningStyle = Manual;
 					};
 					FBAA974E2334BBFC0074B4E2 = {
@@ -1267,7 +1360,6 @@
 					};
 					FBE7679D20EF426D00A42BD5 = {
 						CreatedOnToolsVersion = 10.0;
-						DevelopmentTeam = EX596BNL45;
 						ProvisioningStyle = Automatic;
 					};
 					FBE767E720F00FFB00A42BD5 = {
@@ -1314,6 +1406,7 @@
 				FBE7679D20EF426D00A42BD5 /* MacForgeKit */,
 				FBA6E90020F0299B00A12ACF /* MacForgeDockTile */,
 				FBAA974E2334BBFC0074B4E2 /* purchaseValidationApp */,
+				096DEFBF247CA727009F7CF5 /* PreferenceLoader */,
 			);
 		};
 /* End PBXProject section */
@@ -1371,6 +1464,13 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		096DEFBE247CA727009F7CF5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F0ADE0F4166DF941009758CC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1474,7 +1574,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework",
-				"${DWARF_DSYM_FOLDER_PATH}/Sparkle.framework.dSYM",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1667,6 +1766,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework",
+				"${DWARF_DSYM_FOLDER_PATH}/Sparkle.framework.dSYM",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1711,6 +1811,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		096DEFBC247CA727009F7CF5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				096DEFC7247CA727009F7CF5 /* main.m in Sources */,
+				096DEFC5247CA727009F7CF5 /* PreferenceLoader.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F0ADE0F2166DF941009758CC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1816,6 +1925,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		096DEFCA247CA727009F7CF5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 096DEFBF247CA727009F7CF5 /* PreferenceLoader */;
+			targetProxy = 096DEFC9247CA727009F7CF5 /* PBXContainerItemProxy */;
+		};
 		F0ADE15E166DFBFE009758CC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F0ADE14E166DFB8B009758CC /* com.w0lf.MacForge.Installer */;
@@ -1873,6 +1987,71 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		096DEFCD247CA727009F7CF5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = G9T88PYL48;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = PreferenceLoader/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacForge.PreferenceLoader;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = "$(inherited) $(SYSTEM_LIBRARY_DIR)/PrivateFrameworks";
+			};
+			name = Debug;
+		};
+		096DEFCE247CA727009F7CF5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = G9T88PYL48;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = PreferenceLoader/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacForge.PreferenceLoader;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = "$(inherited) $(SYSTEM_LIBRARY_DIR)/PrivateFrameworks";
+			};
+			name = Release;
+		};
 		F0ADE112166DF942009758CC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1975,7 +2154,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 4;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = G9T88PYL48;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2002,7 +2181,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 4;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = G9T88PYL48;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2025,7 +2204,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = EX596BNL45;
+				DEVELOPMENT_TEAM = G9T88PYL48;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Installer/Installer-Prefix.pch";
@@ -2055,7 +2234,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = EX596BNL45;
+				DEVELOPMENT_TEAM = G9T88PYL48;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Installer/Installer-Prefix.pch";
@@ -2087,7 +2266,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = EX596BNL45;
+				DEVELOPMENT_TEAM = G9T88PYL48;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Injector/Injector-Prefix.pch";
@@ -2121,7 +2300,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = EX596BNL45;
+				DEVELOPMENT_TEAM = G9T88PYL48;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Injector/Injector-Prefix.pch";
@@ -2164,7 +2343,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = EX596BNL45;
+				DEVELOPMENT_TEAM = G9T88PYL48;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -2196,7 +2375,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = EX596BNL45;
+				DEVELOPMENT_TEAM = G9T88PYL48;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -2231,7 +2410,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = EX596BNL45;
+				DEVELOPMENT_TEAM = G9T88PYL48;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2270,7 +2449,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = EX596BNL45;
+				DEVELOPMENT_TEAM = G9T88PYL48;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2325,7 +2504,7 @@
 				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = EX596BNL45;
+				DEVELOPMENT_TEAM = G9T88PYL48;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -2388,7 +2567,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 2;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = EX596BNL45;
+				DEVELOPMENT_TEAM = G9T88PYL48;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -2437,7 +2616,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = EX596BNL45;
+				DEVELOPMENT_TEAM = G9T88PYL48;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -2451,6 +2630,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = NO;
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = "$(inherited) $(SYSTEM_LIBRARY_DIR)/PrivateFrameworks";
 			};
 			name = Debug;
 		};
@@ -2475,7 +2655,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = EX596BNL45;
+				DEVELOPMENT_TEAM = G9T88PYL48;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2495,12 +2675,22 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = NO;
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = "$(inherited) $(SYSTEM_LIBRARY_DIR)/PrivateFrameworks";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		096DEFCC247CA727009F7CF5 /* Build configuration list for PBXNativeTarget "PreferenceLoader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				096DEFCD247CA727009F7CF5 /* Debug */,
+				096DEFCE247CA727009F7CF5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F0ADE0F0166DF941009758CC /* Build configuration list for PBXProject "MacForge" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
