@@ -23,9 +23,17 @@
     
     _currentPrefView = NULL;
     
-    _prefLoaderConnection = [NSXPCSharedListener connectionForListenerNamed:@"com.w0lf.MacForge" fromServiceNamed:@"com.w0lf.MacForge.PreferenceLoader"];
-    _prefLoaderConnection.remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:@protocol(PreferenceLoaderProtocol)];
-    [_prefLoaderConnection resume];
+//    _prefLoaderConnection = [NSXPCSharedListener connectionForListenerNamed:@"com.w0lf.MacForge" fromServiceNamed:@"com.w0lf.MacForge.PreferenceLoader"];
+//    _prefLoaderConnection.remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:@protocol(PreferenceLoaderProtocol)];
+//    [_prefLoaderConnection resume];
+    
+    __weak typeof(self) weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        weakSelf.prefLoaderConnection = [NSXPCSharedListener connectionForListenerNamed:@"com.w0lf.MacForge" fromServiceNamed:@"com.w0lf.MacForge.PreferenceLoader"];
+        weakSelf.prefLoaderConnection.remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:@protocol(PreferenceLoaderProtocol)];
+        [weakSelf.prefLoaderConnection resume];
+        weakSelf.prefLoaderProxy = weakSelf.prefLoaderConnection.remoteObjectProxy;
+    });
     
     _prefLoaderProxy = _prefLoaderConnection.remoteObjectProxy;
 }
@@ -53,8 +61,11 @@
 - (void)tableViewSelectionDidChange:(NSNotification *)notification {
 
     // Clear the view
-    if(_currentPrefView)
+    if(_currentPrefView) {
+//        [_currentPrefView setHidden:YES];
         [_currentPrefView invalidate];
+        _currentPrefView = NULL;
+    }
         
     // Load view if there is a selected item
     if (_tv.selectedRow >= 0) {
@@ -80,7 +91,7 @@
 //                        frame.origin.y = weakSelf.preferencesContainer.frame.size.height - frame.size.height;
                         [weakSelf.currentPrefView setFrame:CGRectMake(0, 0, weakSelf.preferencesContainer.frame.size.width, weakSelf.preferencesContainer.frame.size.height)];
                         [weakSelf.currentPrefView setAutoresizingMask:NSViewMaxXMargin | NSViewMinYMargin];
-                        [weakSelf.preferencesContainer addSubview:weakSelf.currentPrefView];
+                        [weakSelf.preferencesContainer setSubviews:@[weakSelf.currentPrefView]];
                     });
                 }];
             });
@@ -116,7 +127,7 @@
     appNameView.bezeled = NO;
     [appNameView setSelectable:false];
     [appNameView setDrawsBackground:false];
-    appNameView.stringValue = [[(NSBundle *)(_pluginList[row]) bundlePath] lastPathComponent];
+    appNameView.stringValue = [[(NSBundle *)(_pluginList[row]) executablePath] lastPathComponent];
 
     [img setImage:appIMG];
     [result addSubview:appNameView];
