@@ -264,19 +264,18 @@ Boolean appSetupFinished = false;
     // Sidebar
     
     // Init the sidebar controller
-    _sidebarController = [[MF_extra alloc] init];
-    _sidebarController.mainView = _mainViewHolder;
+    _sidebarController = MF_extra.sharedInstance;
+    _sidebarController.mainView = _tabMain;
+    _sidebarController.mainWindow = _window;
     _sidebarController.prefWindow = _windowPreferences;
     _sidebarController.changeLog = _changeLog;
     _sidebarController.preferenceViews = @[_preferencesGeneral, _preferencesBundles, _preferencesData, _preferencesAbout];
     _sidebarController.sidebarTopButtons = @[_sidebarFeatured, _sidebarDiscover, _sidebarManage, _sidebarPluginPrefs, _sidebarSystem, _sidebarUpdates];
-    _sidebarController.sidebarBotButtons = @[_sidebarAccount, _sidebarWarning, _sidebarDiscord];
+    _sidebarController.sidebarBotButtons = @[_sidebarAccount, _sidebarDiscord, _sidebarWarning];
     
     // Watch for system darkmode changes
     [[NSDistributedNotificationCenter defaultCenter] addObserver:_sidebarController selector:@selector(systemDarkModeChange:) name:@"AppleInterfaceThemeChangedNotification" object:nil];
-    
-//    [_sidebarPluginPrefs.buttonClickArea setEnabled:false];
-    
+        
     [_aboutSelector setTarget:_sidebarController];
     [_aboutSelector setAction:@selector(selectAboutInfo:)];
     
@@ -289,7 +288,8 @@ Boolean appSetupFinished = false;
 
     if (![MacForgeKit SIP_HasRequiredFlags] || ![MacForgeKit LIBRARYVALIDATION_enabled]) [_sidebarWarning.buttonClickArea setEnabled:false];
     if ([NSUserDefaults.standardUserDefaults boolForKey:@"prefHideDiscord"]) [_sidebarDiscord.buttonClickArea setEnabled:false];
-
+      
+    [_sidebarWarning.buttonClickArea setTarget:_sidebarController];
     [_sidebarAccount.buttonClickArea setTarget:_sidebarController];
     
     [_sidebarDiscord.buttonClickArea setAction:@selector(visitDiscord:)];
@@ -676,24 +676,35 @@ Boolean appSetupFinished = false;
 // -------------------
 
 - (void)setMainViewSubView:(NSView*)subview :(BOOL)scrolls {
-    MFFlippedView *documentView = [[MFFlippedView alloc] initWithFrame:NSMakeRect(0, 0, _mainViewHolder.frame.size.width, subview.frame.size.height)];
-    _mainViewHolder.documentView = documentView;
+    MFFlippedView *documentView = [[MFFlippedView alloc] initWithFrame:NSMakeRect(0, 0, subview.frame.size.width, subview.frame.size.height)];
     
+    NSScrollView *sv = [NSScrollView.alloc initWithFrame:NSMakeRect(0, 0, subview.frame.size.width, _tabMain.frame.size.height)];
+    
+    [sv setFrameOrigin:NSMakePoint(
+      round((NSWidth([_tabMain bounds]) - NSWidth([sv frame])) / 2),
+      round((NSHeight([_tabMain bounds]) - NSHeight([sv frame])) / 2)
+    )];
+    
+    [sv setAutoresizingMask:NSViewWidthSizable | NSViewMinYMargin | NSViewHeightSizable];
+    sv.drawsBackground = false;
+    sv.documentView = documentView;
     [subview setFrameOrigin:CGPointZero];
     
-    if (scrolls) {
+//    if (scrolls) {
         [subview setAutoresizingMask:NSViewWidthSizable];
-        [subview setFrameSize:CGSizeMake(_mainViewHolder.frame.size.width, subview.frame.size.height)];
+        [subview setFrameSize:CGSizeMake(sv.frame.size.width, subview.frame.size.height)];
         [documentView setAutoresizingMask:NSViewWidthSizable];
-    } else {
-        [subview setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
-        [subview setFrameSize:CGSizeMake(_mainViewHolder.frame.size.width, _mainViewHolder.frame.size.height - 2)];
-        [documentView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
-        [documentView setFrameSize:CGSizeMake(_mainViewHolder.frame.size.width, _mainViewHolder.frame.size.height - 2)];
-    }
+//    } else {
+//        [subview setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+//        [subview setFrameSize:CGSizeMake(sv.frame.size.width, sv.frame.size.height - 2)];
+//        [documentView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+//        [documentView setFrameSize:CGSizeMake(sv.frame.size.width, sv.frame.size.height - 2)];
+//    }
     
     [documentView setSubviews:@[subview]];
-    [_mainViewHolder scrollPoint:CGPointZero];
+    [sv scrollPoint:CGPointZero];
+    
+    [_tabMain setSubviews:@[sv]];
 }
 
 - (void)setViewSubView:(NSView*)container :(NSView*)subview {

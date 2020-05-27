@@ -13,6 +13,14 @@
 
 @implementation MF_extra
 
+// Shared instance if needed
++ (MF_extra*) sharedInstance {
+    static MF_extra* share = nil;
+    if (share == nil)
+        share = [[MF_extra alloc] init];
+    return share;
+}
+
 - (instancetype)init {
     MF_extra *res = [super init];
     _macOS = 9;
@@ -41,6 +49,7 @@
 - (void)setupSidebar {
     // Setup top buttons
     NSInteger height = 42;
+    NSUInteger totalHeight = height * 2;
     NSUInteger yLoc = _mainView.window.frame.size.height - height * 2;
     yLoc -= 50;
     for (MF_sidebarButton *sideButton in _sidebarTopButtons) {
@@ -58,6 +67,7 @@
             newFrame.origin.y = yLoc;
             newFrame.size.height = height;
             yLoc -= height;
+            totalHeight += height;
             [sideButton setFrame:newFrame];
             [sideButton setWantsLayer:YES];
         } else {
@@ -71,7 +81,7 @@
         [btn setTarget:self];
         [btn setAction:@selector(selectView:)];
     }
-    
+        
     // Setup bottom buttons
     height = 60;
     yLoc = 10;
@@ -89,6 +99,14 @@
         } else {
             sideButton.hidden = true;
         }
+    }
+    
+    totalHeight += yLoc - 6;
+    CGSize min = CGSizeMake(1000, totalHeight);
+    [_mainWindow setMinSize:min];
+    if (_mainWindow.frame.size.height < min.height) {
+        CGRect frm = _mainWindow.frame;
+        [_mainWindow setFrame:CGRectMake(frm.origin.x, frm.origin.y, frm.size.width, min.height + 16) display:true];
     }
 }
 
@@ -117,7 +135,7 @@
     NSColor *highlight = NSColor.blackColor;
     if (_macOS >= 14) {
         if ([osxMode isEqualToString:@"Dark"]) {
-            primary = NSColor.lightGrayColor;
+            primary = NSColor.whiteColor;
             secondary = NSColor.whiteColor;
             highlight = NSColor.whiteColor;
         }
@@ -140,27 +158,10 @@
     }
 }
 
-- (void)setMainViewSubView:(NSView*)subview {
-    NSScrollView *mv = (NSScrollView*)_mainView;
-    
-    MFFlippedView *documentView = [[MFFlippedView alloc] initWithFrame:NSMakeRect(0, 0, mv.frame.size.width, subview.frame.size.height)];
-    mv.documentView = documentView;
-
-    [subview setFrameOrigin:CGPointZero];
-
-
+- (void)setMainViewSubView:(NSView*)subview {    
     [subview setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
-    [subview setFrameSize:CGSizeMake(mv.frame.size.width, mv.frame.size.height - 2)];
-    [documentView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
-    [documentView setFrameSize:CGSizeMake(mv.frame.size.width, mv.frame.size.height - 2)];
-
-    [documentView setSubviews:@[subview]];
-    [mv scrollPoint:CGPointZero];
-    
-//    [subview setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
-//    [subview setFrameSize:CGSizeMake(_mainView.frame.size.width, _mainView.frame.size.height)];
-//    [_mainView setSubviews:@[subview]];
-//    [_mainView scrollPoint:CGPointZero];
+    [subview setFrameSize:CGSizeMake(_mainView.frame.size.width, _mainView.frame.size.height - 2)];
+    [_mainView setSubviews:@[subview]];
 }
 
 - (IBAction)selectPreference:(id)sender {

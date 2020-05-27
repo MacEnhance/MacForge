@@ -227,7 +227,7 @@ extern AppDelegate* myDelegate;
 }
 
 + (void)pluginInstallWithProgress:(MF_Plugin*)plugin :(NSString*)repo :(NSButton*)theButton :(NSProgressIndicator*)progress {
-    NSLog(@"%@", progress);
+//    NSLog(@"%@", progress);
     if (progress) {
         NSDictionary* item = plugin.webPlist;
         [MF_PluginManager.sharedInstance pluginUpdateOrInstallWithProgress:item :repo :theButton :progress];

@@ -29,6 +29,7 @@
 @property IBOutlet NSWindow         *prefWindow;
 @property IBOutlet NSTextView       *changeLog;
 
++ (MF_extra*) sharedInstance;
 - (void)setupSidebar;
 - (IBAction)selectView:(id)sender;
 - (IBAction)selectPreference:(id)sender;

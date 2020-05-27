@@ -68,7 +68,7 @@
             NSLog(@"Path Set");
             dispatch_async(dispatch_get_main_queue(), ^(){
                 weakSelf.currentPrefView = [[NSRemoteView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-                [weakSelf.currentPrefView setTranslatesAutoresizingMaskIntoConstraints:NO];
+//                [weakSelf.currentPrefView setTranslatesAutoresizingMaskIntoConstraints:NO];
                 [weakSelf.currentPrefView setSynchronizesImplicitAnimations:NO];
                 [weakSelf.currentPrefView setShouldMaskToBounds:NO];
                 [weakSelf.currentPrefView setServiceName:@"com.w0lf.MacForge.PreferenceLoader"];
@@ -76,9 +76,10 @@
 
                 [weakSelf.currentPrefView advanceToRunPhaseIfNeeded:^(NSError *err){
                     dispatch_async(dispatch_get_main_queue(), ^(){
-                        NSRect frame = weakSelf.currentPrefView.frame;
-                        frame.origin.y = weakSelf.preferencesContainer.frame.size.height - frame.size.height;
-                        [weakSelf.currentPrefView setFrame:frame];
+//                        NSRect frame = weakSelf.currentPrefView.frame;
+//                        frame.origin.y = weakSelf.preferencesContainer.frame.size.height - frame.size.height;
+                        [weakSelf.currentPrefView setFrame:CGRectMake(0, 0, weakSelf.preferencesContainer.frame.size.width, weakSelf.preferencesContainer.frame.size.height)];
+                        [weakSelf.currentPrefView setAutoresizingMask:NSViewMaxXMargin | NSViewMinYMargin];
                         [weakSelf.preferencesContainer addSubview:weakSelf.currentPrefView];
                     });
                 }];
@@ -115,7 +116,7 @@
     appNameView.bezeled = NO;
     [appNameView setSelectable:false];
     [appNameView setDrawsBackground:false];
-    appNameView.stringValue = [[(NSBundle *)(_pluginList[row]) executablePath] lastPathComponent];
+    appNameView.stringValue = [[(NSBundle *)(_pluginList[row]) bundlePath] lastPathComponent];
 
     [img setImage:appIMG];
     [result addSubview:appNameView];

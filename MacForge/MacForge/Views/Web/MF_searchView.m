@@ -22,6 +22,9 @@ extern AppDelegate *myDelegate;
 
 - (void)drawRect:(NSRect)dirtyRect {
     [super drawRect:dirtyRect];
+    
+    for (NSTableColumn* c in self.tv.tableColumns)
+        [c setWidth:self.frame.size.width/columns];
 }
 
 - (void)updateColumCount {
@@ -47,7 +50,6 @@ extern AppDelegate *myDelegate;
     
     // redraw and fit
     [_tv reloadData];
-    [_tv sizeToFit];
 }
 
 - (void)viewWillDraw {    
@@ -63,7 +65,6 @@ extern AppDelegate *myDelegate;
         _tv.gridColor = NSColor.clearColor;
         _tv.backgroundColor = NSColor.clearColor;
         _tv.headerView = nil;
-        _tv.columnAutoresizingStyle = NSTableViewUniformColumnAutoresizingStyle;
         
         // Create a scroll view and embed the table view in the scroll view, and add the scroll view to our window.
         NSScrollView * tableContainer = [[NSScrollView alloc] initWithFrame:self.frame];

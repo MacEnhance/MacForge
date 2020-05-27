@@ -94,12 +94,12 @@ extern AppDelegate *myDelegate;
 
 
 - (IBAction)getOrOpen:(id)sender {
-    [MF_Purchase pushthebutton:plug :sender :@"https://github.com/w0lfschild/myRepo/raw/master/featuredRepo" :_bundleProgress];
+    [MF_Purchase pushthebutton:plug :sender :@"https://github.com/MacEnhance/MacForgeRepo/raw/master/repo" :_bundleProgress];
 }
 
 - (IBAction)moreInfo:(id)sender {
     MF_repoData.sharedInstance.currentPlugin = plug;
-    plug.webRepository = @"https://github.com/w0lfschild/myRepo/raw/master/featuredRepo";
+    plug.webRepository = @"https://github.com/MacEnhance/MacForgeRepo/raw/master/repo";
     dispatch_async(dispatch_get_main_queue(), ^(void){
         [myDelegate setMainViewSubView:myDelegate.sourcesBundle :true];
     });

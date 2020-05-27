@@ -730,26 +730,28 @@ NSDictionary *testing;
         MF_bundlePreviewView *v = (MF_bundlePreviewView*)myDelegate.viewImages;
         NSInteger curprev = self.currentPreview;
         
-        NSLog(@"%ld", (long)curprev);
+//        NSLog(@"%ld", (long)curprev);
         
         if ([sender isEqualTo:self.bundlePreviewButton2])
             if (curprev % 2 == 0)
                 curprev++;
             
+        NSView *mainViewHolder = self.superview.superview.superview.superview;
+        
         if (curprev > self.bundlePreviewImages.count - 1) curprev = 0;
         v.currentPreview = curprev;
         v.bundlePreviewImages = self.bundlePreviewImages;
         [v.bundlePreview setImage:self.bundlePreviewImages[curprev]];
-        [v setFrame:self.frame];
+        [v setFrame:mainViewHolder.frame];
         [v setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
 //        [v setFrameOrigin:NSMakePoint(0, 0)];
-        [v setFrameOrigin:NSMakePoint(self.frame.size.width, 0)];
+        [v setFrameOrigin:NSMakePoint(mainViewHolder.frame.size.width, 0)];
         [v setTranslatesAutoresizingMaskIntoConstraints:true];
-        [self addSubview:v];
+        [mainViewHolder addSubview:v];
                 
         [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context){
             [context setDuration:0.2];
-            NSPoint startPoint = NSMakePoint(self.frame.size.width, 0);
+            NSPoint startPoint = NSMakePoint(mainViewHolder.frame.size.width, 0);
             [v setFrameOrigin:startPoint];
             [[v animator] setFrameOrigin:NSMakePoint(0, 0)];
         } completionHandler:^{
