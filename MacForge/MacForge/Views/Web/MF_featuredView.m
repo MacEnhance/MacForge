@@ -107,9 +107,6 @@ extern AppDelegate *myDelegate;
         columns = floor(self.frame.size.width/390.0);
         [self updateColumCount];
     }
-    
-//    NSLog(@"frm %@", NSStringFromRect(self.subviews.firstObject.frame));
-//    NSLog(@"_tv %@", NSStringFromRect(_tv.frame));
 }
 
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {

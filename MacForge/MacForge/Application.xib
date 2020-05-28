@@ -12,7 +12,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <window title="MacForge" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" animationBehavior="default" titlebarAppearsTransparent="YES" id="QvC-M9-y7g" userLabel="Main Window">
+        <window title="MacForge" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" animationBehavior="default" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="QvC-M9-y7g" userLabel="Main Window">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="1000" height="700"/>
@@ -35,7 +35,7 @@
                     </searchField>
                     <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t1A-lu-RBE">
                         <rect key="frame" x="220" y="0.0" width="780" height="700"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </customView>
                     <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="anT-t4-Vba" userLabel="sidebar System" customClass="MF_sidebarButton">
                         <rect key="frame" x="0.0" y="413" width="220" height="42"/>
@@ -365,10 +365,13 @@
                 </allowedToolbarItems>
                 <defaultToolbarItems/>
             </toolbar>
+            <connections>
+                <outlet property="delegate" destination="Voe-Tx-rLC" id="JpF-au-GAe"/>
+            </connections>
             <point key="canvasLocation" x="-1269" y="385"/>
         </window>
         <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="fiC-1c-umx" userLabel="Preferences">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="457" y="500" width="426" height="50"/>
             <rect key="screenRect" x="0.0" y="0.0" width="3840" height="2137"/>
@@ -803,7 +806,7 @@
         </customView>
         <customView id="qgX-rz-I9d" userLabel="Bundle View" customClass="MF_bundleView">
             <rect key="frame" x="0.0" y="0.0" width="750" height="1059"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <customView id="u8h-lt-Gs3" userLabel="Images">
                     <rect key="frame" x="0.0" y="579" width="750" height="250"/>
@@ -832,7 +835,7 @@
                         </button>
                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tft-uK-tDj">
                             <rect key="frame" x="720" y="0.0" width="30" height="250"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSRightFacingTriangleTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="AOg-L0-ktu">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -880,8 +883,8 @@
                         </textField>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JGF-xW-REX">
                             <rect key="frame" x="202" y="144" width="407" height="14"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Description Short" id="xKF-ga-0fC">
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <textFieldCell key="cell" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="left" title="Description Short" id="xKF-ga-0fC">
                                 <font key="font" metaFont="menu" size="11"/>
                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -894,14 +897,14 @@
                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BoR-c2-Kby">
                             <rect key="frame" x="202" y="124" width="386" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <buttonCell key="cell" type="bevel" title="Developer" bezelStyle="rounded" alignment="left" imageScaling="proportionallyDown" inset="2" id="XDh-SC-usm">
+                            <buttonCell key="cell" type="bevel" title="Developer" bezelStyle="rounded" alignment="left" truncatesLastVisibleLine="YES" imageScaling="proportionallyDown" inset="2" id="XDh-SC-usm">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                         </button>
                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l6Z-oD-6Bw" customClass="SYFlatButton">
                             <rect key="frame" x="608" y="144" width="80" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="square" title="Button" bezelStyle="shadowlessSquare" alignment="center" imageScaling="proportionallyDown" inset="2" id="F64-oJ-Pda">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="systemBold"/>
@@ -931,7 +934,7 @@
                         </customView>
                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FoW-OE-e9a" customClass="SYFlatButton">
                             <rect key="frame" x="698" y="144" width="32" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSShareTemplate" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="8xg-ii-KGZ">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -939,7 +942,7 @@
                         </button>
                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wh5-I5-Jbq">
                             <rect key="frame" x="636" y="41" width="100" height="32"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="push" title="Remove" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="TH8-Rw-DTg">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -947,7 +950,7 @@
                         </button>
                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aHl-Mi-cRK">
                             <rect key="frame" x="636" y="13" width="100" height="32"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="push" title="Donate" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="tMK-fZ-yxL">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -955,7 +958,7 @@
                         </button>
                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4nQ-4A-9s5">
                             <rect key="frame" x="636" y="69" width="100" height="32"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="push" title="Contact" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyUpOrDown" inset="2" id="MXY-3W-iRf">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>

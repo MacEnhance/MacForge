@@ -158,6 +158,34 @@
     }
 }
 
+- (void)setViewSubViewWithScrollableView:(NSView*)view :(NSView*)subview {
+    // configure the scroll view
+    NSScrollView *scrollView = [[NSScrollView alloc] initWithFrame:[view frame]];
+    [scrollView setFrameOrigin:CGPointMake(0, 0)];
+    [scrollView setAutoresizingMask:NSViewHeightSizable | NSViewWidthSizable | NSViewMinYMargin];
+    [scrollView setBorderType:NSNoBorder];
+    [scrollView setHasVerticalScroller:YES];
+    scrollView.drawsBackground = false;
+//    scrollView.backgroundColor = NSColor.clearColor;
+
+    // configure document view
+    MFFlippedView *docView = [[MFFlippedView alloc] initWithFrame:NSMakeRect(0, 0, view.frame.size.width, subview.frame.size.height)];
+    docView.autoresizingMask = NSViewWidthSizable | NSViewMinYMargin;
+
+    // configure our subview
+    [subview setFrameOrigin:CGPointMake((docView.frame.size.width - subview.frame.size.width)/2, 0)];
+    subview.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin;
+
+    // embed views
+    [docView setSubviews:@[subview]];
+    [scrollView setDocumentView:docView];
+    [view setSubviews:@[scrollView]];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [docView setFrameSize:CGSizeMake(view.frame.size.width, docView.frame.size.height)];
+    });
+}
+
 - (void)setMainViewSubView:(NSView*)subview {
     [subview setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
     [subview setFrameSize:CGSizeMake(_mainView.frame.size.width, _mainView.frame.size.height - 2)];

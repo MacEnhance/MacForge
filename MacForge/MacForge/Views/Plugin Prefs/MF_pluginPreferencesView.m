@@ -6,6 +6,7 @@
 //  Copyright © 2020 MacEnhance. All rights reserved.
 //
 
+#import "MF_extra.h"
 #import "MF_pluginPreferencesView.h"
 #import "../../../PreferenceLoader/PreferenceLoaderProtocol.h"
 
@@ -22,10 +23,6 @@
     _preferencesContainer.layer.borderWidth = 1;
     
     _currentPrefView = NULL;
-    
-//    _prefLoaderConnection = [NSXPCSharedListener connectionForListenerNamed:@"com.w0lf.MacForge" fromServiceNamed:@"com.w0lf.MacForge.PreferenceLoader"];
-//    _prefLoaderConnection.remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:@protocol(PreferenceLoaderProtocol)];
-//    [_prefLoaderConnection resume];
     
     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
@@ -62,7 +59,6 @@
 
     // Clear the view
     if(_currentPrefView) {
-//        [_currentPrefView setHidden:YES];
         [_currentPrefView invalidate];
         _currentPrefView = NULL;
     }
@@ -87,12 +83,7 @@
 
                 [weakSelf.currentPrefView advanceToRunPhaseIfNeeded:^(NSError *err){
                     dispatch_async(dispatch_get_main_queue(), ^(){
-//                        NSRect frame = weakSelf.currentPrefView.frame;
-//                        frame.origin.y = weakSelf.preferencesContainer.frame.size.height - frame.size.height;
-//                        [weakSelf.currentPrefView setFrame:CGRectMake(0, 0, weakSelf.preferencesContainer.frame.size.width, weakSelf.preferencesContainer.frame.size.height)];
-                        [weakSelf.currentPrefView setFrameOrigin:CGPointMake(0, weakSelf.preferencesContainer.frame.size.height - weakSelf.currentPrefView.frame.size.height)];
-                        [weakSelf.currentPrefView setAutoresizingMask:NSViewMaxXMargin | NSViewMinYMargin];
-                        [weakSelf.preferencesContainer setSubviews:@[weakSelf.currentPrefView]];
+                        [MF_extra.sharedInstance setViewSubViewWithScrollableView:weakSelf.preferencesContainer :weakSelf.currentPrefView];
                     });
                 }];
             });

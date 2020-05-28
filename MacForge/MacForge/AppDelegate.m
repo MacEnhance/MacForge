@@ -158,11 +158,19 @@ Boolean appSetupFinished = false;
             MF_repoData.sharedInstance.currentPlugin = p;
             NSView *v = myDelegate.sourcesBundle;
             dispatch_async(dispatch_get_main_queue(), ^(void){
-                [self setMainViewSubView:v :true];
+                [MF_extra.sharedInstance setViewSubViewWithScrollableView:self.tabMain :v];
             });
     } else {
         showBundleOnOpen = false;
     }
+}
+
+- (void)windowWillEnterFullScreen:(NSNotification *)notification {
+    [_window.toolbar setVisible:false];
+}
+
+- (void)windowWillExitFullScreen:(NSNotification *)notification {
+    [_window.toolbar setVisible:true];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
@@ -674,38 +682,6 @@ Boolean appSetupFinished = false;
 // -------------------
 // USER AUTHENTICATION
 // -------------------
-
-- (void)setMainViewSubView:(NSView*)subview :(BOOL)scrolls {
-    MFFlippedView *documentView = [[MFFlippedView alloc] initWithFrame:NSMakeRect(0, 0, subview.frame.size.width, subview.frame.size.height)];
-    
-    NSScrollView *sv = [NSScrollView.alloc initWithFrame:NSMakeRect(0, 0, subview.frame.size.width, _tabMain.frame.size.height)];
-    
-    [sv setFrameOrigin:NSMakePoint(
-      round((NSWidth([_tabMain bounds]) - NSWidth([sv frame])) / 2),
-      round((NSHeight([_tabMain bounds]) - NSHeight([sv frame])) / 2)
-    )];
-    
-    [sv setAutoresizingMask:NSViewWidthSizable | NSViewMinYMargin | NSViewHeightSizable];
-    sv.drawsBackground = false;
-    sv.documentView = documentView;
-    [subview setFrameOrigin:CGPointZero];
-    
-//    if (scrolls) {
-        [subview setAutoresizingMask:NSViewWidthSizable];
-        [subview setFrameSize:CGSizeMake(sv.frame.size.width, subview.frame.size.height)];
-        [documentView setAutoresizingMask:NSViewWidthSizable];
-//    } else {
-//        [subview setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
-//        [subview setFrameSize:CGSizeMake(sv.frame.size.width, sv.frame.size.height - 2)];
-//        [documentView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
-//        [documentView setFrameSize:CGSizeMake(sv.frame.size.width, sv.frame.size.height - 2)];
-//    }
-    
-    [documentView setSubviews:@[subview]];
-    [sv scrollPoint:CGPointZero];
-    
-    [_tabMain setSubviews:@[sv]];
-}
 
 - (void)setViewSubView:(NSView*)container :(NSView*)subview {
     [subview setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];

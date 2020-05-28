@@ -1,9 +1,14 @@
-### WIP
+### TODO
 
--   Bundle ratings and reviews
--   Added more applications that don't require SIP
--   Added indicators to Bundle pages which show bundle requirements to function
--   Hide bundles that dont work on users macOS version
+- Finish all app settings
+- Better link helper and main app functionallity
+- System info scrolling
+- Tweak preference view scrolling
+
+- Bundle ratings and reviews
+- Added more applications that don't require SIP
+- Added indicators to Bundle pages which show bundle requirements to function
+- Hide bundles that dont work on users macOS version
 
 ### 0.20.1
 

@@ -35,6 +35,7 @@
 - (IBAction)selectPreference:(id)sender;
 - (IBAction)selectAboutInfo:(id)sender;
 - (void)setMainViewSubView:(NSView*)subview;
+- (void)setViewSubViewWithScrollableView:(NSView*)view :(NSView*)subview ;
 - (void)systemDarkModeChange:(NSNotification *)notif;
 
 @end

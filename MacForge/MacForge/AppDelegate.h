@@ -48,7 +48,7 @@
 #import "MF_PluginManager.h"
 #import "blacklistTable.h"
 
-@interface AppDelegate : NSObject <NSApplicationDelegate, NSSearchFieldDelegate> {
+@interface AppDelegate : NSObject <NSApplicationDelegate, NSSearchFieldDelegate, NSWindowDelegate> {
     NSMutableArray *watchdogs;
     MF_PluginManager *_sharedMethods;
     FIRUser *_user;  // Firebase User
