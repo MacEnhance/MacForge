@@ -24,9 +24,10 @@ extern AppDelegate *myDelegate;
 
 - (void)drawRect:(NSRect)dirtyRect {
     [super drawRect:dirtyRect];
-    
+    NSUInteger pad = self.frame.size.width - (4 * columns);
     for (NSTableColumn* c in self.tv.tableColumns)
-        [c setWidth:self.frame.size.width/columns];
+        [c setWidth:pad/columns];
+    [_tv setFrame:CGRectMake(0, 0, self.frame.size.width, _tv.frame.size.height)];
 }
 
 - (void)updateColumCount {
@@ -60,13 +61,17 @@ extern AppDelegate *myDelegate;
         columns = 2;
         smallArray = NSMutableArray.new;
         
+//        self.wantsLayer = true;
+//        self.layer.backgroundColor = NSColor.systemPinkColor.CGColor;
+        
         // Create a table view
-        _tv = [[NSTableView alloc] initWithFrame:NSMakeRect(0, 0, 700, 500)];
+        _tv = [[NSTableView alloc] initWithFrame:NSMakeRect(0, 0, 500, 500)];
         _tv.delegate = self;
         _tv.dataSource = self;
         _tv.gridColor = NSColor.clearColor;
         _tv.backgroundColor = NSColor.clearColor;
         _tv.headerView = nil;
+        _tv.columnAutoresizingStyle = NSTableViewNoColumnAutoresizing;
 //        _tv.columnAutoresizingStyle = NSTableViewUniformColumnAutoresizingStyle;
         
         // Create a scroll view and embed the table view in the scroll view, and add the scroll view to our window.
@@ -102,6 +107,9 @@ extern AppDelegate *myDelegate;
         columns = floor(self.frame.size.width/390.0);
         [self updateColumCount];
     }
+    
+//    NSLog(@"frm %@", NSStringFromRect(self.subviews.firstObject.frame));
+//    NSLog(@"_tv %@", NSStringFromRect(_tv.frame));
 }
 
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {

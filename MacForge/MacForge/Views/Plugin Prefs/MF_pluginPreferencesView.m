@@ -89,7 +89,8 @@
                     dispatch_async(dispatch_get_main_queue(), ^(){
 //                        NSRect frame = weakSelf.currentPrefView.frame;
 //                        frame.origin.y = weakSelf.preferencesContainer.frame.size.height - frame.size.height;
-                        [weakSelf.currentPrefView setFrame:CGRectMake(0, 0, weakSelf.preferencesContainer.frame.size.width, weakSelf.preferencesContainer.frame.size.height)];
+//                        [weakSelf.currentPrefView setFrame:CGRectMake(0, 0, weakSelf.preferencesContainer.frame.size.width, weakSelf.preferencesContainer.frame.size.height)];
+                        [weakSelf.currentPrefView setFrameOrigin:CGPointMake(0, weakSelf.preferencesContainer.frame.size.height - weakSelf.currentPrefView.frame.size.height)];
                         [weakSelf.currentPrefView setAutoresizingMask:NSViewMaxXMargin | NSViewMinYMargin];
                         [weakSelf.preferencesContainer setSubviews:@[weakSelf.currentPrefView]];
                     });

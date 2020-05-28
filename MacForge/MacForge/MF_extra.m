@@ -158,7 +158,7 @@
     }
 }
 
-- (void)setMainViewSubView:(NSView*)subview {    
+- (void)setMainViewSubView:(NSView*)subview {
     [subview setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
     [subview setFrameSize:CGSizeMake(_mainView.frame.size.width, _mainView.frame.size.height - 2)];
     [_mainView setSubviews:@[subview]];

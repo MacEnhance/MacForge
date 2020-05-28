@@ -21,9 +21,10 @@ extern AppDelegate *myDelegate;
 
 - (void)drawRect:(NSRect)dirtyRect {
     [super drawRect:dirtyRect];
-    
+    NSUInteger pad = self.frame.size.width - (4 * columns);
     for (NSTableColumn* c in self.tv.tableColumns)
-        [c setWidth:self.frame.size.width/columns];
+        [c setWidth:pad/columns];
+    [_tv setFrame:CGRectMake(0, 0, self.frame.size.width, _tv.frame.size.height)];
 }
 
 -(void)generateTableContents {

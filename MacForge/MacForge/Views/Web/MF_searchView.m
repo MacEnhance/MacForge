@@ -22,9 +22,10 @@ extern AppDelegate *myDelegate;
 
 - (void)drawRect:(NSRect)dirtyRect {
     [super drawRect:dirtyRect];
-    
+    NSUInteger pad = self.frame.size.width - (4 * columns);
     for (NSTableColumn* c in self.tv.tableColumns)
-        [c setWidth:self.frame.size.width/columns];
+        [c setWidth:pad/columns];
+    [_tv setFrame:CGRectMake(0, 0, self.frame.size.width, _tv.frame.size.height)];
 }
 
 - (void)updateColumCount {
@@ -59,7 +60,7 @@ extern AppDelegate *myDelegate;
         smallArray = NSMutableArray.new;
         
         // Create a table view
-        _tv = [[NSTableView alloc] initWithFrame:NSMakeRect(0, 0, 700, 500)];
+        _tv = [[NSTableView alloc] initWithFrame:NSMakeRect(0, 0, 500, 500)];
         _tv.delegate = self;
         _tv.dataSource = self;
         _tv.gridColor = NSColor.clearColor;
