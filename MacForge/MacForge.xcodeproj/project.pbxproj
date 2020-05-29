@@ -41,7 +41,6 @@
 		FB275D7B2339DE9B001C154A /* GameplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB275D7A2339DE9B001C154A /* GameplayKit.framework */; };
 		FB2FE5C5230626C30082C714 /* MFFlippedView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2FE5C223061DEE0082C714 /* MFFlippedView.m */; };
 		FB2FE5CC230638120082C714 /* SYFlatButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2FE5CB230638120082C714 /* SYFlatButton.m */; };
-		FB306A90236672B6008A6E61 /* MF_accountLoggedInView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB306A8F236672B6008A6E61 /* MF_accountLoggedInView.m */; };
 		FB306ACC2367C9D5008A6E61 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB306ACB2367C9D5008A6E61 /* Media.xcassets */; };
 		FB306ACE2367CD0F008A6E61 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB306ACD2367CD0F008A6E61 /* Media.xcassets */; };
 		FB5BB9B123009F39004D3454 /* MFKSipView.h in Headers */ = {isa = PBXBuildFile; fileRef = FB5BB9AE23009F39004D3454 /* MFKSipView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -49,11 +48,12 @@
 		FB5BB9B323009F39004D3454 /* MFKSipView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB5BB9B023009F39004D3454 /* MFKSipView.xib */; };
 		FB5BB9B92300A3EA004D3454 /* eng_sip_mojave.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB5BB9B72300A3EA004D3454 /* eng_sip_mojave.txt */; };
 		FB5BB9BA2300A3EA004D3454 /* eng_sip.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB5BB9B82300A3EA004D3454 /* eng_sip.txt */; };
-		FB6D0FEA2351B417005A2D5E /* MF_accountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB6D0FE92351B417005A2D5E /* MF_accountViewController.m */; };
 		FB7259E52314F2BD00701F32 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB7259E42314F2BD00701F32 /* GoogleService-Info.plist */; };
 		FB78E2A72139BE27002FFE2E /* MacForgeDockTile.docktileplugin in Copy Plugins */ = {isa = PBXBuildFile; fileRef = FBA6E90120F0299B00A12ACF /* MacForgeDockTile.docktileplugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FB80DBDC231B4C6A00823B67 /* starhighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = FB80DBDA231B4C6A00823B67 /* starhighlighted.png */; };
 		FB80DBDD231B4C6A00823B67 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = FB80DBDB231B4C6A00823B67 /* star.png */; };
+		FB88081B2480F1300002727A /* TODO.md in Resources */ = {isa = PBXBuildFile; fileRef = FB88081A2480F1300002727A /* TODO.md */; };
+		FB88081E2480F2A70002727A /* MF_purchasedView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB88081D2480F2A70002727A /* MF_purchasedView.m */; };
 		FBA6E88720F0176B00A12ACF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E88620F0176B00A12ACF /* AppDelegate.m */; };
 		FBA6E8BB20F01C6300A12ACF /* StartAtLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8B920F01C6300A12ACF /* StartAtLoginController.m */; };
 		FBA6E8C220F01D4000A12ACF /* LICENSE_StartAtLoginController in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8C120F01D4000A12ACF /* LICENSE_StartAtLoginController */; };
@@ -63,8 +63,6 @@
 		FBA6E8CE20F025A100A12ACF /* Application.xib in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8CD20F025A100A12ACF /* Application.xib */; };
 		FBA6E8CF20F0262A00A12ACF /* SGDirWatchdog.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E89120F0185300A12ACF /* SGDirWatchdog.m */; };
 		FBA6E8DA20F0285B00A12ACF /* loading_mini.gif in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8D420F0285A00A12ACF /* loading_mini.gif */; };
-		FBA6E8DB20F0285B00A12ACF /* webicon.png in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8D520F0285A00A12ACF /* webicon.png */; };
-		FBA6E8DD20F0285B00A12ACF /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8D720F0285A00A12ACF /* checkmark.png */; };
 		FBA6E8E120F0287500A12ACF /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8E020F0287500A12ACF /* dsa_pub.pem */; };
 		FBA6E8E620F0288300A12ACF /* MF_Plugin.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8E220F0288300A12ACF /* MF_Plugin.m */; };
 		FBA6E8E720F0288300A12ACF /* MF_repoData.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8E320F0288300A12ACF /* MF_repoData.m */; };
@@ -74,7 +72,6 @@
 		FBA6E8FC20F028A400A12ACF /* LICENSE_EULA in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8F920F028A400A12ACF /* LICENSE_EULA */; };
 		FBA6E90920F029D800A12ACF /* DockTilePlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E90820F029D800A12ACF /* DockTilePlugIn.m */; };
 		FBA6E91520F0310800A12ACF /* MacForgeKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FBE7679E20EF426D00A42BD5 /* MacForgeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		FBA911EE23C038AD008627B1 /* MF_accountView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FBA911ED23C038AD008627B1 /* MF_accountView.xib */; };
 		FBAA97532334BBFC0074B4E2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAA97522334BBFC0074B4E2 /* AppDelegate.m */; };
 		FBAA97552334BBFE0074B4E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBAA97542334BBFE0074B4E2 /* Assets.xcassets */; };
 		FBAA97582334BBFE0074B4E2 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = FBAA97562334BBFE0074B4E2 /* MainMenu.xib */; };
@@ -116,11 +113,6 @@
 		FBE767FB20F0116600A42BD5 /* SIMBLPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = FBB0849420EEF0AC0032BDB2 /* SIMBLPlugin.m */; };
 		FBE767FC20F0122F00A42BD5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F0ADE103166DF941009758CC /* InfoPlist.strings */; };
 		FBE851972336BA7400A00189 /* purchaseValidationApp.app in Resources */ = {isa = PBXBuildFile; fileRef = FBAA974F2334BBFC0074B4E2 /* purchaseValidationApp.app */; };
-		FBF137CC210575ED0001916A /* code.png in Resources */ = {isa = PBXBuildFile; fileRef = FBF137CB210575ED0001916A /* code.png */; };
-		FBF137CE210576720001916A /* tools.png in Resources */ = {isa = PBXBuildFile; fileRef = FBF137CD210576720001916A /* tools.png */; };
-		FBF137D22105782A0001916A /* reddit.png in Resources */ = {isa = PBXBuildFile; fileRef = FBF137D12105782A0001916A /* reddit.png */; };
-		FBF137D4210578610001916A /* github.png in Resources */ = {isa = PBXBuildFile; fileRef = FBF137D3210578610001916A /* github.png */; };
-		FBF137D6210582540001916A /* checkmark_test.png in Resources */ = {isa = PBXBuildFile; fileRef = FBF137D5210582540001916A /* checkmark_test.png */; };
 		FBF137DC2105AB8B0001916A /* MacForgeHelper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = F0ADE0F6166DF941009758CC /* MacForgeHelper.app */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FBF137E3210E79B70001916A /* blacklistTable.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF137E2210E79B70001916A /* blacklistTable.m */; };
 		FBFC745F24774B2D0015D36C /* MF_featuredView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBFC745E24774B2D0015D36C /* MF_featuredView.m */; };
@@ -383,8 +375,6 @@
 		FB2FE5C223061DEE0082C714 /* MFFlippedView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MFFlippedView.m; sourceTree = "<group>"; };
 		FB2FE5CA230638120082C714 /* SYFlatButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYFlatButton.h; sourceTree = "<group>"; };
 		FB2FE5CB230638120082C714 /* SYFlatButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYFlatButton.m; sourceTree = "<group>"; };
-		FB306A8E236672B6008A6E61 /* MF_accountLoggedInView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_accountLoggedInView.h; sourceTree = "<group>"; };
-		FB306A8F236672B6008A6E61 /* MF_accountLoggedInView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_accountLoggedInView.m; sourceTree = "<group>"; };
 		FB306ACB2367C9D5008A6E61 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		FB306ACD2367CD0F008A6E61 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		FB3C2EC7236A7FB5002B21C1 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
@@ -393,13 +383,14 @@
 		FB5BB9B023009F39004D3454 /* MFKSipView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MFKSipView.xib; sourceTree = "<group>"; };
 		FB5BB9B72300A3EA004D3454 /* eng_sip_mojave.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = eng_sip_mojave.txt; sourceTree = "<group>"; };
 		FB5BB9B82300A3EA004D3454 /* eng_sip.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = eng_sip.txt; sourceTree = "<group>"; };
-		FB6D0FE82351B417005A2D5E /* MF_accountViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_accountViewController.h; sourceTree = "<group>"; };
-		FB6D0FE92351B417005A2D5E /* MF_accountViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_accountViewController.m; sourceTree = "<group>"; };
 		FB7259E42314F2BD00701F32 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FB80DBDA231B4C6A00823B67 /* starhighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starhighlighted.png; sourceTree = "<group>"; };
 		FB80DBDB231B4C6A00823B67 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 		FB8561A723417A3700047845 /* MF_bundlePreviewView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_bundlePreviewView.m; sourceTree = "<group>"; };
 		FB8561A923417A3700047845 /* MF_bundlePreviewView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_bundlePreviewView.h; sourceTree = "<group>"; };
+		FB88081A2480F1300002727A /* TODO.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = TODO.md; path = ../TODO.md; sourceTree = "<group>"; };
+		FB88081C2480F2A70002727A /* MF_purchasedView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_purchasedView.h; sourceTree = "<group>"; };
+		FB88081D2480F2A70002727A /* MF_purchasedView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_purchasedView.m; sourceTree = "<group>"; };
 		FB9375FEDACBA2F9ED7779DF /* Pods_MacForge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MacForge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBA6E88520F0176B00A12ACF /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FBA6E88620F0176B00A12ACF /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -415,8 +406,6 @@
 		FBA6E8C920F01E1B00A12ACF /* LICENSE_SGDirWatchdog */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE_SGDirWatchdog; sourceTree = "<group>"; };
 		FBA6E8CD20F025A100A12ACF /* Application.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Application.xib; sourceTree = "<group>"; };
 		FBA6E8D420F0285A00A12ACF /* loading_mini.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading_mini.gif; sourceTree = "<group>"; };
-		FBA6E8D520F0285A00A12ACF /* webicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = webicon.png; sourceTree = "<group>"; };
-		FBA6E8D720F0285A00A12ACF /* checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark.png; sourceTree = "<group>"; };
 		FBA6E8E020F0287500A12ACF /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		FBA6E8E220F0288300A12ACF /* MF_Plugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MF_Plugin.m; sourceTree = "<group>"; };
 		FBA6E8E320F0288300A12ACF /* MF_repoData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MF_repoData.m; sourceTree = "<group>"; };
@@ -432,7 +421,6 @@
 		FBA6E90720F029D800A12ACF /* DockTilePlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DockTilePlugIn.h; sourceTree = "<group>"; };
 		FBA6E90820F029D800A12ACF /* DockTilePlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DockTilePlugIn.m; sourceTree = "<group>"; };
 		FBA6E90E20F02BB800A12ACF /* FConvenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FConvenience.h; sourceTree = "<group>"; };
-		FBA911ED23C038AD008627B1 /* MF_accountView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MF_accountView.xib; sourceTree = "<group>"; };
 		FBAA97472334BAF40074B4E2 /* Paddle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Paddle.framework; path = Pods/PaddleV4/Paddle.framework; sourceTree = "<group>"; };
 		FBAA974F2334BBFC0074B4E2 /* purchaseValidationApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = purchaseValidationApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBAA97512334BBFC0074B4E2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -482,11 +470,6 @@
 		FBE767F220F00FFE00A42BD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FBE767F320F00FFE00A42BD5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FBE767F520F00FFE00A42BD5 /* MacForge.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacForge.entitlements; sourceTree = "<group>"; };
-		FBF137CB210575ED0001916A /* code.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = code.png; sourceTree = "<group>"; };
-		FBF137CD210576720001916A /* tools.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tools.png; sourceTree = "<group>"; };
-		FBF137D12105782A0001916A /* reddit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reddit.png; sourceTree = "<group>"; };
-		FBF137D3210578610001916A /* github.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = github.png; sourceTree = "<group>"; };
-		FBF137D5210582540001916A /* checkmark_test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark_test.png; sourceTree = "<group>"; };
 		FBF137E1210E79B70001916A /* blacklistTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = blacklistTable.h; sourceTree = "<group>"; };
 		FBF137E2210E79B70001916A /* blacklistTable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = blacklistTable.m; sourceTree = "<group>"; };
 		FBFC745D24774B2D0015D36C /* MF_featuredView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_featuredView.h; sourceTree = "<group>"; };
@@ -635,6 +618,7 @@
 		F0ADE0EB166DF941009758CC = {
 			isa = PBXGroup;
 			children = (
+				FB88081A2480F1300002727A /* TODO.md */,
 				FBD090D323BBE4890023F5BB /* README.md */,
 				FBD090DD23BBE4A80023F5BB /* CHANGELOG.md */,
 				FBD090DA23BBE4A70023F5BB /* CODE_OF_CONDUCT.md */,
@@ -764,13 +748,10 @@
 		FB306A91236672C3008A6E61 /* Account */ = {
 			isa = PBXGroup;
 			children = (
-				FB306A8E236672B6008A6E61 /* MF_accountLoggedInView.h */,
-				FB306A8F236672B6008A6E61 /* MF_accountLoggedInView.m */,
-				FB6D0FE82351B417005A2D5E /* MF_accountViewController.h */,
-				FB6D0FE92351B417005A2D5E /* MF_accountViewController.m */,
 				FBC2123723B46434006F4485 /* MF_accountManager.h */,
 				FBC2123823B46434006F4485 /* MF_accountManager.m */,
-				FBA911ED23C038AD008627B1 /* MF_accountView.xib */,
+				FB88081C2480F2A70002727A /* MF_purchasedView.h */,
+				FB88081D2480F2A70002727A /* MF_purchasedView.m */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -861,14 +842,7 @@
 			children = (
 				FB80DBDB231B4C6A00823B67 /* star.png */,
 				FB80DBDA231B4C6A00823B67 /* starhighlighted.png */,
-				FBF137D3210578610001916A /* github.png */,
-				FBF137D12105782A0001916A /* reddit.png */,
-				FBF137CD210576720001916A /* tools.png */,
-				FBF137CB210575ED0001916A /* code.png */,
-				FBF137D5210582540001916A /* checkmark_test.png */,
-				FBA6E8D720F0285A00A12ACF /* checkmark.png */,
 				FBA6E8D420F0285A00A12ACF /* loading_mini.gif */,
-				FBA6E8D520F0285A00A12ACF /* webicon.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -1415,8 +1389,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBE851972336BA7400A00189 /* purchaseValidationApp.app in Resources */,
-				FBF137D6210582540001916A /* checkmark_test.png in Resources */,
-				FBF137CE210576720001916A /* tools.png in Resources */,
 				FBD090E123BBE51A0023F5BB /* CHANGELOG.md in Resources */,
 				FBD090E923BBEEBC0023F5BB /* README.md in Resources */,
 				F3A95F7523EF842A004635FD /* MF_bundleTinyItem.xib in Resources */,
@@ -1424,20 +1396,15 @@
 				FB7259E52314F2BD00701F32 /* GoogleService-Info.plist in Resources */,
 				FB80DBDC231B4C6A00823B67 /* starhighlighted.png in Resources */,
 				FBA6E8FC20F028A400A12ACF /* LICENSE_EULA in Resources */,
-				FBF137D4210578610001916A /* github.png in Resources */,
 				FBD090E323BBEAE20023F5BB /* CREDITS.md in Resources */,
 				FBA6E8DA20F0285B00A12ACF /* loading_mini.gif in Resources */,
-				FBA6E8DB20F0285B00A12ACF /* webicon.png in Resources */,
-				FBA6E8DD20F0285B00A12ACF /* checkmark.png in Resources */,
 				FBAAB41720F2CDB0002156DC /* demo_xcode.zip in Resources */,
-				FBA911EE23C038AD008627B1 /* MF_accountView.xib in Resources */,
 				FBA6E8E120F0287500A12ACF /* dsa_pub.pem in Resources */,
 				FBA6E8CE20F025A100A12ACF /* Application.xib in Resources */,
+				FB88081B2480F1300002727A /* TODO.md in Resources */,
 				FBA6E8CA20F01E1B00A12ACF /* LICENSE_SGDirWatchdog in Resources */,
 				FBB19F8120F2D18A003F421B /* plugin_template.zip in Resources */,
 				FBA6E8C220F01D4000A12ACF /* LICENSE_StartAtLoginController in Resources */,
-				FBF137D22105782A0001916A /* reddit.png in Resources */,
-				FBF137CC210575ED0001916A /* code.png in Resources */,
 				FBA6E8C420F01D7500A12ACF /* LICENSE_SIMBL in Resources */,
 				FB306ACE2367CD0F008A6E61 /* Media.xcassets in Resources */,
 				FB169AFE22F4EEEB001E84E0 /* MF_featuredItemController.xib in Resources */,
@@ -1765,13 +1732,12 @@
 				FBFC7466247769280015D36C /* MF_pluginPreferencesView.m in Sources */,
 				FB169AFD22F4EEEB001E84E0 /* MF_featuredItemController.m in Sources */,
 				FB12413C247899F600528C29 /* MF_extra.m in Sources */,
-				FB6D0FEA2351B417005A2D5E /* MF_accountViewController.m in Sources */,
 				FBA6E8F220F0289B00A12ACF /* MF_PluginManager.m in Sources */,
 				FBBD8E2322F9319E00A97FEA /* MF_Purchase.m in Sources */,
-				FB306A90236672B6008A6E61 /* MF_accountLoggedInView.m in Sources */,
 				FBA6E8E720F0288300A12ACF /* MF_repoData.m in Sources */,
 				FBFC745F24774B2D0015D36C /* MF_featuredView.m in Sources */,
 				FBA6E8E620F0288300A12ACF /* MF_Plugin.m in Sources */,
+				FB88081E2480F2A70002727A /* MF_purchasedView.m in Sources */,
 				FB2FE5C5230626C30082C714 /* MFFlippedView.m in Sources */,
 				FBC2123923B46434006F4485 /* MF_accountManager.m in Sources */,
 				FBA6E8F520F0289B00A12ACF /* loaclPluginTable.m in Sources */,

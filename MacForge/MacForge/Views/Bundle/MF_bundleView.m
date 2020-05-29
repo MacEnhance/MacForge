@@ -81,7 +81,7 @@ NSDictionary *testing;
     _starScore.stringValue = [NSString stringWithFormat:@"%.1f", randomScore];
     _starReviews.stringValue = [NSString stringWithFormat:@"%.0f ratings", randomReviews];
     
-    if (!testing) {
+    if (testing) {
 //        if (reviewsDict.data[@"ratings"]) {
             NSDictionary *rate = testing[@"ratings"];
             float total = 0;
@@ -105,21 +105,12 @@ NSDictionary *testing;
             _starRating.hidden = false;
             _starReviews.hidden = false;
 //        }
-    } else {
-        _starScore.stringValue = @"0.0";
-        _starReviews.stringValue = @"Not Enough Ratings";
-        [_starRating setFrameOrigin:_starScore.frame.origin];
-        _starRating.starImage = star;
-        _starRating.starHighlightedImage = highlight;
-        _starRating.maxRating = 5.0;
-        _starRating.delegate = self;
-        _starRating.horizontalMargin = 12;
-        _starRating.editable=NO;
-        _starRating.displayMode=EDStarRatingDisplayAccurate;
-        _starRating.rating= 0.0;
-        _starRating.hidden = false;
-        _starReviews.hidden = false;
     }
+    
+    // End reviews
+    
+    _bundleRequiresLIB.hidden = true;
+    _bundleRequiresSIP.hidden = true;
     
     _bundleInstall.backgroundNormalColor = [NSColor colorWithRed:0.08 green:0.52 blue:1.0 alpha:1.0];
     _bundleInstall.backgroundHighlightColor = [NSColor colorWithRed:0.08 green:0.52 blue:1.0 alpha:1.0];

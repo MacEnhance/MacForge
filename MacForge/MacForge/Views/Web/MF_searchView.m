@@ -111,6 +111,7 @@ extern AppDelegate *myDelegate;
     bundles = MF_repoData.sharedInstance.repoPluginsDic.allValues;    
     if (_filter.length > 0) {
         // Filter bundles
+        // Should add author
         NSString *filter = @"(webName CONTAINS[cd] %@) OR (bundleID CONTAINS[cd] %@) OR (webTarget CONTAINS[cd] %@)";
         bundles = [bundles filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:filter, _filter, _filter, _filter]];
         

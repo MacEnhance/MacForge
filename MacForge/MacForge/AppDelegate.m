@@ -591,6 +591,9 @@ Boolean appSetupFinished = false;
     if (!LVEnabled) [_LV_status setStringValue:@"Disabled"];
     if (sipEnabled && sipHasFlags) [_SIP_status setStringValue:@"Enabled (Custom)"];
     
+    [_infoScroll setDocumentView:_infoDocView];
+    [_infoScroll.contentView scrollToPoint:CGPointMake(0, 0)];
+    
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
         [MacForgeKit AMFI_NUKE];
     });

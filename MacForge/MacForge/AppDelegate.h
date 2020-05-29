@@ -90,6 +90,7 @@
 @property IBOutlet NSView               *viewImages;
 @property IBOutlet NSView               *sourcesBundle;
 
+// Extra
 @property IBOutlet MF_extra             *sidebarController;
 
 // Top sidebar items
@@ -137,13 +138,13 @@
 // System Information view
 @property IBOutlet NSButton             *SIMBLAgentToggle;
 @property IBOutlet NSButton             *SIMBLTogggle;
-@property IBOutlet NSPopUpButton        *SIMBLLogging;
 @property IBOutlet NSButton             *SIP_filesystem;
 @property IBOutlet NSButton             *SIP_TaskPID;
 @property IBOutlet NSTextField          *SIP_status;
 @property IBOutlet NSTextField          *AMFI_status;
 @property IBOutlet NSTextField          *LV_status;
-@property IBOutlet NSScrollView         *blacklistScroll;
+@property IBOutlet NSView               *infoDocView;
+@property IBOutlet NSScrollView         *infoScroll;
 @property IBOutlet blacklistTable       *blackListTable;
 
 - (void)setupEventListener;
