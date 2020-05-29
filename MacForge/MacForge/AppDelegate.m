@@ -332,7 +332,7 @@ Boolean appSetupFinished = false;
     [_blackListTable registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
 
     [self setupEventListener];
-    [self executionTime:@"setupSIMBLview"];
+    [self executionTime:@"setupSystemView"];
     
     [_window makeKeyAndOrderFront:self];
         

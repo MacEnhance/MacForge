@@ -87,9 +87,11 @@ NSString *const MFFrameworkDstPath = @"/Library/Frameworks/mach_inject_bundle.fr
     NSFileManager *man = NSFileManager.defaultManager;
     [man createDirectoryAtPath:@"/Library/Application Support/MacEnhance/Plugins" withIntermediateDirectories:true attributes:attrib error:&fileError];
     [man createDirectoryAtPath:@"/Library/Application Support/MacEnhance/Plugins (Disabled)" withIntermediateDirectories:true attributes:attrib error:&fileError];
+    [man createDirectoryAtPath:@"/Library/Application Support/MacEnhance/Preferences" withIntermediateDirectories:true attributes:attrib error:&fileError];
     [man createDirectoryAtPath:@"/Library/Application Support/MacEnhance/Themes" withIntermediateDirectories:true attributes:attrib error:&fileError];
     [man setAttributes:@{ NSFilePosixPermissions : @0777 } ofItemAtPath:@"/Library/Application Support/MacEnhance/Plugins" error:&fileError];
     [man setAttributes:@{ NSFilePosixPermissions : @0777 } ofItemAtPath:@"/Library/Application Support/MacEnhance/Plugins (Disabled)" error:&fileError];
+    [man setAttributes:@{ NSFilePosixPermissions : @0777 } ofItemAtPath:@"/Library/Application Support/MacEnhance/Preferences" error:&fileError];
     [man setAttributes:@{ NSFilePosixPermissions : @0777 } ofItemAtPath:@"/Library/Application Support/MacEnhance/Themes" error:&fileError];
     
     mach_error_t error = (int)fileError.code;
