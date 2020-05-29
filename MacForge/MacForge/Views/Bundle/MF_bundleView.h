@@ -48,7 +48,6 @@
 @property IBOutlet NSImageView*     bundlePreview2;
 @property IBOutlet NSButton*        bundlePreviewButton1;
 @property IBOutlet NSButton*        bundlePreviewButton2;
-@property IBOutlet AVPlayerView*    bundlePreviewAVPlayer;
 
 // Bundle Infobox
 @property IBOutlet NSTextField*     bundleTarget;

@@ -1,0 +1,6 @@
+framework module SIPKit {
+  umbrella header "SIPKit.h"
+
+  export *
+  module * { export * }
+}

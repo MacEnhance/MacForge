@@ -5,11 +5,12 @@
 -   macforge:// links now just use the bundleID
 -   MacForge can now host a UI for plugin settings [@jslegendre](https://github.com/jslegendre)
 -   Improvements made to injector
+-   Search bar in sidebar replaces search in discover view
 -   Removed option for multiple sources
 -   Removed search bar from discover view
 -   Removed navigation bar from discover view
--   Updated Xcode Plugin template
--   Updated Demo Plugin
+-   Removed Xcode Plugin template
+-   Removed Demo Plugin
 -   Updated information regarding AMFI
 -   Updated SIP notification window
 

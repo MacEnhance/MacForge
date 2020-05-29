@@ -55,9 +55,7 @@ NSDictionary *testing;
     return image;
 }
 
--(void)viewWillDraw {
-    self.bundlePreviewAVPlayer.hidden = true;
-    
+-(void)viewWillDraw {    
     for (NSView* v in self.subviews)
         if ([v.className isEqualToString:@"MF_bundlePreviewView"])
             [v removeFromSuperview];

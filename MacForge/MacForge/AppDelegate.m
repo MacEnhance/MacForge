@@ -203,7 +203,6 @@ Boolean appSetupFinished = false;
         if ([args containsObject:@"update"]) [_sidebarController selectView:self.sidebarUpdates];
     }
 
-    [self installXcodeTemplate];
     appSetupFinished = true;
         
     NSDate *methodFinish = [NSDate date];
@@ -294,7 +293,7 @@ Boolean appSetupFinished = false;
     [_sidebarDiscord.buttonClickArea setImageScaling:NSImageScaleAxesIndependently];
     [_sidebarDiscord.buttonClickArea setAutoresizingMask:NSViewMaxYMargin];
 
-    if (![MacForgeKit SIP_HasRequiredFlags] || ![MacForgeKit LIBRARYVALIDATION_enabled]) [_sidebarWarning.buttonClickArea setEnabled:false];
+    if (![SIPKit SIP_HasRequiredFlags] || ![SIPKit LIBRARYVALIDATION_enabled]) [_sidebarWarning.buttonClickArea setEnabled:false];
     if ([NSUserDefaults.standardUserDefaults boolForKey:@"prefHideDiscord"]) [_sidebarDiscord.buttonClickArea setEnabled:false];
       
     [_sidebarWarning.buttonClickArea setTarget:_sidebarController];
@@ -372,10 +371,11 @@ Boolean appSetupFinished = false;
 }
 
 - (void)checkSIP {
-    if (![MacForgeKit SIP_HasRequiredFlags]) {
-        NSString *frameworkBundleID = @"org.w0lf.MacForgeKit";
+    if (![SIPKit SIP_HasRequiredFlags]) {        
+        NSString *frameworkBundleID = @"com.macenhance.SIPKit";
         NSBundle *frameworkBundle = [NSBundle bundleWithIdentifier:frameworkBundleID];
-        MFKSipView *p = [[MFKSipView alloc] initWithNibName:@"MFKSipView" bundle:frameworkBundle];
+                
+        SK_SipView *p = [[SK_SipView alloc] initWithNibName:@"SK_SipView" bundle:frameworkBundle];
         NSView *view = p.view;
         [p.confirmQuit setTarget:self];
         [p.confirmQuit setAction:@selector(byeSIP)];
@@ -490,32 +490,6 @@ Boolean appSetupFinished = false;
     [_webButton setAction:@selector(visitWebsite:)];
 }
 
-- (void)installXcodeTemplate {
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-        if ([Workspace absolutePathForAppBundleWithIdentifier:@"com.apple.dt.Xcode"].length > 0) {
-            NSString *localPath = [NSBundle.mainBundle pathForResource:@"plugin_template" ofType:@"zip"];
-            NSString *installPath = [FileManager URLsForDirectory:NSLibraryDirectory inDomains:NSUserDomainMask].firstObject.path;
-            installPath = [NSString stringWithFormat:@"%@/Developer/Xcode/Templates/Project Templates/MacForge", installPath];
-            NSString *installFile = [NSString stringWithFormat:@"%@/MacForge plugin.xctemplate", installPath];
-            if (![FileManager fileExistsAtPath:installFile]) {
-                // Make intermediaries
-                NSError *err;
-                [FileManager createDirectoryAtPath:installPath withIntermediateDirectories:true attributes:nil error:&err];
-                NSLog(@"%@", err);
-                
-                // unzip our plugin demo project
-                NSTask *task = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/unzip" arguments:@[@"-o", localPath, @"-d", installPath]];
-                [task waitUntilExit];
-                if ([task terminationStatus] == 0) {
-                    // Yay
-                }
-            }
-        }
-        dispatch_async(dispatch_get_main_queue(), ^(void){
-        });
-    });
-}
-
 - (IBAction)startCoding:(id)sender {
     // Open a test plugin for the user
     NSString *localPath = [NSBundle.mainBundle pathForResource:@"demo_xcode" ofType:@"zip"];
@@ -574,17 +548,15 @@ Boolean appSetupFinished = false;
     [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.macenhance.MacForgeHelperNotify" object:message];
 }
 
-- (void)setupSIMBLview {
-    [_SIMBLTogggle setState:[FileManager fileExistsAtPath:@"/Library/PrivilegedHelperTools/com.w0lf.MacForge.Injector"]];
-    [_SIMBLAgentToggle setState:[FileManager fileExistsAtPath:@"/Library/PrivilegedHelperTools/com.w0lf.MacForge.Installer"]];
-        
-    Boolean sipEnabled = [MacForgeKit SIP_enabled];
-    Boolean sipHasFlags = [MacForgeKit SIP_HasRequiredFlags];
-    Boolean amfiEnabled = [MacForgeKit AMFI_enabled];
-    Boolean LVEnabled = [MacForgeKit LIBRARYVALIDATION_enabled];
+- (void)setupSystemView {
+    Boolean sipEnabled = [SIPKit SIP_enabled];
+    Boolean sipHasFlags = [SIPKit SIP_HasRequiredFlags];
+    Boolean amfiEnabled = [SIPKit AMFI_enabled];
+    Boolean LVEnabled = [SIPKit LIBRARYVALIDATION_enabled];
     
-    [_SIP_TaskPID setState:![MacForgeKit SIP_TASK_FOR_PID]];
-    [_SIP_filesystem setState:![MacForgeKit SIP_Filesystem]];
+    [_SIP_TaskPID setState:![SIPKit SIP_TASK_FOR_PID]];
+    [_SIP_filesystem setState:![SIPKit SIP_Filesystem]];
+    [_MacForgePrivHelper setState:[FileManager fileExistsAtPath:@"/Library/PrivilegedHelperTools/com.w0lf.MacForge.Injector"]];
     
     if (!sipEnabled) [_SIP_status setStringValue:@"Disabled"];
     if (!amfiEnabled) [_AMFI_status setStringValue:@"Disabled"];
@@ -595,7 +567,7 @@ Boolean appSetupFinished = false;
     [_infoScroll.contentView scrollToPoint:CGPointMake(0, 0)];
     
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-        [MacForgeKit AMFI_NUKE];
+        [SIPKit AMFI_NUKE];
     });
 }
 
@@ -657,10 +629,6 @@ Boolean appSetupFinished = false;
     } else {
         // Cancel was pressed...
     }
-}
-
-- (IBAction)uninstallMacForge:(id)sender {
-    [MacForgeKit MacEnhance_remove];
 }
 
 - (IBAction)storeSelectView:(id)sender {

@@ -17,4 +17,3 @@ sudo defaults write /Library/Preferences/com.apple.security.libraryvalidation.pl
 csrutil enable --without fs --without nvram --without debug
 
 5 : Restart your computer
-

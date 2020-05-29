@@ -1,6 +1,6 @@
 //
-//  MFKSipView.h
-//  MacForgeKit
+//  SK_SipView.h
+//  SIPKit
 //
 //  Created by Wolfgang Baird on 8/11/19.
 //  Copyright © 2019 MacEnhance. All rights reserved.
@@ -13,7 +13,7 @@
 @interface NoInteractPlayer : AVPlayerView
 @end
 
-@interface MFKSipView : NSViewController
+@interface SK_SipView : NSViewController
 
 @property IBOutlet NSTextField *tv;
 @property IBOutlet NSButton *confirmQuit;

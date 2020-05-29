@@ -1,5 +1,3 @@
-New security features introduced in macOS Mojave prevent <appname> from functioning properly.
-
 <appname> has determined that Apple Mobile File Integrity is disabled on your system.
 
 Due to recent system updates you will not be able to add applications to System Preferences > Security & Privacy > Privacy. This can completely prevent some applications form functioning or break critical functionality.

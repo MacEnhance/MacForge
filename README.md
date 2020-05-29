@@ -1,5 +1,3 @@
-<!--![Banner](web/banner.png)-->
-
 ## MacForge 🧩
 
 MacForge is an open-source plugin manager for macOS. It lets you discover, install and manage plugins to improve the user experience of macOS without the need for manually cloning/building or copying files.

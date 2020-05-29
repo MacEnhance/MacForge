@@ -7,7 +7,6 @@
 //
 
 @import Sparkle;
-@import MacForgeKit;
 
 #import "MFAppDelegate.h"
 #import "MFInjectorProxy.h"

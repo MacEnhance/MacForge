@@ -28,8 +28,7 @@
 //@import FirebaseStorage;
 //@import FirebaseCoreDiagnostics;
 
-// MacForgeKit
-@import MacForgeKit;
+@import SIPKit;
 
 #import <Collaboration/Collaboration.h>
 #import <SDWebImage/SDWebImage.h>
@@ -74,15 +73,10 @@
 @property IBOutlet NSView               *preferencesBundles;
 
 // Tab views
-@property IBOutlet NSVisualEffectView   *toolBar;
-@property IBOutlet NSScrollView         *mainViewHolder;
 @property IBOutlet NSView               *tabMain;
 @property IBOutlet NSView               *tabPlugins;
 @property IBOutlet NSView               *tabSystemInfo;
 @property IBOutlet NSView               *tabUpdates;
-
-@property IBOutlet NSView               *tabFeatured;
-@property IBOutlet NSView               *tabDiscover;
 @property IBOutlet MF_searchView        *tabSearch;
 
 // Plugins view
@@ -136,8 +130,7 @@
 @property IBOutlet NSSecureTextField    *password;
 
 // System Information view
-@property IBOutlet NSButton             *SIMBLAgentToggle;
-@property IBOutlet NSButton             *SIMBLTogggle;
+@property IBOutlet NSButton             *MacForgePrivHelper;
 @property IBOutlet NSButton             *SIP_filesystem;
 @property IBOutlet NSButton             *SIP_TaskPID;
 @property IBOutlet NSTextField          *SIP_status;
@@ -149,7 +142,6 @@
 
 - (void)setupEventListener;
 - (void)setViewSubView:(NSView*)container :(NSView*)subview;
-- (void)setMainViewSubView:(NSView*)subview :(BOOL)scrolls;
 
 @end
 
