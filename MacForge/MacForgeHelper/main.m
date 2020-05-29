@@ -1,6 +1,6 @@
 //
 //  main.m
-//  MachInjectSample
+//  MacForge Helper
 //
 //  Created by Wolfgang Baird on 04/12/12.
 //  Copyright (c) 2020 MacEnhance. All rights reserved.

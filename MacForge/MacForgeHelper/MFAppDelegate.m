@@ -1,6 +1,6 @@
 //
 //  MFAppDelegate.m
-//  MachInjectSample
+//  MFAppDelegate
 //
 //  Created by Wolfgang Baird on 04/12/12.
 //  Copyright (c) 2020 MacEnhance. All rights reserved.
@@ -10,7 +10,6 @@
 @import MacForgeKit;
 
 #import "MFAppDelegate.h"
-#import "MFInstaller.h"
 #import "MFInjectorProxy.h"
 
 #import "SGDirWatchdog.h"
@@ -32,27 +31,18 @@ static MFAppDelegate *mfAppDelegate;
 
 void HandleExceptions(NSException *exception) {
     NSLog(@"The app has encountered an unhandled exception: %@", [exception debugDescription]);
-    // Save application data on crash
-//    NSAlert* alert = [[NSAlert alloc] init];
-//    [alert setMessageText:exception.name];
-//    [alert setInformativeText:exception.reason];
-//    [alert setAlertStyle:NSAlertStyleWarning];
-//    [alert runModal];
 }
 
-- (void)userNotificationCenter:(NSUserNotificationCenter *)center
-       didActivateNotification:(NSUserNotification *)notification {
+- (void)userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification {
     [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.w0lf.MacForgeNotify" object:@"update"];
 }
 
-- (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center
-     shouldPresentNotification:(NSUserNotification *)notification {
+- (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification {
     return YES;
 }
 
-// Cleanup
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
-    // Insert code here to tear down your application
+
 }
 
 - (void)applicationWillFinishLaunching:(NSNotification *)notification {
@@ -63,85 +53,137 @@ void HandleExceptions(NSException *exception) {
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    NSError *error;
+    //
     mfAppDelegate = self;
     
-    // Make sure helpers are installed
-    if ([MFInstaller isInstalled] == NO && [MFInstaller install:&error] == NO) {
-//        assert(error != nil);
-        NSLog(@"Couldn't install MachInjectSample (domain: %@ code: %@)", error.domain, [NSNumber numberWithInteger:error.code]);
-        NSAlert *alert = [NSAlert alertWithError:error];
-        [alert runModal];
-    }
-    
+    // Setup injector proxy
     self.injectorProxy = [MFInjectorProxy new];
-    
-    [[NSDistributedNotificationCenter defaultCenter] addObserverForName:@"com.macenhance.MacForgeHelperNotify"
-                                                                    object:nil
-                                                                     queue:nil
-                                                                usingBlock:^(NSNotification *notification)
-    {
+
+    // Make sure injector is updated
+    NSError *err;
+    if (![self isInjectorUpated])
+        [self install:&err];
+
+    // Install frameworks and setup plugin folder
+    [self giveFramework];
+    [self givePluginFldr];
+
+    // Listen for notification to hide/show menubar
+    [[NSDistributedNotificationCenter defaultCenter] addObserverForName:@"com.macenhance.MacForgeHelperNotify" object:nil queue:nil usingBlock:^(NSNotification *notification) {
        dispatch_async(dispatch_get_main_queue(), ^{
            if ([notification.object isEqualToString:@"showMenu"]) [self setupMenuItem];
            if ([notification.object isEqualToString:@"hideMenu"]) [self goodbyeMenu];
        });
     }];
-    
-    // setUp
-    [self setupApplication];
-   
-    
-    // Check for args so we can run as a command line tool
-    NSArray *args = [[NSProcessInfo processInfo] arguments];
-    if (args.count > 1) {
-        Boolean cmd = false;
-        NSInteger index;
-        // Inject into a bundle
-        if ([args containsObject:@"-i"]) {
-            cmd = true;
-            index = [args indexOfObject:@"-i"] + 1;
-            if (args.count > index) {
-                NSString *bundleID = [args objectAtIndex:index];
-                if (bundleID.length > 0)
-                    [mfAppDelegate injectOneProc:bundleID];
-            }
-        }
 
-        if ([args containsObject:@"-u"]) {
-            cmd = true;
-            [[MF_PluginManager sharedInstance] checkforPluginUpdatesAndInstall:nil];
-        }
-
-        if (cmd) [NSApp terminate:nil];
-    }
-
-    [self watchForPlugins];
-}
-
-- (void)setupApplication {
     // Start a timer to do daily plugin and app  update checks 86400 seconds in a day
     [NSTimer scheduledTimerWithTimeInterval:86400 target:self selector:@selector(checkForPluginUpdates) userInfo:nil repeats:YES];
     [NSTimer scheduledTimerWithTimeInterval:86400 target:self selector:@selector(checkMacForgeForUpdatesBackground) userInfo:nil repeats:YES];
+
+    // Watch for new plugins
+    [self watchForPlugins];
     
-    // Do a plugin and app  update check when we launch
-    [self checkForPluginUpdates];
-    [self checkMacForgeForUpdatesBackground];
-    
-    // Watch for app launches using CarbonEventHandler, this catches apps like the Dock and com.apple.appkit.xpc.openAndSavePanelService
-    // Which are not logged with NSWorkspaceDidLaunchApplicationNotification
-//    [MFAppDelegate watchForApplications];
+    // Watch for app launches
     [self watchForApplications];
     
     // Try injecting into all runnning process in NSWorkspace.sharedWorkspace
     [self injectAllProc];
 }
 
+- (BOOL)blessHelperWithLabel:(NSString *)label error:(NSError **)errorPtr {
+    BOOL result = NO;
+    NSError * error = nil;
+
+    AuthorizationItem authItem        = { kSMRightBlessPrivilegedHelper, 0, NULL, 0 };
+    AuthorizationRights authRights    = { 1, &authItem };
+    AuthorizationFlags flags          = kAuthorizationFlagDefaults | kAuthorizationFlagInteractionAllowed |
+                                        kAuthorizationFlagPreAuthorize | kAuthorizationFlagExtendRights;
+    
+    /* Obtain the right to install our privileged helper tool (kSMRightBlessPrivilegedHelper). */
+    OSStatus status = AuthorizationCopyRights(self->_authRef, &authRights, kAuthorizationEmptyEnvironment, flags, NULL);
+    if (status != errAuthorizationSuccess) {
+        error = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:nil];
+    } else {
+        CFErrorRef  cfError;
+        /* This does all the work of verifying the helper tool against the application and vice-versa. Once verification has passed, the embedded launchd.plist
+         * is extracted and placed in /Library/LaunchDaemons and then loaded. The executable is placed in /Library/PrivilegedHelperTools. */
+        result = (BOOL) SMJobBless(kSMDomainSystemLaunchd, (__bridge CFStringRef)label, _authRef, &cfError);
+        if (!result) {
+            error = CFBridgingRelease(cfError);
+        }
+    }
+    if ( ! result && (errorPtr != NULL) ) {
+        assert(error != nil);
+        *errorPtr = error;
+    }
+    
+    return result;
+}
+
+- (BOOL)install:(NSError **)error {
+    BOOL result = 1;
+       
+    OSStatus status = AuthorizationCreate(NULL, kAuthorizationEmptyEnvironment, kAuthorizationFlagDefaults, &_authRef);
+    if (status != errAuthorizationSuccess) {
+        /* AuthorizationCreate really shouldn't fail. */
+        _authRef = NULL;
+    }
+
+    if (![self blessHelperWithLabel:@"com.w0lf.MacForge.Injector" error:error]) {
+        NSLog(@"Something went wrong! %@ / %d", [*error domain], (int) [*error code]);
+    } else {
+       /* At this point, the job is available. However, this is a very simple sample, and there is no IPC infrastructure set up to
+        * make it launch-on-demand. You would normally achieve this by using XPC (via a MachServices dictionary in your launchd.plist). */
+        NSLog(@"Job is available!");
+        NSString *currentVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+        [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:MFUserDefaultsInstalledVersionKey];
+        NSLog(@"Installed v%@", currentVersion);
+        self.injectorProxy = [MFInjectorProxy new];
+    }
+  
+    return result;
+}
+
+- (BOOL)isBlessed {
+    // No injector PrivilegedHelperTool found
+    if (![[NSFileManager defaultManager] fileExistsAtPath:@"/Library/PrivilegedHelperTools/com.w0lf.MacForge.Injector"])
+        return false;
+    
+    // No injector LaunchDaemons found
+    if (![[NSFileManager defaultManager] fileExistsAtPath:@"/Library/LaunchDaemons/com.w0lf.MacForge.Injector.plist"])
+        return false;
+    
+    return true;
+}
+
+- (void)giveFramework {
+    // No mach_inject_bundle found
+    NSError *error;
+    if (![[NSFileManager defaultManager] fileExistsAtPath:@"/Library/Frameworks/mach_inject_bundle.framework"])
+        [self.injectorProxy installMachInjectBundleFramework:&error];
+}
+
+- (void)givePluginFldr {
+    // No mach_inject_bundle found
+    NSError *error;
+    if (![[NSFileManager defaultManager] fileExistsAtPath:@"/Library/Application Support/MacEnhance/Plugins"])
+        [self.injectorProxy setupPluginFolder:&error];
+}
+
+- (BOOL)isInjectorUpated {
+    NSString *versionInstalled = [[NSUserDefaults standardUserDefaults] stringForKey:MFUserDefaultsInstalledVersionKey];
+    NSString *currentVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    if (![self isBlessed])
+        return false;
+    // Installed version matches current version
+    if ([currentVersion compare:versionInstalled] == NSOrderedSame)
+        return true;
+    return false;
+}
+
 - (void)checkForPluginUpdates {
     CFPreferencesAppSynchronize(CFSTR("com.w0lf.MacForge"));
     Boolean autoUpdatePlugins = CFPreferencesGetAppBooleanValue(CFSTR("prefPluginUpdate"), CFSTR("com.w0lf.MacForge"), NULL);
-//    Boolean autoCheckPlugins = CFPreferencesGetAppBooleanValue(CFSTR("prefPluginCheck"), CFSTR("com.w0lf.MacForge"), NULL);
-//    if (autoCheckPlugins && !autoUpdatePlugins)
-//        [self updatesPlugins];
     if (autoUpdatePlugins) {
         [self updatesPluginsInstall];
     } else {
@@ -273,12 +315,13 @@ void HandleExceptions(NSException *exception) {
     NSLog(@"%@", error);
 }
 
-- (void)colorStatusIconApplyPrefs:(NSObject*)sender {
+- (void)colorStatusIconApplyPrefs:(NSMenuItem*)sender {
     NSDictionary *GUIDefaults = [[NSUserDefaults standardUserDefaults] persistentDomainForName:@"com.w0lf.MacForge"];
     Boolean doColor = [[GUIDefaults valueForKey:@"prefColorMenuBar"] boolValue];
     
     if (sender) {
         doColor = !doColor;
+        [sender setState:doColor];
         [GUIDefaults setValue:[NSNumber numberWithBool:doColor] forKey:@"prefColorMenuBar"];
         [[NSUserDefaults standardUserDefaults] setPersistentDomain:GUIDefaults forName:@"com.w0lf.MacForge"];
     }
@@ -292,24 +335,24 @@ void HandleExceptions(NSException *exception) {
 }
 
 - (void)goodbyeMenu {
-    NSLog(@"Howdy");
     [NSStatusBar.systemStatusBar removeStatusItem:_statusBar];
 }
 
 - (void)setupMenuItem {
     NSMenu *stackMenu = [[NSMenu alloc] initWithTitle:@"MacForge"];
-    [self addMenuItemToMenu:stackMenu :@"Preferences..." :@selector(openMacForgePrefs) :@""];
     [self addMenuItemToMenu:stackMenu :@"Open at Login" :@selector(toggleStartAtLogin:) :@""];
-    [[stackMenu itemAtIndex:1] setState:NSBundle.mainBundle.isLoginItemEnabled];
+    [[stackMenu itemAtIndex:0] setState:NSBundle.mainBundle.isLoginItemEnabled];
     [self addMenuItemToMenu:stackMenu :@"Color Menubar Icon" :@selector(colorStatusIconApplyPrefs:) :@""];
-    [[stackMenu itemAtIndex:2] setState:NSBundle.mainBundle.isLoginItemEnabled];
-    [self addMenuItemToMenu:stackMenu :@"Hide Menubar Icon" :@selector(noStatusIconApplyPrefs) :@""];
+    Boolean doColor = [[[[NSUserDefaults standardUserDefaults] persistentDomainForName:@"com.w0lf.MacForge"] valueForKey:@"prefColorMenuBar"] boolValue];
+    [[stackMenu itemAtIndex:1] setState:doColor];
+    [self addMenuItemToMenu:stackMenu :@"Hide Menubar Icon" :@selector(goodbyeMenu) :@""];
     [stackMenu addItem:NSMenuItem.separatorItem];
-    [self addMenuItemToMenu:stackMenu :@"Manage Plugins" :@selector(openMacForgeManage) :@""];
-    [self addMenuItemToMenu:stackMenu :@"Update Plugins..." :@selector(updatesPluginsInstall) :@""];
-    [self addMenuItemToMenu:stackMenu :@"Test inject..." :@selector(testInject) :@""];
+    [self addMenuItemToMenu:stackMenu :@"Manage Bundles" :@selector(openMacForgeManage) :@""];
+    [self addMenuItemToMenu:stackMenu :@"Update Bundles..." :@selector(updatesPluginsInstall) :@""];
+//    [self addMenuItemToMenu:stackMenu :@"Test inject..." :@selector(testInject) :@""];
     [stackMenu addItem:NSMenuItem.separatorItem];
     [self addMenuItemToMenu:stackMenu :@"Check for Updates..." :@selector(checkMacForgeForUpdates) :@""];
+    [self addMenuItemToMenu:stackMenu :@"MacForge Preferences..." :@selector(openMacForgePrefs) :@""];
     [self addMenuItemToMenu:stackMenu :@"About MacForge" :@selector(openMacForgeAbout) :@""];
     [self addMenuItemToMenu:stackMenu :@"Quit" :@selector(terminate:) :@""];
     _statusBar = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
@@ -319,23 +362,6 @@ void HandleExceptions(NSException *exception) {
     [statusImage setTemplate:true];
     [self colorStatusIconApplyPrefs:nil];
     [_statusBar setImage:statusImage];
-}
-
-/*
- Watch for application launches using NSWorkspace
- Not currently used
-*/
-+ (void)startWatching {
-    NSNotificationCenter *notificationCenter = [[NSWorkspace sharedWorkspace] notificationCenter];
-    [notificationCenter addObserverForName:NSWorkspaceDidLaunchApplicationNotification
-                                    object:nil
-                                     queue:nil
-                                usingBlock:^(NSNotification * _Nonnull note) {
-                                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                        NSRunningApplication *app = [note.userInfo valueForKey:NSWorkspaceApplicationKey];
-                                        [mfAppDelegate injectBundle:app];
-                                    });
-                                }];
 }
 
 // Check if a bundle should be injected into specified running application
@@ -414,23 +440,29 @@ void HandleExceptions(NSException *exception) {
            pid_t pid = [runningApp processIdentifier];
            // Try injecting each valid plugin into the application
                       
-           // Check if Xcode is attached to process
-           Boolean isXcodeRunning = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.dt.Xcode"].count;
-           Boolean isXcodeAttached = false;
-           if (isXcodeRunning)
-               isXcodeAttached = [self xcodeAttached:pid];
-           
-           // Do the injecting
-           if (!isXcodeAttached) {
-               for (NSString *bundlePath in [SIMBL pluginsToLoadList:[NSBundle bundleWithPath:runningApp.bundleURL.path]]) {
-                       NSError *error;
-                       [self.injectorProxy injectPID:pid :bundlePath :&error];
-                       if(error) {
-                           NSLog(@"Couldn't inject into %d : %@ (domain: %@ code: %@)", pid, runningApp.localizedName, error.domain, [NSNumber numberWithInteger:error.code]);
-                           SIMBLLogNotice(@"Couldn't inject App (domain: %@ code: %@)", error.domain, [NSNumber numberWithInteger:error.code]);
-                       }
+           dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+              
+               // Check if Xcode is attached to process
+               Boolean isXcodeRunning = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.dt.Xcode"].count;
+               Boolean isXcodeAttached = false;
+               if (isXcodeRunning)
+                   isXcodeAttached = [self xcodeAttached:pid];
+               
+               // Do the injecting
+               if (!isXcodeAttached) {
+                   for (NSString *bundlePath in [SIMBL pluginsToLoadList:[NSBundle bundleWithPath:runningApp.bundleURL.path]]) {
+                       
+                       dispatch_sync(dispatch_get_main_queue(), ^{
+                           
+                           NSError *error;
+                           [self.injectorProxy injectPID:pid :bundlePath :&error];
+                           if(error) NSLog(@"Couldn't inject into %d : %@ (domain: %@ code: %@)", pid, runningApp.localizedName, error.domain, [NSNumber numberWithInteger:error.code]);
+                           
+                       });
+                   }
                }
-           }
+               
+           });
        }
 }
 
@@ -495,8 +527,6 @@ void HandleExceptions(NSException *exception) {
         
         // See if our original bundle path still exists
         if (![NSFileManager.defaultManager fileExistsAtPath:NSBundle.mainBundle.bundlePath]) {
-//            NSString *param = [NSString stringWithFormat:@"echo %@ > ~/Desktop/abcdef.txt", NSBundle.mainBundle.bundlePath];
-//            system([param UTF8String]);
             
             NSAlert *alert = [[NSAlert alloc] init];
             [alert setMessageText:@"We noticed you threw MacForge in the Trash. Would you like to quit the helper and uninstall?"];
@@ -509,12 +539,11 @@ void HandleExceptions(NSException *exception) {
                [NSApp terminate:nil];
             } else {
             }
+            
         }
         
     }
 }
-
-static const void *kMyKVOContext = (void*)&kMyKVOContext;
 
 // Setup Carbon Event handler to watch for application launches
 - (void)watchForApplications {
@@ -526,34 +555,7 @@ static const void *kMyKVOContext = (void*)&kMyKVOContext;
     if (sCarbonEventsRef == NULL) {
         (void) InstallEventHandler(GetApplicationEventTarget(), (EventHandlerUPP) CarbonEventHandler, GetEventTypeCount(kEvents), kEvents, (__bridge void *)(self), &sCarbonEventsRef);
     }
-
-//   [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver: self
-//                                                          selector: @selector(launchedApp:)
-//                                                              name: @"NSWorkspaceWillLaunchApplicationNotification"
-//                                                            object: nil
-//    ];
-    
-//    [[NSWorkspace sharedWorkspace] addObserver:self
-//                                    forKeyPath:@"runningApplications"
-//                                       options:NSKeyValueObservingOptionNew // maybe | NSKeyValueObservingOptionInitial
-//                                       context:kMyKVOContext];
 }
-
-//- (void)launchedApp:(NSNotification*)note {
-//    NSString* AppPID = [note.userInfo objectForKey:@"NSApplicationProcessIdentifier"];
-//    NSLog(@"Launching nc : %@ : %f", AppPID, [NSDate timeIntervalSinceReferenceDate] * 1000);
-//}
-
-//- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-//{
-//    if (context == kMyKVOContext) {
-//        if ([keyPath isEqualToString:@"runningApplications"]) {
-//            NSLog(@"runningApplications : %f", [NSDate timeIntervalSinceReferenceDate] * 1000);
-//        }
-//    } else {
-//        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-//    }
-//}
 
 // Inject into launched applications
 static OSStatus CarbonEventHandler(EventHandlerCallRef inHandlerCallRef, EventRef inEvent, void* inUserData) {
@@ -564,7 +566,7 @@ static OSStatus CarbonEventHandler(EventHandlerCallRef inHandlerCallRef, EventRe
             // App lauched!
             if(mfAppDelegate)
                 [mfAppDelegate injectBundle:[NSRunningApplication runningApplicationWithProcessIdentifier:pid]];
-//            NSLog(@"%d", pid);
+//            NSLog(@"CarbonEventHandler Launching nc : %d : %f", pid, [NSDate timeIntervalSinceReferenceDate] * 1000);
             break;
         case kEventAppTerminated:
             // App terminated!

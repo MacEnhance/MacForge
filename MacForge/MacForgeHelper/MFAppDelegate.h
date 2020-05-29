@@ -1,6 +1,6 @@
 //
 //  MFAppDelegate.h
-//  MachInjectSample
+//  MFAppDelegate
 //
 //  Created by Wolfgang Baird on 04/12/12.
 //  Copyright (c) 2020 MacEnhance. All rights reserved.
@@ -9,7 +9,8 @@
 #import <Cocoa/Cocoa.h>
 
 @interface MFAppDelegate : NSObject <NSApplicationDelegate, NSUserNotificationCenterDelegate> {
-    NSMutableArray *watchdogs;
+    AuthorizationRef _authRef;
+    NSMutableArray   *watchdogs;
 }
 
 @property (strong, nonatomic) NSStatusItem *statusBar;

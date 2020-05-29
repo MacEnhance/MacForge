@@ -7,7 +7,6 @@
 //
 
 FOUNDATION_EXPORT NSString *const MFUserDefaultsInstalledVersionKey;
-
 FOUNDATION_EXPORT NSString *const MFErrorDomain;
 
 enum {

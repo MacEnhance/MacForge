@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "PreferenceLoaderProtocol.h"
-#import "../ViewBridge Headers/ViewBridge.h"
+#import "ViewBridge.h"
 
 @interface PreferenceLoader : NSObject <PreferenceLoaderProtocol>
 @end

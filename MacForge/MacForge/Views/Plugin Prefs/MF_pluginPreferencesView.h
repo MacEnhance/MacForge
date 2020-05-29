@@ -10,8 +10,8 @@
 #import "MF_extra.h"
 #import "MF_PluginManager.h"
 #import "SGDirWatchdog.h"
-#import "../../../ViewBridge Headers/ViewBridge.h"
-#import "../../../PreferenceLoader/PreferenceLoaderProtocol.h"
+#import "ViewBridge.h"
+#import "PreferenceLoaderProtocol.h"
 
 @interface MF_pluginPreferencesView : NSView <NSTableViewDataSource, NSTableViewDelegate>
 
