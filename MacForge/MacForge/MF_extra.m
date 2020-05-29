@@ -56,8 +56,8 @@
         if (sideButton.buttonImage.image.size.width > 18 && sideButton.buttonImage.image.size.height != 30)
             sideButton.buttonImage.image = [self imageResize:sideButton.buttonImage.image newSize:CGSizeMake(18, sideButton.buttonImage.image.size.height * (18 / sideButton.buttonImage.image.size.height))];
         
-//        if (!sideButton.buttonImage.image.isTemplate)
-//            [sideButton.buttonImage.image setTemplate:true];
+        if (!sideButton.buttonImage.image.isTemplate)
+            [sideButton.buttonImage.image setTemplate:true];
         
         NSButton *btn = sideButton.buttonClickArea;
         if (btn.enabled) {

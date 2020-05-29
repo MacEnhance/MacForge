@@ -141,17 +141,11 @@
     NSString *bundleID  = @"";
     NSString *appName   = @"";
     NSString *appPath   = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:bundleID];
-    NSImage *appIMG     = NSImage.new;
+    NSImage *appIMG     = [[NSImage alloc] initWithContentsOfFile:@"/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/KEXT.icns"];
         
     if (appPath.length) {
-        appIMG = [[NSWorkspace sharedWorkspace] iconForFile:appPath];
-        if (appIMG == nil)
-            appIMG = [[NSImage alloc] initWithContentsOfFile:@"/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/GenericApplicationIcon.icns"];
-        NSBundle *bundle = [NSBundle bundleWithPath:appPath];
-        NSDictionary *info = [bundle infoDictionary];
-        appName = [info objectForKey:@"CFBundleExecutable"];
+        appName = [[NSBundle bundleWithPath:appPath].infoDictionary objectForKey:@"CFBundleExecutable"];
     } else {
-        appIMG = [[NSImage alloc] initWithContentsOfFile:@"/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/GenericApplicationIcon.icns"];
         appName = bundleID;
     }
 
