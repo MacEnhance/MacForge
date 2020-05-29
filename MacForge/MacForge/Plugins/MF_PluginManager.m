@@ -54,34 +54,8 @@
     NSString* libPathDIS = [NSString stringWithFormat:@"%@/MacEnhance/Plugins (Disabled)", libSupport];
     NSString* usrPathENB = [NSString stringWithFormat:@"%@/MacEnhance/Plugins", usrSupport];
     NSString* usrPathDIS = [NSString stringWithFormat:@"%@/MacEnhance/Plugins (Disabled)", usrSupport];
-    NSString* OpeePath = [NSString stringWithFormat:@"/Library/Opee/Extensions"];
-    
-//    NSString* appPath = [NSString stringWithFormat:@"/Applications"];
-//    NSString* libTheme = [NSString stringWithFormat:@"%@/MacEnhance/Themes", libSupport];
-    
-    NSArray *paths = @[libPathENB, libPathDIS, usrPathENB, usrPathDIS, OpeePath];
+    NSArray *paths = @[libPathENB, libPathDIS, usrPathENB, usrPathDIS];
     return paths;
-}
-
-// Try to install all item in an array of file paths
-- (void)installBundles:(NSArray*)pathArray {
-    for (NSString* path in pathArray) {
-        // Install a bundle
-        if ([[path pathExtension] isEqualToString:@"bundle"]) {
-            NSArray* pathComp=[path pathComponents];
-            NSString* name=[pathComp objectAtIndex:[pathComp count] - 1];
-            NSString* newPath = [NSString stringWithFormat:@"%@/%@", [MF_PluginManager MacEnhancePluginPaths][0], name];
-            [self replaceFile:path :newPath];
-        }
-        
-        // Install an application
-        if ([[path pathExtension] isEqualToString:@"app"]) {
-            NSArray* pathComp=[path pathComponents];
-            NSString* name=[pathComp objectAtIndex:[pathComp count] - 1];
-            NSString* newPath = [NSString stringWithFormat:@"/Applications/%@", name];
-            [self replaceFile:path :newPath];
-        }
-    }
 }
 
 // Try to replace file `end` with file `start`
@@ -207,6 +181,28 @@
     return directoryList;
 }
 
+// Try to install all item in an array of file paths
+- (void)installBundles:(NSArray*)pathArray {
+    for (NSString* path in pathArray) {
+        [MF_PluginManager installItem:path];
+//        // Install a bundle
+//        if ([[path pathExtension] isEqualToString:@"bundle"]) {
+//            NSArray* pathComp=[path pathComponents];
+//            NSString* name=[pathComp objectAtIndex:[pathComp count] - 1];
+//            NSString* newPath = [NSString stringWithFormat:@"%@/%@", [MF_PluginManager MacEnhancePluginPaths][0], name];
+//            [self replaceFile:path :newPath];
+//        }
+//
+//        // Install an application
+//        if ([[path pathExtension] isEqualToString:@"app"]) {
+//            NSArray* pathComp=[path pathComponents];
+//            NSString* name=[pathComp objectAtIndex:[pathComp count] - 1];
+//            NSString* newPath = [NSString stringWithFormat:@"/Applications/%@", name];
+//            [self replaceFile:path :newPath];
+//        }
+    }
+}
+
 + (Boolean)installItem:(NSString*)filePath {
     // Create domain list
     NSArray *domains = [MF_PluginManager MacEnhancePluginPaths];
@@ -216,6 +212,24 @@
     
     // Set intall location for bundles
     if ([filePath.pathExtension isEqualToString:@"bundle"]) {
+        
+//        NSLog(@"%@", [[NSBundle bundleWithPath:filePath] infoDictionary]);
+        NSDictionary *dict = [[NSBundle bundleWithPath:filePath] infoDictionary];
+        
+        if (![dict valueForKey:@"SIMBLTargetApplications"]) {
+            
+            // Pref bundle
+            if (![dict valueForKey:@"MacForgePrefBundle"]) {
+                installPath = [@"/Library/Application Support/MacEnhance/Preferences/" stringByAppendingString:filePath.lastPathComponent];
+            }
+            
+            // Theme bundle
+            if (![dict valueForKey:@"MacForgeThemeBundle"]) {
+                
+            }
+            
+        }
+        
         // If the bundle already exist somewhere replace that instead of installing to /Library/Application Support/MacEnhance/Plugins
         for (NSString *path in domains) {
             NSString *possibleBundle = [NSString stringWithFormat:@"%@/%@", path, filePath.lastPathComponent];
@@ -278,7 +292,8 @@
         downloadButton.title = @"";
         
         if (progressObject)
-            [progressObject setFrameOrigin:CGPointMake(downloadButton.frame.origin.x + downloadButton.frame.size.width/2 - progressObject.frame.size.width/2, downloadButton.frame.origin.y + downloadButton.frame.size.height/2 - progressObject.frame.size.height/2)];
+            [progressObject setFrameOrigin:CGPointMake(downloadButton.frame.origin.x + downloadButton.frame.size.width/2 - progressObject.frame.size.width/2,
+                                                       downloadButton.frame.origin.y + downloadButton.frame.size.height/2 - progressObject.frame.size.height/2)];
 
 //            [progressObject setFrameOrigin:CGPointMake(downloadButton.frame.origin.x + downloadButton.frame.size.width + 10, downloadButton.frame.origin.y + downloadButton.frame.size.height/2 - progressObject.frame.size.height/2)];
     }

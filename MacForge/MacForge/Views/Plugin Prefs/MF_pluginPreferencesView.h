@@ -7,14 +7,19 @@
 //
 
 @import AppKit;
+#import "MF_extra.h"
+#import "MF_PluginManager.h"
+#import "SGDirWatchdog.h"
 #import "../../../ViewBridge Headers/ViewBridge.h"
 #import "../../../PreferenceLoader/PreferenceLoaderProtocol.h"
 
 @interface MF_pluginPreferencesView : NSView <NSTableViewDataSource, NSTableViewDelegate>
 
-@property NSArray               *pluginList;
-@property IBOutlet NSView       *preferencesContainer;
-@property IBOutlet NSTableView  *tv;
+@property NSArray                   *pluginList;
+@property IBOutlet SGDirWatchdog    *watchDog;
+@property IBOutlet NSView           *preferencesContainer;
+@property IBOutlet NSTableView      *tv;
+@property IBOutlet NSSegmentedControl      *seg;
 
 @property (retain) NSXPCConnection *prefLoaderConnection;
 @property (retain) id<PreferenceLoaderProtocol> prefLoaderProxy;

@@ -6,17 +6,24 @@
 //  Copyright © 2020 MacEnhance. All rights reserved.
 //
 
-#import "MF_extra.h"
 #import "MF_pluginPreferencesView.h"
-#import "../../../PreferenceLoader/PreferenceLoaderProtocol.h"
 
 @implementation MF_pluginPreferencesView
 
 - (void)viewWillDraw{
-    NSTableColumn *yourColumn = self.tv.tableColumns.lastObject;
-    [yourColumn.headerCell setStringValue:@"Select a preference bundle"];
-    [_tv setDelegate:self];
-    [_tv setDataSource:self];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [_tv setDelegate:self];
+        [_tv setDataSource:self];
+        [_tv registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
+        [_tv.tableColumns.lastObject.headerCell setStringValue:@"Select a preference bundle"];
+        
+        self.watchDog = [[SGDirWatchdog alloc] initWithPath:@"/Library/Application Support/MacEnhance/Preferences"
+                                                               update:^{
+            [self.tv reloadData];
+        }];
+        [self.watchDog start];
+    });
     
     _preferencesContainer.wantsLayer = true;
     _preferencesContainer.layer.borderColor = NSColor.grayColor.CGColor;
@@ -35,6 +42,43 @@
     _prefLoaderProxy = _prefLoaderConnection.remoteObjectProxy;
 }
 
+- (IBAction)revealOrRemove:(NSSegmentedControl*)sender {
+    NSBundle *selectedPref = [_pluginList objectAtIndex:[_tv selectedRow]];
+    NSString *path = [selectedPref bundlePath];
+    
+    // Reveal
+    if (sender.selectedSegment == 0) {
+        [[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs:@[[NSURL fileURLWithPath:[path stringByExpandingTildeInPath]]]];
+    }
+    
+    // Remove
+    if (sender.selectedSegment == 1) {
+        NSURL* url = [NSURL fileURLWithPath:path];
+        NSURL* trash;
+        NSError* error;
+        [[NSFileManager defaultManager] trashItemAtURL:url resultingItemURL:&trash error:&error];
+    }
+}
+
+- (NSDragOperation)tableView:(NSTableView*)tv validateDrop:(id <NSDraggingInfo>)info proposedRow:(NSInteger)row proposedDropOperation:(NSTableViewDropOperation)op {
+    return NSDragOperationCopy;
+}
+
+- (BOOL)tableView:(NSTableView *)aTableView acceptDrop:(id <NSDraggingInfo>)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)operation {
+    NSPasteboard *pboard = [info draggingPasteboard];
+    if ([[pboard types] containsObject:NSURLPboardType]) {
+        NSArray* urls = [pboard readObjectsForClasses:@[[NSURL class]] options:nil];
+        NSMutableArray* sorted = [[NSMutableArray alloc] init];
+        for (NSURL* url in urls) {
+            if ([[url.path pathExtension] isEqualToString:@"bundle"])
+                [sorted addObject:url.path];
+        }
+        if ([sorted count])
+            [MF_PluginManager.sharedInstance installBundles:sorted];
+    }
+    return YES;
+}
+
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
     return 30;
 }
@@ -45,10 +89,8 @@
     for (NSString *file in dirs) {
         if ([file.pathExtension isEqualToString:@"bundle"]) {
             NSBundle *preferenceBundle = [NSBundle bundleWithPath:[@"/Library/Application Support/MacEnhance/Preferences/" stringByAppendingString:file]];
-            if (preferenceBundle) {
+            if (preferenceBundle)
                 [res addObject:preferenceBundle];
-            }
-//            [res addObject:[@"/Library/Application Support/MacEnhance/Preferences/" stringByAppendingString:file]];
         }
     }
     _pluginList = res.copy;
@@ -56,7 +98,8 @@
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)notification {
-
+    [_seg setEnabled:(_tv.selectedRow >= 0)];
+    
     // Clear the view
     if(_currentPrefView) {
         [_currentPrefView invalidate];
@@ -95,12 +138,10 @@
     NSTableCellView *result = [[NSTableCellView alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
     NSImageView *img = [[NSImageView alloc] initWithFrame:CGRectMake(5, 3, 24, 24)];
     
-    NSString *bundleID = @"";
-    NSString *appPath = @"";
-    appPath = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:bundleID];
-
-    NSImage *appIMG = NSImage.new;
-    NSString *appName = @"";
+    NSString *bundleID  = @"";
+    NSString *appName   = @"";
+    NSString *appPath   = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:bundleID];
+    NSImage *appIMG     = NSImage.new;
         
     if (appPath.length) {
         appIMG = [[NSWorkspace sharedWorkspace] iconForFile:appPath];
