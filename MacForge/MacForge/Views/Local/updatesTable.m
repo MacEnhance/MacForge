@@ -72,7 +72,7 @@ NSMutableDictionary *needsUpdate;
     /* wait until all installs have finished */
 //    while (count != 0) NSLog(@"%lu", (unsigned long)count);
     
-    dispatch_queue_t backgroundQueue = dispatch_queue_create("com.w0lf.MacForge", 0);
+    dispatch_queue_t backgroundQueue = dispatch_queue_create("com.macenhance.MacForge", 0);
     dispatch_async(backgroundQueue, ^{
         [needsUpdate removeAllObjects];
         [self->sharedMethods checkforPluginUpdates:self->_tblView :myDelegate.viewUpdateCounter];
@@ -94,7 +94,7 @@ NSMutableDictionary *needsUpdate;
         /* wait until all installs have finished */
 //        while (count > 0) NSLog(@"%lu", (unsigned long)count);
         
-        dispatch_queue_t backgroundQueue = dispatch_queue_create("com.w0lf.MacForge", 0);
+        dispatch_queue_t backgroundQueue = dispatch_queue_create("com.macenhance.MacForge", 0);
         dispatch_async(backgroundQueue, ^{
             [self->sharedMethods checkforPluginUpdates:self->_tblView :myDelegate.viewUpdateCounter];
         });
@@ -106,7 +106,7 @@ NSMutableDictionary *needsUpdate;
 }
 
 - (IBAction)reloadUpdates:(id)sender {
-    dispatch_queue_t backgroundQueue = dispatch_queue_create("com.w0lf.MacForge", 0);
+    dispatch_queue_t backgroundQueue = dispatch_queue_create("com.macenhance.MacForge", 0);
     dispatch_async(backgroundQueue, ^{
 //        [needsUpdate removeAllObjects];
         [self->sharedMethods checkforPluginUpdates:self->_tblView :myDelegate.viewUpdateCounter];

@@ -32,6 +32,10 @@
 @property (weak) IBOutlet SYFlatButton          *bundleGet;
 @property (weak) IBOutlet NSProgressIndicator   *bundleProgress;
 
+@property (weak) IBOutlet NSImageView           *bundleSIP;
+@property (weak) IBOutlet NSImageView           *bundleLIB;
+
+
 - (IBAction)getOrOpen:(id)sender;
 - (IBAction)moreInfo:(id)sender;
 - (void)setupWithPlugin:(MF_Plugin*)plugin;

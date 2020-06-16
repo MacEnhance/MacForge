@@ -6,12 +6,8 @@
 //  Copyright © 2020 MacEnhance. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+@import AppKit;
 
-NS_ASSUME_NONNULL_BEGIN
-
-@interface MF_purchasedView : NSView
-
+@interface MF_purchasedView : NSView <NSTableViewDataSource, NSTableViewDelegate>
+@property NSTableView   *tv;
 @end
-
-NS_ASSUME_NONNULL_END

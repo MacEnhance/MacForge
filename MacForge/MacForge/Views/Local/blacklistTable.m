@@ -35,14 +35,12 @@ NSDictionary *blDict;
 
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
-    NSUserDefaults *blPrefs = [[NSUserDefaults alloc] initWithSuiteName:@"com.w0lf.MacForgeHelper"];
+    NSUserDefaults *blPrefs = [[NSUserDefaults alloc] initWithSuiteName:@"com.macenhance.MacForgeHelper"];
     NSDictionary *blDict = [blPrefs dictionaryRepresentation];
     NSArray *tmpblacklist = [blDict objectForKey:@"SIMBLApplicationIdentifierBlacklist"];
-    NSArray *alwaysBlaklisted = @[@"org.w0lf.mySIMBL", @"org.w0lf.cDock-GUI"];
+    NSArray *alwaysBlaklisted = @[@"org.w0lf.mySIMBL", @"org.w0lf.cDock-GUI", @"org.w0lf.cDockHelper", @"com.macenhance.MacForge", @"com.macenhance.MacForgeHelper", @"com.macenhance.purchaseValidationApp"];
     NSMutableArray *newlist = [[NSMutableArray alloc] initWithArray:tmpblacklist];
-    for (NSString *app in alwaysBlaklisted)
-        if (![tmpblacklist containsObject:app])
-            [newlist addObject:app];
+    [newlist removeObjectsInArray:alwaysBlaklisted];
     _blackList = newlist;
     return _blackList.count;
 }

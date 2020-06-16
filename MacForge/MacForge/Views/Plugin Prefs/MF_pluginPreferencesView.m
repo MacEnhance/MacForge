@@ -31,12 +31,28 @@
     
     _currentPrefView = NULL;
     
+    // Prevent selection until helper is running
+    [self.tv setEnabled:false];
+    
     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        weakSelf.prefLoaderConnection = [NSXPCSharedListener connectionForListenerNamed:@"com.w0lf.MacForge" fromServiceNamed:@"com.w0lf.MacForge.PreferenceLoader"];
+        weakSelf.prefLoaderConnection = [NSXPCSharedListener connectionForListenerNamed:@"com.macenhance.MacForge" fromServiceNamed:@"com.macenhance.MacForge.PreferenceLoader"];
         weakSelf.prefLoaderConnection.remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:@protocol(PreferenceLoaderProtocol)];
         [weakSelf.prefLoaderConnection resume];
         weakSelf.prefLoaderProxy = weakSelf.prefLoaderConnection.remoteObjectProxy;
+        
+        dispatch_async(dispatch_get_main_queue(), ^(){
+            // Enable selection
+            [self.tv setEnabled:true];
+            
+            // Automatically select the first row (if one exists) once we're done loading
+            if (self.tv.selectedRow < 0) {
+                if (self.tv.numberOfRows > 0) {
+                    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:0];
+                    [self.tv selectRowIndexes:indexSet byExtendingSelection:NO];
+                }
+            }
+        });
     });
     
     _prefLoaderProxy = _prefLoaderConnection.remoteObjectProxy;
@@ -121,7 +137,7 @@
 //                [weakSelf.currentPrefView setTranslatesAutoresizingMaskIntoConstraints:NO];
                 [weakSelf.currentPrefView setSynchronizesImplicitAnimations:NO];
                 [weakSelf.currentPrefView setShouldMaskToBounds:NO];
-                [weakSelf.currentPrefView setServiceName:@"com.w0lf.MacForge.PreferenceLoader"];
+                [weakSelf.currentPrefView setServiceName:@"com.macenhance.MacForge.PreferenceLoader"];
                 [weakSelf.currentPrefView setServiceSubclassName:@"PreferenceLoaderServiceView"];
 
                 [weakSelf.currentPrefView advanceToRunPhaseIfNeeded:^(NSError *err){

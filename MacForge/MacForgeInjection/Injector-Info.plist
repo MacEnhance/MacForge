@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleIdentifier</key>
-	<string>com.w0lf.MacForge.Injector</string>
+	<string>com.macenhance.MacForge.Injector</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -12,7 +12,7 @@
 	<string>0.1</string>
 	<key>SMAuthorizedClients</key>
 	<array>
-		<string>identifier &quot;com.w0lf.MacForgeHelper&quot;</string>
+		<string>identifier &quot;com.macenhance.MacForgeHelper&quot;</string>
 	</array>
 </dict>
 </plist>

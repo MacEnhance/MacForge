@@ -13,7 +13,7 @@
 @implementation MF_BlacklistManager
 
 + (void)removeBlacklistItems:(NSArray*)bundleIDs {
-    NSUserDefaults *sharedPrefs = [[NSUserDefaults alloc] initWithSuiteName:@"com.w0lf.MacForgeHelper"];
+    NSUserDefaults *sharedPrefs = [[NSUserDefaults alloc] initWithSuiteName:@"com.macenhance.MacForgeHelper"];
     NSMutableArray *newBlacklist = [[NSMutableArray alloc] initWithArray:[sharedPrefs objectForKey:@"SIMBLApplicationIdentifierBlacklist"]];
     for (NSString* bundleID in bundleIDs)
         [newBlacklist removeObject:bundleID];
@@ -22,7 +22,7 @@
 }
 
 + (void)addBlacklistItems:(NSArray*)paths {
-    NSUserDefaults *sharedPrefs = [[NSUserDefaults alloc] initWithSuiteName:@"com.w0lf.MacForgeHelper"];
+    NSUserDefaults *sharedPrefs = [[NSUserDefaults alloc] initWithSuiteName:@"com.macenhance.MacForgeHelper"];
     NSMutableArray *newBlacklist = [[NSMutableArray alloc] initWithArray:[sharedPrefs objectForKey:@"SIMBLApplicationIdentifierBlacklist"]];
     for (NSURL *url in paths) {
         NSString *path = url.path;

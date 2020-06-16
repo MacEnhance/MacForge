@@ -35,7 +35,7 @@ int main(int argc, const char *argv[])
     ServiceDelegate *delegate = [ServiceDelegate new];
     [anonListener setDelegate:delegate];
     [delegate setListener:anonListener];
-    [sharedListener addListener:anonListener withName:@"com.w0lf.MacForge"];
+    [sharedListener addListener:anonListener withName:@"com.macenhance.MacForge"];
     NSViewServiceApplicationMain();
     return 0;
 }

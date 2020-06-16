@@ -36,10 +36,8 @@
 	<string>NSApplication</string>
 	<key>SMPrivilegedExecutables</key>
 	<dict>
-		<key>com.w0lf.MacForge.Injector</key>
-		<string>identifier com.w0lf.MacForge.Injector</string>
-		<key>com.w0lf.MacForge.Installer</key>
-		<string>identifier com.w0lf.MacForge.Installer</string>
+		<key>com.macenhance.MacForge.Injector</key>
+		<string>identifier com.macenhance.MacForge.Injector</string>
 	</dict>
 </dict>
 </plist>

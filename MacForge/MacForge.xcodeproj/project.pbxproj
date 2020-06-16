@@ -29,7 +29,7 @@
 		F3A95F7423EF842A004635FD /* MF_bundleTinyItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A95F7223EF842A004635FD /* MF_bundleTinyItem.m */; };
 		F3A95F7523EF842A004635FD /* MF_bundleTinyItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3A95F7323EF842A004635FD /* MF_bundleTinyItem.xib */; };
 		FB0227A920F0539B006566EF /* MF_PluginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8EA20F0289900A12ACF /* MF_PluginManager.m */; };
-		FB057CC72139B1B4002B3BB3 /* com.w0lf.MacForge.Injector in CopyFiles */ = {isa = PBXBuildFile; fileRef = F0ADE1B8166E0820009758CC /* com.w0lf.MacForge.Injector */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		FB057CC72139B1B4002B3BB3 /* com.macenhance.MacForge.Injector in CopyFiles */ = {isa = PBXBuildFile; fileRef = F0ADE1B8166E0820009758CC /* com.macenhance.MacForge.Injector */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		FB1241362478997500528C29 /* MF_searchView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB1241352478997500528C29 /* MF_searchView.m */; };
 		FB12413C247899F600528C29 /* MF_extra.m in Sources */ = {isa = PBXBuildFile; fileRef = FB12413B247899F600528C29 /* MF_extra.m */; };
 		FB169AFD22F4EEEB001E84E0 /* MF_featuredItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB169AFB22F4EEEB001E84E0 /* MF_featuredItemController.m */; };
@@ -41,6 +41,12 @@
 		FB2FE5CC230638120082C714 /* SYFlatButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2FE5CB230638120082C714 /* SYFlatButton.m */; };
 		FB306ACC2367C9D5008A6E61 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB306ACB2367C9D5008A6E61 /* Media.xcassets */; };
 		FB306ACE2367CD0F008A6E61 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB306ACD2367CD0F008A6E61 /* Media.xcassets */; };
+		FB4F4B832498316500987D1E /* EQImage+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4F4B7D2498316500987D1E /* EQImage+Helper.m */; };
+		FB4F4B842498316500987D1E /* EQImage+Scale.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4F4B802498316500987D1E /* EQImage+Scale.m */; };
+		FB4F4B852498316500987D1E /* EQImage+ColorArt.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4F4B812498316500987D1E /* EQImage+ColorArt.m */; };
+		FB4F4B862498316500987D1E /* SLColorArt.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4F4B822498316500987D1E /* SLColorArt.m */; };
+		FB4F4B8A24988F0E00987D1E /* checkmark.shield.fill_Normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB4F4B8824988F0E00987D1E /* checkmark.shield.fill_Normal@2x.png */; };
+		FB4F4B8B24988F0E00987D1E /* lock.shield.fill_Normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB4F4B8924988F0E00987D1E /* lock.shield.fill_Normal@2x.png */; };
 		FB7259E52314F2BD00701F32 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB7259E42314F2BD00701F32 /* GoogleService-Info.plist */; };
 		FB78E2A72139BE27002FFE2E /* MacForgeDockTile.docktileplugin in Copy Plugins */ = {isa = PBXBuildFile; fileRef = FBA6E90120F0299B00A12ACF /* MacForgeDockTile.docktileplugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FB80DBDC231B4C6A00823B67 /* starhighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = FB80DBDA231B4C6A00823B67 /* starhighlighted.png */; };
@@ -216,7 +222,7 @@
 			dstPath = Contents/Library/LaunchServices;
 			dstSubfolderSpec = 1;
 			files = (
-				FB057CC72139B1B4002B3BB3 /* com.w0lf.MacForge.Injector in CopyFiles */,
+				FB057CC72139B1B4002B3BB3 /* com.macenhance.MacForge.Injector in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,7 +333,7 @@
 		F0ADE165166DFF37009758CC /* MFConstant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFConstant.m; sourceTree = "<group>"; };
 		F0ADE167166E0121009758CC /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		F0ADE169166E013C009758CC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		F0ADE1B8166E0820009758CC /* com.w0lf.MacForge.Injector */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = com.w0lf.MacForge.Injector; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0ADE1B8166E0820009758CC /* com.macenhance.MacForge.Injector */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = com.macenhance.MacForge.Injector; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0ADE1C5166E0874009758CC /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F0ADE1C9166E0992009758CC /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		F0ADE1E2166E0C0D009758CC /* MFInjectorProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFInjectorProxy.h; sourceTree = "<group>"; };
@@ -353,6 +359,17 @@
 		FB306ACB2367C9D5008A6E61 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		FB306ACD2367CD0F008A6E61 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		FB3C2EC7236A7FB5002B21C1 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		FB4F4B742498316400987D1E /* EQImage+ColorArt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EQImage+ColorArt.h"; sourceTree = "<group>"; };
+		FB4F4B7B2498316400987D1E /* EQImage+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EQImage+Helper.h"; sourceTree = "<group>"; };
+		FB4F4B7C2498316500987D1E /* SLColorArt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLColorArt.h; sourceTree = "<group>"; };
+		FB4F4B7D2498316500987D1E /* EQImage+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EQImage+Helper.m"; sourceTree = "<group>"; };
+		FB4F4B7E2498316500987D1E /* EQImage+Scale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EQImage+Scale.h"; sourceTree = "<group>"; };
+		FB4F4B7F2498316500987D1E /* SLTypeAliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLTypeAliases.h; sourceTree = "<group>"; };
+		FB4F4B802498316500987D1E /* EQImage+Scale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EQImage+Scale.m"; sourceTree = "<group>"; };
+		FB4F4B812498316500987D1E /* EQImage+ColorArt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EQImage+ColorArt.m"; sourceTree = "<group>"; };
+		FB4F4B822498316500987D1E /* SLColorArt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLColorArt.m; sourceTree = "<group>"; };
+		FB4F4B8824988F0E00987D1E /* checkmark.shield.fill_Normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkmark.shield.fill_Normal@2x.png"; sourceTree = "<group>"; };
+		FB4F4B8924988F0E00987D1E /* lock.shield.fill_Normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock.shield.fill_Normal@2x.png"; sourceTree = "<group>"; };
 		FB7259E42314F2BD00701F32 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FB80DBDA231B4C6A00823B67 /* starhighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starhighlighted.png; sourceTree = "<group>"; };
 		FB80DBDB231B4C6A00823B67 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
@@ -603,7 +620,7 @@
 			isa = PBXGroup;
 			children = (
 				F0ADE0F6166DF941009758CC /* MacForgeHelper.app */,
-				F0ADE1B8166E0820009758CC /* com.w0lf.MacForge.Injector */,
+				F0ADE1B8166E0820009758CC /* com.macenhance.MacForge.Injector */,
 				FBE767E820F00FFB00A42BD5 /* MacForge.app */,
 				FBA6E90120F0299B00A12ACF /* MacForgeDockTile.docktileplugin */,
 				FBAA974F2334BBFC0074B4E2 /* purchaseValidationApp.app */,
@@ -738,6 +755,22 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		FB4F4B872498316C00987D1E /* SLColorArt */ = {
+			isa = PBXGroup;
+			children = (
+				FB4F4B742498316400987D1E /* EQImage+ColorArt.h */,
+				FB4F4B812498316500987D1E /* EQImage+ColorArt.m */,
+				FB4F4B7B2498316400987D1E /* EQImage+Helper.h */,
+				FB4F4B7D2498316500987D1E /* EQImage+Helper.m */,
+				FB4F4B7E2498316500987D1E /* EQImage+Scale.h */,
+				FB4F4B802498316500987D1E /* EQImage+Scale.m */,
+				FB4F4B7C2498316500987D1E /* SLColorArt.h */,
+				FB4F4B822498316500987D1E /* SLColorArt.m */,
+				FB4F4B7F2498316500987D1E /* SLTypeAliases.h */,
+			);
+			path = SLColorArt;
+			sourceTree = "<group>";
+		};
 		FB5F76D12479B82500B2DC65 /* Repo */ = {
 			isa = PBXGroup;
 			children = (
@@ -751,6 +784,7 @@
 			isa = PBXGroup;
 			children = (
 				FBA6E90E20F02BB800A12ACF /* FConvenience.h */,
+				FB4F4B872498316C00987D1E /* SLColorArt */,
 				096DEFD7247CAA91009F7CF5 /* ViewBridge Headers */,
 				FBAAB3F120F22BFA002156DC /* NSBundle+LoginItem */,
 				FBA6E89720F018A000A12ACF /* SGDirWatchdog */,
@@ -785,6 +819,8 @@
 		FBA6E8DF20F0286000A12ACF /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				FB4F4B8824988F0E00987D1E /* checkmark.shield.fill_Normal@2x.png */,
+				FB4F4B8924988F0E00987D1E /* lock.shield.fill_Normal@2x.png */,
 				FB88081F2480FEFA0002727A /* arrow.up.arrow.down.square.fill_Normal@2x.png */,
 				FB8808222480FEFB0002727A /* desktopcomputer_Normal@2x.png */,
 				FB8808242480FEFB0002727A /* magnifyingglass.circle.fill_Normal@2x.png */,
@@ -1007,9 +1043,9 @@
 			productReference = F0ADE0F6166DF941009758CC /* MacForgeHelper.app */;
 			productType = "com.apple.product-type.application";
 		};
-		F0ADE1B7166E0820009758CC /* com.w0lf.MacForge.Injector */ = {
+		F0ADE1B7166E0820009758CC /* com.macenhance.MacForge.Injector */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F0ADE1C2166E0821009758CC /* Build configuration list for PBXNativeTarget "com.w0lf.MacForge.Injector" */;
+			buildConfigurationList = F0ADE1C2166E0821009758CC /* Build configuration list for PBXNativeTarget "com.macenhance.MacForge.Injector" */;
 			buildPhases = (
 				9851752FC9515D7023FE4235 /* [CP] Check Pods Manifest.lock */,
 				F0ADE1B4166E0820009758CC /* Sources */,
@@ -1020,9 +1056,9 @@
 			);
 			dependencies = (
 			);
-			name = com.w0lf.MacForge.Injector;
+			name = com.macenhance.MacForge.Injector;
 			productName = Injector;
-			productReference = F0ADE1B8166E0820009758CC /* com.w0lf.MacForge.Injector */;
+			productReference = F0ADE1B8166E0820009758CC /* com.macenhance.MacForge.Injector */;
 			productType = "com.apple.product-type.tool";
 		};
 		FBA6E90020F0299B00A12ACF /* MacForgeDockTile */ = {
@@ -1158,7 +1194,7 @@
 			targets = (
 				FBE767E720F00FFB00A42BD5 /* MacForge */,
 				F0ADE0F5166DF941009758CC /* MacForgeHelper */,
-				F0ADE1B7166E0820009758CC /* com.w0lf.MacForge.Injector */,
+				F0ADE1B7166E0820009758CC /* com.macenhance.MacForge.Injector */,
 				FBA6E90020F0299B00A12ACF /* MacForgeDockTile */,
 				FBAA974E2334BBFC0074B4E2 /* purchaseValidationApp */,
 				096DEFBF247CA727009F7CF5 /* PreferenceLoader */,
@@ -1271,12 +1307,14 @@
 				FBA6E8CE20F025A100A12ACF /* Application.xib in Resources */,
 				FB88081B2480F1300002727A /* TODO.md in Resources */,
 				FBA6E8CA20F01E1B00A12ACF /* LICENSE_SGDirWatchdog in Resources */,
+				FB4F4B8B24988F0E00987D1E /* lock.shield.fill_Normal@2x.png in Resources */,
 				FBA6E8C220F01D4000A12ACF /* LICENSE_StartAtLoginController in Resources */,
 				FBA6E8C420F01D7500A12ACF /* LICENSE_SIMBL in Resources */,
 				FB8808292480FEFB0002727A /* desktopcomputer_Normal@2x.png in Resources */,
 				FB306ACE2367CD0F008A6E61 /* Media.xcassets in Resources */,
 				FB8808262480FEFB0002727A /* arrow.up.arrow.down.square.fill_Normal@2x.png in Resources */,
 				FB88082B2480FEFB0002727A /* magnifyingglass.circle.fill_Normal@2x.png in Resources */,
+				FB4F4B8A24988F0E00987D1E /* checkmark.shield.fill_Normal@2x.png in Resources */,
 				FB169AFE22F4EEEB001E84E0 /* MF_featuredItemController.xib in Resources */,
 				FBA6E8C620F01DDA00A12ACF /* LICENSE_STPrivilegedTask in Resources */,
 			);
@@ -1567,6 +1605,7 @@
 				FBFC7466247769280015D36C /* MF_pluginPreferencesView.m in Sources */,
 				FB169AFD22F4EEEB001E84E0 /* MF_featuredItemController.m in Sources */,
 				FB12413C247899F600528C29 /* MF_extra.m in Sources */,
+				FB4F4B842498316500987D1E /* EQImage+Scale.m in Sources */,
 				FBA6E8F220F0289B00A12ACF /* MF_PluginManager.m in Sources */,
 				FBBD8E2322F9319E00A97FEA /* MF_Purchase.m in Sources */,
 				FBA6E8E720F0288300A12ACF /* MF_repoData.m in Sources */,
@@ -1578,12 +1617,15 @@
 				FBA6E8F520F0289B00A12ACF /* loaclPluginTable.m in Sources */,
 				F3A95F7423EF842A004635FD /* MF_bundleTinyItem.m in Sources */,
 				FBF137E3210E79B70001916A /* blacklistTable.m in Sources */,
+				FB4F4B832498316500987D1E /* EQImage+Helper.m in Sources */,
 				FBA6E8F420F0289B00A12ACF /* updatesTable.m in Sources */,
+				FB4F4B852498316500987D1E /* EQImage+ColorArt.m in Sources */,
 				FBA6E88720F0176B00A12ACF /* AppDelegate.m in Sources */,
 				FBE767F420F00FFE00A42BD5 /* main.m in Sources */,
 				FBA6E8CF20F0262A00A12ACF /* SGDirWatchdog.m in Sources */,
 				FB1241362478997500528C29 /* MF_searchView.m in Sources */,
 				FBC2123423B459CE006F4485 /* MF_BlacklistManager.m in Sources */,
+				FB4F4B862498316500987D1E /* SLColorArt.m in Sources */,
 				FB2FE5CC230638120082C714 /* SYFlatButton.m in Sources */,
 				FBA6E8BB20F01C6300A12ACF /* StartAtLoginController.m in Sources */,
 				FBAAB3EF20F22BF5002156DC /* NSBundle+LoginItem.m in Sources */,
@@ -1600,7 +1642,7 @@
 		};
 		F0ADE1CC166E09A5009758CC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = F0ADE1B7166E0820009758CC /* com.w0lf.MacForge.Injector */;
+			target = F0ADE1B7166E0820009758CC /* com.macenhance.MacForge.Injector */;
 			targetProxy = F0ADE1CB166E09A5009758CC /* PBXContainerItemProxy */;
 		};
 		F0CF07F3166F5654009D198D /* PBXTargetDependency */ = {
@@ -1660,6 +1702,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = EX596BNL45;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1667,10 +1710,10 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = PreferenceLoader/Info.plist;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MARKETING_VERSION = 0.1.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacForge.PreferenceLoader;
+				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.MacForge.PreferenceLoader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SYSTEM_FRAMEWORK_SEARCH_PATHS = "$(inherited) $(SYSTEM_LIBRARY_DIR)/PrivateFrameworks";
@@ -1693,6 +1736,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = EX596BNL45;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1700,10 +1744,10 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = PreferenceLoader/Info.plist;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MARKETING_VERSION = 0.1.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacForge.PreferenceLoader;
+				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.MacForge.PreferenceLoader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SYSTEM_FRAMEWORK_SEARCH_PATHS = "$(inherited) $(SYSTEM_LIBRARY_DIR)/PrivateFrameworks";
@@ -1820,7 +1864,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/MacForgeHelper/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../../Frameworks";
 				MARKETING_VERSION = 2.1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacForgeHelper;
+				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.MacForgeHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1847,7 +1891,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/MacForgeHelper/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../../Frameworks";
 				MARKETING_VERSION = 2.1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacForgeHelper;
+				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.MacForgeHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1946,6 +1990,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = EX596BNL45;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1953,8 +1998,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "$(SRCROOT)/MacForgeDockTile/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MARKETING_VERSION = 0.1.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				PRODUCT_BUNDLE_IDENTIFIER = org.w0lf.MacForgeDockTile;
+				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.MacForgeDockTile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -1979,6 +2025,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = EX596BNL45;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1986,8 +2033,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "$(SRCROOT)/MacForgeDockTile/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MARKETING_VERSION = 0.1.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.w0lf.MacForgeDockTile;
+				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.MacForgeDockTile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -2013,6 +2061,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = EX596BNL45;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -2025,6 +2074,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = purchaseValidationApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MARKETING_VERSION = 0.1.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.purchaseValidationApp;
@@ -2053,6 +2103,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = EX596BNL45;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -2065,6 +2116,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = purchaseValidationApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MARKETING_VERSION = 0.1.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.purchaseValidationApp;
@@ -2107,7 +2159,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MARKETING_VERSION = 0.21.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacForge;
+				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.MacForge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = NO;
@@ -2153,7 +2205,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MARKETING_VERSION = 0.21.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacForge;
+				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.MacForge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = NO;
@@ -2191,7 +2243,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F0ADE1C2166E0821009758CC /* Build configuration list for PBXNativeTarget "com.w0lf.MacForge.Injector" */ = {
+		F0ADE1C2166E0821009758CC /* Build configuration list for PBXNativeTarget "com.macenhance.MacForge.Injector" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F0ADE1C3166E0821009758CC /* Debug */,

@@ -126,7 +126,6 @@
                 this_is_a_bundle.webPaid = [[bundle valueForKey:@"payed"] boolValue];
                 this_is_a_bundle.webPaddle = [bundle objectForKey:@"paddle"];
 
-
                 [self.repoPluginsDic setObject:this_is_a_bundle forKey:bundleIdentifier];
                 [sourceDic setObject:this_is_a_bundle forKey:bundleIdentifier];
 //                NSLog(@"%@", this_is_a_bundle);

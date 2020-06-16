@@ -24,7 +24,7 @@ Boolean appSetupFinished = false;
     [_searchPlugins abortEditing];
 }
 
-- (void)controlTextDidChange:(NSNotification *)obj{
+- (void)updatesearchText {
     if (self.searchPlugins.stringValue.length == 0) {
         // Set the main view to featured
         [_sidebarController selectView:_sidebarFeatured];
@@ -36,6 +36,21 @@ Boolean appSetupFinished = false;
         // Set our main view to hold the contents
         [_sidebarController setMainViewSubView:_tabSearch];
     }
+}
+
+- (void)controlTextDidChange:(NSNotification *)obj {
+    [self updatesearchText];
+//    if (self.searchPlugins.stringValue.length == 0) {
+//        // Set the main view to featured
+//        [_sidebarController selectView:_sidebarFeatured];
+//    } else {
+//        // Set the serach tab filter
+//        [_tabSearch setFilter:self.searchPlugins.stringValue];
+//        // Force a reload
+//        [self->_tabSearch.tv reloadData];
+//        // Set our main view to hold the contents
+//        [_sidebarController setMainViewSubView:_tabSearch];
+//    }
 }
 
 - (void)movePreviousPurchases {
@@ -112,7 +127,7 @@ Boolean appSetupFinished = false;
         [MSAnalytics trackEvent:@"macforge://" withProperties:@{@"Product ID" : bundleID}];
         MF_Plugin *p = [[MF_Plugin alloc] init];
         MF_repoData *data = MF_repoData.sharedInstance;
-        NSString *repo = @"https://github.com/MacEnhance/MacForgeRepo/raw/master/repo";
+        NSString *repo = MF_REPO_URL;
         
         if ([data.repoPluginsDic objectForKey:bundleID]) {
             p = [data.repoPluginsDic objectForKey:bundleID];
@@ -176,7 +191,16 @@ Boolean appSetupFinished = false;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 //    [MSCrashes generateTestCrash];
 
-    [[NSDistributedNotificationCenter defaultCenter] addObserverForName:@"com.w0lf.MacForgeNotify"
+    // Testing
+//    NSMutableDictionary *m = [NSMutableDictionary.alloc initWithContentsOfFile:@"/Users/w0lf/Documents/GitHub/wb_macplugins/packages_v2.plist"];
+//    [m addEntriesFromDictionary:[NSMutableDictionary.alloc initWithContentsOfFile:@"/Users/w0lf/Documents/GitHub/wb_myRepo/mytweaks/packages_v2.plist"]];
+//    [m addEntriesFromDictionary:[NSMutableDictionary.alloc initWithContentsOfFile:@"/Users/w0lf/Documents/GitHub/wb_myRepo/myPaidRepo/packages_v2.plist"]];
+//    NSDictionary *p = [[NSDictionary alloc] initWithContentsOfFile:@"/Users/w0lf/Documents/GitHub/MacForgeRepo/repo/packages.plist"];
+//    NSMutableArray *l = m.allKeys.mutableCopy;
+//    [l removeObjectsInArray:p.allKeys];
+//    NSLog(@"%@", l);
+    
+    [[NSDistributedNotificationCenter defaultCenter] addObserverForName:@"com.macenhance.MacForgeNotify"
                                                                  object:nil
                                                                   queue:nil
                                                              usingBlock:^(NSNotification *notification)
@@ -236,7 +260,7 @@ Boolean appSetupFinished = false;
     [MSAnalytics trackEvent:@"Application Launching"];
     
     // Crash on exceptions?
-    [NSUserDefaults.standardUserDefaults registerDefaults:@{@"NSApplicationCrashOnExceptions": [NSNumber numberWithBool:true]}];
+//    [NSUserDefaults.standardUserDefaults registerDefaults:@{@"NSApplicationCrashOnExceptions": [NSNumber numberWithBool:true]}];
     
     /* Configure Firebase */
     [FIRApp configure];
@@ -461,11 +485,11 @@ Boolean appSetupFinished = false;
         NSString *path = [NSString stringWithFormat:@"%@/Contents/Library/LoginItems/MacForgeHelper.app", [[NSBundle mainBundle] bundlePath]];
 
         // Launch helper if it's not open
-        //    if ([NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.w0lf.MacForgeHelper"].count == 0)
+        //    if ([NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.macenhance.MacForgeHelper"].count == 0)
         //        [[NSWorkspace sharedWorkspace] launchApplication:path];
 
         // Always relaunch in developement
-        for (NSRunningApplication *run in [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.w0lf.MacForgeHelper"])
+        for (NSRunningApplication *run in [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.macenhance.MacForgeHelper"])
             [run terminate];
         
         // Seems to need to run on main thread
@@ -556,7 +580,7 @@ Boolean appSetupFinished = false;
     
     [_SIP_TaskPID setState:![SIPKit SIP_TASK_FOR_PID]];
     [_SIP_filesystem setState:![SIPKit SIP_Filesystem]];
-    [_MacForgePrivHelper setState:[FileManager fileExistsAtPath:@"/Library/PrivilegedHelperTools/com.w0lf.MacForge.Injector"]];
+    [_MacForgePrivHelper setState:[FileManager fileExistsAtPath:@"/Library/PrivilegedHelperTools/com.macenhance.MacForge.Injector"]];
     
     if (!sipEnabled) [_SIP_status setStringValue:@"Disabled"];
     if (!amfiEnabled) [_AMFI_status setStringValue:@"Disabled"];
@@ -572,12 +596,11 @@ Boolean appSetupFinished = false;
 }
 
 - (void)simbl_blacklist {
-    NSString *plist = @"Library/Preferences/com.w0lf.MacForgeHelper.plist";
+    NSString *plist = @"Library/Preferences/com.macenhance.MacForgeHelper.plist";
     NSMutableDictionary *SIMBLPrefs = [NSMutableDictionary dictionaryWithContentsOfFile:[NSHomeDirectory() stringByAppendingPathComponent:plist]];
     NSArray *blacklist = [SIMBLPrefs objectForKey:@"SIMBLApplicationIdentifierBlacklist"];
-    NSArray *alwaysBlaklisted = @[@"org.w0lf.mySIMBL", @"org.w0lf.cDock-GUI",
-                                  @"com.w0lf.MacForge", @"com.w0lf.MacForgeHelper",
-                                  @"org.w0lf.cDockHelper", @"com.macenhance.purchaseValidationApp"];
+    NSArray *alwaysBlaklisted = @[@"org.w0lf.mySIMBL", @"org.w0lf.cDock-GUI", @"org.w0lf.cDockHelper",
+                                  @"com.macenhance.MacForge", @"com.macenhance.MacForgeHelper", @"com.macenhance.purchaseValidationApp"];
     NSMutableArray *newlist = [[NSMutableArray alloc] initWithArray:blacklist];
     for (NSString *app in alwaysBlaklisted)
         if (![blacklist containsObject:app])

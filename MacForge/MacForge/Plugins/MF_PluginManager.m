@@ -86,7 +86,7 @@
     }
 }
 
-// Look at a folder and find all MacForge plugins wihtin it and add them to the given Dictionatry
+// Look at a folder and find all MacForge plugins within it and add them to the given Dictionatry
 - (void)readFolder:(NSString *)str :(NSMutableDictionary *)dict {
     NSArray *appFolderContents = [[NSArray alloc] init];
     appFolderContents = [FileManager contentsOfDirectoryAtPath:str error:nil];
@@ -209,38 +209,54 @@
     
     // Set install location to /Library/Application Support/MacEnhance/Plugins
     NSString *installPath = [NSString stringWithFormat:@"%@/%@", domains[0], filePath.lastPathComponent];
-    
+        
     // Set intall location for bundles
     if ([filePath.pathExtension isEqualToString:@"bundle"]) {
         
 //        NSLog(@"%@", [[NSBundle bundleWithPath:filePath] infoDictionary]);
         NSDictionary *dict = [[NSBundle bundleWithPath:filePath] infoDictionary];
         
-        if (![dict valueForKey:@"SIMBLTargetApplications"]) {
+        // MacForge plugin
+        if ([dict valueForKey:@"SIMBLTargetApplications"]) {
+            
+            // If the bundle already exist somewhere replace that instead of installing to /Library/Application Support/MacEnhance/Plugins
+            for (NSString *path in domains) {
+                NSString *possibleBundle = [NSString stringWithFormat:@"%@/%@", path, filePath.lastPathComponent];
+                if ([FileManager fileExistsAtPath:possibleBundle])
+                    installPath = possibleBundle;
+            }
+            
+        } else {
             
             // Pref bundle
-            if (![dict valueForKey:@"MacForgePrefBundle"]) {
+            if ([dict valueForKey:@"MacForgePrefBundle"]) {
                 installPath = [@"/Library/Application Support/MacEnhance/Preferences/" stringByAppendingString:filePath.lastPathComponent];
             }
             
-            // Theme bundle
-            if (![dict valueForKey:@"MacForgeThemeBundle"]) {
-                
+            // System Theme bundle
+            if ([dict valueForKey:@"MacForgeThemeBundle"]) {
+                installPath = [@"/Library/Application Support/MacEnhance/Themes/" stringByAppendingString:filePath.lastPathComponent];
+            }
+            
+            // cDock Theme bundle
+            if ([dict valueForKey:@"cDockThemeBundle"]) {
+                installPath = [@"~/Library/Application Support/cDock/themes" stringByExpandingTildeInPath];
+                installPath = [installPath stringByAppendingFormat:@"/%@", filePath.lastPathComponent];
             }
             
         }
-        
-        // If the bundle already exist somewhere replace that instead of installing to /Library/Application Support/MacEnhance/Plugins
-        for (NSString *path in domains) {
-            NSString *possibleBundle = [NSString stringWithFormat:@"%@/%@", path, filePath.lastPathComponent];
-            if ([FileManager fileExistsAtPath:possibleBundle])
-                installPath = possibleBundle;
-        }
     }
 
-    // Set intall location for themes
-    if ([filePath.pathExtension isEqualToString:@"theme"])
-        installPath = [NSString stringWithFormat:@"/Library/MacEnhance/Themes/%@", filePath.lastPathComponent];
+    // Set intall location for Mousecape cape files
+    if ([filePath.pathExtension isEqualToString:@"cape"]) {
+        installPath = [NSString stringWithFormat:@"~/Library/Application Support/Mousecape/capes/%@", filePath.lastPathComponent];
+        installPath = [installPath stringByExpandingTildeInPath];
+        
+        // Make the cape folder if needed
+        NSString *capefolder = [@"~/Library/Application Support/Mousecape/capes" stringByExpandingTildeInPath];
+        if (![FileManager fileExistsAtPath:capefolder isDirectory:nil])
+            [FileManager createDirectoryAtPath:capefolder withIntermediateDirectories:true attributes:nil error:nil];
+    }
 
     // Set install location for applications
     if ([filePath.pathExtension isEqualToString:@"app"])
@@ -275,6 +291,12 @@
             // Probably a file, lets try to install it
             [MF_PluginManager installItem:filePath];
         }
+    }
+    
+    for (NSString *file in [FileManager contentsOfDirectoryAtPath:folderPath error:nil]) {
+        NSString *filePath = [NSString stringWithFormat:@"%@/%@", folderPath, file];
+        if ([[file pathExtension] isEqualToString:@"cape"])
+            [MF_PluginManager installItem:filePath];
     }
 }
 
@@ -410,21 +432,45 @@
 }
 
 - (NSString*)pluginLocalPath:(NSString *)bundleID {
-    NSString *result = @"";
+    NSString *result;
         
-    // Looks like it's an app
+    // Maybe it's a .app
     NSURL *fileURL = [Workspace URLForApplicationWithBundleIdentifier:bundleID];
     
     // If it's in /Applications consider it installed
-    NSArray *comp = fileURL.path.pathComponents;
-    if (comp.count > 0)
-        if ([fileURL.path.pathComponents[1] containsString:@"Applications"])
-            result = fileURL.path;
+    if (!result) {
+        NSArray *comp = fileURL.path.pathComponents;
+        if (comp.count > 0)
+            if ([fileURL.path.pathComponents[1] containsString:@"Applications"])
+                result = fileURL.path;
+    }
     
-    // Maybe it's a bundle
-    if ([installedPluginDICT.allKeys containsObject:bundleID])
-        result = installedPluginDICT[bundleID][@"path"];
-
+    // Maybe it's a .bundle
+    if (!result) {
+        if ([installedPluginDICT.allKeys containsObject:bundleID])
+            result = installedPluginDICT[bundleID][@"path"];
+    }
+    
+    // Maybe it's a .theme
+    if (!result) {
+        NSString *themePath = [@"/Library/Application Support/MacEnhance/Themes" stringByAppendingFormat:@"%@.bundle", bundleID];
+        if ([FileManager fileExistsAtPath:themePath])
+            result = themePath;
+    }
+    
+    // Maybe it's a .cape
+    if (!result) {
+        NSString *capeFolder = [@"~/Library/Application Support/Mousecape/capes" stringByExpandingTildeInPath];
+        NSString* capePath = [capeFolder stringByAppendingFormat:@"/%@.cape", bundleID];
+        for (NSString* file in [FileManager contentsOfDirectoryAtPath:capeFolder error:nil])
+            if ([file containsString:bundleID])
+                capePath = [capeFolder stringByAppendingFormat:@"/%@", file];
+        
+        if ([FileManager fileExistsAtPath:capePath])
+            result = capePath;
+    }
+    
+    if (!result) result = @"";
     return result;
 }
 
@@ -501,6 +547,11 @@
         iconPath = [Workspace absolutePathForAppBundleWithIdentifier:targetApp[@"BundleIdentifier"]];
 
         if ([iconPath length]) {
+            if ([[targetApp objectForKey:@"BundleIdentifier"] isEqualToString:@"com.alexzielenski.Mousecape"]) {
+                result = [NSImage imageNamed:@"NSArrowCursor"];
+                if (result) return result;
+            }
+            
             // Use specific icon for Notification Center
             if ([[targetApp objectForKey:@"BundleIdentifier"] isEqualToString:@"com.apple.notificationcenterui"]) {
                 result = [[NSImage alloc] initWithContentsOfFile:@"/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/Notifications.icns"];
@@ -548,12 +599,12 @@
         [myTile setBadgeLabel:udCount];
     });
     
-    // Update com.w0lf.MacForge > updateCount
-    CFPreferencesSetAppValue(CFSTR("updateCount"), (CFPropertyListRef)udCount, CFSTR("com.w0lf.MacForge"));
-    CFPreferencesAppSynchronize(CFSTR("com.w0lf.MacForge"));
+    // Update com.macenhance.MacForge > updateCount
+    CFPreferencesSetAppValue(CFSTR("updateCount"), (CFPropertyListRef)udCount, CFSTR("com.macenhance.MacForge"));
+    CFPreferencesAppSynchronize(CFSTR("com.macenhance.MacForge"));
     
     // Send notirifcation to DockTilePlugin to update
-    [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.w0lf.MacForgeDockTileUpdate" object:@""];
+    [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.macenhance.MacForgeDockTileUpdate" object:@""];
 }
 
 // Check for plugin updates and automatically install them
@@ -627,8 +678,8 @@
     [self readPlugins:nil];
     
     NSDictionary *plugins = [[NSDictionary alloc] initWithDictionary:[installedPluginDICT copy]];
-    CFPreferencesAppSynchronize(CFSTR("com.w0lf.MacForge"));
-    NSArray *sourceURLS = CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("sources"), CFSTR("com.w0lf.MacForge")));
+    CFPreferencesAppSynchronize(CFSTR("com.macenhance.MacForge"));
+    NSArray *sourceURLS = CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("sources"), CFSTR("com.macenhance.MacForge")));
     
     NSMutableDictionary *sourceDICTS = [[NSMutableDictionary alloc] init];
     for (NSString *source in sourceURLS) {
@@ -674,8 +725,8 @@
     [self readPlugins:nil];
     
     NSDictionary *plugins = [[NSDictionary alloc] initWithDictionary:[installedPluginDICT copy]];
-    CFPreferencesAppSynchronize(CFSTR("com.w0lf.MacForge"));
-    NSArray *sourceURLS = CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("sources"), CFSTR("com.w0lf.MacForge")));
+    CFPreferencesAppSynchronize(CFSTR("com.macenhance.MacForge"));
+    NSArray *sourceURLS = CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("sources"), CFSTR("com.macenhance.MacForge")));
     
     NSMutableDictionary *sourceDICTS = [[NSMutableDictionary alloc] init];
     for (NSString *source in sourceURLS) {
@@ -705,9 +756,9 @@
         
     NSUserNotification *notification = [[NSUserNotification alloc] init];
     
-    if ([NSBundle.mainBundle.bundleIdentifier isEqualToString:@"com.w0lf.MacForgeHelper"]) {
-        CFPreferencesAppSynchronize(CFSTR("com.w0lf.MacForge"));
-        NSDictionary *GUIDefaults = [[NSUserDefaults standardUserDefaults] persistentDomainForName:@"com.w0lf.MacForge"];
+    if ([NSBundle.mainBundle.bundleIdentifier isEqualToString:@"com.macenhance.MacForgeHelper"]) {
+        CFPreferencesAppSynchronize(CFSTR("com.macenhance.MacForge"));
+        NSDictionary *GUIDefaults = [[NSUserDefaults standardUserDefaults] persistentDomainForName:@"com.macenhance.MacForge"];
         if ([[GUIDefaults objectForKey:@"prefPluginNotifications"] boolValue]) {
             NSString *packages = @"";
             for (NSString *key in needsUpdate.allKeys) {

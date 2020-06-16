@@ -34,13 +34,7 @@ target 'MacForgeHelper' do
   shared_pods
 end
 
-target 'MacForgeKit' do
-end
-
-target 'com.w0lf.MacForge.Injector' do
-end
-
-target 'com.w0lf.MacForge.Installer' do
+target 'com.macenhance.MacForge.Injector' do
 end
 
 target 'MacForgeDockTile' do

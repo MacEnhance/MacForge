@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F0ADE1B7166E0820009758CC"
-               BuildableName = "com.w0lf.MacForge.Injector"
-               BlueprintName = "com.w0lf.MacForge.Injector"
+               BuildableName = "com.macenhance.MacForge.Injector"
+               BlueprintName = "com.macenhance.MacForge.Injector"
                ReferencedContainer = "container:MacForge.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -31,8 +31,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F0ADE1B7166E0820009758CC"
-            BuildableName = "com.w0lf.MacForge.Injector"
-            BlueprintName = "com.w0lf.MacForge.Injector"
+            BuildableName = "com.macenhance.MacForge.Injector"
+            BlueprintName = "com.macenhance.MacForge.Injector"
             ReferencedContainer = "container:MacForge.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -54,8 +54,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F0ADE1B7166E0820009758CC"
-            BuildableName = "com.w0lf.MacForge.Injector"
-            BlueprintName = "com.w0lf.MacForge.Injector"
+            BuildableName = "com.macenhance.MacForge.Injector"
+            BlueprintName = "com.macenhance.MacForge.Injector"
             ReferencedContainer = "container:MacForge.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -71,8 +71,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F0ADE1B7166E0820009758CC"
-            BuildableName = "com.w0lf.MacForge.Injector"
-            BlueprintName = "com.w0lf.MacForge.Injector"
+            BuildableName = "com.macenhance.MacForge.Injector"
+            BlueprintName = "com.macenhance.MacForge.Injector"
             ReferencedContainer = "container:MacForge.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

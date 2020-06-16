@@ -33,7 +33,7 @@ void HandleExceptions(NSException *exception) {
 }
 
 - (void)userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification {
-    [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.w0lf.MacForgeNotify" object:@"update"];
+    [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.macenhance.MacForgeNotify" object:@"update"];
 }
 
 - (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification {
@@ -46,7 +46,7 @@ void HandleExceptions(NSException *exception) {
 
 - (void)applicationWillFinishLaunching:(NSNotification *)notification {
     NSSetUncaughtExceptionHandler(&HandleExceptions);
-    NSDictionary *GUIDefaults = [[NSUserDefaults standardUserDefaults] persistentDomainForName:@"com.w0lf.MacForge"];
+    NSDictionary *GUIDefaults = [[NSUserDefaults standardUserDefaults] persistentDomainForName:@"com.macenhance.MacForge"];
     if (![[GUIDefaults objectForKey:@"prefHideMenubar"] boolValue])
         [self setupMenuItem];
 }
@@ -128,7 +128,7 @@ void HandleExceptions(NSException *exception) {
         _authRef = NULL;
     }
 
-    if (![self blessHelperWithLabel:@"com.w0lf.MacForge.Injector" error:error]) {
+    if (![self blessHelperWithLabel:@"com.macenhance.MacForge.Injector" error:error]) {
         NSLog(@"Something went wrong! %@ / %d", [*error domain], (int) [*error code]);
     } else {
        /* At this point, the job is available. However, this is a very simple sample, and there is no IPC infrastructure set up to
@@ -145,11 +145,11 @@ void HandleExceptions(NSException *exception) {
 
 - (BOOL)isBlessed {
     // No injector PrivilegedHelperTool found
-    if (![[NSFileManager defaultManager] fileExistsAtPath:@"/Library/PrivilegedHelperTools/com.w0lf.MacForge.Injector"])
+    if (![[NSFileManager defaultManager] fileExistsAtPath:@"/Library/PrivilegedHelperTools/com.macenhance.MacForge.Injector"])
         return false;
     
     // No injector LaunchDaemons found
-    if (![[NSFileManager defaultManager] fileExistsAtPath:@"/Library/LaunchDaemons/com.w0lf.MacForge.Injector.plist"])
+    if (![[NSFileManager defaultManager] fileExistsAtPath:@"/Library/LaunchDaemons/com.macenhance.MacForge.Injector.plist"])
         return false;
     
     return true;
@@ -181,8 +181,8 @@ void HandleExceptions(NSException *exception) {
 }
 
 - (void)checkForPluginUpdates {
-    CFPreferencesAppSynchronize(CFSTR("com.w0lf.MacForge"));
-    Boolean autoUpdatePlugins = CFPreferencesGetAppBooleanValue(CFSTR("prefPluginUpdate"), CFSTR("com.w0lf.MacForge"), NULL);
+    CFPreferencesAppSynchronize(CFSTR("com.macenhance.MacForge"));
+    Boolean autoUpdatePlugins = CFPreferencesGetAppBooleanValue(CFSTR("prefPluginUpdate"), CFSTR("com.macenhance.MacForge"), NULL);
     if (autoUpdatePlugins) {
         [self updatesPluginsInstall];
     } else {
@@ -197,14 +197,14 @@ void HandleExceptions(NSException *exception) {
             NSUserNotificationCenter.defaultUserNotificationCenter.delegate = self;
             [NSUserNotificationCenter.defaultUserNotificationCenter deliverNotification:notif];
         }
-        [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.w0lf.MacForgeNotify" object:@"check"];
+        [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.macenhance.MacForgeNotify" object:@"check"];
     });
 }
 
 - (void)updatesPluginsInstall {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [[MF_PluginManager sharedInstance] checkforPluginUpdatesAndInstall:nil];
-        [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.w0lf.MacForgeNotify" object:@"check"];
+        [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.macenhance.MacForgeNotify" object:@"check"];
     });
 }
 
@@ -233,21 +233,21 @@ void HandleExceptions(NSException *exception) {
 
 - (void)openMacForgeManage {
     [self openAppWithArgs:@"MacForge" :@[@"manage"]];
-    [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.w0lf.MacForgeNotify" object:@"manage"];
+    [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.macenhance.MacForgeNotify" object:@"manage"];
 }
 
 - (void)openMacForgePrefs {
     [self openAppWithArgs:@"MacForge" :@[@"prefs"]];
-    [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.w0lf.MacForgeNotify" object:@"prefs"];
+    [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.macenhance.MacForgeNotify" object:@"prefs"];
 }
 
 - (void)openMacForgeAbout {
     [self openAppWithArgs:@"MacForge" :@[@"about"]];
-    [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.w0lf.MacForgeNotify" object:@"about"];
+    [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.macenhance.MacForgeNotify" object:@"about"];
 }
 
 - (void)checkMacForgeForUpdates {
-    NSBundle *GUIBundle = [NSBundle bundleWithPath:[NSWorkspace.sharedWorkspace absolutePathForAppBundleWithIdentifier:@"com.w0lf.MacForge"]];
+    NSBundle *GUIBundle = [NSBundle bundleWithPath:[NSWorkspace.sharedWorkspace absolutePathForAppBundleWithIdentifier:@"com.macenhance.MacForge"]];
     NSString* mainapp= [NSBundle mainBundle].bundlePath;
     for (int i = 0; i < 4; i++)
         mainapp = [mainapp stringByDeletingLastPathComponent];
@@ -255,7 +255,7 @@ void HandleExceptions(NSException *exception) {
         if ([mainapp containsString:@"MacForge.app"])
             GUIBundle = [NSBundle bundleWithPath:mainapp];
     SUUpdater *myUpdater = [SUUpdater updaterForBundle:GUIBundle];
-    NSDictionary *GUIDefaults = [[NSUserDefaults standardUserDefaults] persistentDomainForName:@"com.w0lf.MacForge"];
+    NSDictionary *GUIDefaults = [[NSUserDefaults standardUserDefaults] persistentDomainForName:@"com.macenhance.MacForge"];
 //    NSLog(@"MacForgeHelper : GUIDefaults - %@", GUIDefaults);
     if (![[GUIDefaults objectForKey:@"SUHasLaunchedBefore"] boolValue]) {
         [myUpdater setAutomaticallyChecksForUpdates:true];
@@ -266,9 +266,9 @@ void HandleExceptions(NSException *exception) {
 }
 
 - (void)checkMacForgeForUpdatesBackground {
-    NSBundle *GUIBundle = [NSBundle bundleWithPath:[NSWorkspace.sharedWorkspace absolutePathForAppBundleWithIdentifier:@"com.w0lf.MacForge"]];
+    NSBundle *GUIBundle = [NSBundle bundleWithPath:[NSWorkspace.sharedWorkspace absolutePathForAppBundleWithIdentifier:@"com.macenhance.MacForge"]];
     SUUpdater *myUpdater = [SUUpdater updaterForBundle:GUIBundle];
-    NSDictionary *GUIDefaults = [[NSUserDefaults standardUserDefaults] persistentDomainForName:@"com.w0lf.MacForge"];
+    NSDictionary *GUIDefaults = [[NSUserDefaults standardUserDefaults] persistentDomainForName:@"com.macenhance.MacForge"];
 //    NSLog(@"MacForgeHelper : GUIDefaults - %@", GUIDefaults);
     if (![[GUIDefaults objectForKey:@"SUHasLaunchedBefore"] boolValue]) {
         [myUpdater setAutomaticallyChecksForUpdates:true];
@@ -315,14 +315,14 @@ void HandleExceptions(NSException *exception) {
 }
 
 - (void)colorStatusIconApplyPrefs:(NSMenuItem*)sender {
-    NSDictionary *GUIDefaults = [[NSUserDefaults standardUserDefaults] persistentDomainForName:@"com.w0lf.MacForge"];
+    NSDictionary *GUIDefaults = [[NSUserDefaults standardUserDefaults] persistentDomainForName:@"com.macenhance.MacForge"];
     Boolean doColor = [[GUIDefaults valueForKey:@"prefColorMenuBar"] boolValue];
     
     if (sender) {
         doColor = !doColor;
         [sender setState:doColor];
         [GUIDefaults setValue:[NSNumber numberWithBool:doColor] forKey:@"prefColorMenuBar"];
-        [[NSUserDefaults standardUserDefaults] setPersistentDomain:GUIDefaults forName:@"com.w0lf.MacForge"];
+        [[NSUserDefaults standardUserDefaults] setPersistentDomain:GUIDefaults forName:@"com.macenhance.MacForge"];
     }
     
     if (@available(macOS 10.14, *)) {
@@ -342,7 +342,7 @@ void HandleExceptions(NSException *exception) {
     [self addMenuItemToMenu:stackMenu :@"Open at Login" :@selector(toggleStartAtLogin:) :@""];
     [[stackMenu itemAtIndex:0] setState:NSBundle.mainBundle.isLoginItemEnabled];
     [self addMenuItemToMenu:stackMenu :@"Color Menubar Icon" :@selector(colorStatusIconApplyPrefs:) :@""];
-    Boolean doColor = [[[[NSUserDefaults standardUserDefaults] persistentDomainForName:@"com.w0lf.MacForge"] valueForKey:@"prefColorMenuBar"] boolValue];
+    Boolean doColor = [[[[NSUserDefaults standardUserDefaults] persistentDomainForName:@"com.macenhance.MacForge"] valueForKey:@"prefColorMenuBar"] boolValue];
     [[stackMenu itemAtIndex:1] setState:doColor];
     [self addMenuItemToMenu:stackMenu :@"Hide Menubar Icon" :@selector(goodbyeMenu) :@""];
     [stackMenu addItem:NSMenuItem.separatorItem];
@@ -375,7 +375,7 @@ void HandleExceptions(NSException *exception) {
     if ([NSBundle.mainBundle.bundleIdentifier isEqualToString:runningApp.bundleIdentifier]) return false;
     
     // Hardcoded blacklist
-    if ([@[@"com.w0lf.MacForge", @"com.w0lf.MacForgeHelper", @"com.macenhance.purchaseValidationApp"] containsObject:runningApp.bundleIdentifier]) return false;
+    if ([@[@"com.macenhance.MacForge", @"com.macenhance.MacForgeHelper", @"com.macenhance.purchaseValidationApp"] containsObject:runningApp.bundleIdentifier]) return false;
 //     @"com.apple.AccountProfileRemoteViewService"
     
     // Don't inject if somehow the executable doesn't seem to exist
@@ -438,10 +438,10 @@ void HandleExceptions(NSException *exception) {
        if ([MFAppDelegate shouldInject:runningApp]) {
            pid_t pid = [runningApp processIdentifier];
            // Try injecting each valid plugin into the application
-                      
+                
+           // async check if Xcode is attached to process
            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
               
-               // Check if Xcode is attached to process
                Boolean isXcodeRunning = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.dt.Xcode"].count;
                Boolean isXcodeAttached = false;
                if (isXcodeRunning)
@@ -451,6 +451,7 @@ void HandleExceptions(NSException *exception) {
                if (!isXcodeAttached) {
                    for (NSString *bundlePath in [SIMBL pluginsToLoadList:[NSBundle bundleWithPath:runningApp.bundleURL.path]]) {
                        
+                       // make sure we're back to non-async or it blows up
                        dispatch_sync(dispatch_get_main_queue(), ^{
                            
                            NSError *error;

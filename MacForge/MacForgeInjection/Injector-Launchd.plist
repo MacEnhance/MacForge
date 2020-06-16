@@ -3,10 +3,10 @@
 <plist version="1.0">
 <dict>
 	<key>Label</key>
-	<string>com.w0lf.MacForge.Injector</string>
+	<string>com.macenhance.MacForge.Injector</string>
 	<key>MachServices</key>
 	<dict>
-		<key>com.w0lf.MacForge.Injector.mach</key>
+		<key>com.macenhance.MacForge.Injector.mach</key>
 		<true/>
 	</dict>
 </dict>

@@ -18,7 +18,7 @@
     self = [super init];
     if (self != nil) {
         // Set up our XPC listener to handle requests on our Mach service.
-        self.proxyConnection = [[NSXPCConnection alloc] initWithMachServiceName:@"com.w0lf.MacForge.Injector.mach" options:NSXPCConnectionPrivileged];
+        self.proxyConnection = [[NSXPCConnection alloc] initWithMachServiceName:@"com.macenhance.MacForge.Injector.mach" options:NSXPCConnectionPrivileged];
         self.proxyConnection.remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:@protocol(MFInjectorProtocol)];
         [self.proxyConnection resume];
     }

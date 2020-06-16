@@ -47,6 +47,12 @@
 #import "MF_PluginManager.h"
 #import "blacklistTable.h"
 
+// Testing
+static NSString *MF_REPO_URL = @"file:///Users/w0lf/Documents/GitHub/MacForgeRepo/repo";
+
+// Release
+//static NSString *MF_REPO_URL = @"https://github.com/MacEnhance/MacForgeRepo/raw/master/repo";
+
 @interface AppDelegate : NSObject <NSApplicationDelegate, NSSearchFieldDelegate, NSWindowDelegate> {
     NSMutableArray *watchdogs;
     MF_PluginManager *_sharedMethods;
@@ -142,6 +148,7 @@
 
 - (void)setupEventListener;
 - (void)setViewSubView:(NSView*)container :(NSView*)subview;
+- (void)updatesearchText;
 
 @end
 

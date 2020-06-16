@@ -7,8 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import "MF_bundleTinyItem.h"
 #import "MF_searchView.h"
+#import "MF_bundleTinyItem.h"
 
 extern AppDelegate *myDelegate;
 
@@ -77,10 +77,10 @@ extern AppDelegate *myDelegate;
         tableContainer.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
         [self addSubview:tableContainer];
         
-        dispatch_queue_t backgroundQueue = dispatch_queue_create("com.w0lf.MacForge", 0);
+        dispatch_queue_t backgroundQueue = dispatch_queue_create("com.macenhance.MacForge", 0);
         dispatch_async(backgroundQueue, ^{
             if (!MF_repoData.sharedInstance.hasFetched) {
-                [MF_repoData.sharedInstance fetch_repo:@"https://github.com/MacEnhance/MacForgeRepo/raw/master/repo"];
+                [MF_repoData.sharedInstance fetch_repo:MF_REPO_URL];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.tv reloadData];
                 });

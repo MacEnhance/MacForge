@@ -44,70 +44,87 @@ extern AppDelegate* myDelegate;
 //    NSLog(@"%s", __PRETTY_FUNCTION__);
 //    NSLog(@"%@ : %@", plugin.bundleID, theButton);
     
-    if (plugin.checkedPurchase) {
+    // paid plugin
+    if (plugin.webPaid) {
     
-        if (plugin.hasPurchased) {
-            
-//            NSLog(@"%@ is purchased", plugin.bundleID);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                theButton.enabled = true;
-                theButton.title = @"GET";
-                theButton.toolTip = @"";
-            });
-            
-        } else {
-            
-//            NSLog(@"%@ is not purchased", plugin.bundleID);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                theButton.enabled = true;
-                theButton.title = plugin.webPrice;
-                theButton.toolTip = @"";
-            });
-            
-        }
-    
-    } else {
+        if (plugin.checkedPurchase) {
         
-        NSDictionary* item = plugin.webPlist;
-        NSString *myPaddleProductID = [item objectForKey:@"productID"];
-        if (myPaddleProductID != nil) {
-            NSString *myPaddleVendorID = @"26643";
-            NSString *myPaddleAPIKey = @"02a3c57238af53b3c465ef895729c765";
-
-            NSDictionary *dict = [plugin.webPlist objectForKey:@"paddle"];
-            if (dict != nil) {
-                myPaddleVendorID = [dict objectForKey:@"vendorid"];
-                myPaddleAPIKey = [dict objectForKey:@"apikey"];
-    //            NSLog(@"Hello %@ : %@ : %@ : %@",plugin.bundleID, myPaddleProductID,myPaddleVendorID,myPaddleAPIKey);
+            if (plugin.hasPurchased) {
+                
+    //            NSLog(@"%@ is purchased", plugin.bundleID);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    theButton.enabled = true;
+                    theButton.title = @"GET";
+                    theButton.toolTip = @"";
+                });
+                
+            } else {
+                
+    //            NSLog(@"%@ is not purchased", plugin.bundleID);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    theButton.enabled = true;
+                    theButton.title = plugin.webPrice;
+                    theButton.toolTip = @"";
+                });
+                
             }
         
-            NSBundle *b = [NSBundle mainBundle];
-            NSString *execPath = [b pathForResource:@"purchaseValidationApp" ofType:@"app"];
-            execPath = [NSString stringWithFormat:@"%@/Contents/MacOS/purchaseValidationApp", execPath];
+        } else {
             
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    //            NSLog(@"Hello %@ : %@ : %@ : %@",plugin.bundleID, myPaddleProductID,myPaddleVendorID,myPaddleAPIKey);
-                NSTask *task = [NSTask launchedTaskWithLaunchPath:execPath arguments:@[myPaddleProductID, myPaddleVendorID, myPaddleAPIKey, @"-v"]];
-                [task waitUntilExit];
-             
-                //This is your completion handler
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    plugin.checkedPurchase = true;
-                    if ([task terminationStatus] == 69) {
-                        plugin.hasPurchased = true;
-                        NSLog(@"Verified... %@", plugin.bundleID);
-                        theButton.title = @"GET";
-                        theButton.toolTip = @"";
-                    } else {
-                        plugin.hasPurchased = false;
-                        theButton.title = plugin.webPrice;
-                        theButton.toolTip = @"";
-                    }
-                    theButton.enabled = true;
+            NSDictionary* item = plugin.webPlist;
+            NSString *myPaddleProductID = [item objectForKey:@"productID"];
+            if (myPaddleProductID != nil) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    theButton.title = @"...";
                 });
-            });
-        }
+                
+                NSString *myPaddleVendorID = @"26643";
+                NSString *myPaddleAPIKey = @"02a3c57238af53b3c465ef895729c765";
+
+                NSDictionary *dict = [plugin.webPlist objectForKey:@"paddle"];
+                if (dict != nil) {
+                    myPaddleVendorID = [dict objectForKey:@"vendorid"];
+                    myPaddleAPIKey = [dict objectForKey:@"apikey"];
+        //            NSLog(@"Hello %@ : %@ : %@ : %@",plugin.bundleID, myPaddleProductID,myPaddleVendorID,myPaddleAPIKey);
+                }
             
+                NSBundle *b = [NSBundle mainBundle];
+                NSString *execPath = [b pathForResource:@"purchaseValidationApp" ofType:@"app"];
+                execPath = [NSString stringWithFormat:@"%@/Contents/MacOS/purchaseValidationApp", execPath];
+                
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        //            NSLog(@"Hello %@ : %@ : %@ : %@",plugin.bundleID, myPaddleProductID,myPaddleVendorID,myPaddleAPIKey);
+                    NSTask *task = [NSTask launchedTaskWithLaunchPath:execPath arguments:@[myPaddleProductID, myPaddleVendorID, myPaddleAPIKey, @"-v"]];
+                    [task waitUntilExit];
+                 
+                    //This is your completion handler
+                    dispatch_sync(dispatch_get_main_queue(), ^{
+                        plugin.checkedPurchase = true;
+                        if ([task terminationStatus] == 69) {
+                            plugin.hasPurchased = true;
+                            NSLog(@"Verified... %@", plugin.bundleID);
+                            theButton.title = @"GET";
+                            theButton.toolTip = @"";
+                        } else {
+                            plugin.hasPurchased = false;
+                            theButton.title = plugin.webPrice;
+                            theButton.toolTip = @"";
+                        }
+                        theButton.enabled = true;
+                    });
+                });
+            }
+                
+        }
+        
+    } else {
+        
+        // free plugin
+        dispatch_async(dispatch_get_main_queue(), ^{
+            theButton.title = @"GET";
+            theButton.enabled = true;
+        });
+        
     }
 }
 
@@ -133,13 +150,13 @@ extern AppDelegate* myDelegate;
 //            installed = true;
 //    }
     
-    dispatch_sync(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         theButton.enabled = true;
     });
     
     if ([MF_PluginManager.sharedInstance pluginLocalPath:bundleID].length) {
-        // Pack already exists
         
+        // Pack already installed
         NSString *cur;
         if ([type isEqualToString:@"app"]) {
             NSString *path = [Workspace absolutePathForAppBundleWithIdentifier:bundleID];
@@ -149,7 +166,22 @@ extern AppDelegate* myDelegate;
             cur = [dic objectForKey:@"CFBundleShortVersionString"];
             if ([cur isEqualToString:@""])
                 cur = [dic objectForKey:@"CFBundleVersion"];
-//            NSLog(@"------ %@", cur);
+            
+//            NSLog(@"checkStatus : %@ : %@", bundleID, cur);
+        } else if ([type isEqualToString:@"cape"]) {
+            NSString *capeFolder = [@"~/Library/Application Support/Mousecape/capes" stringByExpandingTildeInPath];
+            NSString* capePath = [capeFolder stringByAppendingFormat:@"/%@.cape", bundleID];
+            
+            for (NSString* file in [FileManager contentsOfDirectoryAtPath:capeFolder error:nil])
+                if ([file containsString:bundleID])
+                    capePath = [capeFolder stringByAppendingFormat:@"/%@", file];
+            
+            if ([FileManager fileExistsAtPath:capePath]) {
+                NSDictionary *d = [[NSDictionary alloc] initWithContentsOfFile:capePath];
+                NSObject *test = d[@"CapeVersion"];
+                cur = [NSString stringWithFormat:@"%@", test];
+                NSLog(@"tips : %@", capePath);
+            }
         } else {
             NSDictionary* dic = [[installedPlugins objectForKey:[item objectForKey:@"package"]] objectForKey:@"bundleInfo"];
             cur = [dic objectForKey:@"CFBundleShortVersionString"];
@@ -160,7 +192,7 @@ extern AppDelegate* myDelegate;
         NSString* new = [item objectForKey:@"version"];
         id <SUVersionComparison> comparator = [SUStandardVersionComparator defaultComparator];
         NSInteger result = [comparator compareVersion:cur toVersion:new];
-        dispatch_sync(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
             if (result == NSOrderedSame) {
                 //versionA == versionB --- Twinnning
                 theButton.title = @"OPEN";
@@ -177,6 +209,7 @@ extern AppDelegate* myDelegate;
             }
         });
     } else {
+        
         // Package not installed
         [MF_Purchase verifyPurchased:plugin :theButton];
     }

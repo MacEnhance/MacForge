@@ -11,6 +11,15 @@
 -   Removed navigation bar from discover view
 -   Removed Xcode Plugin template
 -   Removed Demo Plugin
+-   Hide perminantly balcklisted items from application blacklist
+-   Bundle view developer button in now functions
+-   Bundle view descriptions support markdown (no images)
+-   Support for using the app in fullscreen
+-   New preferences window
+-   Mousecape `.cape` support
+-   Discover view support for banner images 
+-   Discover view shows SIP and Lib Validation requirements
+-   Added progrees to downloads on bundle preview page
 -   Updated information regarding AMFI
 -   Updated SIP notification window
 

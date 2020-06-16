@@ -53,8 +53,9 @@
     NSUInteger yLoc = _mainView.window.frame.size.height - height * 2;
     yLoc -= 50;
     for (MF_sidebarButton *sideButton in _sidebarTopButtons) {
-        if (sideButton.buttonImage.image.size.width > 18 && sideButton.buttonImage.image.size.height != 30)
-            sideButton.buttonImage.image = [self imageResize:sideButton.buttonImage.image newSize:CGSizeMake(18, sideButton.buttonImage.image.size.height * (18 / sideButton.buttonImage.image.size.height))];
+        int resizeWidth = 24;
+        if (sideButton.buttonImage.image.size.width > resizeWidth && sideButton.buttonImage.image.size.height != 30)
+            sideButton.buttonImage.image = [self imageResize:sideButton.buttonImage.image newSize:CGSizeMake(resizeWidth, sideButton.buttonImage.image.size.height * (resizeWidth / sideButton.buttonImage.image.size.height))];
         
         if (!sideButton.buttonImage.image.isTemplate)
             [sideButton.buttonImage.image setTemplate:true];

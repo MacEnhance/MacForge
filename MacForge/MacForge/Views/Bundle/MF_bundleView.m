@@ -132,10 +132,10 @@ NSDictionary *testing;
     self.layer.masksToBounds = YES;
     
 //    NSArray *allPlugins;
-    MF_Plugin *plugin = [MF_repoData sharedInstance].currentPlugin;
+    _plugin = [MF_repoData sharedInstance].currentPlugin;
     
-    if (plugin != nil) {
-        item = plugin.webPlist;
+    if (_plugin != nil) {
+        item = _plugin.webPlist;
     } else {
 //        if (![repoPackages isEqualToString:@""]) {
 //            
@@ -174,7 +174,24 @@ NSDictionary *testing;
         
         newString = [NSString stringWithFormat:@"%@", [item objectForKey:@"description"]];
         [self.bundleDesc setAttributedStringValue:[[NSMutableAttributedString alloc] initWithString:newString]];
-//        [[self.bundleDesc textStorage] setAttributedString:[[NSMutableAttributedString alloc] initWithString:newString]];
+        [self.bundleDesc setAllowsEditingTextAttributes:false];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            if (self->item[@"markdown"]) {
+                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/documents/%@/readme.md", self.plugin.webRepository, self.plugin.bundleID]];
+                NSData *fetch = [[NSData alloc] initWithContentsOfURL:url];
+                if (fetch.length) {
+                    CMDocument *cmd = [CMDocument.alloc initWithData:fetch options:CMDocumentOptionsNormalize];
+                    CMAttributedStringRenderer *asr = [[CMAttributedStringRenderer alloc] initWithDocument:cmd attributes:[[CMTextAttributes alloc] init]];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.bundleDesc setAttributedStringValue:asr.render];
+                        [self.bundleDesc setAllowsEditingTextAttributes:true];
+                        [self resizeME];
+                    });
+                }
+            }
+        });
+        
         [self systemDarkModeChange:nil];
         
         newString = [NSString stringWithFormat:@"%@", [item objectForKey:@"descriptionShort"]];
@@ -207,9 +224,14 @@ NSDictionary *testing;
         
         //Developer
         newString = [NSString stringWithFormat:@"%@", [item objectForKey:@"author"]];
-//        self.bundleDev.stringValue = newString;
-        _bundleDev.title = newString;
+        self.bundleDev.title = newString;
+        [self.bundleDev setTarget:self];
+        [self.bundleDev setAction:@selector(showDevTweaks)];
+        
+        // Seller
         _bundleSeller.stringValue = newString;
+        
+        // Copyright
         _bundleCopyright.stringValue = [@"© 2019 " stringByAppendingString:newString];
         
         //Compatibility
@@ -242,9 +264,10 @@ NSDictionary *testing;
         [self.bundleContact setAction:@selector(contactDev)];
         [self.bundleDonate setAction:@selector(donateDev)];
         
-        [self.bundleInstall setTarget:self];
         [self.bundleDelete setTarget:self];
         [self.bundleDelete setAction:@selector(pluginDelete)];
+        
+        [self.bundleDelete setEnabled:[MF_PluginManager.sharedInstance pluginLocalPath:_plugin.bundleID].length];
         
 //        [self.bundleInstall setBordered:0];
 //        CGRect old = self.bundleContact.frame;
@@ -280,62 +303,10 @@ NSDictionary *testing;
 //            if ([[Workspace URLForApplicationWithBundleIdentifier:bundleID].path.pathComponents.firstObject isEqualToString:@"/Applications"])
 //                installed = true;
 //        }
-           
-        if ([MF_PluginManager.sharedInstance pluginLocalPath:bundleID].length) {
-//        if ([installedPlugins objectForKey:[item objectForKey:@"package"]]) {
-            // Pack already exists
-            [self.bundleDelete setEnabled:true];
-            
-            NSDictionary* dic = [[installedPlugins objectForKey:[item objectForKey:@"package"]] objectForKey:@"bundleInfo"];
-            NSString* cur = [dic objectForKey:@"CFBundleShortVersionString"];
-            if ([cur isEqualToString:@""])
-               cur = [dic objectForKey:@"CFBundleVersion"];
-            
-            if (isApp) {
-                NSURL *url = [Workspace URLForApplicationWithBundleIdentifier:bundleID];
-                NSBundle *b = [NSBundle bundleWithURL:url];
-                NSDictionary *d = [b infoDictionary];
-                cur = [d valueForKey:@"CFBundleShortVersionString"];
-            }
-                        
-            NSString* new = [item objectForKey:@"version"];
-            id <SUVersionComparison> comparator = [SUStandardVersionComparator defaultComparator];
-            NSInteger result = [comparator compareVersion:cur toVersion:new];
-            
-            NSLog(@"----------  %@ : %@", cur, new);
-
-            
-            if (result == NSOrderedSame) {
-                //versionA == versionB
-                [self.bundleInstall setEnabled:true];
-                self.bundleInstall.title = @"Open";
-                [self.bundleInstall setAction:@selector(pluginFinder)];
-            } else if (result == NSOrderedAscending) {
-                //versionA < versionB
-                [self.bundleInstall setEnabled:true];
-                self.bundleInstall.title = @"Update";
-                [self.bundleInstall setAction:@selector(pluginInstall)];
-            } else {
-                //versionA > versionB
-                [self.bundleInstall setEnabled:false];
-                self.bundleInstall.title = @"Downgrade";
-                [self.bundleInstall setAction:@selector(pluginInstall)];
-            }
-        } else {
-            // Package not installed
-            [self.bundleDelete setEnabled:false];
-            //        NSString *price = [NSString stringWithFormat:@"%@", [item objectForKey:@"price"]];
-            if ([[item objectForKey:@"payed"] boolValue]) {
-                self.bundleInstall.title = @"Verifying...";
-                self.bundleInstall.enabled = false;
-                [self verifyPurchased];
-                [self.bundleInstall setAction:@selector(installOrPurchase)];
-            } else {
-                [self.bundleInstall setEnabled:true];
-                self.bundleInstall.title = @"GET";
-                [self.bundleInstall setAction:@selector(pluginInstall)];
-            }
-        }
+          
+        [MF_Purchase checkStatus:_plugin :self.bundleInstall];
+        [self.bundleInstall setAction:@selector(getOrOpen:)];
+        [self.bundleInstall setTarget:self];
         
         self.bundlePreview1.animates = YES;
         self.bundlePreview1.canDrawSubviewsIntoLayer = YES;
@@ -348,7 +319,7 @@ NSDictionary *testing;
         _currentPreview = 0;
         NSMutableArray *abc = [[NSMutableArray alloc] init];
         for (int i = 1; i <= 6; i++) {
-            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/documents/%@/previewImages/0%u.png", @"https://github.com/MacEnhance/MacForgeRepo/raw/master/repo", bundle, i]];
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/documents/%@/previewImages/0%u.png", MF_REPO_URL, bundle, i]];
             [abc addObject:url];
         }
         
@@ -378,21 +349,6 @@ NSDictionary *testing;
             }];
         }
         
-//        [self.bundlePreviewAVPlayer.contentOverlayView setSubviews:@[self.bundlePreviewButton1]];
-//        [self.bundlePreviewButton1 setFrameOrigin:CGPointMake(0, 0)];
-//        [self.bundlePreviewButton1 setFrameSize:self.bundlePreviewAVPlayer.contentOverlayView.frame.size];
-//        [self.bundlePreviewAVPlayer.layer setBackgroundColor:NSColor.clearColor.CGColor];
-//        self.bundlePreviewAVPlayer.controlsStyle = AVPlayerViewControlsStyleNone;
-//        self.bundlePreviewButton1.hidden = true;
-//        self.bundlePreviewAVPlayer.player = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:@"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"]];
-//        self.bundlePreviewAVPlayer.controlsStyle = AVPlayerViewControlsStyleInline;
-//        if (@available(macOS 10.15, *)) {
-//            self.bundlePreviewAVPlayer.allowsPictureInPicturePlayback = true;
-//        } else {
-//            // Fallback on earlier versions
-//        }
-//        [self.bundlePreviewAVPlayer.player play];
-        
         [self.bundlePreviewButton1 setAction:@selector(pluginShowImages:)];
         [self.bundlePreviewButton1 setTarget:self];
         
@@ -414,6 +370,13 @@ NSDictionary *testing;
         self.bundlePreview1.layer.backgroundColor = [NSColor colorWithRed:1 green:1 blue:1 alpha:0.6].CGColor;
         self.bundlePreview1.layer.cornerRadius = 5;
         
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSImage *a = [NSImage.alloc initWithContentsOfURL:abc[0]];
+            NSColor *newColor = [[SLColorArt.alloc initWithImage:a].backgroundColor colorWithAlphaComponent:0.5];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.bundlePreview1.layer.backgroundColor = newColor.CGColor;
+            });
+        });
         
         [self.bundlePreview2 sd_setImageWithURL:abc[1]
                                placeholderImage:[UIImage imageNamed:NSImageNameBookmarksTemplate]];
@@ -421,110 +384,105 @@ NSDictionary *testing;
         self.bundlePreview2.layer.backgroundColor = [NSColor colorWithRed:1 green:1 blue:1 alpha:0.6].CGColor;
         self.bundlePreview2.layer.cornerRadius = 5;
         
-//        self.bundlePreview1.sd_imageIndicator = SDWebImageActivityIndicator.grayIndicator;
-//        self.bundlePreview1.sd_imageIndicator = SDWebImageProgressIndicator.defaultIndicator;
-//
-//        self.bundlePreview2.sd_imageIndicator = SDWebImageActivityIndicator.grayIndicator;
-//        self.bundlePreview2.sd_imageIndicator = SDWebImageProgressIndicator.defaultIndicator;
-//
-//        [self.bundlePreview1 sd_setImageWithURL:abc[0]
-//                               placeholderImage:[UIImage imageNamed:NSImageNameBookmarksTemplate]];
-//
-//        [self.bundlePreview2 sd_setImageWithURL:abc[1]
-//                               placeholderImage:[UIImage imageNamed:NSImageNameBookmarksTemplate]];
-        
-        NSString *iconpath = [plugin.webPlist objectForKey:@"icon"];
-        NSString *imgurl = [NSString stringWithFormat:@"%@%@", plugin.webRepository, iconpath];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSImage *b = [NSImage.alloc initWithContentsOfURL:abc[1]];
+            NSColor *newColor = [[SLColorArt.alloc initWithImage:b].backgroundColor colorWithAlphaComponent:0.5];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.bundlePreview2.layer.backgroundColor = newColor.CGColor;
+            });
+        });
                     
-        if (iconpath) {
+        if (_plugin.webPlist[@"icon"] || _plugin.webPlist[@"customIcon"]) {
             self.bundleImage.sd_imageIndicator = SDWebImageActivityIndicator.grayIndicator;
             self.bundleImage.sd_imageIndicator = SDWebImageProgressIndicator.defaultIndicator;
-            [self.bundleImage sd_setImageWithURL:[NSURL URLWithString:imgurl]
+            [self.bundleImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/documents/%@/icon.png", MF_REPO_URL, _plugin.bundleID]]
                                  placeholderImage:[UIImage imageNamed:NSImageNameApplicationIcon]];
         } else {
-            NSImage *icon = [MF_PluginManager pluginGetIcon:plugin.webPlist];
+            NSImage *icon = [MF_PluginManager pluginGetIcon:_plugin.webPlist];
             self.bundleImage.image = icon;
         }
         
-//        self.bundleImage.image = [PluginManager pluginGetIcon:item];
         [self.bundleImage.cell setImageScaling:NSImageScaleProportionallyUpOrDown];
         
-        
-        // Resize views
-        Boolean hasDescription = true;
-        if ([[item objectForKey:@"description"] isEqualTo:[item objectForKey:@"descriptionShort"]])
-            hasDescription = false;
-        if (![item objectForKey:@"description"])
-            hasDescription = false;
-        
-        NSRect prev = _viewPreviews.frame;
-        prev.size.height = self.bundlePreview1.frame.size.width / 1.6 + 40;
-        [_viewPreviews setFrame:prev];
-        
-        NSUInteger diff = 10;
-        NSUInteger newDescHeight = 0;
-        diff += _viewHeader.frame.size.height;
-        if ([item objectForKey:@"hasPreview"]) { diff += _viewPreviews.frame.size.height; }
-        if (hasDescription) {
-            NSRect frame = [_bundleDesc frame];
-            frame.size.height = CGFLOAT_MAX;
-            CGFloat height = [_bundleDesc.cell cellSizeForBounds: frame].height;
-            newDescHeight = 252 - height;
-                        
-            NSRect newRect = _viewDescription.frame;
-            newRect.size.height = 309 - newDescHeight;
-            [_viewDescription setFrame:newRect];
-            
-            diff += _viewDescription.frame.size.height;
-        }
-        diff += _viewInfo.frame.size.height;
-           
-        // Padding
-        NSUInteger xPad = 10;
-        NSUInteger yPad = 20;
-        NSUInteger wide = self.superview.frame.size.width - (xPad * 2);
-        
-        // Current frame position
-        NSUInteger currentYPos = diff;
-        
-        // Adjust container frame
-        [self setFrameSize:CGSizeMake(self.frame.size.width, diff + yPad)];
-    
-        
-        NSView *container = self.superview;
-        [container setFrame:self.frame];
-        [container setFrameOrigin:CGPointMake(0, 0)];
-                
-        // Header
-        currentYPos -= _viewHeader.frame.size.height;
-        [_viewHeader setFrame:CGRectMake(xPad, currentYPos, wide, _viewHeader.frame.size.height)];
-        
-        // Images
-        if ([item objectForKey:@"hasPreview"]) {
-            [_viewPreviews setHidden:false];
-            currentYPos -= _viewPreviews.frame.size.height;
-            [_viewPreviews setFrame:CGRectMake(xPad, currentYPos, wide, _viewPreviews.frame.size.height)];
-        } else {
-            [_viewPreviews setHidden:true];
-        }
-        
-        // Description
-        if (hasDescription) {
-            [_viewDescription setHidden:false];
-            currentYPos -= _viewDescription.frame.size.height;
-            [_viewDescription setFrame:CGRectMake(xPad, currentYPos, wide, _viewDescription.frame.size.height)];
-        } else {
-            [_viewDescription setHidden:true];
-        }
-        
-        // Info
-        currentYPos -= _viewInfo.frame.size.height;
-        [_viewInfo setFrame:CGRectMake(xPad, currentYPos, wide, _viewInfo.frame.size.height)];
-        
-//        [self.layer setBackgroundColor:NSColor.blueColor.CGColor];
-//        [content.layer setBackgroundColor:[NSColor.redColor colorWithAlphaComponent:0.2].CGColor];
-//        [self.containerView scrollPoint:CGPointZero];
+        [self resizeME];
     }
+}
+
+- (void)resizeME {
+    // Resize views
+    Boolean hasDescription = true;
+    if ([[item objectForKey:@"description"] isEqualTo:[item objectForKey:@"descriptionShort"]])
+        hasDescription = false;
+    if (![item objectForKey:@"description"])
+        hasDescription = false;
+
+    NSRect prev = _viewPreviews.frame;
+    prev.size.height = self.bundlePreview1.frame.size.width / 1.6 + 40;
+    [_viewPreviews setFrame:prev];
+
+    NSUInteger diff = 10;
+    NSUInteger newDescHeight = 0;
+    diff += _viewHeader.frame.size.height;
+    if ([item objectForKey:@"hasPreview"]) { diff += _viewPreviews.frame.size.height; }
+    if (hasDescription) {
+        NSRect frame = [_bundleDesc frame];
+        frame.size.height = CGFLOAT_MAX;
+        CGFloat height = [_bundleDesc.cell cellSizeForBounds: frame].height;
+        newDescHeight = 250 - height;
+
+        NSRect newRect = _viewDescription.frame;
+        newRect.size.height = 309 - newDescHeight;
+        [_viewDescription setFrame:newRect];
+
+        diff += _viewDescription.frame.size.height;
+    }
+    diff += _viewInfo.frame.size.height;
+       
+    // Padding
+    NSUInteger xPad = 10;
+    NSUInteger yPad = 20;
+    NSUInteger wide = self.superview.frame.size.width - (xPad * 2);
+
+    // Current frame position
+    NSUInteger currentYPos = diff;
+
+    // Adjust container frame
+    [self setFrameSize:CGSizeMake(self.frame.size.width, diff + yPad)];
+
+
+    NSView *container = self.superview;
+    [container setFrame:self.frame];
+    [container setFrameOrigin:CGPointMake(0, 0)];
+            
+    // Header
+    currentYPos -= _viewHeader.frame.size.height;
+    [_viewHeader setFrame:CGRectMake(xPad, currentYPos, wide, _viewHeader.frame.size.height)];
+
+    // Images
+    if ([item objectForKey:@"hasPreview"]) {
+        [_viewPreviews setHidden:false];
+        currentYPos -= _viewPreviews.frame.size.height;
+        [_viewPreviews setFrame:CGRectMake(xPad, currentYPos, wide, _viewPreviews.frame.size.height)];
+    } else {
+        [_viewPreviews setHidden:true];
+    }
+
+    // Description
+    if (hasDescription) {
+        [_viewDescription setHidden:false];
+        currentYPos -= _viewDescription.frame.size.height;
+        [_viewDescription setFrame:CGRectMake(xPad, currentYPos, wide, _viewDescription.frame.size.height)];
+    } else {
+        [_viewDescription setHidden:true];
+    }
+
+    // Info
+    currentYPos -= _viewInfo.frame.size.height;
+    [_viewInfo setFrame:CGRectMake(xPad, currentYPos, wide, _viewInfo.frame.size.height)];
+}
+
+- (IBAction)getOrOpen:(id)sender {
+    [MF_Purchase pushthebutton:_plugin :sender :MF_REPO_URL :_bundleProgress];
 }
 
 - (IBAction)shareMe:(id)sender {
@@ -533,7 +491,7 @@ NSDictionary *testing;
     if (plugin.webRepository) {
     }
     
-    NSURL *shareURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", plugin.webRepository, plugin.bundleID]];
+    NSURL *shareURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", _plugin.webRepository, _plugin.bundleID]];
     shareURL = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"https://www.macenhance.com/mflink?macforge:%@", [shareURL resourceSpecifier]]];
     
 //    NSURLComponents *components = [NSURLComponents new];
@@ -597,6 +555,16 @@ NSDictionary *testing;
         else
             self.bundlePreview2.image = self.bundlePreviewImages[0];
         
+        NSImage *test;
+        
+        test = self.bundlePreview1.image;
+        if (!test.sd_isAnimated)
+            self.bundlePreview1.layer.backgroundColor = [[SLColorArt.alloc initWithImage:test].backgroundColor colorWithAlphaComponent:0.5].CGColor;
+        
+        test = self.bundlePreview2.image;
+        if (!test.sd_isAnimated)
+            self.bundlePreview2.layer.backgroundColor = [[SLColorArt.alloc initWithImage:test].backgroundColor colorWithAlphaComponent:0.5].CGColor;
+        
 //        NSLog(@"Current preview : %lu : %lu", (unsigned long)_currentPreview, (unsigned long)secondPreview);
     }
 }
@@ -638,39 +606,9 @@ NSDictionary *testing;
 //    }
 }
 
-- (void)installOrPurchase {
-//    NSLog(@"%s", __PRETTY_FUNCTION__);
-    
-    NSString *myPaddleProductID = [item objectForKey:@"productID"];
-    if (myPaddleProductID != nil) {
-        NSString *myPaddleVendorID = @"26643";
-        NSString *myPaddleAPIKey = @"02a3c57238af53b3c465ef895729c765";
-
-        NSDictionary *dict = [item objectForKey:@"paddle"];
-        if (dict != nil) {
-            myPaddleVendorID = [dict objectForKey:@"vendorid"];
-            myPaddleAPIKey = [dict objectForKey:@"apikey"];
-        }
-    
-        NSBundle *b = [NSBundle mainBundle];
-        NSString *execPath = [b pathForResource:@"purchaseValidationApp" ofType:@"app"];
-        execPath = [NSString stringWithFormat:@"%@/Contents/MacOS/purchaseValidationApp", execPath];
-//        NSDictionary* test = [[NSDictionary alloc] initWithObjectsAndKeys:@"535218", @"productID", @"26643", @"vendorID", @"02a3c57238af53b3c465ef895729c765", @"APIKey", nil];
-        
-        NSTask *task = [NSTask launchedTaskWithLaunchPath:execPath arguments:@[myPaddleProductID, myPaddleVendorID, myPaddleAPIKey]];
-        // Testing
-//        NSTask *task = [NSTask launchedTaskWithLaunchPath:execPath arguments:@[@"520974", @"26643", @"02a3c57238af53b3c465ef895729c765"]];
-//        NSTask *task = [NSTask launchedTaskWithLaunchPath:execPath arguments:@[@"570933", @"102003", @"508205c7de527e9cc702cd1b1e5e2733"]];
-        [task waitUntilExit];
-//        NSLog(@"%d", task.terminationStatus);
-
-        if ([task terminationStatus] == 69) {
-            NSLog(@"Installing...");
-            [self pluginInstall];
-        } else {
-            NSLog(@"Failed to purchase or validate purchase.");
-        }
-    }
+- (void)showDevTweaks {
+    [myDelegate.searchPlugins setStringValue:[_bundleID.stringValue stringByDeletingPathExtension]];
+    [myDelegate updatesearchText];
 }
 
 - (void)contactDev {
@@ -682,16 +620,6 @@ NSDictionary *testing;
      [Workspace openURL:[NSURL URLWithString:[item objectForKey:@"donate"]]];
 }
 
-- (void)pluginInstall {
-    [MF_PluginManager.sharedInstance pluginUpdateOrInstall:item :@"https://github.com/MacEnhance/MacForgeRepo/raw/master/repo" withCompletionHandler:^(BOOL res) {
-            [MF_PluginManager.sharedInstance readPlugins:nil];
-            [self.bundleInstall setTitle:@"Open"];
-            [self.bundleInstall setAction:@selector(pluginFinder)];
-            [self.bundleDelete setEnabled:true];
-            [self viewWillDraw];
-    }];
-}
-
 - (void)pluginFinder {
     [MF_PluginManager.sharedInstance pluginRevealFinder:item];
 }
@@ -699,16 +627,7 @@ NSDictionary *testing;
 - (void)pluginDelete {
     [MF_PluginManager.sharedInstance pluginDelete:item];
     [MF_PluginManager.sharedInstance readPlugins:nil];
-    if ([[item objectForKey:@"payed"] boolValue]) {
-        self.bundleInstall.title = @"Verifying...";
-        [self verifyPurchased];
-        [self.bundleInstall setAction:@selector(installOrPurchase)];
-    } else {
-        [self.bundleInstall setEnabled:true];
-        self.bundleInstall.title = @"GET";
-        [self.bundleInstall setAction:@selector(pluginInstall)];
-    }
-    [self.bundleDelete setEnabled:false];
+    [MF_Purchase checkStatus:_plugin :self.bundleInstall];
     [self viewWillDraw];
 }
 

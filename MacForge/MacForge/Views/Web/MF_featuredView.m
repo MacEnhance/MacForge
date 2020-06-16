@@ -84,10 +84,10 @@ extern AppDelegate *myDelegate;
         tableContainer.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
         [self addSubview:tableContainer];
         
-        dispatch_queue_t backgroundQueue = dispatch_queue_create("com.w0lf.MacForge", 0);
+        dispatch_queue_t backgroundQueue = dispatch_queue_create("com.macenhance.MacForge", 0);
         dispatch_async(backgroundQueue, ^{
             if (!MF_repoData.sharedInstance.hasFetched) {
-                [MF_repoData.sharedInstance fetch_repo:@"https://github.com/MacEnhance/MacForgeRepo/raw/master/repo"];
+                [MF_repoData.sharedInstance fetch_repo:MF_REPO_URL];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.tv reloadData];
                 });
@@ -115,7 +115,7 @@ extern AppDelegate *myDelegate;
 }
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
-    NSArray *filter = [MF_repoData.sharedInstance fetch_featured:@"https://github.com/MacEnhance/MacForgeRepo/raw/master/repo"].copy;
+    NSArray *filter = [MF_repoData.sharedInstance fetch_featured:MF_REPO_URL].copy;
     bundles = [MF_repoData.sharedInstance.repoPluginsDic.allValues filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"bundleID in %@", filter]];
     return ceil(bundles.count/(float)columns);
 }

@@ -5,7 +5,7 @@
 - [ ] Finish all app settings
 - [x] System info scrolling
 - [x] Tweak preference view scrolling
-- [ ] User purchases table
+- [x] User purchases table
 - [ ] Improve user view, allow for drag / drop profile icon setting
 - [ ] Improve featured / discover / serch view resizing
 - [ ] Improve bundle view

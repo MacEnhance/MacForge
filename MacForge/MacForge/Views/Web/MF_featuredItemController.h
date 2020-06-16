@@ -15,6 +15,7 @@
 #import "MF_Purchase.h"
 #import "MF_repoData.h"
 
+#import "SLColorArt.h"
 #import "SYFlatButton.h"
 #import <SDWebImage/SDWebImage.h>
 

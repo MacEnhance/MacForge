@@ -6,10 +6,12 @@
 //  Copyright © 2020 MacEnhance. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+@import AppKit;
 
 @interface MF_searchView : NSView <NSTableViewDataSource, NSTableViewDelegate>
+
 @property NSTableView   *tv;
 @property NSString      *filter;
+
 @end
 

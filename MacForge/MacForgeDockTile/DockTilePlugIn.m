@@ -11,8 +11,8 @@
 @implementation DockTilePlugIn
 
 static void updateCount(NSDockTile *tile) {
-    CFPreferencesAppSynchronize(CFSTR("com.w0lf.MacForge"));
-    NSInteger updateCounter = CFPreferencesGetAppIntegerValue(CFSTR("updateCount"), CFSTR("com.w0lf.MacForge"), NULL);
+    CFPreferencesAppSynchronize(CFSTR("com.macenhance.MacForge"));
+    NSInteger updateCounter = CFPreferencesGetAppIntegerValue(CFSTR("updateCount"), CFSTR("com.macenhance.MacForge"), NULL);
     if (updateCounter != 0)
         [tile setBadgeLabel:[NSString stringWithFormat:@"%ld", (long)updateCounter]];
     else {
@@ -30,7 +30,7 @@ static void updateCount(NSDockTile *tile) {
 - (void)setDockTile:(NSDockTile *)dockTile {
     if (dockTile) {
         // Attach an observer that will update the high score in the dock tile whenever it changes
-        self.updateObserver = [[NSDistributedNotificationCenter defaultCenter] addObserverForName:@"com.w0lf.MacForgeDockTileUpdate" object:nil queue:nil usingBlock:^(NSNotification *notification) {
+        self.updateObserver = [[NSDistributedNotificationCenter defaultCenter] addObserverForName:@"com.macenhance.MacForgeDockTileUpdate" object:nil queue:nil usingBlock:^(NSNotification *notification) {
             updateCount(dockTile);
             // Note that this block captures (and retains) dockTile for use later.
             // Also note that it does not capture self, which means -dealloc may be called even while the notification is active.

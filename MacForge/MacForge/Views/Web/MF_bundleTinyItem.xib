@@ -12,8 +12,10 @@
                 <outlet property="bundleButton" destination="Yol-Yg-QN8" id="ubs-QA-1yt"/>
                 <outlet property="bundleDesc" destination="4xW-19-r1u" id="CmF-gU-dJ9"/>
                 <outlet property="bundleGet" destination="EhM-Jc-OFe" id="co6-dH-Cz8"/>
+                <outlet property="bundleLIB" destination="al8-YE-sGk" id="nvd-Qa-8Gr"/>
                 <outlet property="bundleName" destination="kxy-O0-fDb" id="6rm-Lg-LIc"/>
                 <outlet property="bundleProgress" destination="2Uz-8L-Hwz" id="pFP-kX-MGj"/>
+                <outlet property="bundleSIP" destination="oCe-Ou-SOu" id="fua-Jn-OiA"/>
                 <outlet property="view" destination="YXK-G8-k1g" id="sVb-tu-KrD"/>
             </connections>
         </customObject>
@@ -23,6 +25,11 @@
             <rect key="frame" x="0.0" y="0.0" width="390" height="77"/>
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6ZY-U0-ipD">
+                    <rect key="frame" x="0.0" y="0.0" width="390" height="81"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="pBj-Cb-Qsi"/>
+                </imageView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kxy-O0-fDb">
                     <rect key="frame" x="73" y="48" width="216" height="17"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -56,11 +63,6 @@
                     <rect key="frame" x="281" y="31" width="16" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                 </progressIndicator>
-                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6ZY-U0-ipD">
-                    <rect key="frame" x="0.0" y="0.0" width="390" height="81"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="pBj-Cb-Qsi"/>
-                </imageView>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zs0-yS-MBB">
                     <rect key="frame" x="0.0" y="0.0" width="390" height="77"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
@@ -73,7 +75,7 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EhM-Jc-OFe" customClass="SYFlatButton">
-                    <rect key="frame" x="305" y="28" width="65" height="22"/>
+                    <rect key="frame" x="305" y="43" width="65" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" title="GET" bezelStyle="shadowlessSquare" alignment="center" imageScaling="proportionallyDown" inset="2" id="WuP-SY-aCX">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -83,11 +85,23 @@
                         <action selector="getOrOpen:" target="-2" id="UIn-ia-xwo"/>
                     </connections>
                 </button>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="al8-YE-sGk">
+                    <rect key="frame" x="310" y="14" width="22" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="checkmark.shield.fill_Normal" id="WTG-W3-Lzp"/>
+                </imageView>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oCe-Ou-SOu">
+                    <rect key="frame" x="343" y="14" width="22" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="lock.shield.fill_Normal" id="KWL-en-jza"/>
+                </imageView>
             </subviews>
             <point key="canvasLocation" x="-90" y="-119.5"/>
         </customView>
     </objects>
     <resources>
         <image name="NSApplicationIcon" width="32" height="32"/>
+        <image name="checkmark.shield.fill_Normal" width="20.5" height="25"/>
+        <image name="lock.shield.fill_Normal" width="20.5" height="25"/>
     </resources>
 </document>

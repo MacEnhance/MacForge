@@ -25,7 +25,7 @@ NSString *const MFFrameworkDstPath = @"/Library/Frameworks/mach_inject_bundle.fr
     self = [super init];
     if (self != nil) {
         // Set up our XPC listener to handle requests on our Mach service.
-        self.listener = [[NSXPCListener alloc] initWithMachServiceName:@"com.w0lf.MacForge.Injector.mach"];
+        self.listener = [[NSXPCListener alloc] initWithMachServiceName:@"com.macenhance.MacForge.Injector.mach"];
         self.listener.delegate = self;
     }
     return self;
