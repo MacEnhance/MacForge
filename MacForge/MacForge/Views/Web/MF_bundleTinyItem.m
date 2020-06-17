@@ -75,8 +75,8 @@ extern AppDelegate *myDelegate;
             banpath = [NSString stringWithFormat:@"%@%@", MF_REPO_URL, banpath];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self setwarning:self.bundleLIB :[[plugin.webPlist valueForKeyPath:@"system.LIB"] boolValue] :@"Library Validation"];
-            [self setwarning:self.bundleSIP :[[plugin.webPlist valueForKeyPath:@"system.SIP"] boolValue] :@"System Integrity Protection"];
+//            [self setwarning:self.bundleLIB :[[plugin.webPlist valueForKeyPath:@"system.LIB"] boolValue] :@"Library Validation"];
+//            [self setwarning:self.bundleSIP :[[plugin.webPlist valueForKeyPath:@"system.SIP"] boolValue] :@"System Integrity Protection"];
             
             if (plugin.webPlist[@"icon"] || plugin.webPlist[@"customIcon"]) {
                 self.bundleButton.sd_imageIndicator = SDWebImageProgressIndicator.defaultIndicator;

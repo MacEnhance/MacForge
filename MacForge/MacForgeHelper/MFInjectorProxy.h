@@ -17,6 +17,8 @@
 - (BOOL)inject:(NSError **)error;
 
 - (BOOL)setupPluginFolder:(NSError **)error;
+
 - (BOOL)installMachInjectBundleFramework:(NSError **)error;
+- (BOOL)installFramework:(NSString*)frameworkPath toLoaction:(NSString*)dest :(NSError **)error;
 
 @end

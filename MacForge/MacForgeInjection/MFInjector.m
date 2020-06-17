@@ -68,6 +68,15 @@ NSString *const MFFrameworkDstPath = @"/Library/Frameworks/mach_inject_bundle.fr
     reply(error);
 }
 
+- (void)installFramework:(NSString *)frameworkPath atlocation:(NSString*)frameworkDestinationPath withReply:(void (^)(mach_error_t))reply {
+    NSError *fileError;
+    if ([[NSFileManager defaultManager] fileExistsAtPath:frameworkDestinationPath])
+        [[NSFileManager defaultManager] removeItemAtPath:frameworkDestinationPath error:&fileError];
+    [[NSFileManager defaultManager] copyItemAtPath:frameworkPath toPath:frameworkDestinationPath error:&fileError];
+    mach_error_t error = (int)fileError.code;
+    reply(error);
+}
+
 - (void)installFramework:(NSString *)frameworkPath withReply:(void (^)(mach_error_t))reply {
     NSError *fileError;
     if ([[NSFileManager defaultManager] fileExistsAtPath:MFFrameworkDstPath])

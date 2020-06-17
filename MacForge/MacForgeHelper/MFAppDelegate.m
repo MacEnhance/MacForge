@@ -131,13 +131,15 @@ void HandleExceptions(NSException *exception) {
     if (![self blessHelperWithLabel:@"com.macenhance.MacForge.Injector" error:error]) {
         NSLog(@"Something went wrong! %@ / %d", [*error domain], (int) [*error code]);
     } else {
-       /* At this point, the job is available. However, this is a very simple sample, and there is no IPC infrastructure set up to
-        * make it launch-on-demand. You would normally achieve this by using XPC (via a MachServices dictionary in your launchd.plist). */
-        NSLog(@"Job is available!");
         NSString *currentVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
         [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:MFUserDefaultsInstalledVersionKey];
-        NSLog(@"Installed v%@", currentVersion);
+        NSLog(@"Job is available! Installed v%@", currentVersion);
         self.injectorProxy = [MFInjectorProxy new];
+        
+        // Install frameworks, setup plugin folder and inject
+        [self giveFramework];
+        [self givePluginFldr];
+        [self injectAllProc];
     }
   
     return result;
@@ -160,6 +162,12 @@ void HandleExceptions(NSException *exception) {
     NSError *error;
     if (![[NSFileManager defaultManager] fileExistsAtPath:@"/Library/Frameworks/mach_inject_bundle.framework"])
         [self.injectorProxy installMachInjectBundleFramework:&error];
+    
+    // No menubar framework found
+    NSString *frameworkPath = [NSString stringWithFormat:@"%@/Contents/Frameworks/MenuBar.framework", NSBundle.mainBundle.bundlePath];
+    NSString *destination = @"/Library/Frameworks/MenuBar.framework";
+    if (![[NSFileManager defaultManager] fileExistsAtPath:destination])
+        [self.injectorProxy installFramework:frameworkPath toLoaction:destination :&error];
 }
 
 - (void)givePluginFldr {
@@ -209,13 +217,17 @@ void HandleExceptions(NSException *exception) {
 }
 
 - (void)openAppWithArgs:(NSString*)app :(NSArray*)args {
-    NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
-    NSURL *url = [NSURL fileURLWithPath:[workspace fullPathForApplication:app]];
-    NSError *error = nil;
-    [workspace launchApplicationAtURL:url
-                              options:0
-                        configuration:[NSDictionary dictionaryWithObject:args forKey:NSWorkspaceLaunchConfigurationArguments]
-                                error:&error];
+    if ([NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.macenhance.MacForge"].count == 0) {
+        NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
+        NSURL *url = [NSURL fileURLWithPath:[workspace fullPathForApplication:app]];
+        NSError *error = nil;
+        [workspace launchApplicationAtURL:url
+                                  options:0
+                            configuration:[NSDictionary dictionaryWithObject:args forKey:NSWorkspaceLaunchConfigurationArguments]
+                                    error:&error];
+    } else {
+        [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.macenhance.MacForgeNotify" object:args[0]];
+    }
 }
 
 - (void)toggleStartAtLogin:(id)sender {
@@ -233,17 +245,14 @@ void HandleExceptions(NSException *exception) {
 
 - (void)openMacForgeManage {
     [self openAppWithArgs:@"MacForge" :@[@"manage"]];
-    [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.macenhance.MacForgeNotify" object:@"manage"];
 }
 
 - (void)openMacForgePrefs {
     [self openAppWithArgs:@"MacForge" :@[@"prefs"]];
-    [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.macenhance.MacForgeNotify" object:@"prefs"];
 }
 
 - (void)openMacForgeAbout {
     [self openAppWithArgs:@"MacForge" :@[@"about"]];
-    [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.macenhance.MacForgeNotify" object:@"about"];
 }
 
 - (void)checkMacForgeForUpdates {
@@ -441,19 +450,18 @@ void HandleExceptions(NSException *exception) {
                 
            // async check if Xcode is attached to process
            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-              
+                             
                Boolean isXcodeRunning = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.dt.Xcode"].count;
                Boolean isXcodeAttached = false;
                if (isXcodeRunning)
                    isXcodeAttached = [self xcodeAttached:pid];
-               
-               // Do the injecting
+//
+//               // Do the injecting
                if (!isXcodeAttached) {
                    for (NSString *bundlePath in [SIMBL pluginsToLoadList:[NSBundle bundleWithPath:runningApp.bundleURL.path]]) {
                        
-                       // make sure we're back to non-async or it blows up
-                       dispatch_sync(dispatch_get_main_queue(), ^{
-                           
+                       // make sure we're back on the main thread
+                       dispatch_async(dispatch_get_main_queue(), ^{
                            NSError *error;
                            [self.injectorProxy injectPID:pid :bundlePath :&error];
                            if(error) NSLog(@"Couldn't inject into %d : %@ (domain: %@ code: %@)", pid, runningApp.localizedName, error.domain, [NSNumber numberWithInteger:error.code]);

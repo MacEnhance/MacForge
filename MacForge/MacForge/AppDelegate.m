@@ -503,7 +503,7 @@ Boolean appSetupFinished = false;
 - (void)setupPrefstab {
     // Set defaults
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:true] forKey:@"SUAutomaticallyUpdate"];
-    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:84000] forKey:@"SUScheduledCheckInterval"];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:60*60*24] forKey:@"SUScheduledCheckInterval"];
     
     if ([[myPreferences objectForKey:@"prefTips"] boolValue]) {
         NSToolTipManager *test = [NSToolTipManager sharedToolTipManager];

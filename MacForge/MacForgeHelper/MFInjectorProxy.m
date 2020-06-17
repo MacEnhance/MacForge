@@ -56,7 +56,7 @@
     pid_t pid = [[[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.finder"] lastObject] processIdentifier];
     NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"cDock" ofType:@"bundle"];
     NSString *appName = [NSRunningApplication runningApplicationWithProcessIdentifier:pid].localizedName;
-    NSLog(@"Attempting injecting %@ (%@) with %@", appName, [NSNumber numberWithInt:pid], bundlePath);
+//    NSLog(@"Attempting injecting %@ (%@) with %@", appName, [NSNumber numberWithInt:pid], bundlePath);
     
     __block mach_error_t err = 0;
     [[self.proxyConnection remoteObjectProxy] inject:pid
@@ -64,11 +64,10 @@
                                            withReply:^(mach_error_t error){ err = error; }];
     
     if (err == 0) {
-        NSLog(@"%@ (%@) successfully injected with %@", appName, [NSNumber numberWithInt:pid], bundlePath);
-        NSLog(@"Injected App");
+//        NSLog(@"%@ (%@) successfully injected with %@", appName, [NSNumber numberWithInt:pid], bundlePath);
         return YES;
     } else {
-        //    NSLog(@"an error occurred while injecting %@: %@ (error code: %@)", appName, [NSString stringWithCString:mach_error_string(err) encoding:NSASCIIStringEncoding], [NSNumber numberWithInt:err]);
+        NSLog(@"an error occurred while injecting %@: %@ (error code: %@)", appName, [NSString stringWithCString:mach_error_string(err) encoding:NSASCIIStringEncoding], [NSNumber numberWithInt:err]);
         *error = [[NSError alloc] initWithDomain:MFErrorDomain
                                             code:MFErrInjection
                                         userInfo:@{NSLocalizedDescriptionKey: MFErrInjectionDescription}];
@@ -86,8 +85,8 @@
     } else {
         //    NSLog(@"an error occurred while injecting %@: %@ (error code: %@)", appName, [NSString stringWithCString:mach_error_string(err) encoding:NSASCIIStringEncoding], [NSNumber numberWithInt:err]);
         *error = [[NSError alloc] initWithDomain:MFErrorDomain
-                                            code:MFErrInjection
-                                        userInfo:@{NSLocalizedDescriptionKey: MFErrInjectionDescription}];
+                                            code:MFErrSetup
+                                        userInfo:@{NSLocalizedDescriptionKey: MFErrSetupDescription}];
         return NO;
     }
 }
@@ -97,13 +96,28 @@
     __block mach_error_t err = 0;
     [[self.proxyConnection remoteObjectProxy] installFramework:frameworkPath withReply:^(mach_error_t error) { err = error; }];
     if (err == 0) {
-        NSLog(@"Framework successfully installed.");
+        NSLog(@"%@", [NSString stringWithFormat:@"Framework %@ successfully installed.", frameworkPath]);
         return YES;
     } else {
         //    NSLog(@"an error occurred while injecting %@: %@ (error code: %@)", appName, [NSString stringWithCString:mach_error_string(err) encoding:NSASCIIStringEncoding], [NSNumber numberWithInt:err]);
         *error = [[NSError alloc] initWithDomain:MFErrorDomain
-                                            code:MFErrInjection
-                                        userInfo:@{NSLocalizedDescriptionKey: MFErrInjectionDescription}];
+                                            code:MFErrInstallFramework
+                                        userInfo:@{NSLocalizedDescriptionKey: MFErrInstallDescription}];
+        return NO;
+    }
+}
+
+- (BOOL)installFramework:(NSString*)frameworkPath toLoaction:(NSString*)dest :(NSError **)error {
+    __block mach_error_t err = 0;
+    [[self.proxyConnection remoteObjectProxy] installFramework:frameworkPath atlocation:dest withReply:^(mach_error_t error) { err = error; }];
+    if (err == 0) {
+        NSLog(@"%@", [NSString stringWithFormat:@"Framework %@ successfully installed.", frameworkPath]);
+        return YES;
+    } else {
+        //    NSLog(@"an error occurred while injecting %@: %@ (error code: %@)", appName, [NSString stringWithCString:mach_error_string(err) encoding:NSASCIIStringEncoding], [NSNumber numberWithInt:err]);
+        *error = [[NSError alloc] initWithDomain:MFErrorDomain
+                                            code:MFErrInstallFramework
+                                        userInfo:@{NSLocalizedDescriptionKey: MFErrInstallDescription}];
         return NO;
     }
 }

@@ -14,8 +14,10 @@ enum {
   MFErrInstallHelperTool = 1,
   MFErrInstallFramework  = 2,
   MFErrInjection         = 3,
+  MFErrSetup             = 4,
 };
 
 FOUNDATION_EXPORT NSString *const MFErrPermissionDeniedDescription;
 FOUNDATION_EXPORT NSString *const MFErrInstallDescription;
 FOUNDATION_EXPORT NSString *const MFErrInjectionDescription;
+FOUNDATION_EXPORT NSString *const MFErrSetupDescription;

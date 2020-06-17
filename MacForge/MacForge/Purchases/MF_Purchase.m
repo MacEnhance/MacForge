@@ -21,14 +21,11 @@ extern AppDelegate* myDelegate;
 
 + (void)pushthebutton:(MF_Plugin*)plugin :(NSButton*)theButton :(NSString*)repo :(NSProgressIndicator*)progress {
     if ([MF_Purchase packageInstalled:plugin]) {
-        if ([theButton.title isEqualToString:@"UPDATE"]) {
-            // Installed, update
+        NSArray *updoot = @[@"UPDATE", @"⬆", @"⬇"];
+        if ([updoot containsObject:theButton.title]) {
+            // Updating or downgrading
             [MF_Purchase pluginInstallWithProgress:plugin :repo :theButton :progress];
             [MSAnalytics trackEvent:@"Update" withProperties:@{@"Product ID" : plugin.bundleID}];
-        } else if ([theButton.title isEqualToString:@"UPDATE"]) {
-            // Installed, downgrade
-            [MF_Purchase pluginInstallWithProgress:plugin :repo :theButton :progress];
-            [MSAnalytics trackEvent:@"Downgrade" withProperties:@{@"Product ID" : plugin.bundleID}];
         } else {
             // Installed, reveal in Finder
             [MF_PluginManager.sharedInstance pluginRevealFinder:plugin.webPlist];
@@ -180,7 +177,6 @@ extern AppDelegate* myDelegate;
                 NSDictionary *d = [[NSDictionary alloc] initWithContentsOfFile:capePath];
                 NSObject *test = d[@"CapeVersion"];
                 cur = [NSString stringWithFormat:@"%@", test];
-                NSLog(@"tips : %@", capePath);
             }
         } else {
             NSDictionary* dic = [[installedPlugins objectForKey:[item objectForKey:@"package"]] objectForKey:@"bundleInfo"];
