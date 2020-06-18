@@ -93,6 +93,18 @@ extern AppDelegate *myDelegate;
             } else {
 //                self.bundlePreview.image = nil;
             }
+            
+            NSString *banpath = [plugin.webPlist objectForKey:@"banner"];
+            if (banpath && ![banpath.pathComponents.firstObject isEqualToString:@"https:"])
+                banpath = [NSString stringWithFormat:@"%@%@", MF_REPO_URL, banpath];
+            if (banpath) {
+                self.bundlePreview.imageScaling = NSImageScaleAxesIndependently;
+                self.bundlePreview.animates = true;
+                self.bundlePreview.sd_imageIndicator = SDWebImageActivityIndicator.grayIndicator;
+                self.bundlePreview.sd_imageIndicator = SDWebImageProgressIndicator.defaultIndicator;
+                [self.bundlePreview sd_setImageWithURL:[NSURL URLWithString:banpath]
+                                     placeholderImage:nil];
+            }
         });
         
         [MF_Purchase checkStatus:plugin :self.bundleGet];

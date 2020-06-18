@@ -569,43 +569,6 @@ NSDictionary *testing;
     }
 }
 
-- (void)verifyPurchased {
-//    NSLog(@"%s", __PRETTY_FUNCTION__);
-    
-    [MF_Purchase verifyPurchased:[MF_repoData sharedInstance].currentPlugin :self.bundleInstall];
-    
-//    NSString *myPaddleProductID = [item objectForKey:@"productID"];
-//    if (myPaddleProductID != nil) {
-//        NSString *myPaddleVendorID = @"26643";
-//        NSString *myPaddleAPIKey = @"02a3c57238af53b3c465ef895729c765";
-//
-//        NSDictionary *dict = [item objectForKey:@"paddle"];
-//        if (dict != nil) {
-//            myPaddleVendorID = [dict objectForKey:@"vendorid"];
-//            myPaddleAPIKey = [dict objectForKey:@"apikey"];
-//        }
-//
-//        NSBundle *b = [NSBundle mainBundle];
-//        NSString *execPath = [b pathForResource:@"purchaseValidationApp" ofType:@"app"];
-//        execPath = [NSString stringWithFormat:@"%@/Contents/MacOS/purchaseValidationApp", execPath];
-//
-//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//            NSTask *task = [NSTask launchedTaskWithLaunchPath:execPath arguments:@[myPaddleProductID, myPaddleVendorID, myPaddleAPIKey, @"-v"]];
-//            [task waitUntilExit];
-//
-//           //This is your completion handler
-//           dispatch_sync(dispatch_get_main_queue(), ^{
-//               if ([task terminationStatus] == 69) {
-//                    NSLog(@"Verified...");
-//                    self.bundleInstall.title = @"GET";
-//                } else {
-//                    self.bundleInstall.title = self.bundlePrice.stringValue;
-//                }
-//           });
-//        });
-//    }
-}
-
 - (void)showDevTweaks {
     [myDelegate.searchPlugins setStringValue:[_bundleID.stringValue stringByDeletingPathExtension]];
     [myDelegate updatesearchText];

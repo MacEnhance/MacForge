@@ -22,23 +22,31 @@ extern AppDelegate *myDelegate;
     NSMutableArray      *smallArray;
 }
 
+- (void)checkAndUpdate {
+    if (floor(self.frame.size.width/390.0) != columns || floor(self.frame.size.width/390.0) != _tv.tableColumns.count || columns != _tv.tableColumns.count) {
+        columns = floor(self.frame.size.width/390.0);
+        [self updateColumCount];
+    }
+}
+
 - (void)drawRect:(NSRect)dirtyRect {
-    [super drawRect:dirtyRect];
     NSUInteger pad = self.frame.size.width - (4 * columns);
     for (NSTableColumn* c in self.tv.tableColumns)
         [c setWidth:pad/columns];
-    [_tv setFrame:CGRectMake(0, 0, self.frame.size.width, _tv.frame.size.height)];
+    [self checkAndUpdate];
 }
 
 - (void)updateColumCount {
     // remove extra columns
+    long nuke = _tv.numberOfColumns - columns;
     if (_tv.numberOfColumns > columns)
-        for (int i = 0; i < _tv.numberOfColumns - columns; i++)
+        for (int i = 0; i < nuke; i++)
             [_tv removeTableColumn:_tv.tableColumns.lastObject];
     
     // add needed columns
+    long give = columns - _tv.numberOfColumns;
     if (_tv.numberOfColumns < columns) {
-        for (int i = 0; i < columns - _tv.numberOfColumns; i++) {
+        for (int i = 0; i < give; i++) {
             NSString *identify = [NSString stringWithFormat:@"Col%d", (int)_tv.numberOfColumns + 1];
             NSTableColumn * column = [[NSTableColumn alloc] initWithIdentifier:identify];
             [column setWidth:self.frame.size.width/columns];
@@ -47,9 +55,8 @@ extern AppDelegate *myDelegate;
     }
     
     // set columns to equal width
-    for (NSTableColumn *col in _tv.tableColumns) {
+    for (NSTableColumn *col in _tv.tableColumns)
         [col setWidth:self.frame.size.width/columns];
-    }
     
     // redraw and fit
     [_tv reloadData];
@@ -61,9 +68,6 @@ extern AppDelegate *myDelegate;
         columns = 2;
         smallArray = NSMutableArray.new;
         
-//        self.wantsLayer = true;
-//        self.layer.backgroundColor = NSColor.systemPinkColor.CGColor;
-        
         // Create a table view
         _tv = [[NSTableView alloc] initWithFrame:NSMakeRect(0, 0, 500, 500)];
         _tv.delegate = self;
@@ -71,8 +75,6 @@ extern AppDelegate *myDelegate;
         _tv.gridColor = NSColor.clearColor;
         _tv.backgroundColor = NSColor.clearColor;
         _tv.headerView = nil;
-        _tv.columnAutoresizingStyle = NSTableViewNoColumnAutoresizing;
-//        _tv.columnAutoresizingStyle = NSTableViewUniformColumnAutoresizingStyle;
         
         // Create a scroll view and embed the table view in the scroll view, and add the scroll view to our window.
         NSScrollView * tableContainer = [[NSScrollView alloc] initWithFrame:self.frame];
@@ -102,11 +104,8 @@ extern AppDelegate *myDelegate;
             [_tv addTableColumn:column];
         }
     });
-    
-    if (floor(self.frame.size.width/390.0) != columns) {
-        columns = floor(self.frame.size.width/390.0);
-        [self updateColumCount];
-    }
+
+    [self checkAndUpdate];
 }
 
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
