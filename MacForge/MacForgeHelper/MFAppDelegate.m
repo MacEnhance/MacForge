@@ -76,8 +76,8 @@ void HandleExceptions(NSException *exception) {
     }];
 
     // Start a timer to do daily plugin and app  update checks 86400 seconds in a day
-    [NSTimer scheduledTimerWithTimeInterval:86400 target:self selector:@selector(checkForPluginUpdates) userInfo:nil repeats:YES];
-    [NSTimer scheduledTimerWithTimeInterval:86400 target:self selector:@selector(checkMacForgeForUpdatesBackground) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:60*60*24 target:self selector:@selector(checkForPluginUpdates) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:60*60*24 target:self selector:@selector(checkMacForgeForUpdatesBackground) userInfo:nil repeats:YES];
 
     // Watch for new plugins
     [self watchForPlugins];

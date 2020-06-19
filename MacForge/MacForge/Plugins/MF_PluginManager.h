@@ -10,7 +10,6 @@
     NSMutableArray      *pluginsArray;
     NSMutableDictionary *installedPluginDICT;
     NSMutableDictionary *needsUpdate;
-    
     NSButton            *downloadButton;
     NSProgressIndicator *progressObject;
 }

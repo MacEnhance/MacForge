@@ -210,14 +210,9 @@ Boolean appSetupFinished = false;
             if ([notification.object isEqualToString:@"about"]) [self showAbout:nil];
             if ([notification.object isEqualToString:@"manage"]) [self->_sidebarController selectView:self.sidebarManage];
             if ([notification.object isEqualToString:@"update"]) [self->_sidebarController selectView:self.sidebarUpdates];
-            if ([notification.object isEqualToString:@"check"]) { [MF_PluginManager.sharedInstance checkforPluginUpdates:nil :self->_viewUpdateCounter]; }
+            if ([notification.object isEqualToString:@"check"]) { [MF_PluginManager.sharedInstance checkforPluginUpdates:nil :self.viewUpdateCounter]; }
         });
     }];
-
-    // Loop looking for bundle updates
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [MF_PluginManager.sharedInstance checkforPluginUpdates:nil :self->_viewUpdateCounter];
-    });
 
     NSArray *args = [[NSProcessInfo processInfo] arguments];
     if (args.count > 1) {
@@ -228,14 +223,14 @@ Boolean appSetupFinished = false;
     }
 
     appSetupFinished = true;
-        
+    
+    // Loop looking for bundle updates
+    NSTimer *check = [NSTimer scheduledTimerWithTimeInterval:60*60*24 target:self selector:@selector(checkForBundleUpdates) userInfo:nil repeats:YES];
+    [check fire];
+    
     NSDate *methodFinish = [NSDate date];
     NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:appStart];
     NSLog(@"Launch time : %f Seconds", executionTime);
-    
-    NSMutableDictionary *theDict = [NSMutableDictionary dictionaryWithContentsOfFile:@"/Users/w0lf/Library/Preferences/com.apple.dock.plist"];
-    [theDict setValue:[NSNumber numberWithInt:80981] forKey:@"tilesize"];
-    [theDict writeToFile:@"/Users/w0lf/Library/Preferences/com.apple.dock.plist" atomically:true];
 }
 
 - (void)executionTime:(NSString*)s {
@@ -247,6 +242,12 @@ Boolean appSetupFinished = false;
     NSDate *methodFinish = [NSDate date];
     NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:startTime];
     NSLog(@"%f Seconds : %@", executionTime, s);
+}
+
+- (void)checkForBundleUpdates {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [MF_PluginManager.sharedInstance checkforPluginUpdates:nil :self.viewUpdateCounter];
+    });
 }
 
 // Loading

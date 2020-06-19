@@ -674,48 +674,58 @@
 
 // Check for plugin updates and update the application icon badge
 - (void)checkforPluginUpdates:(NSTableView*)table {
-    needsUpdate = [[NSMutableDictionary alloc] init];
+    needsUpdate = NSMutableDictionary.new;
     [self readPlugins:nil];
     
-    NSDictionary *plugins = [[NSDictionary alloc] initWithDictionary:[installedPluginDICT copy]];
-    CFPreferencesAppSynchronize(CFSTR("com.macenhance.MacForge"));
-    NSArray *sourceURLS = CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("sources"), CFSTR("com.macenhance.MacForge")));
+    NSURL* data = [NSURL URLWithString:[NSString stringWithFormat:@"%@/packages.plist", @"file:///Users/w0lf/Documents/GitHub/MacForgeRepo/repo"]];
+    NSMutableDictionary* sourceDict = [NSMutableDictionary.alloc initWithContentsOfURL:data];
     
-    NSMutableDictionary *sourceDICTS = [[NSMutableDictionary alloc] init];
-    for (NSString *source in sourceURLS) {
-        NSURL* data = [NSURL URLWithString:[NSString stringWithFormat:@"%@/packages_v2.plist", source]];
-        NSMutableDictionary* dic = [[NSMutableDictionary alloc] initWithContentsOfURL:data];
-        if (dic != nil) {
-            for (NSString *key in dic) {
-                NSMutableDictionary *bundle = [dic objectForKey:key];
-                [bundle setObject:source forKey:@"sourceURL"];
+    for (NSString *key in sourceDict.allKeys) {
+        NSDictionary *itemInfo = sourceDict[key];
+        NSString *bundleID = itemInfo[@"package"];
+        NSString *webVersion = itemInfo[@"version"];
+        NSString *localVersion = @"test";
+        NSString *localPath = @"";
+        if (bundleID.length) localPath = [self pluginLocalPath:bundleID];
+        if (localPath.length) {
+            NSString *ext = localPath.pathExtension;
+            
+            if ([ext isEqualToString:@"cape"]) {
+                
+                NSDictionary *d = [[NSDictionary alloc] initWithContentsOfFile:localPath];
+                NSObject *test = d[@"CapeVersion"];
+                localVersion = [NSString stringWithFormat:@"%@", test];
+                
+            } else {
+                
+                NSString *path = localPath;
+                path = [path stringByAppendingString:@"/Contents/Info.plist"];
+                NSDictionary* dic = [[NSDictionary alloc] initWithContentsOfFile:path];
+                localVersion = [dic objectForKey:@"CFBundleShortVersionString"];
+                if ([localVersion isEqualToString:@""])
+                    localVersion = [dic objectForKey:@"CFBundleVersion"];
+                
             }
-            [sourceDICTS addEntriesFromDictionary:[dic copy]];
+            
+            NSLog(@"checking %@ : %@ : %@", bundleID, localVersion, webVersion);
+                    
+            if (![localVersion isEqualToString:@"test"]) {
+                if (![localVersion isEqualToString:webVersion])
+                    [needsUpdate setObject:itemInfo forKey:bundleID];
+//                NSComparisonResult res = [MF_PluginManager compareVersion:(NSString*)webVersion toVersion:(NSString*)localVersion];
+//                if (res == 1)
+//                    [needsUpdate setObject:itemInfo forKey:bundleID];
+            }
         }
     }
-    
-    for (NSString* key in plugins) {
-        id value = [plugins objectForKey:key];
-        id bundleID = [value objectForKey:@"bundleId"];
-        id localVersion = [value objectForKey:@"version"];
-        
-//        NSLog(@"%@ : %@", bundleID, localVersion);
-        
-        if ([sourceDICTS objectForKey:bundleID]) {
-            NSDictionary *bundleInfo = [[NSDictionary alloc] initWithDictionary:[sourceDICTS objectForKey:bundleID]];
-            id updateVersion = [bundleInfo objectForKey:@"version"];
-            NSComparisonResult res = [MF_PluginManager compareVersion:(NSString*)updateVersion toVersion:(NSString*)localVersion];
-            if (res == 1)
-                [needsUpdate setObject:bundleInfo forKey:bundleID];
-        }
-    }
-    
+
     if (table != nil) {
         dispatch_async(dispatch_get_main_queue(), ^{
+            table.tableColumns.firstObject.maxWidth = 10000;
             [table reloadData];
         });
     }
-        
+
     [self updateApplicationIcon];
 }
 
