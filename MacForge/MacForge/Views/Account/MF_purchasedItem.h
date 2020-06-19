@@ -1,8 +1,8 @@
 //
-//  MF_bundleTinyItem.h
+//  MF_purchasedItem.h
 //  MacForge
 //
-//  Created by Wolfgang Baird on 2/8/20.
+//  Created by Wolfgang Baird on 6/18/20.
 //  Copyright © 2020 MacEnhance. All rights reserved.
 //
 
@@ -19,13 +19,12 @@
 #import <SDWebImage/SDWebImage.h>
 
 
-@interface MF_bundleTinyItem : NSViewController {
+@interface MF_purchasedItem : NSViewController {
     MF_Plugin *plug;
 }
 
 @property (weak) IBOutlet NSTextField           *bundleName;
 @property (weak) IBOutlet NSTextField           *bundleDesc;
-@property (weak) IBOutlet NSImageView           *bundleBanner;
 @property (weak) IBOutlet NSImageView           *bundleIcon;
 @property (weak) IBOutlet NSButton              *bundleBackgroundButton;
 @property (weak) IBOutlet SYFlatButton          *bundleGet;

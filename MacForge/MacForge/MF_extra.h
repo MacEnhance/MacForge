@@ -9,6 +9,9 @@
 @import CocoaMarkdown;
 @import AppCenterAnalytics;
 
+@interface MF_FlippedView : NSView
+@end
+
 @interface MF_sidebarButton : NSView
 
 @property IBOutlet NSImageView*     buttonImage;

@@ -41,7 +41,6 @@
 #import "MF_accountManager.h"
 #import "MF_BlacklistManager.h"
 #import "MF_searchView.h"
-#import "MFFlippedView.h"
 
 #import "MF_repoData.h"
 #import "MF_PluginManager.h"

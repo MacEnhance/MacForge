@@ -79,7 +79,7 @@ NSDictionary *testing;
     _starScore.stringValue = [NSString stringWithFormat:@"%.1f", randomScore];
     _starReviews.stringValue = [NSString stringWithFormat:@"%.0f ratings", randomReviews];
     
-    if (testing) {
+    if (!testing) {
 //        if (reviewsDict.data[@"ratings"]) {
             NSDictionary *rate = testing[@"ratings"];
             float total = 0;

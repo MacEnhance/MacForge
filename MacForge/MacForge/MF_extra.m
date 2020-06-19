@@ -6,7 +6,14 @@
 //
 
 #import "MF_extra.h"
-#import "MFFlippedView.h"
+
+@implementation MF_FlippedView
+
+-(BOOL)isFlipped {
+    return YES;
+}
+
+@end
 
 @implementation MF_sidebarButton
 @end
@@ -170,7 +177,7 @@
 //    scrollView.backgroundColor = NSColor.clearColor;
 
     // configure document view
-    MFFlippedView *docView = [[MFFlippedView alloc] initWithFrame:NSMakeRect(0, 0, view.frame.size.width, subview.frame.size.height)];
+    MF_FlippedView *docView = [[MF_FlippedView alloc] initWithFrame:NSMakeRect(0, 0, view.frame.size.width, subview.frame.size.height)];
     docView.autoresizingMask = NSViewWidthSizable | NSViewMinYMargin;
 
     // configure our subview

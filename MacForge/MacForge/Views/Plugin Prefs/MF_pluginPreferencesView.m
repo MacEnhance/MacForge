@@ -38,7 +38,8 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         weakSelf.prefLoaderConnection = [NSXPCSharedListener connectionForListenerNamed:@"com.macenhance.MacForge" fromServiceNamed:@"com.macenhance.MacForge.PreferenceLoader"];
         weakSelf.prefLoaderConnection.remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:@protocol(PreferenceLoaderProtocol)];
-        [weakSelf.prefLoaderConnection resume];
+        @try { [weakSelf.prefLoaderConnection resume]; }
+        @catch (NSException *exception) { NSLog(@"Yikes"); }
         weakSelf.prefLoaderProxy = weakSelf.prefLoaderConnection.remoteObjectProxy;
         
         dispatch_async(dispatch_get_main_queue(), ^(){

@@ -9,9 +9,9 @@
         <customObject id="-2" userLabel="File's Owner" customClass="MF_featuredItemController">
             <connections>
                 <outlet property="bundleBanner" destination="83X-Y6-TjH" id="CmI-xr-Jl5"/>
-                <outlet property="bundleButton" destination="2nR-Sa-k0c" id="e9A-M5-WSa"/>
                 <outlet property="bundleDesc" destination="0Yp-nZ-k9V" id="qRE-QP-Xqr"/>
                 <outlet property="bundleGet" destination="nge-iR-pEF" id="h17-2u-n36"/>
+                <outlet property="bundleIcon" destination="E0e-pB-ART" id="KoK-x4-RnF"/>
                 <outlet property="bundleName" destination="J1f-hM-SWl" id="Le6-cl-Qb3"/>
                 <outlet property="bundlePreview" destination="sVV-VX-D5Z" id="k9N-R7-R0P"/>
                 <outlet property="bundleProgress" destination="lfg-1z-6mA" id="a6F-G1-AGJ"/>
@@ -24,7 +24,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
             <subviews>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J1f-hM-SWl">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J1f-hM-SWl" userLabel="Item name">
                     <rect key="frame" x="118" y="279" width="149" height="21"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Bundle Name" id="Cj4-MT-5qN">
@@ -33,56 +33,44 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Yp-nZ-k9V">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Yp-nZ-k9V" userLabel="Item description">
                     <rect key="frame" x="118" y="220" width="84" height="56"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" truncatesLastVisibleLine="YES" title="Short Description" id="jDz-Dq-W7v">
-                        <font key="font" metaFont="controlContent" size="11"/>
+                        <font key="font" metaFont="label" size="11"/>
                         <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2nR-Sa-k0c">
-                    <rect key="frame" x="20" y="220" width="80" height="80"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSApplicationIcon" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="zsp-Bl-kOd">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="moreInfo:" target="-2" id="g7l-V4-EG1"/>
-                    </connections>
-                </button>
-                <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" doubleValue="65" bezeled="NO" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="lfg-1z-6mA">
+                <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" doubleValue="65" bezeled="NO" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="lfg-1z-6mA" userLabel="Item progress">
                     <rect key="frame" x="216" y="252" width="16" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                 </progressIndicator>
-                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sVV-VX-D5Z">
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E0e-pB-ART" userLabel="Item icon">
+                    <rect key="frame" x="20" y="220" width="80" height="80"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NSApplicationIcon" id="UH2-6b-cBq"/>
+                </imageView>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sVV-VX-D5Z" userLabel="Item preview">
                     <rect key="frame" x="20" y="12" width="289" height="200"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NSFolder" id="DZZ-Hp-o8r"/>
                 </imageView>
-                <button id="83X-Y6-TjH">
+                <button id="83X-Y6-TjH" userLabel="Item info">
                     <rect key="frame" x="0.0" y="1" width="320" height="318"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="31l-bO-78i">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
-                    <connections>
-                        <action selector="moreInfo:" target="-2" id="7Fl-gF-NAj"/>
-                    </connections>
                 </button>
-                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nge-iR-pEF" customClass="SYFlatButton">
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nge-iR-pEF" userLabel="Item get" customClass="SYFlatButton">
                     <rect key="frame" x="240" y="249" width="65" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" title="GET" bezelStyle="shadowlessSquare" alignment="center" imageScaling="proportionallyDown" inset="2" id="hr1-wp-XSE">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="systemBold"/>
                     </buttonCell>
-                    <connections>
-                        <action selector="getOrOpen:" target="-2" id="zvy-Xp-7pe"/>
-                    </connections>
                 </button>
             </subviews>
             <point key="canvasLocation" x="135" y="-1991"/>

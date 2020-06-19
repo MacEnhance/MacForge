@@ -37,7 +37,6 @@
 		FB1C18B823417E1200BD9F32 /* MF_bundleView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB1C18B723417E1200BD9F32 /* MF_bundleView.m */; };
 		FB1C18B92341811F00BD9F32 /* MF_bundlePreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB8561A723417A3700047845 /* MF_bundlePreviewView.m */; };
 		FB275D7B2339DE9B001C154A /* GameplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB275D7A2339DE9B001C154A /* GameplayKit.framework */; };
-		FB2FE5C5230626C30082C714 /* MFFlippedView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2FE5C223061DEE0082C714 /* MFFlippedView.m */; };
 		FB2FE5CC230638120082C714 /* SYFlatButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2FE5CB230638120082C714 /* SYFlatButton.m */; };
 		FB306ACC2367C9D5008A6E61 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB306ACB2367C9D5008A6E61 /* Media.xcassets */; };
 		FB306ACE2367CD0F008A6E61 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB306ACD2367CD0F008A6E61 /* Media.xcassets */; };
@@ -47,6 +46,8 @@
 		FB4F4B862498316500987D1E /* SLColorArt.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4F4B822498316500987D1E /* SLColorArt.m */; };
 		FB4F4B8A24988F0E00987D1E /* checkmark.shield.fill_Normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB4F4B8824988F0E00987D1E /* checkmark.shield.fill_Normal@2x.png */; };
 		FB4F4B8B24988F0E00987D1E /* lock.shield.fill_Normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB4F4B8924988F0E00987D1E /* lock.shield.fill_Normal@2x.png */; };
+		FB609E5E249C2AF900865CCC /* MF_purchasedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FB609E5C249C2AF900865CCC /* MF_purchasedItem.m */; };
+		FB609E5F249C2AF900865CCC /* MF_purchasedItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB609E5D249C2AF900865CCC /* MF_purchasedItem.xib */; };
 		FB61C8B024997872008F63CC /* MenuBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB61C8A824997857008F63CC /* MenuBar.framework */; };
 		FB61C8B124997872008F63CC /* MenuBar.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FB61C8A824997857008F63CC /* MenuBar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FB7259E52314F2BD00701F32 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB7259E42314F2BD00701F32 /* GoogleService-Info.plist */; };
@@ -342,7 +343,6 @@
 		F0ADE1E2166E0C0D009758CC /* MFInjectorProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFInjectorProxy.h; sourceTree = "<group>"; };
 		F0ADE1E3166E0C0D009758CC /* MFInjectorProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFInjectorProxy.m; sourceTree = "<group>"; };
 		F0CF07E4166F563D009D198D /* mach_inject_bundle.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = mach_inject_bundle.xcodeproj; path = ../mach_inject_bundle/mach_inject_bundle.xcodeproj; sourceTree = "<group>"; };
-		F372132523F0F9FF00222A4F /* MFFlippedView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MFFlippedView.h; sourceTree = "<group>"; };
 		F3A95F7123EF842A004635FD /* MF_bundleTinyItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_bundleTinyItem.h; sourceTree = "<group>"; };
 		F3A95F7223EF842A004635FD /* MF_bundleTinyItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_bundleTinyItem.m; sourceTree = "<group>"; };
 		F3A95F7323EF842A004635FD /* MF_bundleTinyItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MF_bundleTinyItem.xib; sourceTree = "<group>"; };
@@ -356,7 +356,6 @@
 		FB1C18B623417E1200BD9F32 /* MF_bundleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_bundleView.h; sourceTree = "<group>"; };
 		FB1C18B723417E1200BD9F32 /* MF_bundleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_bundleView.m; sourceTree = "<group>"; };
 		FB275D7A2339DE9B001C154A /* GameplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameplayKit.framework; path = System/Library/Frameworks/GameplayKit.framework; sourceTree = SDKROOT; };
-		FB2FE5C223061DEE0082C714 /* MFFlippedView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MFFlippedView.m; sourceTree = "<group>"; };
 		FB2FE5CA230638120082C714 /* SYFlatButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYFlatButton.h; sourceTree = "<group>"; };
 		FB2FE5CB230638120082C714 /* SYFlatButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYFlatButton.m; sourceTree = "<group>"; };
 		FB306ACB2367C9D5008A6E61 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
@@ -373,6 +372,9 @@
 		FB4F4B822498316500987D1E /* SLColorArt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLColorArt.m; sourceTree = "<group>"; };
 		FB4F4B8824988F0E00987D1E /* checkmark.shield.fill_Normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkmark.shield.fill_Normal@2x.png"; sourceTree = "<group>"; };
 		FB4F4B8924988F0E00987D1E /* lock.shield.fill_Normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock.shield.fill_Normal@2x.png"; sourceTree = "<group>"; };
+		FB609E5B249C2AF900865CCC /* MF_purchasedItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_purchasedItem.h; sourceTree = "<group>"; };
+		FB609E5C249C2AF900865CCC /* MF_purchasedItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_purchasedItem.m; sourceTree = "<group>"; };
+		FB609E5D249C2AF900865CCC /* MF_purchasedItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MF_purchasedItem.xib; sourceTree = "<group>"; };
 		FB61C8A824997857008F63CC /* MenuBar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MenuBar.framework; sourceTree = "<group>"; };
 		FB7259E42314F2BD00701F32 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FB80DBDA231B4C6A00823B67 /* starhighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starhighlighted.png; sourceTree = "<group>"; };
@@ -732,6 +734,9 @@
 				FBC2123823B46434006F4485 /* MF_accountManager.m */,
 				FB88081C2480F2A70002727A /* MF_purchasedView.h */,
 				FB88081D2480F2A70002727A /* MF_purchasedView.m */,
+				FB609E5B249C2AF900865CCC /* MF_purchasedItem.h */,
+				FB609E5C249C2AF900865CCC /* MF_purchasedItem.m */,
+				FB609E5D249C2AF900865CCC /* MF_purchasedItem.xib */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -750,8 +755,6 @@
 		FB49C44623417A4B0061E458 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F372132523F0F9FF00222A4F /* MFFlippedView.h */,
-				FB2FE5C223061DEE0082C714 /* MFFlippedView.m */,
 				FB306A91236672C3008A6E61 /* Account */,
 				FB306ACF2367F9BA008A6E61 /* Bundle */,
 				FBA6E91020F02CBD00A12ACF /* Local */,
@@ -1319,6 +1322,7 @@
 				FB8808292480FEFB0002727A /* desktopcomputer_Normal@2x.png in Resources */,
 				FB306ACE2367CD0F008A6E61 /* Media.xcassets in Resources */,
 				FB8808262480FEFB0002727A /* arrow.up.arrow.down.square.fill_Normal@2x.png in Resources */,
+				FB609E5F249C2AF900865CCC /* MF_purchasedItem.xib in Resources */,
 				FB88082B2480FEFB0002727A /* magnifyingglass.circle.fill_Normal@2x.png in Resources */,
 				FB4F4B8A24988F0E00987D1E /* checkmark.shield.fill_Normal@2x.png in Resources */,
 				FB169AFE22F4EEEB001E84E0 /* MF_featuredItemController.xib in Resources */,
@@ -1618,7 +1622,6 @@
 				FBFC745F24774B2D0015D36C /* MF_featuredView.m in Sources */,
 				FBA6E8E620F0288300A12ACF /* MF_Plugin.m in Sources */,
 				FB88081E2480F2A70002727A /* MF_purchasedView.m in Sources */,
-				FB2FE5C5230626C30082C714 /* MFFlippedView.m in Sources */,
 				FBC2123923B46434006F4485 /* MF_accountManager.m in Sources */,
 				FBA6E8F520F0289B00A12ACF /* loaclPluginTable.m in Sources */,
 				F3A95F7423EF842A004635FD /* MF_bundleTinyItem.m in Sources */,
@@ -1629,6 +1632,7 @@
 				FBA6E88720F0176B00A12ACF /* AppDelegate.m in Sources */,
 				FBE767F420F00FFE00A42BD5 /* main.m in Sources */,
 				FBA6E8CF20F0262A00A12ACF /* SGDirWatchdog.m in Sources */,
+				FB609E5E249C2AF900865CCC /* MF_purchasedItem.m in Sources */,
 				FB1241362478997500528C29 /* MF_searchView.m in Sources */,
 				FBC2123423B459CE006F4485 /* MF_BlacklistManager.m in Sources */,
 				FB4F4B862498316500987D1E /* SLColorArt.m in Sources */,

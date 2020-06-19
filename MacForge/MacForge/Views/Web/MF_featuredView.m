@@ -75,6 +75,7 @@ extern AppDelegate *myDelegate;
         _tv.gridColor = NSColor.clearColor;
         _tv.backgroundColor = NSColor.clearColor;
         _tv.headerView = nil;
+        _tv.selectionHighlightStyle = NSTableViewSelectionHighlightStyleNone;
         
         // Create a scroll view and embed the table view in the scroll view, and add the scroll view to our window.
         NSScrollView * tableContainer = [[NSScrollView alloc] initWithFrame:self.frame];
