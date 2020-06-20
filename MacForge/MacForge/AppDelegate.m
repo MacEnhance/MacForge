@@ -301,7 +301,7 @@ Boolean appSetupFinished = false;
     _sidebarController.mainWindow = _window;
     _sidebarController.prefWindow = _windowPreferences;
     _sidebarController.changeLog = _changeLog;
-    _sidebarController.preferenceViews = @[_preferencesGeneral, _preferencesBundles, _preferencesData, _preferencesAbout];
+    _sidebarController.preferenceViews = @[_preferencesGeneral, _preferencesBundles, _preferencesAbout];
     _sidebarController.sidebarTopButtons = @[_sidebarFeatured, _sidebarDiscover, _sidebarManage, _sidebarPluginPrefs, _sidebarSystem, _sidebarUpdates];
     _sidebarController.sidebarBotButtons = @[_sidebarAccount, _sidebarDiscord, _sidebarWarning];
     
@@ -360,9 +360,6 @@ Boolean appSetupFinished = false;
     [self executionTime:@"setupSystemView"];
     
     [_window makeKeyAndOrderFront:self];
-        
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    });
     
     // Make sure we're in /Applications
     PFMoveToApplicationsFolderIfNecessary();
@@ -466,6 +463,9 @@ Boolean appSetupFinished = false;
     [_changeLog.textStorage setAttributedString:asr.render];
     
     [_sidebarController systemDarkModeChange:nil];
+    
+    if ([NSUserDefaults.standardUserDefaults boolForKey:@"prefInstallToUser"])
+        [_preferencesInstallToUser setSelectedSegment:1];
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //        [self selectView:self.sidebarFeatured];
 //    });
@@ -473,7 +473,7 @@ Boolean appSetupFinished = false;
 
 - (IBAction)toggleLoginItem:(NSButton*)sender {
     NSBundle *helperBUNDLE = [NSBundle bundleWithPath:[NSString stringWithFormat:@"%@/Contents/Library/LoginItems/MacForgeHelper.app", [[NSBundle mainBundle] bundlePath]]];
-    if ([NSUserDefaults.standardUserDefaults boolForKey:@"prefsNoAutoLaunch"]) {
+    if ([NSUserDefaults.standardUserDefaults boolForKey:@"prefNoAutoLaunch"]) {
         [helperBUNDLE disableLoginItem];
     } else {
         [helperBUNDLE enableLoginItem];
@@ -652,6 +652,14 @@ Boolean appSetupFinished = false;
         [_blackListTable reloadData];
     } else {
         // Cancel was pressed...
+    }
+}
+
+- (IBAction)setInstallToUser:(NSSegmentedControl*)control {
+    if (control.selectedSegment == 0) {
+        [NSUserDefaults.standardUserDefaults setBool:false forKey:@"prefInstallToUser"];
+    } else {
+        [NSUserDefaults.standardUserDefaults setBool:true forKey:@"prefInstallToUser"];
     }
 }
 

@@ -76,6 +76,7 @@ static NSString *MF_REPO_URL = @"file:///Users/w0lf/Documents/GitHub/MacForgeRep
 @property IBOutlet NSView               *preferencesAbout;
 @property IBOutlet NSView               *preferencesData;
 @property IBOutlet NSView               *preferencesBundles;
+@property IBOutlet NSSegmentedControl   *preferencesInstallToUser;
 
 // Tab views
 @property IBOutlet NSView               *tabMain;

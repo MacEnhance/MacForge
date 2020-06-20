@@ -199,14 +199,7 @@ void HandleExceptions(NSException *exception) {
 }
 
 - (void)updatesPlugins {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSUserNotification *notif = [[MF_PluginManager sharedInstance] checkforPluginUpdatesNotify];
-        if (notif) {
-            NSUserNotificationCenter.defaultUserNotificationCenter.delegate = self;
-            [NSUserNotificationCenter.defaultUserNotificationCenter deliverNotification:notif];
-        }
-        [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.macenhance.MacForgeNotify" object:@"check"];
-    });
+    [MF_PluginManager.sharedInstance checkforPluginUpdates:nil];
 }
 
 - (void)updatesPluginsInstall {
