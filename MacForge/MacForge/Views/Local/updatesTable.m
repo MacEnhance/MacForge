@@ -49,10 +49,9 @@ NSMutableDictionary *needsUpdate;
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     updatesTableCell *result = (updatesTableCell*)[tableView makeViewWithIdentifier:@"upView" owner:self];
     NSDictionary* item = [needsUpdate objectForKey:[[needsUpdate allKeys] objectAtIndex:row]];
-    NSString *bInfo = [NSString stringWithFormat:@"%@ - %@", [item objectForKey:@"version"], [item objectForKey:@"package"]];
     result.pluginName.stringValue = [item objectForKey:@"name"];
-    result.pluginInfo.stringValue = bInfo;
-    result.pluginDescription.stringValue = [item objectForKey:@"description"];
+    result.pluginInfo.stringValue = [item objectForKey:@"package"];
+    result.pluginDescription.stringValue = [NSString stringWithFormat:@"%@ --- %@", [sharedMethods getItemLocalVersion:item[@"package"]], [item objectForKey:@"version"]];
     result.pluginImage.image = [MF_PluginManager pluginGetIcon:item];
     
     // Return the result

@@ -699,6 +699,34 @@
     }
 }
 
+- (NSString*)getItemLocalVersion:(NSString*)bundleID {
+    NSString *localVersion = @"failed";
+    NSString *localPath = @"";
+    if (bundleID.length) localPath = [self pluginLocalPath:bundleID];
+    if (localPath.length) {
+        NSString *ext = localPath.pathExtension;
+        
+        if ([ext isEqualToString:@"cape"]) {
+            
+            NSDictionary *d = [[NSDictionary alloc] initWithContentsOfFile:localPath];
+            NSObject *test = d[@"CapeVersion"];
+            localVersion = [NSString stringWithFormat:@"%@", test];
+            
+        } else {
+            
+            NSDictionary *dic = [NSBundle bundleWithPath:localPath].infoDictionary;
+//            NSString *path = localPath;
+//            path = [path stringByAppendingString:@"/Contents/Info.plist"];
+//            NSDictionary* dic = [[NSDictionary alloc] initWithContentsOfFile:path];
+            localVersion = [dic objectForKey:@"CFBundleShortVersionString"];
+            if ([localVersion isEqualToString:@""])
+                localVersion = [dic objectForKey:@"CFBundleVersion"];
+            
+        }
+    }
+    return localVersion;
+}
+
 // Check for plugin updates and update the application icon badge
 // Also send notification if option is enabled
 // Also install if option is enabled
@@ -706,39 +734,17 @@
     needsUpdate = NSMutableDictionary.new;
     [self readPlugins:nil];
     
-    NSURL* data = [NSURL URLWithString:[NSString stringWithFormat:@"%@/packages.plist", @"file:///Users/w0lf/Documents/GitHub/MacForgeRepo/repo"]];
+    NSURL* data = [NSURL URLWithString:[NSString stringWithFormat:@"%@/packages.plist", @"https://github.com/MacEnhance/MacForgeRepo/raw/master/repo"]];
     NSMutableDictionary* sourceDict = [NSMutableDictionary.alloc initWithContentsOfURL:data];
     
     for (NSString *key in sourceDict.allKeys) {
         NSDictionary *itemInfo = sourceDict[key];
         NSString *bundleID = itemInfo[@"package"];
         NSString *webVersion = itemInfo[@"version"];
-        NSString *localVersion = @"test";
-        NSString *localPath = @"";
-        if (bundleID.length) localPath = [self pluginLocalPath:bundleID];
-        if (localPath.length) {
-            NSString *ext = localPath.pathExtension;
-            
-            if ([ext isEqualToString:@"cape"]) {
-                
-                NSDictionary *d = [[NSDictionary alloc] initWithContentsOfFile:localPath];
-                NSObject *test = d[@"CapeVersion"];
-                localVersion = [NSString stringWithFormat:@"%@", test];
-                
-            } else {
-                
-                NSString *path = localPath;
-                path = [path stringByAppendingString:@"/Contents/Info.plist"];
-                NSDictionary* dic = [[NSDictionary alloc] initWithContentsOfFile:path];
-                localVersion = [dic objectForKey:@"CFBundleShortVersionString"];
-                if ([localVersion isEqualToString:@""])
-                    localVersion = [dic objectForKey:@"CFBundleVersion"];
-                
-            }
-                                
-            if (![localVersion isEqualToString:@"test"]) {
-                if (![localVersion isEqualToString:webVersion])
-                    [needsUpdate setObject:itemInfo forKey:bundleID];
+        NSString *localVersion = [self getItemLocalVersion:bundleID];
+        if (![localVersion isEqualToString:@"failed"]) {
+            if (![localVersion isEqualToString:webVersion]) {
+                [needsUpdate setObject:itemInfo forKey:bundleID];
 //                NSComparisonResult res = [MF_PluginManager compareVersion:(NSString*)webVersion toVersion:(NSString*)localVersion];
 //                if (res == 1)
 //                    [needsUpdate setObject:itemInfo forKey:bundleID];

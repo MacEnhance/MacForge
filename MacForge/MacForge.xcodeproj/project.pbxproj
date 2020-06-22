@@ -40,12 +40,12 @@
 		FB2FE5CC230638120082C714 /* SYFlatButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2FE5CB230638120082C714 /* SYFlatButton.m */; };
 		FB306ACC2367C9D5008A6E61 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB306ACB2367C9D5008A6E61 /* Media.xcassets */; };
 		FB306ACE2367CD0F008A6E61 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB306ACD2367CD0F008A6E61 /* Media.xcassets */; };
-		FB4F4B832498316500987D1E /* EQImage+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4F4B7D2498316500987D1E /* EQImage+Helper.m */; };
-		FB4F4B842498316500987D1E /* EQImage+Scale.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4F4B802498316500987D1E /* EQImage+Scale.m */; };
-		FB4F4B852498316500987D1E /* EQImage+ColorArt.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4F4B812498316500987D1E /* EQImage+ColorArt.m */; };
-		FB4F4B862498316500987D1E /* SLColorArt.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4F4B822498316500987D1E /* SLColorArt.m */; };
 		FB4F4B8A24988F0E00987D1E /* checkmark.shield.fill_Normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB4F4B8824988F0E00987D1E /* checkmark.shield.fill_Normal@2x.png */; };
 		FB4F4B8B24988F0E00987D1E /* lock.shield.fill_Normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB4F4B8924988F0E00987D1E /* lock.shield.fill_Normal@2x.png */; };
+		FB5F5F68249EA48400C52F12 /* EQImage+Scale.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5F5F61249EA48300C52F12 /* EQImage+Scale.m */; };
+		FB5F5F69249EA48400C52F12 /* EQImage+ColorArt.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5F5F64249EA48300C52F12 /* EQImage+ColorArt.m */; };
+		FB5F5F6A249EA48400C52F12 /* EQImage+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5F5F65249EA48300C52F12 /* EQImage+Helper.m */; };
+		FB5F5F6B249EA48400C52F12 /* SLColorArt.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5F5F67249EA48400C52F12 /* SLColorArt.m */; };
 		FB609E5E249C2AF900865CCC /* MF_purchasedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FB609E5C249C2AF900865CCC /* MF_purchasedItem.m */; };
 		FB609E5F249C2AF900865CCC /* MF_purchasedItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB609E5D249C2AF900865CCC /* MF_purchasedItem.xib */; };
 		FB61C8B024997872008F63CC /* MenuBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB61C8A824997857008F63CC /* MenuBar.framework */; };
@@ -361,17 +361,17 @@
 		FB306ACB2367C9D5008A6E61 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		FB306ACD2367CD0F008A6E61 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		FB3C2EC7236A7FB5002B21C1 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
-		FB4F4B742498316400987D1E /* EQImage+ColorArt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EQImage+ColorArt.h"; sourceTree = "<group>"; };
-		FB4F4B7B2498316400987D1E /* EQImage+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EQImage+Helper.h"; sourceTree = "<group>"; };
-		FB4F4B7C2498316500987D1E /* SLColorArt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLColorArt.h; sourceTree = "<group>"; };
-		FB4F4B7D2498316500987D1E /* EQImage+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EQImage+Helper.m"; sourceTree = "<group>"; };
-		FB4F4B7E2498316500987D1E /* EQImage+Scale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EQImage+Scale.h"; sourceTree = "<group>"; };
-		FB4F4B7F2498316500987D1E /* SLTypeAliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLTypeAliases.h; sourceTree = "<group>"; };
-		FB4F4B802498316500987D1E /* EQImage+Scale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EQImage+Scale.m"; sourceTree = "<group>"; };
-		FB4F4B812498316500987D1E /* EQImage+ColorArt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EQImage+ColorArt.m"; sourceTree = "<group>"; };
-		FB4F4B822498316500987D1E /* SLColorArt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLColorArt.m; sourceTree = "<group>"; };
 		FB4F4B8824988F0E00987D1E /* checkmark.shield.fill_Normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkmark.shield.fill_Normal@2x.png"; sourceTree = "<group>"; };
 		FB4F4B8924988F0E00987D1E /* lock.shield.fill_Normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock.shield.fill_Normal@2x.png"; sourceTree = "<group>"; };
+		FB5F5F5F249EA48300C52F12 /* EQImage+Scale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EQImage+Scale.h"; sourceTree = "<group>"; };
+		FB5F5F60249EA48300C52F12 /* EQImage+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EQImage+Helper.h"; sourceTree = "<group>"; };
+		FB5F5F61249EA48300C52F12 /* EQImage+Scale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EQImage+Scale.m"; sourceTree = "<group>"; };
+		FB5F5F62249EA48300C52F12 /* EQImage+ColorArt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EQImage+ColorArt.h"; sourceTree = "<group>"; };
+		FB5F5F63249EA48300C52F12 /* SLTypeAliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLTypeAliases.h; sourceTree = "<group>"; };
+		FB5F5F64249EA48300C52F12 /* EQImage+ColorArt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EQImage+ColorArt.m"; sourceTree = "<group>"; };
+		FB5F5F65249EA48300C52F12 /* EQImage+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EQImage+Helper.m"; sourceTree = "<group>"; };
+		FB5F5F66249EA48400C52F12 /* SLColorArt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLColorArt.h; sourceTree = "<group>"; };
+		FB5F5F67249EA48400C52F12 /* SLColorArt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLColorArt.m; sourceTree = "<group>"; };
 		FB609E5B249C2AF900865CCC /* MF_purchasedItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_purchasedItem.h; sourceTree = "<group>"; };
 		FB609E5C249C2AF900865CCC /* MF_purchasedItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_purchasedItem.m; sourceTree = "<group>"; };
 		FB609E5D249C2AF900865CCC /* MF_purchasedItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MF_purchasedItem.xib; sourceTree = "<group>"; };
@@ -767,15 +767,15 @@
 		FB4F4B872498316C00987D1E /* SLColorArt */ = {
 			isa = PBXGroup;
 			children = (
-				FB4F4B742498316400987D1E /* EQImage+ColorArt.h */,
-				FB4F4B812498316500987D1E /* EQImage+ColorArt.m */,
-				FB4F4B7B2498316400987D1E /* EQImage+Helper.h */,
-				FB4F4B7D2498316500987D1E /* EQImage+Helper.m */,
-				FB4F4B7E2498316500987D1E /* EQImage+Scale.h */,
-				FB4F4B802498316500987D1E /* EQImage+Scale.m */,
-				FB4F4B7C2498316500987D1E /* SLColorArt.h */,
-				FB4F4B822498316500987D1E /* SLColorArt.m */,
-				FB4F4B7F2498316500987D1E /* SLTypeAliases.h */,
+				FB5F5F62249EA48300C52F12 /* EQImage+ColorArt.h */,
+				FB5F5F64249EA48300C52F12 /* EQImage+ColorArt.m */,
+				FB5F5F60249EA48300C52F12 /* EQImage+Helper.h */,
+				FB5F5F65249EA48300C52F12 /* EQImage+Helper.m */,
+				FB5F5F5F249EA48300C52F12 /* EQImage+Scale.h */,
+				FB5F5F61249EA48300C52F12 /* EQImage+Scale.m */,
+				FB5F5F66249EA48400C52F12 /* SLColorArt.h */,
+				FB5F5F67249EA48400C52F12 /* SLColorArt.m */,
+				FB5F5F63249EA48300C52F12 /* SLTypeAliases.h */,
 			);
 			path = SLColorArt;
 			sourceTree = "<group>";
@@ -1615,7 +1615,6 @@
 				FBFC7466247769280015D36C /* MF_pluginPreferencesView.m in Sources */,
 				FB169AFD22F4EEEB001E84E0 /* MF_featuredItemController.m in Sources */,
 				FB12413C247899F600528C29 /* MF_extra.m in Sources */,
-				FB4F4B842498316500987D1E /* EQImage+Scale.m in Sources */,
 				FBA6E8F220F0289B00A12ACF /* MF_PluginManager.m in Sources */,
 				FBBD8E2322F9319E00A97FEA /* MF_Purchase.m in Sources */,
 				FBA6E8E720F0288300A12ACF /* MF_repoData.m in Sources */,
@@ -1625,17 +1624,18 @@
 				FBC2123923B46434006F4485 /* MF_accountManager.m in Sources */,
 				FBA6E8F520F0289B00A12ACF /* loaclPluginTable.m in Sources */,
 				F3A95F7423EF842A004635FD /* MF_bundleTinyItem.m in Sources */,
+				FB5F5F69249EA48400C52F12 /* EQImage+ColorArt.m in Sources */,
 				FBF137E3210E79B70001916A /* blacklistTable.m in Sources */,
-				FB4F4B832498316500987D1E /* EQImage+Helper.m in Sources */,
 				FBA6E8F420F0289B00A12ACF /* updatesTable.m in Sources */,
-				FB4F4B852498316500987D1E /* EQImage+ColorArt.m in Sources */,
+				FB5F5F6A249EA48400C52F12 /* EQImage+Helper.m in Sources */,
 				FBA6E88720F0176B00A12ACF /* AppDelegate.m in Sources */,
 				FBE767F420F00FFE00A42BD5 /* main.m in Sources */,
 				FBA6E8CF20F0262A00A12ACF /* SGDirWatchdog.m in Sources */,
 				FB609E5E249C2AF900865CCC /* MF_purchasedItem.m in Sources */,
+				FB5F5F68249EA48400C52F12 /* EQImage+Scale.m in Sources */,
 				FB1241362478997500528C29 /* MF_searchView.m in Sources */,
 				FBC2123423B459CE006F4485 /* MF_BlacklistManager.m in Sources */,
-				FB4F4B862498316500987D1E /* SLColorArt.m in Sources */,
+				FB5F5F6B249EA48400C52F12 /* SLColorArt.m in Sources */,
 				FB2FE5CC230638120082C714 /* SYFlatButton.m in Sources */,
 				FBA6E8BB20F01C6300A12ACF /* StartAtLoginController.m in Sources */,
 				FBAAB3EF20F22BF5002156DC /* NSBundle+LoginItem.m in Sources */,

@@ -118,6 +118,37 @@
     }
 }
 
+- (void)updateSidebarColor {
+    // Adjust text and background color
+    NSString *osxMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
+    NSColor *primary = NSColor.darkGrayColor;
+    NSColor *secondary = NSColor.blackColor;
+    NSColor *highlight = NSColor.blackColor;
+    if (_macOS >= 14) {
+        if ([osxMode isEqualToString:@"Dark"]) {
+            primary = NSColor.whiteColor;
+            secondary = NSColor.whiteColor;
+            highlight = NSColor.whiteColor;
+        }
+    }
+    
+    NSMutableArray *allButtons = _sidebarTopButtons.mutableCopy;
+    [allButtons addObjectsFromArray:_sidebarBotButtons];
+    for (MF_sidebarButton *sidebarButton in allButtons) {
+        NSTextField *g = sidebarButton.buttonLabel;
+        NSMutableAttributedString *colorTitle = [[NSMutableAttributedString alloc] initWithString:g.stringValue];
+        if (!sidebarButton.selected) {
+            [[sidebarButton layer] setBackgroundColor:[NSColor clearColor].CGColor];
+            [colorTitle addAttribute:NSForegroundColorAttributeName value:primary range:NSMakeRange(0, g.attributedStringValue.length)];
+            [g setAttributedStringValue:colorTitle];
+        } else {
+            [[sidebarButton layer] setBackgroundColor:[highlight colorWithAlphaComponent:.25].CGColor];
+            [colorTitle addAttribute:NSForegroundColorAttributeName value:secondary range:NSMakeRange(0, g.attributedStringValue.length)];
+            [g setAttributedStringValue:colorTitle];
+        }
+    }
+}
+
 - (IBAction)selectView:(id)sender {
     MF_sidebarButton *buttonContainer = nil;
     NSButton *button = (NSButton*)sender;
@@ -136,34 +167,12 @@
         [self setMainViewSubView:buttonContainer.linkedView];
     }
     
-    // Adjust text and background color
-    NSString *osxMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
-    NSColor *primary = NSColor.darkGrayColor;
-    NSColor *secondary = NSColor.blackColor;
-    NSColor *highlight = NSColor.blackColor;
-    if (_macOS >= 14) {
-        if ([osxMode isEqualToString:@"Dark"]) {
-            primary = NSColor.whiteColor;
-            secondary = NSColor.whiteColor;
-            highlight = NSColor.whiteColor;
-        }
-    }
-
     NSMutableArray *allButtons = _sidebarTopButtons.mutableCopy;
     [allButtons addObjectsFromArray:_sidebarBotButtons];
-    for (MF_sidebarButton *sidebarButton in allButtons) {
-        NSTextField *g = sidebarButton.buttonLabel;
-        NSMutableAttributedString *colorTitle = [[NSMutableAttributedString alloc] initWithString:g.stringValue];
-        if (![sidebarButton isEqualTo:buttonContainer]) {
-            [[sidebarButton layer] setBackgroundColor:[NSColor clearColor].CGColor];
-            [colorTitle addAttribute:NSForegroundColorAttributeName value:primary range:NSMakeRange(0, g.attributedStringValue.length)];
-            [g setAttributedStringValue:colorTitle];
-        } else {
-            [[sidebarButton layer] setBackgroundColor:[highlight colorWithAlphaComponent:.25].CGColor];
-            [colorTitle addAttribute:NSForegroundColorAttributeName value:secondary range:NSMakeRange(0, g.attributedStringValue.length)];
-            [g setAttributedStringValue:colorTitle];
-        }
-    }
+    for (MF_sidebarButton *sidebarButton in allButtons)
+        sidebarButton.selected = false;
+    buttonContainer.selected = true;
+    [self updateSidebarColor];
 }
 
 - (void)setViewSubViewWithScrollableView:(NSView*)view :(NSView*)subview {
@@ -306,6 +315,7 @@
             if ([osxMode isEqualToString:@"Dark"])
                 [_changeLog setTextColor:[NSColor whiteColor]];
         }
+        [self updateSidebarColor];
     }
 }
 

@@ -138,7 +138,6 @@
 //	BOOL darkBackground = [backgroundColor pc_isDarkColor];
 
 	[self _findTextColors:imageColors primaryColor:&primaryColor secondaryColor:&secondaryColor detailColor:&detailColor backgroundColor:backgroundColor];
-
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:4];
     if (backgroundColor) {
       [dict setObject:backgroundColor forKey:kAnalyzedBackgroundColor];
@@ -166,110 +165,77 @@ typedef struct RGBAPixel
     
 } RGBAPixel;
 
+- (NSBitmapImageRep *)bitmapImageRepresentationForImage:(NSImage *)image {
+    int width = [image size].width;
+    int height = [image size].height;
+    
+    if(width < 1 || height < 1)
+        return nil;
+    
+    NSBitmapImageRep *rep = [[NSBitmapImageRep alloc]
+                             initWithBitmapDataPlanes: NULL
+                             pixelsWide: width
+                             pixelsHigh: height
+                             bitsPerSample: 8
+                             samplesPerPixel: 4
+                             hasAlpha: YES
+                             isPlanar: NO
+                             colorSpaceName: NSDeviceRGBColorSpace
+                             bytesPerRow: width * 4
+                             bitsPerPixel: 32];
+    
+    NSGraphicsContext *ctx = [NSGraphicsContext graphicsContextWithBitmapImageRep: rep];
+    [NSGraphicsContext saveGraphicsState];
+    [NSGraphicsContext setCurrentContext: ctx];
+    [image drawAtPoint: NSZeroPoint fromRect: NSZeroRect operation: NSCompositingOperationCopy fraction: 1.0];
+    [ctx flushGraphics];
+    [NSGraphicsContext restoreGraphicsState];
+    
+    return rep;
+}
+
 - (EQColor*)_findEdgeColor:(EQImage*)image imageColors:(NSArray**)colors
 {
-	CGImageRef imageRep = [image eq_cgImage];
+    NSBitmapImageRep *imageRep = [self bitmapImageRepresentationForImage:image];
+    imageRep = [(NSBitmapImageRep*)imageRep bitmapImageRepByConvertingToColorSpace:[NSColorSpace genericRGBColorSpace] renderingIntent:NSColorRenderingIntentDefault];
     
-    NSUInteger pixelRange = 8;
-    NSUInteger scale = 256 / pixelRange;
-    NSUInteger rawImageColors[pixelRange][pixelRange][pixelRange];
-    NSUInteger rawEdgeColors[pixelRange][pixelRange][pixelRange];
-    
-    // Should probably just switch to calloc, but this doesn't show up in instruments
-    // So I guess it's fine
-    for(NSUInteger b = 0; b < pixelRange; b++) {
-        for(NSUInteger g = 0; g < pixelRange; g++) {
-            for(NSUInteger r = 0; r < pixelRange; r++) {
-                rawImageColors[r][g][b] = 0;
-                rawEdgeColors[r][g][b] = 0;
-            }
-        }
-    }
-    
+    CGFloat red = 0;
+    CGFloat green = 0;
+    CGFloat blue = 0;
+    NSUInteger colorCount = 0;
 
-    NSInteger width = CGImageGetWidth(imageRep);// [imageRep pixelsWide];
-	NSInteger height = CGImageGetHeight(imageRep); //[imageRep pixelsHigh];
-
-    CGColorSpaceRef cs = CGColorSpaceCreateDeviceRGB();
-    CGContextRef bmContext = CGBitmapContextCreate(NULL, width, height, 8, 4 * width, cs, kCGImageAlphaNoneSkipLast);
-    CGContextDrawImage(bmContext, (CGRect){.origin.x = 0.0f, .origin.y = 0.0f, .size.width = width, .size.height = height}, [image eq_cgImage]);
-    CGColorSpaceRelease(cs);
-    const RGBAPixel* pixels = (const RGBAPixel*)CGBitmapContextGetData(bmContext);
-    for (NSUInteger y = 0; y < height; y++)
-    {
-        for (NSUInteger x = 0; x < width; x++)
-        {
+    struct RGBAPixel* pixels = (struct RGBAPixel*)[imageRep bitmapData];
+    
+    NSInteger width =imageRep.pixelsWide;
+    NSInteger height = imageRep.pixelsHigh;
+    NSMutableArray *imgColors = [NSMutableArray new];
+    for ( NSUInteger x = 0; x < width; x++ ) {
+        for ( NSUInteger y = 0; y < height; y++ ){
             const NSUInteger index = x + y * width;
             RGBAPixel pixel = pixels[index];
-            Byte r = pixel.red / scale;
-            Byte g = pixel.green / scale;
-            Byte b = pixel.blue / scale;
-            rawImageColors[r][g][b] = rawImageColors[r][g][b] + 1;
-            if(0 == x) {
-                rawEdgeColors[r][g][b] = rawEdgeColors[r][g][b] + 1;
-            }
-        }
-    }
-    CGContextRelease(bmContext);
-
-    NSMutableArray* imageColors = [NSMutableArray array];
-    NSMutableArray* edgeColors = [NSMutableArray array];
-    
-    for(NSUInteger b = 0; b < pixelRange; b++) {
-        for(NSUInteger g = 0; g < pixelRange; g++) {
-            for(NSUInteger r = 0; r < pixelRange; r++) {
-                NSUInteger count = rawImageColors[r][g][b];
-                if(count > _randomColorThreshold) {
-                    EQColor* color = [EQColor colorWithRed:r / (CGFloat)pixelRange green:g / (CGFloat)pixelRange blue:b / (CGFloat)pixelRange alpha:1];
-                    PCCountedColor* countedColor = [[PCCountedColor alloc] initWithColor:color count:count];
-                    [imageColors addObject:countedColor];
-                }
+            if(pixel.alpha >= 127) {
+                EQColor *color = [EQColor colorWithRed:(pixel.red/255.0f) green:(pixel.green/255.0f) blue:(pixel.blue/255.0f) alpha:1];
                 
-                count = rawEdgeColors[r][g][b];
-                if(count > _randomColorThreshold) {
-                    EQColor* color = [EQColor colorWithRed:r / (CGFloat)pixelRange green:g / (CGFloat)pixelRange blue:b / (CGFloat)pixelRange alpha:1];
-                    PCCountedColor* countedColor = [[PCCountedColor alloc] initWithColor:color count:count];
-                    [edgeColors addObject:countedColor];
+                PCCountedColor* countedColor = [[PCCountedColor alloc] initWithColor:color count:index];
+                [imgColors addObject:countedColor];
+                if(colorCount <= EDGE_THICKNESS) {
+                    red += color.redComponent;
+                    green += color.greenComponent;
+                    blue += color.blueComponent;
+                    colorCount += 1;
                 }
             }
         }
+        
     }
 
-	*colors = imageColors;
+    *colors = imgColors;
+    red /= colorCount;
+    green /= colorCount;
+    blue /= colorCount;
     
-    NSMutableArray* sortedColors = edgeColors;
-	[sortedColors sortUsingSelector:@selector(compare:)];
-
-	PCCountedColor *proposedEdgeColor = nil;
-
-	if ( [sortedColors count] > 0 )
-	{
-		proposedEdgeColor = [sortedColors objectAtIndex:0];
-
-		if ( [proposedEdgeColor.color pc_isBlackOrWhite] ) // want to choose color over black/white so we keep looking
-		{
-			for ( NSInteger i = 1; i < [sortedColors count]; i++ )
-			{
-				PCCountedColor *nextProposedColor = [sortedColors objectAtIndex:i];
-
-				if (((double)nextProposedColor.count / (double)proposedEdgeColor.count) > .4 ) // make sure the second choice color is 40% as common as the first choice
-				{
-					if ( ![nextProposedColor.color pc_isBlackOrWhite] )
-					{
-						proposedEdgeColor = nextProposedColor;
-						break;
-					}
-				}
-				else
-				{
-					// reached color threshold less than 40% of the original proposed edge color so bail
-					break;
-				}
-			}
-		}
-	}
-
-	return proposedEdgeColor.color;
+    EQColor *ret = [EQColor colorWithRed:red green:green blue:blue alpha:1.0f];
+    return ret;
 }
 
 

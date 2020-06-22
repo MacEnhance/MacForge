@@ -16,6 +16,9 @@
 
 #import "SLTypeAliases.h"
 #import <Foundation/Foundation.h>
+
+#define EDGE_THICKNESS 20
+
 @interface SLColorArt : NSObject
 @property(strong, nonatomic, readonly) EQColor *backgroundColor;
 @property(strong, nonatomic, readonly) EQColor *primaryColor;

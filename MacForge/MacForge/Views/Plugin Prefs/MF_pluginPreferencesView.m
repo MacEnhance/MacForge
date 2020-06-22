@@ -17,9 +17,7 @@
         [_tv setDataSource:self];
         [_tv registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
         [_tv.tableColumns.lastObject.headerCell setStringValue:@"Select a preference bundle"];
-        
-        self.watchDog = [[SGDirWatchdog alloc] initWithPath:@"/Library/Application Support/MacEnhance/Preferences"
-                                                               update:^{
+        self.watchDog = [[SGDirWatchdog alloc] initWithPath:@"/Library/Application Support/MacEnhance/Preferences" update:^{
             [self.tv reloadData];
         }];
         [self.watchDog start];

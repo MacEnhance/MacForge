@@ -23,6 +23,7 @@
 + (NSImage*)pluginGetIcon:(NSDictionary*)plist;
 
 - (NSString*)pluginLocalPath:(NSString*)bundleID;
+- (NSString*)getItemLocalVersion:(NSString*)bundleID;
 
 - (NSMutableDictionary*)getInstalledPlugins;
 

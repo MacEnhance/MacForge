@@ -14,6 +14,7 @@
 
 @interface MF_sidebarButton : NSView
 
+@property Boolean                   selected;
 @property IBOutlet NSImageView*     buttonImage;
 @property IBOutlet NSButton*        buttonClickArea;
 @property IBOutlet NSTextField*     buttonLabel;
