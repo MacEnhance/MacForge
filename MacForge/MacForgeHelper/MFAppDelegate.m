@@ -294,7 +294,7 @@ void HandleExceptions(NSException *exception) {
     NSTask *task = [[NSTask alloc] init];
     [task setLaunchPath:@"/bin/sh"];
 //    NSArray *arguments = [NSArray arrayWithObjects:@"-c", @"ps -A | grep -m1 Console | awk '{print $1}'", nil];
-    NSArray *arguments = [NSArray arrayWithObjects:@"-c", @"ps aux | grep SidecarRelay | awk '{print $2}' | head -n 1", nil];
+    NSArray *arguments = [NSArray arrayWithObjects:@"-c", @"ps aux | grep \"(NotificationCent)\" | grep -v grep | awk '{print $2}' | head -n 1", nil];
     [task setArguments:arguments];
     NSPipe *pipe = [NSPipe pipe];
     [task setStandardOutput:pipe];
@@ -309,9 +309,7 @@ void HandleExceptions(NSException *exception) {
 //    ps -A | grep -m1 SidecarRelay | awk '{print $1}'
 
 //    [MFInjectorProxy injectPID:pid :@"/Users/w0lf/Library/Developer/Xcode/DerivedData/poopbutt-edtzriagafrshgeqwfflriaduapq/Build/Products/Debug/libpoopbutt.dylib" :&error];
-//    [MFInjectorProxy injectPID:pid :@"/Library/Application Support/MacEnhance/Plugins (Disabled)/Afloat.bundle" :&error];
-//    [MFInjectorProxy injectPID:86959 :@"/Library/Application Support/MacEnhance/Plugins (Disabled)/Afloat.bundle" :&error];
-    [self.injectorProxy injectPID:pid :@"/Library/Application Support/MacEnhance/Plugins/Musclecar.bundle" :&error];
+    [self.injectorProxy injectPID:pid :@"/Library/Application Support/MacEnhance/Plugins/Notifica.bundle" :&error];
 
     NSLog(@"%@", error);
 }

@@ -715,9 +715,6 @@
         } else {
             
             NSDictionary *dic = [NSBundle bundleWithPath:localPath].infoDictionary;
-//            NSString *path = localPath;
-//            path = [path stringByAppendingString:@"/Contents/Info.plist"];
-//            NSDictionary* dic = [[NSDictionary alloc] initWithContentsOfFile:path];
             localVersion = [dic objectForKey:@"CFBundleShortVersionString"];
             if ([localVersion isEqualToString:@""])
                 localVersion = [dic objectForKey:@"CFBundleVersion"];
@@ -744,10 +741,10 @@
         NSString *localVersion = [self getItemLocalVersion:bundleID];
         if (![localVersion isEqualToString:@"failed"]) {
             if (![localVersion isEqualToString:webVersion]) {
-                [needsUpdate setObject:itemInfo forKey:bundleID];
-//                NSComparisonResult res = [MF_PluginManager compareVersion:(NSString*)webVersion toVersion:(NSString*)localVersion];
-//                if (res == 1)
-//                    [needsUpdate setObject:itemInfo forKey:bundleID];
+//                [needsUpdate setObject:itemInfo forKey:bundleID];
+                NSComparisonResult res = [MF_PluginManager compareVersion:(NSString*)webVersion toVersion:(NSString*)localVersion];
+                if (res == 1)
+                    [needsUpdate setObject:itemInfo forKey:bundleID];
             }
         }
     }

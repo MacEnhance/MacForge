@@ -60,7 +60,11 @@ extern AppDelegate *myDelegate;
     _bundleGet.backgroundNormalColor = NSColor.whiteColor;
     _bundleGet.backgroundHighlightColor = NSColor.whiteColor;
     _bundleGet.backgroundDisabledColor = NSColor.grayColor;
-    _bundleGet.titleNormalColor = [NSColor colorWithRed:0.4 green:0.6 blue:1 alpha:1];
+    if (@available(macOS 10.14, *)) {
+        _bundleGet.titleNormalColor = NSColor.controlAccentColor;
+    } else {
+        _bundleGet.titleNormalColor = [NSColor colorWithRed:0.4 green:0.6 blue:1 alpha:1];
+    }
     _bundleGet.titleHighlightColor = [NSColor colorWithRed:0.4 green:0.6 blue:1 alpha:1];
     _bundleGet.titleDisabledColor = NSColor.whiteColor;
     _bundleGet.cornerRadius = _bundleGet.frame.size.height/2;

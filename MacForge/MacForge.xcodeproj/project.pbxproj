@@ -30,6 +30,11 @@
 		F3A95F7523EF842A004635FD /* MF_bundleTinyItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3A95F7323EF842A004635FD /* MF_bundleTinyItem.xib */; };
 		FB0227A920F0539B006566EF /* MF_PluginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8EA20F0289900A12ACF /* MF_PluginManager.m */; };
 		FB057CC72139B1B4002B3BB3 /* com.macenhance.MacForge.Injector in CopyFiles */ = {isa = PBXBuildFile; fileRef = F0ADE1B8166E0820009758CC /* com.macenhance.MacForge.Injector */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		FB0FC0E124A1D02E00857D55 /* square.and.arrow.down_Normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB0FC0DD24A1D02E00857D55 /* square.and.arrow.down_Normal@2x.png */; };
+		FB0FC0E224A1D02E00857D55 /* star_Normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB0FC0DE24A1D02E00857D55 /* star_Normal@2x.png */; };
+		FB0FC0E324A1D02E00857D55 /* arrow.up.arrow.down.square_Normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB0FC0DF24A1D02E00857D55 /* arrow.up.arrow.down.square_Normal@2x.png */; };
+		FB0FC0E524A1D1CA00857D55 /* magnifyingglass.circle_Normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB0FC0E424A1D1CA00857D55 /* magnifyingglass.circle_Normal@2x.png */; };
+		FB0FC0E724A1E3BA00857D55 /* sidebar_Normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB0FC0E624A1E3B900857D55 /* sidebar_Normal@2x.png */; };
 		FB1241362478997500528C29 /* MF_searchView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB1241352478997500528C29 /* MF_searchView.m */; };
 		FB12413C247899F600528C29 /* MF_extra.m in Sources */ = {isa = PBXBuildFile; fileRef = FB12413B247899F600528C29 /* MF_extra.m */; };
 		FB169AFD22F4EEEB001E84E0 /* MF_featuredItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB169AFB22F4EEEB001E84E0 /* MF_featuredItemController.m */; };
@@ -346,6 +351,11 @@
 		F3A95F7123EF842A004635FD /* MF_bundleTinyItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_bundleTinyItem.h; sourceTree = "<group>"; };
 		F3A95F7223EF842A004635FD /* MF_bundleTinyItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_bundleTinyItem.m; sourceTree = "<group>"; };
 		F3A95F7323EF842A004635FD /* MF_bundleTinyItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MF_bundleTinyItem.xib; sourceTree = "<group>"; };
+		FB0FC0DD24A1D02E00857D55 /* square.and.arrow.down_Normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "square.and.arrow.down_Normal@2x.png"; sourceTree = "<group>"; };
+		FB0FC0DE24A1D02E00857D55 /* star_Normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star_Normal@2x.png"; sourceTree = "<group>"; };
+		FB0FC0DF24A1D02E00857D55 /* arrow.up.arrow.down.square_Normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow.up.arrow.down.square_Normal@2x.png"; sourceTree = "<group>"; };
+		FB0FC0E424A1D1CA00857D55 /* magnifyingglass.circle_Normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "magnifyingglass.circle_Normal@2x.png"; sourceTree = "<group>"; };
+		FB0FC0E624A1E3B900857D55 /* sidebar_Normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sidebar_Normal@2x.png"; sourceTree = "<group>"; };
 		FB1241342478997500528C29 /* MF_searchView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_searchView.h; sourceTree = "<group>"; };
 		FB1241352478997500528C29 /* MF_searchView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_searchView.m; sourceTree = "<group>"; };
 		FB12413A247899F600528C29 /* MF_extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MF_extra.h; sourceTree = "<group>"; };
@@ -828,6 +838,11 @@
 		FBA6E8DF20F0286000A12ACF /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				FB0FC0E624A1E3B900857D55 /* sidebar_Normal@2x.png */,
+				FB0FC0E424A1D1CA00857D55 /* magnifyingglass.circle_Normal@2x.png */,
+				FB0FC0DF24A1D02E00857D55 /* arrow.up.arrow.down.square_Normal@2x.png */,
+				FB0FC0DD24A1D02E00857D55 /* square.and.arrow.down_Normal@2x.png */,
+				FB0FC0DE24A1D02E00857D55 /* star_Normal@2x.png */,
 				FB4F4B8824988F0E00987D1E /* checkmark.shield.fill_Normal@2x.png */,
 				FB4F4B8924988F0E00987D1E /* lock.shield.fill_Normal@2x.png */,
 				FB88081F2480FEFA0002727A /* arrow.up.arrow.down.square.fill_Normal@2x.png */,
@@ -1306,11 +1321,13 @@
 				F3A95F7523EF842A004635FD /* MF_bundleTinyItem.xib in Resources */,
 				FB80DBDD231B4C6A00823B67 /* star.png in Resources */,
 				FB88082A2480FEFB0002727A /* star.fill_Normal@2x.png in Resources */,
+				FB0FC0E324A1D02E00857D55 /* arrow.up.arrow.down.square_Normal@2x.png in Resources */,
 				FB7259E52314F2BD00701F32 /* GoogleService-Info.plist in Resources */,
 				FB88082C2480FEFB0002727A /* square.and.arrow.down.fill_Normal@2x.png in Resources */,
 				FB80DBDC231B4C6A00823B67 /* starhighlighted.png in Resources */,
 				FBA6E8FC20F028A400A12ACF /* LICENSE_EULA in Resources */,
 				FBD090E323BBEAE20023F5BB /* CREDITS.md in Resources */,
+				FB0FC0E524A1D1CA00857D55 /* magnifyingglass.circle_Normal@2x.png in Resources */,
 				FBA6E8DA20F0285B00A12ACF /* loading_mini.gif in Resources */,
 				FBA6E8E120F0287500A12ACF /* dsa_pub.pem in Resources */,
 				FBA6E8CE20F025A100A12ACF /* Application.xib in Resources */,
@@ -1318,8 +1335,11 @@
 				FBA6E8CA20F01E1B00A12ACF /* LICENSE_SGDirWatchdog in Resources */,
 				FB4F4B8B24988F0E00987D1E /* lock.shield.fill_Normal@2x.png in Resources */,
 				FBA6E8C220F01D4000A12ACF /* LICENSE_StartAtLoginController in Resources */,
+				FB0FC0E724A1E3BA00857D55 /* sidebar_Normal@2x.png in Resources */,
 				FBA6E8C420F01D7500A12ACF /* LICENSE_SIMBL in Resources */,
 				FB8808292480FEFB0002727A /* desktopcomputer_Normal@2x.png in Resources */,
+				FB0FC0E224A1D02E00857D55 /* star_Normal@2x.png in Resources */,
+				FB0FC0E124A1D02E00857D55 /* square.and.arrow.down_Normal@2x.png in Resources */,
 				FB306ACE2367CD0F008A6E61 /* Media.xcassets in Resources */,
 				FB8808262480FEFB0002727A /* arrow.up.arrow.down.square.fill_Normal@2x.png in Resources */,
 				FB609E5F249C2AF900865CCC /* MF_purchasedItem.xib in Resources */,

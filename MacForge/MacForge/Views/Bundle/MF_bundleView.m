@@ -79,7 +79,7 @@ NSDictionary *testing;
     _starScore.stringValue = [NSString stringWithFormat:@"%.1f", randomScore];
     _starReviews.stringValue = [NSString stringWithFormat:@"%.0f ratings", randomReviews];
     
-    if (!testing) {
+    if (testing) {
 //        if (reviewsDict.data[@"ratings"]) {
             NSDictionary *rate = testing[@"ratings"];
             float total = 0;
@@ -131,38 +131,9 @@ NSDictionary *testing;
     [self setWantsLayer:YES];
     self.layer.masksToBounds = YES;
     
-//    NSArray *allPlugins;
     _plugin = [MF_repoData sharedInstance].currentPlugin;
-    
-    if (_plugin != nil) {
+    if (_plugin != nil)
         item = _plugin.webPlist;
-    } else {
-//        if (![repoPackages isEqualToString:@""]) {
-//            
-//            // Sometimes this is slow
-//            
-//            NSURL *dicURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/packages.plist", repoPackages]];
-//            NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithContentsOfURL:dicURL];
-//            allPlugins = [dict allValues];
-//            
-//            // Hmmm...
-//            
-//            NSSortDescriptor *sortByName = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)];
-//            NSArray *sortDescriptors = [NSArray arrayWithObject:sortByName];
-//            NSArray *sortedArray = [allPlugins sortedArrayUsingDescriptors:sortDescriptors];
-//            allPlugins = sortedArray;
-//        } else {
-//            NSMutableArray *sourceURLS = [[NSMutableArray alloc] initWithArray:[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] objectForKey:@"sources"]];
-//            NSMutableDictionary *comboDic = [[NSMutableDictionary alloc] init];
-//            for (NSString *url in sourceURLS) {
-//                NSURL *dicURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/packages.plist", url]];
-//                NSMutableDictionary *sourceDic = [[NSMutableDictionary alloc] initWithContentsOfURL:dicURL];
-//                [comboDic addEntriesFromDictionary:sourceDic];
-//            }
-//            allPlugins = [comboDic allValues];
-//        }
-//        item = [[NSMutableDictionary alloc] initWithDictionary:[allPlugins objectAtIndex:selectedRow]];
-    }
         
     NSString* newString;
     newString = [NSString stringWithFormat:@"%@", [item objectForKey:@"name"]];
@@ -268,45 +239,26 @@ NSDictionary *testing;
         [self.bundleDelete setAction:@selector(pluginDelete)];
         
         [self.bundleDelete setEnabled:[MF_PluginManager.sharedInstance pluginLocalPath:_plugin.bundleID].length];
-        
-//        [self.bundleInstall setBordered:0];
-//        CGRect old = self.bundleContact.frame;
-//        CGRect frm = CGRectMake(old.origin.x + 7, old.origin.y + 32, 86, 21);
-//        [self.bundleInstall setFrame:frm];
-//        [self.bundleInstall.layer setBackgroundColor:[NSColor colorWithRed:0.3 green:0.8 blue:0.4 alpha:1.0].CGColor];
-//        [self.bundleInstall.layer setCornerRadius:4];
-        
-        //    NSDate *startTime = [NSDate date];
-        
-//        NSMutableDictionary *installedPlugins = [[NSMutableDictionary alloc] init];
-//        NSMutableDictionary *plugins = [PluginManager.sharedInstance getInstalledPlugins];
-//        for (NSString *key in plugins.allKeys) {
-//            NSDictionary *itemDict = [plugins objectForKey:key];
-//            [installedPlugins setObject:itemDict forKey:[itemDict objectForKey:@"bundleId"]];
-//        }
-        
-        NSMutableDictionary *installedPlugins = [MF_PluginManager.sharedInstance getInstalledPlugins];
-
-        //    NSDate *methodFinish = [NSDate date];
-        //    NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:startTime];
-        //    NSLog(@"%@ execution time : %f Seconds", startTime, executionTime);
-        
-//        Boolean installed = false;
-        Boolean isApp = false;
-        NSString *bundleID = [item objectForKey:@"package"];
-        if ([Workspace URLForApplicationWithBundleIdentifier:bundleID]) isApp = true;
-//        if ([installedPlugins objectForKey:bundleID])
-//            installed = true;
-
-//        if ([Workspace URLForApplicationWithBundleIdentifier:bundleID]) {
-//            isApp = true;
-//            if ([[Workspace URLForApplicationWithBundleIdentifier:bundleID].path.pathComponents.firstObject isEqualToString:@"/Applications"])
-//                installed = true;
-//        }
           
-        [MF_Purchase checkStatus:_plugin :self.bundleInstall];
-        [self.bundleInstall setAction:@selector(getOrOpen:)];
-        [self.bundleInstall setTarget:self];
+        [MF_Purchase checkStatus:_plugin :_bundleInstall];
+        
+        if (@available(macOS 10.14, *)) {
+            _bundleInstall.backgroundNormalColor = NSColor.controlAccentColor;
+        } else {
+            _bundleInstall.backgroundNormalColor = [NSColor colorWithRed:0.4 green:0.6 blue:1 alpha:1];
+        }
+        _bundleInstall.backgroundHighlightColor = NSColor.whiteColor;
+        _bundleInstall.backgroundDisabledColor = NSColor.grayColor;
+        _bundleInstall.titleNormalColor = NSColor.whiteColor;
+        _bundleInstall.titleHighlightColor = [NSColor colorWithRed:0.4 green:0.6 blue:1 alpha:1];
+        _bundleInstall.titleDisabledColor = NSColor.whiteColor;
+        _bundleInstall.cornerRadius = _bundleInstall.frame.size.height/2;
+        if (@available(macOS 10.15, *)) { _bundleInstall.layer.cornerCurve = kCACornerCurveContinuous; }
+        _bundleInstall.spacing = 0.1;
+        _bundleInstall.borderWidth = 0;
+        _bundleInstall.momentary = true;
+        _bundleInstall.action = @selector(getOrOpen:);
+        _bundleInstall.target = self;
         
         self.bundlePreview1.animates = YES;
         self.bundlePreview1.canDrawSubviewsIntoLayer = YES;
