@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MF_Paddle : NSObject
 + (instancetype)sharedInstance;
 + (void)validadePlugin:(MF_Plugin*)plugin withButton:(NSButton*)theButton;
-+ (void)purchasePlugin:(MF_Plugin*)plugin withButton:(NSButton*)theButton;
++ (void)purchasePlugin:(MF_Plugin*)plugin withButton:(NSButton*)theButton andProgress:(NSProgressIndicator*)progress;
 @end
 
 NS_ASSUME_NONNULL_END

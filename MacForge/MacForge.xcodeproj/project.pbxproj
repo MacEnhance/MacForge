@@ -361,6 +361,7 @@
 		FB306ACD2367CD0F008A6E61 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		FB35B8B024A2F2AC0064549F /* MF_Paddle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MF_Paddle.h; sourceTree = "<group>"; };
 		FB35B8B724A2F2AC0064549F /* MF_Paddle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MF_Paddle.m; sourceTree = "<group>"; };
+		FB35B8BA24A32FD40064549F /* MF_defines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MF_defines.h; sourceTree = "<group>"; };
 		FB3C2EC7236A7FB5002B21C1 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		FB4F4B8824988F0E00987D1E /* checkmark.shield.fill_Normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkmark.shield.fill_Normal@2x.png"; sourceTree = "<group>"; };
 		FB4F4B8924988F0E00987D1E /* lock.shield.fill_Normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock.shield.fill_Normal@2x.png"; sourceTree = "<group>"; };
@@ -956,6 +957,7 @@
 		FBE767E920F00FFB00A42BD5 /* MacForge */ = {
 			isa = PBXGroup;
 			children = (
+				FB35B8BA24A32FD40064549F /* MF_defines.h */,
 				FB12413A247899F600528C29 /* MF_extra.h */,
 				FB12413B247899F600528C29 /* MF_extra.m */,
 				FBC2123223B459CE006F4485 /* MF_BlacklistManager.h */,

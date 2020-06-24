@@ -9,6 +9,8 @@
 @import AppKit;
 #import "FConvenience.h"
 #import "MF_PluginManager.h"
+#import "MF_Plugin.h"
+#import "MF_defines.h"
 
 @implementation MF_PluginManager
 
@@ -290,43 +292,6 @@
     }
 }
 
-// Try to update or install a plugin given a bundle plist and a repo
-- (Boolean)pluginUpdateOrInstallWithProgress:(NSDictionary *)item :(NSString *)repo :(NSButton *)button :(NSProgressIndicator *)progress {
-    if (progress) {
-        progressObject = progress;
-        progressObject.hidden = false;
-        progressObject.doubleValue = 0;
-    }
-    
-    if (button) {
-        downloadButton = button;
-        downloadButton.enabled = false;
-        downloadButton.title = @"";
-        
-        if (progressObject)
-            [progressObject setFrameOrigin:CGPointMake(downloadButton.frame.origin.x + downloadButton.frame.size.width/2 - progressObject.frame.size.width/2,
-                                                       downloadButton.frame.origin.y + downloadButton.frame.size.height/2 - progressObject.frame.size.height/2)];
-
-//            [progressObject setFrameOrigin:CGPointMake(downloadButton.frame.origin.x + downloadButton.frame.size.width + 10, downloadButton.frame.origin.y + downloadButton.frame.size.height/2 - progressObject.frame.size.height/2)];
-    }
-    
-    _plugin = item;
-    Boolean success = false;
-
-    // 1
-    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration:defaultConfigObject delegate:self delegateQueue:[NSOperationQueue mainQueue]];
-    NSURL *dataUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", repo, [item objectForKey:@"filename"]]];
-
-    // 2
-    NSURLSessionDataTask *dataTask = [defaultSession dataTaskWithURL: dataUrl];
-
-    // 3
-    [dataTask resume];
-    
-    return success;
-}
-
 - (Boolean)pluginDownloaded:(NSData*)data {
     if (progressObject) {
         progressObject.hidden = true;
@@ -368,12 +333,47 @@
 }
 
 // Try to update or install a plugin given a bundle plist and a repo
-- (Boolean)pluginUpdateOrInstall:(NSDictionary *)item :(NSString *)repo withCompletionHandler:(void (^)(BOOL result))completionBlock {
+- (Boolean)pluginUpdateOrInstall:(NSDictionary *)item withButton:(NSButton *)button andProgress:(NSProgressIndicator *)progress {
+    if (progress) {
+        progressObject = progress;
+        progressObject.hidden = false;
+        progressObject.doubleValue = 0;
+    }
+    
+    if (button) {
+        downloadButton = button;
+        downloadButton.enabled = false;
+        downloadButton.title = @"";
+        
+        if (progressObject)
+            [progressObject setFrameOrigin:CGPointMake(downloadButton.frame.origin.x + downloadButton.frame.size.width/2 - progressObject.frame.size.width/2,
+                                                       downloadButton.frame.origin.y + downloadButton.frame.size.height/2 - progressObject.frame.size.height/2)];
+    }
+    
+    _plugin = item;
+    Boolean success = false;
+
+    // 1
+    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration:defaultConfigObject delegate:self delegateQueue:[NSOperationQueue mainQueue]];
+    NSURL *dataUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", MF_REPO_URL, [item objectForKey:@"filename"]]];
+
+    // 2
+    NSURLSessionDataTask *dataTask = [defaultSession dataTaskWithURL: dataUrl];
+
+    // 3
+    [dataTask resume];
+    
+    return success;
+}
+
+// Try to update or install a plugin given a bundle plist and a repo
+- (Boolean)pluginUpdateOrInstall:(NSDictionary *)item withCompletionHandler:(void (^)(BOOL result))completionBlock {
     __block Boolean success = false;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         // Get installation URL
-        NSURL *installURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", repo, [item objectForKey:@"filename"]]];
+        NSURL *installURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", MF_REPO_URL, [item objectForKey:@"filename"]]];
 
         // SynchronousRequest to grab the data
         NSURLRequest *request = [NSURLRequest requestWithURL:installURL];
@@ -504,30 +504,12 @@
         if (result) return result;
     }
     
-    // Old loading of custom bundle icon
-    NSString* iconPath = [NSString stringWithFormat:@"%@/Contents/icon.icns", bundle_path];
-//    if ([iconPath length]) {
-//        result = [[NSImage alloc] initWithContentsOfFile:iconPath];
-//        if (result) return result;
-//    }
-    
-//    for (NSDictionary* targetApp in targets) {
-//        iconPath = [targetApp objectForKey:@"BundleIdentifier"];
-//        iconPath = [Workspace absolutePathForAppBundleWithIdentifier:iconPath];
-//        if ([iconPath length]) {
-//            result = [Workspace iconForFile:iconPath];
-//            if (result) return result;
-//        }
-//    }
-    
-//    NSLog(@"%@%@", [plist objectForKey:@"sourceURL"], [plist objectForKey:@"icon"]);
-    
-    // Try finding an icon based on target applications
-    // We will always use the first icon found
+    // Try finding an icon based on target applications we will always use the first icon found
     for (NSDictionary* targetApp in targets) {
-        iconPath = [Workspace absolutePathForAppBundleWithIdentifier:targetApp[@"BundleIdentifier"]];
+        NSString *iconPath = [Workspace absolutePathForAppBundleWithIdentifier:targetApp[@"BundleIdentifier"]];
 
         if ([iconPath length]) {
+            // Custom icon for cape files
             if ([[targetApp objectForKey:@"BundleIdentifier"] isEqualToString:@"com.alexzielenski.Mousecape"]) {
                 result = [NSImage imageNamed:@"NSArrowCursor"];
                 if (result) return result;
@@ -551,12 +533,8 @@
                 if (result) return result;
             }
             
-            // Not sure what I'm doing here 🤷‍♂️
+            // Use app icon
             result = [Workspace iconForFile:iconPath];
-//            NSData *imgDataOne = [result TIFFRepresentation];
-//            NSData *imgDataTwo = [[Workspace iconForFile:@"/System/Library/CoreServices/loginwindow.app"] TIFFRepresentation];
-//            if ([imgDataOne isEqualToData:imgDataTwo])
-//                result = [[NSImage alloc] initWithContentsOfFile:@"/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/KEXT.icns"];
             if (result) return result;
         }
     }
@@ -594,7 +572,7 @@
     if (needsUpdate.count > 0) {
         for (NSString *key in needsUpdate.allKeys) {
             NSDictionary *itemDict = [needsUpdate objectForKey:key];
-            [self pluginUpdateOrInstall:itemDict :[itemDict objectForKey:@"sourceURL"] withCompletionHandler:^(BOOL res) {
+            [self pluginUpdateOrInstall:itemDict withCompletionHandler:^(BOOL res) {
                 if (res)
                     [self->needsUpdate removeObjectForKey:key];
             }];
@@ -661,7 +639,7 @@
     if (needsUpdate.count > 0) {
         for (NSString *key in needsUpdate.allKeys) {
             NSDictionary *itemDict = [needsUpdate objectForKey:key];
-            [self pluginUpdateOrInstall:itemDict :[itemDict objectForKey:@"sourceURL"] withCompletionHandler:^(BOOL res) {
+            [self pluginUpdateOrInstall:itemDict withCompletionHandler:^(BOOL res) {
                 if (res) {
                     [self->needsUpdate removeObjectForKey:key];
                     [self updateApplicationIcon];

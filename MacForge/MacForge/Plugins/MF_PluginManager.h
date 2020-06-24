@@ -32,14 +32,13 @@
 - (void)checkforPluginUpdates:(NSTableView*)table :(NSButton*)counter;
 - (void)checkforPluginUpdatesAndInstall:(NSTableView*)table;
 
-- (void)readPlugins:(NSTableView *)pluginTable;
-
 - (void)installBundles:(NSArray*)pathArray;
+- (void)readPlugins:(NSTableView *)pluginTable;
 - (void)replaceFile:(NSString*)start :(NSString*)end;
-- (Boolean)pluginUpdateOrInstall:(NSDictionary*)item :(NSString*)repo withCompletionHandler:(void (^)(BOOL))completionBlock;
+
 - (Boolean)pluginDelete:(NSDictionary*)item;
 - (Boolean)pluginRevealFinder:(NSDictionary*)item;
-
-- (Boolean)pluginUpdateOrInstallWithProgress:(NSDictionary *)item :(NSString *)repo :(NSButton *)button :(NSProgressIndicator *)progress;
+- (Boolean)pluginUpdateOrInstall:(NSDictionary*)item withCompletionHandler:(void (^)(BOOL))completionBlock;
+- (Boolean)pluginUpdateOrInstall:(NSDictionary *)item withButton:(NSButton *)button andProgress:(NSProgressIndicator *)progress;
 
 @end

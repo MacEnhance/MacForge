@@ -46,11 +46,7 @@
 #import "MF_PluginManager.h"
 #import "blacklistTable.h"
 
-// Testing
-static NSString *MF_REPO_URL = @"file:///Users/w0lf/Documents/GitHub/MacForgeRepo/repo";
-
-// Release
-//static NSString *MF_REPO_URL = @"https://github.com/MacEnhance/MacForgeRepo/raw/master/repo";
+#import "MF_defines.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate, NSSearchFieldDelegate, NSWindowDelegate> {
     NSMutableArray *watchdogs;

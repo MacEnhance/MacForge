@@ -74,8 +74,7 @@ extern AppDelegate* myDelegate;
     return pad;
 }
 
-+ (void)purchasePlugin:(MF_Plugin*)plugin withButton:(NSButton*)theButton {
-
++ (PADProduct*)productWithPlugin:(MF_Plugin*)plugin {
     NSString *myPaddleVendorID = @"26643";
     NSString *myPaddleAPIKey = @"02a3c57238af53b3c465ef895729c765";
     NSString *myPaddleProductID = [plugin.webPlist valueForKey:@"productID"];
@@ -104,20 +103,28 @@ extern AppDelegate* myDelegate;
     }
 
     Paddle.sharedInstance.canForceExit = false;
-
-    // Initialize the Product you'd like to work with:
+    
     PADProduct *paddleProduct = [[PADProduct alloc] initWithProductID:myPaddleProductID productType:PADProductTypeSDKProduct configuration:defaultProductConfig];
-
+    
     // Required for Catlina
     if (NSProcessInfo.processInfo.operatingSystemVersion.minorVersion >= 15)
         [paddleProduct verifyActivationWithCompletion:^(PADVerificationState state, NSError * _Nullable error) { }];
     
+//    NSLog(@"%@ : %@ : %@", Paddle.sharedInstance.apiKey, Paddle.sharedInstance.vendorID, Paddle.sharedInstance.productID);
+    
+    return paddleProduct;
+}
+
++ (void)purchasePlugin:(MF_Plugin*)plugin withButton:(NSButton*)theButton andProgress:(NSProgressIndicator*)progress {
+    // Initialize the Product you'd like to work with:
+    PADProduct *paddleProduct = [MF_Paddle productWithPlugin:plugin];
+
     [Paddle.sharedInstance showCheckoutForProduct:paddleProduct options:nil checkoutStatusCompletion:^(PADCheckoutState state, PADCheckoutData * _Nullable checkoutData) {
         // Examine checkout state to determine the checkout result
         if (state == PADCheckoutPurchased) {
             plugin.hasPurchased = true;
-            [MSAnalytics trackEvent:@"Purchased Product" withProperties:@{@"Product" : plugin.webName, @"Product ID" : myPaddleProductID}];
-            [MF_Purchase pluginInstall:plugin :theButton :@""];
+            [MSAnalytics trackEvent:@"Purchased Product" withProperties:@{@"Product" : plugin.webName, @"Product ID" : [plugin.webPlist valueForKey:@"productID"]}];
+            [MF_Purchase pluginInstall:plugin withButton:theButton andProgress:progress];
             NSLog(@"Purchase success");
         } else {
             NSLog(@"Purchase canceled or failed.");
@@ -126,43 +133,8 @@ extern AppDelegate* myDelegate;
 }
     
 + (void)validadePlugin:(MF_Plugin*)plugin withButton:(NSButton*)theButton {
-    NSString *myPaddleVendorID = @"26643";
-    NSString *myPaddleAPIKey = @"02a3c57238af53b3c465ef895729c765";
-    NSString *myPaddleProductID = [plugin.webPlist valueForKey:@"productID"];
-    
-    NSDictionary *dict = [plugin.webPlist objectForKey:@"paddle"];
-    if (dict != nil) {
-        myPaddleVendorID = [dict objectForKey:@"vendorid"];
-        myPaddleAPIKey = [dict objectForKey:@"apikey"];
-    }
-    
-    // Populate a local object in case we're unable to retrieve data from the Vendor Dashboard:
-    PADProductConfiguration *defaultProductConfig = [[PADProductConfiguration alloc] init];
-    defaultProductConfig.productName = @"plugin";
-    defaultProductConfig.vendorName = @"macenhance";
-
-    if (!Paddle.sharedInstance) {
-        [Paddle sharedInstanceWithVendorID:myPaddleVendorID
-                                    apiKey:myPaddleAPIKey
-                                 productID:myPaddleProductID
-                             configuration:defaultProductConfig
-                                  delegate:MF_Paddle.sharedInstance];
-    } else {
-        Paddle.sharedInstance.vendorID = myPaddleVendorID;
-        Paddle.sharedInstance.apiKey = myPaddleAPIKey;
-        Paddle.sharedInstance.productID = myPaddleProductID;
-    }
-
-    Paddle.sharedInstance.canForceExit = false;
-
-    // Initialize the Product you'd like to work with:
-    PADProduct *paddleProduct = [[PADProduct alloc] initWithProductID:myPaddleProductID productType:PADProductTypeSDKProduct configuration:defaultProductConfig];
-
-    // Required for Catlina
-    if (NSProcessInfo.processInfo.operatingSystemVersion.minorVersion >= 15)
-        [paddleProduct verifyActivationWithCompletion:^(PADVerificationState state, NSError * _Nullable error) { }];
-
-//    NSLog(@"%@ : %@ : %@", Paddle.sharedInstance.apiKey, Paddle.sharedInstance.vendorID, Paddle.sharedInstance.productID);
+    // Initialize the Product
+    PADProduct *paddleProduct = [MF_Paddle productWithPlugin:plugin];
 
     [paddleProduct refresh:^(NSDictionary * _Nullable productDelta, NSError * _Nullable error) {
         plugin.checkedPurchase = true;
@@ -171,13 +143,15 @@ extern AppDelegate* myDelegate;
                 plugin.hasPurchased = true;
                 plugin.paddleEmail = paddleProduct.activationEmail;
                 plugin.paddleLicense = paddleProduct.licenseCode;
-                theButton.title = @"GET";
                 // Trial mode
                 if (![paddleProduct activated]) {
                     plugin.paddleEmail = @"Trial version";
                     plugin.paddleLicense = [NSString stringWithFormat:@"%@ days remaining", paddleProduct.trialDaysRemaining];
-                    theButton.title = plugin.webPrice;
                 }
+                if ([MF_PluginManager.sharedInstance pluginLocalPath:plugin.bundleID].length)
+                    theButton.title = @"OPEN";
+                else
+                    theButton.title = @"GET";
                 NSLog(@"Verified... %@", plugin.bundleID);
             } else {
                 plugin.hasPurchased = false;

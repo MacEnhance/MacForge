@@ -130,7 +130,7 @@
     }
     
     totalHeight += yLoc - 6;
-    CGSize min = CGSizeMake(1000, totalHeight);
+    CGSize min = CGSizeMake(1000, totalHeight + 10);
     [_mainWindow setMinSize:min];
     if (_mainWindow.frame.size.height < min.height) {
         CGRect frm = _mainWindow.frame;

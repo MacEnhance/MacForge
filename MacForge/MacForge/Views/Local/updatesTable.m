@@ -63,7 +63,7 @@ NSMutableDictionary *needsUpdate;
     
     for (NSString* key in [needsUpdate allKeys]) {
         NSDictionary *installDict = [needsUpdate objectForKey:key];
-        [self->sharedMethods pluginUpdateOrInstall:installDict :[installDict objectForKey:@"sourceURL"] withCompletionHandler:^(BOOL res) {
+        [self->sharedMethods pluginUpdateOrInstall:installDict withCompletionHandler:^(BOOL res) {
             count--;
         }];
     }
@@ -86,7 +86,7 @@ NSMutableDictionary *needsUpdate;
         
         NSString *key = [[needsUpdate allKeys] objectAtIndex:selected];
         NSDictionary *installDict = [needsUpdate objectForKey:key];
-        [self->sharedMethods pluginUpdateOrInstall:installDict :[installDict objectForKey:@"sourceURL"] withCompletionHandler:^(BOOL res) {
+        [self->sharedMethods pluginUpdateOrInstall:installDict withCompletionHandler:^(BOOL res) {
             count--;
         }];
         

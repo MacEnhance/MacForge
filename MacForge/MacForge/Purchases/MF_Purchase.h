@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MF_Purchase : NSObject
 
-+ (void)pluginInstall:(MF_Plugin*)plugin :(NSButton*)theButton :(NSString*)repo;
++ (void)pluginInstall:(MF_Plugin*)plugin withButton:(NSButton*)theButton andProgress:(NSProgressIndicator*)progress;
 + (void)pushthebutton:(MF_Plugin*)plugin :(NSButton*)theButton :(NSString*)repo :(NSProgressIndicator* _Nullable)prog;
 + (void)checkStatus:(MF_Plugin*)plugin :(NSButton*)theButton;
 

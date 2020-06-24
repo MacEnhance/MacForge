@@ -44,7 +44,7 @@
 //            // Enable selection
 //            [self.tv setEnabled:true];
 //
-//            // Automatically select the first row (if one exists) once we're done loading
+            // Automatically select the first row (if one exists) once we're done loading
             if (self.tv.selectedRow < 0) {
                 if (self.tv.numberOfRows > 0) {
                     NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:0];
@@ -131,7 +131,7 @@
         Class someClass = [bundle principalClass];
         NSString *nib = path.lastPathComponent.stringByDeletingPathExtension;
         NSLog(@"Nib name %@", nib);
-        
+
         id instance = [[someClass alloc] initWithNibName:nib bundle:bundle];
         NSViewController *testVC = (NSViewController*)instance;
         if (![instance isKindOfClass:[NSViewController class]]) {
@@ -140,9 +140,8 @@
         @try {
             [MF_extra.sharedInstance setViewSubViewWithScrollableView:self.preferencesContainer :testVC.view];
         } @catch (NSException *exception) {
-            
+
         }
-        
         
 //        __weak typeof(self) weakSelf = self;
 //
