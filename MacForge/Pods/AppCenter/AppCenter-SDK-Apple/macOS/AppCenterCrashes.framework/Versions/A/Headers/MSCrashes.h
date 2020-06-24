@@ -101,7 +101,7 @@ typedef NS_ENUM(NSUInteger, MSUserConfirmation) {
  */
 + (nullable MSErrorReport *)lastSessionCrashReport;
 
-#if TARGET_OS_OSX
+#if TARGET_OS_OSX || TARGET_OS_MACCATALYST
 /**
  * Callback for report exception.
  *

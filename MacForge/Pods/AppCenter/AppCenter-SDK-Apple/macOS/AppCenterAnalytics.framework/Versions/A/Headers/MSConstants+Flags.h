@@ -1,6 +1,9 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
+#ifndef MS_CONSTANTS_FLAGS_H
+#define MS_CONSTANTS_FLAGS_H
+
 #import <Foundation/Foundation.h>
 
 typedef NS_OPTIONS(NSUInteger, MSFlags) {
@@ -11,3 +14,5 @@ typedef NS_OPTIONS(NSUInteger, MSFlags) {
   MSFlagsPersistenceCritical DEPRECATED_MSG_ATTRIBUTE("please use MSFlagsCritical") = MSFlagsCritical,
   MSFlagsDefault = MSFlagsNormal
 };
+
+#endif

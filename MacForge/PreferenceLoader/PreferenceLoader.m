@@ -24,7 +24,6 @@ NSString *pluginPath;
 @implementation PreferenceLoaderServiceView
 
 - (instancetype)initWithNibName:(nullable NSNibName)nibNameOrNil bundle:(nullable NSBundle *)nibBundleOrNil {
-
     NSBundle *prefBundle = [NSBundle bundleWithPath:pluginPath];
     [prefBundle load];
     self = [super initWithNibName:NSStringFromClass(prefBundle.principalClass) bundle:prefBundle];

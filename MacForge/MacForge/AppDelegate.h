@@ -58,6 +58,8 @@ static NSString *MF_REPO_URL = @"file:///Users/w0lf/Documents/GitHub/MacForgeRep
     FIRUser *_user;  // Firebase User
 }
 
+@property         Boolean               dontKillMe;
+
 // Firebase
 //@property (nonatomic, readwrite) FIRFirestore *db;
 //@property (strong, nonatomic) FIRDatabaseReference *ref;

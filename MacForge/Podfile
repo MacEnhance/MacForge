@@ -1,23 +1,19 @@
-platform :osx, '10.12'
+platform :osx, '10.13'
 
 use_frameworks!
 
-def shared_pods
-  pod 'Sparkle'
-end
-
 target 'MacForge' do
-  shared_pods
-
   # Basics
   pod 'AppCenter'
   pod 'EDStarRating'
   pod 'LetsMove'
+  pod 'PaddleV4'
   pod 'SDWebImage'
+  pod 'Sparkle'
 
   # Firebase
-  # pod 'FirebaseABTesting'
   pod 'FirebaseAuth'
+  # pod 'FirebaseABTesting'
   # pod 'FirebaseDatabase'
   # pod 'FirebaseFirestore'
   # pod 'FirebaseFunctions'
@@ -26,12 +22,8 @@ target 'MacForge' do
   # pod 'FirebaseStorage'
 end
 
-target 'purchaseValidationApp' do
-  pod 'PaddleV4'
-end
-
 target 'MacForgeHelper' do
-  shared_pods
+  pod 'Sparkle'
 end
 
 target 'com.macenhance.MacForge.Injector' do

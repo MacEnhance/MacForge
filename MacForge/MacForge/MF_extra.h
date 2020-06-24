@@ -17,6 +17,7 @@
 @property Boolean                   selected;
 @property IBOutlet NSImageView*     buttonImage;
 @property IBOutlet NSButton*        buttonClickArea;
+@property IBOutlet NSButton*        buttonExtra;
 @property IBOutlet NSView*          buttonHighlightArea;
 @property IBOutlet NSTextField*     buttonLabel;
 @property IBOutlet NSView*          linkedView;

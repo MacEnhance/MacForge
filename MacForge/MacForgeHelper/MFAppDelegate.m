@@ -168,6 +168,13 @@ void HandleExceptions(NSException *exception) {
     NSString *destination = @"/Library/Frameworks/MenuBar.framework";
     if (![[NSFileManager defaultManager] fileExistsAtPath:destination])
         [self.injectorProxy installFramework:frameworkPath toLoaction:destination :&error];
+        
+    frameworkPath = NSBundle.mainBundle.bundlePath;
+    frameworkPath = [frameworkPath.stringByDeletingLastPathComponent.stringByDeletingLastPathComponent.stringByDeletingLastPathComponent stringByAppendingString:@"/Frameworks/Paddle.framework"];
+    destination = @"/Library/Frameworks/Paddle.framework";
+    if ([[NSFileManager defaultManager] fileExistsAtPath:frameworkPath])
+        if (![[NSFileManager defaultManager] fileExistsAtPath:destination])
+            [self.injectorProxy installFramework:frameworkPath toLoaction:destination :&error];
 }
 
 - (void)givePluginFldr {
@@ -375,8 +382,7 @@ void HandleExceptions(NSException *exception) {
     if ([NSBundle.mainBundle.bundleIdentifier isEqualToString:runningApp.bundleIdentifier]) return false;
     
     // Hardcoded blacklist
-    if ([@[@"com.macenhance.MacForge", @"com.macenhance.MacForgeHelper", @"com.macenhance.purchaseValidationApp"] containsObject:runningApp.bundleIdentifier]) return false;
-//     @"com.apple.AccountProfileRemoteViewService"
+    if ([@[@"com.macenhance.MacForge", @"com.macenhance.MacForgeHelper"] containsObject:runningApp.bundleIdentifier]) return false;
     
     // Don't inject if somehow the executable doesn't seem to exist
     if (!runningApp.executableURL.path.length) return false;

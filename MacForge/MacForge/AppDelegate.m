@@ -105,6 +105,16 @@ Boolean appSetupFinished = false;
     return YES;
 }
 
+// Don't let Paddle kill me :(
+- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
+    if (_dontKillMe == true) {
+        _dontKillMe = false;
+        return NSTerminateCancel;
+    } else {
+        return NSTerminateNow;
+    }
+}
+
 // Handle macforge:// url scheme
 - (void)application:(NSApplication *)application
            openURLs:(NSArray<NSURL *> *)urls {

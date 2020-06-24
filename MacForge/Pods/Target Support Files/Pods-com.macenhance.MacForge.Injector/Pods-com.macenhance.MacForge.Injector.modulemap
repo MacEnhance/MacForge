@@ -1,0 +1,6 @@
+framework module Pods_com_macenhance_MacForge_Injector {
+  umbrella header "Pods-com.macenhance.MacForge.Injector-umbrella.h"
+
+  export *
+  module * { export * }
+}

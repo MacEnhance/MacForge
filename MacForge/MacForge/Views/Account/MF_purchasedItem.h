@@ -24,7 +24,8 @@
 }
 
 @property (weak) IBOutlet NSTextField           *bundleName;
-@property (weak) IBOutlet NSTextField           *bundleDesc;
+@property (weak) IBOutlet NSTextField           *bundleEmail;
+@property (weak) IBOutlet NSTextField           *bundleLicense;
 @property (weak) IBOutlet NSImageView           *bundleIcon;
 @property (weak) IBOutlet NSButton              *bundleBackgroundButton;
 @property (weak) IBOutlet SYFlatButton          *bundleGet;

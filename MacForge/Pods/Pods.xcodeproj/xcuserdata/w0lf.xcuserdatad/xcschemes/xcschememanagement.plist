@@ -8,389 +8,194 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>18</integer>
 		</dict>
 		<key>AppCenter.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>27</integer>
 		</dict>
 		<key>EDStarRating.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>19</integer>
 		</dict>
 		<key>EDStarRating.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>37</integer>
 		</dict>
 		<key>FirebaseAuth.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>20</integer>
 		</dict>
 		<key>FirebaseAuth.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>38</integer>
-		</dict>
-		<key>FirebaseAuthInterop.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-			<key>orderHint</key>
-			<integer>21</integer>
 		</dict>
 		<key>FirebaseAuthInterop.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>39</integer>
 		</dict>
 		<key>FirebaseCore.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>22</integer>
 		</dict>
 		<key>FirebaseCore.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>40</integer>
 		</dict>
 		<key>FirebaseCoreDiagnostics.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>23</integer>
 		</dict>
 		<key>FirebaseCoreDiagnostics.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>44</integer>
-		</dict>
-		<key>FirebaseCoreDiagnosticsInterop.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-			<key>orderHint</key>
-			<integer>24</integer>
 		</dict>
 		<key>FirebaseCoreDiagnosticsInterop.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>29</integer>
 		</dict>
 		<key>GTMSessionFetcher.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>28</integer>
 		</dict>
 		<key>GTMSessionFetcher.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>42</integer>
 		</dict>
 		<key>GoogleDataTransport.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>25</integer>
 		</dict>
 		<key>GoogleDataTransport.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>35</integer>
 		</dict>
 		<key>GoogleDataTransportCCTSupport.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>26</integer>
 		</dict>
 		<key>GoogleDataTransportCCTSupport.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>30</integer>
 		</dict>
 		<key>GoogleUtilities.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>27</integer>
 		</dict>
 		<key>GoogleUtilities.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>26</integer>
 		</dict>
 		<key>LetsMove.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>29</integer>
 		</dict>
 		<key>LetsMove.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>33</integer>
 		</dict>
 		<key>PaddleV4.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>31</integer>
 		</dict>
 		<key>PaddleV4.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>36</integer>
 		</dict>
 		<key>Pods-MacForge.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>12</integer>
 		</dict>
 		<key>Pods-MacForgeDockTile.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>13</integer>
 		</dict>
 		<key>Pods-MacForgeHelper.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>14</integer>
 		</dict>
-		<key>Pods-MacForgeKit.xcscheme</key>
+		<key>Pods-com.macenhance.MacForge.Injector.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>15</integer>
-		</dict>
-		<key>Pods-com.w0lf.MacForge.Injector.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-			<key>orderHint</key>
-			<integer>10</integer>
-		</dict>
-		<key>Pods-com.w0lf.MacForge.Installer.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-			<key>orderHint</key>
-			<integer>11</integer>
 		</dict>
 		<key>Pods-purchaseValidationApp.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>38</integer>
 		</dict>
 		<key>Pods-purchaseValidationApp.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>32</integer>
 		</dict>
 		<key>PromisesObjC.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>39</integer>
 		</dict>
 		<key>PromisesObjC.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>31</integer>
 		</dict>
 		<key>SDWebImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>40</integer>
 		</dict>
 		<key>SDWebImage.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>43</integer>
 		</dict>
 		<key>Sparkle.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>41</integer>
 		</dict>
 		<key>Sparkle.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>34</integer>
 		</dict>
 		<key>nanopb.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>30</integer>
 		</dict>
 		<key>nanopb.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>41</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
-	<dict>
-		<key>2BBF7206D7FAC92C82A042A99C4A98F8</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>3847153A6E5EEFB86565BA840768F429</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>4304BB6B05B0560FE5690CE8E22EF10B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>4402AFF83DBDC4DD07E198685FDC2DF2</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>5C0371EE948D0357B8EE0E34ABB44BF0</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>5EB4B0B6DA6D5C0C3365733BEAA1C485</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>620E05868772C10B4920DC7E324F2C87</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>6AE4A3D573DED275B034E20506596C62</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>8D7F5D5DD528D21A72DC87ADA5B12E2D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>8EC0F2618965C875A96BFDBEE5D9734C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>906D488F4F9AFD17B0EBE3CC6DD7A92D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A3282A5B2437E609EEB85861D7ECE717</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D2B5E7DCCBBFB32341D857D01211A1A3</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D676E21115185671D7258A56944ABE98</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>DB41AE16F041331B584ECE72A1493ED5</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>ED77B4B88587C894E85C361023D67C53</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F4F25FCAC51B51FD5F986EB939BF1F87</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F83960005EA88D0C24A1D277DD0E8667</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-	</dict>
+	<dict/>
 </dict>
 </plist>

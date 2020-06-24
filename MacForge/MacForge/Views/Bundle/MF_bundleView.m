@@ -165,6 +165,15 @@ NSDictionary *testing;
         
         [self systemDarkModeChange:nil];
         
+        if (@available(macOS 10.14, *)) {
+            [self.bundleDev setContentTintColor:NSColor.controlAccentColor];
+            [self.bundleContact setContentTintColor:NSColor.controlAccentColor];
+            [self.bundleDelete setContentTintColor:NSColor.controlAccentColor];
+            [self.bundleDonate setContentTintColor:NSColor.controlAccentColor];
+        } else {
+            // Fallback on earlier versions
+        }
+        
         newString = [NSString stringWithFormat:@"%@", [item objectForKey:@"descriptionShort"]];
         self.bundleDescShort.stringValue = newString;
         

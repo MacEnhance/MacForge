@@ -15,8 +15,6 @@
 		2FCA88B6FD11BB87D2CB1185 /* Pods_MacForge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB9375FEDACBA2F9ED7779DF /* Pods_MacForge.framework */; };
 		48D472ED29E64D0077F2E6A2 /* Pods_MacForgeDockTile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 773A1BF77A1966B3740A649C /* Pods_MacForgeDockTile.framework */; };
 		77B0A177B8D3976298814998 /* Pods_MacForgeHelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D660FE637C95FFEE8D5E83E /* Pods_MacForgeHelper.framework */; };
-		AEFEBC955C426544A3CF431B /* Pods_purchaseValidationApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F8ED1B7A18AF968A9C5F76E /* Pods_purchaseValidationApp.framework */; };
-		CB184E93EF3BF372BCA22CD6 /* Pods_com_w0lf_MacForge_Injector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B263B51E2E24A2C9D2970D /* Pods_com_w0lf_MacForge_Injector.framework */; };
 		F0ADE0FB166DF941009758CC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0ADE0FA166DF941009758CC /* Cocoa.framework */; };
 		F0ADE107166DF941009758CC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F0ADE106166DF941009758CC /* main.m */; };
 		F0ADE10E166DF941009758CC /* MFAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F0ADE10D166DF941009758CC /* MFAppDelegate.m */; };
@@ -28,6 +26,7 @@
 		F0ADE1CA166E0992009758CC /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0ADE1C9166E0992009758CC /* Carbon.framework */; };
 		F3A95F7423EF842A004635FD /* MF_bundleTinyItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A95F7223EF842A004635FD /* MF_bundleTinyItem.m */; };
 		F3A95F7523EF842A004635FD /* MF_bundleTinyItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3A95F7323EF842A004635FD /* MF_bundleTinyItem.xib */; };
+		FAF0175D87EA3CFE7BCBDAE2 /* Pods_com_macenhance_MacForge_Injector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31F1DC3E4886942C97F97DBA /* Pods_com_macenhance_MacForge_Injector.framework */; };
 		FB0227A920F0539B006566EF /* MF_PluginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8EA20F0289900A12ACF /* MF_PluginManager.m */; };
 		FB057CC72139B1B4002B3BB3 /* com.macenhance.MacForge.Injector in CopyFiles */ = {isa = PBXBuildFile; fileRef = F0ADE1B8166E0820009758CC /* com.macenhance.MacForge.Injector */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		FB0FC0E124A1D02E00857D55 /* square.and.arrow.down_Normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB0FC0DD24A1D02E00857D55 /* square.and.arrow.down_Normal@2x.png */; };
@@ -45,6 +44,7 @@
 		FB2FE5CC230638120082C714 /* SYFlatButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2FE5CB230638120082C714 /* SYFlatButton.m */; };
 		FB306ACC2367C9D5008A6E61 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB306ACB2367C9D5008A6E61 /* Media.xcassets */; };
 		FB306ACE2367CD0F008A6E61 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB306ACD2367CD0F008A6E61 /* Media.xcassets */; };
+		FB35B8B824A2F2AC0064549F /* MF_Paddle.m in Sources */ = {isa = PBXBuildFile; fileRef = FB35B8B724A2F2AC0064549F /* MF_Paddle.m */; };
 		FB4F4B8A24988F0E00987D1E /* checkmark.shield.fill_Normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB4F4B8824988F0E00987D1E /* checkmark.shield.fill_Normal@2x.png */; };
 		FB4F4B8B24988F0E00987D1E /* lock.shield.fill_Normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB4F4B8924988F0E00987D1E /* lock.shield.fill_Normal@2x.png */; };
 		FB5F5F68249EA48400C52F12 /* EQImage+Scale.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5F5F61249EA48300C52F12 /* EQImage+Scale.m */; };
@@ -76,7 +76,6 @@
 		FBA6E8CA20F01E1B00A12ACF /* LICENSE_SGDirWatchdog in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8C920F01E1B00A12ACF /* LICENSE_SGDirWatchdog */; };
 		FBA6E8CE20F025A100A12ACF /* Application.xib in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8CD20F025A100A12ACF /* Application.xib */; };
 		FBA6E8CF20F0262A00A12ACF /* SGDirWatchdog.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E89120F0185300A12ACF /* SGDirWatchdog.m */; };
-		FBA6E8DA20F0285B00A12ACF /* loading_mini.gif in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8D420F0285A00A12ACF /* loading_mini.gif */; };
 		FBA6E8E120F0287500A12ACF /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8E020F0287500A12ACF /* dsa_pub.pem */; };
 		FBA6E8E620F0288300A12ACF /* MF_Plugin.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8E220F0288300A12ACF /* MF_Plugin.m */; };
 		FBA6E8E720F0288300A12ACF /* MF_repoData.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8E320F0288300A12ACF /* MF_repoData.m */; };
@@ -85,10 +84,6 @@
 		FBA6E8F520F0289B00A12ACF /* loaclPluginTable.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8ED20F0289A00A12ACF /* loaclPluginTable.m */; };
 		FBA6E8FC20F028A400A12ACF /* LICENSE_EULA in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8F920F028A400A12ACF /* LICENSE_EULA */; };
 		FBA6E90920F029D800A12ACF /* DockTilePlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E90820F029D800A12ACF /* DockTilePlugIn.m */; };
-		FBAA97532334BBFC0074B4E2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAA97522334BBFC0074B4E2 /* AppDelegate.m */; };
-		FBAA97552334BBFE0074B4E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBAA97542334BBFE0074B4E2 /* Assets.xcassets */; };
-		FBAA97582334BBFE0074B4E2 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = FBAA97562334BBFE0074B4E2 /* MainMenu.xib */; };
-		FBAA975B2334BBFE0074B4E2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAA975A2334BBFE0074B4E2 /* main.m */; };
 		FBAAB3EC20F228FD002156DC /* StartAtLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8B920F01C6300A12ACF /* StartAtLoginController.m */; };
 		FBAAB3EF20F22BF5002156DC /* NSBundle+LoginItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAAB3EE20F22BF5002156DC /* NSBundle+LoginItem.m */; };
 		FBAAB3F020F22BF5002156DC /* NSBundle+LoginItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FBAAB3EE20F22BF5002156DC /* NSBundle+LoginItem.m */; };
@@ -110,7 +105,6 @@
 		FBE767FA20F0116000A42BD5 /* SIMBL.m in Sources */ = {isa = PBXBuildFile; fileRef = FBB0849120EEF0AC0032BDB2 /* SIMBL.m */; };
 		FBE767FB20F0116600A42BD5 /* SIMBLPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = FBB0849420EEF0AC0032BDB2 /* SIMBLPlugin.m */; };
 		FBE767FC20F0122F00A42BD5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F0ADE103166DF941009758CC /* InfoPlist.strings */; };
-		FBE851972336BA7400A00189 /* purchaseValidationApp.app in Resources */ = {isa = PBXBuildFile; fileRef = FBAA974F2334BBFC0074B4E2 /* purchaseValidationApp.app */; };
 		FBF137DC2105AB8B0001916A /* MacForgeHelper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = F0ADE0F6166DF941009758CC /* MacForgeHelper.app */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FBF137E3210E79B70001916A /* blacklistTable.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF137E2210E79B70001916A /* blacklistTable.m */; };
 		FBFC745F24774B2D0015D36C /* MF_featuredView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBFC745E24774B2D0015D36C /* MF_featuredView.m */; };
@@ -202,13 +196,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = F0ADE0F5166DF941009758CC;
 			remoteInfo = MacPlusHelper;
-		};
-		FBE851982336BAE300A00189 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F0ADE0ED166DF941009758CC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = FBAA974E2334BBFC0074B4E2;
-			remoteInfo = purchaseValidationApp;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -305,7 +292,9 @@
 		096DEFDB247CAA91009F7CF5 /* NSXPCSharedListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSXPCSharedListener.h; sourceTree = "<group>"; };
 		096DEFDC247CAA91009F7CF5 /* NSRemoteView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSRemoteView.h; sourceTree = "<group>"; };
 		0F8ED1B7A18AF968A9C5F76E /* Pods_purchaseValidationApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_purchaseValidationApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0FD02195D6B67E3A3407F47F /* Pods-com.macenhance.MacForge.Injector.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-com.macenhance.MacForge.Injector.release.xcconfig"; path = "Target Support Files/Pods-com.macenhance.MacForge.Injector/Pods-com.macenhance.MacForge.Injector.release.xcconfig"; sourceTree = "<group>"; };
 		1A4A92FE80E4F31C97F3F7D1 /* Pods-com.w0lf.MacForge.Injector.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-com.w0lf.MacForge.Injector.release.xcconfig"; path = "Target Support Files/Pods-com.w0lf.MacForge.Injector/Pods-com.w0lf.MacForge.Injector.release.xcconfig"; sourceTree = "<group>"; };
+		31F1DC3E4886942C97F97DBA /* Pods_com_macenhance_MacForge_Injector.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_com_macenhance_MacForge_Injector.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		370D6DF2C08D50C20C214C75 /* Pods-MacForgeKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacForgeKit.release.xcconfig"; path = "Target Support Files/Pods-MacForgeKit/Pods-MacForgeKit.release.xcconfig"; sourceTree = "<group>"; };
 		3D8E7AE762C4B5BC97898B22 /* Pods-MacForgeDockTile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacForgeDockTile.debug.xcconfig"; path = "Target Support Files/Pods-MacForgeDockTile/Pods-MacForgeDockTile.debug.xcconfig"; sourceTree = "<group>"; };
 		560E972975EF2B331216595B /* Pods_com_w0lf_MacForge_Installer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_com_w0lf_MacForge_Installer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -317,8 +306,8 @@
 		81938B922DC8DB8C0BA42E76 /* Pods-MacForgeHelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacForgeHelper.release.xcconfig"; path = "Target Support Files/Pods-MacForgeHelper/Pods-MacForgeHelper.release.xcconfig"; sourceTree = "<group>"; };
 		8C3D1F62B0E08AD4C29A3525 /* Pods-MacForge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacForge.debug.xcconfig"; path = "Target Support Files/Pods-MacForge/Pods-MacForge.debug.xcconfig"; sourceTree = "<group>"; };
 		923C990F032055007743F73A /* Pods-MacForgeHelper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacForgeHelper.debug.xcconfig"; path = "Target Support Files/Pods-MacForgeHelper/Pods-MacForgeHelper.debug.xcconfig"; sourceTree = "<group>"; };
+		9889E3D39F161E199FE8E721 /* Pods-com.macenhance.MacForge.Injector.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-com.macenhance.MacForge.Injector.debug.xcconfig"; path = "Target Support Files/Pods-com.macenhance.MacForge.Injector/Pods-com.macenhance.MacForge.Injector.debug.xcconfig"; sourceTree = "<group>"; };
 		AFD073A157CCE6235D474399 /* Pods-MacForge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacForge.release.xcconfig"; path = "Target Support Files/Pods-MacForge/Pods-MacForge.release.xcconfig"; sourceTree = "<group>"; };
-		B5B263B51E2E24A2C9D2970D /* Pods_com_w0lf_MacForge_Injector.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_com_w0lf_MacForge_Injector.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAEEE19A8BE4096DC7F0BCB3 /* Pods-com.w0lf.MacForge.Injector.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-com.w0lf.MacForge.Injector.debug.xcconfig"; path = "Target Support Files/Pods-com.w0lf.MacForge.Injector/Pods-com.w0lf.MacForge.Injector.debug.xcconfig"; sourceTree = "<group>"; };
 		BB6AA186557851C9C5C553AC /* Pods_MacForgeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MacForgeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB8C83A7C25071B285295868 /* Pods-purchaseValidationApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-purchaseValidationApp.debug.xcconfig"; path = "Target Support Files/Pods-purchaseValidationApp/Pods-purchaseValidationApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -370,6 +359,8 @@
 		FB2FE5CB230638120082C714 /* SYFlatButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYFlatButton.m; sourceTree = "<group>"; };
 		FB306ACB2367C9D5008A6E61 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		FB306ACD2367CD0F008A6E61 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		FB35B8B024A2F2AC0064549F /* MF_Paddle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MF_Paddle.h; sourceTree = "<group>"; };
+		FB35B8B724A2F2AC0064549F /* MF_Paddle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MF_Paddle.m; sourceTree = "<group>"; };
 		FB3C2EC7236A7FB5002B21C1 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		FB4F4B8824988F0E00987D1E /* checkmark.shield.fill_Normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkmark.shield.fill_Normal@2x.png"; sourceTree = "<group>"; };
 		FB4F4B8924988F0E00987D1E /* lock.shield.fill_Normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock.shield.fill_Normal@2x.png"; sourceTree = "<group>"; };
@@ -414,7 +405,6 @@
 		FBA6E8C520F01DDA00A12ACF /* LICENSE_STPrivilegedTask */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE_STPrivilegedTask; sourceTree = "<group>"; };
 		FBA6E8C920F01E1B00A12ACF /* LICENSE_SGDirWatchdog */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE_SGDirWatchdog; sourceTree = "<group>"; };
 		FBA6E8CD20F025A100A12ACF /* Application.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Application.xib; sourceTree = "<group>"; };
-		FBA6E8D420F0285A00A12ACF /* loading_mini.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading_mini.gif; sourceTree = "<group>"; };
 		FBA6E8E020F0287500A12ACF /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		FBA6E8E220F0288300A12ACF /* MF_Plugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MF_Plugin.m; sourceTree = "<group>"; };
 		FBA6E8E320F0288300A12ACF /* MF_repoData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MF_repoData.m; sourceTree = "<group>"; };
@@ -431,14 +421,6 @@
 		FBA6E90820F029D800A12ACF /* DockTilePlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DockTilePlugIn.m; sourceTree = "<group>"; };
 		FBA6E90E20F02BB800A12ACF /* FConvenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FConvenience.h; sourceTree = "<group>"; };
 		FBAA97472334BAF40074B4E2 /* Paddle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Paddle.framework; path = Pods/PaddleV4/Paddle.framework; sourceTree = "<group>"; };
-		FBAA974F2334BBFC0074B4E2 /* purchaseValidationApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = purchaseValidationApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		FBAA97512334BBFC0074B4E2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		FBAA97522334BBFC0074B4E2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		FBAA97542334BBFE0074B4E2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		FBAA97572334BBFE0074B4E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		FBAA97592334BBFE0074B4E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FBAA975A2334BBFE0074B4E2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		FBAA975C2334BBFE0074B4E2 /* purchaseValidationApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = purchaseValidationApp.entitlements; sourceTree = "<group>"; };
 		FBAAB3ED20F22BF5002156DC /* NSBundle+LoginItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+LoginItem.h"; sourceTree = "<group>"; };
 		FBAAB3EE20F22BF5002156DC /* NSBundle+LoginItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+LoginItem.m"; sourceTree = "<group>"; };
 		FBB0849120EEF0AC0032BDB2 /* SIMBL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIMBL.m; sourceTree = "<group>"; };
@@ -509,7 +491,7 @@
 			files = (
 				F0ADE1CA166E0992009758CC /* Carbon.framework in Frameworks */,
 				F0ADE1BA166E0820009758CC /* Foundation.framework in Frameworks */,
-				CB184E93EF3BF372BCA22CD6 /* Pods_com_w0lf_MacForge_Injector.framework in Frameworks */,
+				FAF0175D87EA3CFE7BCBDAE2 /* Pods_com_macenhance_MacForge_Injector.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -518,14 +500,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				48D472ED29E64D0077F2E6A2 /* Pods_MacForgeDockTile.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FBAA974C2334BBFC0074B4E2 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AEFEBC955C426544A3CF431B /* Pods_purchaseValidationApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -554,10 +528,10 @@
 				BB6AA186557851C9C5C553AC /* Pods_MacForgeKit.framework */,
 				5D660FE637C95FFEE8D5E83E /* Pods_MacForgeHelper.framework */,
 				773A1BF77A1966B3740A649C /* Pods_MacForgeDockTile.framework */,
-				B5B263B51E2E24A2C9D2970D /* Pods_com_w0lf_MacForge_Injector.framework */,
 				560E972975EF2B331216595B /* Pods_com_w0lf_MacForge_Installer.framework */,
 				0F8ED1B7A18AF968A9C5F76E /* Pods_purchaseValidationApp.framework */,
 				FB3C2EC7236A7FB5002B21C1 /* NotificationCenter.framework */,
+				31F1DC3E4886942C97F97DBA /* Pods_com_macenhance_MacForge_Injector.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -603,6 +577,8 @@
 				6EFB1E36CB68CB24F30204A1 /* Pods-com.w0lf.MacForge.Installer.release.xcconfig */,
 				DB8C83A7C25071B285295868 /* Pods-purchaseValidationApp.debug.xcconfig */,
 				7DC03DA184A3C2DECC7090AD /* Pods-purchaseValidationApp.release.xcconfig */,
+				9889E3D39F161E199FE8E721 /* Pods-com.macenhance.MacForge.Injector.debug.xcconfig */,
+				0FD02195D6B67E3A3407F47F /* Pods-com.macenhance.MacForge.Injector.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -625,7 +601,6 @@
 				F0ADE100166DF941009758CC /* MacForgeHelper */,
 				FBA6E90220F0299B00A12ACF /* MacForgeDockTile */,
 				F0ADE129166DF9FB009758CC /* MacForgeInjection */,
-				FBAA97502334BBFC0074B4E2 /* purchaseValidationApp */,
 				096DEFC1247CA727009F7CF5 /* PreferenceLoader */,
 				F0ADE0F9166DF941009758CC /* Local Frameworks */,
 				06A3EAD2AD04399011740EC7 /* Frameworks */,
@@ -641,7 +616,6 @@
 				F0ADE1B8166E0820009758CC /* com.macenhance.MacForge.Injector */,
 				FBE767E820F00FFB00A42BD5 /* MacForge.app */,
 				FBA6E90120F0299B00A12ACF /* MacForgeDockTile.docktileplugin */,
-				FBAA974F2334BBFC0074B4E2 /* purchaseValidationApp.app */,
 				096DEFC0247CA727009F7CF5 /* PreferenceLoader.xpc */,
 			);
 			name = Products;
@@ -852,7 +826,6 @@
 				FB8808232480FEFB0002727A /* star.fill_Normal@2x.png */,
 				FB80DBDB231B4C6A00823B67 /* star.png */,
 				FB80DBDA231B4C6A00823B67 /* starhighlighted.png */,
-				FBA6E8D420F0285A00A12ACF /* loading_mini.gif */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -890,20 +863,6 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
-		FBAA97502334BBFC0074B4E2 /* purchaseValidationApp */ = {
-			isa = PBXGroup;
-			children = (
-				FBAA97512334BBFC0074B4E2 /* AppDelegate.h */,
-				FBAA97522334BBFC0074B4E2 /* AppDelegate.m */,
-				FBAA97542334BBFE0074B4E2 /* Assets.xcassets */,
-				FBAA97562334BBFE0074B4E2 /* MainMenu.xib */,
-				FBAA97592334BBFE0074B4E2 /* Info.plist */,
-				FBAA975A2334BBFE0074B4E2 /* main.m */,
-				FBAA975C2334BBFE0074B4E2 /* purchaseValidationApp.entitlements */,
-			);
-			path = purchaseValidationApp;
-			sourceTree = "<group>";
-		};
 		FBAAB3F120F22BFA002156DC /* NSBundle+LoginItem */ = {
 			isa = PBXGroup;
 			children = (
@@ -936,6 +895,8 @@
 		FBAAD0FC2460E02F00F7B2F8 /* Purchases */ = {
 			isa = PBXGroup;
 			children = (
+				FB35B8B024A2F2AC0064549F /* MF_Paddle.h */,
+				FB35B8B724A2F2AC0064549F /* MF_Paddle.m */,
 				FBBD8E2122F9319E00A97FEA /* MF_Purchase.h */,
 				FBBD8E2222F9319E00A97FEA /* MF_Purchase.m */,
 			);
@@ -1103,25 +1064,6 @@
 			productReference = FBA6E90120F0299B00A12ACF /* MacForgeDockTile.docktileplugin */;
 			productType = "com.apple.product-type.bundle";
 		};
-		FBAA974E2334BBFC0074B4E2 /* purchaseValidationApp */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = FBAA975D2334BBFE0074B4E2 /* Build configuration list for PBXNativeTarget "purchaseValidationApp" */;
-			buildPhases = (
-				F32F808E03808B5D0298D207 /* [CP] Check Pods Manifest.lock */,
-				FBAA974B2334BBFC0074B4E2 /* Sources */,
-				FBAA974C2334BBFC0074B4E2 /* Frameworks */,
-				FBAA974D2334BBFC0074B4E2 /* Resources */,
-				7C030737F3CB0A4B68C5DE51 /* [CP] Embed Pods Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = purchaseValidationApp;
-			productName = purchaseValidationApp;
-			productReference = FBAA974F2334BBFC0074B4E2 /* purchaseValidationApp.app */;
-			productType = "com.apple.product-type.application";
-		};
 		FBE767E720F00FFB00A42BD5 /* MacForge */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FBE767F620F00FFE00A42BD5 /* Build configuration list for PBXNativeTarget "MacForge" */;
@@ -1140,7 +1082,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				FBE851992336BAE300A00189 /* PBXTargetDependency */,
 				FBA6E90B20F029E400A12ACF /* PBXTargetDependency */,
 				FBE7680320F015DD00A42BD5 /* PBXTargetDependency */,
 				096DEFCA247CA727009F7CF5 /* PBXTargetDependency */,
@@ -1173,10 +1114,6 @@
 					};
 					FBA6E90020F0299B00A12ACF = {
 						CreatedOnToolsVersion = 10.0;
-						ProvisioningStyle = Manual;
-					};
-					FBAA974E2334BBFC0074B4E2 = {
-						CreatedOnToolsVersion = 11.0;
 						ProvisioningStyle = Manual;
 					};
 					FBE767E720F00FFB00A42BD5 = {
@@ -1220,7 +1157,6 @@
 				F0ADE0F5166DF941009758CC /* MacForgeHelper */,
 				F0ADE1B7166E0820009758CC /* com.macenhance.MacForge.Injector */,
 				FBA6E90020F0299B00A12ACF /* MacForgeDockTile */,
-				FBAA974E2334BBFC0074B4E2 /* purchaseValidationApp */,
 				096DEFBF247CA727009F7CF5 /* PreferenceLoader */,
 			);
 		};
@@ -1302,20 +1238,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FBAA974D2334BBFC0074B4E2 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FBAA97552334BBFE0074B4E2 /* Assets.xcassets in Resources */,
-				FBAA97582334BBFE0074B4E2 /* MainMenu.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		FBE767E620F00FFB00A42BD5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FBE851972336BA7400A00189 /* purchaseValidationApp.app in Resources */,
 				FBD090E123BBE51A0023F5BB /* CHANGELOG.md in Resources */,
 				FBD090E923BBEEBC0023F5BB /* README.md in Resources */,
 				F3A95F7523EF842A004635FD /* MF_bundleTinyItem.xib in Resources */,
@@ -1328,7 +1254,6 @@
 				FBA6E8FC20F028A400A12ACF /* LICENSE_EULA in Resources */,
 				FBD090E323BBEAE20023F5BB /* CREDITS.md in Resources */,
 				FB0FC0E524A1D1CA00857D55 /* magnifyingglass.circle_Normal@2x.png in Resources */,
-				FBA6E8DA20F0285B00A12ACF /* loading_mini.gif in Resources */,
 				FBA6E8E120F0287500A12ACF /* dsa_pub.pem in Resources */,
 				FBA6E8CE20F025A100A12ACF /* Application.xib in Resources */,
 				FB88081B2480F1300002727A /* TODO.md in Resources */,
@@ -1364,6 +1289,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/LetsMove/LetsMove.framework",
+				"${PODS_ROOT}/PaddleV4/Paddle.framework",
 				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${PODS_ROOT}/Sparkle/Sparkle.framework",
@@ -1376,9 +1302,11 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LetsMove.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Paddle.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework",
+				"${DWARF_DSYM_FOLDER_PATH}/Sparkle.framework.dSYM",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1452,24 +1380,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7C030737F3CB0A4B68C5DE51 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-purchaseValidationApp/Pods-purchaseValidationApp-frameworks.sh",
-				"${PODS_ROOT}/PaddleV4/Paddle.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Paddle.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-purchaseValidationApp/Pods-purchaseValidationApp-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		9851752FC9515D7023FE4235 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1485,29 +1395,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-com.w0lf.MacForge.Injector-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F32F808E03808B5D0298D207 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-purchaseValidationApp-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-com.macenhance.MacForge.Injector-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1527,7 +1415,6 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework",
-				"${DWARF_DSYM_FOLDER_PATH}/Sparkle.framework.dSYM",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1616,15 +1503,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FBAA974B2334BBFC0074B4E2 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FBAA975B2334BBFE0074B4E2 /* main.m in Sources */,
-				FBAA97532334BBFC0074B4E2 /* AppDelegate.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		FBE767E420F00FFB00A42BD5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1656,6 +1534,7 @@
 				FB1241362478997500528C29 /* MF_searchView.m in Sources */,
 				FBC2123423B459CE006F4485 /* MF_BlacklistManager.m in Sources */,
 				FB5F5F6B249EA48400C52F12 /* SLColorArt.m in Sources */,
+				FB35B8B824A2F2AC0064549F /* MF_Paddle.m in Sources */,
 				FB2FE5CC230638120082C714 /* SYFlatButton.m in Sources */,
 				FBA6E8BB20F01C6300A12ACF /* StartAtLoginController.m in Sources */,
 				FBAAB3EF20F22BF5002156DC /* NSBundle+LoginItem.m in Sources */,
@@ -1690,11 +1569,6 @@
 			target = F0ADE0F5166DF941009758CC /* MacForgeHelper */;
 			targetProxy = FBE7680220F015DD00A42BD5 /* PBXContainerItemProxy */;
 		};
-		FBE851992336BAE300A00189 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = FBAA974E2334BBFC0074B4E2 /* purchaseValidationApp */;
-			targetProxy = FBE851982336BAE300A00189 /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -1704,14 +1578,6 @@
 				F0ADE104166DF941009758CC /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		FBAA97562334BBFE0074B4E2 /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FBAA97572334BBFE0074B4E2 /* Base */,
-			);
-			name = MainMenu.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1938,7 +1804,7 @@
 		};
 		F0ADE1C3166E0821009758CC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BAEEE19A8BE4096DC7F0BCB3 /* Pods-com.w0lf.MacForge.Injector.debug.xcconfig */;
+			baseConfigurationReference = 9889E3D39F161E199FE8E721 /* Pods-com.macenhance.MacForge.Injector.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -1975,7 +1841,7 @@
 		};
 		F0ADE1C4166E0821009758CC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1A4A92FE80E4F31C97F3F7D1 /* Pods-com.w0lf.MacForge.Injector.release.xcconfig */;
+			baseConfigurationReference = 0FD02195D6B67E3A3407F47F /* Pods-com.macenhance.MacForge.Injector.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -2079,89 +1945,6 @@
 			};
 			name = Release;
 		};
-		FBAA975E2334BBFE0074B4E2 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = DB8C83A7C25071B285295868 /* Pods-purchaseValidationApp.debug.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = purchaseValidationApp/purchaseValidationApp.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = EX596BNL45;
-				ENABLE_HARDENED_RUNTIME = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Pods/PaddleV4",
-				);
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = purchaseValidationApp/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MARKETING_VERSION = 0.1.1;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.purchaseValidationApp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		FBAA975F2334BBFE0074B4E2 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7DC03DA184A3C2DECC7090AD /* Pods-purchaseValidationApp.release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = purchaseValidationApp/purchaseValidationApp.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = EX596BNL45;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Pods/PaddleV4",
-				);
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = purchaseValidationApp/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MARKETING_VERSION = 0.1.1;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.purchaseValidationApp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
 		FBE767F720F00FFE00A42BD5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8C3D1F62B0E08AD4C29A3525 /* Pods-MacForge.debug.xcconfig */;
@@ -2193,7 +1976,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = MacForge/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MARKETING_VERSION = 0.21.1;
+				MARKETING_VERSION = 0.30.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.MacForge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2239,7 +2022,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = MacForge/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MARKETING_VERSION = 0.21.1;
+				MARKETING_VERSION = 0.30.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.MacForge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2293,15 +2076,6 @@
 			buildConfigurations = (
 				FBA6E90520F0299B00A12ACF /* Debug */,
 				FBA6E90620F0299B00A12ACF /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		FBAA975D2334BBFE0074B4E2 /* Build configuration list for PBXNativeTarget "purchaseValidationApp" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				FBAA975E2334BBFE0074B4E2 /* Debug */,
-				FBAA975F2334BBFE0074B4E2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

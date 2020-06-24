@@ -23,15 +23,10 @@
 #endif
 
 #import <FirebaseAuth/FirebaseAuth.h>
-#import <FirebaseCore/FIRAppInternal.h>
-#import <FirebaseCore/FIRComponent.h>
-#import <FirebaseCore/FIRComponentContainer.h>
-#import <FirebaseCore/FIRLibrary.h>
-#import <FirebaseCore/FIRLogger.h>
-#import <FirebaseCore/FIROptions.h>
 #import <GoogleUtilities/GULAppDelegateSwizzler.h>
 #import <GoogleUtilities/GULAppEnvironmentUtil.h>
 #import <GoogleUtilities/GULSceneDelegateSwizzler.h>
+#import "FirebaseCore/Sources/Private/FirebaseCoreInternal.h"
 
 #import "FirebaseAuth/Sources/Auth/FIRAuthDataResult_Internal.h"
 #import "FirebaseAuth/Sources/Auth/FIRAuthDispatcher.h"
@@ -529,7 +524,7 @@ static NSMutableDictionary *gKeychainServiceNameForAppName;
                         @"Error loading saved user when starting up: %@", error);
           }
         } else {
-          [strongSelf useUserAccessGroup:storedUserAccessGroup error:&error];
+          [strongSelf internalUseUserAccessGroup:storedUserAccessGroup error:&error];
           if (error) {
             FIRLogError(kFIRLoggerAuth, @"I-AUT000001",
                         @"Error loading saved user when starting up: %@", error);
@@ -1520,10 +1515,14 @@ static NSMutableDictionary *gKeychainServiceNameForAppName;
   [self canHandleNotification:userInfo];
 }
 
+// iOS 10 deprecation
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
 - (void)application:(UIApplication *)application
     didReceiveRemoteNotification:(NSDictionary *)userInfo {
   [self canHandleNotification:userInfo];
 }
+#pragma clang diagnostic pop
 
 - (BOOL)application:(UIApplication *)app
             openURL:(NSURL *)url
@@ -1531,12 +1530,16 @@ static NSMutableDictionary *gKeychainServiceNameForAppName;
   return [self canHandleURL:url];
 }
 
+// iOS 10 deprecation
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
 - (BOOL)application:(UIApplication *)application
               openURL:(NSURL *)url
     sourceApplication:(nullable NSString *)sourceApplication
            annotation:(id)annotation {
   return [self canHandleURL:url];
 }
+#pragma clang diagnostic pop
 
 - (void)setAPNSToken:(NSData *)token type:(FIRAuthAPNSTokenType)type {
   dispatch_sync(FIRAuthGlobalWorkQueue(), ^{
@@ -1999,8 +2002,12 @@ static NSMutableDictionary *gKeychainServiceNameForAppName;
     } else {
       // Encode the user object.
       NSMutableData *archiveData = [NSMutableData data];
+// iOS 12 deprecation
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
       NSKeyedArchiver *archiver =
           [[NSKeyedArchiver alloc] initForWritingWithMutableData:archiveData];
+#pragma clang diagnostic pop
       [archiver encodeObject:user forKey:userKey];
       [archiver finishEncoding];
 
@@ -2046,8 +2053,12 @@ static NSMutableDictionary *gKeychainServiceNameForAppName;
       *outUser = nil;
       return YES;
     }
+// iOS 12 deprecation
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     NSKeyedUnarchiver *unarchiver =
         [[NSKeyedUnarchiver alloc] initForReadingWithData:encodedUserData];
+#pragma clang diagnostic pop
     FIRUser *user = [unarchiver decodeObjectOfClass:[FIRUser class] forKey:userKey];
     user.auth = self;
     *outUser = user;
@@ -2169,8 +2180,8 @@ static NSMutableDictionary *gKeychainServiceNameForAppName;
 
 #pragma mark - Keychain sharing
 
-- (BOOL)useUserAccessGroup:(NSString *_Nullable)accessGroup
-                     error:(NSError *_Nullable *_Nullable)outError {
+- (BOOL)internalUseUserAccessGroup:(NSString *_Nullable)accessGroup
+                             error:(NSError *_Nullable *_Nullable)outError {
   BOOL success;
   success = [self.storedUserManager setStoredUserAccessGroup:accessGroup error:outError];
   if (!success) {
@@ -2196,6 +2207,14 @@ static NSMutableDictionary *gKeychainServiceNameForAppName;
   return YES;
 }
 
+- (BOOL)useUserAccessGroup:(NSString *_Nullable)accessGroup
+                     error:(NSError *_Nullable *_Nullable)outError {
+  // self.storedUserManager is initialized asynchronously. Make sure it is done.
+  dispatch_sync(FIRAuthGlobalWorkQueue(), ^{
+                });
+  return [self internalUseUserAccessGroup:accessGroup error:outError];
+}
+
 - (nullable FIRUser *)getStoredUserForAccessGroup:(NSString *_Nullable)accessGroup
                                             error:(NSError *_Nullable *_Nullable)outError {
   FIRUser *user;
@@ -2206,8 +2225,12 @@ static NSMutableDictionary *gKeychainServiceNameForAppName;
       return nil;
     }
 
+// iOS 12 deprecation
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     NSKeyedUnarchiver *unarchiver =
         [[NSKeyedUnarchiver alloc] initForReadingWithData:encodedUserData];
+#pragma clang diagnostic pop
     user = [unarchiver decodeObjectOfClass:[FIRUser class] forKey:userKey];
   } else {
     user = [self.storedUserManager getStoredUserForAccessGroup:self.userAccessGroup

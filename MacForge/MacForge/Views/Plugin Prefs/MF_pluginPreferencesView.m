@@ -30,7 +30,7 @@
     _currentPrefView = NULL;
     
     // Prevent selection until helper is running
-    [self.tv setEnabled:false];
+//    [self.tv setEnabled:false];
     
 //    __weak typeof(self) weakSelf = self;
 //    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
@@ -39,18 +39,18 @@
 //        @try { [weakSelf.prefLoaderConnection resume]; }
 //        @catch (NSException *exception) { NSLog(@"Yikes"); }
 //        weakSelf.prefLoaderProxy = weakSelf.prefLoaderConnection.remoteObjectProxy;
-//        
+//
 //        dispatch_async(dispatch_get_main_queue(), ^(){
 //            // Enable selection
 //            [self.tv setEnabled:true];
-//            
+//
 //            // Automatically select the first row (if one exists) once we're done loading
-//            if (self.tv.selectedRow < 0) {
-//                if (self.tv.numberOfRows > 0) {
-//                    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:0];
-//                    [self.tv selectRowIndexes:indexSet byExtendingSelection:NO];
-//                }
-//            }
+            if (self.tv.selectedRow < 0) {
+                if (self.tv.numberOfRows > 0) {
+                    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:0];
+                    [self.tv selectRowIndexes:indexSet byExtendingSelection:NO];
+                }
+            }
 //        });
 //    });
     
@@ -126,26 +126,44 @@
         NSBundle *selectedPref = [_pluginList objectAtIndex:[_tv selectedRow]];
         NSString *path = [selectedPref bundlePath];
         NSLog(@"Bundle path %@", path);
-        __weak typeof(self) weakSelf = self;
-
-        [_prefLoaderProxy setPluginPath:path
-                          withReply:^(BOOL set) {
-            NSLog(@"Path Set");
-            dispatch_async(dispatch_get_main_queue(), ^(){
-                weakSelf.currentPrefView = [[NSRemoteView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-//                [weakSelf.currentPrefView setTranslatesAutoresizingMaskIntoConstraints:NO];
-                [weakSelf.currentPrefView setSynchronizesImplicitAnimations:NO];
-                [weakSelf.currentPrefView setShouldMaskToBounds:NO];
-                [weakSelf.currentPrefView setServiceName:@"com.macenhance.MacForge.PreferenceLoader"];
-                [weakSelf.currentPrefView setServiceSubclassName:@"PreferenceLoaderServiceView"];
-
-                [weakSelf.currentPrefView advanceToRunPhaseIfNeeded:^(NSError *err){
-                    dispatch_async(dispatch_get_main_queue(), ^(){
-                        [MF_extra.sharedInstance setViewSubViewWithScrollableView:weakSelf.preferencesContainer :weakSelf.currentPrefView];
-                    });
-                }];
-            });
-        }];
+        
+        NSBundle *bundle = [NSBundle bundleWithPath:path];
+        Class someClass = [bundle principalClass];
+        NSString *nib = path.lastPathComponent.stringByDeletingPathExtension;
+        NSLog(@"Nib name %@", nib);
+        
+        id instance = [[someClass alloc] initWithNibName:nib bundle:bundle];
+        NSViewController *testVC = (NSViewController*)instance;
+        if (![instance isKindOfClass:[NSViewController class]]) {
+            NSLog(@"Bad class??");
+        }
+        @try {
+            [MF_extra.sharedInstance setViewSubViewWithScrollableView:self.preferencesContainer :testVC.view];
+        } @catch (NSException *exception) {
+            
+        }
+        
+        
+//        __weak typeof(self) weakSelf = self;
+//
+//        [_prefLoaderProxy setPluginPath:path
+//                          withReply:^(BOOL set) {
+//            NSLog(@"Path Set");
+//            dispatch_async(dispatch_get_main_queue(), ^(){
+//                weakSelf.currentPrefView = [[NSRemoteView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+////                [weakSelf.currentPrefView setTranslatesAutoresizingMaskIntoConstraints:NO];
+//                [weakSelf.currentPrefView setSynchronizesImplicitAnimations:NO];
+//                [weakSelf.currentPrefView setShouldMaskToBounds:NO];
+//                [weakSelf.currentPrefView setServiceName:@"com.macenhance.MacForge.PreferenceLoader"];
+//                [weakSelf.currentPrefView setServiceSubclassName:@"PreferenceLoaderServiceView"];
+//
+//                [weakSelf.currentPrefView advanceToRunPhaseIfNeeded:^(NSError *err){
+//                    dispatch_async(dispatch_get_main_queue(), ^(){
+//                        [MF_extra.sharedInstance setViewSubViewWithScrollableView:weakSelf.preferencesContainer :weakSelf.currentPrefView];
+//                    });
+//                }];
+//            });
+//        }];
     }
 }
 

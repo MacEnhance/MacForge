@@ -47,8 +47,16 @@ extern AppDelegate *myDelegate;
 - (void)setupWithPlugin:(MF_Plugin*)plugin {
     plug = plugin;
     _bundleName.stringValue = plugin.webName;
-    _bundleDesc.stringValue = plugin.webDescriptionShort;
-    _bundleDesc.toolTip = plugin.webDescriptionShort;
+//    _bundleDesc.stringValue = plugin.webDescriptionShort;
+//    _bundleDesc.toolTip = plugin.webDescriptionShort;
+    
+    if (plugin.paddleEmail)
+        _bundleEmail.stringValue = plugin.paddleEmail;
+    if (plugin.paddleLicense) {
+        [_bundleLicense setFont:[NSFont systemFontOfSize:10]];
+        _bundleLicense.stringValue = plugin.paddleLicense;
+        _bundleLicense.backgroundColor = NSColor.clearColor;
+    }
     
     _bundleGet.backgroundNormalColor = NSColor.whiteColor;
     _bundleGet.backgroundHighlightColor = NSColor.whiteColor;

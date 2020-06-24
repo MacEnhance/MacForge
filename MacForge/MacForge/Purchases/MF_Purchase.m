@@ -12,6 +12,7 @@
 #import "MF_PluginManager.h"
 #import "MF_repoData.h"
 #import "MF_Purchase.h"
+#import "MF_Paddle.h"
 
 #import "AppDelegate.h"
 
@@ -141,30 +142,33 @@ extern AppDelegate* myDelegate;
                 NSString *execPath = [b pathForResource:@"purchaseValidationApp" ofType:@"app"];
                 execPath = [NSString stringWithFormat:@"%@/Contents/MacOS/purchaseValidationApp", execPath];
                 
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                    NSTask *task = [NSTask launchedTaskWithLaunchPath:execPath arguments:@[myPaddleProductID, myPaddleVendorID, myPaddleAPIKey, @"-v"]];
-                    [task waitUntilExit];
-                 
-                    //This is your completion handler
-                    dispatch_sync(dispatch_get_main_queue(), ^{
-                        plugin.checkedPurchase = true;
-                        if ([task terminationStatus] == 69) {
-                            plugin.hasPurchased = true;
-                            NSLog(@"Verified... %@", plugin.bundleID);
-                            if (!isInstalled) {
-                                theButton.title = @"GET";
-                                theButton.toolTip = @"";
-                            }
-                        } else {
-                            plugin.hasPurchased = false;
-                            if (!isInstalled) {
-                                theButton.title = plugin.webPrice;
-                                theButton.toolTip = @"";
-                            }
-                        }
-                        theButton.enabled = true;
-                    });
-                });
+                // Vendor , API, Product
+                [MF_Paddle validadePlugin:plugin withButton:theButton];
+                
+//                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//                    NSTask *task = [NSTask launchedTaskWithLaunchPath:execPath arguments:@[myPaddleProductID, myPaddleVendorID, myPaddleAPIKey, @"-v"]];
+//                    [task waitUntilExit];
+//
+//                    //This is your completion handler
+//                    dispatch_sync(dispatch_get_main_queue(), ^{
+//                        plugin.checkedPurchase = true;
+//                        if ([task terminationStatus] == 69) {
+//                            plugin.hasPurchased = true;
+//                            NSLog(@"Verified... %@", plugin.bundleID);
+//                            if (!isInstalled) {
+//                                theButton.title = @"GET";
+//                                theButton.toolTip = @"";
+//                            }
+//                        } else {
+//                            plugin.hasPurchased = false;
+//                            if (!isInstalled) {
+//                                theButton.title = plugin.webPrice;
+//                                theButton.toolTip = @"";
+//                            }
+//                        }
+//                        theButton.enabled = true;
+//                    });
+//                });
             }
             
         }
@@ -192,35 +196,36 @@ extern AppDelegate* myDelegate;
     if (myPaddleProductID != nil) {
         [MSAnalytics trackEvent:@"Purchase Attempt" withProperties:@{@"Product" : plugin.webName, @"Product ID" : myPaddleProductID}];
         
-        NSString *myPaddleVendorID = @"26643";
-        NSString *myPaddleAPIKey = @"02a3c57238af53b3c465ef895729c765";
-
-        NSDictionary *dict = [plugin.webPlist objectForKey:@"paddle"];
-        if (dict != nil) {
-            myPaddleVendorID = [dict objectForKey:@"vendorid"];
-            myPaddleAPIKey = [dict objectForKey:@"apikey"];
-        }
-    
-        NSBundle *b = [NSBundle mainBundle];
-        NSString *execPath = [b pathForResource:@"purchaseValidationApp" ofType:@"app"];
-        execPath = [NSString stringWithFormat:@"%@/Contents/MacOS/purchaseValidationApp", execPath];
-        
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//            NSLog(@"Hello %@ %@ %@",myPaddleProductID,myPaddleVendorID,myPaddleAPIKey);
-            NSTask *task = [NSTask launchedTaskWithLaunchPath:execPath arguments:@[myPaddleProductID, myPaddleVendorID, myPaddleAPIKey]];
-            [task waitUntilExit];
-         
-           //This is your completion handler
-           dispatch_sync(dispatch_get_main_queue(), ^{
-               if ([task terminationStatus] == 69) {
-                   plugin.hasPurchased = true;
-                   [MSAnalytics trackEvent:@"Purchased Product" withProperties:@{@"Product" : plugin.webName, @"Product ID" : myPaddleProductID}];
-                   [MF_Purchase pluginInstallWithProgress:plugin :repo :theButton :progress];
-               } else {
-                   NSLog(@"Purchase canceled or failed.");
-               }
-           });
-        });
+        [MF_Paddle purchasePlugin:plugin withButton:theButton];
+//        NSString *myPaddleVendorID = @"26643";
+//        NSString *myPaddleAPIKey = @"02a3c57238af53b3c465ef895729c765";
+//
+//        NSDictionary *dict = [plugin.webPlist objectForKey:@"paddle"];
+//        if (dict != nil) {
+//            myPaddleVendorID = [dict objectForKey:@"vendorid"];
+//            myPaddleAPIKey = [dict objectForKey:@"apikey"];
+//        }
+//
+//        NSBundle *b = [NSBundle mainBundle];
+//        NSString *execPath = [b pathForResource:@"purchaseValidationApp" ofType:@"app"];
+//        execPath = [NSString stringWithFormat:@"%@/Contents/MacOS/purchaseValidationApp", execPath];
+//
+//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+////            NSLog(@"Hello %@ %@ %@",myPaddleProductID,myPaddleVendorID,myPaddleAPIKey);
+//            NSTask *task = [NSTask launchedTaskWithLaunchPath:execPath arguments:@[myPaddleProductID, myPaddleVendorID, myPaddleAPIKey]];
+//            [task waitUntilExit];
+//
+//           //This is your completion handler
+//           dispatch_sync(dispatch_get_main_queue(), ^{
+//               if ([task terminationStatus] == 69) {
+//                   plugin.hasPurchased = true;
+//                   [MSAnalytics trackEvent:@"Purchased Product" withProperties:@{@"Product" : plugin.webName, @"Product ID" : myPaddleProductID}];
+//                   [MF_Purchase pluginInstallWithProgress:plugin :repo :theButton :progress];
+//               } else {
+//                   NSLog(@"Purchase canceled or failed.");
+//               }
+//           });
+//        });
     } else {
         NSLog(@"No product info... lets assume it's FREEEE");
         [MF_Purchase pluginInstallWithProgress:plugin :repo :theButton :progress];

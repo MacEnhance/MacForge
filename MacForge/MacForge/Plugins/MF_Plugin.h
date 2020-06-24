@@ -34,6 +34,10 @@
 @property Boolean       webFeatured;
 @property Boolean       webPaid;
 
+// Paddle
+@property NSString      *paddleEmail;
+@property NSString      *paddleLicense;
+
 // Info
 @property Boolean           checkedPurchase;
 @property Boolean           hasPurchased;

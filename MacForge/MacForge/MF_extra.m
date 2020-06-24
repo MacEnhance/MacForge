@@ -96,6 +96,13 @@
         sideButton.buttonHighlightArea.frame = CGRectMake(8, 1, sideButton.frame.size.width - 16, 34);
         sideButton.buttonHighlightArea.wantsLayer = true;
         sideButton.buttonHighlightArea.layer.cornerRadius = 5;
+        
+        // Extra
+        if (sideButton.buttonExtra) {
+            CGRect extra = sideButton.buttonExtra.frame;
+            extra.origin.y = (sideButton.frame.size.height - sideButton.buttonExtra.frame.size.height) / 2 - 2;
+            sideButton.buttonExtra.frame = extra;
+        }
     }
         
     // Setup bottom buttons
