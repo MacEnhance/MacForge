@@ -536,6 +536,13 @@
             // Use app icon
             result = [Workspace iconForFile:iconPath];
             if (result) return result;
+        } else {
+            // Fix icon for Messages on macOS 11
+            if ([[targetApp objectForKey:@"BundleIdentifier"] isEqualToString:@"com.apple.iChat"]) {
+                iconPath = [Workspace absolutePathForAppBundleWithIdentifier:@"com.apple.MobileSMS"];
+                result = [Workspace iconForFile:iconPath];
+                if (result) return result;
+            }
         }
     }
     

@@ -24,6 +24,7 @@ static MFAppDelegate *mfAppDelegate;
 
 @interface MFAppDelegate ()
 @property (strong, atomic) MFInjectorProxy *injectorProxy;
+@property Boolean disableInjection;
 @end
 
 @implementation MFAppDelegate
@@ -81,10 +82,10 @@ void HandleExceptions(NSException *exception) {
 
     // Watch for new plugins
     [self watchForPlugins];
-    
+
     // Watch for app launches
     [self watchForApplications];
-    
+
     // Try injecting into all runnning process in NSWorkspace.sharedWorkspace
     [self injectAllProc];
 }
@@ -226,7 +227,7 @@ void HandleExceptions(NSException *exception) {
                             configuration:[NSDictionary dictionaryWithObject:args forKey:NSWorkspaceLaunchConfigurationArguments]
                                     error:&error];
     } else {
-        [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.macenhance.MacForgeNotify" object:args[0]];
+        [NSDistributedNotificationCenter.defaultCenter postNotificationName:@"com.macenhance.MacForgeNotify" object:args[0] userInfo:nil deliverImmediately:true];
     }
 }
 
@@ -321,6 +322,19 @@ void HandleExceptions(NSException *exception) {
     NSLog(@"%@", error);
 }
 
+- (NSImage *)imageTint:(NSImage*)img withColor:(NSColor *)tint {
+    NSImage *image = img.copy;
+    [image setTemplate:false];
+    if (tint) {
+        [image lockFocus];
+        [tint set];
+        NSRect imageRect = {NSZeroPoint, [image size]};
+        NSRectFillUsingOperation(imageRect, NSCompositingOperationSourceIn);
+        [image unlockFocus];
+    }
+    return image;
+}
+
 - (void)colorStatusIconApplyPrefs:(NSMenuItem*)sender {
     NSDictionary *GUIDefaults = [[NSUserDefaults standardUserDefaults] persistentDomainForName:@"com.macenhance.MacForge"];
     Boolean doColor = [[GUIDefaults valueForKey:@"prefColorMenuBar"] boolValue];
@@ -333,10 +347,29 @@ void HandleExceptions(NSException *exception) {
     }
     
     if (@available(macOS 10.14, *)) {
-        if (doColor)
-            _statusBar.button.contentTintColor = NSColor.controlAccentColor;
-        else
+        if (doColor) {
+            
+            NSImage *image = [NSImage imageNamed:@"Menubar18"];
             _statusBar.button.contentTintColor = nil;
+            [_statusBar.button.image setTemplate:false];
+            _statusBar.button.image = [self imageTint:image withColor:NSColor.controlAccentColor];
+            
+            
+        } else {
+            
+            NSImage *image = [NSImage imageNamed:@"Menubar18"];
+            [image setTemplate:true];
+            _statusBar.button.contentTintColor = nil;
+            _statusBar.button.image = image;
+            
+        }
+    }
+}
+
+- (void)disableInject:(NSMenuItem*)item {
+    if (item) {
+        [item setState:!item.state];
+        _disableInjection = item.state;
     }
 }
 
@@ -353,6 +386,8 @@ void HandleExceptions(NSException *exception) {
     [[stackMenu itemAtIndex:1] setState:doColor];
     [self addMenuItemToMenu:stackMenu :@"Hide Menubar Icon" :@selector(goodbyeMenu) :@""];
     [stackMenu addItem:NSMenuItem.separatorItem];
+    [self addMenuItemToMenu:stackMenu :@"Disable Injection" :@selector(disableInject:) :@""];
+    [stackMenu addItem:NSMenuItem.separatorItem];
     [self addMenuItemToMenu:stackMenu :@"Manage Bundles" :@selector(openMacForgeManage) :@""];
     [self addMenuItemToMenu:stackMenu :@"Update Bundles..." :@selector(updatesPluginsInstall) :@""];
 //    [self addMenuItemToMenu:stackMenu :@"Test inject..." :@selector(testInject) :@""];
@@ -364,10 +399,7 @@ void HandleExceptions(NSException *exception) {
     _statusBar = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
     [_statusBar setMenu:stackMenu];
     [_statusBar setTitle:@""];
-    NSImage *statusImage = [NSImage imageNamed:@"Menubar18"];
-    [statusImage setTemplate:true];
     [self colorStatusIconApplyPrefs:nil];
-    [_statusBar setImage:statusImage];
 }
 
 // Check if a bundle should be injected into specified running application
@@ -441,34 +473,34 @@ void HandleExceptions(NSException *exception) {
 
 // Try injecting all valid bundles into an running application
 - (void)injectBundle:(NSRunningApplication*)runningApp {
+    if (!_disableInjection) {
        if ([MFAppDelegate shouldInject:runningApp]) {
            pid_t pid = [runningApp processIdentifier];
            // Try injecting each valid plugin into the application
                 
            // async check if Xcode is attached to process
            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                             
+
                Boolean isXcodeRunning = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.dt.Xcode"].count;
                Boolean isXcodeAttached = false;
                if (isXcodeRunning)
                    isXcodeAttached = [self xcodeAttached:pid];
-//
-//               // Do the injecting
+
+               // Do the injecting
                if (!isXcodeAttached) {
-                   for (NSString *bundlePath in [SIMBL pluginsToLoadList:[NSBundle bundleWithPath:runningApp.bundleURL.path]]) {
-                       
-                       // make sure we're back on the main thread
-                       dispatch_async(dispatch_get_main_queue(), ^{
+                   // make sure we're back on the main thread
+                   dispatch_async(dispatch_get_main_queue(), ^{
+                       for (NSString *bundlePath in [SIMBL pluginsToLoadList:[NSBundle bundleWithPath:runningApp.bundleURL.path]]) {
                            NSError *error;
                            [self.injectorProxy injectPID:pid :bundlePath :&error];
                            if(error) NSLog(@"Couldn't inject into %d : %@ (domain: %@ code: %@)", pid, runningApp.localizedName, error.domain, [NSNumber numberWithInteger:error.code]);
-                           
-                       });
-                   }
+                       }
+                   });
                }
-               
+
            });
        }
+    }
 }
 
 // Try injecting all valid bundles into an application based on bundle ID

@@ -5,6 +5,9 @@
 
 #include	"mach_inject.h"
 
+#include <fcntl.h> // for open
+#include <unistd.h> // for close
+
 #include <mach-o/dyld.h>
 #include <mach-o/getsect.h>
 #include <mach/mach.h>

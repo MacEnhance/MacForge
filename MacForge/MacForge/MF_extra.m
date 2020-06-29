@@ -56,7 +56,6 @@
 - (void)setupSidebar11 {
     // Setup top buttons
     NSInteger height = 36;
-    NSInteger resizeWidth = 18;
     NSUInteger totalHeight = height * 2;
     NSUInteger yLoc = _mainView.window.frame.size.height - height * 2 - 50;
     for (MF_sidebarButton *sideButton in _sidebarTopButtons) {
@@ -326,7 +325,7 @@
     
     // Center the window in our main window
     if (![_prefWindow isVisible]) {
-        NSRect frm      = NSApp.mainWindow.frame;
+        NSRect frm      = _mainWindow.frame;
         NSRect myfrm    = _prefWindow.frame;
         [_prefWindow setFrameOrigin:CGPointMake(frm.origin.x + frm.size.width / 2 - myfrm.size.width / 2,
                                                 frm.origin.y + frm.size.height / 2 - myfrm.size.height / 2)];
