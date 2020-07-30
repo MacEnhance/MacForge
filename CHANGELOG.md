@@ -119,20 +119,20 @@
 -    Account tab allows for account creation
 -    3rd parties can now sell plugins
 
-### 0.1### 0.3
+### 0.10.3
 
 -    Featured page improvements
 -    Fix error pop-up
 -    Fix codesign issue
 -    Bug fixes
 
-### 0.1### 0.2
+### 0.10.2
 
 -    Fix install error if .zip contained __MACOS folder
 -    Updated preferences tab UI
 -    Bug fixes
 
-### 0.1### 0.1
+### 0.10.1
 
 -    Minimum macOS version bumped to 1### 0.11
 -    UI design adjustments

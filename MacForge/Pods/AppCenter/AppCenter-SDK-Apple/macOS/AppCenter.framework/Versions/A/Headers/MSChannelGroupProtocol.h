@@ -74,7 +74,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @return A channel unit instance or `nil`.
  */
-- (id<MSChannelUnitProtocol>)channelUnitForGroupId:(NSString *)groupId;
+- (nullable id<MSChannelUnitProtocol>)channelUnitForGroupId:(NSString *)groupId;
 
 @end
 

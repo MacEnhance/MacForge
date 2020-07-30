@@ -9,17 +9,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>AppCenter.xcscheme_^#shared#^_</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>EDStarRating.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>EDStarRating.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -29,22 +19,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>FirebaseAuth.xcscheme_^#shared#^_</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>FirebaseAuthInterop.xcscheme_^#shared#^_</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>FirebaseCore.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>FirebaseCore.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -54,22 +29,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>FirebaseCoreDiagnostics.xcscheme_^#shared#^_</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>FirebaseCoreDiagnosticsInterop.xcscheme_^#shared#^_</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>GTMSessionFetcher.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>GTMSessionFetcher.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -79,27 +39,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>GoogleDataTransport.xcscheme_^#shared#^_</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>GoogleDataTransportCCTSupport.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>GoogleDataTransportCCTSupport.xcscheme_^#shared#^_</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>GoogleUtilities.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>GoogleUtilities.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -109,17 +49,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>LetsMove.xcscheme_^#shared#^_</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>PaddleV4.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>PaddleV4.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -144,22 +74,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-purchaseValidationApp.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-purchaseValidationApp.xcscheme_^#shared#^_</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>PromisesObjC.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>PromisesObjC.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -169,27 +84,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>SDWebImage.xcscheme_^#shared#^_</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Sparkle.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Sparkle.xcscheme_^#shared#^_</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>nanopb.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>nanopb.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

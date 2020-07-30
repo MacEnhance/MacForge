@@ -96,7 +96,7 @@ Boolean appSetupFinished = false;
 - (instancetype)init {
     myDelegate = self;
     appStart = [NSDate date];
-    osx_ver = NSProcessInfo.processInfo.operatingSystemVersion.minorVersion;
+    osx_ver = MF_extra.sharedInstance.macOS;
     return self;
 }
 

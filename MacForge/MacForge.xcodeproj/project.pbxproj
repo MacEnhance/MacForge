@@ -970,9 +970,9 @@
 				FBA6E88520F0176B00A12ACF /* AppDelegate.h */,
 				FBA6E88620F0176B00A12ACF /* AppDelegate.m */,
 				FBA6E8CD20F025A100A12ACF /* Application.xib */,
+				FB306ACD2367CD0F008A6E61 /* Media.xcassets */,
 				FB7259E42314F2BD00701F32 /* GoogleService-Info.plist */,
 				FBE767F220F00FFE00A42BD5 /* Info.plist */,
-				FB306ACD2367CD0F008A6E61 /* Media.xcassets */,
 			);
 			path = MacForge;
 			sourceTree = "<group>";
@@ -1834,7 +1834,7 @@
 					"-undefined",
 					dynamic_lookup,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacForge.Injector;
+				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.MacForge.Injector;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1871,7 +1871,7 @@
 					"-undefined",
 					dynamic_lookup,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.w0lf.MacForge.Injector;
+				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.MacForge.Injector;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

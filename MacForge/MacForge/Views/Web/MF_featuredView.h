@@ -9,5 +9,6 @@
 @import AppKit;
 
 @interface MF_featuredView : NSView <NSTableViewDataSource, NSTableViewDelegate>
+@property NSScrollView *sv;
 @property NSTableView *tv;
 @end

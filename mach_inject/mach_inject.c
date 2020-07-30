@@ -272,7 +272,7 @@ mach_inject(
 									 &remoteThread );
 	}
 #else
-#error architecture not supported
+//#error architecture not supported
 #endif
 	
 	if( err ) {

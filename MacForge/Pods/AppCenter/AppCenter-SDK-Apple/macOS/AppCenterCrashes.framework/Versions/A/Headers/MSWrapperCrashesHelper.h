@@ -71,7 +71,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @return handled error ID.
  */
-+ (NSString *)trackModelException:(MSException *)exception
++ (nullable NSString *)trackModelException:(MSException *)exception
                    withProperties:(nullable NSDictionary<NSString *, NSString *> *)properties
                   withAttachments:(nullable NSArray<MSErrorAttachmentLog *> *)attachments;
 

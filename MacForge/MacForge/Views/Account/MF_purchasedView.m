@@ -19,17 +19,23 @@
 }
 
 - (void)checkAndUpdate {
-    if (floor(self.frame.size.width/350.0) != columns || floor(self.frame.size.width/350.0) != _tv.tableColumns.count || columns != _tv.tableColumns.count) {
-        columns = floor(self.frame.size.width/350.0);
+    if (floor(self.frame.size.width/390.0) != columns || floor(self.frame.size.width/390.0) != _tv.tableColumns.count || columns != _tv.tableColumns.count) {
+        columns = floor(self.frame.size.width/390.0);
         [self updateColumCount];
     }
 }
 
-- (void)drawRect:(NSRect)dirtyRect {
-    NSUInteger pad = self.frame.size.width - (4 * columns);
-    for (NSTableColumn* c in self.tv.tableColumns)
+- (void)adjustColumnWidth {
+    int multiplier = 4;
+    if (MF_extra.sharedInstance.macOS >= 16) multiplier = 25;
+    NSUInteger pad = self.frame.size.width - (multiplier * columns);
+    for (NSTableColumn* c in _tv.tableColumns)
         [c setWidth:pad/columns];
+}
+
+- (void)drawRect:(NSRect)dirtyRect {
     [self checkAndUpdate];
+    [self adjustColumnWidth];
 }
 
 - (void)updateColumCount {
@@ -38,22 +44,16 @@
     if (_tv.numberOfColumns > columns)
         for (int i = 0; i < nuke; i++)
             [_tv removeTableColumn:_tv.tableColumns.lastObject];
-    
+
     // add needed columns
     long give = columns - _tv.numberOfColumns;
     if (_tv.numberOfColumns < columns) {
         for (int i = 0; i < give; i++) {
             NSString *identify = [NSString stringWithFormat:@"Col%d", (int)_tv.numberOfColumns + 1];
-            NSTableColumn * column = [[NSTableColumn alloc] initWithIdentifier:identify];
-            [column setWidth:self.frame.size.width/columns];
-            [_tv addTableColumn:column];
+            [_tv addTableColumn:[NSTableColumn.alloc initWithIdentifier:identify]];
         }
     }
-    
-    // set columns to equal width
-    for (NSTableColumn *col in _tv.tableColumns)
-        [col setWidth:self.frame.size.width/columns];
-    
+
     // redraw and fit
     [_tv reloadData];
 }

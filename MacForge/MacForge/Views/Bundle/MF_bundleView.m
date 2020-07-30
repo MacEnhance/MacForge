@@ -18,7 +18,7 @@ NSDictionary *testing;
 }
 
 - (void)systemDarkModeChange:(NSNotification *)notif {
-    if (NSProcessInfo.processInfo.operatingSystemVersion.minorVersion >= 14) {
+    if (MF_extra.sharedInstance.macOS >= 14) {
         NSString *osxMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
         if ([osxMode isEqualToString:@"Dark"]) {
             [_bundleDesc setTextColor:[NSColor whiteColor]];

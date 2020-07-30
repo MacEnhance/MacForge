@@ -188,6 +188,11 @@
     [appNameView setDrawsBackground:false];
     appNameView.stringValue = [[(NSBundle *)(_pluginList[row]) executablePath] lastPathComponent];
 
+//    NSButton *toggle = [NSButton.alloc initWithFrame:CGRectMake(60, 5, 20, 20)];
+//    [toggle setButtonType:NSButtonTypeSwitch];
+//    [toggle setAutoresizingMask:NSViewMinXMargin];
+//    [result addSubview:toggle];
+    
     [img setImage:appIMG];
     [result addSubview:appNameView];
     [result addSubview:img];

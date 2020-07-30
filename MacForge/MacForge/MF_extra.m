@@ -31,8 +31,11 @@
 - (instancetype)init {
     MF_extra *res = [super init];
     _macOS = 9;
-    if ([[NSProcessInfo processInfo] respondsToSelector:@selector(operatingSystemVersion)])
-        _macOS = [[NSProcessInfo processInfo] operatingSystemVersion].minorVersion;
+    if ([NSProcessInfo.processInfo respondsToSelector:@selector(operatingSystemVersion)]) {
+        _macOS = NSProcessInfo.processInfo.operatingSystemVersion.minorVersion;
+        if (NSProcessInfo.processInfo.operatingSystemVersion.majorVersion == 11)
+            _macOS += 16;
+    }
     return res;
 }
 
@@ -138,11 +141,11 @@
 }
 
 - (void)setupSidebar {
-    if (NSProcessInfo.processInfo.operatingSystemVersion.minorVersion >= 16) {
+    if (_macOS >= 16) {
         [self setupSidebar11];
         return;
     }
-    
+        
     // Setup top buttons
     NSInteger height = 42;
     NSInteger resizeWidth = 24;
@@ -150,13 +153,13 @@
     NSUInteger yLoc = _mainView.window.frame.size.height - height * 2 - 50;
     for (MF_sidebarButton *sideButton in _sidebarTopButtons) {
         
-        if (sideButton.buttonImage.image.size.width > resizeWidth && sideButton.buttonImage.image.size.height != 30)
-            sideButton.buttonImage.image = [self imageResize:sideButton.buttonImage.image newSize:CGSizeMake(resizeWidth, sideButton.buttonImage.image.size.height * (resizeWidth / sideButton.buttonImage.image.size.height))];
-        
-        if (!sideButton.buttonImage.image.isTemplate)
-            [sideButton.buttonImage.image setTemplate:true];
-        
-        if (@available(macOS 10.14, *)) sideButton.buttonImage.contentTintColor = NSColor.controlAccentColor;
+//        if (sideButton.buttonImage.image.size.width > resizeWidth && sideButton.buttonImage.image.size.height != 30)
+//            sideButton.buttonImage.image = [self imageResize:sideButton.buttonImage.image newSize:CGSizeMake(resizeWidth, sideButton.buttonImage.image.size.height * (resizeWidth / sideButton.buttonImage.image.size.height))];
+//
+//        if (!sideButton.buttonImage.image.isTemplate)
+//            [sideButton.buttonImage.image setTemplate:true];
+//
+//        if (@available(macOS 10.14, *)) sideButton.buttonImage.contentTintColor = NSColor.controlAccentColor;
         
         NSButton *btn = sideButton.buttonClickArea;
         if (btn.enabled) {
@@ -172,6 +175,11 @@
         } else {
             sideButton.hidden = true;
         }
+        
+        // Image setup
+        sideButton.buttonImage.frame = CGRectMake(28, 10, 22, 22);
+        if (!sideButton.buttonImage.image.isTemplate) [sideButton.buttonImage.image setTemplate:true];
+//        if (@available(macOS 10.14, *)) sideButton.buttonImage.contentTintColor = NSColor.controlAccentColor;
         
         sideButton.buttonHighlightArea.wantsLayer = true;
     }

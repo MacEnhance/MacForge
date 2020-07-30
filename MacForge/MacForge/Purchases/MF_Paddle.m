@@ -107,7 +107,7 @@ extern AppDelegate* myDelegate;
     PADProduct *paddleProduct = [[PADProduct alloc] initWithProductID:myPaddleProductID productType:PADProductTypeSDKProduct configuration:defaultProductConfig];
     
     // Required for Catlina
-    if (NSProcessInfo.processInfo.operatingSystemVersion.minorVersion >= 15)
+    if (MF_extra.sharedInstance.macOS >= 15)
         [paddleProduct verifyActivationWithCompletion:^(PADVerificationState state, NSError * _Nullable error) { }];
     
 //    NSLog(@"%@ : %@ : %@", Paddle.sharedInstance.apiKey, Paddle.sharedInstance.vendorID, Paddle.sharedInstance.productID);

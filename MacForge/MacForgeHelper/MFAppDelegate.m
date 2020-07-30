@@ -178,11 +178,18 @@ void HandleExceptions(NSException *exception) {
             [self.injectorProxy installFramework:frameworkPath toLoaction:destination :&error];
 }
 
-- (void)givePluginFldr {
-    // No mach_inject_bundle found
-    NSError *error;
-    if (![[NSFileManager defaultManager] fileExistsAtPath:@"/Library/Application Support/MacEnhance/Plugins"])
+- (void)givePluginFldr {    
+    Boolean createFolders = false;
+    NSArray *paths = @[@"/Library/Application Support/MacEnhance/Plugins", @"/Library/Application Support/MacEnhance/Plugins (Disabled)",
+                       @"/Library/Application Support/MacEnhance/Preferences", @"/Library/Application Support/MacEnhance/Themes"];
+    for (NSString *path in paths) {
+        if (![[NSFileManager defaultManager] fileExistsAtPath:path])
+            createFolders = true;
+    }
+    if (createFolders) {
+        NSError *error;
         [self.injectorProxy setupPluginFolder:&error];
+    }
 }
 
 - (BOOL)isInjectorUpated {
@@ -404,12 +411,6 @@ void HandleExceptions(NSException *exception) {
 
 // Check if a bundle should be injected into specified running application
 + (Boolean)shouldInject:(NSRunningApplication*)runningApp {
-    // Abort if you're running something other than macOS 10.X.X
-    if (NSProcessInfo.processInfo.operatingSystemVersion.majorVersion != 10) {
-        SIMBLLogNotice(@"something fishy - OS X version %ld", [[NSProcessInfo processInfo] operatingSystemVersion].majorVersion);
-        return false;
-    }
-    
     // Don't inject into ourself
     if ([NSBundle.mainBundle.bundleIdentifier isEqualToString:runningApp.bundleIdentifier]) return false;
     
@@ -464,7 +465,7 @@ void HandleExceptions(NSException *exception) {
 }
 
 - (Boolean)xcodeAttached:(pid_t)pid {
-    NSString *script = [NSString stringWithFormat:@"lsof -p %d | grep /Applications/Xcode.app/Contents/Developer/usr/lib/libMainThreadChecker.dylib", pid];
+    NSString *script = [NSString stringWithFormat:@"lsof -p %d | grep \'/Applications/.*/Contents/Developer/usr/lib/libMainThreadChecker.dylib\'", pid];
     NSString *res = [self runScript:script];
     if (res.length > 0)
         return true;
