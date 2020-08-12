@@ -8,6 +8,7 @@
 
 // Local
 @import AppKit;
+@import ServiceManagement;
 
 // Pods
 @import LetsMove;

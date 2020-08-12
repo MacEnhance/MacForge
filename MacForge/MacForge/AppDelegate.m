@@ -359,6 +359,8 @@ Boolean appSetupFinished = false;
     [self executionTime:@"movePreviousPurchases"];
     [self toggleLoginItem:nil];
     
+    NSLog(@"MacForge Repo : %@", MF_REPO_URL);
+    
 //    [FIRApp configure];
 //    [self executionTime:@"fireBaseSetup"];
     

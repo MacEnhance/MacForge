@@ -1,18 +1,28 @@
-### 0.21.1
+### 1.0.3
 
+-   macOS Big Sur support
 -   UI redesign
 -   Major code clean / Organization
 -   macforge:// links now just use the bundleID
 -   MacForge can now host a UI for plugin settings [@jslegendre](https://github.com/jslegendre)
 -   Improvements made to injector
 -   Search bar in sidebar replaces search in discover view
+-   Updated information regarding AMFI
+-   Updated SIP notification window
+-   Hide perminantly balcklisted items from application blacklist
+-   Bundle view developer button in now functions
+-   Bundle view descriptions support markdown (no images)
+-   Support for using the app in fullscreen
+-   New preferences window
+-   Mousecape `.cape` support
+-   Discover view support for banner images 
+-   Discover view shows SIP and Lib Validation requirements
+-   Added progrees to downloads on bundle preview page
 -   Removed option for multiple sources
 -   Removed search bar from discover view
 -   Removed navigation bar from discover view
 -   Removed Xcode Plugin template
 -   Removed Demo Plugin
--   Updated information regarding AMFI
--   Updated SIP notification window
 
 ### 0.14.2
 

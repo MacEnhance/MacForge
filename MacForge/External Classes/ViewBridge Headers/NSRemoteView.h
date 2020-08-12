@@ -272,7 +272,6 @@ typedef void (^NSRemoteViewControllerConnectionHandler)(NSRemoteViewController *
 - (id)accessibilityFocusedUIElement;
 - (void)updateAccessoryViewAccessibility;
 - (void)updateAccessoryViewAccessibilityParent:(id)arg1;
-- (BOOL)advanceToRunPhaseIfNeeded;
 - (BOOL)_advanceToRunPhaseLegacy;
 - (void)_waitOnSemaphore:(id)arg1;
 - (void)_awaitInvalidation;

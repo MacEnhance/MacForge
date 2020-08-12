@@ -517,14 +517,26 @@ NSDictionary *testing;
             self.bundlePreview2.image = self.bundlePreviewImages[0];
         
         NSImage *test;
-        
         test = self.bundlePreview1.image;
-        if (!test.sd_isAnimated)
-            self.bundlePreview1.layer.backgroundColor = [[SLColorArt.alloc initWithImage:test].backgroundColor colorWithAlphaComponent:0.5].CGColor;
+        if (!test.sd_isAnimated) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                NSColor *match = [[SLColorArt.alloc initWithImage:test].backgroundColor colorWithAlphaComponent:0.5];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.bundlePreview1.layer.backgroundColor = match.CGColor;
+                });
+            });
+        }
+            
         
         test = self.bundlePreview2.image;
-        if (!test.sd_isAnimated)
-            self.bundlePreview2.layer.backgroundColor = [[SLColorArt.alloc initWithImage:test].backgroundColor colorWithAlphaComponent:0.5].CGColor;
+        if (!test.sd_isAnimated) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                NSColor *match = [[SLColorArt.alloc initWithImage:test].backgroundColor colorWithAlphaComponent:0.5];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.bundlePreview2.layer.backgroundColor = match.CGColor;
+                });
+            });
+        }
         
 //        NSLog(@"Current preview : %lu : %lu", (unsigned long)_currentPreview, (unsigned long)secondPreview);
     }

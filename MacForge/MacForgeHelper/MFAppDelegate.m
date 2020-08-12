@@ -11,8 +11,10 @@
 #import "MFAppDelegate.h"
 #import "MFInjectorProxy.h"
 
-#import "SGDirWatchdog.h"
 #import "NSBundle+LoginItem.h"
+#import "StartAtLoginController.h"
+
+#import "SGDirWatchdog.h"
 #import "SIMBL.h"
 
 #import "MF_PluginManager.h"

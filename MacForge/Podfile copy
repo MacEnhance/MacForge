@@ -1,0 +1,50 @@
+platform :osx, '10.13'
+
+use_frameworks!
+
+target 'MacForge' do
+  # Basics
+  pod 'AppCenter'
+  pod 'EDStarRating'
+  pod 'LetsMove'
+  pod 'PaddleV4'
+  pod 'SDWebImage'
+  pod 'Sparkle'
+
+  # Firebase
+  pod 'FirebaseAuth'
+  # pod 'FirebaseABTesting'
+  # pod 'FirebaseDatabase'
+  # pod 'FirebaseFirestore'
+  # pod 'FirebaseFunctions'
+  # pod 'FirebaseMessaging'
+  # pod 'FirebaseRemoteConfig'
+  # pod 'FirebaseStorage'
+end
+
+target 'MacForgeHelper' do
+  pod 'Sparkle'
+end
+
+target 'com.macenhance.MacForge.Injector' do
+end
+
+target 'MacForgeDockTile' do
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    if target.name.start_with?('BoringSSL') or target.name.start_with?('gRPC')
+      target.build_phases.each do |phase|
+        if phase.is_a?(Xcodeproj::Project::Object::PBXCopyFilesBuildPhase) and phase.name.end_with?('Headers')
+          if phase.dst_path.start_with? '$(PUBLIC_HEADERS_FOLDER_PATH)/../../'
+            phase.dst_path.sub! '$(PUBLIC_HEADERS_FOLDER_PATH)/../../', '$(PUBLIC_HEADERS_FOLDER_PATH)/../../../../'
+          end
+          if phase.dst_path.start_with? '$(PRIVATE_HEADERS_FOLDER_PATH)/../../'
+            phase.dst_path.sub! '$(PRIVATE_HEADERS_FOLDER_PATH)/../../', '$(PRIVATE_HEADERS_FOLDER_PATH)/../../../../'
+          end
+        end
+      end
+    end
+  end
+end

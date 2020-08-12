@@ -8,7 +8,7 @@ MacForge is an open-source plugin manager for macOS. It lets you discover, insta
 
 ## [Installation](https://github.com/w0lfschild/MacForge/wiki/Installation) 📂
 
-- Download the [latest release](https://github.com/w0lfschild/app_updates/raw/master/MacForge/MacForge.zip)
+- Download the [latest release](https://github.com/w0lfschild/app_updates/raw/master/MacForge1/MacForge.zip)
 - Unzip the download if your browser does not do so automatically
 - Open MacForge and allow it to install helper tools
 - Disable [System Integrity Protection](https://www.imore.com/how-turn-system-integrity-protection-macos)
