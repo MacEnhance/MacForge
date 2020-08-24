@@ -33,8 +33,13 @@ extern AppDelegate* myDelegate;
             [MSAnalytics trackEvent:@"Open" withProperties:@{@"Product ID" : plugin.bundleID}];
         }
     } else {
-        // Not installed try to purchase or install
-        [MF_Purchase installOrPurchase:plugin :theButton :progress];
+        if (plugin.hasPurchased) {
+            // Not installed but has purchased
+            [MF_Purchase pluginInstall:plugin withButton:theButton andProgress:progress];
+        } else {
+            // Not installed and not purchased
+            [MF_Purchase installOrPurchase:plugin :theButton :progress];
+        }
     }
 }
 

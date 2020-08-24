@@ -69,7 +69,6 @@ extern AppDelegate *myDelegate;
         smallArray = NSMutableArray.new;
         
         // Create a table view
-        
         NSRect theFrame = self.frame;
         if (MF_extra.sharedInstance.macOS >= 16) theFrame.size.height += 38;
         

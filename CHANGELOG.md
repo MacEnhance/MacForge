@@ -1,4 +1,16 @@
-### 1.0.3
+### 1.0.7
+
+- Fix critical bug with injection
+
+### 1.0.6
+
+- Fix helper crash on 10.14 and below
+- Fix helper not auto-checking for updates
+- Fix purchased items not downloading
+- Fix typo in system tab [@Brianfos]()
+- Minor bug fixes
+
+### 1.0.5
 
 -   macOS Big Sur support
 -   UI redesign

@@ -79,9 +79,11 @@ void HandleExceptions(NSException *exception) {
     }];
 
     // Start a timer to do daily plugin and app  update checks 86400 seconds in a day
-    [NSTimer scheduledTimerWithTimeInterval:60*60*24 target:self selector:@selector(checkForPluginUpdates) userInfo:nil repeats:YES];
-    [NSTimer scheduledTimerWithTimeInterval:60*60*24 target:self selector:@selector(checkMacForgeForUpdatesBackground) userInfo:nil repeats:YES];
-
+    NSTimer *updates1 = [NSTimer scheduledTimerWithTimeInterval:60*60*24 target:self selector:@selector(checkForPluginUpdates) userInfo:nil repeats:YES];
+    NSTimer *updates2 = [NSTimer scheduledTimerWithTimeInterval:60*60*24 target:self selector:@selector(checkMacForgeForUpdatesBackground) userInfo:nil repeats:YES];
+    [updates1 fire];
+    [updates2 fire];
+    
     // Watch for new plugins
     [self watchForPlugins];
 
@@ -160,18 +162,35 @@ void HandleExceptions(NSException *exception) {
     return true;
 }
 
+- (unsigned long long int)folderSize:(NSString *)folderPath {
+    NSArray *filesArray = [[NSFileManager defaultManager] subpathsOfDirectoryAtPath:folderPath error:nil];
+    NSEnumerator *filesEnumerator = [filesArray objectEnumerator];
+    NSString *fileName;
+    unsigned long long int fileSize = 0;
+
+    while (fileName = [filesEnumerator nextObject]) {
+        NSDictionary *fileDictionary = [[NSFileManager defaultManager] fileAttributesAtPath:[folderPath stringByAppendingPathComponent:fileName] traverseLink:YES];
+        fileSize += [fileDictionary fileSize];
+    }
+
+    return fileSize;
+}
+
 - (void)giveFramework {
     // No mach_inject_bundle found
     NSError *error;
-    if (![[NSFileManager defaultManager] fileExistsAtPath:@"/Library/Frameworks/mach_inject_bundle.framework"])
-        [self.injectorProxy installMachInjectBundleFramework:&error];
-    
+    NSString *frameworkPath = [NSString stringWithFormat:@"%@/Contents/Frameworks/mach_inject_bundle.framework", NSBundle.mainBundle.bundlePath];
+    NSString *destination = @"/Library/Frameworks/mach_inject_bundle.framework";
+    if (![[NSFileManager defaultManager] fileExistsAtPath:destination] || ![NSFileManager.defaultManager contentsEqualAtPath:destination andPath:frameworkPath])
+        [self.injectorProxy installFramework:frameworkPath toLoaction:destination :&error];
+        
     // No menubar framework found
-    NSString *frameworkPath = [NSString stringWithFormat:@"%@/Contents/Frameworks/MenuBar.framework", NSBundle.mainBundle.bundlePath];
-    NSString *destination = @"/Library/Frameworks/MenuBar.framework";
+    frameworkPath = [NSString stringWithFormat:@"%@/Contents/Frameworks/MenuBar.framework", NSBundle.mainBundle.bundlePath];
+    destination = @"/Library/Frameworks/MenuBar.framework";
     if (![[NSFileManager defaultManager] fileExistsAtPath:destination])
         [self.injectorProxy installFramework:frameworkPath toLoaction:destination :&error];
         
+    // Paddle framework not found
     frameworkPath = NSBundle.mainBundle.bundlePath;
     frameworkPath = [frameworkPath.stringByDeletingLastPathComponent.stringByDeletingLastPathComponent.stringByDeletingLastPathComponent stringByAppendingString:@"/Frameworks/Paddle.framework"];
     destination = @"/Library/Frameworks/Paddle.framework";

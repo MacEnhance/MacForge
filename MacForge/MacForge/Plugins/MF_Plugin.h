@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface MF_Plugin : NSObject
-    
+
 // Local or Repo
 @property NSString      *bundleID;  // Must be unique
 @property NSString      *bundleImage;

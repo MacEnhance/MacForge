@@ -36,6 +36,13 @@ NSString *const MFFrameworkDstPath = @"/Library/Frameworks/mach_inject_bundle.fr
     [[NSRunLoop currentRunLoop] run];
 }
 
+- (void)redirectLogToDocuments {
+     NSArray *allPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+     NSString *documentsDirectory = [allPaths objectAtIndex:0];
+     NSString *pathForLog = [documentsDirectory stringByAppendingPathComponent:@"MFInjectorLog.txt"];
+     freopen([pathForLog cStringUsingEncoding:NSASCIIStringEncoding],"a+",stderr);
+}
+
 - (Boolean)loadMachInject {
     if (![[NSBundle allFrameworks] containsObject:[NSBundle bundleWithPath:MFFrameworkDstPath]]) {
         dlopen("/Library/Frameworks/mach_inject_bundle.framework/mach_inject_bundle", RTLD_LAZY);

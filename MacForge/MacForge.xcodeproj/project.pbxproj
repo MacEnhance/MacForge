@@ -53,7 +53,6 @@
 		FB5F5F6B249EA48400C52F12 /* SLColorArt.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5F5F67249EA48400C52F12 /* SLColorArt.m */; };
 		FB609E5E249C2AF900865CCC /* MF_purchasedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FB609E5C249C2AF900865CCC /* MF_purchasedItem.m */; };
 		FB609E5F249C2AF900865CCC /* MF_purchasedItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB609E5D249C2AF900865CCC /* MF_purchasedItem.xib */; };
-		FB61C8B024997872008F63CC /* MenuBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB61C8A824997857008F63CC /* MenuBar.framework */; };
 		FB61C8B124997872008F63CC /* MenuBar.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FB61C8A824997857008F63CC /* MenuBar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FB7259E52314F2BD00701F32 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB7259E42314F2BD00701F32 /* GoogleService-Info.plist */; };
 		FB78E2A72139BE27002FFE2E /* MacForgeDockTile.docktileplugin in Copy Plugins */ = {isa = PBXBuildFile; fileRef = FBA6E90120F0299B00A12ACF /* MacForgeDockTile.docktileplugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -86,7 +85,7 @@
 		FBA6E8FC20F028A400A12ACF /* LICENSE_EULA in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8F920F028A400A12ACF /* LICENSE_EULA */; };
 		FBA6E90920F029D800A12ACF /* DockTilePlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E90820F029D800A12ACF /* DockTilePlugIn.m */; };
 		FBAAB3EC20F228FD002156DC /* StartAtLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8B920F01C6300A12ACF /* StartAtLoginController.m */; };
-		FBB6D14922FE3EA6003A5B71 /* mach_inject_bundle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = F0CF07F0166F563E009D198D /* mach_inject_bundle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FBB9497624F1C44A00FEF739 /* mach_inject_bundle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FBB9497424F1C40200FEF739 /* mach_inject_bundle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FBBD8E2322F9319E00A97FEA /* MF_Purchase.m in Sources */ = {isa = PBXBuildFile; fileRef = FBBD8E2222F9319E00A97FEA /* MF_Purchase.m */; };
 		FBC2123423B459CE006F4485 /* MF_BlacklistManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FBC2123323B459CE006F4485 /* MF_BlacklistManager.m */; };
 		FBC2123923B46434006F4485 /* MF_accountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FBC2123823B46434006F4485 /* MF_accountManager.m */; };
@@ -124,20 +123,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = F0ADE1B7166E0820009758CC;
 			remoteInfo = com.erwanb.MachInjectSample.Injector;
-		};
-		F0CF07EF166F563E009D198D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F0CF07E4166F563D009D198D /* mach_inject_bundle.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
-			remoteInfo = mach_inject_bundle;
-		};
-		F0CF07F2166F5654009D198D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F0CF07E4166F563D009D198D /* mach_inject_bundle.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
-			remoteInfo = mach_inject_bundle;
 		};
 		FBA6E90A20F029E400A12ACF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -257,8 +242,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				FBB6D14922FE3EA6003A5B71 /* mach_inject_bundle.framework in Copy Frameworks */,
 				FB61C8B124997872008F63CC /* MenuBar.framework in Copy Frameworks */,
+				FBB9497624F1C44A00FEF739 /* mach_inject_bundle.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -334,7 +319,6 @@
 		F0ADE1C9166E0992009758CC /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		F0ADE1E2166E0C0D009758CC /* MFInjectorProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFInjectorProxy.h; sourceTree = "<group>"; };
 		F0ADE1E3166E0C0D009758CC /* MFInjectorProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFInjectorProxy.m; sourceTree = "<group>"; };
-		F0CF07E4166F563D009D198D /* mach_inject_bundle.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = mach_inject_bundle.xcodeproj; path = ../mach_inject_bundle/mach_inject_bundle.xcodeproj; sourceTree = "<group>"; };
 		F3A95F7123EF842A004635FD /* MF_bundleTinyItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_bundleTinyItem.h; sourceTree = "<group>"; };
 		F3A95F7223EF842A004635FD /* MF_bundleTinyItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_bundleTinyItem.m; sourceTree = "<group>"; };
 		F3A95F7323EF842A004635FD /* MF_bundleTinyItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MF_bundleTinyItem.xib; sourceTree = "<group>"; };
@@ -429,6 +413,7 @@
 		FBB0849620EEF0AC0032BDB2 /* SIMBL_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIMBL_Prefix.pch; sourceTree = "<group>"; };
 		FBB0849720EEF0AC0032BDB2 /* SIMBL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIMBL.h; sourceTree = "<group>"; };
 		FBB0849820EEF0AC0032BDB2 /* SIMBLPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIMBLPlugin.h; sourceTree = "<group>"; };
+		FBB9497424F1C40200FEF739 /* mach_inject_bundle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = mach_inject_bundle.framework; sourceTree = "<group>"; };
 		FBBD8E2122F9319E00A97FEA /* MF_Purchase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_Purchase.h; sourceTree = "<group>"; };
 		FBBD8E2222F9319E00A97FEA /* MF_Purchase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_Purchase.m; sourceTree = "<group>"; };
 		FBC2123223B459CE006F4485 /* MF_BlacklistManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_BlacklistManager.h; sourceTree = "<group>"; };
@@ -478,7 +463,6 @@
 				F0ADE168166E0121009758CC /* ServiceManagement.framework in Frameworks */,
 				F0ADE0FB166DF941009758CC /* Cocoa.framework in Frameworks */,
 				77B0A177B8D3976298814998 /* Pods_MacForgeHelper.framework in Frameworks */,
-				FB61C8B024997872008F63CC /* MenuBar.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -590,8 +574,8 @@
 				FBD090DC23BBE4A80023F5BB /* CONTRIBUTING.md */,
 				FBD090DB23BBE4A80023F5BB /* LICENSE */,
 				FBC2127B23B5802C006F4485 /* CocoaMarkdown.xcodeproj */,
-				F0CF07E4166F563D009D198D /* mach_inject_bundle.xcodeproj */,
 				FB61C8A824997857008F63CC /* MenuBar.framework */,
+				FBB9497424F1C40200FEF739 /* mach_inject_bundle.framework */,
 				FB88082F2481095C0002727A /* SIPKit.framework */,
 				FBA6E88F20F0184000A12ACF /* External Classes */,
 				FBE767E920F00FFB00A42BD5 /* MacForge */,
@@ -668,14 +652,6 @@
 				F0ADE1C5166E0874009758CC /* main.m */,
 			);
 			path = MacForgeInjection;
-			sourceTree = "<group>";
-		};
-		F0CF07E5166F563D009D198D /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				F0CF07F0166F563E009D198D /* mach_inject_bundle.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		FB0227A820F05228006566EF /* Classes */ = {
@@ -1008,7 +984,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				F0CF07F3166F5654009D198D /* PBXTargetDependency */,
 				F0ADE1CC166E09A5009758CC /* PBXTargetDependency */,
 			);
 			name = MacForgeHelper;
@@ -1098,11 +1073,11 @@
 						ProvisioningStyle = Automatic;
 					};
 					F0ADE1B7166E0820009758CC = {
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					FBA6E90020F0299B00A12ACF = {
 						CreatedOnToolsVersion = 10.0;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					FBE767E720F00FFB00A42BD5 = {
 						CreatedOnToolsVersion = 10.0;
@@ -1134,10 +1109,6 @@
 					ProductGroup = FBC2127C23B5802C006F4485 /* Products */;
 					ProjectRef = FBC2127B23B5802C006F4485 /* CocoaMarkdown.xcodeproj */;
 				},
-				{
-					ProductGroup = F0CF07E5166F563D009D198D /* Products */;
-					ProjectRef = F0CF07E4166F563D009D198D /* mach_inject_bundle.xcodeproj */;
-				},
 			);
 			projectRoot = "";
 			targets = (
@@ -1151,13 +1122,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		F0CF07F0166F563E009D198D /* mach_inject_bundle.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = mach_inject_bundle.framework;
-			remoteRef = F0CF07EF166F563E009D198D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		FBC2128723B5802C006F4485 /* CocoaMarkdown.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -1540,11 +1504,6 @@
 			target = F0ADE1B7166E0820009758CC /* com.macenhance.MacForge.Injector */;
 			targetProxy = F0ADE1CB166E09A5009758CC /* PBXContainerItemProxy */;
 		};
-		F0CF07F3166F5654009D198D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = mach_inject_bundle;
-			targetProxy = F0CF07F2166F5654009D198D /* PBXContainerItemProxy */;
-		};
 		FBA6E90B20F029E400A12ACF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = FBA6E90020F0299B00A12ACF /* MacForgeDockTile */;
@@ -1751,7 +1710,7 @@
 				GCC_PREFIX_HEADER = "MacForgeHelper/MacForge-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/MacForgeHelper/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../../Frameworks";
-				MARKETING_VERSION = 2.1.1;
+				MARKETING_VERSION = 2.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.MacForgeHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1782,7 +1741,7 @@
 				GCC_PREFIX_HEADER = "MacForgeHelper/MacForge-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/MacForgeHelper/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../../Frameworks";
-				MARKETING_VERSION = 2.1.1;
+				MARKETING_VERSION = 2.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.MacForgeHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1799,7 +1758,7 @@
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = EX596BNL45;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1836,7 +1795,7 @@
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = EX596BNL45;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1880,7 +1839,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -1914,7 +1873,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 2;
@@ -1968,7 +1927,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = MacForge/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.7;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.MacForge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2016,7 +1975,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = MacForge/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.7;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.MacForge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
