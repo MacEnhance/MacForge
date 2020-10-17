@@ -119,7 +119,7 @@ Boolean appSetupFinished = false;
 - (void)application:(NSApplication *)application
            openURLs:(NSArray<NSURL *> *)urls {
 //    NSLog(@"------------- %@", urls);
-    NSLog(@"zzt aourls ------------- %@", [NSDate date]);
+//    NSLog(@"zzt aourls ------------- %@", [NSDate date]);
     
     // Convert urls to paths
     NSMutableArray *paths = [[NSMutableArray alloc] init];

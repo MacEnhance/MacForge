@@ -21,6 +21,13 @@
 
 #pragma mark - Lifecycle
 
+- (void)viewDidChangeEffectiveAppearance {
+//    if ([self.titleNormalColor isEqualTo:NSColor.whiteColor])
+//    self.backgroundNormalColor = NSColor.controlAccentColor;
+    self.titleNormalColor = NSColor.controlAccentColor;
+    [self animateColorForCurrentState];
+}
+
 - (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
     if (self) {

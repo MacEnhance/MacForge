@@ -32,7 +32,7 @@
 - (void)crashes:(MSCrashes *)crashes willSendErrorReport:(MSErrorReport *)errorReport;
 
 /**
- * Callback method that will be called in case the SDK was unable to send an error report to the server.
+ * Callback method that will be called after the SDK successfully sent an error report to the server.
  *
  * @param crashes The instance of MSCrashes.
  * @param errorReport The errorReport that App Center sent.

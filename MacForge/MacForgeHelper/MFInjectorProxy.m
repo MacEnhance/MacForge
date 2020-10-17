@@ -28,8 +28,8 @@
 - (BOOL)injectPID:(pid_t)pid :(NSString*)bundlePath :(NSError **)error {
     if (self.proxyConnection) {
         NSString *appName = [NSRunningApplication runningApplicationWithProcessIdentifier:pid].localizedName;
-        //    NSString *appID = [NSRunningApplication runningApplicationWithProcessIdentifier:pid].bundleIdentifier;
-        //    NSLog(@"Injecting %@ (%@) (%@) with %@", appName, appID, [NSNumber numberWithInt:pid], bundlePath);
+        NSString *appID = [NSRunningApplication runningApplicationWithProcessIdentifier:pid].bundleIdentifier;
+        NSLog(@"Injecting %@ (%@) (%@) with %@", appName, appID, [NSNumber numberWithInt:pid], bundlePath);
         
         __block mach_error_t err = 0;
         [[self.proxyConnection remoteObjectProxy] inject:pid

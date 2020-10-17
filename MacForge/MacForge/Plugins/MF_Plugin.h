@@ -37,6 +37,7 @@
 // Paddle
 @property NSString      *paddleEmail;
 @property NSString      *paddleLicense;
+//@property PADProduct    *paddleProduct;
 
 // Info
 @property Boolean           checkedPurchase;

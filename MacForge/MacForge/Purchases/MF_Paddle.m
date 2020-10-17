@@ -29,7 +29,11 @@ extern AppDelegate* myDelegate;
 @implementation MF_Paddle
 
 - (NSString *)customStoragePath {
-    return @"/Users/Shared/macenhance";
+    NSString *path = @"/Users/Shared/macenhance";
+    BOOL isDir;
+    if (![NSFileManager.defaultManager fileExistsAtPath:path isDirectory:&isDir])
+        [NSFileManager.defaultManager createDirectoryAtPath:path withIntermediateDirectories:true attributes:nil error:nil];
+    return path;
 }
 
 - (void)didDismissPaddleUIType:(PADUIType)uiType triggeredUIType:(PADTriggeredUIType)triggeredUIType product:(nonnull PADProduct *)product {

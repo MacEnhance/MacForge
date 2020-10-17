@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17140" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17140"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
+        <plugIn identifier="com.apple.WebKit2IBPlugin" version="17156"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -961,6 +962,14 @@
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
+                        <wkWebView hidden="YES" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cAQ-rN-v9p">
+                            <rect key="frame" x="20" y="20" width="710" height="269"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES" heightSizable="YES"/>
+                            <wkWebViewConfiguration key="configuration">
+                                <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                <wkPreferences key="preferences" javaScriptCanOpenWindowsAutomatically="NO"/>
+                            </wkWebViewConfiguration>
+                        </wkWebView>
                     </subviews>
                 </customView>
                 <customView id="hm0-6b-ETI" userLabel="Info">
@@ -1190,6 +1199,7 @@
                 <outlet property="bundleSize" destination="p1f-M6-3JC" id="m3w-KC-dbn"/>
                 <outlet property="bundleTarget" destination="UjP-0G-YdS" id="oVA-BE-IWq"/>
                 <outlet property="bundleVersion" destination="9Ld-q8-PJG" id="pLq-9Y-Oa0"/>
+                <outlet property="bundleWebView" destination="cAQ-rN-v9p" id="Dqm-8g-4FT"/>
                 <outlet property="starRating" destination="Uoe-XM-hCB" id="J1s-CT-Wvj"/>
                 <outlet property="starReviews" destination="FVc-as-xzx" id="IgE-Eg-0mj"/>
                 <outlet property="starScore" destination="63K-Zf-HZl" id="zKC-Wf-xWH"/>
@@ -1231,11 +1241,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="VMQ-gH-aq1">
-                                                <rect key="frame" x="1" y="1" width="286" height="17"/>
+                                                <rect key="frame" x="11" y="1" width="295" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="de0-4T-Qe9">
-                                                        <rect key="frame" x="0.0" y="0.0" width="286" height="17"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="295" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="oxe-Rh-HbK">
                                                             <font key="font" metaFont="system"/>
@@ -1451,11 +1461,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="XoI-a7-y06">
-                                                <rect key="frame" x="1" y="1" width="302" height="30"/>
+                                                <rect key="frame" x="11" y="1" width="311" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lmq-eg-O04">
-                                                        <rect key="frame" x="0.0" y="-14" width="302" height="44"/>
+                                                        <rect key="frame" x="0.0" y="-14" width="311" height="44"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="ecv-W1-8BZ">
                                                             <font key="font" metaFont="system"/>
@@ -1978,7 +1988,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="40" rowSizeStyle="automatic" viewBased="YES" id="E3Q-ip-sqv">
-                                <rect key="frame" x="0.0" y="0.0" width="562" height="399"/>
+                                <rect key="frame" x="0.0" y="0.0" width="591" height="399"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1998,7 +2008,7 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="MyView" id="Z8X-Qx-N3j" customClass="CustomTableCell">
-                                                <rect key="frame" x="1" y="1" width="559" height="40"/>
+                                                <rect key="frame" x="11" y="1" width="568" height="40"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SoX-61-Ahb">
@@ -2009,7 +2019,7 @@
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="xxE-7D-RnH"/>
                                                     </imageView>
                                                     <textField horizontalHuggingPriority="249" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Apb-lj-8fj">
-                                                        <rect key="frame" x="48" y="3" width="402" height="14"/>
+                                                        <rect key="frame" x="48" y="3" width="409" height="14"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="nyk-IA-Czb">
                                                             <font key="font" metaFont="label" size="11"/>
@@ -2018,7 +2028,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lGX-rm-0R1">
-                                                        <rect key="frame" x="48" y="20" width="402" height="17"/>
+                                                        <rect key="frame" x="48" y="20" width="409" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="FGH-JX-Ouc">
                                                             <font key="font" metaFont="system"/>
@@ -2027,15 +2037,15 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <box horizontalHuggingPriority="750" verticalHuggingPriority="244" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="huh-b5-R5D">
-                                                        <rect key="frame" x="509" y="1" width="5" height="40"/>
+                                                        <rect key="frame" x="518" y="1" width="5" height="40"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                     </box>
                                                     <box horizontalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="XsU-rp-FSN">
-                                                        <rect key="frame" x="459" y="1" width="9" height="40"/>
+                                                        <rect key="frame" x="468" y="1" width="9" height="40"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                     </box>
                                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kCH-YJ-ZtU">
-                                                        <rect key="frame" x="527" y="9" width="22" height="22"/>
+                                                        <rect key="frame" x="536" y="9" width="22" height="22"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" inset="2" id="MOV-Qy-hRd">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -2046,7 +2056,7 @@
                                                         </connections>
                                                     </button>
                                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="23C-vh-W8c">
-                                                        <rect key="frame" x="476" y="9" width="22" height="22"/>
+                                                        <rect key="frame" x="485" y="9" width="22" height="22"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSUserGroup" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="GTQ-3x-bgN">
                                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
@@ -2169,7 +2179,7 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="upView" id="sa9-wg-w6w" customClass="updatesTableCell">
-                                                <rect key="frame" x="1" y="1" width="546" height="60"/>
+                                                <rect key="frame" x="11" y="1" width="555" height="60"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VcL-Mb-XLW">
@@ -2182,7 +2192,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vF4-tU-6hc">
-                                                        <rect key="frame" x="54" y="21" width="392" height="16"/>
+                                                        <rect key="frame" x="54" y="21" width="399" height="16"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Info" id="WFj-70-pOg">
                                                             <font key="font" metaFont="label" size="11"/>
@@ -2191,7 +2201,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3uC-tm-VHh">
-                                                        <rect key="frame" x="54" y="3" width="392" height="16"/>
+                                                        <rect key="frame" x="54" y="3" width="399" height="16"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Description" id="CaY-9t-k4E">
                                                             <font key="font" metaFont="label" size="11"/>
@@ -2205,7 +2215,7 @@
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSApplicationIcon" id="lX3-pf-zKH"/>
                                                     </imageView>
                                                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qSM-k6-zlC">
-                                                        <rect key="frame" x="451" y="20" width="75" height="19"/>
+                                                        <rect key="frame" x="460" y="20" width="75" height="19"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="roundRect" title="update" bezelStyle="roundedRect" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZFE-Xy-PKD">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -2775,9 +2785,9 @@ csrutil enable --without fs --without nvram --without debug
     <resources>
         <image name="NSActionTemplate" width="15" height="15"/>
         <image name="NSAddTemplate" width="15" height="13"/>
-        <image name="NSApplicationIcon" width="32" height="32"/>
+        <image name="NSApplicationIcon" width="30" height="16"/>
         <image name="NSBookmarksTemplate" width="19" height="15"/>
-        <image name="NSCaution" width="32" height="32"/>
+        <image name="NSCaution" width="30" height="16"/>
         <image name="NSGoLeftTemplate" width="10" height="14"/>
         <image name="NSGoRightTemplate" width="10" height="14"/>
         <image name="NSLeftFacingTriangleTemplate" width="10" height="14"/>
@@ -2787,8 +2797,8 @@ csrutil enable --without fs --without nvram --without debug
         <image name="NSShareTemplate" width="16" height="17"/>
         <image name="NSTouchBarNewMessageTemplate" width="17" height="16"/>
         <image name="NSTouchBarUserGroupTemplate" width="22" height="14"/>
-        <image name="NSTrashFull" width="32" height="32"/>
-        <image name="NSUserGroup" width="32" height="32"/>
+        <image name="NSTrashFull" width="30" height="16"/>
+        <image name="NSUserGroup" width="30" height="16"/>
         <image name="arrow.up.arrow.down.square_Normal" width="23" height="23"/>
         <image name="desktopcomputer_Normal" width="30" height="25"/>
         <image name="magnifyingglass.circle_Normal" width="25.5" height="25.5"/>

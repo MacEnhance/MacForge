@@ -1,3 +1,16 @@
+### 1.1.0
+
+- Fix table headers in discover view
+- Fix updates tab
+- Fix issue with trials
+- Fix table spacing on Big Sur beta 7/8
+- Inject bundles alphabetically
+- Minor fixes
+
+### 1.0.8
+
+- Bug fix related to purchases
+
 ### 1.0.7
 
 - Fix critical bug with injection

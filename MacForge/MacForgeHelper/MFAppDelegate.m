@@ -499,7 +499,7 @@ void HandleExceptions(NSException *exception) {
        if ([MFAppDelegate shouldInject:runningApp]) {
            pid_t pid = [runningApp processIdentifier];
            // Try injecting each valid plugin into the application
-                
+                      
            // async check if Xcode is attached to process
            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
@@ -512,7 +512,9 @@ void HandleExceptions(NSException *exception) {
                if (!isXcodeAttached) {
                    // make sure we're back on the main thread
                    dispatch_async(dispatch_get_main_queue(), ^{
-                       for (NSString *bundlePath in [SIMBL pluginsToLoadList:[NSBundle bundleWithPath:runningApp.bundleURL.path]]) {
+                       NSArray *plugins = [SIMBL pluginsToLoadList:[NSBundle bundleWithPath:runningApp.bundleURL.path]];
+                       plugins = [plugins sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+                       for (NSString *bundlePath in plugins) {
                            NSError *error;
                            [self.injectorProxy injectPID:pid :bundlePath :&error];
                            if(error) NSLog(@"Couldn't inject into %d : %@ (domain: %@ code: %@)", pid, runningApp.localizedName, error.domain, [NSNumber numberWithInteger:error.code]);
@@ -623,8 +625,7 @@ static OSStatus CarbonEventHandler(EventHandlerCallRef inHandlerCallRef, EventRe
     switch ( GetEventKind(inEvent) ) {
         case kEventAppLaunched:
             // App lauched!
-            if(mfAppDelegate)
-                [mfAppDelegate injectBundle:[NSRunningApplication runningApplicationWithProcessIdentifier:pid]];
+            if (mfAppDelegate) [mfAppDelegate injectBundle:[NSRunningApplication runningApplicationWithProcessIdentifier:pid]];
 //            NSLog(@"CarbonEventHandler Launching nc : %d : %f", pid, [NSDate timeIntervalSinceReferenceDate] * 1000);
             break;
         case kEventAppTerminated:

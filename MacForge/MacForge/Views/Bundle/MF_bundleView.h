@@ -72,7 +72,7 @@
 @property IBOutlet NSButton*            bundleDonate;
 
 // Bundle Webview
-@property IBOutlet WebView*         bundleWebView;
+@property IBOutlet WKWebView*         bundleWebView;
 
 @property NSArray*                  bundlePreviewImages;
 @property NSMutableArray*           bundlePreviewImagesMute;

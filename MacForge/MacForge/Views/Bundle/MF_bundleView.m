@@ -55,7 +55,9 @@ NSDictionary *testing;
     return image;
 }
 
--(void)viewWillDraw {    
+-(void)viewWillDraw {
+    NSLog(@"Yeet");
+    
     for (NSView* v in self.subviews)
         if ([v.className isEqualToString:@"MF_bundlePreviewView"])
             [v removeFromSuperview];
@@ -110,23 +112,23 @@ NSDictionary *testing;
     _bundleRequiresLIB.hidden = true;
     _bundleRequiresSIP.hidden = true;
     
-    _bundleInstall.backgroundNormalColor = [NSColor colorWithRed:0.08 green:0.52 blue:1.0 alpha:1.0];
-    _bundleInstall.backgroundHighlightColor = [NSColor colorWithRed:0.08 green:0.52 blue:1.0 alpha:1.0];
-    _bundleInstall.backgroundDisabledColor = NSColor.grayColor;
-    _bundleInstall.titleNormalColor = NSColor.whiteColor;
-    _bundleInstall.titleHighlightColor = NSColor.grayColor;
-    _bundleInstall.titleDisabledColor = NSColor.whiteColor;
-    _bundleInstall.cornerRadius = _bundleInstall.frame.size.height/2;
-    _bundleInstall.borderWidth = 0;
-    _bundleInstall.momentary = true;
-    
-    _bundleShare.backgroundNormalColor = [NSColor colorWithRed:0.08 green:0.52 blue:1.0 alpha:1.0];
-    _bundleShare.backgroundHighlightColor = [NSColor grayColor];
-    _bundleShare.imageNormalColor = NSColor.whiteColor;
-    _bundleShare.imageHighlightColor = NSColor.whiteColor;
-    _bundleShare.cornerRadius = _bundleShare.frame.size.height/2;
-    _bundleShare.borderWidth = 0;
-    _bundleShare.momentary = true;
+//    _bundleInstall.backgroundNormalColor = [NSColor colorWithRed:0.08 green:0.52 blue:1.0 alpha:1.0];
+//    _bundleInstall.backgroundHighlightColor = [NSColor colorWithRed:0.08 green:0.52 blue:1.0 alpha:1.0];
+//    _bundleInstall.backgroundDisabledColor = NSColor.grayColor;
+//    _bundleInstall.titleNormalColor = NSColor.whiteColor;
+//    _bundleInstall.titleHighlightColor = NSColor.grayColor;
+//    _bundleInstall.titleDisabledColor = NSColor.whiteColor;
+//    _bundleInstall.cornerRadius = _bundleInstall.frame.size.height/2;
+//    _bundleInstall.borderWidth = 0;
+//    _bundleInstall.momentary = true;
+//    
+//    _bundleShare.backgroundNormalColor = [NSColor colorWithRed:0.08 green:0.52 blue:1.0 alpha:1.0];
+//    _bundleShare.backgroundHighlightColor = [NSColor grayColor];
+//    _bundleShare.imageNormalColor = NSColor.whiteColor;
+//    _bundleShare.imageHighlightColor = NSColor.whiteColor;
+//    _bundleShare.cornerRadius = _bundleShare.frame.size.height/2;
+//    _bundleShare.borderWidth = 0;
+//    _bundleShare.momentary = true;
     
     [self setWantsLayer:YES];
     self.layer.masksToBounds = YES;
@@ -162,6 +164,63 @@ NSDictionary *testing;
                 }
             }
         });
+        
+//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//            if (self->item[@"markdown"]) {
+////                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/documents/%@/readme.md", self.plugin.webRepository, self.plugin.bundleID]];
+//                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/documents/%@/readme.html", self.plugin.webRepository, self.plugin.bundleID]];
+//                NSData *fetch = [[NSData alloc] initWithContentsOfURL:url];
+//                if (fetch.length) {
+////                    CMDocument *cmd = [CMDocument.alloc initWithData:fetch options:CMDocumentOptionsNormalize];
+////                    CMAttributedStringRenderer *asr = [[CMAttributedStringRenderer alloc] initWithDocument:cmd attributes:[[CMTextAttributes alloc] init]];
+//                    dispatch_async(dispatch_get_main_queue(), ^{
+////                        NSURLRequest *r = [NSURLRequest.alloc initWithURL:url];
+////                        [self.bundleWebView loadRequest:r];
+//                        [self.bundleWebView setValue: @NO forKey: @"drawsBackground"];
+//                                                
+//                        NSString *myString = [[NSString alloc] initWithData:fetch encoding:NSUTF8StringEncoding];
+//                        NSString *myFontColorHex = @"ffffff";
+//                        NSString *myHTMLText = [NSString stringWithFormat:@"<html>"
+//                                                "<head><style type='text/css'>"
+//                                                ".main_text {"
+//                                                "   display: block;"
+//                                                "   font-family:[fontName];"
+//                                                "   text-decoration:none;"
+//                                                "   font-size:[fontSize]px;"
+//                                                "   color:[fontColor];"
+//                                                "   line-height: [fontSize]px;"
+//                                                "   font-weight:normal;"
+//                                                "   text-align:[textAlign];"
+//                                                "}"
+//                                                "</style></head>"
+//                                                "<body> <SPAN class='main_text'>%@</SPAN></body></html>", myString];
+//
+////                        myHTMLText = [myHTMLText stringByReplacingOccurrencesOfString: @"[text]" withString: myText];
+////                        myHTMLText = [myHTMLText stringByReplacingOccurrencesOfString: @"[fontName]" withString: myFontName];
+////                        myHTMLText = [myHTMLText stringByReplacingOccurrencesOfString: @"[fontSize]" withString: myFontSize];
+//                        myHTMLText = [myHTMLText stringByReplacingOccurrencesOfString: @"[fontColor]" withString: myFontColorHex];
+////                        myHTMLText = [myHTMLText stringByReplacingOccurrencesOfString: @"[textAlign]" withString: myFontAlign];
+//
+////                        NSLog(@"*** renderHTMLText --> myHTMLText: %@",myHTMLText);
+//
+//                        [self.bundleWebView loadHTMLString:myHTMLText baseURL:nil];
+//                        [self.bundleWebView evaluateJavaScript:@"document.documentElement.scrollHeight"
+//                                             completionHandler:^(id test, NSError * _Nullable error) {
+//                            CGSize frm = self.bundleWebView.enclosingScrollView.frame.size;
+//                            frm.height = [test floatValue];
+//                            [self.bundleWebView.enclosingScrollView setFrameSize:frm];
+//                        }];
+//                        
+////                        [self.bundleWebView.enclosingScrollView setDrawsBackground:NO];
+////                        [self.bundleWebView loadHTMLString:cmd.HTMLString baseURL:nil];
+////                        [self.bundleDesc setAttributedStringValue:asr.render];
+////                        [self.bundleDesc setAllowsEditingTextAttributes:true];
+////                        self.bundleDesc.hidden = true;
+//                        [self resizeME];
+//                    });
+//                }
+//            }
+//        });
         
         [self systemDarkModeChange:nil];
         
@@ -218,15 +277,15 @@ NSDictionary *testing;
         newString = [NSString stringWithFormat:@"%@", [item objectForKey:@"compat"]];
         self.bundleCompat.stringValue = newString;
         
-        if ([[item objectForKey:@"webpage"] length]) {
-            if (!doOnce)
-                doOnce = true;
-            NSURL*url=[NSURL URLWithString:[item objectForKey:@"webpage"]];
-            NSURLRequest*request=[NSURLRequest requestWithURL:url];
-            [[self.bundleWebView mainFrame] loadRequest:request];
-        } else {
-            [[self.bundleWebView mainFrame] loadHTMLString:nil baseURL:nil];
-        }
+//        if ([[item objectForKey:@"webpage"] length]) {
+//            if (!doOnce)
+//                doOnce = true;
+//            NSURL*url=[NSURL URLWithString:[item objectForKey:@"webpage"]];
+//            NSURLRequest*request=[NSURLRequest requestWithURL:url];
+//            [[self.bundleWebView mainFrame] loadRequest:request];
+//        } else {
+//            [[self.bundleWebView mainFrame] loadHTMLString:nil baseURL:nil];
+//        }
         
         if (![[item objectForKey:@"donate"] length])
             [self.bundleDonate setEnabled:false];
@@ -250,24 +309,6 @@ NSDictionary *testing;
         [self.bundleDelete setEnabled:[MF_PluginManager.sharedInstance pluginLocalPath:_plugin.bundleID].length];
           
         [MF_Purchase checkStatus:_plugin :_bundleInstall];
-        
-        if (@available(macOS 10.14, *)) {
-            _bundleInstall.backgroundNormalColor = NSColor.controlAccentColor;
-        } else {
-            _bundleInstall.backgroundNormalColor = [NSColor colorWithRed:0.4 green:0.6 blue:1 alpha:1];
-        }
-        _bundleInstall.backgroundHighlightColor = NSColor.whiteColor;
-        _bundleInstall.backgroundDisabledColor = NSColor.grayColor;
-        _bundleInstall.titleNormalColor = NSColor.whiteColor;
-        _bundleInstall.titleHighlightColor = [NSColor colorWithRed:0.4 green:0.6 blue:1 alpha:1];
-        _bundleInstall.titleDisabledColor = NSColor.whiteColor;
-        _bundleInstall.cornerRadius = _bundleInstall.frame.size.height/2;
-        if (@available(macOS 10.15, *)) { _bundleInstall.layer.cornerCurve = kCACornerCurveContinuous; }
-        _bundleInstall.spacing = 0.1;
-        _bundleInstall.borderWidth = 0;
-        _bundleInstall.momentary = true;
-        _bundleInstall.action = @selector(getOrOpen:);
-        _bundleInstall.target = self;
         
         self.bundlePreview1.animates = YES;
         self.bundlePreview1.canDrawSubviewsIntoLayer = YES;
@@ -367,14 +408,51 @@ NSDictionary *testing;
         
         [self resizeME];
     }
+    
+    if (@available(macOS 10.14, *)) {
+        _bundleShare.backgroundNormalColor = NSColor.controlAccentColor;
+        _bundleShare.titleHighlightColor = NSColor.controlAccentColor;
+        _bundleShare.imageHighlightColor = NSColor.controlAccentColor;
+        
+        _bundleInstall.backgroundNormalColor = NSColor.controlAccentColor;
+        _bundleInstall.titleHighlightColor = NSColor.controlAccentColor;
+    } else {
+        _bundleShare.backgroundNormalColor = [NSColor colorWithRed:0.08 green:0.52 blue:1.0 alpha:1.0];
+        _bundleShare.titleHighlightColor = [NSColor colorWithRed:0.08 green:0.52 blue:1.0 alpha:1.0];
+        _bundleShare.imageHighlightColor = [NSColor colorWithRed:0.08 green:0.52 blue:1.0 alpha:1.0];
+        
+        _bundleInstall.backgroundNormalColor = [NSColor colorWithRed:0.4 green:0.6 blue:1 alpha:1];
+        _bundleInstall.titleHighlightColor = [NSColor colorWithRed:0.4 green:0.6 blue:1 alpha:1];
+    }
+    
+    if (@available(macOS 10.15, *)) {
+        _bundleInstall.layer.cornerCurve = kCACornerCurveContinuous;
+    }
+    
+    _bundleInstall.backgroundHighlightColor = NSColor.whiteColor;
+    _bundleInstall.backgroundDisabledColor = NSColor.grayColor;
+    _bundleInstall.titleNormalColor = NSColor.whiteColor;
+    _bundleInstall.titleDisabledColor = NSColor.whiteColor;
+    _bundleInstall.cornerRadius = _bundleInstall.frame.size.height/2;
+    _bundleInstall.spacing = 0.1;
+    _bundleInstall.borderWidth = 0;
+    _bundleInstall.momentary = true;
+    _bundleInstall.action = @selector(getOrOpen:);
+    _bundleInstall.target = self;
+    
+    _bundleShare.backgroundHighlightColor = NSColor.whiteColor;
+    _bundleShare.imageNormalColor = NSColor.whiteColor;
+    _bundleShare.cornerRadius = _bundleShare.frame.size.height/2;
+    _bundleShare.borderWidth = 0;
+    _bundleShare.momentary = true;
+    _bundleShare.action = @selector(shareMe:);
+    _bundleShare.target = self;
 }
 
 - (void)resizeME {
     // Resize views
     Boolean hasDescription = true;
-    if ([[item objectForKey:@"description"] isEqualTo:[item objectForKey:@"descriptionShort"]])
-        hasDescription = false;
-    if (![item objectForKey:@"description"])
+    if ([[item objectForKey:@"description"] isEqualTo:[item objectForKey:@"descriptionShort"]] || ![item objectForKey:@"description"])
         hasDescription = false;
 
     NSRect prev = _viewPreviews.frame;
@@ -390,9 +468,13 @@ NSDictionary *testing;
         frame.size.height = CGFLOAT_MAX;
         CGFloat height = [_bundleDesc.cell cellSizeForBounds: frame].height;
         newDescHeight = 250 - height;
+//        CGFloat height = _bundleWebView.enclosingScrollView.frame.size.height;
+//        newDescHeight = 250 - height;
 
         NSRect newRect = _viewDescription.frame;
         newRect.size.height = 309 - newDescHeight;
+//        newRect.size.height = _bundleWebView.enclosingScrollView.frame.size.height;
+//        newRect.size.height = 250 - newDescHeight;hidd
         [_viewDescription setFrame:newRect];
 
         diff += _viewDescription.frame.size.height;

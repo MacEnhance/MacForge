@@ -110,7 +110,7 @@ extern AppDelegate *myDelegate;
 
 - (void)adjustColumnWidth {
     int multiplier = 4;
-    if (MF_extra.sharedInstance.macOS >= 16) multiplier = 25;
+//    if (MF_extra.sharedInstance.macOS >= 16) multiplier = 25;
     NSUInteger pad = self.frame.size.width - (multiplier * columns);
     for (NSTableColumn* c in _tv.tableColumns)
         [c setWidth:pad/columns];
@@ -148,7 +148,7 @@ extern AppDelegate *myDelegate;
         smallArray = NSMutableArray.new;
         
         NSRect theFrame = self.frame;
-        if (MF_extra.sharedInstance.macOS >= 16) theFrame.size.height += 38;
+//        if (MF_extra.sharedInstance.macOS >= 16) theFrame.size.height += 38;
         
         // create a table view
         _tv = [[NSTableView alloc] initWithFrame:theFrame];
@@ -212,11 +212,14 @@ extern AppDelegate *myDelegate;
         [result setFrame:CGRectMake(0, 0, 1000, 40)];
         [result setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
 
-        NSTextField *t = [[NSTextField alloc] initWithFrame:CGRectMake(0, 0, 1000, 40)];
-        [t setEditable:false];
+        NSTextField *t = [[NSTextField alloc] initWithFrame:CGRectMake(0, 5, 1000, 30)];
         [t setFont:[NSFont systemFontOfSize:24]];
         [t setStringValue:(NSString*)obj];
         [t setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+        
+        [t setBezeled:false];
+        [t setEditable:false];
+        [t setDrawsBackground:false];
 
         [result addSubview:t];
         result.wantsLayer = true;

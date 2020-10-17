@@ -31,7 +31,7 @@ extern AppDelegate *myDelegate;
 
 - (void)adjustColumnWidth {
     int multiplier = 4;
-    if (NSProcessInfo.processInfo.operatingSystemVersion.majorVersion == 11) multiplier = 25;
+//    if (NSProcessInfo.processInfo.operatingSystemVersion.majorVersion == 11) multiplier = 25;
     NSUInteger pad = self.frame.size.width - (multiplier * columns);
     for (NSTableColumn* c in _tv.tableColumns)
         [c setWidth:pad/columns];
@@ -70,7 +70,7 @@ extern AppDelegate *myDelegate;
         
         // Create a table view
         NSRect theFrame = self.frame;
-        if (MF_extra.sharedInstance.macOS >= 16) theFrame.size.height += 38;
+//        if (MF_extra.sharedInstance.macOS >= 16) theFrame.size.height += 38;
         
         _tv = [NSTableView.alloc initWithFrame:theFrame];
         _tv.delegate = self;

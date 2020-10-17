@@ -50,7 +50,6 @@ extern AppDelegate* myDelegate;
 }
 
 + (void)checkStatus:(MF_Plugin*)plugin :(NSButton*)theButton {
-    
     NSString            *localPath = [MF_PluginManager.sharedInstance pluginLocalPath:plugin.bundleID];
     Boolean             isInstalled = localPath.length;
     NSDictionary        *item = plugin.webPlist;
