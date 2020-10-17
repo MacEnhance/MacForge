@@ -2,7 +2,7 @@
 
 MacForge is an open-source plugin manager for macOS. It lets you discover, install and manage plugins to improve the user experience of macOS without the need for manually cloning/building or copying files.
 
-[![Discord](https://discordapp.com/api/guilds/608740492561219617/widget.png?style=banner2)](https://discordapp.com/channels/608740492561219617/608740492640911378)
+[![Discord](https://discordapp.com/api/guilds/608740492561219617/widget.png?style=banner2)](https://discord.com/invite/zjCHuew)
 
 ![Preview](web/preview.png)
 
