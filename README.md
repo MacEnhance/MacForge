@@ -17,10 +17,15 @@ MacForge is an open-source plugin manager for macOS. It lets you discover, insta
 
 ## Functionallity notes 📝
 
-- Loading plugins into system applications requires that [System Integrity Protection](https://apple.stackexchange.com/questions/208478/how-do-i-disable-system-integrity-protection-sip-aka-rootless-on-os-x-10-11) is disabled
-- Loading plugins into some applications may require *Library Validation* is disabled  `sudo defaults write /Library/Preferences/com.apple.security.libraryvalidation.plist DisableLibraryValidation -bool true`
+- Loading plugins into system applications requires that [System Integrity Protection](https://apple.stackexchange.com/questions/208478/how-do-i-disable-system-integrity-protection-sip-aka-rootless-on-os-x-10-11) and Library validation are disabled
+    - Open `Terminal.app` and run the command
+    - `sudo defaults write /Library/Preferences/com.apple.security.libraryvalidation.plist DisableLibraryValidation -bool true`
+    - Boot to recovery mode by rebooting and holding down `⌘ + R`
+    - Open the `Terminal` from the menubar and run the command
+    - `csrutil enable --without debug --without fs`
+    - Reboot
 - Loading plugins into some applications may require the plugin must be *signed* and in the `/Library` directory
-- Some applications installed by MacForge may not require *System Integrity Protection* or *Library Validation* to be disabled to function
+- Some applications installed by MacForge may not require `System Integrity Protection` or `Library Validation` to be disabled to function
 
 ## System Requirements 🖥
 
