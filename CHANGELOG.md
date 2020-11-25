@@ -4,8 +4,9 @@
 - Fix updates tab
 - Fix issue with trials
 - Fix table spacing on Big Sur beta 7/8
+- Included fix for Dock process crash on Big Sur
 - Inject bundles alphabetically
-- Minor fixes
+- Bug fixes
 
 ### 1.0.8
 
@@ -21,7 +22,7 @@
 - Fix helper not auto-checking for updates
 - Fix purchased items not downloading
 - Fix typo in system tab [@Brianfos]()
-- Minor bug fixes
+- Bug fixes
 
 ### 1.0.5
 
@@ -169,23 +170,20 @@
 
 ### 0.10.1
 
--    Minimum macOS version bumped to 1### 0.11
+-    Minimum macOS version bumped to 10.11
 -    UI design adjustments
 -    Download progress for featured items
 -    Bug fixes
 
-
 ### 0.9.11
 
 -    Bug fixes
-
 
 ### 0.9.10
 
 -    Fix some typos
 -    Use SDWebImage for loading images from repos
 -    Bug fixes
-
 
 ### 0.9.9
 
@@ -234,15 +232,13 @@
 -    New Icon
 -    Mojave support
 -    Now installs plugins to /Library/Application Support/MacEnhance/Plugins
-
 -    Switch from SIMBL to  mach_inject
--    Allows loading on Mojave (macOS 1### 0.14)
+-    Allows loading on Mojave (macOS 10.14)
 -    Doesn't require SIP to be off to install helpers
 -    Requires SIP to be off to load into applications
 -    You can use "csrutil enable --without debug --without fs"
 -    New System Integrity Protection warning 
 -    Removed system component warnings
-
 -    SIMBLAgent (injector) is now the MacForgeHelper
 -    Helper is now in charge of injection
 -    Helper automatically tries to load new bundles when main app is closed
@@ -253,31 +249,25 @@
 -    ./MacForgeHelper -i BUNDLE_ID ---- injects into specific app
 -    ./MacForgeHelper -u ---- updates all plugins
 -    MacForgeHelper is a menubar application
-
 -    UI redesign
--    Redesigned to resemble Mojave App Store
--    Larger sidebar buttons
--    Larger window size
--    Window is now resize-able
--    Window uses system light / dark mode
--    Switch from colored circles to check boxes for toggles
--    Mojave Dark mode support
-
+    -    Redesigned to resemble Mojave App Store
+    -    Larger sidebar buttons
+    -    Larger window size
+    -    Window is now resize-able
+    -    Window uses system light / dark mode
+    -    Switch from colored circles to check boxes for toggles
+    -    Mojave Dark mode support
 -    Manage view
--    Implemented search (name or bundle ID)
-
+    -    Implemented search (name or bundle ID)
 -    Discover view 
--    Improved search (name or bundle ID)
-
+    -    Improved search (name or bundle ID)
 -    System view
--    Removed SIMBL info
--    Added MacForge info
--    Revised Blacklist view
-
+    -    Removed SIMBL info
+    -    Added MacForge info
+    -    Revised Blacklist view
 -    About view
--    Shifted view to left
+    -    Shifted view to left
 -    Added button to quickly start building a plugin in Xcode 
-
 -    Added DockTilePlugin to show bundle updates in dock when app is closed
 -    Included plugin with fixes for a few issues caused when plugins are loaded into Archive Utility and TextEdit
 -    Automatically add Xcode template for making plugins
@@ -365,7 +355,7 @@
 
 ### 0.4.3
 
--    Fixes 1### 0.9 not setting up window
+-    Fixes 10.9 not setting up window
 -    Fixes SIMBLAgent not automatically loading plugins
 
 ### 0.4.2
@@ -409,7 +399,7 @@
 
 ### 0.3.0
 
--    macOS 1### 0.12 support
+-    macOS 10.12 support
 -    SIMBL Agent updated
 -    SIMBL Agent moved to /Library/Application Support/SIMBL
 -    Injects into root applications (Dock, Finder, Spotlight, etc)
@@ -457,7 +447,6 @@
 -    Source View (Root)
 -    Source Bundles
 -    Bundle Page
-
 -    UI adjustments
 -    Code refactoring
 -    Startup tab preference
