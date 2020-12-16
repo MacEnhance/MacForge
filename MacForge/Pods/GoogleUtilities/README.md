@@ -27,18 +27,18 @@
 This repository contains all Apple platform Firebase SDK source except FirebaseAnalytics,
 FirebasePerformance, and FirebaseML.
 
-The repository also includes GoogleUtilities source. The
-[GoogleUtilities](GoogleUtilities/README.md) pod is
-a set of utilities used by Firebase and other Google products.
-
 Firebase is an app development platform with tools to help you build, grow and
 monetize your app. More information about Firebase can be found at
 [https://firebase.google.com](https://firebase.google.com).
 
+The repository also includes GoogleUtilities and GoogleDataTransport source
+which are utilities used by Firebase and other Google products.
+
 ## Installation
 
-See the three subsections for details about three different installation methods.
+See the subsections below for details about the different installation methods.
 1. [Standard pod install](README.md#standard-pod-install)
+1. [Swift Package Manager (Beta)](SwiftPackageManager.md)
 1. [Installing from the GitHub repo](README.md#installing-from-github)
 1. [Experimental Carthage](README.md#carthage-ios-only)
 
@@ -46,6 +46,11 @@ See the three subsections for details about three different installation methods
 
 Go to
 [https://firebase.google.com/docs/ios/setup](https://firebase.google.com/docs/ios/setup).
+
+### Swift Package Manager (Beta)
+
+Instructions for the Beta of [Swift Package Manager](https://swift.org/package-manager/)
+support can be found at [SwiftPackageManager.md](SwiftPackageManager.md).
 
 ### Installing from GitHub
 
@@ -85,11 +90,6 @@ pod 'FirebaseMessaging', :path => '/path/to/firebase-ios-sdk'
 Instructions for the experimental Carthage distribution are at
 [Carthage](Carthage.md).
 
-### Rome
-
-Instructions for installing binary frameworks via
-[Rome](https://github.com/CocoaPods/Rome) are at [Rome](Rome.md).
-
 ### Using Firebase from a Framework or a library
 
 [Using Firebase from a Framework or a library](docs/firebase_in_libraries.md)
@@ -99,8 +99,8 @@ Instructions for installing binary frameworks via
 To develop Firebase software in this repository, ensure that you have at least
 the following software:
 
-  * Xcode 10.3 (or later)
-  * CocoaPods 1.7.2 (or later)
+  * Xcode 11.0 (or later)
+  * CocoaPods 1.9.0 (or later)
   * [CocoaPods generate](https://github.com/square/cocoapods-generate)
 
 For the pod that you want to develop:
@@ -137,15 +137,15 @@ See [HeadersImports.md](HeadersImports.md).
 ### Code Formatting
 
 To ensure that the code is formatted consistently, run the script
-[./scripts/style.sh](https://github.com/firebase/firebase-ios-sdk/blob/master/scripts/style.sh)
+[./scripts/check.sh](https://github.com/firebase/firebase-ios-sdk/blob/master/scripts/check.sh)
 before creating a PR.
 
-Travis will verify that any code changes are done in a style compliant way. Install
-`clang-format` and `swiftformat`:
+GitHub Actions will verify that any code changes are done in a style compliant
+way. Install `clang-format` and `mint`:
 
 ```
-brew install clang-format
-brew install swiftformat
+brew install clang-format@11
+brew install mint
 ```
 
 ### Running Unit Tests
@@ -161,8 +161,8 @@ After running the `AllUnitTests_iOS` scheme in Xcode, execute
 at Example/ in the terminal. This will aggregate the coverage, and you can run `open xcov_output/index.html` to see the results.
 
 ### Running Sample Apps
-In order to run the sample apps and integration tests, you'll need valid
-`GoogleService-Info.plist` files for those samples. The Firebase Xcode project contains dummy plist
+In order to run the sample apps and integration tests, you'll need a valid
+`GoogleService-Info.plist` file. The Firebase Xcode project contains dummy plist
 files without real values, but can be replaced with real plist files. To get your own
 `GoogleService-Info.plist` files:
 
@@ -244,8 +244,8 @@ To install, add a subset of the following to the Podfile:
 
 ```
 pod 'Firebase/ABTesting'     # No watchOS support yet
-pod 'Firebase/Auth'          # No watchOS support yet
-pod 'Firebase/Crashlytics'   # No watchOS support yet
+pod 'Firebase/Auth'          # Limited watchOS support
+pod 'Firebase/Crashlytics'
 pod 'Firebase/Database'      # No watchOS support yet
 pod 'Firebase/Firestore'     # No watchOS support yet
 pod 'Firebase/Functions'     # No watchOS support yet

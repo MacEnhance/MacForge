@@ -16,8 +16,6 @@ The App Center SDK uses a modular architecture so you can use any or all of the 
 
 3. **App Center Distribute**: App Center Distribute lets your users install a new version of the app when you distribute it with App Center. With a new version of the app available, the SDK will present an update dialog to the users to either download or postpone the new version. Once they choose to update, the SDK will start to update your application. This feature is automatically disabled on versions of your app deployed to the Apple App Store. **Not available for macOS and tvOS*.
 
-4. **App Center Push**: App Center Push enables you to send push notifications to users of your app from the App Center portal. You can also segment your user base based on a set of properties and send them targeted notifications. **Not available for tvOS*.
-
 ## 1. Get started
 
 It is super easy to use App Center. Have a look at our [get started documentation](https://docs.microsoft.com/en-us/appcenter/sdk/getting-started/ios) and onboard your app within minutes. Our [detailed documentation](https://docs.microsoft.com/en-us/appcenter/sdk/) is available as well.

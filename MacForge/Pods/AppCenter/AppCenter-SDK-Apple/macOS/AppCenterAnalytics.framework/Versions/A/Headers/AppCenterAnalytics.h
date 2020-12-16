@@ -3,11 +3,11 @@
 
 #import <Foundation/Foundation.h>
 
-#import "MSAbstractLog.h"
-#import "MSAnalytics.h"
-#import "MSAnalyticsTransmissionTarget.h"
-#import "MSAnalyticsAuthenticationProvider.h"
-#import "MSAnalyticsAuthenticationProviderDelegate.h"
-#import "MSConstants+Flags.h"
-#import "MSEventLog.h"
-#import "MSEventProperties.h"
+#import "MSACAbstractLog.h"
+#import "MSACAnalytics.h"
+#import "MSACAnalyticsAuthenticationProvider.h"
+#import "MSACAnalyticsAuthenticationProviderDelegate.h"
+#import "MSACAnalyticsTransmissionTarget.h"
+#import "MSACConstants+Flags.h"
+#import "MSACEventLog.h"
+#import "MSACEventProperties.h"
