@@ -4,11 +4,6 @@ In order get the full features of <appname> you must partially disable System In
 
 Follow the instructions below to partially disable System Integrity Protection:
 
-1 : Open terminal
-2 : Enter this command:
-
-sudo defaults write /Library/Preferences/com.apple.security.libraryvalidation.plist DisableLibraryValidation -bool true
-
 1 : Restart your computer
 2 : Boot to recovery partition by holding (Command [⌘] +  R)
 3 : Open terminal from the menubar
@@ -17,3 +12,12 @@ sudo defaults write /Library/Preferences/com.apple.security.libraryvalidation.pl
 csrutil enable --without fs --without nvram --without debug
 
 5 : Restart your computer
+
+You may also be required to disable Library Validation
+
+1 : Open terminal and enter the command:
+
+sudo defaults write /Library/Preferences/com.apple.security.libraryvalidation.plist DisableLibraryValidation -bool true
+
+2 : Restart your computer
+

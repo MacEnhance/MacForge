@@ -37,7 +37,8 @@ extern AppDelegate* myDelegate;
 }
 
 - (void)didDismissPaddleUIType:(PADUIType)uiType triggeredUIType:(PADTriggeredUIType)triggeredUIType product:(nonnull PADProduct *)product {
-    NSLog(@"%ld : %ld : %@", (long)uiType, (long)triggeredUIType, product);
+    NSLog(@"Paddle : UI %ld : Trigger %ld : product %@", (long)uiType, (long)triggeredUIType, product);
+    NSLog(@"Paddle : pid %@ : ven %@ : API %@", Paddle.sharedInstance.productID, Paddle.sharedInstance.vendorID, Paddle.sharedInstance.apiKey);
     switch (triggeredUIType) {
         case PADTriggeredUITypeCancel:
             // Quit pressed
@@ -88,12 +89,12 @@ extern AppDelegate* myDelegate;
         myPaddleVendorID = [dict objectForKey:@"vendorid"];
         myPaddleAPIKey = [dict objectForKey:@"apikey"];
     }
-    
+        
     // Populate a local object in case we're unable to retrieve data from the Vendor Dashboard:
     PADProductConfiguration *defaultProductConfig = [[PADProductConfiguration alloc] init];
     defaultProductConfig.productName = @"plugin";
     defaultProductConfig.vendorName = @"macenhance";
-
+    
     if (!Paddle.sharedInstance) {
         [Paddle sharedInstanceWithVendorID:myPaddleVendorID
                                     apiKey:myPaddleAPIKey
@@ -127,12 +128,14 @@ extern AppDelegate* myDelegate;
         // Examine checkout state to determine the checkout result
         if (state == PADCheckoutPurchased) {
             plugin.hasPurchased = true;
-            [MSAnalytics trackEvent:@"Purchased Product" withProperties:@{@"Product" : plugin.webName, @"Product ID" : [plugin.webPlist valueForKey:@"productID"]}];
+            [MSACAnalytics trackEvent:@"Purchased Product" withProperties:@{@"Product" : plugin.webName, @"Product ID" : [plugin.webPlist valueForKey:@"productID"]}];
             [MF_Purchase pluginInstall:plugin withButton:theButton andProgress:progress];
             NSLog(@"Purchase success");
         } else {
             NSLog(@"Purchase canceled or failed.");
         }
+        
+        [MF_Paddle validadePlugin:plugin withButton:theButton];
     }];
 }
     

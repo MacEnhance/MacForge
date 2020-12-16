@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
-        <plugIn identifier="com.apple.WebKit2IBPlugin" version="17156"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
+        <plugIn identifier="com.apple.WebKit2IBPlugin" version="17506"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -405,7 +405,7 @@
             <connections>
                 <outlet property="delegate" destination="Voe-Tx-rLC" id="JpF-au-GAe"/>
             </connections>
-            <point key="canvasLocation" x="-1269" y="385"/>
+            <point key="canvasLocation" x="-1254" y="385"/>
         </window>
         <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="fiC-1c-umx" userLabel="Preferences">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
@@ -1228,7 +1228,7 @@
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn width="286" minWidth="40" maxWidth="1000" id="0Zw-pW-ghx">
+                                    <tableColumn width="257" minWidth="40" maxWidth="1000" id="0Zw-pW-ghx">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -1241,11 +1241,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="VMQ-gH-aq1">
-                                                <rect key="frame" x="11" y="1" width="295" height="17"/>
+                                                <rect key="frame" x="11" y="1" width="266" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="de0-4T-Qe9">
-                                                        <rect key="frame" x="0.0" y="0.0" width="295" height="17"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="266" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="oxe-Rh-HbK">
                                                             <font key="font" metaFont="system"/>
@@ -1448,7 +1448,7 @@
                                 <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn width="302" minWidth="40" maxWidth="1000" id="lBR-iK-oWR">
+                                    <tableColumn width="273" minWidth="40" maxWidth="1000" id="lBR-iK-oWR">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -1461,11 +1461,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="XoI-a7-y06">
-                                                <rect key="frame" x="11" y="1" width="311" height="30"/>
+                                                <rect key="frame" x="11" y="1" width="282" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lmq-eg-O04">
-                                                        <rect key="frame" x="0.0" y="-14" width="311" height="44"/>
+                                                        <rect key="frame" x="0.0" y="-14" width="282" height="44"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="ecv-W1-8BZ">
                                                             <font key="font" metaFont="system"/>
@@ -2166,7 +2166,7 @@
                                 <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn identifier="psView" width="546" minWidth="40" maxWidth="1000" id="gGl-r7-pWU">
+                                    <tableColumn identifier="psView" width="517" minWidth="40" maxWidth="1000" id="gGl-r7-pWU">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -2179,7 +2179,7 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="upView" id="sa9-wg-w6w" customClass="updatesTableCell">
-                                                <rect key="frame" x="11" y="1" width="555" height="60"/>
+                                                <rect key="frame" x="11" y="1" width="526" height="60"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VcL-Mb-XLW">
@@ -2192,7 +2192,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vF4-tU-6hc">
-                                                        <rect key="frame" x="54" y="21" width="399" height="16"/>
+                                                        <rect key="frame" x="54" y="21" width="375" height="16"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Info" id="WFj-70-pOg">
                                                             <font key="font" metaFont="label" size="11"/>
@@ -2201,7 +2201,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3uC-tm-VHh">
-                                                        <rect key="frame" x="54" y="3" width="399" height="16"/>
+                                                        <rect key="frame" x="54" y="3" width="375" height="16"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Description" id="CaY-9t-k4E">
                                                             <font key="font" metaFont="label" size="11"/>
@@ -2215,7 +2215,7 @@
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSApplicationIcon" id="lX3-pf-zKH"/>
                                                     </imageView>
                                                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qSM-k6-zlC">
-                                                        <rect key="frame" x="460" y="20" width="75" height="19"/>
+                                                        <rect key="frame" x="431" y="20" width="75" height="19"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="roundRect" title="update" bezelStyle="roundedRect" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZFE-Xy-PKD">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -2648,7 +2648,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="left" id="Q1A-Q0-WJp">
                         <font key="font" metaFont="label" size="11"/>
-                        <string key="title">For plugins to load System Integrity Protection must be disabled.  Newer apps and many system apps require both System Integrity Protection and Library Validation be disabled.  Changes to Library Validation require a reboot to take effect.
+                        <mutableString key="title">For plugins to load System Integrity Protection must be disabled.  Newer apps and many system apps require both System Integrity Protection and Library Validation be disabled.  Changes to Library Validation require a reboot to take effect.
 
 To disable Library Validation:
 
@@ -2662,9 +2662,9 @@ sudo defaults write /Library/Preferences/com.apple.security.libraryvalidation.pl
 3 : Open terminal from the menubar
 4 : Enter this command:
 
-csrutil enable --without fs --without nvram --without debug
+csrutil disable
 
-5 : Restart your computer</string>
+5 : Restart your computer</mutableString>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -2785,9 +2785,9 @@ csrutil enable --without fs --without nvram --without debug
     <resources>
         <image name="NSActionTemplate" width="15" height="15"/>
         <image name="NSAddTemplate" width="15" height="13"/>
-        <image name="NSApplicationIcon" width="30" height="16"/>
+        <image name="NSApplicationIcon" width="32" height="32"/>
         <image name="NSBookmarksTemplate" width="19" height="15"/>
-        <image name="NSCaution" width="30" height="16"/>
+        <image name="NSCaution" width="32" height="32"/>
         <image name="NSGoLeftTemplate" width="10" height="14"/>
         <image name="NSGoRightTemplate" width="10" height="14"/>
         <image name="NSLeftFacingTriangleTemplate" width="10" height="14"/>
@@ -2797,8 +2797,8 @@ csrutil enable --without fs --without nvram --without debug
         <image name="NSShareTemplate" width="16" height="17"/>
         <image name="NSTouchBarNewMessageTemplate" width="17" height="16"/>
         <image name="NSTouchBarUserGroupTemplate" width="22" height="14"/>
-        <image name="NSTrashFull" width="30" height="16"/>
-        <image name="NSUserGroup" width="30" height="16"/>
+        <image name="NSTrashFull" width="32" height="32"/>
+        <image name="NSUserGroup" width="32" height="32"/>
         <image name="arrow.up.arrow.down.square_Normal" width="23" height="23"/>
         <image name="desktopcomputer_Normal" width="30" height="25"/>
         <image name="magnifyingglass.circle_Normal" width="25.5" height="25.5"/>

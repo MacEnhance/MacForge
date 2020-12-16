@@ -1,10 +1,11 @@
 ### 1.1.0
 
-- Fix table headers in discover view
+- Initial support for Big Sur
+- Fix for Dock process crash on Big Sur
+- Fix scroll view frame on Big Sur
 - Fix updates tab
 - Fix issue with trials
-- Fix table spacing on Big Sur beta 7/8
-- Included fix for Dock process crash on Big Sur
+- Fix privledged helper not working properly after updating
 - Inject bundles alphabetically
 - Bug fixes
 

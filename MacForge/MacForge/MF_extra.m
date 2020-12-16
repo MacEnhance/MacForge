@@ -31,10 +31,12 @@
 - (instancetype)init {
     MF_extra *res = [super init];
     _macOS = 9;
-    if ([NSProcessInfo.processInfo respondsToSelector:@selector(operatingSystemVersion)]) {
+    if (NSProcessInfo.processInfo.operatingSystemVersion.majorVersion >= 11) {
+        // Big Sur or newer
+        _macOS = NSProcessInfo.processInfo.operatingSystemVersion.majorVersion + 5;
+    } else {
+        // Catalina or older
         _macOS = NSProcessInfo.processInfo.operatingSystemVersion.minorVersion;
-        if (NSProcessInfo.processInfo.operatingSystemVersion.majorVersion == 11)
-            _macOS += 16;
     }
     return res;
 }
@@ -263,7 +265,7 @@
     // Select the view
     if (buttonContainer) {
         // Log that the user clicked on a sidebar button
-        [MSAnalytics trackEvent:@"Selected View" withProperties:@{@"View" : [button title]}];
+        [MSACAnalytics trackEvent:@"Selected View" withProperties:@{@"View" : [button title]}];
         // Add the view to our main view
         [self setMainViewSubView:buttonContainer.linkedView];
     }

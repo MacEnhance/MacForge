@@ -58,24 +58,21 @@ NSMutableDictionary *needsUpdate;
     return result;
 }
 
-- (IBAction)updateAll:(id)sender {
-    __block NSUInteger count = [needsUpdate count];
-    
-    for (NSString* key in [needsUpdate allKeys]) {
-        NSDictionary *installDict = [needsUpdate objectForKey:key];
+- (void)updatePluginAllPlugins:(int)pluginNumber {
+    if (pluginNumber < needsUpdate.count) {
+        NSDictionary *installDict = [needsUpdate objectForKey:[needsUpdate.allKeys objectAtIndex:pluginNumber]];
         [self->sharedMethods pluginUpdateOrInstall:installDict withCompletionHandler:^(BOOL res) {
-            count--;
+            [self updatePluginAllPlugins:pluginNumber + 1];
         }];
-    }
-    
-    /* wait until all installs have finished */
-//    while (count != 0) NSLog(@"%lu", (unsigned long)count);
-    
-    dispatch_queue_t backgroundQueue = dispatch_queue_create("com.macenhance.MacForge", 0);
-    dispatch_async(backgroundQueue, ^{
+    } else {
         [needsUpdate removeAllObjects];
-        [self->sharedMethods checkforPluginUpdates:self->_tblView :myDelegate.viewUpdateCounter];
-    });
+        [self reloadData];
+    }
+//
+}
+
+- (IBAction)updateAll:(id)sender {
+    [self updatePluginAllPlugins:0];
 }
 
 - (IBAction)updatePlugin:(id)sender {

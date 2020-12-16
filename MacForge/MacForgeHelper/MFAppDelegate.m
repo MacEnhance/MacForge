@@ -69,6 +69,7 @@ void HandleExceptions(NSException *exception) {
     // Install frameworks and setup plugin folder
     [self giveFramework];
     [self givePluginFldr];
+    [self giveDockFix];
 
     // Listen for notification to hide/show menubar
     [[NSDistributedNotificationCenter defaultCenter] addObserverForName:@"com.macenhance.MacForgeHelperNotify" object:nil queue:nil usingBlock:^(NSNotification *notification) {
@@ -109,6 +110,10 @@ void HandleExceptions(NSException *exception) {
         error = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:nil];
     } else {
         CFErrorRef  cfError;
+        
+        // First kill the job in case it already exists
+        SMJobRemove(kSMDomainSystemLaunchd, (__bridge CFStringRef)label, _authRef, true, &cfError);
+        
         /* This does all the work of verifying the helper tool against the application and vice-versa. Once verification has passed, the embedded launchd.plist
          * is extracted and placed in /Library/LaunchDaemons and then loaded. The executable is placed in /Library/PrivilegedHelperTools. */
         result = (BOOL) SMJobBless(kSMDomainSystemLaunchd, (__bridge CFStringRef)label, _authRef, &cfError);
@@ -190,9 +195,11 @@ void HandleExceptions(NSException *exception) {
     if (![[NSFileManager defaultManager] fileExistsAtPath:destination])
         [self.injectorProxy installFramework:frameworkPath toLoaction:destination :&error];
         
-    // Paddle framework not found
     frameworkPath = NSBundle.mainBundle.bundlePath;
-    frameworkPath = [frameworkPath.stringByDeletingLastPathComponent.stringByDeletingLastPathComponent.stringByDeletingLastPathComponent stringByAppendingString:@"/Frameworks/Paddle.framework"];
+    NSString *containerPath = frameworkPath.stringByDeletingLastPathComponent.stringByDeletingLastPathComponent.stringByDeletingLastPathComponent;
+    
+    // Paddle framework not found
+    frameworkPath = [containerPath stringByAppendingString:@"/Frameworks/Paddle.framework"];
     destination = @"/Library/Frameworks/Paddle.framework";
     if ([[NSFileManager defaultManager] fileExistsAtPath:frameworkPath])
         if (![[NSFileManager defaultManager] fileExistsAtPath:destination])
@@ -210,6 +217,35 @@ void HandleExceptions(NSException *exception) {
     if (createFolders) {
         NSError *error;
         [self.injectorProxy setupPluginFolder:&error];
+    }
+}
+
+- (void)giveDockFix {
+    // Continue
+    NSError *error;
+    NSString *bundleName = @"_DockKit";
+    
+    NSString *srcPath = [[NSBundle mainBundle] pathForResource:bundleName ofType:@"bundle"];
+    NSString *dstPath = [NSString stringWithFormat:@"/Library/Application Support/MacEnhance/Plugins/%@.bundle", bundleName];
+    
+    NSString *srcBndl = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@.bundle/Contents/Info", bundleName] ofType:@"plist"];
+    NSString *dstBndl = [NSString stringWithFormat:@"/Library/Application Support/MacEnhance/Plugins/%@.bundle/Contents/Info.plist", bundleName];
+    
+    NSLog(@"MacFoge : Checking bundle...");
+    if ([[NSFileManager defaultManager] fileExistsAtPath:dstBndl]){
+        NSString *srcVer = [[[NSMutableDictionary alloc] initWithContentsOfFile:srcBndl] objectForKey:@"CFBundleVersion"];
+        NSString *dstVer = [[[NSMutableDictionary alloc] initWithContentsOfFile:dstBndl] objectForKey:@"CFBundleVersion"];
+        if (![srcVer isEqual:dstVer] && ![srcPath isEqualToString:@""]) {
+            NSLog(@"MacFoge : Updating bundle... Destination: %@ > Source: %@", srcVer, dstVer);
+            [[NSFileManager defaultManager] removeItemAtPath:@"/tmp/cDock.bundle" error:&error];
+            [[NSFileManager defaultManager] copyItemAtPath:srcPath toPath:@"/tmp/cDock.bundle" error:&error];
+            [[NSFileManager defaultManager] replaceItemAtURL:[NSURL fileURLWithPath:dstPath] withItemAtURL:[NSURL fileURLWithPath:@"/tmp/cDock.bundle"] backupItemName:nil options:NSFileManagerItemReplacementUsingNewMetadataOnly resultingItemURL:nil error:&error];
+        } else {
+            NSLog(@"MacFoge : _DockKit bundle is up to date...");
+        }
+    } else {
+        NSLog(@"MacFoge : Installing bundle... %@", srcPath);
+        [[NSFileManager defaultManager] copyItemAtPath:srcPath toPath:dstPath error:&error];
     }
 }
 
@@ -299,7 +335,7 @@ void HandleExceptions(NSException *exception) {
         [myUpdater setAutomaticallyChecksForUpdates:true];
         [myUpdater setAutomaticallyDownloadsUpdates:true];
     }
-    NSLog(@"MacForgeHelper : Checking for updates...");
+//    NSLog(@"MacForgeHelper : Checking for updates...");
     [myUpdater checkForUpdates:nil];
 }
 
@@ -313,7 +349,7 @@ void HandleExceptions(NSException *exception) {
         [myUpdater setAutomaticallyDownloadsUpdates:true];
     }
     if ([[GUIDefaults objectForKey:@"SUEnableAutomaticChecks"] boolValue]) {
-        NSLog(@"MacForgeHelper : Checking for updates...");
+//        NSLog(@"MacForgeHelper : Checking for updates...");
         [myUpdater checkForUpdatesInBackground];
     }
 }

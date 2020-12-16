@@ -29,7 +29,7 @@ extern AppDelegate *myDelegate;
 
 - (void)adjustColumnWidth {
     int multiplier = 4;
-//    if (MF_extra.sharedInstance.macOS >= 16) multiplier = 25;
+    if (MF_extra.sharedInstance.macOS >= 16) multiplier = 25;
     NSUInteger pad = self.frame.size.width - (multiplier * columns);
     for (NSTableColumn* c in _tv.tableColumns)
         [c setWidth:pad/columns];
@@ -86,6 +86,7 @@ extern AppDelegate *myDelegate;
         tableContainer.hasHorizontalScroller = false;
         tableContainer.horizontalScrollElasticity = NSScrollElasticityNone;
         tableContainer.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+        tableContainer.automaticallyAdjustsContentInsets = false;
         [self addSubview:tableContainer];
         
         dispatch_queue_t backgroundQueue = dispatch_queue_create("com.macenhance.MacForge", 0);

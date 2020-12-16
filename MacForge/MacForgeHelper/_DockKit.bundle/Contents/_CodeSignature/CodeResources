@@ -6,128 +6,16 @@
 	<dict>
 		<key>Resources/Info.plist</key>
 		<data>
-		ZJhvG5qIO9NYo/nG2ZK1qVlOdRc=
-		</data>
-		<key>Resources/LICENSE_STPrivilegedTask</key>
-		<data>
-		byT2sJ6YKFMcj4dfld2oyyZR6Kc=
-		</data>
-		<key>Resources/SK_SipView.nib</key>
-		<data>
-		/6/2c08kmmOtTvSajl6NS4pzLlc=
-		</data>
-		<key>Resources/eng_amfi.txt</key>
-		<data>
-		NmSQ9Mjn4bik5LKc/QSFPVztLfI=
-		</data>
-		<key>Resources/eng_warning.txt</key>
-		<data>
-		zEzhyFDKdXM5tg0t9J2GJ0zjIuI=
-		</data>
-		<key>Resources/sipvid.mp4</key>
-		<data>
-		WokNbxSfq98S/9fhoVh2Ac7pu0s=
+		Ru0pbsTc5AFExO2yS7oclrESbYk=
 		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>Headers/SIPKit.h</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			cwGSpq+uo2Xuw7i1ZD+w81pIsTg=
-			</data>
-			<key>hash2</key>
-			<data>
-			5WgB9mLvOykauLtFFF5U1efbGPilcW+I9YzhfsIZ7pA=
-			</data>
-		</dict>
-		<key>Headers/SK_SipView.h</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			ZKQQ32TmkrHidKEau+XLB+PA+5M=
-			</data>
-			<key>hash2</key>
-			<data>
-			p5td459tYXFERybePAOP3kAVSu+hTZrtyFZlqG8CcL8=
-			</data>
-		</dict>
-		<key>Modules/module.modulemap</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			4KQUuLdok+2SoicwOiZW+llD9V8=
-			</data>
-			<key>hash2</key>
-			<data>
-			CjH6Xo23S5fLYiXhy2CIg2tqq7PW69u0m5SnRo9vkMM=
-			</data>
-		</dict>
 		<key>Resources/Info.plist</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			ZJhvG5qIO9NYo/nG2ZK1qVlOdRc=
-			</data>
 			<key>hash2</key>
 			<data>
-			r4XWpDfATGP3hcALZk16VrrLtnFLF6RWh4Rn8OTSL74=
-			</data>
-		</dict>
-		<key>Resources/LICENSE_STPrivilegedTask</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			byT2sJ6YKFMcj4dfld2oyyZR6Kc=
-			</data>
-			<key>hash2</key>
-			<data>
-			3qrHnn7N90HBS2EkJV+/FXey3CGsTNjrRC4dlU8LUhA=
-			</data>
-		</dict>
-		<key>Resources/SK_SipView.nib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			/6/2c08kmmOtTvSajl6NS4pzLlc=
-			</data>
-			<key>hash2</key>
-			<data>
-			KY8s3D1qVPdRTXEVqz3Zoptz3zL/kg3uVuvBqXAC+1k=
-			</data>
-		</dict>
-		<key>Resources/eng_amfi.txt</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			NmSQ9Mjn4bik5LKc/QSFPVztLfI=
-			</data>
-			<key>hash2</key>
-			<data>
-			lSxJXIRd2W9KvTBX1vWKRyBsCteX6UBE6ksHABl+j34=
-			</data>
-		</dict>
-		<key>Resources/eng_warning.txt</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			zEzhyFDKdXM5tg0t9J2GJ0zjIuI=
-			</data>
-			<key>hash2</key>
-			<data>
-			AyI37qWJPGW5s7mLPb/nXBzf+qyqyjJ8zTYxWfwCWtw=
-			</data>
-		</dict>
-		<key>Resources/sipvid.mp4</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			WokNbxSfq98S/9fhoVh2Ac7pu0s=
-			</data>
-			<key>hash2</key>
-			<data>
-			VfTO6rN8gWUF7qo+kKMHrQYfKpj9+60AqfL+WlsdnRA=
+			Vx8IX6aNid96sNpCOuZJ8gOYN2EX1DQVJYx7CuFc5Bc=
 			</data>
 		</dict>
 	</dict>

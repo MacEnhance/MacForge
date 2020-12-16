@@ -56,7 +56,7 @@ NSDictionary *testing;
 }
 
 -(void)viewWillDraw {
-    NSLog(@"Yeet");
+    // NSLog(@"Yeet");
     
     for (NSView* v in self.subviews)
         if ([v.className isEqualToString:@"MF_bundlePreviewView"])

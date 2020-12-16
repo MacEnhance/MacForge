@@ -26,11 +26,11 @@ extern AppDelegate* myDelegate;
         if ([updoot containsObject:theButton.title]) {
             // Updating or downgrading
             [MF_Purchase pluginInstall:plugin withButton:theButton andProgress:progress];
-            [MSAnalytics trackEvent:@"Update" withProperties:@{@"Product ID" : plugin.bundleID}];
+            [MSACAnalytics trackEvent:@"Update" withProperties:@{@"Product ID" : plugin.bundleID}];
         } else {
             // Installed, reveal in Finder
             [MF_PluginManager.sharedInstance pluginRevealFinder:plugin.webPlist];
-            [MSAnalytics trackEvent:@"Open" withProperties:@{@"Product ID" : plugin.bundleID}];
+            [MSACAnalytics trackEvent:@"Open" withProperties:@{@"Product ID" : plugin.bundleID}];
         }
     } else {
         if (plugin.hasPurchased) {
@@ -121,11 +121,11 @@ extern AppDelegate* myDelegate;
     NSDictionary* item = plugin.webPlist;
     NSString *myPaddleProductID = [item objectForKey:@"productID"];
     if (myPaddleProductID != nil) {
-        [MSAnalytics trackEvent:@"Purchase Attempt" withProperties:@{@"Product" : plugin.webName, @"Product ID" : myPaddleProductID}];
+        [MSACAnalytics trackEvent:@"Purchase Attempt" withProperties:@{@"Product" : plugin.webName, @"Product ID" : myPaddleProductID}];
         [MF_Paddle purchasePlugin:plugin withButton:theButton andProgress:progress];
     } else {
         NSLog(@"No product info... lets assume it's FREEEE");
-        [MSAnalytics trackEvent:@"Install" withProperties:@{@"Product ID" : plugin.bundleID}];
+        [MSACAnalytics trackEvent:@"Install" withProperties:@{@"Product ID" : plugin.bundleID}];
         [MF_Purchase pluginInstall:plugin withButton:theButton andProgress:progress];
     }
 }

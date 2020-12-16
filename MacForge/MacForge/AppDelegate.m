@@ -134,7 +134,7 @@ Boolean appSetupFinished = false;
     // Handle requests to open to specific plugin
     if ([urls.lastObject.absoluteString containsString:@"macforge://"]) {
         NSString *bundleID = urls.lastObject.absoluteString.lastPathComponent;
-        [MSAnalytics trackEvent:@"macforge://" withProperties:@{@"Product ID" : bundleID}];
+        [MSACAnalytics trackEvent:@"macforge://" withProperties:@{@"Product ID" : bundleID}];
         MF_Plugin *p = [[MF_Plugin alloc] init];
         MF_repoData *data = MF_repoData.sharedInstance;
         NSString *repo = MF_REPO_URL;
@@ -263,12 +263,12 @@ Boolean appSetupFinished = false;
 // Loading
 - (void)applicationWillFinishLaunching:(NSNotification *)aNotification {
     // Start alanlytics and crash reporting
-    [MSAppCenter start:@"ffae4e14-d61c-4078-825c-bb4635407861" withServices:@[
-      [MSAnalytics class],
-      [MSCrashes class]
+    [MSACAppCenter start:@"ffae4e14-d61c-4078-825c-bb4635407861" withServices:@[
+      [MSACAnalytics class],
+      [MSACCrashes class]
     ]];
     
-    [MSAnalytics trackEvent:@"Application Launching"];
+    [MSACAnalytics trackEvent:@"Application Launching"];
     
     // Crash on exceptions?
 //    [NSUserDefaults.standardUserDefaults registerDefaults:@{@"NSApplicationCrashOnExceptions": [NSNumber numberWithBool:true]}];
@@ -380,7 +380,7 @@ Boolean appSetupFinished = false;
 // Cleanup
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
-    [MSAnalytics trackEvent:@"Application Closing"];
+    [MSACAnalytics trackEvent:@"Application Closing"];
 }
 
 - (NSMutableDictionary *)getmyPrefs {

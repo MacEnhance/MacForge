@@ -6,11 +6,7 @@
 //  Copyright © 2016 Wolfgang Baird. All rights reserved.
 //
 
-@import AppKit;
-#import "FConvenience.h"
 #import "MF_PluginManager.h"
-#import "MF_Plugin.h"
-#import "MF_defines.h"
 
 @implementation MF_PluginManager
 

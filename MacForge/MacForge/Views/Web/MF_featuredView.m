@@ -31,7 +31,7 @@ extern AppDelegate *myDelegate;
 
 - (void)adjustColumnWidth {
     int multiplier = 4;
-//    if (NSProcessInfo.processInfo.operatingSystemVersion.majorVersion == 11) multiplier = 25;
+    if (MF_extra.sharedInstance.macOS >= 16) multiplier = 25;
     NSUInteger pad = self.frame.size.width - (multiplier * columns);
     for (NSTableColumn* c in _tv.tableColumns)
         [c setWidth:pad/columns];
@@ -70,7 +70,7 @@ extern AppDelegate *myDelegate;
         
         // Create a table view
         NSRect theFrame = self.frame;
-//        if (MF_extra.sharedInstance.macOS >= 16) theFrame.size.height += 38;
+        theFrame.origin = CGPointZero;
         
         _tv = [NSTableView.alloc initWithFrame:theFrame];
         _tv.delegate = self;
@@ -79,7 +79,7 @@ extern AppDelegate *myDelegate;
         _tv.backgroundColor = NSColor.clearColor;
         _tv.headerView = nil;
         _tv.selectionHighlightStyle = NSTableViewSelectionHighlightStyleNone;
-                
+        
         // Create a scroll view and embed the table view in the scroll view, and add the scroll view to our window.
         _sv = [NSScrollView.alloc initWithFrame:theFrame];
         _sv.documentView = _tv;
@@ -88,6 +88,18 @@ extern AppDelegate *myDelegate;
         _sv.hasHorizontalScroller = false;
         _sv.horizontalScrollElasticity = NSScrollElasticityNone;
         _sv.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+        _sv.automaticallyAdjustsContentInsets = false;
+        
+//        NSLog(@"-------------- %hhd", _sv.automaticallyAdjustsContentInsets);
+//        NSLog(@"-------------- %f", _sv.contentInsets.top);
+//        NSLog(@"-------------- %f", _sv.contentInsets.bottom);
+//        NSLog(@"-------------- %f", _sv.contentInsets.left);
+//        NSLog(@"-------------- %f", _sv.contentInsets.right);
+//        _sv.wantsLayer = true;
+//        _sv.layer.backgroundColor = NSColor.redColor.CGColor;
+//        self.wantsLayer = true;
+//        self.layer.backgroundColor = NSColor.redColor.CGColor;
+        
         [self addSubview:_sv];
         
         dispatch_queue_t backgroundQueue = dispatch_queue_create("com.macenhance.MacForge", 0);

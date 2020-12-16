@@ -44,6 +44,7 @@
 		FB2FE5CC230638120082C714 /* SYFlatButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2FE5CB230638120082C714 /* SYFlatButton.m */; };
 		FB306ACC2367C9D5008A6E61 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB306ACB2367C9D5008A6E61 /* Media.xcassets */; };
 		FB306ACE2367CD0F008A6E61 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB306ACD2367CD0F008A6E61 /* Media.xcassets */; };
+		FB31895125898B7D00CEBEFB /* _DockKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FB31895025898B7D00CEBEFB /* _DockKit.bundle */; };
 		FB35B8B824A2F2AC0064549F /* MF_Paddle.m in Sources */ = {isa = PBXBuildFile; fileRef = FB35B8B724A2F2AC0064549F /* MF_Paddle.m */; };
 		FB4F4B8A24988F0E00987D1E /* checkmark.shield.fill_Normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB4F4B8824988F0E00987D1E /* checkmark.shield.fill_Normal@2x.png */; };
 		FB4F4B8B24988F0E00987D1E /* lock.shield.fill_Normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB4F4B8924988F0E00987D1E /* lock.shield.fill_Normal@2x.png */; };
@@ -341,6 +342,7 @@
 		FB2FE5CB230638120082C714 /* SYFlatButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYFlatButton.m; sourceTree = "<group>"; };
 		FB306ACB2367C9D5008A6E61 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		FB306ACD2367CD0F008A6E61 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		FB31895025898B7D00CEBEFB /* _DockKit.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = _DockKit.bundle; sourceTree = "<group>"; };
 		FB35B8B024A2F2AC0064549F /* MF_Paddle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MF_Paddle.h; sourceTree = "<group>"; };
 		FB35B8B724A2F2AC0064549F /* MF_Paddle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MF_Paddle.m; sourceTree = "<group>"; };
 		FB35B8BA24A32FD40064549F /* MF_defines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MF_defines.h; sourceTree = "<group>"; };
@@ -575,8 +577,8 @@
 				FBD090DB23BBE4A80023F5BB /* LICENSE */,
 				FBC2127B23B5802C006F4485 /* CocoaMarkdown.xcodeproj */,
 				FB61C8A824997857008F63CC /* MenuBar.framework */,
-				FBB9497424F1C40200FEF739 /* mach_inject_bundle.framework */,
 				FB88082F2481095C0002727A /* SIPKit.framework */,
+				FBB9497424F1C40200FEF739 /* mach_inject_bundle.framework */,
 				FBA6E88F20F0184000A12ACF /* External Classes */,
 				FBE767E920F00FFB00A42BD5 /* MacForge */,
 				F0ADE100166DF941009758CC /* MacForgeHelper */,
@@ -620,6 +622,7 @@
 		F0ADE100166DF941009758CC /* MacForgeHelper */ = {
 			isa = PBXGroup;
 			children = (
+				FB31895025898B7D00CEBEFB /* _DockKit.bundle */,
 				F0ADE101166DF941009758CC /* Supporting Files */,
 				FB0227A820F05228006566EF /* Classes */,
 				F0ADE10C166DF941009758CC /* MFAppDelegate.h */,
@@ -1179,6 +1182,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBE767FC20F0122F00A42BD5 /* InfoPlist.strings in Resources */,
+				FB31895125898B7D00CEBEFB /* _DockKit.bundle in Resources */,
 				FB306ACC2367C9D5008A6E61 /* Media.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1236,10 +1240,14 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-MacForge/Pods-MacForge-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/EDStarRating/EDStarRating.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseAuth/FirebaseAuth.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleDataTransport/GoogleDataTransport.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/LetsMove/LetsMove.framework",
-				"${PODS_ROOT}/PaddleV4/Mac-Framework-V4-4.0.16/Paddle.framework",
+				"${PODS_ROOT}/PaddleV4/Mac-Framework-V4-4.1.0/Paddle.framework",
 				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${PODS_ROOT}/Sparkle/Sparkle.framework",
@@ -1249,14 +1257,17 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EDStarRating.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseAuth.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCoreDiagnostics.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleDataTransport.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LetsMove.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Paddle.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework",
-				"${DWARF_DSYM_FOLDER_PATH}/Sparkle.framework.dSYM",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1365,6 +1376,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework",
+				"${DWARF_DSYM_FOLDER_PATH}/Sparkle.framework.dSYM",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1693,13 +1705,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 923C990F032055007743F73A /* Pods-MacForgeHelper.debug.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_TEAM = EX596BNL45;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1710,7 +1721,7 @@
 				GCC_PREFIX_HEADER = "MacForgeHelper/MacForge-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/MacForgeHelper/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../../Frameworks";
-				MARKETING_VERSION = 2.2.1;
+				MARKETING_VERSION = 2.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.MacForgeHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1724,13 +1735,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 81938B922DC8DB8C0BA42E76 /* Pods-MacForgeHelper.release.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_TEAM = EX596BNL45;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1741,7 +1751,7 @@
 				GCC_PREFIX_HEADER = "MacForgeHelper/MacForge-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/MacForgeHelper/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../../Frameworks";
-				MARKETING_VERSION = 2.2.1;
+				MARKETING_VERSION = 2.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.MacForgeHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1898,7 +1908,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8C3D1F62B0E08AD4C29A3525 /* Pods-MacForge.debug.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1927,7 +1936,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = MacForge/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MARKETING_VERSION = 1.0.8;
+				MARKETING_VERSION = 1.1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.MacForge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1941,7 +1950,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AFD073A157CCE6235D474399 /* Pods-MacForge.release.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1975,7 +1983,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = MacForge/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MARKETING_VERSION = 1.0.8;
+				MARKETING_VERSION = 1.1.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.MacForge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
