@@ -330,23 +330,26 @@ NSDictionary *testing;
         
         [self.bundlePreviewButton1 setEnabled:false];
         [self.bundlePreviewButton2 setEnabled:false];
-
+        [self.bundlePreview1 setHidden:true];
+        [self.bundlePreview2 setHidden:true];
+        [self.bundlePreviewNext setHidden:true];
+        [self.bundlePreviewPrev setHidden:true];
+        
         for (int i = 0; i < 6; i++) {
             NSURL *url = [abc objectAtIndex:i];
             
             [downloader downloadImageWithURL:url
             completed:^(NSImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished) {
                 if (image) {
+                    if (i == 0) { [self.bundlePreview1 setHidden:false]; [self.bundlePreviewButton1 setEnabled:true]; }
+                    if (i == 1) { [self.bundlePreview2 setHidden:false]; [self.bundlePreviewButton2 setEnabled:true]; }
+                    if (i == 2) { [self.bundlePreviewNext setHidden:false]; [self.bundlePreviewPrev setHidden:false]; }
+                    
                     while (self.bundlePreviewImagesMute.count < i)
                         [self.bundlePreviewImagesMute addObject:[[NSImage alloc] init]];
                     
                     [self.bundlePreviewImagesMute setObject:image atIndexedSubscript:i];
                     self.bundlePreviewImages = self.bundlePreviewImagesMute.copy;
-                    
-                    if (!self.bundlePreviewButton1.enabled) {
-                        [self.bundlePreviewButton1 setEnabled:true];
-                        [self.bundlePreviewButton2 setEnabled:true];
-                    }
                 }
             }];
         }
@@ -408,29 +411,15 @@ NSDictionary *testing;
         
         [self resizeME];
     }
-    
-    if (@available(macOS 10.14, *)) {
-        _bundleShare.backgroundNormalColor = NSColor.controlAccentColor;
-        _bundleShare.titleHighlightColor = NSColor.controlAccentColor;
-        _bundleShare.imageHighlightColor = NSColor.controlAccentColor;
-        
-        _bundleInstall.backgroundNormalColor = NSColor.controlAccentColor;
-        _bundleInstall.titleHighlightColor = NSColor.controlAccentColor;
-    } else {
-        _bundleShare.backgroundNormalColor = [NSColor colorWithRed:0.08 green:0.52 blue:1.0 alpha:1.0];
-        _bundleShare.titleHighlightColor = [NSColor colorWithRed:0.08 green:0.52 blue:1.0 alpha:1.0];
-        _bundleShare.imageHighlightColor = [NSColor colorWithRed:0.08 green:0.52 blue:1.0 alpha:1.0];
-        
-        _bundleInstall.backgroundNormalColor = [NSColor colorWithRed:0.4 green:0.6 blue:1 alpha:1];
-        _bundleInstall.titleHighlightColor = [NSColor colorWithRed:0.4 green:0.6 blue:1 alpha:1];
-    }
-    
+       
     if (@available(macOS 10.15, *)) {
         _bundleInstall.layer.cornerCurve = kCACornerCurveContinuous;
     }
     
+    _bundleInstall.backgroundNormalColor = NSColor.controlAccentColor;
     _bundleInstall.backgroundHighlightColor = NSColor.whiteColor;
     _bundleInstall.backgroundDisabledColor = NSColor.grayColor;
+    _bundleInstall.titleHighlightColor = NSColor.controlAccentColor;
     _bundleInstall.titleNormalColor = NSColor.whiteColor;
     _bundleInstall.titleDisabledColor = NSColor.whiteColor;
     _bundleInstall.cornerRadius = _bundleInstall.frame.size.height/2;
@@ -441,6 +430,9 @@ NSDictionary *testing;
     _bundleInstall.target = self;
     
     _bundleShare.backgroundHighlightColor = NSColor.whiteColor;
+    _bundleShare.backgroundNormalColor = NSColor.controlAccentColor;
+    _bundleShare.titleHighlightColor = NSColor.controlAccentColor;
+    _bundleShare.imageHighlightColor = NSColor.controlAccentColor;
     _bundleShare.imageNormalColor = NSColor.whiteColor;
     _bundleShare.cornerRadius = _bundleShare.frame.size.height/2;
     _bundleShare.borderWidth = 0;
@@ -547,7 +539,7 @@ NSDictionary *testing;
     NSLog(@"%@", shareURL);
     
     [[NSPasteboard generalPasteboard] clearContents];
-    [[NSPasteboard generalPasteboard] setString:shareURL.absoluteString forType:NSStringPboardType];
+    [[NSPasteboard generalPasteboard] setString:shareURL.absoluteString forType:NSPasteboardTypeString];
     
     NSSharingServicePicker *sharingServicePicker = [[NSSharingServicePicker alloc] initWithItems:@[shareURL]];
 //    NSSharingServicePicker *sharingServicePicker = [[NSSharingServicePicker alloc] initWithItems:@[[NSURL URLWithString:@"https://www.macenhance.com/"]]];

@@ -197,9 +197,54 @@ Boolean appSetupFinished = false;
     [_window.toolbar setVisible:true];
 }
 
+- (void)whatsNew {
+    NSDictionary *infoDict = [[NSBundle mainBundle] infoDictionary];
+    NSString *appVersion = [infoDict objectForKey:@"CFBundleShortVersionString"];
+    NSString *buildNumber = [infoDict objectForKey:@"BuildNumber"];
+    NSString *displayedBuild = [NSUserDefaults.standardUserDefaults stringForKey:@"CDWelcomeBuild"];
+    
+    if (![appVersion isEqualToString:displayedBuild]) {
+    
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert addButtonWithTitle:@"Okay"];
+        NSString *text = [NSString stringWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"CHANGELOG" withExtension:@"md"]
+                                                  encoding:NSUTF8StringEncoding
+                                                     error:nil];
+        NSArray *versions = [text componentsSeparatedByString:@"###"];
+        text = versions[1];
+        
+        int viewHeight = 0;
+        int origin = 0;
+        NSView *customView = [NSView.alloc initWithFrame:NSMakeRect(0, 0, 400, 0)];
+        
+        NSTextField *warning = NSTextField.new;
+        [warning setStringValue:text];
+        CGFloat minHeight = [((NSTextFieldCell *)[warning cell]) cellSizeForBounds:NSMakeRect(0, 0, 364, FLT_MAX)].height;
+        [warning setFrame:NSMakeRect(18, origin, 364, minHeight)];
+        [warning setSelectable:false];
+        [warning setDrawsBackground:false];
+        [warning setBordered:false];
+        viewHeight += minHeight;
+        origin += minHeight;
+        [customView addSubview:warning];
+        
+        [customView setFrame:NSMakeRect(0, 0, 400, viewHeight)];
+        [alert setAlertStyle:NSAlertStyleInformational];
+        [alert setMessageText:[NSString stringWithFormat:@"Here's what's new in v%@ (%@)", appVersion, buildNumber]];
+        [alert setAccessoryView:customView];
+        [alert beginSheetModalForWindow:_window completionHandler:^(NSModalResponse returnCode) {
+            // Okay...
+            [NSUserDefaults.standardUserDefaults setObject:appVersion forKey:@"CDWelcomeBuild"];
+        }];
+    
+    }
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 //    [MSCrashes generateTestCrash];
 
+    [self whatsNew];
+    
     // Testing
 //    NSMutableDictionary *m = [NSMutableDictionary.alloc initWithContentsOfFile:@"/Users/w0lf/Documents/GitHub/wb_macplugins/packages_v2.plist"];
 //    [m addEntriesFromDictionary:[NSMutableDictionary.alloc initWithContentsOfFile:@"/Users/w0lf/Documents/GitHub/wb_myRepo/mytweaks/packages_v2.plist"]];

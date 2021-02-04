@@ -327,6 +327,8 @@
     [scrollView setBorderType:NSNoBorder];
     [scrollView setHasVerticalScroller:YES];
     scrollView.drawsBackground = false;
+    scrollView.automaticallyAdjustsContentInsets = false;
+//    scrollView contentInsets
 //    scrollView.backgroundColor = NSColor.clearColor;
 
     // configure document view
