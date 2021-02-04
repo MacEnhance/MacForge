@@ -13,12 +13,15 @@
 
 @interface MFInjectorProxy : NSObject
 
-- (BOOL)injectPID:(pid_t)pid :(NSString*)bundlePath :(NSError **)error;
-- (BOOL)inject:(NSError **)error;
+//- (BOOL)inject:(NSError **)error;
+//- (void)injectPID:(pid_t)pid :(NSString*)bundlePath :(NSError **)error;
+//- (void)injectPID:(pid_t)pid withBundle:(NSString*)bundlePath withReply:(void (^)(BOOL))reply;
+//- (BOOL)setupPluginFolder:(NSError **)error;
+//- (void)setupPluginFolderWithReply:(void (^)(BOOL))reply;
+//- (BOOL)installFramework:(NSString*)frameworkPath toLoaction:(NSString*)dest :(NSError **)error;
 
-- (BOOL)setupPluginFolder:(NSError **)error;
-
-- (BOOL)installMachInjectBundleFramework:(NSError **)error;
-- (BOOL)installFramework:(NSString*)frameworkPath toLoaction:(NSString*)dest :(NSError **)error;
+- (void)setupMacEnhanceFolder:(void (^)(mach_error_t))reply;
+- (void)installFramework:(NSString *)frameworkPath atlocation:(NSString*)frameworkDestinationPath withReply:(void (^)(mach_error_t))reply;
+- (void)injectBundle:(NSString *)bundle inProcess:(pid_t)pid withReply:(void (^)(mach_error_t))reply;
 
 @end

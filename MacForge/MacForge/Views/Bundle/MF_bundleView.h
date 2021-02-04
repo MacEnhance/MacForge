@@ -13,7 +13,7 @@
 @import EDStarRating;
 
 #import "AppDelegate.h"
-#import "MF_extra.h"
+#import "MECore.h"
 #import "MF_repoData.h"
 #import "MF_bundlePreviewView.h"
 #import "MF_Purchase.h"

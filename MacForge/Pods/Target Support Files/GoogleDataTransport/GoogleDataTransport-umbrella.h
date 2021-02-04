@@ -12,6 +12,7 @@
 
 #import "GDTCORClock.h"
 #import "GDTCORConsoleLogger.h"
+#import "GDTCOREndpoints.h"
 #import "GDTCOREvent.h"
 #import "GDTCOREventDataObject.h"
 #import "GDTCOREventTransformer.h"

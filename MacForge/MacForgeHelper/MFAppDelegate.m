@@ -21,18 +21,30 @@
 
 #import <Carbon/Carbon.h>
 #include <syslog.h>
+#include <sys/sysctl.h>
+#include <libproc.h>
 
 static MFAppDelegate *mfAppDelegate;
 
 @interface MFAppDelegate ()
 @property (strong, atomic) MFInjectorProxy *injectorProxy;
 @property Boolean disableInjection;
+@property NSMutableArray *currentPlugins;
 @end
 
 @implementation MFAppDelegate
 
 void HandleExceptions(NSException *exception) {
     NSLog(@"The app has encountered an unhandled exception: %@", [exception debugDescription]);
+}
+
+- (void)rediecrLog {
+    NSArray *allPaths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
+    NSString *appSupport = [[allPaths objectAtIndex:0] stringByAppendingPathComponent:@"MacForge"];
+    if (![NSFileManager.defaultManager fileExistsAtPath:appSupport isDirectory:nil])
+        [NSFileManager.defaultManager createDirectoryAtPath:appSupport withIntermediateDirectories:true attributes:nil error:nil];
+    NSString *pathForLog = [appSupport stringByAppendingPathComponent:@"Injector.log"];
+    freopen([pathForLog cStringUsingEncoding:NSASCIIStringEncoding],"a+",stderr);
 }
 
 - (void)userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification {
@@ -66,10 +78,11 @@ void HandleExceptions(NSException *exception) {
     if (![self isInjectorUpated])
         [self install:&err];
 
-    // Install frameworks and setup plugin folder
+    // Install frameworks
     [self giveFramework];
-    [self givePluginFldr];
-    [self giveDockFix];
+    
+    // Setup necessary folders and install core plugins
+    [self installCorePlugins];
 
     // Listen for notification to hide/show menubar
     [[NSDistributedNotificationCenter defaultCenter] addObserverForName:@"com.macenhance.MacForgeHelperNotify" object:nil queue:nil usingBlock:^(NSNotification *notification) {
@@ -92,7 +105,7 @@ void HandleExceptions(NSException *exception) {
     [self watchForApplications];
 
     // Try injecting into all runnning process in NSWorkspace.sharedWorkspace
-    [self injectAllProc];
+    // [self injectAllProc];
 }
 
 - (BOOL)blessHelperWithLabel:(NSString *)label error:(NSError **)errorPtr {
@@ -148,7 +161,7 @@ void HandleExceptions(NSException *exception) {
         
         // Install frameworks, setup plugin folder and inject
         [self giveFramework];
-        [self givePluginFldr];
+        [self installCorePlugins];
         [self injectAllProc];
     }
   
@@ -167,6 +180,7 @@ void HandleExceptions(NSException *exception) {
     return true;
 }
 
+// What's this in here for?
 - (unsigned long long int)folderSize:(NSString *)folderPath {
     NSArray *filesArray = [[NSFileManager defaultManager] subpathsOfDirectoryAtPath:folderPath error:nil];
     NSEnumerator *filesEnumerator = [filesArray objectEnumerator];
@@ -174,7 +188,8 @@ void HandleExceptions(NSException *exception) {
     unsigned long long int fileSize = 0;
 
     while (fileName = [filesEnumerator nextObject]) {
-        NSDictionary *fileDictionary = [[NSFileManager defaultManager] fileAttributesAtPath:[folderPath stringByAppendingPathComponent:fileName] traverseLink:YES];
+        NSDictionary *fileDictionary = [[NSFileManager defaultManager] attributesOfItemAtPath:[folderPath stringByAppendingPathComponent:fileName] error:nil];
+//        NSDictionary *fileDictionary = [[NSFileManager defaultManager] fileAttributesAtPath:[folderPath stringByAppendingPathComponent:fileName] traverseLink:YES];
         fileSize += [fileDictionary fileSize];
     }
 
@@ -183,17 +198,16 @@ void HandleExceptions(NSException *exception) {
 
 - (void)giveFramework {
     // No mach_inject_bundle found
-    NSError *error;
     NSString *frameworkPath = [NSString stringWithFormat:@"%@/Contents/Frameworks/mach_inject_bundle.framework", NSBundle.mainBundle.bundlePath];
     NSString *destination = @"/Library/Frameworks/mach_inject_bundle.framework";
     if (![[NSFileManager defaultManager] fileExistsAtPath:destination] || ![NSFileManager.defaultManager contentsEqualAtPath:destination andPath:frameworkPath])
-        [self.injectorProxy installFramework:frameworkPath toLoaction:destination :&error];
+        [self.injectorProxy installFramework:frameworkPath atlocation:destination withReply:^(mach_error_t err) { }];
         
     // No menubar framework found
     frameworkPath = [NSString stringWithFormat:@"%@/Contents/Frameworks/MenuBar.framework", NSBundle.mainBundle.bundlePath];
     destination = @"/Library/Frameworks/MenuBar.framework";
     if (![[NSFileManager defaultManager] fileExistsAtPath:destination])
-        [self.injectorProxy installFramework:frameworkPath toLoaction:destination :&error];
+        [self.injectorProxy installFramework:frameworkPath atlocation:destination withReply:^(mach_error_t err) { }];
         
     frameworkPath = NSBundle.mainBundle.bundlePath;
     NSString *containerPath = frameworkPath.stringByDeletingLastPathComponent.stringByDeletingLastPathComponent.stringByDeletingLastPathComponent;
@@ -203,50 +217,45 @@ void HandleExceptions(NSException *exception) {
     destination = @"/Library/Frameworks/Paddle.framework";
     if ([[NSFileManager defaultManager] fileExistsAtPath:frameworkPath])
         if (![[NSFileManager defaultManager] fileExistsAtPath:destination])
-            [self.injectorProxy installFramework:frameworkPath toLoaction:destination :&error];
+            [self.injectorProxy installFramework:frameworkPath atlocation:destination withReply:^(mach_error_t err) { }];
 }
 
-- (void)givePluginFldr {    
-    Boolean createFolders = false;
-    NSArray *paths = @[@"/Library/Application Support/MacEnhance/Plugins", @"/Library/Application Support/MacEnhance/Plugins (Disabled)",
-                       @"/Library/Application Support/MacEnhance/Preferences", @"/Library/Application Support/MacEnhance/Themes"];
-    for (NSString *path in paths) {
-        if (![[NSFileManager defaultManager] fileExistsAtPath:path])
-            createFolders = true;
-    }
-    if (createFolders) {
-        NSError *error;
-        [self.injectorProxy setupPluginFolder:&error];
-    }
-}
-
-- (void)giveDockFix {
-    // Continue
+// Install the given bundle from our resources folder to a path
+- (void)installBundle:(NSString*)bundle atPath:(NSString*)path {
     NSError *error;
-    NSString *bundleName = @"_DockKit";
     
-    NSString *srcPath = [[NSBundle mainBundle] pathForResource:bundleName ofType:@"bundle"];
-    NSString *dstPath = [NSString stringWithFormat:@"/Library/Application Support/MacEnhance/Plugins/%@.bundle", bundleName];
+    // get the bundle source and destination
+    NSString *srcPath = [[NSBundle mainBundle] pathForResource:bundle ofType:@"bundle"];
+    NSString *dstPath = [NSString stringWithFormat:@"%@/%@.bundle", path, bundle];
     
-    NSString *srcBndl = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@.bundle/Contents/Info", bundleName] ofType:@"plist"];
-    NSString *dstBndl = [NSString stringWithFormat:@"/Library/Application Support/MacEnhance/Plugins/%@.bundle/Contents/Info.plist", bundleName];
+    // Get the bundle version strings
+    NSString *srcVer = [[[NSBundle bundleWithPath:srcPath] infoDictionary] objectForKey:@"CFBundleVersion"];
+    NSString *dstVer = [[[NSBundle bundleWithPath:dstPath] infoDictionary] objectForKey:@"CFBundleVersion"];
     
-    NSLog(@"MacFoge : Checking bundle...");
-    if ([[NSFileManager defaultManager] fileExistsAtPath:dstBndl]){
-        NSString *srcVer = [[[NSMutableDictionary alloc] initWithContentsOfFile:srcBndl] objectForKey:@"CFBundleVersion"];
-        NSString *dstVer = [[[NSMutableDictionary alloc] initWithContentsOfFile:dstBndl] objectForKey:@"CFBundleVersion"];
+    // NSLog(@"MacForgeHelper : Checking bundle...");
+    // If the bundle already exists at the destination do a version check
+    if ([[NSFileManager defaultManager] fileExistsAtPath:dstPath]) {
         if (![srcVer isEqual:dstVer] && ![srcPath isEqualToString:@""]) {
-            NSLog(@"MacFoge : Updating bundle... Destination: %@ > Source: %@", srcVer, dstVer);
-            [[NSFileManager defaultManager] removeItemAtPath:@"/tmp/cDock.bundle" error:&error];
-            [[NSFileManager defaultManager] copyItemAtPath:srcPath toPath:@"/tmp/cDock.bundle" error:&error];
-            [[NSFileManager defaultManager] replaceItemAtURL:[NSURL fileURLWithPath:dstPath] withItemAtURL:[NSURL fileURLWithPath:@"/tmp/cDock.bundle"] backupItemName:nil options:NSFileManagerItemReplacementUsingNewMetadataOnly resultingItemURL:nil error:&error];
+            NSLog(@"MacForgeHelper : Updating bundle... Destination: %@ > Source: %@", srcVer, dstVer);
+            [[NSFileManager defaultManager] removeItemAtPath:@"/tmp/macforge_temp.bundle" error:&error];
+            [[NSFileManager defaultManager] copyItemAtPath:srcPath toPath:@"/tmp/macforge_temp.bundle" error:&error];
+            [[NSFileManager defaultManager] replaceItemAtURL:[NSURL fileURLWithPath:dstPath] withItemAtURL:[NSURL fileURLWithPath:@"/tmp/macforge_temp.bundle"] backupItemName:nil options:NSFileManagerItemReplacementUsingNewMetadataOnly resultingItemURL:nil error:&error];
         } else {
-            NSLog(@"MacFoge : _DockKit bundle is up to date...");
+            NSLog(@"MacForgeHelper : Bundle (%@) is up to date...", @"");
         }
     } else {
-        NSLog(@"MacFoge : Installing bundle... %@", srcPath);
+        // No existing bundle so safe to install
+        NSLog(@"MacForgeHelper : Installing bundle... %@", srcPath);
         [[NSFileManager defaultManager] copyItemAtPath:srcPath toPath:dstPath error:&error];
     }
+}
+
+- (void)installCorePlugins {
+    [self.injectorProxy setupMacEnhanceFolder:^(mach_error_t err) {
+        // DockKit is currently only needed for Big Sur and above
+        [self installBundle:@"DockKit" atPath:@"/Library/Application Support/MacEnhance/CorePlugins"];
+        [self installBundle:@"PluginLoader" atPath:@"/Library/Application Support/MacEnhance/CorePlugins"];
+    }];
 }
 
 - (BOOL)isInjectorUpated {
@@ -381,7 +390,7 @@ void HandleExceptions(NSException *exception) {
 //    ps -A | grep -m1 SidecarRelay | awk '{print $1}'
 
 //    [MFInjectorProxy injectPID:pid :@"/Users/w0lf/Library/Developer/Xcode/DerivedData/poopbutt-edtzriagafrshgeqwfflriaduapq/Build/Products/Debug/libpoopbutt.dylib" :&error];
-    [self.injectorProxy injectPID:pid :@"/Library/Application Support/MacEnhance/Plugins/Notifica.bundle" :&error];
+//    [self.injectorProxy injectPID:pid :@"/Library/Application Support/MacEnhance/Plugins/Notifica.bundle" :&error];
 
     NSLog(@"%@", error);
 }
@@ -462,7 +471,7 @@ void HandleExceptions(NSException *exception) {
     [self addMenuItemToMenu:stackMenu :@"Quit" :@selector(terminate:) :@""];
     _statusBar = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
     [_statusBar setMenu:stackMenu];
-    [_statusBar setTitle:@""];
+    [_statusBar.button setTitle:@""];
     [self colorStatusIconApplyPrefs:nil];
 }
 
@@ -529,16 +538,150 @@ void HandleExceptions(NSException *exception) {
     return false;
 }
 
+//bool Is64Bit (int pid) {
+//    struct proc_bsdshortinfo info;
+//    if (proc_pidinfo (pid, PROC_PIDT_SHORTBSDINFO, 0, &info, PROC_PIDT_SHORTBSDINFO_SIZE))
+//        return info.pbsi_flags & PROC_FLAG_LP64;
+//    return false;
+//}
+//
+//int processIsTranslated() {
+//   int ret = 0;
+//   size_t size = sizeof(ret);
+//   if (sysctlbyname("sysctl.proc_translated", &ret, &size, NULL, 0) == -1) {
+//      if (errno == ENOENT)
+//         return 0;
+//      return -1;
+//   }
+//   return ret;
+//}
+
+- (void)loadBundle:(NSBundle*)bundle {
+    for (NSRunningApplication *app in NSWorkspace.sharedWorkspace.runningApplications) {
+        
+    }
+}
+
+- (void)loadInjector:(NSRunningApplication*)runningApp {
+    
+}
+
+- (void)loadNewBundle {
+    NSArray *files = [NSFileManager.defaultManager contentsOfDirectoryAtPath:@"/Library/Application Support/MacEnhance/Plugins" error:nil];
+    for (NSString *file in files) {
+        
+        // is .bundle
+        if ([file.pathExtension isEqualToString:@"bundle"]) {
+            
+            // isn't managed
+            if (![self.currentPlugins containsObject:file]) {
+                
+                NSString *pluginpath = [@"/Library/Application Support/MacEnhance/Plugins" stringByAppendingPathComponent:file];
+                NSBundle *plugin = [NSBundle bundleWithPath:pluginpath];
+                [self loadBundle:plugin];
+                [self.currentPlugins addObject:file];
+            }
+            
+        }
+        
+    }
+}
+
+- (BOOL)shouldLoadIntoApp:(NSRunningApplication*)app {
+    return true;
+}
+
+- (void)loadBundle:(NSBundle*)bun intoApp:(NSRunningApplication*)app {
+    pid_t pid = [app processIdentifier];
+             
+    // Special check for Dock process
+    if ([app.bundleIdentifier isEqualToString:@"com.apple.dock"]) {
+        return;
+//               NSBundle *bun = [NSBundle bundleWithPath:@"/Library/Application Support/MacEnhance/CorePlugins/DockKit.bundle"];
+//               // Don't load anything in the Dock if we can't first load DockKit!
+//               if (!bun) return;
+//               [self.injectorProxy injectPID:pid withBundle:bun.executablePath withReply:^(BOOL result) {               }];
+//               [self.injectorProxy injectPID:pid :bun.executablePath :nil];
+    }
+        
+//    if (runningApp.executableArchitecture != 16777223) {
+//
+//    }
+    [self.injectorProxy injectBundle:bun.executablePath inProcess:pid withReply:^(mach_error_t error) {
+        NSLog(@"Finished injection %@ in %d (%@)", bun.bundleIdentifier, pid, app.bundleIdentifier);
+    }];
+    
+    // Try injecting each valid plugin into the application
+//    // async check if Xcode is attached to process
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//
+//        Boolean isXcodeRunning = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.dt.Xcode"].count;
+//        Boolean isXcodeAttached = false;
+//        if (isXcodeRunning)
+//            isXcodeAttached = [self xcodeAttached:pid];
+//
+//        // Do the injecting
+//        if (!isXcodeAttached) {
+//            // make sure we're back on the main thread
+//            dispatch_async(dispatch_get_main_queue(), ^{
+////                       if (runningApp.executableArchitecture != 16777223) {
+////                           NSError *error;
+////                           [self.injectorProxy injectPID:pid :@"/Users/w0lf/Downloads/libLoader.dylib" :&error];
+////                       }
+//                NSArray *plugins = [SIMBL pluginsToLoadList:[NSBundle bundleWithPath:runningApp.bundleURL.path]];
+//                plugins = [plugins sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+////                       for (NSString *bundlePath in plugins) {
+////                           NSBundle *bun = [NSBundle bundleWithPath:bundlePath];
+//////                           NSLog(@"%@ : %ld", runningApp.localizedName, (long)runningApp.executableArchitecture);
+////                           if (runningApp.executableArchitecture != 16777223) {
+//////                               dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//////                               NSError *error;
+////                               NSLog(@"Started injection in %d", pid);
+////                               [self.injectorProxy injectPID:pid withBundle:bun.executablePath withReply:^(BOOL result) {
+////                                   NSLog(@"Finished injection in %d", pid);
+////                               }];
+//////                                [self.injectorProxy injectPID:pid :bun.executablePath :&error];
+//////                               if(error) NSLog(@"Couldn't inject into %d : %@ (domain: %@ code: %@)", pid, runningApp.localizedName, error.domain, [NSNumber numberWithInteger:error.code]);
+//////                               });
+////                           }
+////                       }
+//
+//                NSString *bunp = plugins.lastObject;
+//                NSBundle *bun = [NSBundle bundleWithPath:bunp];
+//                if (runningApp.executableArchitecture != 16777223) {
+//                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                        NSLog(@"Started  injecting %@ in %d (%@)", bun.bundleIdentifier, pid, runningApp.bundleIdentifier);
+//                        [self.injectorProxy injectPID:pid withBundle:bun.executablePath withReply:^(BOOL result) {
+//                            NSLog(@"Finished injection %@ in %d (%@)", bun.bundleIdentifier, pid, runningApp.bundleIdentifier);
+//                        }];
+//                    });
+//                }
+//            });
+//        }
+//
+//    });
+}
+
 // Try injecting all valid bundles into an running application
 - (void)injectBundle:(NSRunningApplication*)runningApp {
     if (!_disableInjection) {
        if ([MFAppDelegate shouldInject:runningApp]) {
            pid_t pid = [runningApp processIdentifier];
+                    
+           // Special check for Dock process
+           if ([runningApp.bundleIdentifier isEqualToString:@"com.apple.dock"]) {
+               return;
+//               NSBundle *bun = [NSBundle bundleWithPath:@"/Library/Application Support/MacEnhance/CorePlugins/DockKit.bundle"];
+//               // Don't load anything in the Dock if we can't first load DockKit!
+//               if (!bun) return;
+//               [self.injectorProxy injectPID:pid withBundle:bun.executablePath withReply:^(BOOL result) {               }];
+//               [self.injectorProxy injectPID:pid :bun.executablePath :nil];
+           }
+               
            // Try injecting each valid plugin into the application
-                      
            // async check if Xcode is attached to process
            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-
+               
                Boolean isXcodeRunning = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.dt.Xcode"].count;
                Boolean isXcodeAttached = false;
                if (isXcodeRunning)
@@ -548,12 +691,40 @@ void HandleExceptions(NSException *exception) {
                if (!isXcodeAttached) {
                    // make sure we're back on the main thread
                    dispatch_async(dispatch_get_main_queue(), ^{
+//                       if (runningApp.executableArchitecture != 16777223) {
+//                           NSError *error;
+//                           [self.injectorProxy injectPID:pid :@"/Users/w0lf/Downloads/libLoader.dylib" :&error];
+//                       }
                        NSArray *plugins = [SIMBL pluginsToLoadList:[NSBundle bundleWithPath:runningApp.bundleURL.path]];
                        plugins = [plugins sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
-                       for (NSString *bundlePath in plugins) {
-                           NSError *error;
-                           [self.injectorProxy injectPID:pid :bundlePath :&error];
-                           if(error) NSLog(@"Couldn't inject into %d : %@ (domain: %@ code: %@)", pid, runningApp.localizedName, error.domain, [NSNumber numberWithInteger:error.code]);
+//                       for (NSString *bundlePath in plugins) {
+//                           NSBundle *bun = [NSBundle bundleWithPath:bundlePath];
+////                           NSLog(@"%@ : %ld", runningApp.localizedName, (long)runningApp.executableArchitecture);
+//                           if (runningApp.executableArchitecture != 16777223) {
+////                               dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+////                               NSError *error;
+//                               NSLog(@"Started injection in %d", pid);
+//                               [self.injectorProxy injectPID:pid withBundle:bun.executablePath withReply:^(BOOL result) {
+//                                   NSLog(@"Finished injection in %d", pid);
+//                               }];
+////                                [self.injectorProxy injectPID:pid :bun.executablePath :&error];
+////                               if(error) NSLog(@"Couldn't inject into %d : %@ (domain: %@ code: %@)", pid, runningApp.localizedName, error.domain, [NSNumber numberWithInteger:error.code]);
+////                               });
+//                           }
+//                       }
+                       
+                       NSString *bunp = plugins.lastObject;
+                       NSBundle *bun = [NSBundle bundleWithPath:bunp];
+                       if (runningApp.executableArchitecture != 16777223) {
+                           dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                               NSLog(@"Started  injecting %@ in %d (%@)", bun.bundleIdentifier, pid, runningApp.bundleIdentifier);
+                               [self.injectorProxy injectBundle:bun.executablePath inProcess:pid withReply:^(mach_error_t error) {
+                                   NSLog(@"Finished injection %@ in %d (%@)", bun.bundleIdentifier, pid, runningApp.bundleIdentifier);
+                               }];
+//                               [self.injectorProxy injectPID:pid withBundle:bun.executablePath withReply:^(BOOL result) {
+//                                   NSLog(@"Finished injection %@ in %d (%@)", bun.bundleIdentifier, pid, runningApp.bundleIdentifier);
+//                               }];
+                           });
                        }
                    });
                }
@@ -582,7 +753,9 @@ void HandleExceptions(NSException *exception) {
             pid_t pid = [runningApp processIdentifier];
             NSError *error;
             // Inject the bundle
-            [self.injectorProxy injectPID:pid :bundlePath :&error];
+            [self.injectorProxy injectBundle:bundlePath inProcess:pid withReply:^(mach_error_t error) {
+                // Done
+            }];
             if(error) {
                 SIMBLLogNotice(@"Couldn't inject App (domain: %@ code: %@)", error.domain, [NSNumber numberWithInteger:error.code]);
             }
@@ -609,7 +782,17 @@ void HandleExceptions(NSException *exception) {
     
     // Plugin watcher
     for (NSString *path in [MF_PluginManager MacEnhancePluginPaths]) {
-        SGDirWatchdog *watchDog = [[SGDirWatchdog alloc] initWithPath:path update:^{ [self injectAllProc]; }];
+        SGDirWatchdog *watchDog = [[SGDirWatchdog alloc] initWithPath:path update:^{
+            NSLog(@"Hello");
+            // [self injectAllProc];
+            CFDictionaryKeyCallBacks keyCallbacks = {0, NULL, NULL, CFCopyDescription, CFEqual, NULL};
+            CFDictionaryValueCallBacks valueCallbacks  = {0, NULL, NULL, CFCopyDescription, CFEqual};
+            CFMutableDictionaryRef dictionary = CFDictionaryCreateMutable(kCFAllocatorDefault, 1, &keyCallbacks, &valueCallbacks);
+            CFDictionaryAddValue(dictionary, CFSTR("LOAD"), CFSTR("1"));
+            CFNotificationCenterRef center = CFNotificationCenterGetDistributedCenter(); //CFNotificationCenterGetLocalCenter();
+            CFNotificationCenterPostNotification(center, CFSTR("com.macenhance.MacForgeHelper.update"), NULL, dictionary, TRUE);
+            CFRelease(dictionary);
+        }];
         [watchDog start];
         [watchdogs addObject:watchDog];
     }
@@ -661,8 +844,10 @@ static OSStatus CarbonEventHandler(EventHandlerCallRef inHandlerCallRef, EventRe
     switch ( GetEventKind(inEvent) ) {
         case kEventAppLaunched:
             // App lauched!
-            if (mfAppDelegate) [mfAppDelegate injectBundle:[NSRunningApplication runningApplicationWithProcessIdentifier:pid]];
-//            NSLog(@"CarbonEventHandler Launching nc : %d : %f", pid, [NSDate timeIntervalSinceReferenceDate] * 1000);
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                if (mfAppDelegate) [mfAppDelegate injectBundle:[NSRunningApplication runningApplicationWithProcessIdentifier:pid]];
+            });
+            NSLog(@"CarbonEventHandler Launching nc : %d : %f", pid, [NSDate timeIntervalSinceReferenceDate] * 1000);
             break;
         case kEventAppTerminated:
             // App terminated!

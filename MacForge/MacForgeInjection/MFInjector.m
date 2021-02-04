@@ -6,14 +6,11 @@
 //  Copyright (c) 2020 MacEnhance. All rights reserved.
 //
 
-#include <dlfcn.h>
-#import "mach_inject.h"
-#import "mach_inject_bundle.h"
-#import <mach/mach_error.h>
-
 #import "MFInjector.h"
+#import "UniversalInj.h"
 
-NSString *const MFFrameworkDstPath = @"/Library/Frameworks/mach_inject_bundle.framework";
+#import <dlfcn.h>
+#import <mach/mach_error.h>
 
 @interface MFInjector ()
 @property (atomic, strong, readwrite) NSXPCListener *listener;
@@ -27,6 +24,7 @@ NSString *const MFFrameworkDstPath = @"/Library/Frameworks/mach_inject_bundle.fr
         // Set up our XPC listener to handle requests on our Mach service.
         self.listener = [[NSXPCListener alloc] initWithMachServiceName:@"com.macenhance.MacForge.Injector.mach"];
         self.listener.delegate = self;
+        // [self redirectLogToDocuments];
     }
     return self;
 }
@@ -37,42 +35,31 @@ NSString *const MFFrameworkDstPath = @"/Library/Frameworks/mach_inject_bundle.fr
 }
 
 - (void)redirectLogToDocuments {
-     NSArray *allPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-     NSString *documentsDirectory = [allPaths objectAtIndex:0];
-     NSString *pathForLog = [documentsDirectory stringByAppendingPathComponent:@"MFInjectorLog.txt"];
-     freopen([pathForLog cStringUsingEncoding:NSASCIIStringEncoding],"a+",stderr);
+    NSArray *allPaths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
+    NSString *appSupport = [[allPaths objectAtIndex:0] stringByAppendingPathComponent:@"MacForge"];
+    if (![NSFileManager.defaultManager fileExistsAtPath:appSupport isDirectory:nil])
+        [NSFileManager.defaultManager createDirectoryAtPath:appSupport withIntermediateDirectories:true attributes:nil error:nil];
+    NSString *pathForLog = [appSupport stringByAppendingPathComponent:@"Injector.log"];
+    freopen([pathForLog cStringUsingEncoding:NSASCIIStringEncoding],"a+",stderr);
 }
 
-- (Boolean)loadMachInject {
-    if (![[NSBundle allFrameworks] containsObject:[NSBundle bundleWithPath:MFFrameworkDstPath]]) {
-        dlopen("/Library/Frameworks/mach_inject_bundle.framework/mach_inject_bundle", RTLD_LAZY);
-        [[NSBundle bundleWithPath:MFFrameworkDstPath] load];
+- (void)folderSetup:(void (^)(mach_error_t))reply {
+    NSDictionary *attrib = [NSDictionary dictionaryWithObjectsAndKeys:
+                            [NSNumber numberWithInt:0777], NSFilePosixPermissions,
+                            [NSNumber numberWithInt:0], NSFileGroupOwnerAccountID,
+                            [NSNumber numberWithInt:0], NSFileOwnerAccountID, nil];
+
+    NSArray *folders = @[@"CorePlugins", @"Docklets", @"Plugins", @"Plugins (Disabled)", @"Preferences", @"Themes"];
+    NSError *fileError;
+    NSFileManager *man = NSFileManager.defaultManager;
+    for (NSString* filename in folders) {
+        NSString *folderpath = [@"/Library/Application Support/MacEnhance" stringByAppendingPathComponent:filename];
+        if (![man fileExistsAtPath:folderpath isDirectory:nil]) {
+            [man createDirectoryAtPath:folderpath withIntermediateDirectories:true attributes:attrib error:&fileError];
+            [man setAttributes:@{ NSFilePosixPermissions : @0777 } ofItemAtPath:folderpath error:&fileError];
+        }
     }
-    return [[NSBundle allFrameworks] containsObject:[NSBundle bundleWithPath:MFFrameworkDstPath]];
-}
-
-- (void)inject:(pid_t)pid withBundle:(const char *)bundlePackageFileSystemRepresentation withReply:(void (^)(mach_error_t))reply {
-    mach_error_t error = 1337;
-    if ([self loadMachInject])
-        error = mach_inject_bundle_pid(bundlePackageFileSystemRepresentation, pid);
-    reply(error);
-}
-
-- (void)inject:(pid_t)pid withLib:(const char *)libraryPath withReply:(void (^)(mach_error_t))reply {
-    mach_error_t error = 1337;
-    if ([self loadMachInject]) {
-        void *module;
-        void *bootstrapfn;
-        module = dlopen("/Library/PrivilegedHelperTools/bootstrap.dylib",
-            RTLD_NOW | RTLD_LOCAL);
-        // if(!module)... Kelly, can you handle this?
-
-        bootstrapfn = dlsym(module, "bootstrap");
-        //if(!bootstrapfn)... Beyonce, can you handle this?
-
-        error = mach_inject((mach_inject_entry)bootstrapfn, libraryPath, strlen(libraryPath) + 1, pid, 0);
-    }
-    reply(error);
+    reply(0);
 }
 
 - (void)installFramework:(NSString *)frameworkPath atlocation:(NSString*)frameworkDestinationPath withReply:(void (^)(mach_error_t))reply {
@@ -80,39 +67,15 @@ NSString *const MFFrameworkDstPath = @"/Library/Frameworks/mach_inject_bundle.fr
     if ([[NSFileManager defaultManager] fileExistsAtPath:frameworkDestinationPath])
         [[NSFileManager defaultManager] removeItemAtPath:frameworkDestinationPath error:&fileError];
     [[NSFileManager defaultManager] copyItemAtPath:frameworkPath toPath:frameworkDestinationPath error:&fileError];
-    mach_error_t error = (int)fileError.code;
-    reply(error);
+    reply((int)fileError.code);
 }
 
-- (void)installFramework:(NSString *)frameworkPath withReply:(void (^)(mach_error_t))reply {
-    NSError *fileError;
-    if ([[NSFileManager defaultManager] fileExistsAtPath:MFFrameworkDstPath])
-        [[NSFileManager defaultManager] removeItemAtPath:MFFrameworkDstPath error:&fileError];
-    [[NSFileManager defaultManager] copyItemAtPath:frameworkPath toPath:MFFrameworkDstPath error:&fileError];
-    mach_error_t error = (int)fileError.code;
-    reply(error);
+- (void)injectBundle:(const char *)bundlePackageFileSystemRepresentation inProcess:(pid_t)pid withReply:(void (^)(mach_error_t))reply {
+    inject_sync(pid, bundlePackageFileSystemRepresentation);
+    // inject(pid, bundlePackageFileSystemRepresentation);
+    reply(0);
 }
 
-- (void)setupPluginFolderWithReply:(void (^)(mach_error_t))reply; {
-    NSDictionary *attrib = [NSDictionary dictionaryWithObjectsAndKeys:
-                            [NSNumber numberWithInt:0777], NSFilePosixPermissions,
-                            [NSNumber numberWithInt:0], NSFileGroupOwnerAccountID,
-                            [NSNumber numberWithInt:0], NSFileOwnerAccountID, nil];
-
-    NSError *fileError;
-    NSFileManager *man = NSFileManager.defaultManager;
-    [man createDirectoryAtPath:@"/Library/Application Support/MacEnhance/Plugins" withIntermediateDirectories:true attributes:attrib error:&fileError];
-    [man createDirectoryAtPath:@"/Library/Application Support/MacEnhance/Plugins (Disabled)" withIntermediateDirectories:true attributes:attrib error:&fileError];
-    [man createDirectoryAtPath:@"/Library/Application Support/MacEnhance/Preferences" withIntermediateDirectories:true attributes:attrib error:&fileError];
-    [man createDirectoryAtPath:@"/Library/Application Support/MacEnhance/Themes" withIntermediateDirectories:true attributes:attrib error:&fileError];
-    [man setAttributes:@{ NSFilePosixPermissions : @0777 } ofItemAtPath:@"/Library/Application Support/MacEnhance/Plugins" error:&fileError];
-    [man setAttributes:@{ NSFilePosixPermissions : @0777 } ofItemAtPath:@"/Library/Application Support/MacEnhance/Plugins (Disabled)" error:&fileError];
-    [man setAttributes:@{ NSFilePosixPermissions : @0777 } ofItemAtPath:@"/Library/Application Support/MacEnhance/Preferences" error:&fileError];
-    [man setAttributes:@{ NSFilePosixPermissions : @0777 } ofItemAtPath:@"/Library/Application Support/MacEnhance/Themes" error:&fileError];
-    
-    mach_error_t error = (int)fileError.code;
-    reply(error);
-}
 
 #pragma mark XPCListenerDelegate
 

@@ -1,3 +1,19 @@
+### 1.2.0
+
+- M1 (Apple Silicon) support **
+- Updates System tab
+- Removed option to toggle plugins to user folder
+- Core plugins are now stored in /Library/Application Support/MacEnhance/CorePlugins
+- Core plugins are not shown in the manage tab
+- Button colors change with system color
+- Display changelog when opening app after updates
+- Altered SIP information shown to user
+- Automate booting to recovery mode
+- Automate disabling abi on arm machines
+- Bug fixes
+
+** Every individual plugin will require an update to support arm64/arm64e
+
 ### 1.1.0
 
 - Initial support for Big Sur

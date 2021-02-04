@@ -11,7 +11,6 @@
 AppDelegate             *myDelegate;
 NSDate                  *appStart;
 NSMutableDictionary     *myPreferences;
-NSWindow                *sipWarningWindow;
 
 @implementation AppDelegate
 
@@ -96,7 +95,7 @@ Boolean appSetupFinished = false;
 - (instancetype)init {
     myDelegate = self;
     appStart = [NSDate date];
-    osx_ver = MF_extra.sharedInstance.macOS;
+    osx_ver = MECore.sharedInstance.macOS;
     return self;
 }
 
@@ -183,7 +182,7 @@ Boolean appSetupFinished = false;
             MF_repoData.sharedInstance.currentPlugin = p;
             NSView *v = myDelegate.sourcesBundle;
             dispatch_async(dispatch_get_main_queue(), ^(void){
-                [MF_extra.sharedInstance setViewSubViewWithScrollableView:self.tabMain :v];
+                [MECore.sharedInstance setViewSubViewWithScrollableView:self.tabMain :v];
             });
     } else {
         showBundleOnOpen = false;
@@ -306,7 +305,7 @@ Boolean appSetupFinished = false;
     // Sidebar
     
     // Init the sidebar controller
-    _sidebarController = MF_extra.sharedInstance;
+    _sidebarController = MECore.sharedInstance;
     _sidebarController.mainView = _tabMain;
     _sidebarController.mainWindow = _window;
     _sidebarController.prefWindow = _windowPreferences;
@@ -328,7 +327,7 @@ Boolean appSetupFinished = false;
     [_sidebarDiscord.buttonClickArea setImageScaling:NSImageScaleAxesIndependently];
     [_sidebarDiscord.buttonClickArea setAutoresizingMask:NSViewMaxYMargin];
 
-    if (![SIPKit SIP_HasRequiredFlags] || ![SIPKit LIBRARYVALIDATION_enabled]) [_sidebarWarning.buttonClickArea setEnabled:false];
+    if (![SIPKit SIP_HasRequiredFlags] || ![SIPKit LIBRARYVALIDATION_isEnabled]) [_sidebarWarning.buttonClickArea setEnabled:false];
     if ([NSUserDefaults.standardUserDefaults boolForKey:@"prefHideDiscord"]) [_sidebarDiscord.buttonClickArea setEnabled:false];
       
     [_sidebarWarning.buttonClickArea setTarget:_sidebarController];
@@ -392,43 +391,11 @@ Boolean appSetupFinished = false;
     [_sidebarController setupSidebar];
 }
 
-- (void)byeSIP {
-    exit(0);
-}
-
-- (void)restartSIP {
-    system("osascript -e 'tell application \"Finder\" to restart'");
-}
-
-- (void)closeSIP {
-    [_window endSheet:sipWarningWindow];
-}
-
-- (void)checkSIP {
-    if (![SIPKit SIP_HasRequiredFlags]) {        
-        NSString *frameworkBundleID = @"com.macenhance.SIPKit";
-        NSBundle *frameworkBundle = [NSBundle bundleWithIdentifier:frameworkBundleID];
-                
-        SK_SipView *p = [[SK_SipView alloc] initWithNibName:@"SK_SipView" bundle:frameworkBundle];
-        NSView *view = p.view;
-        [p.confirmQuit setTarget:self];
-        [p.confirmQuit setAction:@selector(byeSIP)];
-        [p.confirmReboot setTarget:self];
-        [p.confirmReboot setAction:@selector(restartSIP)];
-        [p.confirm setTarget:self];
-        [p.confirm setAction:@selector(closeSIP)];
-        
-        sipWarningWindow = [[NSWindow alloc] initWithContentRect:[view frame] styleMask:NSWindowStyleMaskTitled backing:NSBackingStoreBuffered defer:YES];
-        [sipWarningWindow setContentView:view];
-        [_window beginSheet:sipWarningWindow completionHandler:^(NSModalResponse returnCode) { }];
-    }
-}
-
 - (void)setupWindow {
     [_window setTitle:@""];
     [_window setMovableByWindowBackground:YES];
         
-    [self executionTime:@"checkSIP"];
+    [SIPKit showMasterWaringinWindow:_window];
     
     [_window setTitlebarAppearsTransparent:true];
     [_window setTitleVisibility:NSWindowTitleHidden];
@@ -437,16 +404,11 @@ Boolean appSetupFinished = false;
     [self simbl_blacklist];
     
     // Add blurred background if NSVisualEffectView exists
-    Class vibrantClass=NSClassFromString(@"NSVisualEffectView");
-    if (vibrantClass) {
-        NSVisualEffectView *vibrant=[[vibrantClass alloc] initWithFrame:[[_window contentView] bounds]];
-        [vibrant setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
-        [vibrant setBlendingMode:NSVisualEffectBlendingModeBehindWindow];
-        [vibrant setState:NSVisualEffectStateActive];
-        [[_window contentView] addSubview:vibrant positioned:NSWindowBelow relativeTo:nil];
-    } else {
-        [_window setBackgroundColor:[NSColor whiteColor]];
-    }
+    NSVisualEffectView *vibrant = [[NSVisualEffectView alloc] initWithFrame:[[_window contentView] bounds]];
+    [vibrant setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
+    [vibrant setBlendingMode:NSVisualEffectBlendingModeBehindWindow];
+    [vibrant setState:NSVisualEffectStateActive];
+    [[_window contentView] addSubview:vibrant positioned:NSWindowBelow relativeTo:nil];
     
     [_window.contentView setWantsLayer:YES];
     
@@ -585,27 +547,36 @@ Boolean appSetupFinished = false;
     [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.macenhance.MacForgeHelperNotify" object:message];
 }
 
+- (NSImage*)onOff:(BOOL)state {
+    if (state) return [NSImage imageNamed:NSImageNameStatusAvailable];
+    return [NSImage imageNamed:NSImageNameStatusUnavailable];
+}
+
 - (void)setupSystemView {
-    Boolean sipEnabled = [SIPKit SIP_enabled];
-    Boolean sipHasFlags = [SIPKit SIP_HasRequiredFlags];
-    Boolean amfiEnabled = [SIPKit AMFI_enabled];
-    Boolean LVEnabled = [SIPKit LIBRARYVALIDATION_enabled];
+    // SIP off = green
+    _SIP_status.image = [self onOff:![SIPKit SIP_enabled]];
     
-    [_SIP_TaskPID setState:![SIPKit SIP_TASK_FOR_PID]];
-    [_SIP_filesystem setState:![SIPKit SIP_Filesystem]];
-    [_MacForgePrivHelper setState:[FileManager fileExistsAtPath:@"/Library/PrivilegedHelperTools/com.macenhance.MacForge.Injector"]];
+    // AMFI on = green
+    _SIP_amfi.image = [self onOff:[SIPKit AMFI_isEnabled]];
     
-    if (!sipEnabled) [_SIP_status setStringValue:@"Disabled"];
-    if (!amfiEnabled) [_AMFI_status setStringValue:@"Disabled"];
-    if (!LVEnabled) [_LV_status setStringValue:@"Disabled"];
-    if (sipEnabled && sipHasFlags) [_SIP_status setStringValue:@"Enabled (Custom)"];
+    // Library Validation off = green
+    _SIP_lv.image = [self onOff:![SIPKit LIBRARYVALIDATION_isEnabled]];
     
-    [_infoScroll setDocumentView:_infoDocView];
-    [_infoScroll.contentView scrollToPoint:CGPointMake(0, 0)];
+    // abi off = green
+    // or x86 = green
+    _SIP_abi.image = [self onOff:![SIPKit ABI_isEnabled]];
     
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-        [SIPKit AMFI_NUKE];
-    });
+    // off = green
+    _SIP_filesystem.image = [self onOff:![SIPKit SIP_Filesystem]];
+    
+    // off = green
+    _SIP_taskPID.image = [self onOff:![SIPKit SIP_TASK_FOR_PID]];
+    
+    // file exists = green
+    _SIP_privHelper.image = [self onOff:[FileManager fileExistsAtPath:@"/Library/PrivilegedHelperTools/com.macenhance.MacForge.Injector"]];
+    
+    // process running = green
+    _SIP_helper.image = [self onOff:[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.macenhance.MacForgeHelper"]];
 }
 
 - (void)simbl_blacklist {

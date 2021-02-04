@@ -1,0 +1,9 @@
+<appname> has determined that Apple Mobile File Integrity is disabled on your system.
+
+Because of this you will not be able to add applications to System Preferences > Security & Privacy > Privacy.
+
+This can completely prevent some applications form functioning or break critical functionality. There may be additional side effects as well.
+
+In order restore these features and prevent future problems Apple Mobile File Integrity must be Enabled. <appname> has to reboot your system to do so.
+
+Manually rebooting will not enable Apple Mobile File Integrity.

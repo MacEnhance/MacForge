@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>BuildMachineOSBuild</key>
-	<string>20C5048k</string>
+	<string>20C69</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -17,31 +17,31 @@
 	<key>CFBundlePackageType</key>
 	<string>FMWK</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.2.1</string>
+	<string>0.4.1</string>
 	<key>CFBundleSupportedPlatforms</key>
 	<array>
 		<string>MacOSX</string>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>3</string>
+	<string>4</string>
 	<key>DTCompiler</key>
 	<string>com.apple.compilers.llvm.clang.1_0</string>
 	<key>DTPlatformBuild</key>
-	<string>12B45b</string>
+	<string>12D4e</string>
 	<key>DTPlatformName</key>
 	<string>macosx</string>
 	<key>DTPlatformVersion</key>
-	<string>11.0</string>
+	<string>11.1</string>
 	<key>DTSDKBuild</key>
-	<string>20A2408</string>
+	<string>20C63</string>
 	<key>DTSDKName</key>
-	<string>macosx11.0</string>
+	<string>macosx11.1</string>
 	<key>DTXcode</key>
-	<string>1220</string>
+	<string>1240</string>
 	<key>DTXcodeBuild</key>
-	<string>12B45b</string>
+	<string>12D4e</string>
 	<key>LSMinimumSystemVersion</key>
-	<string>10.10</string>
+	<string>10.14</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2020 Wolfgang Baird. All rights reserved.</string>
 </dict>

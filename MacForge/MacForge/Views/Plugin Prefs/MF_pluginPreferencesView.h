@@ -7,7 +7,7 @@
 //
 
 @import AppKit;
-#import "MF_extra.h"
+#import "MECore.h"
 #import "MF_PluginManager.h"
 #import "SGDirWatchdog.h"
 #import "ViewBridge.h"

@@ -19,7 +19,7 @@
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2018 Erwan Barrier. All rights reserved.</string>
+	<string>Copyright © 2021 macEnhance. All rights reserved.</string>
 	<key>NSPrincipalClass</key>
 	<string>DockTile</string>
 </dict>

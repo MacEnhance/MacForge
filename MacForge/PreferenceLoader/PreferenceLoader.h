@@ -13,5 +13,5 @@
 @interface PreferenceLoader : NSObject <PreferenceLoaderProtocol>
 @end
 
-@interface PreferenceLoaderServiceView : NSServiceViewController
-@end
+//@interface PreferenceLoaderServiceView : NSServiceViewController
+//@end

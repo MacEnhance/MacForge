@@ -30,12 +30,12 @@
 
 int main(int argc, const char *argv[])
 {
-    NSXPCListener *anonListener = [NSXPCListener anonymousListener];
-    NSXPCSharedListener *sharedListener = [NSXPCSharedListener sharedServiceListener];
-    ServiceDelegate *delegate = [ServiceDelegate new];
-    [anonListener setDelegate:delegate];
-    [delegate setListener:anonListener];
-    [sharedListener addListener:anonListener withName:@"com.macenhance.MacForge"];
-    NSViewServiceApplicationMain();
+//    NSXPCListener *anonListener = [NSXPCListener anonymousListener];
+//    NSXPCSharedListener *sharedListener = [NSXPCSharedListener sharedServiceListener];
+//    ServiceDelegate *delegate = [ServiceDelegate new];
+//    [anonListener setDelegate:delegate];
+//    [delegate setListener:anonListener];
+//    [sharedListener addListener:anonListener withName:@"com.macenhance.MacForge"];
+//    NSViewServiceApplicationMain();
     return 0;
 }

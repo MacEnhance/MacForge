@@ -21,17 +21,17 @@ NSString *pluginPath;
 
 @end
 
-@implementation PreferenceLoaderServiceView
+@implementation PreferenceLoaderServiceView : NSObject 
 
-- (instancetype)initWithNibName:(nullable NSNibName)nibNameOrNil bundle:(nullable NSBundle *)nibBundleOrNil {
-    NSBundle *prefBundle = [NSBundle bundleWithPath:pluginPath];
-    [prefBundle load];
-    self = [super initWithNibName:NSStringFromClass(prefBundle.principalClass) bundle:prefBundle];
-    #pragma clang diagnostic push
-    #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    class_setSuperclass([[self class] superclass], prefBundle.principalClass);
-    #pragma clang diagnostic pop
-    return self;
-}
+//- (instancetype)initWithNibName:(nullable NSNibName)nibNameOrNil bundle:(nullable NSBundle *)nibBundleOrNil {
+//    NSBundle *prefBundle = [NSBundle bundleWithPath:pluginPath];
+//    [prefBundle load];
+//    self = [super initWithNibName:NSStringFromClass(prefBundle.principalClass) bundle:prefBundle];
+//    #pragma clang diagnostic push
+//    #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+//    class_setSuperclass([[self class] superclass], prefBundle.principalClass);
+//    #pragma clang diagnostic pop
+//    return self;
+//}
 
 @end

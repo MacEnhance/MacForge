@@ -1,0 +1,5 @@
+<appname> has determined that SIP is enabled on your system.
+
+In order get the full features of <appname> you must reboot and enter the following command in terminal:
+
+csrutil disable

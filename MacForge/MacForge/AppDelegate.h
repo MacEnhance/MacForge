@@ -37,7 +37,7 @@
 #import "SGDirWatchdog.h"
 #import "NSBundle+LoginItem.h"
 
-#import "MF_extra.h"
+#import "MECore.h"
 #import "MF_pluginPreferencesView.h"
 #import "MF_accountManager.h"
 #import "MF_BlacklistManager.h"
@@ -90,22 +90,22 @@
 @property IBOutlet NSView               *sourcesBundle;
 
 // Extra
-@property IBOutlet MF_extra             *sidebarController;
+@property IBOutlet MECore             *sidebarController;
 
 // Top sidebar items
-@property IBOutlet NSSearchField        *searchPlugins;
-@property IBOutlet MF_sidebarButton     *sidebarFeatured;
-@property IBOutlet MF_sidebarButton     *sidebarDiscover;
-@property IBOutlet MF_sidebarButton     *sidebarUpdates;
-@property IBOutlet NSButton             *viewUpdateCounter;
-@property IBOutlet MF_sidebarButton     *sidebarSystem;
-@property IBOutlet MF_sidebarButton     *sidebarManage;
-@property IBOutlet MF_sidebarButton     *sidebarPluginPrefs;
+@property IBOutlet NSSearchField      *searchPlugins;
+@property IBOutlet MECoreSBButton     *sidebarFeatured;
+@property IBOutlet MECoreSBButton     *sidebarDiscover;
+@property IBOutlet MECoreSBButton     *sidebarUpdates;
+@property IBOutlet NSButton           *viewUpdateCounter;
+@property IBOutlet MECoreSBButton     *sidebarSystem;
+@property IBOutlet MECoreSBButton     *sidebarManage;
+@property IBOutlet MECoreSBButton     *sidebarPluginPrefs;
 
 // Bottom sidebar items
-@property IBOutlet MF_sidebarButton     *sidebarWarning;
-@property IBOutlet MF_sidebarButton     *sidebarDiscord;
-@property IBOutlet MF_sidebarButton     *sidebarAccount;
+@property IBOutlet MECoreSBButton     *sidebarWarning;
+@property IBOutlet MECoreSBButton     *sidebarDiscord;
+@property IBOutlet MECoreSBButton     *sidebarAccount;
 
 // About view
 @property IBOutlet NSTextField          *appName;
@@ -135,12 +135,22 @@
 @property IBOutlet NSSecureTextField    *password;
 
 // System Information view
-@property IBOutlet NSButton             *MacForgePrivHelper;
-@property IBOutlet NSButton             *SIP_filesystem;
-@property IBOutlet NSButton             *SIP_TaskPID;
-@property IBOutlet NSTextField          *SIP_status;
-@property IBOutlet NSTextField          *AMFI_status;
-@property IBOutlet NSTextField          *LV_status;
+//@property IBOutlet NSButton             *MacForgePrivHelper;
+//@property IBOutlet NSButton             *SIP_filesystem;
+//@property IBOutlet NSButton             *SIP_TaskPID;
+//@property IBOutlet NSTextField          *SIP_status;
+//@property IBOutlet NSTextField          *AMFI_status;
+//@property IBOutlet NSTextField          *LV_status;
+
+@property IBOutlet NSImageView          *SIP_filesystem;
+@property IBOutlet NSImageView          *SIP_taskPID;
+@property IBOutlet NSImageView          *SIP_status;
+@property IBOutlet NSImageView          *SIP_amfi;
+@property IBOutlet NSImageView          *SIP_abi;
+@property IBOutlet NSImageView          *SIP_lv;
+@property IBOutlet NSImageView          *SIP_privHelper;
+@property IBOutlet NSImageView          *SIP_helper;
+
 @property IBOutlet NSView               *infoDocView;
 @property IBOutlet NSScrollView         *infoScroll;
 @property IBOutlet blacklistTable       *blackListTable;

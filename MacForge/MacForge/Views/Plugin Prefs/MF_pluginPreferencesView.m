@@ -138,7 +138,7 @@
             NSLog(@"Bad class??");
         }
         @try {
-            [MF_extra.sharedInstance setViewSubViewWithScrollableView:self.preferencesContainer :testVC.view];
+            [MECore.sharedInstance setViewSubViewWithScrollableView:self.preferencesContainer :testVC.view];
         } @catch (NSException *exception) {
 
         }

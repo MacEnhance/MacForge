@@ -31,7 +31,7 @@ extern AppDelegate *myDelegate;
 
 - (void)adjustColumnWidth {
     int multiplier = 4;
-    if (MF_extra.sharedInstance.macOS >= 16) multiplier = 25;
+    if (MECore.sharedInstance.macOS >= 16) multiplier = 25;
     NSUInteger pad = self.frame.size.width - (multiplier * columns);
     for (NSTableColumn* c in _tv.tableColumns)
         [c setWidth:pad/columns];
