@@ -85,7 +85,8 @@
 @property IBOutlet MF_searchView        *tabSearch;
 
 // Plugins view
-@property IBOutlet NSTableView          *tblView;
+@property NSMutableArray                *viewHierarchy;
+@property IBOutlet NSCollectionView     *localPluginsCollection;
 @property IBOutlet NSView               *viewImages;
 @property IBOutlet NSView               *sourcesBundle;
 

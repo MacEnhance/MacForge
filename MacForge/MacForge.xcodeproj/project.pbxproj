@@ -19,7 +19,6 @@
 		F0ADE1C7166E0981009758CC /* MFInjector.m in Sources */ = {isa = PBXBuildFile; fileRef = F0ADE12B166DF9FB009758CC /* MFInjector.m */; };
 		F3A95F7423EF842A004635FD /* MF_bundleTinyItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A95F7223EF842A004635FD /* MF_bundleTinyItem.m */; };
 		F3A95F7523EF842A004635FD /* MF_bundleTinyItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3A95F7323EF842A004635FD /* MF_bundleTinyItem.xib */; };
-		FB0227A920F0539B006566EF /* MF_PluginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8EA20F0289900A12ACF /* MF_PluginManager.m */; };
 		FB057CC72139B1B4002B3BB3 /* com.macenhance.MacForge.Injector in CopyFiles */ = {isa = PBXBuildFile; fileRef = F0ADE1B8166E0820009758CC /* com.macenhance.MacForge.Injector */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		FB0FC0E124A1D02E00857D55 /* square.and.arrow.down_Normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB0FC0DD24A1D02E00857D55 /* square.and.arrow.down_Normal@2x.png */; };
 		FB0FC0E224A1D02E00857D55 /* star_Normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB0FC0DE24A1D02E00857D55 /* star_Normal@2x.png */; };
@@ -40,6 +39,12 @@
 		FB306ACC2367C9D5008A6E61 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB306ACB2367C9D5008A6E61 /* Media.xcassets */; };
 		FB306ACE2367CD0F008A6E61 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB306ACD2367CD0F008A6E61 /* Media.xcassets */; };
 		FB35B8B824A2F2AC0064549F /* MF_Paddle.m in Sources */ = {isa = PBXBuildFile; fileRef = FB35B8B724A2F2AC0064549F /* MF_Paddle.m */; };
+		FB3D630625CC7F1000F2D623 /* MF_localPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = FB3D630425CC7F1000F2D623 /* MF_localPlugin.m */; };
+		FB3D630725CC7F1000F2D623 /* MF_localPlugin.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB3D630525CC7F1000F2D623 /* MF_localPlugin.xib */; };
+		FB3D631325CC815B00F2D623 /* MF_localCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = FB3D631225CC815B00F2D623 /* MF_localCollection.m */; };
+		FB495E2325CBE1710027DC5D /* MF_featuredCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = FB495E2225CBE1710027DC5D /* MF_featuredCollection.m */; };
+		FB495E3325CBE59B0027DC5D /* MF_featuredItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FB495E3125CBE59B0027DC5D /* MF_featuredItem.m */; };
+		FB495E3425CBE59B0027DC5D /* MF_featuredItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB495E3225CBE59B0027DC5D /* MF_featuredItem.xib */; };
 		FB4F4B8A24988F0E00987D1E /* checkmark.shield.fill_Normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB4F4B8824988F0E00987D1E /* checkmark.shield.fill_Normal@2x.png */; };
 		FB4F4B8B24988F0E00987D1E /* lock.shield.fill_Normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB4F4B8924988F0E00987D1E /* lock.shield.fill_Normal@2x.png */; };
 		FB5F5F68249EA48400C52F12 /* EQImage+Scale.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5F5F61249EA48300C52F12 /* EQImage+Scale.m */; };
@@ -77,7 +82,6 @@
 		FBA6E8E720F0288300A12ACF /* MF_repoData.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8E320F0288300A12ACF /* MF_repoData.m */; };
 		FBA6E8F220F0289B00A12ACF /* MF_PluginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8EA20F0289900A12ACF /* MF_PluginManager.m */; };
 		FBA6E8F420F0289B00A12ACF /* updatesTable.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8EC20F0289A00A12ACF /* updatesTable.m */; };
-		FBA6E8F520F0289B00A12ACF /* loaclPluginTable.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8ED20F0289A00A12ACF /* loaclPluginTable.m */; };
 		FBA6E8FC20F028A400A12ACF /* LICENSE_EULA in Resources */ = {isa = PBXBuildFile; fileRef = FBA6E8F920F028A400A12ACF /* LICENSE_EULA */; };
 		FBA6E90920F029D800A12ACF /* DockTilePlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E90820F029D800A12ACF /* DockTilePlugIn.m */; };
 		FBAAB3EC20F228FD002156DC /* StartAtLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA6E8B920F01C6300A12ACF /* StartAtLoginController.m */; };
@@ -332,6 +336,16 @@
 		FB35B8B724A2F2AC0064549F /* MF_Paddle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MF_Paddle.m; sourceTree = "<group>"; };
 		FB35B8BA24A32FD40064549F /* MF_defines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MF_defines.h; sourceTree = "<group>"; };
 		FB3C2EC7236A7FB5002B21C1 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		FB3D630325CC7F1000F2D623 /* MF_localPlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_localPlugin.h; sourceTree = "<group>"; };
+		FB3D630425CC7F1000F2D623 /* MF_localPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_localPlugin.m; sourceTree = "<group>"; };
+		FB3D630525CC7F1000F2D623 /* MF_localPlugin.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MF_localPlugin.xib; sourceTree = "<group>"; };
+		FB3D631125CC815B00F2D623 /* MF_localCollection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_localCollection.h; sourceTree = "<group>"; };
+		FB3D631225CC815B00F2D623 /* MF_localCollection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_localCollection.m; sourceTree = "<group>"; };
+		FB495E2125CBE1710027DC5D /* MF_featuredCollection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_featuredCollection.h; sourceTree = "<group>"; };
+		FB495E2225CBE1710027DC5D /* MF_featuredCollection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_featuredCollection.m; sourceTree = "<group>"; };
+		FB495E3025CBE59B0027DC5D /* MF_featuredItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_featuredItem.h; sourceTree = "<group>"; };
+		FB495E3125CBE59B0027DC5D /* MF_featuredItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_featuredItem.m; sourceTree = "<group>"; };
+		FB495E3225CBE59B0027DC5D /* MF_featuredItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MF_featuredItem.xib; sourceTree = "<group>"; };
 		FB4F4B8824988F0E00987D1E /* checkmark.shield.fill_Normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkmark.shield.fill_Normal@2x.png"; sourceTree = "<group>"; };
 		FB4F4B8924988F0E00987D1E /* lock.shield.fill_Normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock.shield.fill_Normal@2x.png"; sourceTree = "<group>"; };
 		FB5F5F5F249EA48300C52F12 /* EQImage+Scale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EQImage+Scale.h"; sourceTree = "<group>"; };
@@ -383,7 +397,6 @@
 		FBA6E8E520F0288300A12ACF /* MF_repoData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MF_repoData.h; sourceTree = "<group>"; };
 		FBA6E8EA20F0289900A12ACF /* MF_PluginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MF_PluginManager.m; sourceTree = "<group>"; };
 		FBA6E8EC20F0289A00A12ACF /* updatesTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = updatesTable.m; sourceTree = "<group>"; };
-		FBA6E8ED20F0289A00A12ACF /* loaclPluginTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = loaclPluginTable.m; sourceTree = "<group>"; };
 		FBA6E8EF20F0289A00A12ACF /* MF_PluginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MF_PluginManager.h; sourceTree = "<group>"; };
 		FBA6E8F920F028A400A12ACF /* LICENSE_EULA */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE_EULA; sourceTree = "<group>"; };
 		FBA6E90120F0299B00A12ACF /* MacForgeDockTile.docktileplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacForgeDockTile.docktileplugin; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -631,23 +644,18 @@
 			path = PluginLoader;
 			sourceTree = "<group>";
 		};
-		FB169AF422F4E541001E84E0 /* Web */ = {
+		FB169AF422F4E541001E84E0 /* Discover */ = {
 			isa = PBXGroup;
 			children = (
 				FB1241342478997500528C29 /* MF_searchView.h */,
 				FB1241352478997500528C29 /* MF_searchView.m */,
 				FBFC746B2477CCD30015D36C /* MF_discoverView.h */,
 				FBFC746C2477CCD30015D36C /* MF_discoverView.m */,
-				FBFC745D24774B2D0015D36C /* MF_featuredView.h */,
-				FBFC745E24774B2D0015D36C /* MF_featuredView.m */,
-				FB169AFA22F4EEEB001E84E0 /* MF_featuredItemController.h */,
-				FB169AFB22F4EEEB001E84E0 /* MF_featuredItemController.m */,
-				FB169AFC22F4EEEB001E84E0 /* MF_featuredItemController.xib */,
 				F3A95F7123EF842A004635FD /* MF_bundleTinyItem.h */,
 				F3A95F7223EF842A004635FD /* MF_bundleTinyItem.m */,
 				F3A95F7323EF842A004635FD /* MF_bundleTinyItem.xib */,
 			);
-			path = Web;
+			path = Discover;
 			sourceTree = "<group>";
 		};
 		FB306A91236672C3008A6E61 /* Account */ = {
@@ -664,7 +672,7 @@
 			path = Account;
 			sourceTree = "<group>";
 		};
-		FB306ACF2367F9BA008A6E61 /* Bundle */ = {
+		FB306ACF2367F9BA008A6E61 /* BundleView */ = {
 			isa = PBXGroup;
 			children = (
 				FB8561A923417A3700047845 /* MF_bundlePreviewView.h */,
@@ -672,17 +680,74 @@
 				FB1C18B623417E1200BD9F32 /* MF_bundleView.h */,
 				FB1C18B723417E1200BD9F32 /* MF_bundleView.m */,
 			);
-			path = Bundle;
+			path = BundleView;
+			sourceTree = "<group>";
+		};
+		FB3D631025CC811700F2D623 /* Depreciated */ = {
+			isa = PBXGroup;
+			children = (
+				FBFC745D24774B2D0015D36C /* MF_featuredView.h */,
+				FBFC745E24774B2D0015D36C /* MF_featuredView.m */,
+				FB169AFA22F4EEEB001E84E0 /* MF_featuredItemController.h */,
+				FB169AFB22F4EEEB001E84E0 /* MF_featuredItemController.m */,
+				FB169AFC22F4EEEB001E84E0 /* MF_featuredItemController.xib */,
+			);
+			path = Depreciated;
+			sourceTree = "<group>";
+		};
+		FB495E2825CBE2B30027DC5D /* Featured */ = {
+			isa = PBXGroup;
+			children = (
+				FB495E2125CBE1710027DC5D /* MF_featuredCollection.h */,
+				FB495E2225CBE1710027DC5D /* MF_featuredCollection.m */,
+				FB495E3025CBE59B0027DC5D /* MF_featuredItem.h */,
+				FB495E3125CBE59B0027DC5D /* MF_featuredItem.m */,
+				FB495E3225CBE59B0027DC5D /* MF_featuredItem.xib */,
+			);
+			path = Featured;
+			sourceTree = "<group>";
+		};
+		FB495E4925CBF1FA0027DC5D /* Updates */ = {
+			isa = PBXGroup;
+			children = (
+				FBA6E8EC20F0289A00A12ACF /* updatesTable.m */,
+			);
+			path = Updates;
+			sourceTree = "<group>";
+		};
+		FB495E4A25CBF20B0027DC5D /* System */ = {
+			isa = PBXGroup;
+			children = (
+				FBC2123223B459CE006F4485 /* MF_BlacklistManager.h */,
+				FBC2123323B459CE006F4485 /* MF_BlacklistManager.m */,
+				FBF137E1210E79B70001916A /* blacklistTable.h */,
+				FBF137E2210E79B70001916A /* blacklistTable.m */,
+			);
+			path = System;
+			sourceTree = "<group>";
+		};
+		FB495E6325CBF2A30027DC5D /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				FB35B8BA24A32FD40064549F /* MF_defines.h */,
+				FB12413A247899F600528C29 /* MECore.h */,
+				FB12413B247899F600528C29 /* MECore.m */,
+			);
+			path = Core;
 			sourceTree = "<group>";
 		};
 		FB49C44623417A4B0061E458 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				FB306A91236672C3008A6E61 /* Account */,
-				FB306ACF2367F9BA008A6E61 /* Bundle */,
-				FBA6E91020F02CBD00A12ACF /* Local */,
+				FB3D631025CC811700F2D623 /* Depreciated */,
+				FB306ACF2367F9BA008A6E61 /* BundleView */,
+				FB495E2825CBE2B30027DC5D /* Featured */,
+				FB169AF422F4E541001E84E0 /* Discover */,
+				FBA6E91020F02CBD00A12ACF /* Local Plugins */,
 				FBFC74632477670B0015D36C /* Plugin Prefs */,
-				FB169AF422F4E541001E84E0 /* Web */,
+				FB495E4A25CBF20B0027DC5D /* System */,
+				FB495E4925CBF1FA0027DC5D /* Updates */,
+				FB306A91236672C3008A6E61 /* Account */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -780,15 +845,16 @@
 			path = MacForgeDockTile;
 			sourceTree = "<group>";
 		};
-		FBA6E91020F02CBD00A12ACF /* Local */ = {
+		FBA6E91020F02CBD00A12ACF /* Local Plugins */ = {
 			isa = PBXGroup;
 			children = (
-				FBA6E8ED20F0289A00A12ACF /* loaclPluginTable.m */,
-				FBA6E8EC20F0289A00A12ACF /* updatesTable.m */,
-				FBF137E1210E79B70001916A /* blacklistTable.h */,
-				FBF137E2210E79B70001916A /* blacklistTable.m */,
+				FB3D631125CC815B00F2D623 /* MF_localCollection.h */,
+				FB3D631225CC815B00F2D623 /* MF_localCollection.m */,
+				FB3D630325CC7F1000F2D623 /* MF_localPlugin.h */,
+				FB3D630425CC7F1000F2D623 /* MF_localPlugin.m */,
+				FB3D630525CC7F1000F2D623 /* MF_localPlugin.xib */,
 			);
-			path = Local;
+			path = "Local Plugins";
 			sourceTree = "<group>";
 		};
 		FBA6E91220F02D0600A12ACF /* Resource */ = {
@@ -885,11 +951,7 @@
 		FBE767E920F00FFB00A42BD5 /* MacForge */ = {
 			isa = PBXGroup;
 			children = (
-				FB35B8BA24A32FD40064549F /* MF_defines.h */,
-				FB12413A247899F600528C29 /* MECore.h */,
-				FB12413B247899F600528C29 /* MECore.m */,
-				FBC2123223B459CE006F4485 /* MF_BlacklistManager.h */,
-				FBC2123323B459CE006F4485 /* MF_BlacklistManager.m */,
+				FB495E6325CBF2A30027DC5D /* Core */,
 				FB5F76D12479B82500B2DC65 /* Repo */,
 				FBAAD0FC2460E02F00F7B2F8 /* Purchases */,
 				FBAAD0FB2460E00D00F7B2F8 /* Plugins */,
@@ -1207,10 +1269,12 @@
 				FB80DBDC231B4C6A00823B67 /* starhighlighted.png in Resources */,
 				FB0FC0E524A1D1CA00857D55 /* magnifyingglass.circle_Normal@2x.png in Resources */,
 				FB4F4B8B24988F0E00987D1E /* lock.shield.fill_Normal@2x.png in Resources */,
+				FB495E3425CBE59B0027DC5D /* MF_featuredItem.xib in Resources */,
 				FB0FC0E724A1E3BA00857D55 /* sidebar_Normal@2x.png in Resources */,
 				FB8808292480FEFB0002727A /* desktopcomputer_Normal@2x.png in Resources */,
 				FB0FC0E224A1D02E00857D55 /* star_Normal@2x.png in Resources */,
 				FB0FC0E124A1D02E00857D55 /* square.and.arrow.down_Normal@2x.png in Resources */,
+				FB3D630725CC7F1000F2D623 /* MF_localPlugin.xib in Resources */,
 				FB8808262480FEFB0002727A /* arrow.up.arrow.down.square.fill_Normal@2x.png in Resources */,
 				FB88082B2480FEFB0002727A /* magnifyingglass.circle.fill_Normal@2x.png in Resources */,
 				FB4F4B8A24988F0E00987D1E /* checkmark.shield.fill_Normal@2x.png in Resources */,
@@ -1427,7 +1491,6 @@
 			files = (
 				FBCC0B3021278DF900CB5CD4 /* SGDirWatchdog.m in Sources */,
 				FBAAB3EC20F228FD002156DC /* StartAtLoginController.m in Sources */,
-				FB0227A920F0539B006566EF /* MF_PluginManager.m in Sources */,
 				FBE767FB20F0116600A42BD5 /* SIMBLPlugin.m in Sources */,
 				FBE767FA20F0116000A42BD5 /* SIMBL.m in Sources */,
 				FBE767F920F0115B00A42BD5 /* NSAlert_SIMBL.m in Sources */,
@@ -1469,6 +1532,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB495E2325CBE1710027DC5D /* MF_featuredCollection.m in Sources */,
 				FBFC746D2477CCD30015D36C /* MF_discoverView.m in Sources */,
 				FB1C18B823417E1200BD9F32 /* MF_bundleView.m in Sources */,
 				FB8CDBEE24D7697500DCB9BF /* NSBundle+LoginItem.m in Sources */,
@@ -1478,15 +1542,17 @@
 				FB12413C247899F600528C29 /* MECore.m in Sources */,
 				FBA6E8F220F0289B00A12ACF /* MF_PluginManager.m in Sources */,
 				FBBD8E2322F9319E00A97FEA /* MF_Purchase.m in Sources */,
+				FB3D631325CC815B00F2D623 /* MF_localCollection.m in Sources */,
 				FBA6E8E720F0288300A12ACF /* MF_repoData.m in Sources */,
 				FBFC745F24774B2D0015D36C /* MF_featuredView.m in Sources */,
 				FBA6E8E620F0288300A12ACF /* MF_Plugin.m in Sources */,
+				FB3D630625CC7F1000F2D623 /* MF_localPlugin.m in Sources */,
 				FB88081E2480F2A70002727A /* MF_purchasedView.m in Sources */,
 				FBC2123923B46434006F4485 /* MF_accountManager.m in Sources */,
-				FBA6E8F520F0289B00A12ACF /* loaclPluginTable.m in Sources */,
 				F3A95F7423EF842A004635FD /* MF_bundleTinyItem.m in Sources */,
 				FB5F5F69249EA48400C52F12 /* EQImage+ColorArt.m in Sources */,
 				FBF137E3210E79B70001916A /* blacklistTable.m in Sources */,
+				FB495E3325CBE59B0027DC5D /* MF_featuredItem.m in Sources */,
 				FBA6E8F420F0289B00A12ACF /* updatesTable.m in Sources */,
 				FB5F5F6A249EA48400C52F12 /* EQImage+Helper.m in Sources */,
 				FBA6E88720F0176B00A12ACF /* AppDelegate.m in Sources */,

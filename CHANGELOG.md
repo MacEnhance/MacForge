@@ -5,6 +5,7 @@
 - Removed option to toggle plugins to user folder
 - Core plugins are now stored in /Library/Application Support/MacEnhance/CorePlugins
 - Core plugins are not shown in the manage tab
+- Switch to using collection views instead of tables where applicable
 - Button colors change with system color
 - Display changelog when opening app after updates
 - Altered SIP information shown to user

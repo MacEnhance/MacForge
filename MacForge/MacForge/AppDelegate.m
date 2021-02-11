@@ -409,7 +409,7 @@ Boolean appSetupFinished = false;
 //    [self executionTime:@"fireBaseSetup"];
     
     // Setup plugin table
-    [_tblView registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
+    //[_tblView registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
     [_blackListTable registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
 
     [self setupEventListener];
@@ -569,10 +569,9 @@ Boolean appSetupFinished = false;
 - (void)setupEventListener {
     watchdogs = [[NSMutableArray alloc] init];
     for (NSString *path in [MF_PluginManager MacEnhancePluginPaths]) {
-        SGDirWatchdog *watchDog = [[SGDirWatchdog alloc] initWithPath:path
-                                                               update:^{
-                                                                   [MF_PluginManager.sharedInstance readPlugins:self->_tblView];
-                                                               }];
+        SGDirWatchdog *watchDog = [[SGDirWatchdog alloc] initWithPath:path update:^{
+            [MF_PluginManager.sharedInstance refreahLocalPlugin:self.localPluginsCollection];
+        }];
         [watchDog start];
         [watchdogs addObject:watchDog];
     }
@@ -607,9 +606,13 @@ Boolean appSetupFinished = false;
     // Library Validation off = green
     _SIP_lv.image = [self onOff:![SIPKit LIBRARYVALIDATION_isEnabled]];
     
-    // abi off = green
-    // or x86 = green
-    _SIP_abi.image = [self onOff:![SIPKit ABI_isEnabled]];
+    // arm and abi off = green
+    if (sizeof(int *) == 8) {
+        _SIP_abi.image = [self onOff:![SIPKit ABI_isEnabled]];
+    } else {
+        // or x86 = green
+        _SIP_abi.image = [NSImage imageNamed:NSImageNameStatusAvailable];
+    }
     
     // off = green
     _SIP_filesystem.image = [self onOff:![SIPKit SIP_Filesystem]];

@@ -8,7 +8,6 @@
 
 @import AppKit;
 #import "FConvenience.h"
-#import "MF_Plugin.h"
 #import "MF_defines.h"
 
 @interface MF_PluginManager : NSObject <NSURLSessionDataDelegate, NSURLSessionDelegate, NSURLSessionTaskDelegate, NSUserNotificationCenterDelegate> {
@@ -39,6 +38,7 @@
 
 - (void)installBundles:(NSArray*)pathArray;
 - (void)readPlugins:(NSTableView *)pluginTable;
+- (void)refreahLocalPlugin:(NSCollectionView *)collection;
 - (void)replaceFile:(NSString*)start :(NSString*)end;
 
 - (Boolean)pluginDelete:(NSDictionary*)item;

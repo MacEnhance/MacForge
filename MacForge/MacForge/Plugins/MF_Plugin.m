@@ -10,8 +10,7 @@
 
 @implementation MF_Plugin
 
-+ (MF_Plugin*) sharedInstance
-{
++ (MF_Plugin*) plugin {
     static MF_Plugin* msP = nil;
     
     if (msP == nil)
@@ -20,8 +19,7 @@
     return msP;
 }
 
-- (instancetype)init
-{
+- (instancetype)init {
     if (self = [super init])
     {
         _localName = @"Test";

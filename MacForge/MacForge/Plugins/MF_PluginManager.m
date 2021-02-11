@@ -6,6 +6,7 @@
 //  Copyright © 2016 Wolfgang Baird. All rights reserved.
 //
 
+#import "MF_Plugin.h"
 #import "MF_PluginManager.h"
 
 @implementation MF_PluginManager
@@ -159,6 +160,27 @@
     installedPluginDICT = myDict;
     
     [pluginTable reloadData];
+}
+
+- (void)refreahLocalPlugin:(NSCollectionView *)collection {
+    pluginsArray = [[NSMutableArray alloc] init];
+    NSMutableDictionary *myDict = [[NSMutableDictionary alloc] init];
+    
+    for (NSString *path in [MF_PluginManager MacEnhancePluginPaths])
+        [self readFolder:path :myDict];
+    
+    NSArray *keys = [myDict allKeys];
+    NSArray *sortedKeys = [keys sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    sortedKeys = [[sortedKeys reverseObjectEnumerator] allObjects];
+    
+    for (NSString *app in sortedKeys) {
+        [pluginsArray addObject:[myDict objectForKey:app]];
+    }
+    
+    installedPluginDICT = [[NSMutableDictionary alloc] init];
+    installedPluginDICT = myDict;
+    
+    [collection reloadData];
 }
 
 + (NSArray*)arrayOfFoldersInFolder:(NSString*) folder {
@@ -319,7 +341,7 @@
     
     if (downloadButton) {
         downloadButton.enabled = true;
-        downloadButton.title = @"OPEN";
+        downloadButton.title = @"SHOW";
     }
     
     // Update the installed plugins list

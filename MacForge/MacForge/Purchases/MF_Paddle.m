@@ -156,7 +156,7 @@ extern AppDelegate* myDelegate;
                     plugin.paddleLicense = [NSString stringWithFormat:@"%@ days remaining", paddleProduct.trialDaysRemaining];
                 }
                 if ([MF_PluginManager.sharedInstance pluginLocalPath:plugin.bundleID].length)
-                    theButton.title = @"OPEN";
+                    theButton.title = @"SHOW";
                 else
                     theButton.title = @"GET";
                 NSLog(@"Verified... %@", plugin.bundleID);

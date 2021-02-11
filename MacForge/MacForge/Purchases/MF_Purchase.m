@@ -30,7 +30,7 @@ extern AppDelegate* myDelegate;
         } else {
             // Installed, reveal in Finder
             [MF_PluginManager.sharedInstance pluginRevealFinder:plugin.webPlist];
-            [MSACAnalytics trackEvent:@"Open" withProperties:@{@"Product ID" : plugin.bundleID}];
+            [MSACAnalytics trackEvent:@"SHOW" withProperties:@{@"Product ID" : plugin.bundleID}];
         }
     } else {
         if (plugin.hasPurchased) {
@@ -67,7 +67,7 @@ extern AppDelegate* myDelegate;
         NSInteger result = [comparator compareVersion:cur toVersion:new];
         dispatch_async(dispatch_get_main_queue(), ^{
             if (result == NSOrderedSame) {
-                theButton.title = @"OPEN";
+                theButton.title = @"SHOW";
                 theButton.toolTip = @"";
             } else if (result == NSOrderedAscending) {
                 theButton.title = @"⬆";
@@ -135,7 +135,7 @@ extern AppDelegate* myDelegate;
         [MF_PluginManager.sharedInstance pluginUpdateOrInstall:plugin.webPlist withButton:theButton andProgress:progress];
         dispatch_async(dispatch_get_main_queue(), ^{
             [MF_PluginManager.sharedInstance readPlugins:nil];
-            [theButton setTitle:@"OPEN"];
+            [theButton setTitle:@"SHOW"];
         });
     } else {
         [MF_Purchase pluginInstall:plugin :theButton];
@@ -145,7 +145,7 @@ extern AppDelegate* myDelegate;
 + (void)pluginInstall:(MF_Plugin*)plugin :(NSButton*)theButton {
     [MF_PluginManager.sharedInstance pluginUpdateOrInstall:plugin.webPlist withCompletionHandler:^(BOOL res) {
         [MF_PluginManager.sharedInstance readPlugins:nil];
-        [theButton setTitle:@"OPEN"];
+        [theButton setTitle:@"SHOW"];
     }];
 }
 

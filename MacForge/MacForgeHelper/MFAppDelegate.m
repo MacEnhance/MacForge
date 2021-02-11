@@ -17,7 +17,7 @@
 #import "SGDirWatchdog.h"
 #import "SIMBL.h"
 
-#import "MF_PluginManager.h"
+// #import "MF_PluginManager.h"
 
 #import <Carbon/Carbon.h>
 #include <syslog.h>
@@ -282,7 +282,7 @@ void HandleExceptions(NSException *exception) {
     [self.injectorProxy setupMacEnhanceFolder:^(mach_error_t err) {
         // DockKit is currently only needed for Big Sur and above
         [self installBundle:@"DockKit" atPath:@"/Library/Application Support/MacEnhance/CorePlugins"];
-        [self installBundle:@"PluginLoader" atPath:@"/Library/Application Support/MacEnhance/CorePlugins"];
+        // [self installBundle:@"PluginLoader" atPath:@"/Library/Application Support/MacEnhance/CorePlugins"];
     }];
 }
 
@@ -308,12 +308,12 @@ void HandleExceptions(NSException *exception) {
 }
 
 - (void)updatesPlugins {
-    [MF_PluginManager.sharedInstance checkforPluginUpdates:nil];
+    // [MF_PluginManager.sharedInstance checkforPluginUpdates:nil];
 }
 
 - (void)updatesPluginsInstall {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [[MF_PluginManager sharedInstance] checkforPluginUpdatesAndInstall:nil];
+        // [[MF_PluginManager sharedInstance] checkforPluginUpdatesAndInstall:nil];
         [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"com.macenhance.MacForgeNotify" object:@"check"];
     });
 }
@@ -622,15 +622,20 @@ void HandleExceptions(NSException *exception) {
 }
 
 - (void)queuedInject:(NSRunningApplication*)runningApp withArray:(NSMutableArray*)bundles {
-    NSBundle *bun = [NSBundle bundleWithPath:bundles.lastObject];
-    [bundles removeLastObject];
-    if (bun) {
-        // NSLog(@"Loading : %@ into %d", bun.bundleIdentifier, runningApp.processIdentifier);
-        [self.injectorProxy injectBundle:bun.executablePath inProcess:runningApp.processIdentifier withReply:^(mach_error_t error) {
-            [self queuedInject:runningApp withArray:bundles];
-        }];
-    } else {
+    if (bundles.count == 0) {
         NSLog(@"Finished loading bundles into %d", runningApp.processIdentifier);
+        return;
+    } else {
+        NSBundle *bun = [NSBundle bundleWithPath:bundles.lastObject];
+        [bundles removeLastObject];
+        if (bun) {
+            // NSLog(@"Loading : %@ into %d", bun.bundleIdentifier, runningApp.processIdentifier);
+            [self.injectorProxy injectBundle:bun.executablePath inProcess:runningApp.processIdentifier withReply:^(mach_error_t error) {
+                [self queuedInject:runningApp withArray:bundles];
+            }];
+        } else {
+            [self queuedInject:runningApp withArray:bundles];
+        }
     }
 }
 
@@ -691,8 +696,10 @@ void HandleExceptions(NSException *exception) {
     [watchDog start];
     [watchdogs addObject:watchDog];
     
+    
+    NSArray *paths = @[@"/Library/Application Support/MacEnhance/Plugins"];
     // Plugin watcher
-    for (NSString *path in [MF_PluginManager MacEnhancePluginPaths]) {
+    for (NSString *path in paths /* [MF_PluginManager MacEnhancePluginPaths] */) {
         SGDirWatchdog *watchDog = [[SGDirWatchdog alloc] initWithPath:path update:^{
             [self injectAllProc];
 //            CFDictionaryKeyCallBacks keyCallbacks = {0, NULL, NULL, CFCopyDescription, CFEqual, NULL};
