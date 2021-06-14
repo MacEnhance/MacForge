@@ -1,11 +1,15 @@
 //
 //  MECore.m
-//  MECore
+//  Dark Boot
 //
 //  Created by Wolfgang Baird on 5/8/20.
 //
 
 #import "MECore.h"
+
+void SafeRelease(CFTypeRef cf) {
+    if (cf != nil) CFRelease(cf);
+}
 
 @implementation MF_FlippedView
 
@@ -28,15 +32,153 @@
     return share;
 }
 
++ (NSUInteger)macOS {
+    return MECore.sharedInstance.macOS;
+}
+
++ (NSColor*)blackOrWhite {
+    NSColor *result = NSColor.blackColor;
+    NSString *osxMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
+    if ([osxMode isEqualToString:@"Dark"])
+        result = NSColor.whiteColor;
+    return result;
+}
+
++ (void)rediecrLogToFolder:(NSString*)folder {
+    // Some paths we'll need
+    NSFileManager *fm = NSFileManager.defaultManager;
+    NSString *name = NSBundle.mainBundle.executablePath.lastPathComponent;
+    NSArray *allPaths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
+    NSString *appSupport = [[allPaths firstObject] stringByAppendingPathComponent:folder];
+    NSString *pathForLog = [[appSupport stringByAppendingPathComponent:name] stringByAppendingPathExtension:@"log"];
+
+    // Make sure DockMate folder exists in ~/Library/Application Support
+    if (![fm fileExistsAtPath:appSupport isDirectory:nil])
+        [fm createDirectoryAtPath:appSupport withIntermediateDirectories:true attributes:nil error:nil];
+        
+    // Get size of log
+    unsigned long long fileSize = [[fm attributesOfItemAtPath:pathForLog error:nil] fileSize];
+    
+    // Delete log if over 5MB
+    if (fileSize > 5000000)
+        [fm removeItemAtPath:pathForLog error:nil];
+    
+    // Redirect output to log
+    freopen([pathForLog cStringUsingEncoding:NSASCIIStringEncoding],"a+",stderr);
+}
+
++ (void)whatsNew {
+    NSDictionary *infoDict = [[NSBundle mainBundle] infoDictionary];
+    NSString *appVersion = [infoDict objectForKey:@"CFBundleShortVersionString"];
+    NSString *buildNumber = [infoDict objectForKey:@"BuildNumber"];
+    NSString *displayedBuild = [NSUserDefaults.standardUserDefaults stringForKey:@"CDWelcomeBuild"];
+    
+    if (![appVersion isEqualToString:displayedBuild]) {
+    
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert addButtonWithTitle:@"Okay"];
+        NSString *text = [NSString stringWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"CHANGELOG" withExtension:@"md"]
+                                                  encoding:NSUTF8StringEncoding
+                                                     error:nil];
+        NSArray *versions = [text componentsSeparatedByString:@"###"];
+        text = versions[1];
+        
+        int viewHeight = 0;
+        int origin = 0;
+        NSView *customView = [NSView.alloc initWithFrame:NSMakeRect(0, 0, 400, 0)];
+        
+        NSTextField *warning = NSTextField.new;
+        [warning setStringValue:text];
+        CGFloat minHeight = [((NSTextFieldCell *)[warning cell]) cellSizeForBounds:NSMakeRect(0, 0, 364, FLT_MAX)].height;
+        [warning setFrame:NSMakeRect(18, origin, 364, minHeight)];
+        [warning setSelectable:false];
+        [warning setDrawsBackground:false];
+        [warning setBordered:false];
+        viewHeight += minHeight;
+        origin += minHeight;
+        [customView addSubview:warning];
+        
+        [customView setFrame:NSMakeRect(0, 0, 400, viewHeight)];
+        [alert setAlertStyle:NSAlertStyleInformational];
+        [alert setMessageText:[NSString stringWithFormat:@"Here's what's new in %@ (%@)", appVersion, buildNumber]];
+        [alert setAccessoryView:customView];
+        
+        if (NSApp.mainWindow.isVisible) {
+            [alert beginSheetModalForWindow:NSApp.mainWindow completionHandler:^(NSModalResponse returnCode) {
+                // Okay...
+                [NSUserDefaults.standardUserDefaults setObject:appVersion forKey:@"CDWelcomeBuild"];
+            }];
+        } else {
+            [alert runModal];
+            [NSUserDefaults.standardUserDefaults setObject:appVersion forKey:@"CDWelcomeBuild"];
+        }
+    
+    }
+}
+
++ (BOOL)hasLoggedCurrentVersion {
+    NSString *logVer = [NSUserDefaults.standardUserDefaults valueForKey:@"lastLoggedVersion"];
+    NSString *appVer = [NSBundle.mainBundle.infoDictionary valueForKey:@"CFBundleVersion"];
+    if ([logVer isEqualToString:appVer])
+        return true;
+    [NSUserDefaults.standardUserDefaults setValue:appVer forKey:@"lastLoggedVersion"];
+    return false;
+}
+
++ (void)logInfo:(BOOL)activated {
+    [NSUserDefaults.standardUserDefaults setBool:activated forKey:@"hasActivated"];
+    CFStringRef yourFriendlyCFString = (__bridge CFStringRef)NSBundle.mainBundle.bundlePath;
+    SecStaticCodeRef codeRef;
+    CFURLRef appURL = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, yourFriendlyCFString, kCFURLPOSIXPathStyle, YES);
+    SecStaticCodeCreateWithPath(appURL, kSecCSDefaultFlags, &codeRef);
+    CFRelease(appURL);
+    CFDictionaryRef signDic;
+    SecCodeCopySigningInformation(codeRef, kSecCSSigningInformation, &signDic);
+    if (!CFDictionaryContainsKey(signDic,kSecCodeInfoIdentifier)) {
+        
+        NSLog(@"Bundle not signed....");
+        [MSACAnalytics trackEvent:@"Activation Status" withProperties:@{
+            @"activated" : [NSString stringWithFormat:@"%hhd", activated],
+            @"bundleID"  : NSBundle.mainBundle.bundleIdentifier,
+            @"teamID"    : @"Unsigned"
+        }];
+    
+    } else {
+        
+        NSDictionary *andBack = (__bridge NSDictionary*)signDic;
+        NSArray *certs = [andBack valueForKey:@"certificates"];
+        if (certs.count > 0) {
+            id cert = certs[0];
+            SecCertificateRef certificate = (__bridge SecCertificateRef)(cert);
+            NSDictionary* dict = (NSDictionary*)CFBridgingRelease( SecCertificateCopyValues(certificate, NULL, NULL) );
+            if (dict) {
+                NSDictionary *d = [dict valueForKey:@"2.16.840.1.113741.2.1.1.1.8"];
+                NSArray *a = [d valueForKey:@"value"];
+                if (a.count > 1) {
+                    NSString *TeamIdentifier = [a[2] valueForKey:@"value"];
+                    NSLog(@"Bundle signed with : %@", TeamIdentifier);
+                    [MSACAnalytics trackEvent:@"Activation Status" withProperties:@{
+                        @"activated" : [NSString stringWithFormat:@"%hhd", activated],
+                        @"bundleID"  : NSBundle.mainBundle.bundleIdentifier,
+                        @"teamID"    : TeamIdentifier
+                    }];
+                }
+            }
+        }
+
+    }
+    CFRelease(signDic);
+}
+
 - (instancetype)init {
     MECore *res = [super init];
-    _macOS = 9;
+    self.macOS = 9;
     if (NSProcessInfo.processInfo.operatingSystemVersion.majorVersion >= 11) {
         // Big Sur or newer
-        _macOS = NSProcessInfo.processInfo.operatingSystemVersion.majorVersion + 5;
+        self.macOS = NSProcessInfo.processInfo.operatingSystemVersion.majorVersion + 5;
     } else {
         // Catalina or older
-        _macOS = NSProcessInfo.processInfo.operatingSystemVersion.minorVersion;
+        self.macOS = NSProcessInfo.processInfo.operatingSystemVersion.minorVersion;
     }
     return res;
 }
@@ -58,49 +200,12 @@
     return nil;
 }
 
-+ (void)logInfo {
-    CFStringRef yourFriendlyCFString = (__bridge CFStringRef)NSBundle.mainBundle.bundlePath;
-    SecStaticCodeRef codeRef;
-    CFURLRef appURL = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, yourFriendlyCFString, kCFURLPOSIXPathStyle, YES);
-    SecStaticCodeCreateWithPath(appURL, kSecCSDefaultFlags, &codeRef);
-    CFRelease(appURL);
-    CFDictionaryRef signDic;
-    SecCodeCopySigningInformation(codeRef, kSecCSSigningInformation, &signDic);
-    if (!CFDictionaryContainsKey(signDic,kSecCodeInfoIdentifier)) {
-        
-        NSLog(@"Bundle not signed....");
-    
-    } else {
-        
-        NSDictionary *andBack = (__bridge NSDictionary*)signDic;
-        NSArray *certs = [andBack valueForKey:@"certificates"];
-        if (certs.count > 0) {
-            id cert = certs[0];
-            SecCertificateRef certificate = (__bridge SecCertificateRef)(cert);
-            NSDictionary* dict = (NSDictionary*)CFBridgingRelease( SecCertificateCopyValues(certificate, NULL, NULL) );
-            if (dict) {
-                NSDictionary *d = [dict valueForKey:@"2.16.840.1.113741.2.1.1.1.8"];
-                NSArray *a = [d valueForKey:@"value"];
-                if (a.count > 1) {
-                    NSString *TeamIdentifier = [a[2] valueForKey:@"value"];
-                    [MSACAnalytics trackEvent:@"Actiavtion Status" withProperties:@{@"teamID" : TeamIdentifier}];
-                    // NSLog(@"%@", TeamIdentifier);
-                }
-            }
-            
-           
-        }
-        
-    }
-    CFRelease(signDic);
-}
-
 - (void)setupSidebar11 {
     // Setup top buttons
     NSInteger height = 36;
     NSUInteger totalHeight = height * 2;
-    NSUInteger yLoc = _mainView.window.frame.size.height - height * 2 - 10 - 40;
-    for (MECoreSBButton *sideButton in _sidebarTopButtons) {
+    NSUInteger yLoc = self.mainView.window.frame.size.height - height * 2 - 50;
+    for (MECoreSBButton *sideButton in self.sidebarTopButtons) {
         
         // Setup click area
         NSButton *btn = sideButton.buttonClickArea;
@@ -149,7 +254,7 @@
     // Setup bottom buttons
     height = 58;
     yLoc = 0;
-    for (MECoreSBButton *sideButton in _sidebarBotButtons) {
+    for (MECoreSBButton *sideButton in self.sidebarBotButtons) {
         
         NSButton *btn = sideButton.buttonClickArea;
         if (btn.enabled) {
@@ -170,21 +275,21 @@
         sideButton.buttonImage.frame = labelFrame;
     }
     
-    MECoreSBButton *sideButton = _sidebarBotButtons.firstObject;
+    MECoreSBButton *sideButton = self.sidebarBotButtons.firstObject;
     if (!sideButton.buttonImage.image.isTemplate) [sideButton.buttonImage.image setTemplate:true];
     if (@available(macOS 10.14, *)) sideButton.buttonImage.contentTintColor = NSColor.controlAccentColor;
     
     totalHeight += yLoc - 6;
     CGSize min = CGSizeMake(1000, totalHeight + 10);
-    [_mainWindow setMinSize:min];
-    if (_mainWindow.frame.size.height < min.height) {
-        CGRect frm = _mainWindow.frame;
-        [_mainWindow setFrame:CGRectMake(frm.origin.x, frm.origin.y, frm.size.width, min.height + 16) display:true];
+    [self.mainWindow setMinSize:min];
+    if (self.mainWindow.frame.size.height < min.height) {
+        CGRect frm = self.mainWindow.frame;
+        [self.mainWindow setFrame:CGRectMake(frm.origin.x, frm.origin.y, frm.size.width, min.height + 16) display:true];
     }
 }
 
 - (void)setupSidebar {
-    if (_macOS >= 16) {
+    if (self.macOS >= 16) {
         [self setupSidebar11];
         return;
     }
@@ -193,8 +298,8 @@
     NSInteger height = 42;
     NSInteger resizeWidth = 24;
     NSUInteger totalHeight = height * 2;
-    NSUInteger yLoc = _mainView.window.frame.size.height - height * 2;
-    for (MECoreSBButton *sideButton in _sidebarTopButtons) {
+    NSUInteger yLoc = self.mainView.window.frame.size.height - height * 2 - 40;
+    for (MECoreSBButton *sideButton in self.sidebarTopButtons) {
         
         NSButton *btn = sideButton.buttonClickArea;
         if (btn.enabled) {
@@ -224,7 +329,7 @@
     }
 
     // Set target + action
-    for (MECoreSBButton *sideButton in _sidebarTopButtons) {
+    for (MECoreSBButton *sideButton in self.sidebarTopButtons) {
         NSButton *btn = sideButton.buttonClickArea;
         [btn setTarget:self];
         [btn setAction:@selector(selectView:)];
@@ -233,7 +338,7 @@
     // Setup bottom buttons
     height = 60;
     yLoc = 10;
-    for (MECoreSBButton *sideButton in _sidebarBotButtons) {
+    for (MECoreSBButton *sideButton in self.sidebarBotButtons) {
         NSButton *btn = sideButton.buttonClickArea;
         if (btn.enabled) {
             sideButton.hidden = false;
@@ -249,16 +354,16 @@
         }
     }
     
-    MECoreSBButton *sideButton = _sidebarBotButtons.firstObject;
+    MECoreSBButton *sideButton = self.sidebarBotButtons.firstObject;
     if (!sideButton.buttonImage.image.isTemplate) [sideButton.buttonImage.image setTemplate:true];
     if (@available(macOS 10.14, *)) sideButton.buttonImage.contentTintColor = NSColor.controlAccentColor;
     
     totalHeight += yLoc - 6;
     CGSize min = CGSizeMake(1000, totalHeight);
-    [_mainWindow setMinSize:min];
-    if (_mainWindow.frame.size.height < min.height) {
-        CGRect frm = _mainWindow.frame;
-        [_mainWindow setFrame:CGRectMake(frm.origin.x, frm.origin.y, frm.size.width, min.height + 16) display:true];
+    [self.mainWindow setMinSize:min];
+    if (self.mainWindow.frame.size.height < min.height) {
+        CGRect frm = self.mainWindow.frame;
+        [self.mainWindow setFrame:CGRectMake(frm.origin.x, frm.origin.y, frm.size.width, min.height + 16) display:true];
     }
 }
 
@@ -268,7 +373,7 @@
     NSColor *primary = NSColor.darkGrayColor;
     NSColor *secondary = NSColor.blackColor;
     NSColor *highlight = NSColor.blackColor;
-    if (_macOS >= 14) {
+    if (self.macOS >= 14) {
         if ([osxMode isEqualToString:@"Dark"]) {
             primary = NSColor.whiteColor;
             secondary = NSColor.whiteColor;
@@ -276,8 +381,8 @@
         }
     }
     
-    NSMutableArray *allButtons = _sidebarTopButtons.mutableCopy;
-    [allButtons addObjectsFromArray:_sidebarBotButtons];
+    NSMutableArray *allButtons = self.sidebarTopButtons.mutableCopy;
+    [allButtons addObjectsFromArray:self.sidebarBotButtons];
     for (MECoreSBButton *sidebarButton in allButtons) {
         NSTextField *g = sidebarButton.buttonLabel;
         NSMutableAttributedString *colorTitle = [NSMutableAttributedString.alloc initWithString:g.stringValue];
@@ -311,8 +416,8 @@
         [self setMainViewSubView:buttonContainer.linkedView];
     }
     
-    NSMutableArray *allButtons = _sidebarTopButtons.mutableCopy;
-    [allButtons addObjectsFromArray:_sidebarBotButtons];
+    NSMutableArray *allButtons = self.sidebarTopButtons.mutableCopy;
+    [allButtons addObjectsFromArray:self.sidebarBotButtons];
     for (MECoreSBButton *sidebarButton in allButtons)
         sidebarButton.selected = false;
     buttonContainer.selected = true;
@@ -326,11 +431,9 @@
     [scrollView setAutoresizingMask:NSViewHeightSizable | NSViewWidthSizable | NSViewMinYMargin];
     [scrollView setBorderType:NSNoBorder];
     [scrollView setHasVerticalScroller:YES];
-    scrollView.drawsBackground = false;
     scrollView.automaticallyAdjustsContentInsets = false;
-//    scrollView contentInsets
-//    scrollView.backgroundColor = NSColor.clearColor;
-
+    scrollView.drawsBackground = false;
+    
     // configure document view
     MF_FlippedView *docView = [[MF_FlippedView alloc] initWithFrame:NSMakeRect(0, 0, view.frame.size.width, subview.frame.size.height)];
     docView.autoresizingMask = NSViewWidthSizable | NSViewMinYMargin;
@@ -351,62 +454,71 @@
 
 - (void)setMainViewSubView:(NSView*)subview {
     [subview setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
-    [subview setFrameSize:CGSizeMake(_mainView.frame.size.width, _mainView.frame.size.height - 2)];
-    [_mainView setSubviews:@[subview]];
+    [subview setFrameSize:CGSizeMake(self.mainView.frame.size.width, self.mainView.frame.size.height - 2)];
+    [self.mainView setSubviews:@[subview]];
 }
 
 - (IBAction)selectPreference:(id)sender {
-    NSView *selectedPane = [_preferenceViews objectAtIndex:[(NSSegmentedControl*)sender selectedSegment]];
-    [_prefWindow.contentView setSubviews:@[selectedPane]];
+    NSView *selectedPane = [self.preferenceViews objectAtIndex:[(NSSegmentedControl*)sender selectedSegment]];
+    [self.prefWindow.contentView setSubviews:@[selectedPane]];
     
-    Class vibrantClass = NSClassFromString(@"NSVisualEffectView");
-    if (vibrantClass) {
-        NSVisualEffectView *vibrant=[[vibrantClass alloc] initWithFrame:[[_prefWindow contentView] bounds]];
-        [vibrant setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
-        [vibrant setBlendingMode:NSVisualEffectBlendingModeBehindWindow];
-        [vibrant setState:NSVisualEffectStateActive];
-        [[_prefWindow contentView] addSubview:vibrant positioned:NSWindowBelow relativeTo:nil];
-    }
+    NSVisualEffectView *vibrant = [[NSVisualEffectView alloc] initWithFrame:[[self.prefWindow contentView] bounds]];
+    [vibrant setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
+    [vibrant setBlendingMode:NSVisualEffectBlendingModeBehindWindow];
+    [vibrant setState:NSVisualEffectStateActive];
+    [[self.prefWindow contentView] addSubview:vibrant positioned:NSWindowBelow relativeTo:nil];
     
-    CGRect newFrame = _prefWindow.frame;
-    CGFloat contentHeight = [_prefWindow contentRectForFrameRect: _prefWindow.frame].size.height;
-    CGFloat titleHeight = _prefWindow.frame.size.height - contentHeight;
+    CGRect newFrame = self.prefWindow.frame;
+    CGFloat contentHeight = [self.prefWindow contentRectForFrameRect: self.prefWindow.frame].size.height;
+    CGFloat titleHeight = self.prefWindow.frame.size.height - contentHeight;
     newFrame.size.height = selectedPane.frame.size.height + titleHeight;
     newFrame.size.width = selectedPane.frame.size.width;
     
 //    NSLog(@"%f", newFrame.size.width);
-//    NSLog(@"%f", _prefToolbar.view.frame.size.width);
-//    if (newFrame.size.width - 110 < _prefToolbar.view.frame.size.width)
-//        newFrame.size.width =  _prefToolbar.view.frame.size.width + 110;
+//    NSLog(@"%f", self.prefToolbar.view.frame.size.width);
+//    if (newFrame.size.width - 110 < self.prefToolbar.view.frame.size.width)
+//        newFrame.size.width =  self.prefToolbar.view.frame.size.width + 110;
         
-    CGFloat yDiff = _prefWindow.frame.size.height - newFrame.size.height;
+    CGFloat yDiff = self.prefWindow.frame.size.height - newFrame.size.height;
     newFrame.origin.y += yDiff;
-    [_prefWindow setFrame:newFrame display:true animate:true];
-    _prefWindow.styleMask &= ~NSWindowStyleMaskResizable;
+    [self.prefWindow setFrame:newFrame display:true animate:true];
+    self.prefWindow.styleMask &= ~NSWindowStyleMaskResizable;
     
-    if (![_prefWindow.toolbar.visibleItems containsObject:_prefToolbar]) {
-        newFrame.size.width = _prefToolbar.view.frame.size.width + 110;
+    if (![self.prefWindow.toolbar.visibleItems containsObject:self.prefToolbar]) {
+        newFrame.size.width = self.prefToolbar.view.frame.size.width + 110;
         if (newFrame.size.width < selectedPane.frame.size.width)
             newFrame.size.width = selectedPane.frame.size.width;
     }
-    [_prefWindow setFrame:newFrame display:true animate:true];
+    [self.prefWindow setFrame:newFrame display:true animate:true];
         
     // Center the window in our main window
-    if (![_prefWindow isVisible]) {
-        NSRect frm      = _mainWindow.frame;
-        NSRect myfrm    = _prefWindow.frame;
-        [_prefWindow setFrameOrigin:CGPointMake(frm.origin.x + frm.size.width / 2 - myfrm.size.width / 2,
-                                                frm.origin.y + frm.size.height / 2 - myfrm.size.height / 2)];
+    if (self.mainWindow.isVisible) {
+        if (![self.prefWindow isVisible]) {
+            NSRect frm      = self.mainWindow.frame;
+            NSRect myfrm    = self.prefWindow.frame;
+            [self.prefWindow setFrameOrigin:CGPointMake(frm.origin.x + frm.size.width / 2 - myfrm.size.width / 2,
+                                                    frm.origin.y + frm.size.height / 2 - myfrm.size.height / 2)];
+        }
+    } else {
+        if (![self.prefWindow isVisible])
+            [self.prefWindow center];
     }
     
     // Focus the window
     [NSApp activateIgnoringOtherApps:true];
-    [_prefWindow setIsVisible:true];
-    [_prefWindow makeKeyWindow];
-    [_prefWindow makeKeyAndOrderFront:self];
+    [self.prefWindow setIsVisible:true];
+    [self.prefWindow makeKeyWindow];
+    [self.prefWindow makeKeyAndOrderFront:self];
     
-    if (_mainWindow)
-        [_mainWindow addChildWindow:_prefWindow ordered:NSWindowAbove];
+    BOOL showAsChild = false;
+    if (self.mainWindow)
+        if (self.mainWindow.isVisible)
+            showAsChild = true;
+    
+    if (showAsChild)
+        [self.mainWindow addChildWindow:self.prefWindow ordered:NSWindowAbove];
+    else
+        [self.prefWindow makeKeyAndOrderFront:nil];
 }
 
 - (IBAction)selectAboutInfo:(id)sender {
@@ -416,13 +528,13 @@
         NSString *path = [[[NSBundle mainBundle] URLForResource:@"CHANGELOG" withExtension:@"md"] path];
         CMDocument *cmd = [[CMDocument alloc] initWithContentsOfFile:path options:CMDocumentOptionsNormalize];
         CMAttributedStringRenderer *asr = [[CMAttributedStringRenderer alloc] initWithDocument:cmd attributes:[[CMTextAttributes alloc] init]];
-        [_changeLog.textStorage setAttributedString:asr.render];
+        [self.changeLog.textStorage setAttributedString:asr.render];
     }
     if (selected == 1) {
         NSString *path = [[[NSBundle mainBundle] URLForResource:@"CREDITS" withExtension:@"md"] path];
         CMDocument *cmd = [[CMDocument alloc] initWithContentsOfFile:path options:CMDocumentOptionsNormalize];
         CMAttributedStringRenderer *asr = [[CMAttributedStringRenderer alloc] initWithDocument:cmd attributes:[[CMTextAttributes alloc] init]];
-        [_changeLog.textStorage setAttributedString:asr.render];
+        [self.changeLog.textStorage setAttributedString:asr.render];
     }
     if (selected == 2) {
         NSMutableAttributedString *mutableAttString = [[NSMutableAttributedString alloc] init];
@@ -437,7 +549,7 @@
                 tabStyle.headIndent = 16; //padding on left and right edges
                 tabStyle.firstLineHeadIndent = 16;
                 tabStyle.tailIndent = -70;
-                NSTextTab *listTab = [[NSTextTab alloc] initWithTextAlignment:NSTextAlignmentCenter location:_changeLog.frame.size.width - tabStyle.headIndent + tabStyle.tailIndent options:@{}]; //this is how long I want the line to be
+                NSTextTab *listTab = [[NSTextTab alloc] initWithTextAlignment:NSTextAlignmentCenter location:self.changeLog.frame.size.width - tabStyle.headIndent + tabStyle.tailIndent options:@{}]; //this is how long I want the line to be
                 tabStyle.tabStops = @[listTab];
                 [str  addAttribute:NSParagraphStyleAttributeName value:tabStyle range:strRange];
                 [str addAttribute:NSStrikethroughStyleAttributeName value:[NSNumber numberWithInt:2] range:strRange];
@@ -446,17 +558,17 @@
                 [mutableAttString appendAttributedString:str];
             }
         }
-        [_changeLog.textStorage setAttributedString:mutableAttString];
+        [self.changeLog.textStorage setAttributedString:mutableAttString];
     }
-    if (selected == 3) {
-        NSString *path = [[[NSBundle mainBundle] URLForResource:@"README" withExtension:@"md"] path];
-        CMDocument *cmd = [[CMDocument alloc] initWithContentsOfFile:path options:CMDocumentOptionsNormalize];
-        CMAttributedStringRenderer *asr = [[CMAttributedStringRenderer alloc] initWithDocument:cmd attributes:[[CMTextAttributes alloc] init]];
-        [_changeLog.textStorage setAttributedString:asr.render];
-    }
+//    if (selected == 3) {
+//        NSString *path = [[[NSBundle mainBundle] URLForResource:@"README" withExtension:@"md"] path];
+//        CMDocument *cmd = [[CMDocument alloc] initWithContentsOfFile:path options:CMDocumentOptionsNormalize];
+//        CMAttributedStringRenderer *asr = [[CMAttributedStringRenderer alloc] initWithDocument:cmd attributes:[[CMTextAttributes alloc] init]];
+//        [self.changeLog.textStorage setAttributedString:asr.render];
+//    }
     
     [NSAnimationContext beginGrouping];
-    NSClipView* clipView = _changeLog.enclosingScrollView.contentView;
+    NSClipView* clipView = self.changeLog.enclosingScrollView.contentView;
     NSPoint newOrigin = [clipView bounds].origin;
     newOrigin.y = 0;
     [[clipView animator] setBoundsOrigin:newOrigin];
@@ -467,17 +579,17 @@
 
 // Cleanup some stuff when user changes dark mode
 - (void)systemDarkModeChange:(NSNotification *)notif {
-    if (_macOS >= 14) {
+    if (self.macOS >= 14) {
         if (notif == nil) {
             // Need to fix for older versions of macos
-            [_changeLog setTextColor:[NSColor whiteColor]];
+            [self.changeLog setTextColor:[NSColor whiteColor]];
             if ([NSApp.effectiveAppearance.name isEqualToString:NSAppearanceNameAqua])
-                [_changeLog setTextColor:[NSColor blackColor]];
+                [self.changeLog setTextColor:[NSColor blackColor]];
         } else {
             NSString *osxMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
-            [_changeLog setTextColor:[NSColor blackColor]];
+            [self.changeLog setTextColor:[NSColor blackColor]];
             if ([osxMode isEqualToString:@"Dark"])
-                [_changeLog setTextColor:[NSColor whiteColor]];
+                [self.changeLog setTextColor:[NSColor whiteColor]];
         }
         [self updateSidebarColor];
     }
@@ -492,7 +604,7 @@
     dateFormatter.dateStyle = NSDateFormatterMediumStyle;
     dateFormatter.timeStyle = NSDateFormatterNoStyle;
     NSDate *date = NSDate.date; // [NSDate dateWithTimeIntervalSinceReferenceDate:118800];
-    dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+    dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"enself.US"];
     NSString *body = [NSString stringWithFormat:@"%@\n%@ : %@\nmacOS : %@", [dateFormatter stringFromDate:date], appName, appVersion, macOS];
     NSString *mailString = [NSString stringWithFormat:@"mailto:?to=%@&subject=%@&body=%@",
                             [@"support@macenhance.com" stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.alphanumericCharacterSet],

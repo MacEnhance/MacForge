@@ -1,6 +1,6 @@
 //
 //  MECore.h
-//  MECore
+//  Dark Boot
 //
 //  Created by Wolfgang Baird on 5/8/20.
 //
@@ -8,6 +8,8 @@
 @import AppKit;
 @import CocoaMarkdown;
 @import AppCenterAnalytics;
+
+void SafeRelease(CFTypeRef cf);
 
 @interface MF_FlippedView : NSView
 @end
@@ -36,8 +38,13 @@
 @property IBOutlet NSWindow         *prefWindow;
 @property IBOutlet NSTextView       *changeLog;
 
-+ (MECore*)sharedInstance;
-+ (void)logInfo;
++ (MECore*)sharedInstance;                      // Share
++ (NSUInteger)macOS;                            // macOS major version as integer counting anything beyond 10.X as major + 5
++ (NSColor*)blackOrWhite;                       // Black when system is light, white when system is dark
++ (void)whatsNew;                               // Show what's new popup if not yet shown for current version
++ (BOOL)hasLoggedCurrentVersion;
++ (void)logInfo:(BOOL)activated;                // Log some basic info
++ (void)rediecrLogToFolder:(NSString*)folder;   // Direct all logging to ~/Library/ApplicationSupport/(folder)/(executablename).log
 - (void)setupSidebar;
 - (IBAction)selectView:(id)sender;
 - (IBAction)selectPreference:(id)sender;

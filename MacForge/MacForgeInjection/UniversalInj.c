@@ -31,29 +31,54 @@
 
 kern_return_t (*_thread_convert_thread_state)(thread_act_t thread, int direction, thread_state_flavor_t flavor, thread_state_t in_state, mach_msg_type_number_t in_stateCnt, thread_state_t out_state, mach_msg_type_number_t *out_stateCnt);
 
-#define STACK_SIZE 65536
+#define STACK_SIZE 0x8000//65536
 #define CODE_SIZE 512
 
 char shellCode[] =
 #if defined(__x86_64__)
 
-"\x55"                            // push       rbp
-"\x48\x89\xE5"                    // mov        rbp, rsp
-"\x48\x83\xEC\x10"                // sub        rsp, 0x10
-"\x48\x8D\x7D\xF8"                // lea        rdi, qword [rbp+var_8]
-"\x31\xC0"                        // xor        eax, eax
-"\x89\xC1"                        // mov        ecx, eax
-"\x48\x8D\x15\x21\x00\x00\x00"    // lea        rdx, qword ptr [rip + 0x21]
-"\x48\x89\xCE"                    // mov        rsi, rcx
-"\x48\xB8"                        // movabs     rax, pthread_create_from_mach_thread
+//"\x55"                            // push       rbp
+//"\x48\x89\xE5"                    // mov        rbp, rsp
+//"\x48\x83\xEC\x10"                // sub        rsp, 0x10
+//"\x48\x8D\x7D\xF8"                // lea        rdi, qword [rbp+var_8]
+//"\x31\xC0"                        // xor        eax, eax
+//"\x89\xC1"                        // mov        ecx, eax
+//"\x48\x8D\x15\x21\x00\x00\x00"    // lea        rdx, qword ptr [rip + 0x21]
+//"\x48\x89\xCE"                    // mov        rsi, rcx
+//"\x48\xB8"                        // movabs     rax, pthread_create_from_mach_thread
+//"PTHRDCRT"
+//"\xFF\xD0"                        // call       rax
+//"\x89\x45\xF4"                    // mov        dword [rbp+var_C], eax
+//"\x48\x83\xC4\x10"                // add        rsp, 0x10
+//"\x5D"                            // pop        rbp
+//"\x48\xc7\xc0\x13\x0d\x00\x00"    // mov        rax, 0xD13
+//"\xEB\xFE"                        // jmp        0x0
+//"\xC3"                            // ret
+
+"\x55"
+"\x48\x89\xe5"
+"\x48\x83\xec\x10"
+"\x48\xb8"
+"PTHRDSS_"
+"\xff\xd0"
+"\x48\x8d\x7d\xf8"
+"\x31\xc0"
+"\x89\xc1"
+"\x48\x8d\x15\x30\x00\x00\x00"
+"\x48\x89\xce"
+"\x48\xb8"
 "PTHRDCRT"
-"\xFF\xD0"                        // call       rax
-"\x89\x45\xF4"                    // mov        dword [rbp+var_C], eax
-"\x48\x83\xC4\x10"                // add        rsp, 0x10
-"\x5D"                            // pop        rbp
-"\x48\xc7\xc0\x13\x0d\x00\x00"    // mov        rax, 0xD13
-"\xEB\xFE"                        // jmp        0x0
-"\xC3"                            // ret
+"\xff\xd0"
+"\x48\xb8"
+"THRDSELF"
+"\xff\xd0"
+"\x48\x89\xc7"
+"\x48\xb8"
+"THRDTERM"
+"\xff\xd0"
+"\x48\x83\xc4\x10"
+"\x5d"
+"\xc3"
 
 "\x55"                            // push       rbp
 "\x48\x89\xE5"                    // mov        rbp, rsp
@@ -77,25 +102,34 @@ char shellCode[] =
 "\xFF\xC3\x00\xD1"                // sub        sp, sp, #0x30
 "\xFD\x7B\x02\xA9"                // stp        x29, x30, [sp, #0x20]
 "\xFD\x83\x00\x91"                // add        x29, sp, #0x20
+"\x09\x03\x00\x10"                // adr        x9, #0x60           ; pointer to pthread_set_self
+"\x29\x01\x40\xF9"                // ldr        x9, [x9]            ; dereference for value
+"\x20\x01\x3F\xD6"                // blr        x9                  ; call pthread_set_self
 "\xA0\xC3\x1F\xB8"                // stur       w0, [x29, #-0x4]
 "\xE1\x0B\x00\xF9"                // str        x1, [sp, #0x10]
 "\xE0\x23\x00\x91"                // add        x0, sp, #0x8        ; stack pointer for arg0
 "\x08\x00\x80\xD2"                // mov        x8, #0
 "\xE8\x07\x00\xF9"                // str        x8, [sp, #0x8]
 "\xE1\x03\x08\xAA"                // mov        x1, x8              ; NULL for arg1
-"\xC2\x01\x00\x10"                // adr        x2, #0x38           ; function pointer for arg2
+"\xe2\x02\x00\x10"                // adr        x2, #0x5C           ; function pointer for arg2
 "\xE2\x23\xC1\xDA"                // paciza     x2
 "\xE3\x03\x08\xAA"                // mov        x3, x8              ; NULL for arg3
-"\x29\x01\x00\x10"                // adr        x9, #0x24           ; pointer to pthrdcrt
+"\xc9\x01\x00\x10"                // adr        x9, #0x38           ; pointer to pthrdcrt
 "\x29\x01\x40\xF9"                // ldr        x9, [x9]            ; dereference for value
 "\x20\x01\x3F\xD6"                // blr        x9                  ; call pthrdcrt
-"\x60\xA2\x81\xD2"                // movz       x0, #0xD13
-"\x09\x00\x00\x10"                // adr        x9, #0              ; while loop
-"\x20\x01\x1F\xD6"                // br         x9                  ; waiting to be killed
+"\xa9\x01\x00\x10"                // adr        x9, #0x34           ; pointer to thread_self
+"\x29\x01\x40\xF9"                // ldr        x9, [x9]            ; dereference for value
+"\x20\x01\x3F\xD6"                // blr        x9                  ; call thread_self
+"\x89\x01\x00\x10"                // adr        x9, #0x30           ; pointer to thread_terminate
+"\x29\x01\x40\xF9"                // ldr        x9, [x9]            ; dereference for value
+"\x20\x01\x3F\xD6"                // blr        x9                  ; call thread_terminate
 "\xFD\x7B\x42\xA9"                // ldp        x29, x30, [sp, #0x20]
 "\xFF\xC3\x00\x91"                // add        sp, sp, #0x30
 "\xC0\x03\x5F\xD6"                // ret
+"PTHRDSS_"
 "PTHRDCRT"
+"THRDSELF"
+"THRDTERM"
 
 "\x7F\x23\x03\xD5"                // pacibsp
 "\xFF\xC3\x00\xD1"                // sub        sp, sp, #0x30
@@ -136,6 +170,7 @@ static kern_return_t inject_task(task_t remoteTask, const char *lib) {
     
     mach_vm_address_t remoteStack64 = (vm_address_t)NULL;
     mach_vm_address_t remoteCode64 = (vm_address_t)NULL;
+    
     kr = mach_vm_allocate(remoteTask, &remoteStack64, STACK_SIZE, VM_FLAGS_ANYWHERE);
     if (kr != KERN_SUCCESS) {
         return kr;
@@ -143,7 +178,7 @@ static kern_return_t inject_task(task_t remoteTask, const char *lib) {
     
     //Allocate thread memory
     remoteCode64 = (vm_address_t)NULL;
-    kr = mach_vm_allocate(remoteTask, &remoteCode64, 4096/*sizeof(shellCode)*/, VM_FLAGS_ANYWHERE);
+    kr = mach_vm_allocate(remoteTask, &remoteCode64, sizeof(shellCode), VM_FLAGS_ANYWHERE);
     if (kr != KERN_SUCCESS) {
         return kr;
     }
@@ -159,8 +194,8 @@ static kern_return_t inject_task(task_t remoteTask, const char *lib) {
     if (kr != KERN_SUCCESS) {
         return kr;
     }
-    
-    kr = vm_protect(remoteTask, remoteCode64, 4096/*sizeof(shellCode)*/, FALSE, VM_PROT_READ | VM_PROT_EXECUTE);
+
+    kr = vm_protect(remoteTask, remoteCode64, sizeof(shellCode), FALSE, VM_PROT_READ | VM_PROT_EXECUTE);
     kr = vm_protect(remoteTask, remoteStack64, STACK_SIZE, TRUE, VM_PROT_READ | VM_PROT_WRITE);
     if (kr != KERN_SUCCESS) {
         return kr;
@@ -186,17 +221,19 @@ static kern_return_t inject_task(task_t remoteTask, const char *lib) {
     remoteStack64 += (STACK_SIZE / 2);
     
 #if defined(__x86_64__)
+    threadState.__rdi = (uint64_t)(remoteStack64);
     threadState.__rip = (uint64_t)(vm_address_t) remoteCode64;
-    threadState.__rsp = (uint64_t)remoteStack64;
-    threadState.__rbp = (uint64_t)remoteStack64;
+    threadState.__rsp = (uint64_t)((remoteStack64 + (STACK_SIZE/2)) - 8);
 #elif defined(__arm64__)
     threadState.ash.flavor = ARM_THREAD_STATE64;
     threadState.ash.count = ARM_THREAD_STATE64_COUNT;
     
+    threadState.ts_64.__x[0] = (uint64_t)(remoteStack64);
     __darwin_arm_thread_state64_set_pc_fptr(threadState.ts_64,
                                             ptrauth_sign_unauthenticated(ADDR_TO_PTR(remoteCode64), ptrauth_key_asia, 0));
 
-    __darwin_arm_thread_state64_set_sp(threadState.ts_64, (unsigned long)remoteStack64);
+    __darwin_arm_thread_state64_set_sp(threadState.ts_64, (unsigned long)
+                                       ((remoteStack64 + (STACK_SIZE/2))));
 #endif
 
     kr = thread_create(remoteTask, &remoteThread);
@@ -226,40 +263,8 @@ static kern_return_t inject_task(task_t remoteTask, const char *lib) {
         fprintf(stderr, "Could not start thread: error %s\n", mach_error_string(kr));
         return kr;
     }
-    
-//    for (;;) {
-    for (int i = 0; i < 5; i++) {
 
-        kr = thread_get_state(remoteThread, flavor, (thread_state_t)&threadState, &machineStateCnt);
-        if (kr != KERN_SUCCESS) {
-            fprintf(stderr, "Error getting stub thread state: error %s\n", mach_error_string(kr));
-            break;
-        }
-
-        uint64_t returnReg;
-#if defined(__x86_64__)
-        returnReg = threadState.__rax;
-#else
-        returnReg = threadState.ts_64.__x[0];
-#endif
-        if(returnReg == 0xD13) {
-            printf("Stub thread finished\n");
-            kr = thread_terminate(remoteThread);
-            if (kr != KERN_SUCCESS) {
-                fprintf(stderr, "Error terminating stub thread: error %s\n", mach_error_string(kr));
-            }
-            break;
-        }
-
-        usleep( 20000 );
-    }
-    
-    usleep( 20000 );
-    kr = thread_terminate(remoteThread);
-    if (kr != KERN_SUCCESS) {
-      fprintf(stderr, "Error terminating stub thread: error %s\n", mach_error_string(kr));
-    }
-
+    mach_port_deallocate(mach_task_self(), remoteThread);
     return kr;
 }
 
@@ -273,7 +278,6 @@ void inject_sync(pid_t pid, const char *lib) {
     if(kr != KERN_SUCCESS) {
         fprintf(stderr, "Could not perform injection for %d\n", pid);
     }
-//    mach_port_destroy(mach_task_self(), task);
     mach_port_deallocate(mach_task_self(), task);
 }
     
@@ -285,10 +289,16 @@ void inject(pid_t pid, const char *lib) {
 
 static void symbolicate_shellcode() {
     uint64_t addrOfPthreadCreate = (uint64_t)dlsym(RTLD_DEFAULT, "pthread_create_from_mach_thread");
-    uint64_t addrOfDlopen = (uint64_t) dlopen;
+    uint64_t addrOfPthreadSetSelf = (uint64_t)dlsym(RTLD_DEFAULT, "_pthread_set_self"); //(uint64_t) _pthread_set_self;
+    uint64_t addrOfThreadSelf = (uint64_t)mach_thread_self;
+    uint64_t addrOfThreadTerminate = (uint64_t)thread_terminate;
+    uint64_t addrOfDlopen = (uint64_t)dlopen;
     
 #if defined(__arm64__)
     addrOfPthreadCreate = (uint64_t)ptrauth_strip(ADDR_TO_PTR(addrOfPthreadCreate), ptrauth_key_function_pointer);
+    addrOfPthreadSetSelf = (uint64_t)ptrauth_strip(ADDR_TO_PTR(addrOfPthreadSetSelf), ptrauth_key_function_pointer);
+    addrOfThreadSelf = (uint64_t)ptrauth_strip(ADDR_TO_PTR(addrOfThreadSelf), ptrauth_key_function_pointer);
+    addrOfThreadTerminate = (uint64_t)ptrauth_strip(ADDR_TO_PTR(addrOfThreadTerminate), ptrauth_key_function_pointer);
     addrOfDlopen = (uint64_t)ptrauth_strip(ADDR_TO_PTR(addrOfDlopen), ptrauth_key_function_pointer);
 #endif
     
@@ -298,6 +308,18 @@ static void symbolicate_shellcode() {
         
         if (memcmp (possiblePatchLocation, "PTHRDCRT", 8) == 0) {
             memcpy(possiblePatchLocation, &addrOfPthreadCreate, sizeof(uint64_t));
+        }
+        
+        if (memcmp (possiblePatchLocation, "PTHRDSS_", 8) == 0) {
+            memcpy(possiblePatchLocation, &addrOfPthreadSetSelf, sizeof(uint64_t));
+        }
+        
+        if (memcmp (possiblePatchLocation, "THRDSELF", 8) == 0) {
+            memcpy(possiblePatchLocation, &addrOfThreadSelf, sizeof(uint64_t));
+        }
+        
+        if (memcmp (possiblePatchLocation, "THRDTERM", 8) == 0) {
+            memcpy(possiblePatchLocation, &addrOfThreadTerminate, sizeof(uint64_t));
         }
         
         if (memcmp(possiblePatchLocation, "DLOPEN__", 6) == 0) {

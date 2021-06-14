@@ -35,6 +35,7 @@
 @property Boolean       webFeatured;            // Plugin is featured
 @property Boolean       webPaid;                // Plugin is paid
 @property Boolean       webARM;                 // Plugin supports arm64/arm64e
+@property Boolean       webSupportsPrefs;       // Plugin has preferences view
 
 // Paddle
 @property NSString      *paddleEmail;

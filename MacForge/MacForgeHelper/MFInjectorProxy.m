@@ -27,8 +27,8 @@
 
 - (void)injectBundle:(NSString *)bundle inProcess:(pid_t)pid withReply:(void (^)(mach_error_t))reply {
     if (self.proxyConnection) {
-        NSString *appName = [NSRunningApplication runningApplicationWithProcessIdentifier:pid].localizedName;
-        NSString *appID = [NSRunningApplication runningApplicationWithProcessIdentifier:pid].bundleIdentifier;
+        // NSString *appName = [NSRunningApplication runningApplicationWithProcessIdentifier:pid].localizedName;
+        // NSString *appID = [NSRunningApplication runningApplicationWithProcessIdentifier:pid].bundleIdentifier;
         // NSLog(@"Injecting %@ (%@) (%@) with %@", appName, appID, [NSNumber numberWithInt:pid], bundle);
         [self.proxyConnection.remoteObjectProxy injectBundle:bundle.fileSystemRepresentation inProcess:pid withReply:^(mach_error_t error) {
             // NSLog(@"Finished  %@ (%@) (%@) with %@", appName, appID, [NSNumber numberWithInt:pid], bundle);

@@ -7,6 +7,7 @@
 //
 
 #import "MF_featuredItem.h"
+#import "MF_Paddle.h"
 
 extern AppDelegate *myDelegate;
 
@@ -91,6 +92,15 @@ extern AppDelegate *myDelegate;
         [_bundlePreview sd_setImageWithURL:[NSURL URLWithString:banpath] placeholderImage:nil];
     } else {
         _bundlePreview.image = nil;
+    }
+    
+    if (plugin.webPaid) {
+        if (plugin.paddleProduct) {
+            NSLog(@"%@ : %hd", plugin.webName, plugin.paddleProduct.activated);
+        } else {
+            plugin.paddleProduct = [MF_Paddle productWithPlugin:plugin];
+            NSLog(@"%@ : %hd", plugin.webName, plugin.paddleProduct.activated);
+        }
     }
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

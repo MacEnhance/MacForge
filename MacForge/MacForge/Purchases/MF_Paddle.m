@@ -80,12 +80,12 @@ extern AppDelegate* myDelegate;
 }
 
 + (PADProduct*)productWithPlugin:(MF_Plugin*)plugin {
-    NSString *myPaddleVendorID = @"26643";
-    NSString *myPaddleAPIKey = @"02a3c57238af53b3c465ef895729c765";
+    NSString *myPaddleVendorID  = @"26643";
+    NSString *myPaddleAPIKey    = @"02a3c57238af53b3c465ef895729c765";
     NSString *myPaddleProductID = [plugin.webPlist valueForKey:@"productID"];
 
     NSDictionary *dict = [plugin.webPlist objectForKey:@"paddle"];
-    if (dict != nil) {
+    if (dict) {
         myPaddleVendorID = [dict objectForKey:@"vendorid"];
         myPaddleAPIKey = [dict objectForKey:@"apikey"];
     }
@@ -102,8 +102,8 @@ extern AppDelegate* myDelegate;
                              configuration:defaultProductConfig
                                   delegate:MF_Paddle.sharedInstance];
     } else {
-        Paddle.sharedInstance.vendorID = myPaddleVendorID;
-        Paddle.sharedInstance.apiKey = myPaddleAPIKey;
+        Paddle.sharedInstance.vendorID  = myPaddleVendorID;
+        Paddle.sharedInstance.apiKey    = myPaddleAPIKey;
         Paddle.sharedInstance.productID = myPaddleProductID;
     }
 
@@ -112,7 +112,7 @@ extern AppDelegate* myDelegate;
     PADProduct *paddleProduct = [[PADProduct alloc] initWithProductID:myPaddleProductID productType:PADProductTypeSDKProduct configuration:defaultProductConfig];
     
     // Required for Catlina
-    if (MECore.sharedInstance.macOS >= 15)
+    if (MECore.macOS >= 15)
         [paddleProduct verifyActivationWithCompletion:^(PADVerificationState state, NSError * _Nullable error) { }];
     
 //    NSLog(@"%@ : %@ : %@", Paddle.sharedInstance.apiKey, Paddle.sharedInstance.vendorID, Paddle.sharedInstance.productID);

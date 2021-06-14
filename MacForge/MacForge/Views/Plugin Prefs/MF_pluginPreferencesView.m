@@ -81,7 +81,7 @@
 
 - (BOOL)tableView:(NSTableView *)aTableView acceptDrop:(id <NSDraggingInfo>)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)operation {
     NSPasteboard *pboard = [info draggingPasteboard];
-    if ([[pboard types] containsObject:NSURLPboardType]) {
+    if ([[pboard types] containsObject:NSPasteboardTypeURL]) {
         NSArray* urls = [pboard readObjectsForClasses:@[[NSURL class]] options:nil];
         NSMutableArray* sorted = [[NSMutableArray alloc] init];
         for (NSURL* url in urls) {

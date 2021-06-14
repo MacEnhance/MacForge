@@ -95,7 +95,7 @@ Boolean appSetupFinished = false;
 - (instancetype)init {
     myDelegate = self;
     appStart = [NSDate date];
-    osx_ver = MECore.sharedInstance.macOS;
+    osx_ver = MECore.macOS;
     return self;
 }
 
@@ -177,13 +177,13 @@ Boolean appSetupFinished = false;
 
 - (void)showLink:(MF_Plugin*)p {
     if (p) {
-            showBundleOnOpen = true;
-            [_sidebarController selectView:_sidebarFeatured];
-            MF_repoData.sharedInstance.currentPlugin = p;
-            NSView *v = myDelegate.sourcesBundle;
-            dispatch_async(dispatch_get_main_queue(), ^(void){
-                [MECore.sharedInstance setViewSubViewWithScrollableView:self.tabMain :v];
-            });
+        showBundleOnOpen = true;
+        [_sidebarController selectView:_sidebarFeatured];
+        MF_repoData.sharedInstance.currentPlugin = p;
+        NSView *v = myDelegate.sourcesBundle;
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            [MECore.sharedInstance setViewSubViewWithScrollableView:self.tabMain :v];
+        });
     } else {
         showBundleOnOpen = false;
     }
@@ -244,16 +244,7 @@ Boolean appSetupFinished = false;
 //    [MSCrashes generateTestCrash];
 
     [self whatsNew];
-    
-    // Testing
-//    NSMutableDictionary *m = [NSMutableDictionary.alloc initWithContentsOfFile:@"/Users/w0lf/Documents/GitHub/wb_macplugins/packages_v2.plist"];
-//    [m addEntriesFromDictionary:[NSMutableDictionary.alloc initWithContentsOfFile:@"/Users/w0lf/Documents/GitHub/wb_myRepo/mytweaks/packages_v2.plist"]];
-//    [m addEntriesFromDictionary:[NSMutableDictionary.alloc initWithContentsOfFile:@"/Users/w0lf/Documents/GitHub/wb_myRepo/myPaidRepo/packages_v2.plist"]];
-//    NSDictionary *p = [[NSDictionary alloc] initWithContentsOfFile:@"/Users/w0lf/Documents/GitHub/MacForgeRepo/repo/packages.plist"];
-//    NSMutableArray *l = m.allKeys.mutableCopy;
-//    [l removeObjectsInArray:p.allKeys];
-//    NSLog(@"%@", l);
-    
+        
     [[NSDistributedNotificationCenter defaultCenter] addObserverForName:@"com.macenhance.MacForgeNotify"
                                                                  object:nil
                                                                   queue:nil
@@ -410,7 +401,7 @@ Boolean appSetupFinished = false;
     
     // Setup plugin table
     //[_tblView registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
-    [_blackListTable registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
+    [_blackListTable registerForDraggedTypes:[NSArray arrayWithObject:NSPasteboardTypeFileURL]];
 
     [self setupEventListener];
     [self executionTime:@"setupSystemView"];
@@ -503,11 +494,7 @@ Boolean appSetupFinished = false;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         // Path to MacForgeHelper
         NSString *path = [NSString stringWithFormat:@"%@/Contents/Library/LoginItems/MacForgeHelper.app", [[NSBundle mainBundle] bundlePath]];
-
-        // Launch helper if it's not open
-        //    if ([NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.macenhance.MacForgeHelper"].count == 0)
-        //        [[NSWorkspace sharedWorkspace] launchApplication:path];
-
+        
         // Always relaunch in developement
         for (NSRunningApplication *run in [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.macenhance.MacForgeHelper"])
             [run terminate];
@@ -607,10 +594,9 @@ Boolean appSetupFinished = false;
     _SIP_lv.image = [self onOff:![SIPKit LIBRARYVALIDATION_isEnabled]];
     
     // arm and abi off = green
-    if (sizeof(int *) == 8) {
+    if ([SIPKit isARM]) {
         _SIP_abi.image = [self onOff:![SIPKit ABI_isEnabled]];
     } else {
-        // or x86 = green
         _SIP_abi.image = [NSImage imageNamed:NSImageNameStatusAvailable];
     }
     

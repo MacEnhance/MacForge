@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "MF_featuredItemController.h"
 #import "MF_featuredCollection.h"
 #import "MF_featuredItem.h"
 

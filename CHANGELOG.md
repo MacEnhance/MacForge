@@ -1,16 +1,22 @@
-### 1.2.0
+### 1.2.0 Beta 1
 
 - M1 (Apple Silicon) support **
-- Updates System tab
+- New code injection [@jslegendre](https://github.com/jslegendre)
+- Updated System tab
+- Updated Manage Plugins tab
+- Updated Bundle view
+- `OPEN` changed to `SHOW`
 - Removed option to toggle plugins to user folder
-- Core plugins are now stored in /Library/Application Support/MacEnhance/CorePlugins
+- Core plugins are now stored in `/Library/Application Support/MacEnhance/CorePlugins`
 - Core plugins are not shown in the manage tab
 - Switch to using collection views instead of tables where applicable
 - Button colors change with system color
 - Display changelog when opening app after updates
 - Altered SIP information shown to user
-- Automate booting to recovery mode
-- Automate disabling abi on arm machines
+- Automated booting to recovery mode
+- Automated disabling abi on arm machines
+- Shorter links generated when clicking share button
+- Fix description text being too short for items using a markdown file
 - Bug fixes
 
 ** Every individual plugin will require an update to support arm64/arm64e

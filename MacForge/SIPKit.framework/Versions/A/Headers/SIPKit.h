@@ -76,6 +76,8 @@ FOUNDATION_EXPORT const unsigned char SIPKitVersionString[];
 /// Set Library Validation 1 = success, 0 = fail
 + (Boolean)LIBRARYVALIDATION_setEnabled:(BOOL)state;
 
+/// Check if CPU is ARM64
++ (BOOL)isARM;
 /// Check if ABI is enabled -- 1 = enabled, 0 = disabled
 + (Boolean)ABI_isEnabled;
 /// Set ABI 1 = success, 0 = fail

@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)sharedInstance;
 + (void)validadePlugin:(MF_Plugin*)plugin withButton:(NSButton*)theButton;
 + (void)purchasePlugin:(MF_Plugin*)plugin withButton:(NSButton*)theButton andProgress:(NSProgressIndicator*)progress;
++ (PADProduct*)productWithPlugin:(MF_Plugin*)plugin;
 @end
 
 NS_ASSUME_NONNULL_END

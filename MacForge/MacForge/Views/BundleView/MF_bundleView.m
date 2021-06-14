@@ -144,10 +144,17 @@ NSDictionary *testing;
     
     if (![_currentBundle isEqualToString:newString]) {
         _currentBundle = newString;
-        
+                
         newString = [NSString stringWithFormat:@"%@", [item objectForKey:@"description"]];
         [self.bundleDesc setAttributedStringValue:[[NSMutableAttributedString alloc] initWithString:newString]];
         [self.bundleDesc setAllowsEditingTextAttributes:false];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.bundleDescFull.textStorage setAttributedString:self.bundleDesc.attributedStringValue];
+            [self.bundleDescFull.layoutManager ensureLayoutForTextContainer:self.bundleDescFull.textContainer];
+            self.bundleDescFull.frame = [self.bundleDescFull.layoutManager usedRectForTextContainer:self.bundleDescFull.textContainer];
+            [self resizeME];
+        });
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             if (self->item[@"markdown"]) {
@@ -157,70 +164,21 @@ NSDictionary *testing;
                     CMDocument *cmd = [CMDocument.alloc initWithData:fetch options:CMDocumentOptionsNormalize];
                     CMAttributedStringRenderer *asr = [[CMAttributedStringRenderer alloc] initWithDocument:cmd attributes:[[CMTextAttributes alloc] init]];
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [self.bundleDesc setAttributedStringValue:asr.render];
+//                        [self.bundleDesc setAttributedStringValue:asr.render];
+//                        [self.bundleDesc setAllowsEditingTextAttributes:true];
+//                        [self resizeME];
+                        
+                        [self.bundleDescFull.textStorage setAttributedString:asr.render];
+                        [self.bundleDescFull.layoutManager ensureLayoutForTextContainer:self.bundleDescFull.textContainer];
+                        self.bundleDescFull.frame = [self.bundleDescFull.layoutManager usedRectForTextContainer:self.bundleDescFull.textContainer];
+                        [self.bundleDesc setAttributedStringValue:self.bundleDescFull.textStorage];
                         [self.bundleDesc setAllowsEditingTextAttributes:true];
+                        
                         [self resizeME];
                     });
                 }
             }
         });
-        
-//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//            if (self->item[@"markdown"]) {
-////                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/documents/%@/readme.md", self.plugin.webRepository, self.plugin.bundleID]];
-//                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/documents/%@/readme.html", self.plugin.webRepository, self.plugin.bundleID]];
-//                NSData *fetch = [[NSData alloc] initWithContentsOfURL:url];
-//                if (fetch.length) {
-////                    CMDocument *cmd = [CMDocument.alloc initWithData:fetch options:CMDocumentOptionsNormalize];
-////                    CMAttributedStringRenderer *asr = [[CMAttributedStringRenderer alloc] initWithDocument:cmd attributes:[[CMTextAttributes alloc] init]];
-//                    dispatch_async(dispatch_get_main_queue(), ^{
-////                        NSURLRequest *r = [NSURLRequest.alloc initWithURL:url];
-////                        [self.bundleWebView loadRequest:r];
-//                        [self.bundleWebView setValue: @NO forKey: @"drawsBackground"];
-//                                                
-//                        NSString *myString = [[NSString alloc] initWithData:fetch encoding:NSUTF8StringEncoding];
-//                        NSString *myFontColorHex = @"ffffff";
-//                        NSString *myHTMLText = [NSString stringWithFormat:@"<html>"
-//                                                "<head><style type='text/css'>"
-//                                                ".main_text {"
-//                                                "   display: block;"
-//                                                "   font-family:[fontName];"
-//                                                "   text-decoration:none;"
-//                                                "   font-size:[fontSize]px;"
-//                                                "   color:[fontColor];"
-//                                                "   line-height: [fontSize]px;"
-//                                                "   font-weight:normal;"
-//                                                "   text-align:[textAlign];"
-//                                                "}"
-//                                                "</style></head>"
-//                                                "<body> <SPAN class='main_text'>%@</SPAN></body></html>", myString];
-//
-////                        myHTMLText = [myHTMLText stringByReplacingOccurrencesOfString: @"[text]" withString: myText];
-////                        myHTMLText = [myHTMLText stringByReplacingOccurrencesOfString: @"[fontName]" withString: myFontName];
-////                        myHTMLText = [myHTMLText stringByReplacingOccurrencesOfString: @"[fontSize]" withString: myFontSize];
-//                        myHTMLText = [myHTMLText stringByReplacingOccurrencesOfString: @"[fontColor]" withString: myFontColorHex];
-////                        myHTMLText = [myHTMLText stringByReplacingOccurrencesOfString: @"[textAlign]" withString: myFontAlign];
-//
-////                        NSLog(@"*** renderHTMLText --> myHTMLText: %@",myHTMLText);
-//
-//                        [self.bundleWebView loadHTMLString:myHTMLText baseURL:nil];
-//                        [self.bundleWebView evaluateJavaScript:@"document.documentElement.scrollHeight"
-//                                             completionHandler:^(id test, NSError * _Nullable error) {
-//                            CGSize frm = self.bundleWebView.enclosingScrollView.frame.size;
-//                            frm.height = [test floatValue];
-//                            [self.bundleWebView.enclosingScrollView setFrameSize:frm];
-//                        }];
-//                        
-////                        [self.bundleWebView.enclosingScrollView setDrawsBackground:NO];
-////                        [self.bundleWebView loadHTMLString:cmd.HTMLString baseURL:nil];
-////                        [self.bundleDesc setAttributedStringValue:asr.render];
-////                        [self.bundleDesc setAllowsEditingTextAttributes:true];
-////                        self.bundleDesc.hidden = true;
-//                        [self resizeME];
-//                    });
-//                }
-//            }
-//        });
         
         [self systemDarkModeChange:nil];
         
@@ -455,16 +413,36 @@ NSDictionary *testing;
     NSUInteger newDescHeight = 0;
     diff += _viewHeader.frame.size.height;
     if ([item objectForKey:@"hasPreview"]) { diff += _viewPreviews.frame.size.height; }
+//    if (hasDescription) {
+//        NSRect frame = [_bundleDesc frame];
+//        frame.size.height = CGFLOAT_MAX;
+//        CGFloat height = [_bundleDesc.cell cellSizeForBounds: frame].height;
+//        newDescHeight = 250 - height;
+////        CGFloat height = _bundleWebView.enclosingScrollView.frame.size.height;
+////        newDescHeight = 250 - height;
+//
+//        NSRect newRect = _viewDescription.frame;
+//        newRect.size.height = 309 - newDescHeight;
+////        newRect.size.height = _bundleWebView.enclosingScrollView.frame.size.height;
+////        newRect.size.height = 250 - newDescHeight;hidd
+//        [_viewDescription setFrame:newRect];
+//
+//        diff += _viewDescription.frame.size.height;
+//    }
     if (hasDescription) {
-        NSRect frame = [_bundleDesc frame];
-        frame.size.height = CGFLOAT_MAX;
-        CGFloat height = [_bundleDesc.cell cellSizeForBounds: frame].height;
-        newDescHeight = 250 - height;
+        NSRect frame = _bundleDescFull.frame;
+        
+        NSLog(@"height : %f", frame.size.height);
+        
+//        NSRect frame = [_bundleDesc frame];
+//        frame.size.height = CGFLOAT_MAX;
+//        CGFloat height = [_bundleDesc.cell cellSizeForBounds: frame].height;
+//        newDescHeight = 250 + frame.size.height;
 //        CGFloat height = _bundleWebView.enclosingScrollView.frame.size.height;
 //        newDescHeight = 250 - height;
 
         NSRect newRect = _viewDescription.frame;
-        newRect.size.height = 309 - newDescHeight;
+        newRect.size.height = frame.size.height + 50;
 //        newRect.size.height = _bundleWebView.enclosingScrollView.frame.size.height;
 //        newRect.size.height = 250 - newDescHeight;hidd
         [_viewDescription setFrame:newRect];
@@ -526,8 +504,8 @@ NSDictionary *testing;
     if (plugin.webRepository) {
     }
     
-    NSURL *shareURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", _plugin.webRepository, _plugin.bundleID]];
-    shareURL = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"https://www.macenhance.com/mflink?macforge:%@", [shareURL resourceSpecifier]]];
+//    NSURL *shareURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", _plugin.webRepository, _plugin.bundleID]];
+    NSURL *shareURL = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"https://www.macenhance.com/mflink?%@", _plugin.bundleID]];
     
 //    NSURLComponents *components = [NSURLComponents new];
 //    components.scheme = @"http";

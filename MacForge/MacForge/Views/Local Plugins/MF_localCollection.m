@@ -23,6 +23,20 @@
     return CGSizeMake(175, 77);
 }
 
+- (NSString*)runScript:(NSString*)script {
+    NSPipe *pipe = [NSPipe pipe];
+    NSFileHandle *file = pipe.fileHandleForReading;
+    NSTask *task = [[NSTask alloc] init];
+    task.launchPath = @"/usr/bin/lipo";
+    task.arguments = @[@"-archs", script];
+    task.standardOutput = pipe;
+    [task launch];
+    NSData *data = [file readDataToEndOfFile];
+    [file closeFile];
+    NSString *output = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+    return output;
+}
+
 - (nonnull NSCollectionViewItem *)collectionView:(nonnull NSCollectionView *)collectionView itemForRepresentedObjectAtIndexPath:(nonnull NSIndexPath *)indexPath {
     MF_localPlugin *item = [collectionView makeItemWithIdentifier:@"MF_localPlugin" forIndexPath:indexPath];
     MF_Plugin *plug = [self.itemArray objectAtIndex:indexPath.item];
@@ -35,11 +49,19 @@
         }
         
         NSBundle *bun = [NSBundle bundleWithPath:plug.localPath];
-        if ([bun.executableArchitectures containsObject:[NSNumber numberWithInt:0x0100000c]])
+        NSString *archs = [self runScript:bun.executablePath];
+        if ([archs containsString:@"arm64e"]) {
             item.bundleSupportsARM.image = [NSImage imageNamed:NSImageNameStatusAvailable];
-        else
+        } else if ([archs containsString:@"arm64"]) {
+            item.bundleSupportsARM.image = [NSImage imageNamed:NSImageNameStatusPartiallyAvailable];
+        } else {
             item.bundleSupportsARM.image = [NSImage imageNamed:NSImageNameStatusUnavailable];
-    
+        }
+//        if ([bun.executableArchitectures containsObject:[NSNumber numberWithInt:0x0100000c]])
+//            item.bundleSupportsARM.image = [NSImage imageNamed:NSImageNameStatusAvailable];
+//        else
+//            item.bundleSupportsARM.image = [NSImage imageNamed:NSImageNameStatusUnavailable];
+        
         item.bundleIcon.image = [_pluginData fetch_icon:plug];
         item.bundleVersion.stringValue = [bun.infoDictionary valueForKey:@"CFBundleShortVersionString"];
         item.bundleIdentifier.stringValue = bun.bundleIdentifier;

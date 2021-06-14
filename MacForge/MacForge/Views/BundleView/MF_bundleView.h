@@ -42,6 +42,7 @@
 @property IBOutlet NSTextField*     bundleName;
 @property IBOutlet NSTextField*     bundleDesc;
 @property IBOutlet NSTextField*     bundleDescShort;
+@property IBOutlet NSTextView*      bundleDescFull;
 @property IBOutlet NSImageView*     bundleImage;
 @property IBOutlet NSButton*        bundlePreviewNext;
 @property IBOutlet NSButton*        bundlePreviewPrev;

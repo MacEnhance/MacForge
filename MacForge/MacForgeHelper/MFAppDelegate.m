@@ -17,9 +17,7 @@
 #import "SGDirWatchdog.h"
 #import "SIMBL.h"
 
-// #import "MF_PluginManager.h"
-
-#import <Carbon/Carbon.h>
+#import  <Carbon/Carbon.h>
 #include <syslog.h>
 #include <sys/sysctl.h>
 #include <libproc.h>
@@ -41,9 +39,12 @@ void HandleExceptions(NSException *exception) {
 
 - (BOOL)isArm64 {
     static BOOL arm64 = NO ;
-    static dispatch_once_t once ;
+    static dispatch_once_t once;
     dispatch_once(&once, ^{
-        arm64 = sizeof(int *) == 8 ;
+        if (@available(macOS 11.0, *)) {
+            if (NSRunningApplication.currentApplication.executableArchitecture == NSBundleExecutableArchitectureARM64)
+                arm64 = YES;
+        }
     });
     return arm64;
 }
@@ -568,7 +569,7 @@ void HandleExceptions(NSException *exception) {
            pid_t pid = [runningApp processIdentifier];
            
            // Probably need a better way to know when it's safe to load without locking the process
-           double injectDelay = 0.2;
+           double injectDelay = 0.9;
            
            // Special check for Dock process
            if ([runningApp.bundleIdentifier isEqualToString:@"com.apple.dock"]) {
@@ -584,33 +585,33 @@ void HandleExceptions(NSException *exception) {
            if ([runningApp.bundleIdentifier isEqualToString:@"com.apple.finder"])
                injectDelay = 1.0;
            
-           dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(injectDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//           injectDelay = 0.0;
+           
+           dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(injectDelay * NSEC_PER_SEC)), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                
                // Check for some cases where we don't load
                BOOL shouldLoad = true;
                
                // ARM cpu and process is translated
-               if (self.isARM && runningApp.executableArchitecture == 16777223) shouldLoad = false;
+               if (self.isARM && runningApp.executableArchitecture == NSBundleExecutableArchitectureX86_64) shouldLoad = false;
                
                // Process has xcode debugger attached to is
                Boolean isXcodeRunning = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.dt.Xcode"].count;
                Boolean isXcodeAttached = false;
-               if (isXcodeRunning)
-                   isXcodeAttached = [self xcodeAttached:pid];
-               
-               if (isXcodeAttached) shouldLoad = false;
+               if (isXcodeRunning) isXcodeAttached = [self xcodeAttached:pid]; // Check if Xcode is attached to process only if Xcode is running
+               if (isXcodeAttached) shouldLoad = false; // Don't load into process with Xcode already debugging               
 
                // Do the injecting
                if (shouldLoad) {
                    
-//                   dispatch_async(dispatch_get_main_queue(), ^{
+                   dispatch_sync(dispatch_get_main_queue(), ^{
                        
                        NSArray *plugins = [SIMBL pluginsToLoadList:[NSBundle bundleWithPath:runningApp.bundleURL.path]];
                        plugins = [plugins sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
                        NSLog(@"Started loading bundles into %d", runningApp.processIdentifier);
                        [self queuedInject:runningApp withArray:plugins.mutableCopy];
-
-//                   });
+                   
+                   });
                }
                
            });
@@ -629,55 +630,60 @@ void HandleExceptions(NSException *exception) {
         NSBundle *bun = [NSBundle bundleWithPath:bundles.lastObject];
         [bundles removeLastObject];
         if (bun) {
-            // NSLog(@"Loading : %@ into %d", bun.bundleIdentifier, runningApp.processIdentifier);
-            [self.injectorProxy injectBundle:bun.executablePath inProcess:runningApp.processIdentifier withReply:^(mach_error_t error) {
-                [self queuedInject:runningApp withArray:bundles];
-            }];
+            if ([bun.executableArchitectures containsObject:[NSNumber numberWithLong:runningApp.executableArchitecture]]) {
+                NSLog(@"Loading : %@ into %d", bun.executablePath, runningApp.processIdentifier);
+                [self.injectorProxy injectBundle:bun.executablePath inProcess:runningApp.processIdentifier withReply:^(mach_error_t error) {
+                    [self queuedInject:runningApp withArray:bundles];
+                }];
+            } else {
+                NSLog(@"No matching executable architecture found for loading : %@ into %@ (%d)",
+                      bun.bundleIdentifier, runningApp.bundleIdentifier, runningApp.processIdentifier);
+            }
         } else {
             [self queuedInject:runningApp withArray:bundles];
         }
     }
 }
 
-- (void)loadBundle:(NSString*)bundle intoApp:(NSRunningApplication*)app {
-    pid_t pid = [app processIdentifier];
-        
-    // Special check for Dock process
-    if ([app.bundleIdentifier isEqualToString:@"com.apple.dock"]) {
-        NSBundle *bun = [NSBundle bundleWithPath:@"/Library/Application Support/MacEnhance/CorePlugins/DockKit.bundle"];
-        // Don't load anything in the Dock if we can't first load DockKit!
-        if (!bun) return;
-        
-        // Load DockKit
-        [self.injectorProxy injectBundle:bun.executablePath inProcess:pid withReply:^(mach_error_t error) { }];
-    }
-    
-    // Check for some cases where we don't load
-    BOOL shouldLoad = true;
-    
-    // ARM cpu and process is translated
-    if (self.isARM && app.executableArchitecture == 16777223) shouldLoad = false;
-    
-    // Process has xcode debugger attached to is
-    Boolean isXcodeRunning = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.dt.Xcode"].count;
-    Boolean isXcodeAttached = false;
-    if (isXcodeRunning)
-        isXcodeAttached = [self xcodeAttached:pid];
-    
-    if (isXcodeAttached) shouldLoad = false;
-    
-    // We made it! Lets inject the loader.
-    if (shouldLoad) {
-        NSBundle *loader = [NSBundle bundleWithPath:bundle];
-        [self.injectorProxy injectBundle:loader.executablePath inProcess:pid withReply:^(mach_error_t error) {
-            NSLog(@"Finished injection %@ in %d (%@)", loader.bundleIdentifier, pid, app.bundleIdentifier);
-        }];
-    }
-}
-
-- (void)loadInjectorIntoApp:(NSRunningApplication*)app {
-    [self loadBundle:@"/Library/Application Support/MacEnhance/CorePlugins/PluginLoader.bundle" intoApp:app];
-}
+//- (void)loadBundle:(NSString*)bundle intoApp:(NSRunningApplication*)app {
+//    pid_t pid = [app processIdentifier];
+//
+//    // Special check for Dock process
+//    if ([app.bundleIdentifier isEqualToString:@"com.apple.dock"]) {
+//        NSBundle *bun = [NSBundle bundleWithPath:@"/Library/Application Support/MacEnhance/CorePlugins/DockKit.bundle"];
+//        // Don't load anything in the Dock if we can't first load DockKit!
+//        if (!bun) return;
+//
+//        // Load DockKit
+//        [self.injectorProxy injectBundle:bun.executablePath inProcess:pid withReply:^(mach_error_t error) { }];
+//    }
+//
+//    // Check for some cases where we don't load
+//    BOOL shouldLoad = true;
+//
+//    // ARM cpu and process is translated
+//    if (self.isARM && app.executableArchitecture == 16777223) shouldLoad = false;
+//
+//    // Process has xcode debugger attached to is
+//    Boolean isXcodeRunning = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.dt.Xcode"].count;
+//    Boolean isXcodeAttached = false;
+//    if (isXcodeRunning)
+//        isXcodeAttached = [self xcodeAttached:pid];
+//
+//    if (isXcodeAttached) shouldLoad = false;
+//
+//    // We made it! Lets inject the loader.
+//    if (shouldLoad) {
+//        NSBundle *loader = [NSBundle bundleWithPath:bundle];
+//        [self.injectorProxy injectBundle:loader.executablePath inProcess:pid withReply:^(mach_error_t error) {
+//            NSLog(@"Finished injection %@ in %d (%@)", loader.bundleIdentifier, pid, app.bundleIdentifier);
+//        }];
+//    }
+//}
+//
+//- (void)loadInjectorIntoApp:(NSRunningApplication*)app {
+//    [self loadBundle:@"/Library/Application Support/MacEnhance/CorePlugins/PluginLoader.bundle" intoApp:app];
+//}
 
 // Try injecting all valid bundles into all running applications
 - (void)injectAllProc {
