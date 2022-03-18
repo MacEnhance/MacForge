@@ -8,10 +8,8 @@
 #ifndef CFUtils_h
 #define CFUtils_h
 
-//#include <CoreFoundation/CoreFoundation.h>
 #include <stdio.h>
-const char * CreateInfoDictionaryForExecutable(const char * execPath, size_t *size);
 
-const char * CreateMainInfoDictionary(void);
+const char * CreateInfoDictionaryForExecutable(const char * execPath, size_t *size);
 
 #endif /* CFUtils_h */

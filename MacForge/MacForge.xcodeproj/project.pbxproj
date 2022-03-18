@@ -10,6 +10,7 @@
 		096DEFC5247CA727009F7CF5 /* PreferenceLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 096DEFC4247CA727009F7CF5 /* PreferenceLoader.m */; };
 		096DEFC7247CA727009F7CF5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 096DEFC6247CA727009F7CF5 /* main.m */; };
 		096DEFCB247CA727009F7CF5 /* PreferenceLoader.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = 096DEFC0247CA727009F7CF5 /* PreferenceLoader.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		09FEA13D27E513C5004DEAED /* CFUtils.c in Sources */ = {isa = PBXBuildFile; fileRef = 09FEA13C27E513C5004DEAED /* CFUtils.c */; };
 		2FCA88B6FD11BB87D2CB1185 /* Pods_MacForge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB9375FEDACBA2F9ED7779DF /* Pods_MacForge.framework */; };
 		77B0A177B8D3976298814998 /* Pods_MacForgeHelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D660FE637C95FFEE8D5E83E /* Pods_MacForgeHelper.framework */; };
 		BE8A723D43F97F97961D7729 /* Pods_MacForgeDockTile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 773A1BF77A1966B3740A649C /* Pods_MacForgeDockTile.framework */; };
@@ -27,7 +28,7 @@
 		FB0FC0E724A1E3BA00857D55 /* sidebar_Normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB0FC0E624A1E3B900857D55 /* sidebar_Normal@2x.png */; };
 		FB1241362478997500528C29 /* MF_searchView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB1241352478997500528C29 /* MF_searchView.m */; };
 		FB12413C247899F600528C29 /* MECore.m in Sources */ = {isa = PBXBuildFile; fileRef = FB12413B247899F600528C29 /* MECore.m */; };
-		FB13A8ED25CB618D004790BE /* MFPluginLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = FB13A8EC25CB618D004790BE /* MFPluginLoader.m */; };
+		FB13A8ED25CB618D004790BE /* MFPluginLoader.c in Sources */ = {isa = PBXBuildFile; fileRef = FB13A8EC25CB618D004790BE /* MFPluginLoader.c */; };
 		FB13A90325CB6263004790BE /* DockKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FB13A90225CB6263004790BE /* DockKit.bundle */; };
 		FB13A90825CB6271004790BE /* PluginLoader.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FB13A8D625CA613E004790BE /* PluginLoader.bundle */; };
 		FB1C18B823417E1200BD9F32 /* MF_bundleView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB1C18B723417E1200BD9F32 /* MF_bundleView.m */; };
@@ -273,6 +274,8 @@
 		096DEFDA247CAA91009F7CF5 /* NSServiceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSServiceViewController.h; sourceTree = "<group>"; };
 		096DEFDB247CAA91009F7CF5 /* NSXPCSharedListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSXPCSharedListener.h; sourceTree = "<group>"; };
 		096DEFDC247CAA91009F7CF5 /* NSRemoteView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSRemoteView.h; sourceTree = "<group>"; };
+		09FEA13B27E513C5004DEAED /* CFUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFUtils.h; sourceTree = "<group>"; };
+		09FEA13C27E513C5004DEAED /* CFUtils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = CFUtils.c; sourceTree = "<group>"; };
 		0FD02195D6B67E3A3407F47F /* Pods-com.macenhance.MacForge.Injector.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-com.macenhance.MacForge.Injector.release.xcconfig"; path = "Target Support Files/Pods-com.macenhance.MacForge.Injector/Pods-com.macenhance.MacForge.Injector.release.xcconfig"; sourceTree = "<group>"; };
 		31F1DC3E4886942C97F97DBA /* Pods_com_macenhance_MacForge_Injector.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_com_macenhance_MacForge_Injector.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D8E7AE762C4B5BC97898B22 /* Pods-MacForgeDockTile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacForgeDockTile.debug.xcconfig"; path = "Target Support Files/Pods-MacForgeDockTile/Pods-MacForgeDockTile.debug.xcconfig"; sourceTree = "<group>"; };
@@ -317,7 +320,7 @@
 		FB13A8D625CA613E004790BE /* PluginLoader.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PluginLoader.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB13A8D825CA613E004790BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FB13A8EB25CB618D004790BE /* MFPluginLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MFPluginLoader.h; sourceTree = "<group>"; };
-		FB13A8EC25CB618D004790BE /* MFPluginLoader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MFPluginLoader.m; sourceTree = "<group>"; };
+		FB13A8EC25CB618D004790BE /* MFPluginLoader.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = MFPluginLoader.c; sourceTree = "<group>"; };
 		FB13A90225CB6263004790BE /* DockKit.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = DockKit.bundle; sourceTree = "<group>"; };
 		FB1C18B623417E1200BD9F32 /* MF_bundleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_bundleView.h; sourceTree = "<group>"; };
 		FB1C18B723417E1200BD9F32 /* MF_bundleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_bundleView.m; sourceTree = "<group>"; };
@@ -630,8 +633,10 @@
 			isa = PBXGroup;
 			children = (
 				FB13A8D825CA613E004790BE /* Info.plist */,
+				09FEA13B27E513C5004DEAED /* CFUtils.h */,
+				09FEA13C27E513C5004DEAED /* CFUtils.c */,
 				FB13A8EB25CB618D004790BE /* MFPluginLoader.h */,
-				FB13A8EC25CB618D004790BE /* MFPluginLoader.m */,
+				FB13A8EC25CB618D004790BE /* MFPluginLoader.c */,
 			);
 			path = PluginLoader;
 			sourceTree = "<group>";
@@ -1494,7 +1499,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB13A8ED25CB618D004790BE /* MFPluginLoader.m in Sources */,
+				09FEA13D27E513C5004DEAED /* CFUtils.c in Sources */,
+				FB13A8ED25CB618D004790BE /* MFPluginLoader.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1604,7 +1610,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = EX596BNL45;
+				DEVELOPMENT_TEAM = G9T88PYL48;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -1637,7 +1643,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = EX596BNL45;
+				DEVELOPMENT_TEAM = G9T88PYL48;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1758,7 +1764,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 27;
-				DEVELOPMENT_TEAM = EX596BNL45;
+				DEVELOPMENT_TEAM = G9T88PYL48;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1788,7 +1794,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 27;
-				DEVELOPMENT_TEAM = EX596BNL45;
+				DEVELOPMENT_TEAM = G9T88PYL48;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1820,7 +1826,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = EX596BNL45;
+				DEVELOPMENT_TEAM = G9T88PYL48;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MacForgeInjection/Injector-Prefix.pch";
@@ -1861,7 +1867,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = EX596BNL45;
+				DEVELOPMENT_TEAM = G9T88PYL48;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MacForgeInjection/Injector-Prefix.pch";
@@ -1893,11 +1899,17 @@
 		FB13A8D925CA613E004790BE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					x86_64,
+					arm64e,
+				);
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_LINK_OBJC_RUNTIME = NO;
+				CLANG_MODULES_AUTOLINK = NO;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
@@ -1905,15 +1917,23 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = EX596BNL45;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				DEPLOYMENT_LOCATION = YES;
+				DEVELOPMENT_TEAM = G9T88PYL48;
+				DSTROOT = /;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = PluginLoader/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				INSTALL_PATH = "/Library/Application Support/MacEnhance/CorePlugins";
+				LLVM_LTO = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
+				OTHER_CFLAGS = (
+					"-fno-stack-protector",
+					"-fno-stack-check",
+				);
+				OTHER_LDFLAGS = "-flat_namespace";
 				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.pluginLoader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1924,11 +1944,17 @@
 		FB13A8DA25CA613E004790BE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					x86_64,
+					arm64e,
+				);
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_LINK_OBJC_RUNTIME = NO;
+				CLANG_MODULES_AUTOLINK = NO;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
@@ -1936,16 +1962,25 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = EX596BNL45;
+				DEPLOYMENT_LOCATION = YES;
+				DEVELOPMENT_TEAM = G9T88PYL48;
+				DSTROOT = /;
 				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = PluginLoader/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				INSTALL_PATH = "/Library/Application Support/MacEnhance/CorePlugins";
+				LLVM_LTO = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				OTHER_CFLAGS = (
+					"-fno-stack-protector",
+					"-fno-stack-check",
+				);
+				OTHER_LDFLAGS = "-flat_namespace";
 				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.pluginLoader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1971,7 +2006,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = EX596BNL45;
+				DEVELOPMENT_TEAM = G9T88PYL48;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -2005,7 +2040,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = EX596BNL45;
+				DEVELOPMENT_TEAM = G9T88PYL48;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -2043,7 +2078,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 6004;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = EX596BNL45;
+				DEVELOPMENT_TEAM = G9T88PYL48;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2086,7 +2121,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 6004;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = EX596BNL45;
+				DEVELOPMENT_TEAM = G9T88PYL48;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				FRAMEWORK_SEARCH_PATHS = (

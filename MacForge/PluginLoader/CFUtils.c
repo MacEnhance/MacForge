@@ -15,10 +15,6 @@
 #include <sys/mman.h>
 #include <os/log.h>
 
-//#include <libxml/parser.h>
-//#include <libxml/tree.h>
-//
-//
 #define PLIST_SECTION "__info_plist"
 
 char * _infoDictFromBinary(const struct mach_header_64 *mh, intptr_t slide) {
@@ -104,7 +100,3 @@ const char * CreateInfoDictionaryForExecutable(const char * execPath, size_t *si
 
     return _infoDictFromMainBinary();
 }
-
-//const char * CreateMainInfoDictionary() {
-//    return CreateInfoDictionaryForExecutable(_CFProcessPath());
-//}
