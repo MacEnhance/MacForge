@@ -11,7 +11,8 @@
 @protocol MFInjectorProtocol
 
 - (void)folderSetup:(void (^)(mach_error_t))reply;
-- (void)injectBundle:(const char *)bundlePackageFileSystemRepresentation inProcess:(pid_t)pid withReply:(void (^)(mach_error_t))reply;
+- (void)injectProcess:(pid_t)pid;
+//- (void)injectBundle:(const char *)bundlePackageFileSystemRepresentation inProcess:(pid_t)pid withReply:(void (^)(mach_error_t))reply;
 - (void)installFramework:(NSString *)frameworkPath atlocation:(NSString*)frameworkDestinationPath withReply:(void (^)(mach_error_t))reply;
 
 @end

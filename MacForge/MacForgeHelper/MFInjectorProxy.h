@@ -22,6 +22,7 @@
 
 - (void)setupMacEnhanceFolder:(void (^)(mach_error_t))reply;
 - (void)installFramework:(NSString *)frameworkPath atlocation:(NSString*)frameworkDestinationPath withReply:(void (^)(mach_error_t))reply;
-- (void)injectBundle:(NSString *)bundle inProcess:(pid_t)pid withReply:(void (^)(mach_error_t))reply;
+//- (void)injectBundle:(NSString *)bundle inProcess:(pid_t)pid withReply:(void (^)(mach_error_t))reply;
+- (void)injectProcess:(pid_t)pid;
 
 @end

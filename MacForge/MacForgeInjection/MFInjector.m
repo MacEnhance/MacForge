@@ -70,10 +70,14 @@
     reply((int)fileError.code);
 }
 
-- (void)injectBundle:(const char *)bundlePackageFileSystemRepresentation inProcess:(pid_t)pid withReply:(void (^)(mach_error_t))reply {
-    inject_sync(pid, bundlePackageFileSystemRepresentation);
-//    inject(pid, bundlePackageFileSystemRepresentation);
-    reply(0);
+//- (void)injectBundle:(const char *)bundlePackageFileSystemRepresentation inProcess:(pid_t)pid withReply:(void (^)(mach_error_t))reply {
+//    inject_sync(pid, bundlePackageFileSystemRepresentation);
+////    inject(pid, bundlePackageFileSystemRepresentation);
+//    reply(0);
+//}
+
+- (void)injectProcess:(pid_t)pid {
+    inject(pid);
 }
 
 

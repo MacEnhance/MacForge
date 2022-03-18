@@ -9,9 +9,9 @@
 #define UniversalInj_h
 
 #include <stdio.h>
-#include <sys/types.h>    //NOTE: Added
+#include <sys/types.h>
 
-void inject(pid_t pid, const char *lib);
-void inject_sync(pid_t pid, const char *lib);
+void inject(pid_t pid);
+void inject_sync(pid_t pid);
 
 #endif /* UniversalInj_h */
