@@ -86,6 +86,13 @@
 - (BOOL)listener:(NSXPCListener *)listener shouldAcceptNewConnection:(NSXPCConnection *)newConnection {
     newConnection.exportedInterface = [NSXPCInterface interfaceWithProtocol:@protocol(MFInjectorProtocol)];
     newConnection.exportedObject = self;
+    [newConnection setInvalidationHandler:^{
+        exit(0);
+    }];
+    
+    [newConnection setInterruptionHandler:^{
+        exit(0);
+    }];
     [newConnection resume];
     return YES;
 }

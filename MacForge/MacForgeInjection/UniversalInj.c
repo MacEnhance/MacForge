@@ -28,7 +28,7 @@
 
 kern_return_t (*_thread_convert_thread_state)(thread_act_t thread, int direction, thread_state_flavor_t flavor, thread_state_t in_state, mach_msg_type_number_t in_stateCnt, thread_state_t out_state, mach_msg_type_number_t *out_stateCnt);
 
-#define STACK_SIZE 0x8000//65536
+#define STACK_SIZE 0x8000
 #define CODE_SIZE 512
 
 char shellCode[] =
@@ -136,23 +136,19 @@ dispatch_queue_t queue = 0;
 static kern_return_t inject_task(task_t remoteTask) {
     kern_return_t kr = KERN_SUCCESS;
     
-    mach_vm_address_t remoteStack64 = (vm_address_t)NULL;
-    mach_vm_address_t remoteCode64 = (vm_address_t)NULL;
-    
-    kr = mach_vm_allocate(remoteTask, &remoteStack64, STACK_SIZE, VM_FLAGS_ANYWHERE);
-    if (kr != KERN_SUCCESS) {
-        return kr;
-    }
+    mach_vm_address_t remoteStack = (vm_address_t)NULL;
+    mach_vm_address_t remoteCode = (vm_address_t)NULL;
     
     //Allocate thread memory
-    remoteCode64 = (vm_address_t)NULL;
-    kr = mach_vm_allocate(remoteTask, &remoteCode64, sizeof(shellCode), VM_FLAGS_ANYWHERE);
+    kr = mach_vm_allocate(remoteTask, &remoteCode, 3 * 0x4000, VM_FLAGS_ANYWHERE);
     if (kr != KERN_SUCCESS) {
         return kr;
     }
     
+    remoteStack = remoteCode + 0x4000;
+    
     kr = mach_vm_write(remoteTask,
-                       remoteCode64,
+                       remoteCode,
                        (vm_address_t)shellCode,
                        sizeof(shellCode));
     
@@ -160,8 +156,8 @@ static kern_return_t inject_task(task_t remoteTask) {
         return kr;
     }
 
-    kr = vm_protect(remoteTask, remoteCode64, sizeof(shellCode), FALSE, VM_PROT_READ | VM_PROT_EXECUTE);
-    kr = vm_protect(remoteTask, remoteStack64, STACK_SIZE, TRUE, VM_PROT_READ | VM_PROT_WRITE);
+    kr = vm_protect(remoteTask, remoteCode, 0x4000, FALSE, VM_PROT_READ | VM_PROT_EXECUTE);
+    kr = vm_protect(remoteTask, remoteStack, 2 * 0x4000, TRUE, VM_PROT_READ | VM_PROT_WRITE);
     if (kr != KERN_SUCCESS) {
         return kr;
     }
@@ -181,19 +177,18 @@ static kern_return_t inject_task(task_t remoteTask) {
 #endif
     
 #if defined(__x86_64__)
-    threadState.__rdi = (uint64_t)(remoteStack64);
-    threadState.__rip = (uint64_t)(vm_address_t) remoteCode64;
-    threadState.__rsp = (uint64_t)((remoteStack64 + (STACK_SIZE/2)) - 8);
+    threadState.__rdi = (uint64_t)(remoteStack);
+    threadState.__rip = (uint64_t)(vm_address_t) remoteCode;
+    threadState.__rsp = (uint64_t)(remoteStack + 0x4000);
 #elif defined(__arm64__)
     threadState.ash.flavor = ARM_THREAD_STATE64;
     threadState.ash.count = ARM_THREAD_STATE64_COUNT;
     
-    threadState.ts_64.__x[0] = (uint64_t)(remoteStack64);
+    threadState.ts_64.__x[0] = (uint64_t)(remoteStack);
     __darwin_arm_thread_state64_set_pc_fptr(threadState.ts_64,
-                                            ptrauth_sign_unauthenticated(ADDR_TO_PTR(remoteCode64), ptrauth_key_asia, 0));
+                                            ptrauth_sign_unauthenticated(ADDR_TO_PTR(remoteCode), ptrauth_key_asia, 0));
 
-    __darwin_arm_thread_state64_set_sp(threadState.ts_64, (unsigned long)
-                                       ((remoteStack64 + (STACK_SIZE/2))));
+    __darwin_arm_thread_state64_set_sp(threadState.ts_64, (unsigned long)(remoteStack + 0x4000));
 #endif
 
     thread_act_t remoteThread = MACH_PORT_NULL;
@@ -225,6 +220,8 @@ static kern_return_t inject_task(task_t remoteTask) {
         return kr;
     }
 
+//    sleep(2);
+//    mach_vm_deallocate(remoteTask, remoteCode, 3 * 0x4000);
     mach_port_deallocate(mach_task_self(), remoteThread);
     return kr;
 }

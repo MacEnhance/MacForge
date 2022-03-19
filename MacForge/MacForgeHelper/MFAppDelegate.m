@@ -587,9 +587,9 @@ void HandleExceptions(NSException *exception) {
 
 // Try injecting all valid bundles into all running applications
 - (void)injectAllProc {
-    for (NSRunningApplication *app in NSWorkspace.sharedWorkspace.runningApplications) {
-        [self startQueuedInject:app];
-    }
+//    for (NSRunningApplication *app in NSWorkspace.sharedWorkspace.runningApplications) {
+//        [self startQueuedInject:app];
+//    }
 }
 
 // Set up a watcher to automatically load plugins if they're manually placed in one of the valid plugin folders
