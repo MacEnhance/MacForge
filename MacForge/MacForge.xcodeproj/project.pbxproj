@@ -11,6 +11,7 @@
 		096DEFC7247CA727009F7CF5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 096DEFC6247CA727009F7CF5 /* main.m */; };
 		096DEFCB247CA727009F7CF5 /* PreferenceLoader.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = 096DEFC0247CA727009F7CF5 /* PreferenceLoader.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		09FEA13D27E513C5004DEAED /* CFUtils.c in Sources */ = {isa = PBXBuildFile; fileRef = 09FEA13C27E513C5004DEAED /* CFUtils.c */; };
+		09FEA14027E52732004DEAED /* Paddle+Paddle_Mutable.m in Sources */ = {isa = PBXBuildFile; fileRef = 09FEA13E27E52732004DEAED /* Paddle+Paddle_Mutable.m */; };
 		2FCA88B6FD11BB87D2CB1185 /* Pods_MacForge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB9375FEDACBA2F9ED7779DF /* Pods_MacForge.framework */; };
 		77B0A177B8D3976298814998 /* Pods_MacForgeHelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D660FE637C95FFEE8D5E83E /* Pods_MacForgeHelper.framework */; };
 		BE8A723D43F97F97961D7729 /* Pods_MacForgeDockTile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 773A1BF77A1966B3740A649C /* Pods_MacForgeDockTile.framework */; };
@@ -276,6 +277,8 @@
 		096DEFDC247CAA91009F7CF5 /* NSRemoteView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSRemoteView.h; sourceTree = "<group>"; };
 		09FEA13B27E513C5004DEAED /* CFUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFUtils.h; sourceTree = "<group>"; };
 		09FEA13C27E513C5004DEAED /* CFUtils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = CFUtils.c; sourceTree = "<group>"; };
+		09FEA13E27E52732004DEAED /* Paddle+Paddle_Mutable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Paddle+Paddle_Mutable.m"; sourceTree = "<group>"; };
+		09FEA13F27E52732004DEAED /* Paddle+Paddle_Mutable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Paddle+Paddle_Mutable.h"; sourceTree = "<group>"; };
 		0FD02195D6B67E3A3407F47F /* Pods-com.macenhance.MacForge.Injector.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-com.macenhance.MacForge.Injector.release.xcconfig"; path = "Target Support Files/Pods-com.macenhance.MacForge.Injector/Pods-com.macenhance.MacForge.Injector.release.xcconfig"; sourceTree = "<group>"; };
 		31F1DC3E4886942C97F97DBA /* Pods_com_macenhance_MacForge_Injector.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_com_macenhance_MacForge_Injector.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D8E7AE762C4B5BC97898B22 /* Pods-MacForgeDockTile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacForgeDockTile.debug.xcconfig"; path = "Target Support Files/Pods-MacForgeDockTile/Pods-MacForgeDockTile.debug.xcconfig"; sourceTree = "<group>"; };
@@ -879,6 +882,8 @@
 				FB35B8B724A2F2AC0064549F /* MF_Paddle.m */,
 				FBBD8E2122F9319E00A97FEA /* MF_Purchase.h */,
 				FBBD8E2222F9319E00A97FEA /* MF_Purchase.m */,
+				09FEA13F27E52732004DEAED /* Paddle+Paddle_Mutable.h */,
+				09FEA13E27E52732004DEAED /* Paddle+Paddle_Mutable.m */,
 			);
 			path = Purchases;
 			sourceTree = "<group>";
@@ -1541,6 +1546,7 @@
 				FBE767F420F00FFE00A42BD5 /* main.m in Sources */,
 				FBA6E8CF20F0262A00A12ACF /* SGDirWatchdog.m in Sources */,
 				FB609E5E249C2AF900865CCC /* MF_purchasedItem.m in Sources */,
+				09FEA14027E52732004DEAED /* Paddle+Paddle_Mutable.m in Sources */,
 				FB5F5F68249EA48400C52F12 /* EQImage+Scale.m in Sources */,
 				FB1241362478997500528C29 /* MF_searchView.m in Sources */,
 				FBC2123423B459CE006F4485 /* MF_BlacklistManager.m in Sources */,

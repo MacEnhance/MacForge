@@ -12,6 +12,7 @@
 #import "MF_repoData.h"
 #import "MF_Purchase.h"
 #import "MF_Paddle.h"
+#import "Paddle+Paddle_Mutable.h"
 
 extern AppDelegate* myDelegate;
 
@@ -95,17 +96,13 @@ extern AppDelegate* myDelegate;
     defaultProductConfig.productName = @"plugin";
     defaultProductConfig.vendorName = @"macenhance";
     
-    if (!Paddle.sharedInstance) {
-        [Paddle sharedInstanceWithVendorID:myPaddleVendorID
-                                    apiKey:myPaddleAPIKey
-                                 productID:myPaddleProductID
-                             configuration:defaultProductConfig
-                                  delegate:MF_Paddle.sharedInstance];
-    } else {
-        Paddle.sharedInstance.vendorID  = myPaddleVendorID;
-        Paddle.sharedInstance.apiKey    = myPaddleAPIKey;
-        Paddle.sharedInstance.productID = myPaddleProductID;
-    }
+    
+    [Paddle newSharedInstanceWithVendorID:myPaddleVendorID
+                                   apiKey:myPaddleAPIKey
+                                productID:myPaddleProductID
+                            configuration:defaultProductConfig
+                                 delegate:MF_Paddle.sharedInstance];
+
 
     Paddle.sharedInstance.canForceExit = false;
     
@@ -123,8 +120,10 @@ extern AppDelegate* myDelegate;
 + (void)purchasePlugin:(MF_Plugin*)plugin withButton:(NSButton*)theButton andProgress:(NSProgressIndicator*)progress {
     // Initialize the Product you'd like to work with:
     PADProduct *paddleProduct = [MF_Paddle productWithPlugin:plugin];
-
-    [Paddle.sharedInstance showCheckoutForProduct:paddleProduct options:nil checkoutStatusCompletion:^(PADCheckoutState state, PADCheckoutData * _Nullable checkoutData) {
+//    [MF_Paddle validadePlugin:plugin withButton:theButton];
+    Paddle *paddleInstance = Paddle.sharedInstance;
+//    [paddleInstance showProductAccessDialogWithProduct:paddleProduct];
+    [paddleInstance showCheckoutForProduct:paddleProduct options:nil checkoutStatusCompletion:^(PADCheckoutState state, PADCheckoutData * _Nullable checkoutData) {
         // Examine checkout state to determine the checkout result
         if (state == PADCheckoutPurchased) {
             plugin.hasPurchased = true;
@@ -134,7 +133,7 @@ extern AppDelegate* myDelegate;
         } else {
             NSLog(@"Purchase canceled or failed.");
         }
-        
+
         [MF_Paddle validadePlugin:plugin withButton:theButton];
     }];
 }
