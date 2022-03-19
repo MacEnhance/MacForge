@@ -1780,7 +1780,7 @@
 				GCC_PREFIX_HEADER = "MacForgeHelper/MacForge-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/MacForgeHelper/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../../Frameworks";
-				MARKETING_VERSION = 2.4.25;
+				MARKETING_VERSION = 2.4.26;
 				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.MacForgeHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1810,7 +1810,7 @@
 				GCC_PREFIX_HEADER = "MacForgeHelper/MacForge-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/MacForgeHelper/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../../Frameworks";
-				MARKETING_VERSION = 2.4.25;
+				MARKETING_VERSION = 2.4.26;
 				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.MacForgeHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

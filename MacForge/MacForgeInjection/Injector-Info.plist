@@ -9,7 +9,7 @@
 	<key>CFBundleName</key>
 	<string>Injector</string>
 	<key>CFBundleVersion</key>
-	<string>0.1</string>
+	<string>0.2</string>
 	<key>SMAuthorizedClients</key>
 	<array>
 		<string>identifier &quot;com.macenhance.MacForgeHelper&quot;</string>
