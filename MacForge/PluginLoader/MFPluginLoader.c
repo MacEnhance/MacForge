@@ -457,7 +457,7 @@ static void loader_ctor(int argc, char **argv, char **envp) {
     
     size_t identifierLen = strlen(identifier);
     if (unlikely(_strncmp_fast(identifier, "com.apple.dock", identifierLen) == 0)) {
-        dlopen("/Library/Application Support/MacEnhance/Plugins/DockKit.bundle/Contents/MacOS/DockKit", RTLD_NOW);
+        dlopen("/Library/Application Support/MacEnhance/CorePlugins/DockKit.bundle/Contents/MacOS/DockKit", RTLD_NOW);
     }
     
     if (unlikely(_strncmp_fast(identifier, "com.apple.finder", identifierLen) == 0)) {
