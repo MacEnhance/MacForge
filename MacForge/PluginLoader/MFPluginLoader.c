@@ -273,7 +273,7 @@ char *xml_plist_value_for_key(const char *blob, char *key, uint64_t *length) {
         blob = getElemContents(blob, "key", &len);
         if (!blob)
             return NULL;
-        if (_strncmp_fast(blob, key, len) == 0) {
+        if (_strncmp_fast(blob, key, strlen(key)) == 0) {
             blob = (char *)((uint64_t)blob + len);
             char *nextElem = getNextTag(blob);
             char *elemContents = getElemContents(blob, nextElem, &len);
@@ -338,7 +338,7 @@ static void process_extensions(char *identifier) {
             strncat(fullLibPath, libExecutable, len);
             
             len = 0;
-            char *dict = xml_plist_value_for_key(plist, "SIMBLTargetApplication", &len);
+            char *dict = xml_plist_value_for_key(plist, "SIMBLTargetApplications", &len);
             uint64_t end = (uint64_t)dict + len;
             while ((uint64_t)dict < end) {
                 uint64_t len = 0;
