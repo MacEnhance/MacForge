@@ -274,7 +274,6 @@ char *xml_plist_value_for_key(const char *blob, char *key, uint64_t *length) {
         if (!blob)
             return NULL;
         if (_strncmp_fast(blob, key, strlen(key)) == 0) {
-            blob = (char *)((uint64_t)blob + len);
             char *nextElem = getNextTag(blob);
             char *elemContents = getElemContents(blob, nextElem, &len);
             *length = (len + 1);
