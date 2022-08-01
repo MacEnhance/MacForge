@@ -13,6 +13,11 @@
 		09FEA13D27E513C5004DEAED /* CFUtils.c in Sources */ = {isa = PBXBuildFile; fileRef = 09FEA13C27E513C5004DEAED /* CFUtils.c */; };
 		09FEA14027E52732004DEAED /* Paddle+Paddle_Mutable.m in Sources */ = {isa = PBXBuildFile; fileRef = 09FEA13E27E52732004DEAED /* Paddle+Paddle_Mutable.m */; };
 		2FCA88B6FD11BB87D2CB1185 /* Pods_MacForge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB9375FEDACBA2F9ED7779DF /* Pods_MacForge.framework */; };
+		3F9CCE322898434100A06B13 /* SymRez.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9CCE2F2898434000A06B13 /* SymRez.c */; };
+		3F9CCE332898434100A06B13 /* DockKit.c in Sources */ = {isa = PBXBuildFile; fileRef = 3F9CCE302898434100A06B13 /* DockKit.c */; };
+		3F9CCE362898436700A06B13 /* DockKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3F9CCE15289842C600A06B13 /* DockKit.bundle */; };
+		3F9CCE382898452100A06B13 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F9CCE372898452100A06B13 /* CoreFoundation.framework */; };
+		3F9CCE392898464700A06B13 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB7259E42314F2BD00701F32 /* GoogleService-Info.plist */; };
 		77B0A177B8D3976298814998 /* Pods_MacForgeHelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D660FE637C95FFEE8D5E83E /* Pods_MacForgeHelper.framework */; };
 		BE8A723D43F97F97961D7729 /* Pods_MacForgeDockTile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 773A1BF77A1966B3740A649C /* Pods_MacForgeDockTile.framework */; };
 		F0ADE107166DF941009758CC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F0ADE106166DF941009758CC /* main.m */; };
@@ -21,7 +26,7 @@
 		F0ADE1C7166E0981009758CC /* MFInjector.m in Sources */ = {isa = PBXBuildFile; fileRef = F0ADE12B166DF9FB009758CC /* MFInjector.m */; };
 		F3A95F7423EF842A004635FD /* MF_bundleTinyItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A95F7223EF842A004635FD /* MF_bundleTinyItem.m */; };
 		F3A95F7523EF842A004635FD /* MF_bundleTinyItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3A95F7323EF842A004635FD /* MF_bundleTinyItem.xib */; };
-		FB057CC72139B1B4002B3BB3 /* com.macenhance.MacForge.Injector in CopyFiles */ = {isa = PBXBuildFile; fileRef = F0ADE1B8166E0820009758CC /* com.macenhance.MacForge.Injector */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		FB057CC72139B1B4002B3BB3 /* com.macenhance.MacForge.Injector in Copy Files */ = {isa = PBXBuildFile; fileRef = F0ADE1B8166E0820009758CC /* com.macenhance.MacForge.Injector */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		FB0FC0E124A1D02E00857D55 /* square.and.arrow.down_Normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB0FC0DD24A1D02E00857D55 /* square.and.arrow.down_Normal@2x.png */; };
 		FB0FC0E224A1D02E00857D55 /* star_Normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB0FC0DE24A1D02E00857D55 /* star_Normal@2x.png */; };
 		FB0FC0E324A1D02E00857D55 /* arrow.up.arrow.down.square_Normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB0FC0DF24A1D02E00857D55 /* arrow.up.arrow.down.square_Normal@2x.png */; };
@@ -30,7 +35,6 @@
 		FB1241362478997500528C29 /* MF_searchView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB1241352478997500528C29 /* MF_searchView.m */; };
 		FB12413C247899F600528C29 /* MECore.m in Sources */ = {isa = PBXBuildFile; fileRef = FB12413B247899F600528C29 /* MECore.m */; };
 		FB13A8ED25CB618D004790BE /* MFPluginLoader.c in Sources */ = {isa = PBXBuildFile; fileRef = FB13A8EC25CB618D004790BE /* MFPluginLoader.c */; };
-		FB13A90325CB6263004790BE /* DockKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FB13A90225CB6263004790BE /* DockKit.bundle */; };
 		FB13A90825CB6271004790BE /* PluginLoader.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FB13A8D625CA613E004790BE /* PluginLoader.bundle */; };
 		FB1C18B823417E1200BD9F32 /* MF_bundleView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB1C18B723417E1200BD9F32 /* MF_bundleView.m */; };
 		FB1C18B92341811F00BD9F32 /* MF_bundlePreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB8561A723417A3700047845 /* MF_bundlePreviewView.m */; };
@@ -54,7 +58,6 @@
 		FB609E5E249C2AF900865CCC /* MF_purchasedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FB609E5C249C2AF900865CCC /* MF_purchasedItem.m */; };
 		FB609E5F249C2AF900865CCC /* MF_purchasedItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB609E5D249C2AF900865CCC /* MF_purchasedItem.xib */; };
 		FB61C8B124997872008F63CC /* MenuBar.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FB61C8A824997857008F63CC /* MenuBar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		FB7259E52314F2BD00701F32 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB7259E42314F2BD00701F32 /* GoogleService-Info.plist */; };
 		FB78E2A72139BE27002FFE2E /* MacForgeDockTile.docktileplugin in Copy Plugins */ = {isa = PBXBuildFile; fileRef = FBA6E90120F0299B00A12ACF /* MacForgeDockTile.docktileplugin */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FB7D4D4224E0B0C100F69242 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = FBD090DD23BBE4A80023F5BB /* CHANGELOG.md */; };
 		FB809CC825BA432C008F92DD /* UniversalInj.c in Sources */ = {isa = PBXBuildFile; fileRef = FB809CC725BA432C008F92DD /* UniversalInj.c */; };
@@ -113,6 +116,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 096DEFBF247CA727009F7CF5;
 			remoteInfo = PreferenceLoader;
+		};
+		3F9CCE342898435900A06B13 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F0ADE0ED166DF941009758CC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3F9CCE14289842C600A06B13;
+			remoteInfo = DockKit;
 		};
 		F0ADE1CB166E09A5009758CC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -198,14 +208,15 @@
 			name = "Embed XPC Services";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F0ADE15F166DFC2D009758CC /* CopyFiles */ = {
+		F0ADE15F166DFC2D009758CC /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = Contents/Library/LaunchServices;
 			dstSubfolderSpec = 1;
 			files = (
-				FB057CC72139B1B4002B3BB3 /* com.macenhance.MacForge.Injector in CopyFiles */,
+				FB057CC72139B1B4002B3BB3 /* com.macenhance.MacForge.Injector in Copy Files */,
 			);
+			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F0ADE1B6166E0820009758CC /* CopyFiles */ = {
@@ -282,6 +293,15 @@
 		0FD02195D6B67E3A3407F47F /* Pods-com.macenhance.MacForge.Injector.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-com.macenhance.MacForge.Injector.release.xcconfig"; path = "Target Support Files/Pods-com.macenhance.MacForge.Injector/Pods-com.macenhance.MacForge.Injector.release.xcconfig"; sourceTree = "<group>"; };
 		31F1DC3E4886942C97F97DBA /* Pods_com_macenhance_MacForge_Injector.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_com_macenhance_MacForge_Injector.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D8E7AE762C4B5BC97898B22 /* Pods-MacForgeDockTile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacForgeDockTile.debug.xcconfig"; path = "Target Support Files/Pods-MacForgeDockTile/Pods-MacForgeDockTile.debug.xcconfig"; sourceTree = "<group>"; };
+		3F9CCE15289842C600A06B13 /* DockKit.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DockKit.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F9CCE16289842C600A06B13 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		3F9CCE18289842C600A06B13 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		3F9CCE1B289842C600A06B13 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3F9CCE2E2898434000A06B13 /* SymRez.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SymRez.h; sourceTree = "<group>"; };
+		3F9CCE2F2898434000A06B13 /* SymRez.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = SymRez.c; sourceTree = "<group>"; };
+		3F9CCE302898434100A06B13 /* DockKit.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = DockKit.c; sourceTree = "<group>"; };
+		3F9CCE312898434100A06B13 /* DockKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DockKit.h; sourceTree = "<group>"; };
+		3F9CCE372898452100A06B13 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		5D660FE637C95FFEE8D5E83E /* Pods_MacForgeHelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MacForgeHelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		773A1BF77A1966B3740A649C /* Pods_MacForgeDockTile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MacForgeDockTile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		81938B922DC8DB8C0BA42E76 /* Pods-MacForgeHelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacForgeHelper.release.xcconfig"; path = "Target Support Files/Pods-MacForgeHelper/Pods-MacForgeHelper.release.xcconfig"; sourceTree = "<group>"; };
@@ -324,7 +344,6 @@
 		FB13A8D825CA613E004790BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FB13A8EB25CB618D004790BE /* MFPluginLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MFPluginLoader.h; sourceTree = "<group>"; };
 		FB13A8EC25CB618D004790BE /* MFPluginLoader.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = MFPluginLoader.c; sourceTree = "<group>"; };
-		FB13A90225CB6263004790BE /* DockKit.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = DockKit.bundle; sourceTree = "<group>"; };
 		FB1C18B623417E1200BD9F32 /* MF_bundleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MF_bundleView.h; sourceTree = "<group>"; };
 		FB1C18B723417E1200BD9F32 /* MF_bundleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MF_bundleView.m; sourceTree = "<group>"; };
 		FB275D7A2339DE9B001C154A /* GameplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameplayKit.framework; path = System/Library/Frameworks/GameplayKit.framework; sourceTree = SDKROOT; };
@@ -448,6 +467,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3F9CCE13289842C600A06B13 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F9CCE382898452100A06B13 /* CoreFoundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F0ADE0F3166DF941009758CC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -495,12 +522,15 @@
 		06A3EAD2AD04399011740EC7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3F9CCE372898452100A06B13 /* CoreFoundation.framework */,
 				FB275D7A2339DE9B001C154A /* GameplayKit.framework */,
 				FB9375FEDACBA2F9ED7779DF /* Pods_MacForge.framework */,
 				5D660FE637C95FFEE8D5E83E /* Pods_MacForgeHelper.framework */,
 				773A1BF77A1966B3740A649C /* Pods_MacForgeDockTile.framework */,
 				FB3C2EC7236A7FB5002B21C1 /* NotificationCenter.framework */,
 				31F1DC3E4886942C97F97DBA /* Pods_com_macenhance_MacForge_Injector.framework */,
+				3F9CCE16289842C600A06B13 /* AppKit.framework */,
+				3F9CCE18289842C600A06B13 /* Foundation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -544,6 +574,18 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		3F9CCE1A289842C600A06B13 /* DockKit */ = {
+			isa = PBXGroup;
+			children = (
+				3F9CCE302898434100A06B13 /* DockKit.c */,
+				3F9CCE312898434100A06B13 /* DockKit.h */,
+				3F9CCE2F2898434000A06B13 /* SymRez.c */,
+				3F9CCE2E2898434000A06B13 /* SymRez.h */,
+				3F9CCE1B289842C600A06B13 /* Info.plist */,
+			);
+			path = DockKit;
+			sourceTree = "<group>";
+		};
 		F0ADE0EB166DF941009758CC = {
 			isa = PBXGroup;
 			children = (
@@ -563,6 +605,7 @@
 				F0ADE129166DF9FB009758CC /* MacForgeInjection */,
 				096DEFC1247CA727009F7CF5 /* PreferenceLoader */,
 				FB13A8D725CA613E004790BE /* PluginLoader */,
+				3F9CCE1A289842C600A06B13 /* DockKit */,
 				06A3EAD2AD04399011740EC7 /* Frameworks */,
 				28FCEADAD0206F660B45DABE /* Pods */,
 				F0ADE0F7166DF941009758CC /* Products */,
@@ -578,6 +621,7 @@
 				FBA6E90120F0299B00A12ACF /* MacForgeDockTile.docktileplugin */,
 				096DEFC0247CA727009F7CF5 /* PreferenceLoader.xpc */,
 				FB13A8D625CA613E004790BE /* PluginLoader.bundle */,
+				3F9CCE15289842C600A06B13 /* DockKit.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -585,7 +629,6 @@
 		F0ADE100166DF941009758CC /* MacForgeHelper */ = {
 			isa = PBXGroup;
 			children = (
-				FB13A90225CB6263004790BE /* DockKit.bundle */,
 				F0ADE101166DF941009758CC /* Supporting Files */,
 				FB0227A820F05228006566EF /* Classes */,
 				F0ADE1E2166E0C0D009758CC /* MFInjectorProxy.h */,
@@ -985,6 +1028,22 @@
 			productReference = 096DEFC0247CA727009F7CF5 /* PreferenceLoader.xpc */;
 			productType = "com.apple.product-type.xpc-service";
 		};
+		3F9CCE14289842C600A06B13 /* DockKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3F9CCE2D289842C600A06B13 /* Build configuration list for PBXNativeTarget "DockKit" */;
+			buildPhases = (
+				3F9CCE12289842C600A06B13 /* Sources */,
+				3F9CCE13289842C600A06B13 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DockKit;
+			productName = DockKit;
+			productReference = 3F9CCE15289842C600A06B13 /* DockKit.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
 		F0ADE0F5166DF941009758CC /* MacForgeHelper */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F0ADE114166DF942009758CC /* Build configuration list for PBXNativeTarget "MacForgeHelper" */;
@@ -993,7 +1052,7 @@
 				F0ADE0F2166DF941009758CC /* Sources */,
 				F0ADE0F3166DF941009758CC /* Frameworks */,
 				F0ADE0F4166DF941009758CC /* Resources */,
-				F0ADE15F166DFC2D009758CC /* CopyFiles */,
+				F0ADE15F166DFC2D009758CC /* Copy Files */,
 				FBB6D14822FE3E9B003A5B71 /* Copy Frameworks */,
 				FBB6D14A22FE4831003A5B71 /* ShellScript */,
 				F5116887C21B6D10ECAF3406 /* [CP] Embed Pods Frameworks */,
@@ -1001,6 +1060,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				3F9CCE352898435900A06B13 /* PBXTargetDependency */,
 				FB13A8FD25CB6237004790BE /* PBXTargetDependency */,
 				F0ADE1CC166E09A5009758CC /* PBXTargetDependency */,
 			);
@@ -1104,6 +1164,10 @@
 						CreatedOnToolsVersion = 11.4.1;
 						ProvisioningStyle = Automatic;
 					};
+					3F9CCE14289842C600A06B13 = {
+						CreatedOnToolsVersion = 13.4.1;
+						ProvisioningStyle = Automatic;
+					};
 					F0ADE0F5166DF941009758CC = {
 						ProvisioningStyle = Automatic;
 					};
@@ -1157,6 +1221,7 @@
 				FBA6E90020F0299B00A12ACF /* MacForgeDockTile */,
 				096DEFBF247CA727009F7CF5 /* PreferenceLoader */,
 				FB13A8D525CA613E004790BE /* PluginLoader */,
+				3F9CCE14289842C600A06B13 /* DockKit */,
 			);
 		};
 /* End PBXProject section */
@@ -1218,8 +1283,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F9CCE362898436700A06B13 /* DockKit.bundle in Resources */,
 				FB13A90825CB6271004790BE /* PluginLoader.bundle in Resources */,
-				FB13A90325CB6263004790BE /* DockKit.bundle in Resources */,
 				FBE767FC20F0122F00A42BD5 /* InfoPlist.strings in Resources */,
 				FB306ACC2367C9D5008A6E61 /* Media.xcassets in Resources */,
 			);
@@ -1267,8 +1332,8 @@
 				FB8808262480FEFB0002727A /* arrow.up.arrow.down.square.fill_Normal@2x.png in Resources */,
 				FB88082B2480FEFB0002727A /* magnifyingglass.circle.fill_Normal@2x.png in Resources */,
 				FB4F4B8A24988F0E00987D1E /* checkmark.shield.fill_Normal@2x.png in Resources */,
+				3F9CCE392898464700A06B13 /* GoogleService-Info.plist in Resources */,
 				FB306ACE2367CD0F008A6E61 /* Media.xcassets in Resources */,
-				FB7259E52314F2BD00701F32 /* GoogleService-Info.plist in Resources */,
 				FBA6E8CE20F025A100A12ACF /* Application.xib in Resources */,
 				F3A95F7523EF842A004635FD /* MF_bundleTinyItem.xib in Resources */,
 				FB609E5F249C2AF900865CCC /* MF_purchasedItem.xib in Resources */,
@@ -1473,6 +1538,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3F9CCE12289842C600A06B13 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F9CCE322898434100A06B13 /* SymRez.c in Sources */,
+				3F9CCE332898434100A06B13 /* DockKit.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F0ADE0F2166DF941009758CC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1564,6 +1638,11 @@
 			isa = PBXTargetDependency;
 			target = 096DEFBF247CA727009F7CF5 /* PreferenceLoader */;
 			targetProxy = 096DEFC9247CA727009F7CF5 /* PBXContainerItemProxy */;
+		};
+		3F9CCE352898435900A06B13 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3F9CCE14289842C600A06B13 /* DockKit */;
+			targetProxy = 3F9CCE342898435900A06B13 /* PBXContainerItemProxy */;
 		};
 		F0ADE1CC166E09A5009758CC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1663,6 +1742,93 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SYSTEM_FRAMEWORK_SEARCH_PATHS = "$(inherited) $(SYSTEM_LIBRARY_DIR)/PrivateFrameworks";
+			};
+			name = Release;
+		};
+		3F9CCE25289842C600A06B13 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					x86_64,
+					arm64e,
+				);
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEPLOYMENT_LOCATION = YES;
+				DEVELOPMENT_TEAM = G9T88PYL48;
+				DSTROOT = /;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)";
+				INSTALL_PATH = "/Library/Application Support/MacEnhance/Plugins";
+				MACH_O_TYPE = mh_dylib;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.MacForge.DockKit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		3F9CCE26289842C600A06B13 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					x86_64,
+					arm64e,
+				);
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEPLOYMENT_LOCATION = YES;
+				DEVELOPMENT_TEAM = G9T88PYL48;
+				DSTROOT = /;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)";
+				INSTALL_PATH = "/Library/Application Support/MacEnhance/Plugins";
+				MACH_O_TYPE = mh_dylib;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.macenhance.MacForge.DockKit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;
 		};
@@ -1932,6 +2098,7 @@
 				INFOPLIST_FILE = PluginLoader/Info.plist;
 				INSTALL_PATH = "/Library/Application Support/MacEnhance/CorePlugins";
 				LLVM_LTO = YES;
+				MACH_O_TYPE = mh_dylib;
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -1979,6 +2146,7 @@
 				INFOPLIST_FILE = PluginLoader/Info.plist;
 				INSTALL_PATH = "/Library/Application Support/MacEnhance/CorePlugins";
 				LLVM_LTO = YES;
+				MACH_O_TYPE = mh_dylib;
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -2160,6 +2328,15 @@
 			buildConfigurations = (
 				096DEFCD247CA727009F7CF5 /* Debug */,
 				096DEFCE247CA727009F7CF5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3F9CCE2D289842C600A06B13 /* Build configuration list for PBXNativeTarget "DockKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3F9CCE25289842C600A06B13 /* Debug */,
+				3F9CCE26289842C600A06B13 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
