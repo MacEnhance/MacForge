@@ -37,48 +37,30 @@ kern_return_t (*_thread_convert_thread_state)(thread_act_t thread, int direction
 char shellCode[] =
 #if defined(__x86_64__)
 
-//"\x55"                            // push       rbp
-//"\x48\x89\xE5"                    // mov        rbp, rsp
-//"\x48\x83\xEC\x10"                // sub        rsp, 0x10
-//"\x48\x8D\x7D\xF8"                // lea        rdi, qword [rbp+var_8]
-//"\x31\xC0"                        // xor        eax, eax
-//"\x89\xC1"                        // mov        ecx, eax
-//"\x48\x8D\x15\x21\x00\x00\x00"    // lea        rdx, qword ptr [rip + 0x21]
-//"\x48\x89\xCE"                    // mov        rsi, rcx
-//"\x48\xB8"                        // movabs     rax, pthread_create_from_mach_thread
-//"PTHRDCRT"
-//"\xFF\xD0"                        // call       rax
-//"\x89\x45\xF4"                    // mov        dword [rbp+var_C], eax
-//"\x48\x83\xC4\x10"                // add        rsp, 0x10
-//"\x5D"                            // pop        rbp
-//"\x48\xc7\xc0\x13\x0d\x00\x00"    // mov        rax, 0xD13
-//"\xEB\xFE"                        // jmp        0x0
-//"\xC3"                            // ret
-
-"\x55"
-"\x48\x89\xe5"
-"\x48\x83\xec\x10"
-"\x48\xb8"
+"\x55"                            // push       rbp
+"\x48\x89\xe5"                    // mov rbp,   rsp
+"\x48\x83\xec\x10"                // sub rsp,   0x10
+"\x48\xb8"                        // movabs     rax, _pthread_set_self
 "PTHRDSS_"
-"\xff\xd0"
-"\x48\x8d\x7d\xf8"
-"\x31\xc0"
-"\x89\xc1"
-"\x48\x8d\x15\x30\x00\x00\x00"
-"\x48\x89\xce"
-"\x48\xb8"
+"\xff\xd0"                        // call       rax
+"\x48\x8d\x7d\xf8"                // lea        rdi,[rbp-0x8]
+"\x31\xc0"                        // xor        eax,eax
+"\x89\xc1"                        // mov        ecx,eax
+"\x48\x8d\x15\x30\x00\x00\x00"    // lea        rdx,[rip+0x40]
+"\x48\x89\xce"                    // mov        rsi,rcx
+"\x48\xb8"                        // movabs     rax, pthread_create_from_mach_thread
 "PTHRDCRT"
-"\xff\xd0"
-"\x48\xb8"
+"\xff\xd0"                        // call       rax
+"\x48\xb8"                        // movabs     rax, mach_thread_self
 "THRDSELF"
-"\xff\xd0"
-"\x48\x89\xc7"
-"\x48\xb8"
+"\xff\xd0"                        // call       rax
+"\x48\x89\xc7"                    // mov        rdi, rax
+"\x48\xb8"                        // movabs     rax, thread_terminate
 "THRDTERM"
-"\xff\xd0"
-"\x48\x83\xc4\x10"
-"\x5d"
-"\xc3"
+"\xff\xd0"                        // call       rax
+"\x48\x83\xc4\x10"                // add        rsp, 0x10
+"\x5d"                            // pop        rbp
+"\xc3"                            // ret
 
 "\x55"                            // push       rbp
 "\x48\x89\xE5"                    // mov        rbp, rsp
